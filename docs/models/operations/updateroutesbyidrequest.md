@@ -8,8 +8,11 @@ import { UpdateRoutesByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateRoutesByIdRequest = {
   id: "<id>",
   routes: {
+    id: "<id>",
     routes: [
       {
+        final: true,
+        id: "<id>",
         name: "<value>",
         pipeline: "<value>",
       },

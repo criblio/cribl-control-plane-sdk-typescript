@@ -16,11 +16,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -187,7 +187,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   retryRules?: RetryRulesType1 | undefined;
   description?: string | undefined;
   /**
@@ -227,6 +227,22 @@ export type InputOffice365MsgTrace = {
    */
   textSecret?: string | undefined;
   certOptions?: CertOptions | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+   */
+  __template_resource?: string | undefined;
 };
 
 /** @internal */
@@ -330,9 +346,7 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType1$inboundSchema),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -345,6 +359,10 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   planType: types.optional(SubscriptionPlanOptions$inboundSchema),
   textSecret: types.optional(types.string()),
   certOptions: types.optional(z.lazy(() => CertOptions$inboundSchema)),
+  __template_url: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_resource: types.optional(types.string()),
 });
 /** @internal */
 export type InputOffice365MsgTrace$Outbound = {
@@ -373,7 +391,7 @@ export type InputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: RetryRulesType1$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -386,6 +404,10 @@ export type InputOffice365MsgTrace$Outbound = {
   planType?: string | undefined;
   textSecret?: string | undefined;
   certOptions?: CertOptions$Outbound | undefined;
+  __template_url?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_resource?: string | undefined;
 };
 
 /** @internal */
@@ -420,7 +442,7 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType1$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -433,6 +455,10 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   planType: SubscriptionPlanOptions$outboundSchema.optional(),
   textSecret: z.string().optional(),
   certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_resource: z.string().optional(),
 });
 
 export function inputOffice365MsgTraceToJSON(

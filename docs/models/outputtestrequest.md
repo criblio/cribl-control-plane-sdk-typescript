@@ -21,6 +21,6 @@ let value: OutputTestRequest = {
 
 ## Fields
 
-| Field                   | Type                    | Required                | Description             |
-| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| `events`                | Record<string, *any*>[] | :heavy_check_mark:      | N/A                     |
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `events`                                                       | Record<string, *any*>[]                                        | :heavy_check_mark:                                             | Array of event objects to send to the Destination for testing. |

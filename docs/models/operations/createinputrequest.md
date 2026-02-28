@@ -5,123 +5,119 @@ Input object
 
 ## Supported Types
 
-### `operations.InputCollection`
+### `operations.CreateInputInputCollection`
 
 ```typescript
-const value: operations.InputCollection = {
+const value: operations.CreateInputInputCollection = {
   id: "<id>",
   type: "collection",
 };
 ```
 
-### `operations.InputKafka`
+### `operations.CreateInputInputKafka`
 
 ```typescript
-const value: operations.InputKafka = {
+const value: operations.CreateInputInputKafka = {
   id: "<id>",
   type: "kafka",
-  brokers: [],
+  brokers: [
+    "<value 1>",
+  ],
   topics: [
     "<value 1>",
-    "<value 2>",
   ],
 };
 ```
 
-### `operations.InputMsk`
+### `operations.CreateInputInputMsk`
 
 ```typescript
-const value: operations.InputMsk = {
+const value: operations.CreateInputInputMsk = {
   id: "<id>",
   type: "msk",
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  brokers: [],
   topics: [
     "<value 1>",
-    "<value 2>",
   ],
   awsAuthenticationMethod: "<value>",
   region: "<value>",
 };
 ```
 
-### `operations.InputHttp`
+### `operations.CreateInputInputHttp`
 
 ```typescript
-const value: operations.InputHttp = {
+const value: operations.CreateInputInputHttp = {
   id: "<id>",
   type: "http",
-  host: "arid-costume.info",
-  port: 1068.38,
+  host: "baggy-requirement.name",
+  port: 7359.79,
 };
 ```
 
-### `operations.InputSplunk`
+### `operations.CreateInputInputSplunk`
 
 ```typescript
-const value: operations.InputSplunk = {
+const value: operations.CreateInputInputSplunk = {
   id: "<id>",
   type: "splunk",
-  host: "hoarse-word.name",
-  port: 6274.96,
+  host: "clear-exasperation.name",
+  port: 3779.03,
 };
 ```
 
-### `operations.InputSplunkSearch`
+### `operations.CreateInputInputSplunkSearch`
 
 ```typescript
-const value: operations.InputSplunkSearch = {
+const value: operations.CreateInputInputSplunkSearch = {
   id: "<id>",
   type: "splunk_search",
   searchHead: "<value>",
   search: "<value>",
   cronSchedule: "<value>",
   endpoint: "<value>",
-  outputMode: "csv",
+  outputMode: "json",
 };
 ```
 
-### `operations.InputSplunkHec`
+### `operations.CreateInputInputSplunkHec`
 
 ```typescript
-const value: operations.InputSplunkHec = {
+const value: operations.CreateInputInputSplunkHec = {
   id: "<id>",
   type: "splunk_hec",
-  host: "posh-nudge.org",
-  port: 4312.22,
+  host: "golden-countess.info",
+  port: 3109.92,
   splunkHecAPI: "<value>",
 };
 ```
 
-### `operations.InputAzureBlob`
+### `operations.CreateInputInputAzureBlob`
 
 ```typescript
-const value: operations.InputAzureBlob = {
+const value: operations.CreateInputInputAzureBlob = {
   id: "<id>",
   type: "azure_blob",
   queueName: "<value>",
 };
 ```
 
-### `operations.InputElastic`
+### `operations.CreateInputInputElastic`
 
 ```typescript
-const value: operations.InputElastic = {
+const value: operations.CreateInputInputElastic = {
   id: "<id>",
   type: "elastic",
-  host: "soupy-yogurt.name",
-  port: 4133.71,
+  host: "regular-puritan.biz",
+  port: 5153.58,
   elasticAPI: "<value>",
 };
 ```
 
-### `operations.InputConfluentCloud`
+### `operations.CreateInputInputConfluentCloud`
 
 ```typescript
-const value: operations.InputConfluentCloud = {
+const value: operations.CreateInputInputConfluentCloud = {
   id: "<id>",
   type: "confluent_cloud",
   brokers: [
@@ -131,84 +127,85 @@ const value: operations.InputConfluentCloud = {
   ],
   topics: [
     "<value 1>",
+    "<value 2>",
   ],
 };
 ```
 
-### `operations.InputGrafana`
+### `operations.CreateInputInputGrafanaUnion`
 
 ```typescript
-const value: operations.InputGrafana = {
+const value: operations.CreateInputInputGrafanaUnion = {
   id: "<id>",
   type: "grafana",
-  host: "courteous-godfather.org",
-  port: 9732.77,
+  host: "supportive-provider.biz",
+  port: 9431.22,
   prometheusAPI: "<value>",
 };
 ```
 
-### `operations.InputLoki`
+### `operations.CreateInputInputLoki`
 
 ```typescript
-const value: operations.InputLoki = {
+const value: operations.CreateInputInputLoki = {
   id: "<id>",
   type: "loki",
-  host: "spiteful-complication.com",
-  port: 9754.95,
+  host: "webbed-wriggler.com",
+  port: 2720.79,
   lokiAPI: "<value>",
 };
 ```
 
-### `operations.InputPrometheusRw`
+### `operations.CreateInputInputPrometheusRw`
 
 ```typescript
-const value: operations.InputPrometheusRw = {
+const value: operations.CreateInputInputPrometheusRw = {
   id: "<id>",
   type: "prometheus_rw",
-  host: "sardonic-eyeliner.net",
-  port: 8120.51,
+  host: "growing-account.info",
+  port: 7169.07,
   prometheusAPI: "<value>",
 };
 ```
 
-### `operations.InputPrometheus`
+### `operations.CreateInputInputPrometheus`
 
 ```typescript
-const value: operations.InputPrometheus = {
+const value: operations.CreateInputInputPrometheus = {
   id: "<id>",
   type: "prometheus",
-  interval: 4631.13,
+  interval: 846.56,
   logLevel: "info",
 };
 ```
 
-### `operations.InputEdgePrometheus`
+### `operations.CreateInputInputEdgePrometheus`
 
 ```typescript
-const value: operations.InputEdgePrometheus = {
+const value: operations.CreateInputInputEdgePrometheus = {
   id: "<id>",
   type: "edge_prometheus",
-  discoveryType: "ec2",
-  interval: 3631.91,
+  discoveryType: "k8s-node",
+  interval: 9850.99,
 };
 ```
 
-### `operations.InputOffice365Mgmt`
+### `operations.CreateInputInputOffice365Mgmt`
 
 ```typescript
-const value: operations.InputOffice365Mgmt = {
+const value: operations.CreateInputInputOffice365Mgmt = {
   id: "<id>",
   type: "office365_mgmt",
-  planType: "gcc_high",
+  planType: "gcc",
   tenantId: "<id>",
   appId: "<id>",
 };
 ```
 
-### `operations.InputOffice365Service`
+### `operations.CreateInputInputOffice365Service`
 
 ```typescript
-const value: operations.InputOffice365Service = {
+const value: operations.CreateInputInputOffice365Service = {
   id: "<id>",
   type: "office365_service",
   tenantId: "<id>",
@@ -216,56 +213,57 @@ const value: operations.InputOffice365Service = {
 };
 ```
 
-### `operations.InputOffice365MsgTrace`
+### `operations.CreateInputInputOffice365MsgTrace`
 
 ```typescript
-const value: operations.InputOffice365MsgTrace = {
+const value: operations.CreateInputInputOffice365MsgTrace = {
   id: "<id>",
   type: "office365_msg_trace",
-  url: "https://reflecting-importance.net/",
-  interval: 4579.88,
+  url: "https://substantial-translation.info/",
+  interval: 9554.09,
 };
 ```
 
-### `operations.InputEventhub`
+### `operations.CreateInputInputEventhub`
 
 ```typescript
-const value: operations.InputEventhub = {
+const value: operations.CreateInputInputEventhub = {
   id: "<id>",
   type: "eventhub",
   brokers: [
     "<value 1>",
-    "<value 2>",
   ],
-  topics: [],
+  topics: [
+    "<value 1>",
+  ],
 };
 ```
 
-### `operations.InputExec`
+### `operations.CreateInputInputExec`
 
 ```typescript
-const value: operations.InputExec = {
+const value: operations.CreateInputInputExec = {
   id: "<id>",
   type: "exec",
   command: "<value>",
 };
 ```
 
-### `operations.InputFirehose`
+### `operations.CreateInputInputFirehose`
 
 ```typescript
-const value: operations.InputFirehose = {
+const value: operations.CreateInputInputFirehose = {
   id: "<id>",
   type: "firehose",
-  host: "purple-flu.name",
-  port: 9882.58,
+  host: "wealthy-encouragement.net",
+  port: 6629.33,
 };
 ```
 
-### `operations.InputGooglePubsub`
+### `operations.CreateInputInputGooglePubsub`
 
 ```typescript
-const value: operations.InputGooglePubsub = {
+const value: operations.CreateInputInputGooglePubsub = {
   id: "<id>",
   type: "google_pubsub",
   topicName: "<value>",
@@ -273,164 +271,164 @@ const value: operations.InputGooglePubsub = {
 };
 ```
 
-### `operations.InputCribl`
+### `operations.CreateInputInputCribl`
 
 ```typescript
-const value: operations.InputCribl = {
+const value: operations.CreateInputInputCribl = {
   id: "<id>",
   type: "cribl",
 };
 ```
 
-### `operations.InputCriblTcp`
+### `operations.CreateInputInputCriblTcp`
 
 ```typescript
-const value: operations.InputCriblTcp = {
+const value: operations.CreateInputInputCriblTcp = {
   id: "<id>",
   type: "cribl_tcp",
-  host: "any-napkin.name",
-  port: 2399.43,
+  host: "svelte-duster.org",
+  port: 3701.97,
 };
 ```
 
-### `operations.InputCriblHttp`
+### `operations.CreateInputInputCriblHttp`
 
 ```typescript
-const value: operations.InputCriblHttp = {
+const value: operations.CreateInputInputCriblHttp = {
   id: "<id>",
   type: "cribl_http",
-  host: "productive-independence.net",
-  port: 7870.2,
+  host: "homely-secret.net",
+  port: 3169.23,
 };
 ```
 
-### `operations.InputCriblLakeHttp`
+### `operations.CreateInputInputCriblLakeHttp`
 
 ```typescript
-const value: operations.InputCriblLakeHttp = {
+const value: operations.CreateInputInputCriblLakeHttp = {
   id: "<id>",
   type: "cribl_lake_http",
-  host: "gloomy-igloo.name",
-  port: 3108.73,
+  host: "liquid-impostor.com",
+  port: 4281.15,
 };
 ```
 
-### `operations.InputTcpjson`
+### `operations.CreateInputInputTcpjson`
 
 ```typescript
-const value: operations.InputTcpjson = {
+const value: operations.CreateInputInputTcpjson = {
   id: "<id>",
   type: "tcpjson",
-  host: "exotic-cop-out.org",
-  port: 4340.61,
+  host: "superior-pillow.net",
+  port: 585.67,
 };
 ```
 
-### `operations.InputSystemMetrics`
+### `operations.CreateInputInputSystemMetrics`
 
 ```typescript
-const value: operations.InputSystemMetrics = {
+const value: operations.CreateInputInputSystemMetrics = {
   id: "<id>",
   type: "system_metrics",
 };
 ```
 
-### `operations.InputSystemState`
+### `operations.CreateInputInputSystemState`
 
 ```typescript
-const value: operations.InputSystemState = {
+const value: operations.CreateInputInputSystemState = {
   id: "<id>",
   type: "system_state",
 };
 ```
 
-### `operations.InputKubeMetrics`
+### `operations.CreateInputInputKubeMetrics`
 
 ```typescript
-const value: operations.InputKubeMetrics = {
+const value: operations.CreateInputInputKubeMetrics = {
   id: "<id>",
   type: "kube_metrics",
 };
 ```
 
-### `operations.InputKubeLogs`
+### `operations.CreateInputInputKubeLogs`
 
 ```typescript
-const value: operations.InputKubeLogs = {
+const value: operations.CreateInputInputKubeLogs = {
   id: "<id>",
   type: "kube_logs",
 };
 ```
 
-### `operations.InputKubeEvents`
+### `operations.CreateInputInputKubeEvents`
 
 ```typescript
-const value: operations.InputKubeEvents = {
+const value: operations.CreateInputInputKubeEvents = {
   id: "<id>",
   type: "kube_events",
 };
 ```
 
-### `operations.InputWindowsMetrics`
+### `operations.CreateInputInputWindowsMetrics`
 
 ```typescript
-const value: operations.InputWindowsMetrics = {
+const value: operations.CreateInputInputWindowsMetrics = {
   id: "<id>",
   type: "windows_metrics",
 };
 ```
 
-### `operations.InputCrowdstrike`
+### `operations.CreateInputInputCrowdstrike`
 
 ```typescript
-const value: operations.InputCrowdstrike = {
+const value: operations.CreateInputInputCrowdstrike = {
   id: "<id>",
   type: "crowdstrike",
   queueName: "<value>",
 };
 ```
 
-### `operations.InputDatadogAgent`
+### `operations.CreateInputInputDatadogAgent`
 
 ```typescript
-const value: operations.InputDatadogAgent = {
+const value: operations.CreateInputInputDatadogAgent = {
   id: "<id>",
   type: "datadog_agent",
-  host: "damaged-minion.info",
-  port: 452.65,
+  host: "worse-hope.name",
+  port: 2113.87,
 };
 ```
 
-### `operations.InputDatagen`
+### `operations.CreateInputInputDatagen`
 
 ```typescript
-const value: operations.InputDatagen = {
+const value: operations.CreateInputInputDatagen = {
   id: "<id>",
   type: "datagen",
   samples: [
     {
       sample: "<value>",
-      eventsPerSec: 3632.79,
+      eventsPerSec: 1832.32,
     },
   ],
 };
 ```
 
-### `operations.InputHttpRaw`
+### `operations.CreateInputInputHttpRaw`
 
 ```typescript
-const value: operations.InputHttpRaw = {
+const value: operations.CreateInputInputHttpRaw = {
   id: "<id>",
   type: "http_raw",
-  host: "incomparable-skyline.name",
-  port: 6075.1,
+  host: "webbed-vol.com",
+  port: 250.02,
 };
 ```
 
-### `operations.InputKinesis`
+### `operations.CreateInputInputKinesis`
 
 ```typescript
-const value: operations.InputKinesis = {
+const value: operations.CreateInputInputKinesis = {
   id: "<id>",
   type: "kinesis",
   streamName: "<value>",
@@ -438,241 +436,268 @@ const value: operations.InputKinesis = {
 };
 ```
 
-### `operations.InputCriblmetrics`
+### `operations.CreateInputInputCriblmetrics`
 
 ```typescript
-const value: operations.InputCriblmetrics = {
+const value: operations.CreateInputInputCriblmetrics = {
   id: "<id>",
   type: "criblmetrics",
 };
 ```
 
-### `operations.InputMetrics`
+### `operations.CreateInputInputMetrics`
 
 ```typescript
-const value: operations.InputMetrics = {
+const value: operations.CreateInputInputMetrics = {
   id: "<id>",
   type: "metrics",
-  host: "clueless-heating.com",
+  host: "zesty-retention.info",
 };
 ```
 
-### `operations.InputS3`
+### `operations.CreateInputInputS3`
 
 ```typescript
-const value: operations.InputS3 = {
+const value: operations.CreateInputInputS3 = {
   id: "<id>",
   type: "s3",
   queueName: "<value>",
 };
 ```
 
-### `operations.InputS3Inventory`
+### `operations.CreateInputInputS3Inventory`
 
 ```typescript
-const value: operations.InputS3Inventory = {
+const value: operations.CreateInputInputS3Inventory = {
   id: "<id>",
   type: "s3_inventory",
   queueName: "<value>",
 };
 ```
 
-### `operations.InputSnmp`
+### `operations.CreateInputInputSnmp`
 
 ```typescript
-const value: operations.InputSnmp = {
+const value: operations.CreateInputInputSnmp = {
   id: "<id>",
   type: "snmp",
-  host: "knotty-overcoat.com",
-  port: 3632.09,
+  host: "stupendous-flint.info",
+  port: 4514.07,
 };
 ```
 
-### `operations.InputOpenTelemetry`
+### `operations.CreateInputInputOpenTelemetry`
 
 ```typescript
-const value: operations.InputOpenTelemetry = {
+const value: operations.CreateInputInputOpenTelemetry = {
   id: "<id>",
   type: "open_telemetry",
-  host: "shocked-dish.org",
-  port: 8416.34,
+  host: "every-fibre.info",
+  port: 2536.14,
 };
 ```
 
-### `operations.InputModelDrivenTelemetry`
+### `operations.CreateInputInputModelDrivenTelemetry`
 
 ```typescript
-const value: operations.InputModelDrivenTelemetry = {
+const value: operations.CreateInputInputModelDrivenTelemetry = {
   id: "<id>",
   type: "model_driven_telemetry",
-  host: "mixed-ad.org",
-  port: 9095.17,
+  host: "old-grouper.info",
+  port: 829.27,
 };
 ```
 
-### `operations.InputSqs`
+### `operations.CreateInputInputSqs`
 
 ```typescript
-const value: operations.InputSqs = {
+const value: operations.CreateInputInputSqs = {
   id: "<id>",
   type: "sqs",
   queueName: "<value>",
-  queueType: "standard",
+  queueType: "fifo",
 };
 ```
 
-### `operations.InputSyslog`
+### `operations.CreateInputInputSyslogUnion`
 
 ```typescript
-const value: operations.InputSyslog = {
+const value: operations.CreateInputInputSyslogUnion = {
   id: "<id>",
   type: "syslog",
-  host: "lone-coal.com",
-  udpPort: 1640.72,
+  host: "kooky-passport.biz",
+  udpPort: 1144.97,
 };
 ```
 
-### `operations.InputFile`
+### `operations.CreateInputInputFile`
 
 ```typescript
-const value: operations.InputFile = {
+const value: operations.CreateInputInputFile = {
   id: "<id>",
   type: "file",
 };
 ```
 
-### `operations.InputTcp`
+### `operations.CreateInputInputTcp`
 
 ```typescript
-const value: operations.InputTcp = {
+const value: operations.CreateInputInputTcp = {
   id: "<id>",
   type: "tcp",
-  host: "chilly-transparency.info",
-  port: 6178.25,
+  host: "murky-amnesty.biz",
+  port: 5090.54,
 };
 ```
 
-### `operations.InputAppscope`
+### `operations.CreateInputInputAppscope`
 
 ```typescript
-const value: operations.InputAppscope = {
+const value: operations.CreateInputInputAppscope = {
   id: "<id>",
   type: "appscope",
 };
 ```
 
-### `operations.InputWef`
+### `operations.CreateInputInputWef`
 
 ```typescript
-const value: operations.InputWef = {
+const value: operations.CreateInputInputWef = {
   id: "<id>",
   type: "wef",
-  host: "vivid-aircraft.com",
-  port: 1951.59,
-  subscriptions: [],
+  host: "filthy-window.name",
+  port: 4834.72,
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      contentFormat: "Raw",
+      heartbeatInterval: 4977.16,
+      batchTimeout: 3395.8,
+      targets: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+  ],
 };
 ```
 
-### `operations.InputWinEventLogs`
+### `operations.CreateInputInputWinEventLogs`
 
 ```typescript
-const value: operations.InputWinEventLogs = {
+const value: operations.CreateInputInputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
   logNames: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
 };
 ```
 
-### `operations.InputRawUdp`
+### `operations.CreateInputInputRawUdp`
 
 ```typescript
-const value: operations.InputRawUdp = {
+const value: operations.CreateInputInputRawUdp = {
   id: "<id>",
   type: "raw_udp",
-  host: "untidy-insolence.org",
-  port: 3097.17,
+  host: "repentant-wheel.org",
+  port: 500.5,
 };
 ```
 
-### `operations.InputJournalFiles`
+### `operations.CreateInputInputJournalFiles`
 
 ```typescript
-const value: operations.InputJournalFiles = {
+const value: operations.CreateInputInputJournalFiles = {
   id: "<id>",
   type: "journal_files",
-  path: "/usr/local/bin",
-  journals: [],
+  path: "/etc/defaults",
+  journals: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
 };
 ```
 
-### `operations.InputWiz`
+### `operations.CreateInputInputWiz`
 
 ```typescript
-const value: operations.InputWiz = {
+const value: operations.CreateInputInputWiz = {
   id: "<id>",
   type: "wiz",
   endpoint: "<value>",
-  authUrl: "https://sturdy-desk.info",
+  authUrl: "https://kaleidoscopic-underneath.net",
   clientId: "<id>",
   contentConfig: [],
 };
 ```
 
-### `operations.InputWizWebhook`
+### `operations.CreateInputInputOpenai`
 
 ```typescript
-const value: operations.InputWizWebhook = {
+const value: operations.CreateInputInputOpenai = {
+  id: "<id>",
+  type: "openai",
+  contentConfig: [],
+  textSecret: "<value>",
+};
+```
+
+### `operations.CreateInputInputWizWebhook`
+
+```typescript
+const value: operations.CreateInputInputWizWebhook = {
   id: "<id>",
   type: "wiz_webhook",
-  host: "trusting-spear.name",
-  port: 2792.96,
+  host: "dim-pillbox.net",
+  port: 1491.53,
 };
 ```
 
-### `operations.InputNetflow`
+### `operations.CreateInputInputNetflow`
 
 ```typescript
-const value: operations.InputNetflow = {
+const value: operations.CreateInputInputNetflow = {
   id: "<id>",
   type: "netflow",
-  host: "supportive-request.net",
-  port: 1221.63,
+  host: "creative-smoke.name",
+  port: 9451.77,
 };
 ```
 
-### `operations.InputSecurityLake`
+### `operations.CreateInputInputSecurityLake`
 
 ```typescript
-const value: operations.InputSecurityLake = {
+const value: operations.CreateInputInputSecurityLake = {
   id: "<id>",
   type: "security_lake",
   queueName: "<value>",
 };
 ```
 
-### `operations.InputZscalerHec`
+### `operations.CreateInputInputZscalerHec`
 
 ```typescript
-const value: operations.InputZscalerHec = {
+const value: operations.CreateInputInputZscalerHec = {
   id: "<id>",
   type: "zscaler_hec",
-  host: "busy-litter.info",
-  port: 2058.8,
+  host: "filthy-shadowbox.info",
+  port: 7901.84,
   hecAPI: "<value>",
 };
 ```
 
-### `operations.InputCloudflareHec`
+### `operations.CreateInputInputCloudflareHec`
 
 ```typescript
-const value: operations.InputCloudflareHec = {
+const value: operations.CreateInputInputCloudflareHec = {
   id: "<id>",
   type: "cloudflare_hec",
-  host: "spanish-barge.info",
-  port: 7109.41,
+  host: "rural-scaffold.net",
+  port: 8504.37,
   hecAPI: "<value>",
 };
 ```

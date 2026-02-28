@@ -8,6 +8,7 @@ import { CreateConfigGroupByProductRequest } from "cribl-control-plane/models/op
 let value: CreateConfigGroupByProductRequest = {
   product: "outpost",
   groupCreateRequest: {
+    estimatedIngestRate: 4096,
     id: "<id>",
   },
 };

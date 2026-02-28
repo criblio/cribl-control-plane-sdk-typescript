@@ -3,7 +3,8 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { dlv } from "../lib/dlv.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -21,33 +22,41 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
+import {
+  createPageIterator,
+  haltIterator,
+  PageIterator,
+  Paginator,
+} from "../types/operations.js";
 
 /**
- * Get detailed metadata for Worker and Edge Nodes
+ * Get detailed metadata for Worker or Edge Nodes
  *
  * @remarks
- * Get detailed metadata for Worker and Edge Nodes.
+ * Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
  */
 export function nodesList(
   client: CriblControlPlaneCore,
-  request?: operations.ListMasterWorkerEntryRequest | undefined,
+  request: operations.GetProductsWorkersByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
-  Result<
-    models.CountedMasterWorkerEntry,
-    | errors.ErrorT
-    | CriblControlPlaneError
-    | ResponseValidationError
-    | ConnectionError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | InvalidRequestError
-    | UnexpectedClientError
-    | SDKValidationError
+  PageIterator<
+    Result<
+      operations.GetProductsWorkersByProductResponse,
+      | errors.ErrorT
+      | CriblControlPlaneError
+      | ResponseValidationError
+      | ConnectionError
+      | RequestAbortedError
+      | RequestTimeoutError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
+    >,
+    { offset: number }
   >
 > {
   return new APIPromise($do(
@@ -59,21 +68,24 @@ export function nodesList(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.ListMasterWorkerEntryRequest | undefined,
+  request: operations.GetProductsWorkersByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
-    Result<
-      models.CountedMasterWorkerEntry,
-      | errors.ErrorT
-      | CriblControlPlaneError
-      | ResponseValidationError
-      | ConnectionError
-      | RequestAbortedError
-      | RequestTimeoutError
-      | InvalidRequestError
-      | UnexpectedClientError
-      | SDKValidationError
+    PageIterator<
+      Result<
+        operations.GetProductsWorkersByProductResponse,
+        | errors.ErrorT
+        | CriblControlPlaneError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >,
+      { offset: number }
     >,
     APICall,
   ]
@@ -81,26 +93,31 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.ListMasterWorkerEntryRequest$outboundSchema.optional().parse(
-        value,
-      ),
+      operations.GetProductsWorkersByProductRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
+    return [haltIterator(parsed), { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/master/workers")();
+  const pathParams = {
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/products/{product}/workers")(pathParams);
 
   const query = encodeFormQuery({
-    "filter": payload?.filter,
-    "filterExp": payload?.filterExp,
-    "limit": payload?.limit,
-    "offset": payload?.offset,
-    "sort": payload?.sort,
-    "sortExp": payload?.sortExp,
+    "filter": payload.filter,
+    "filterExp": payload.filterExp,
+    "limit": payload.limit,
+    "offset": payload.offset,
+    "sort": payload.sort,
+    "sortExp": payload.sortExp,
   });
 
   const headers = new Headers(compactMap({
@@ -113,7 +130,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "listMasterWorkerEntry",
+    operationID: "getProductsWorkersByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -147,18 +164,18 @@ async function $do(
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return [requestRes, { status: "invalid" }];
+    return [haltIterator(requestRes), { status: "invalid" }];
   }
   const req = requestRes.value;
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return [doResult, { status: "request-error", request: req }];
+    return [haltIterator(doResult), { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -166,8 +183,8 @@ async function $do(
     HttpMeta: { Response: response, Request: req },
   };
 
-  const [result] = await M.match<
-    models.CountedMasterWorkerEntry,
+  const [result, raw] = await M.match<
+    operations.GetProductsWorkersByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -178,14 +195,72 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedMasterWorkerEntry$inboundSchema),
+    M.json(200, operations.GetProductsWorkersByProductResponse$inboundSchema, {
+      key: "Result",
+    }),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 401, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return [result, { status: "complete", request: req, response }];
+    return [haltIterator(result), {
+      status: "complete",
+      request: req,
+      response,
+    }];
   }
 
-  return [result, { status: "complete", request: req, response }];
+  const nextFunc = (
+    responseData: unknown,
+  ): {
+    next: Paginator<
+      Result<
+        operations.GetProductsWorkersByProductResponse,
+        | errors.ErrorT
+        | CriblControlPlaneError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >
+    >;
+    "~next"?: { offset: number };
+  } => {
+    const offset = request?.offset ?? 0;
+
+    if (!responseData) {
+      return { next: () => null };
+    }
+    const results = dlv(responseData, "items");
+    if (!Array.isArray(results) || !results.length) {
+      return { next: () => null };
+    }
+    const limit = request?.limit ?? 0;
+    if (results.length < limit) {
+      return { next: () => null };
+    }
+    const nextOffset = offset + results.length;
+
+    const nextVal = () =>
+      nodesList(
+        client,
+        {
+          ...request,
+          offset: nextOffset,
+        },
+        options,
+      );
+
+    return { next: nextVal, "~next": { offset: nextOffset } };
+  };
+
+  const page = { ...result, ...nextFunc(raw) };
+  return [{ ...page, ...createPageIterator(page, (v) => !v.ok) }, {
+    status: "complete",
+    request: req,
+    response,
+  }];
 }

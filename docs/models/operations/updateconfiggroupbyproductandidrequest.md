@@ -9,6 +9,7 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
   product: "stream",
   id: "<id>",
   configGroup: {
+    estimatedIngestRate: 4096,
     id: "<id>",
   },
 };

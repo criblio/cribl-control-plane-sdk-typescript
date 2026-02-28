@@ -190,6 +190,10 @@ export type OutputChronicle = {
    * Custom labels to be added to every event
    */
   customLabels?: Array<CustomLabel> | undefined;
+  /**
+   * Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
+   */
+  endpoint?: string | undefined;
   description?: string | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
@@ -240,6 +244,14 @@ export type OutputChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputChroniclePqControls | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
 };
 
 /** @internal */
@@ -377,6 +389,7 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   customLabels: types.optional(
     z.array(z.lazy(() => CustomLabel$inboundSchema)),
   ),
+  endpoint: types.optional(types.string()),
   description: types.optional(types.string()),
   serviceAccountCredentials: types.optional(types.string()),
   serviceAccountCredentialsSecret: types.optional(types.string()),
@@ -393,6 +406,8 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputChroniclePqControls$inboundSchema),
   ),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
 });
 /** @internal */
 export type OutputChronicle$Outbound = {
@@ -430,6 +445,7 @@ export type OutputChronicle$Outbound = {
   gcpProjectId: string;
   gcpInstance: string;
   customLabels?: Array<CustomLabel$Outbound> | undefined;
+  endpoint?: string | undefined;
   description?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
@@ -444,6 +460,8 @@ export type OutputChronicle$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputChroniclePqControls$Outbound | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
 };
 
 /** @internal */
@@ -488,6 +506,7 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   gcpProjectId: z.string(),
   gcpInstance: z.string(),
   customLabels: z.array(z.lazy(() => CustomLabel$outboundSchema)).optional(),
+  endpoint: z.string().optional(),
   description: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
@@ -502,6 +521,8 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputChroniclePqControls$outboundSchema).optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
 });
 
 export function outputChronicleToJSON(

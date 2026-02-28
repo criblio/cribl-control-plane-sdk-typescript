@@ -7,10 +7,10 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 export const NodeUpgradeState = {
-  Zero: 0,
-  One: 1,
-  Two: 2,
-  Three: 3,
+  Active: 0,
+  Current: 1,
+  Failed: 2,
+  Skipped: 3,
 } as const;
 export type NodeUpgradeState = OpenEnum<typeof NodeUpgradeState>;
 

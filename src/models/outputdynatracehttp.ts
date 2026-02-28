@@ -286,6 +286,10 @@ export type OutputDynatraceHttp = {
    * URL to send events to. Can be overwritten by an event's __url field.
    */
   url?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -434,6 +438,7 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   environmentId: types.optional(types.string()),
   activeGateDomain: types.optional(types.string()),
   url: types.optional(types.string()),
+  __template_url: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDynatraceHttp$Outbound = {
@@ -484,6 +489,7 @@ export type OutputDynatraceHttp$Outbound = {
   environmentId?: string | undefined;
   activeGateDomain?: string | undefined;
   url?: string | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -541,6 +547,7 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   environmentId: z.string().optional(),
   activeGateDomain: z.string().optional(),
   url: z.string().optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputDynatraceHttpToJSON(

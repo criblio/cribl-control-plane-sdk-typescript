@@ -16,11 +16,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
   MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
@@ -101,8 +101,6 @@ export type MTLSSettings = {
    * Enable OCSP check of certificate
    */
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   /**
    * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
    */
@@ -180,7 +178,7 @@ export type Subscription = {
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   queries?: Array<Query> | undefined;
   /**
    * The XPath query to use for selecting events
@@ -292,12 +290,20 @@ export type InputWef = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
    */
   logFingerprintMismatch?: boolean | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -335,8 +341,6 @@ export const MTLSSettings$inboundSchema: z.ZodType<
     MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
   ),
   ocspCheck: types.optional(types.boolean()),
-  keytab: types.optional(z.any()),
-  principal: types.optional(z.any()),
   ocspCheckFailClose: types.optional(types.boolean()),
 });
 /** @internal */
@@ -353,8 +357,6 @@ export type MTLSSettings$Outbound = {
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   ocspCheckFailClose?: boolean | undefined;
 };
 
@@ -378,8 +380,6 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
     .optional(),
   ocspCheck: z.boolean().optional(),
-  keytab: z.any().optional(),
-  principal: z.any().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
 
@@ -474,9 +474,7 @@ export const Subscription$inboundSchema: z.ZodType<
   targets: z.array(types.string()),
   locale: types.optional(types.string()),
   querySelector: types.optional(QueryBuilderMode$inboundSchema),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   queries: types.optional(z.array(z.lazy(() => Query$inboundSchema))),
   xmlQuery: types.optional(types.string()),
 });
@@ -493,7 +491,7 @@ export type Subscription$Outbound = {
   targets: Array<string>;
   locale?: string | undefined;
   querySelector?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   queries?: Array<Query$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
@@ -515,7 +513,7 @@ export const Subscription$outboundSchema: z.ZodType<
   targets: z.array(z.string()),
   locale: z.string().optional(),
   querySelector: QueryBuilderMode$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
   xmlQuery: z.string().optional(),
 });
@@ -569,11 +567,11 @@ export const InputWef$inboundSchema: z.ZodType<
   principal: types.optional(types.string()),
   allowMachineIdMismatch: types.optional(types.boolean()),
   subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   logFingerprintMismatch: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputWef$Outbound = {
@@ -605,9 +603,11 @@ export type InputWef$Outbound = {
   principal?: string | undefined;
   allowMachineIdMismatch?: boolean | undefined;
   subscriptions: Array<Subscription$Outbound>;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -644,9 +644,11 @@ export const InputWef$outboundSchema: z.ZodType<
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().optional(),
   subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputWefToJSON(inputWef: InputWef): string {

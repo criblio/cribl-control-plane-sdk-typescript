@@ -16,11 +16,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -143,7 +143,7 @@ export type InputSyslogSyslog2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -157,6 +157,18 @@ export type InputSyslogSyslog2 = {
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
 };
 
 export const InputSyslogType1 = {
@@ -268,7 +280,7 @@ export type InputSyslogSyslog1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -282,6 +294,18 @@ export type InputSyslogSyslog1 = {
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
 };
 
 export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
@@ -331,13 +355,14 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   enableLoadBalancing: types.optional(types.boolean()),
   description: types.optional(types.string()),
   enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
 });
 /** @internal */
 export type InputSyslogSyslog2$Outbound = {
@@ -369,11 +394,14 @@ export type InputSyslogSyslog2$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
@@ -410,11 +438,14 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
 });
 
 export function inputSyslogSyslog2ToJSON(
@@ -479,13 +510,14 @@ export const InputSyslogSyslog1$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   enableLoadBalancing: types.optional(types.boolean()),
   description: types.optional(types.string()),
   enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
 });
 /** @internal */
 export type InputSyslogSyslog1$Outbound = {
@@ -517,11 +549,14 @@ export type InputSyslogSyslog1$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
@@ -558,11 +593,14 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
 });
 
 export function inputSyslogSyslog1ToJSON(

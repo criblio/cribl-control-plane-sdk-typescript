@@ -15,310 +15,6 @@ import {
   OutputModeOptionsSplunkCollectorConf$outboundSchema,
 } from "./outputmodeoptionssplunkcollectorconf.js";
 
-export type SplunkAuthenticationLoginSecretCollectRequestParam = {
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type SplunkAuthenticationLoginSecretCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-};
-
-export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
-};
-
-export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-};
-
-export type SplunkAuthenticationLoginSecretRetryRules =
-  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone
-  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff
-  | discriminatedUnionTypes.Unknown<"type">;
-
-export type SplunkAuthenticationLoginSecret = {
-  /**
-   * Authentication method for Discover and Collect REST calls
-   */
-  authentication: "loginSecret";
-  /**
-   * URL to use for login API call, this call is expected to be a POST.
-   */
-  loginUrl: string;
-  /**
-   * Select or create a stored secret that references your login credentials
-   */
-  credentialsSecret: string;
-  /**
-   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-   */
-  loginBody: string;
-  /**
-   * Path to token attribute in login response body. Nested attributes are allowed.
-   */
-  tokenRespAttribute: string;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr: string;
-  /**
-   * Search head base URL. Can be an expression. Default is https://localhost:8089.
-   */
-  searchHead: string;
-  /**
-   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
-   */
-  search: string;
-  /**
-   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-   */
-  earliest?: string | undefined;
-  /**
-   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-   */
-  latest?: string | undefined;
-  /**
-   * REST API used to create a search
-   */
-  endpoint: string;
-  /**
-   * Format of the returned output
-   */
-  outputMode: OutputModeOptionsSplunkCollectorConf;
-  /**
-   * Optional collect request parameters
-   */
-  collectRequestParams?:
-    | Array<SplunkAuthenticationLoginSecretCollectRequestParam>
-    | undefined;
-  /**
-   * Optional collect request headers
-   */
-  collectRequestHeaders?:
-    | Array<SplunkAuthenticationLoginSecretCollectRequestHeader>
-    | undefined;
-  /**
-   * HTTP request inactivity timeout. Use 0 for no timeout.
-   */
-  timeout?: number | undefined;
-  /**
-   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-   */
-  useRoundRobinDns?: boolean | undefined;
-  /**
-   * Disable collector event time filtering when a date range is specified
-   */
-  disableTimeFilter?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Escape characters (\") in search queries will be passed directly to Splunk
-   */
-  handleEscapedChars?: boolean | undefined;
-  retryRules?:
-    | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone
-    | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic
-    | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff
-    | discriminatedUnionTypes.Unknown<"type">
-    | undefined;
-};
-
-export type SplunkAuthenticationLoginCollectRequestParam = {
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type SplunkAuthenticationLoginCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-};
-
-export type SplunkAuthenticationLoginSplunkRetryRulesTypeStatic = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
-};
-
-export type SplunkAuthenticationLoginSplunkRetryRulesTypeNone = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-};
-
-export type SplunkAuthenticationLoginRetryRules =
-  | SplunkAuthenticationLoginSplunkRetryRulesTypeNone
-  | SplunkAuthenticationLoginSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff
-  | discriminatedUnionTypes.Unknown<"type">;
-
-export type SplunkAuthenticationLogin = {
-  /**
-   * Authentication method for Discover and Collect REST calls
-   */
-  authentication: "login";
-  /**
-   * URL to use for login API call. This call is expected to be a POST.
-   */
-  loginUrl: string;
-  username: string;
-  password: string;
-  /**
-   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-   */
-  loginBody: string;
-  /**
-   * Path to token attribute in login response body. Nested attributes are allowed.
-   */
-  tokenRespAttribute: string;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr: string;
-  /**
-   * Search head base URL. Can be an expression. Default is https://localhost:8089.
-   */
-  searchHead: string;
-  /**
-   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
-   */
-  search: string;
-  /**
-   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-   */
-  earliest?: string | undefined;
-  /**
-   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-   */
-  latest?: string | undefined;
-  /**
-   * REST API used to create a search
-   */
-  endpoint: string;
-  /**
-   * Format of the returned output
-   */
-  outputMode: OutputModeOptionsSplunkCollectorConf;
-  /**
-   * Optional collect request parameters
-   */
-  collectRequestParams?:
-    | Array<SplunkAuthenticationLoginCollectRequestParam>
-    | undefined;
-  /**
-   * Optional collect request headers
-   */
-  collectRequestHeaders?:
-    | Array<SplunkAuthenticationLoginCollectRequestHeader>
-    | undefined;
-  /**
-   * HTTP request inactivity timeout. Use 0 for no timeout.
-   */
-  timeout?: number | undefined;
-  /**
-   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-   */
-  useRoundRobinDns?: boolean | undefined;
-  /**
-   * Disable collector event time filtering when a date range is specified
-   */
-  disableTimeFilter?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Escape characters (\") in search queries will be passed directly to Splunk
-   */
-  handleEscapedChars?: boolean | undefined;
-  retryRules?:
-    | SplunkAuthenticationLoginSplunkRetryRulesTypeNone
-    | SplunkAuthenticationLoginSplunkRetryRulesTypeStatic
-    | SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff
-    | discriminatedUnionTypes.Unknown<"type">
-    | undefined;
-};
-
 export type SplunkAuthenticationTokenSecretCollectRequestParam = {
   name: string;
   /**
@@ -340,13 +36,34 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic = {
@@ -354,13 +71,30 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone = {
@@ -368,13 +102,6 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 export type SplunkAuthenticationTokenSecretRetryRules =
@@ -477,13 +204,34 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic = {
@@ -491,13 +239,30 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone = {
@@ -505,13 +270,6 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 export type SplunkAuthenticationTokenRetryRules =
@@ -611,13 +369,34 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic = {
@@ -625,13 +404,30 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone = {
@@ -639,13 +435,6 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 export type SplunkAuthenticationBasicSecretRetryRules =
@@ -748,13 +537,34 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic = {
@@ -762,13 +572,30 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone = {
@@ -776,13 +603,6 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 export type SplunkAuthenticationBasicRetryRules =
@@ -889,13 +709,34 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic = {
@@ -903,13 +744,30 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset error (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone = {
@@ -917,13 +775,6 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 export type SplunkAuthenticationNoneRetryRules =
@@ -1007,1049 +858,7 @@ export type SplunkCollectorConf =
   | SplunkAuthenticationBasicSecret
   | SplunkAuthenticationToken
   | SplunkAuthenticationTokenSecret
-  | SplunkAuthenticationLogin
-  | SplunkAuthenticationLoginSecret
   | discriminatedUnionTypes.Unknown<"authentication">;
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretCollectRequestParam,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: types.string(),
-    value: types.string(),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSecretCollectRequestParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretCollectRequestParam$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretCollectRequestParam$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSecretCollectRequestParam
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function splunkAuthenticationLoginSecretCollectRequestParamToJSON(
-  splunkAuthenticationLoginSecretCollectRequestParam:
-    SplunkAuthenticationLoginSecretCollectRequestParam,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSecretCollectRequestParam$outboundSchema.parse(
-      splunkAuthenticationLoginSecretCollectRequestParam,
-    ),
-  );
-}
-export function splunkAuthenticationLoginSecretCollectRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSecretCollectRequestParam,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginSecretCollectRequestParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: types.string(),
-    value: types.string(),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSecretCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSecretCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function splunkAuthenticationLoginSecretCollectRequestHeaderToJSON(
-  splunkAuthenticationLoginSecretCollectRequestHeader:
-    SplunkAuthenticationLoginSecretCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSecretCollectRequestHeader$outboundSchema.parse(
-      splunkAuthenticationLoginSecretCollectRequestHeader,
-    ),
-  );
-}
-export function splunkAuthenticationLoginSecretCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSecretCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSecretCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginSecretCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$Outbound =
-  {
-    type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-  };
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff
-  > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function splunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoffToJSON(
-  splunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff:
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$outboundSchema
-      .parse(splunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff),
-  );
-}
-export function splunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoffFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$Outbound =
-  {
-    type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-    multiplier?: any | undefined;
-  };
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic
-  > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-  });
-
-export function splunkAuthenticationLoginSecretSplunkRetryRulesTypeStaticToJSON(
-  splunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic:
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$outboundSchema
-      .parse(splunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic),
-  );
-}
-export function splunkAuthenticationLoginSecretSplunkRetryRulesTypeStaticFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$Outbound = {
-  type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone
-  > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function splunkAuthenticationLoginSecretSplunkRetryRulesTypeNoneToJSON(
-  splunkAuthenticationLoginSecretSplunkRetryRulesTypeNone:
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$outboundSchema
-      .parse(splunkAuthenticationLoginSecretSplunkRetryRulesTypeNone),
-  );
-}
-export function splunkAuthenticationLoginSecretSplunkRetryRulesTypeNoneFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretRetryRules$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginSecretRetryRules,
-  z.ZodTypeDef,
-  unknown
-> = discriminatedUnion("type", {
-  none: z.lazy(() =>
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$inboundSchema
-  ),
-  static: z.lazy(() =>
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$inboundSchema
-  ),
-  backoff: z.lazy(() =>
-    SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$inboundSchema
-  ),
-});
-/** @internal */
-export type SplunkAuthenticationLoginSecretRetryRules$Outbound =
-  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$Outbound
-  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$Outbound
-  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$Outbound;
-
-/** @internal */
-export const SplunkAuthenticationLoginSecretRetryRules$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSecretRetryRules$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSecretRetryRules
-  > = z.union([
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$outboundSchema
-    ),
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$outboundSchema
-    ),
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$outboundSchema
-    ),
-  ]);
-
-export function splunkAuthenticationLoginSecretRetryRulesToJSON(
-  splunkAuthenticationLoginSecretRetryRules:
-    SplunkAuthenticationLoginSecretRetryRules,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSecretRetryRules$outboundSchema.parse(
-      splunkAuthenticationLoginSecretRetryRules,
-    ),
-  );
-}
-export function splunkAuthenticationLoginSecretRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSecretRetryRules,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSecretRetryRules$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginSecretRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSecret$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginSecret,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authentication: types.literal("loginSecret"),
-  loginUrl: types.string(),
-  credentialsSecret: types.string(),
-  loginBody: types.string(),
-  tokenRespAttribute: types.string(),
-  authHeaderExpr: types.string(),
-  searchHead: types.string(),
-  search: types.string(),
-  earliest: types.optional(types.string()),
-  latest: types.optional(types.string()),
-  endpoint: types.string(),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: types.optional(
-    z.array(z.lazy(() =>
-      SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema
-    )),
-  ),
-  collectRequestHeaders: types.optional(
-    z.array(z.lazy(() =>
-      SplunkAuthenticationLoginSecretCollectRequestHeader$inboundSchema
-    )),
-  ),
-  timeout: types.optional(types.number()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  disableTimeFilter: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  handleEscapedChars: types.optional(types.boolean()),
-  retryRules: types.optional(discriminatedUnion("type", {
-    none: z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$inboundSchema
-    ),
-    static: z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$inboundSchema
-    ),
-    backoff: z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$inboundSchema
-    ),
-  })),
-});
-/** @internal */
-export type SplunkAuthenticationLoginSecret$Outbound = {
-  authentication: "loginSecret";
-  loginUrl: string;
-  credentialsSecret: string;
-  loginBody: string;
-  tokenRespAttribute: string;
-  authHeaderExpr: string;
-  searchHead: string;
-  search: string;
-  earliest?: string | undefined;
-  latest?: string | undefined;
-  endpoint: string;
-  outputMode: string;
-  collectRequestParams?:
-    | Array<SplunkAuthenticationLoginSecretCollectRequestParam$Outbound>
-    | undefined;
-  collectRequestHeaders?:
-    | Array<SplunkAuthenticationLoginSecretCollectRequestHeader$Outbound>
-    | undefined;
-  timeout?: number | undefined;
-  useRoundRobinDns?: boolean | undefined;
-  disableTimeFilter?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  handleEscapedChars?: boolean | undefined;
-  retryRules?:
-    | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$Outbound
-    | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$Outbound
-    | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$Outbound
-    | undefined;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginSecret$outboundSchema: z.ZodType<
-  SplunkAuthenticationLoginSecret$Outbound,
-  z.ZodTypeDef,
-  SplunkAuthenticationLoginSecret
-> = z.object({
-  authentication: z.literal("loginSecret"),
-  loginUrl: z.string(),
-  credentialsSecret: z.string(),
-  loginBody: z.string(),
-  tokenRespAttribute: z.string(),
-  authHeaderExpr: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretCollectRequestParam$outboundSchema
-    ),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretCollectRequestHeader$outboundSchema
-    ),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$outboundSchema
-    ),
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$outboundSchema
-    ),
-    z.lazy(() =>
-      SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$outboundSchema
-    ),
-  ]).optional(),
-});
-
-export function splunkAuthenticationLoginSecretToJSON(
-  splunkAuthenticationLoginSecret: SplunkAuthenticationLoginSecret,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSecret$outboundSchema.parse(
-      splunkAuthenticationLoginSecret,
-    ),
-  );
-}
-export function splunkAuthenticationLoginSecretFromJSON(
-  jsonString: string,
-): SafeParseResult<SplunkAuthenticationLoginSecret, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SplunkAuthenticationLoginSecret$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SplunkAuthenticationLoginSecret' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginCollectRequestParam$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginCollectRequestParam,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: types.string(),
-    value: types.string(),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginCollectRequestParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginCollectRequestParam$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginCollectRequestParam$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginCollectRequestParam
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function splunkAuthenticationLoginCollectRequestParamToJSON(
-  splunkAuthenticationLoginCollectRequestParam:
-    SplunkAuthenticationLoginCollectRequestParam,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginCollectRequestParam$outboundSchema.parse(
-      splunkAuthenticationLoginCollectRequestParam,
-    ),
-  );
-}
-export function splunkAuthenticationLoginCollectRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginCollectRequestParam,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginCollectRequestParam$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginCollectRequestParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginCollectRequestHeader$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginCollectRequestHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: types.string(),
-    value: types.string(),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginCollectRequestHeader$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginCollectRequestHeader$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginCollectRequestHeader
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function splunkAuthenticationLoginCollectRequestHeaderToJSON(
-  splunkAuthenticationLoginCollectRequestHeader:
-    SplunkAuthenticationLoginCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginCollectRequestHeader$outboundSchema.parse(
-      splunkAuthenticationLoginCollectRequestHeader,
-    ),
-  );
-}
-export function splunkAuthenticationLoginCollectRequestHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginCollectRequestHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginCollectRequestHeader$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginCollectRequestHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$Outbound = {
-  type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff
-  > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function splunkAuthenticationLoginSplunkRetryRulesTypeBackoffToJSON(
-  splunkAuthenticationLoginSplunkRetryRulesTypeBackoff:
-    SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$outboundSchema.parse(
-      splunkAuthenticationLoginSplunkRetryRulesTypeBackoff,
-    ),
-  );
-}
-export function splunkAuthenticationLoginSplunkRetryRulesTypeBackoffFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSplunkRetryRulesTypeStatic,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$Outbound = {
-  type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSplunkRetryRulesTypeStatic
-  > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-  });
-
-export function splunkAuthenticationLoginSplunkRetryRulesTypeStaticToJSON(
-  splunkAuthenticationLoginSplunkRetryRulesTypeStatic:
-    SplunkAuthenticationLoginSplunkRetryRulesTypeStatic,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$outboundSchema.parse(
-      splunkAuthenticationLoginSplunkRetryRulesTypeStatic,
-    ),
-  );
-}
-export function splunkAuthenticationLoginSplunkRetryRulesTypeStaticFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSplunkRetryRulesTypeStatic,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginSplunkRetryRulesTypeStatic' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSplunkRetryRulesTypeNone,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-  });
-/** @internal */
-export type SplunkAuthenticationLoginSplunkRetryRulesTypeNone$Outbound = {
-  type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-};
-
-/** @internal */
-export const SplunkAuthenticationLoginSplunkRetryRulesTypeNone$outboundSchema:
-  z.ZodType<
-    SplunkAuthenticationLoginSplunkRetryRulesTypeNone$Outbound,
-    z.ZodTypeDef,
-    SplunkAuthenticationLoginSplunkRetryRulesTypeNone
-  > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-  });
-
-export function splunkAuthenticationLoginSplunkRetryRulesTypeNoneToJSON(
-  splunkAuthenticationLoginSplunkRetryRulesTypeNone:
-    SplunkAuthenticationLoginSplunkRetryRulesTypeNone,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginSplunkRetryRulesTypeNone$outboundSchema.parse(
-      splunkAuthenticationLoginSplunkRetryRulesTypeNone,
-    ),
-  );
-}
-export function splunkAuthenticationLoginSplunkRetryRulesTypeNoneFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SplunkAuthenticationLoginSplunkRetryRulesTypeNone,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SplunkAuthenticationLoginSplunkRetryRulesTypeNone' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
-  SplunkAuthenticationLoginRetryRules,
-  z.ZodTypeDef,
-  unknown
-> = discriminatedUnion("type", {
-  none: z.lazy(() =>
-    SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema
-  ),
-  static: z.lazy(() =>
-    SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$inboundSchema
-  ),
-  backoff: z.lazy(() =>
-    SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$inboundSchema
-  ),
-});
-/** @internal */
-export type SplunkAuthenticationLoginRetryRules$Outbound =
-  | SplunkAuthenticationLoginSplunkRetryRulesTypeNone$Outbound
-  | SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$Outbound
-  | SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$Outbound;
-
-/** @internal */
-export const SplunkAuthenticationLoginRetryRules$outboundSchema: z.ZodType<
-  SplunkAuthenticationLoginRetryRules$Outbound,
-  z.ZodTypeDef,
-  SplunkAuthenticationLoginRetryRules
-> = z.union([
-  z.lazy(() =>
-    SplunkAuthenticationLoginSplunkRetryRulesTypeNone$outboundSchema
-  ),
-  z.lazy(() =>
-    SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$outboundSchema
-  ),
-  z.lazy(() =>
-    SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$outboundSchema
-  ),
-]);
-
-export function splunkAuthenticationLoginRetryRulesToJSON(
-  splunkAuthenticationLoginRetryRules: SplunkAuthenticationLoginRetryRules,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLoginRetryRules$outboundSchema.parse(
-      splunkAuthenticationLoginRetryRules,
-    ),
-  );
-}
-export function splunkAuthenticationLoginRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<SplunkAuthenticationLoginRetryRules, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SplunkAuthenticationLoginRetryRules$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SplunkAuthenticationLoginRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkAuthenticationLogin$inboundSchema: z.ZodType<
-  SplunkAuthenticationLogin,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authentication: types.literal("login"),
-  loginUrl: types.string(),
-  username: types.string(),
-  password: types.string(),
-  loginBody: types.string(),
-  tokenRespAttribute: types.string(),
-  authHeaderExpr: types.string(),
-  searchHead: types.string(),
-  search: types.string(),
-  earliest: types.optional(types.string()),
-  latest: types.optional(types.string()),
-  endpoint: types.string(),
-  outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: types.optional(
-    z.array(z.lazy(() =>
-      SplunkAuthenticationLoginCollectRequestParam$inboundSchema
-    )),
-  ),
-  collectRequestHeaders: types.optional(
-    z.array(z.lazy(() =>
-      SplunkAuthenticationLoginCollectRequestHeader$inboundSchema
-    )),
-  ),
-  timeout: types.optional(types.number()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  disableTimeFilter: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  handleEscapedChars: types.optional(types.boolean()),
-  retryRules: types.optional(discriminatedUnion("type", {
-    none: z.lazy(() =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema
-    ),
-    static: z.lazy(() =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$inboundSchema
-    ),
-    backoff: z.lazy(() =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$inboundSchema
-    ),
-  })),
-});
-/** @internal */
-export type SplunkAuthenticationLogin$Outbound = {
-  authentication: "login";
-  loginUrl: string;
-  username: string;
-  password: string;
-  loginBody: string;
-  tokenRespAttribute: string;
-  authHeaderExpr: string;
-  searchHead: string;
-  search: string;
-  earliest?: string | undefined;
-  latest?: string | undefined;
-  endpoint: string;
-  outputMode: string;
-  collectRequestParams?:
-    | Array<SplunkAuthenticationLoginCollectRequestParam$Outbound>
-    | undefined;
-  collectRequestHeaders?:
-    | Array<SplunkAuthenticationLoginCollectRequestHeader$Outbound>
-    | undefined;
-  timeout?: number | undefined;
-  useRoundRobinDns?: boolean | undefined;
-  disableTimeFilter?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  handleEscapedChars?: boolean | undefined;
-  retryRules?:
-    | SplunkAuthenticationLoginSplunkRetryRulesTypeNone$Outbound
-    | SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$Outbound
-    | SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$Outbound
-    | undefined;
-};
-
-/** @internal */
-export const SplunkAuthenticationLogin$outboundSchema: z.ZodType<
-  SplunkAuthenticationLogin$Outbound,
-  z.ZodTypeDef,
-  SplunkAuthenticationLogin
-> = z.object({
-  authentication: z.literal("login"),
-  loginUrl: z.string(),
-  username: z.string(),
-  password: z.string(),
-  loginBody: z.string(),
-  tokenRespAttribute: z.string(),
-  authHeaderExpr: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
-  outputMode: OutputModeOptionsSplunkCollectorConf$outboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() => SplunkAuthenticationLoginCollectRequestParam$outboundSchema),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => SplunkAuthenticationLoginCollectRequestHeader$outboundSchema),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeNone$outboundSchema
-    ),
-    z.lazy(() =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$outboundSchema
-    ),
-    z.lazy(() =>
-      SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$outboundSchema
-    ),
-  ]).optional(),
-});
-
-export function splunkAuthenticationLoginToJSON(
-  splunkAuthenticationLogin: SplunkAuthenticationLogin,
-): string {
-  return JSON.stringify(
-    SplunkAuthenticationLogin$outboundSchema.parse(splunkAuthenticationLogin),
-  );
-}
-export function splunkAuthenticationLoginFromJSON(
-  jsonString: string,
-): SafeParseResult<SplunkAuthenticationLogin, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SplunkAuthenticationLogin$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SplunkAuthenticationLogin' from JSON`,
-  );
-}
 
 /** @internal */
 export const SplunkAuthenticationTokenSecretCollectRequestParam$inboundSchema:
@@ -2165,25 +974,25 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundS
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
   };
 
 /** @internal */
@@ -2194,13 +1003,13 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$outbound
     SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoffToJSON(
@@ -2235,25 +1044,23 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$inboundSc
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
   };
 
 /** @internal */
@@ -2264,13 +1071,12 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$outboundS
     SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationTokenSecretSplunkRetryRulesTypeStaticToJSON(
@@ -2305,24 +1111,10 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$inboundSche
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 /** @internal */
@@ -2333,13 +1125,6 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$outboundSch
     SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
   });
 
 export function splunkAuthenticationTokenSecretSplunkRetryRulesTypeNoneToJSON(
@@ -2676,24 +1461,24 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$Outbound = {
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  interval?: number | undefined;
+  limit?: number | undefined;
+  multiplier?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -2704,13 +1489,13 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$outboundSchema
     SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationTokenSplunkRetryRulesTypeBackoffToJSON(
@@ -2747,24 +1532,22 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound = {
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  interval?: number | undefined;
+  limit?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -2775,13 +1558,12 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$outboundSchema:
     SplunkAuthenticationTokenSplunkRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationTokenSplunkRetryRulesTypeStaticToJSON(
@@ -2818,24 +1600,10 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 /** @internal */
@@ -2846,13 +1614,6 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeNone$outboundSchema:
     SplunkAuthenticationTokenSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
   });
 
 export function splunkAuthenticationTokenSplunkRetryRulesTypeNoneToJSON(
@@ -3178,25 +1939,25 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundS
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
   };
 
 /** @internal */
@@ -3207,13 +1968,13 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$outbound
     SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoffToJSON(
@@ -3248,25 +2009,23 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$inboundSc
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    retryConnectTimeout?: any | undefined;
-    retryConnectReset?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
   };
 
 /** @internal */
@@ -3277,13 +2036,12 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$outboundS
     SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationBasicSecretSplunkRetryRulesTypeStaticToJSON(
@@ -3318,24 +2076,10 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$inboundSche
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 /** @internal */
@@ -3346,13 +2090,6 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$outboundSch
     SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
   });
 
 export function splunkAuthenticationBasicSecretSplunkRetryRulesTypeNoneToJSON(
@@ -3689,24 +2426,24 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$Outbound = {
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  interval?: number | undefined;
+  limit?: number | undefined;
+  multiplier?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -3717,13 +2454,13 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$outboundSchema
     SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationBasicSplunkRetryRulesTypeBackoffToJSON(
@@ -3760,24 +2497,22 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound = {
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  interval?: number | undefined;
+  limit?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -3788,13 +2523,12 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$outboundSchema:
     SplunkAuthenticationBasicSplunkRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationBasicSplunkRetryRulesTypeStaticToJSON(
@@ -3831,24 +2565,10 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 /** @internal */
@@ -3859,13 +2579,6 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeNone$outboundSchema:
     SplunkAuthenticationBasicSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
   });
 
 export function splunkAuthenticationBasicSplunkRetryRulesTypeNoneToJSON(
@@ -4194,24 +2907,24 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$Outbound = {
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
+  interval?: number | undefined;
+  limit?: number | undefined;
+  multiplier?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -4222,13 +2935,13 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$outboundSchema:
     SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationNoneSplunkRetryRulesTypeBackoffToJSON(
@@ -4265,24 +2978,22 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound = {
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
-  multiplier?: any | undefined;
+  interval?: number | undefined;
+  limit?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -4293,13 +3004,12 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$outboundSchema:
     SplunkAuthenticationNoneSplunkRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationNoneSplunkRetryRulesTypeStaticToJSON(
@@ -4336,24 +3046,10 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    retryConnectTimeout: types.optional(z.any()),
-    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  retryConnectTimeout?: any | undefined;
-  retryConnectReset?: any | undefined;
 };
 
 /** @internal */
@@ -4364,13 +3060,6 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeNone$outboundSchema:
     SplunkAuthenticationNoneSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
   });
 
 export function splunkAuthenticationNoneSplunkRetryRulesTypeNoneToJSON(
@@ -4588,8 +3277,6 @@ export const SplunkCollectorConf$inboundSchema: z.ZodType<
   basicSecret: z.lazy(() => SplunkAuthenticationBasicSecret$inboundSchema),
   token: z.lazy(() => SplunkAuthenticationToken$inboundSchema),
   tokenSecret: z.lazy(() => SplunkAuthenticationTokenSecret$inboundSchema),
-  login: z.lazy(() => SplunkAuthenticationLogin$inboundSchema),
-  loginSecret: z.lazy(() => SplunkAuthenticationLoginSecret$inboundSchema),
 });
 /** @internal */
 export type SplunkCollectorConf$Outbound =
@@ -4597,9 +3284,7 @@ export type SplunkCollectorConf$Outbound =
   | SplunkAuthenticationBasic$Outbound
   | SplunkAuthenticationBasicSecret$Outbound
   | SplunkAuthenticationToken$Outbound
-  | SplunkAuthenticationTokenSecret$Outbound
-  | SplunkAuthenticationLogin$Outbound
-  | SplunkAuthenticationLoginSecret$Outbound;
+  | SplunkAuthenticationTokenSecret$Outbound;
 
 /** @internal */
 export const SplunkCollectorConf$outboundSchema: z.ZodType<
@@ -4612,8 +3297,6 @@ export const SplunkCollectorConf$outboundSchema: z.ZodType<
   z.lazy(() => SplunkAuthenticationBasicSecret$outboundSchema),
   z.lazy(() => SplunkAuthenticationToken$outboundSchema),
   z.lazy(() => SplunkAuthenticationTokenSecret$outboundSchema),
-  z.lazy(() => SplunkAuthenticationLogin$outboundSchema),
-  z.lazy(() => SplunkAuthenticationLoginSecret$outboundSchema),
 ]);
 
 export function splunkCollectorConfToJSON(

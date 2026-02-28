@@ -28,17 +28,17 @@ import {
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
+  ItemsTypeContentConfigItemsRequestParams,
+  ItemsTypeContentConfigItemsRequestParams$inboundSchema,
+  ItemsTypeContentConfigItemsRequestParams$Outbound,
+  ItemsTypeContentConfigItemsRequestParams$outboundSchema,
+} from "./itemstypecontentconfigitemsrequestparams.js";
+import {
   ItemsTypeExtraHttpHeaders,
   ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeLabels,
-  ItemsTypeLabels$inboundSchema,
-  ItemsTypeLabels$Outbound,
-  ItemsTypeLabels$outboundSchema,
-} from "./itemstypelabels.js";
 import {
   ItemsTypeResponseRetrySettings,
   ItemsTypeResponseRetrySettings$inboundSchema,
@@ -106,7 +106,7 @@ export type OutputLoki = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeLabels> | undefined;
+  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
   authType?: AuthenticationTypeOptionsPrometheusAuth1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
@@ -289,7 +289,9 @@ export const OutputLoki$inboundSchema: z.ZodType<
   url: types.string(),
   message: types.optional(types.string()),
   messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-  labels: types.optional(z.array(ItemsTypeLabels$inboundSchema)),
+  labels: types.optional(
+    z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
+  ),
   authType: types.optional(
     AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
   ),
@@ -345,7 +347,7 @@ export type OutputLoki$Outbound = {
   url: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<ItemsTypeLabels$Outbound> | undefined;
+  labels?: Array<ItemsTypeContentConfigItemsRequestParams$Outbound> | undefined;
   authType?: string | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
@@ -400,7 +402,8 @@ export const OutputLoki$outboundSchema: z.ZodType<
   url: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(ItemsTypeLabels$outboundSchema).optional(),
+  labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
+    .optional(),
   authType: AuthenticationTypeOptionsPrometheusAuth1$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),

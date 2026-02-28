@@ -4,78 +4,13 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  LogLevelOptionsSavedJobCollectionScheduleRun,
-  LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
-} from "./logleveloptionssavedjobcollectionschedulerun.js";
-import { MetricsStore, MetricsStore$inboundSchema } from "./metricsstore.js";
-
-export const ScheduleTypeRunnableJobCollectionType = {
-  Collection: "collection",
-} as const;
-export type ScheduleTypeRunnableJobCollectionType = OpenEnum<
-  typeof ScheduleTypeRunnableJobCollectionType
->;
-
-export type ScheduleTypeRunnableJobCollectionRunSettings = {
-  type?: ScheduleTypeRunnableJobCollectionType | undefined;
-  /**
-   * Reschedule tasks that failed with non-fatal errors
-   */
-  rescheduleDroppedTasks?: boolean | undefined;
-  /**
-   * Maximum number of times a task can be rescheduled
-   */
-  maxTaskReschedule?: number | undefined;
-  /**
-   * Level at which to set task logging
-   */
-  logLevel?: LogLevelOptionsSavedJobCollectionScheduleRun | undefined;
-  /**
-   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-   */
-  jobTimeout?: string | undefined;
-  /**
-   * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-   */
-  mode: string;
-  timeRangeType?: string | undefined;
-  /**
-   * Earliest time to collect data for the selected timezone
-   */
-  earliest?: number | undefined;
-  /**
-   * Latest time to collect data for the selected timezone
-   */
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: MetricsStore | undefined;
-  /**
-   * A filter for tokens in the provided collect path and/or the events being collected
-   */
-  expression?: string | undefined;
-  /**
-   * Limits the bundle size for small tasks. For example,
-   *
-   * @remarks
-   *
-   *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-   */
-  minTaskSize?: string | undefined;
-  /**
-   * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-   *
-   * @remarks
-   *
-   *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-   */
-  maxTaskSize?: string | undefined;
-};
+  RunSettingsTypeRunnableJobCollectionSchedule,
+  RunSettingsTypeRunnableJobCollectionSchedule$inboundSchema,
+} from "./runsettingstyperunnablejobcollectionschedule.js";
 
 /**
  * Configuration for a scheduled job
@@ -101,56 +36,8 @@ export type ScheduleTypeRunnableJobCollection = {
    * The maximum number of instances of this scheduled job that may be running at any time
    */
   maxConcurrentRuns?: number | undefined;
-  run?: ScheduleTypeRunnableJobCollectionRunSettings | undefined;
+  run?: RunSettingsTypeRunnableJobCollectionSchedule | undefined;
 };
-
-/** @internal */
-export const ScheduleTypeRunnableJobCollectionType$inboundSchema: z.ZodType<
-  ScheduleTypeRunnableJobCollectionType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ScheduleTypeRunnableJobCollectionType);
-
-/** @internal */
-export const ScheduleTypeRunnableJobCollectionRunSettings$inboundSchema:
-  z.ZodType<
-    ScheduleTypeRunnableJobCollectionRunSettings,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.optional(ScheduleTypeRunnableJobCollectionType$inboundSchema),
-    rescheduleDroppedTasks: types.optional(types.boolean()),
-    maxTaskReschedule: types.optional(types.number()),
-    logLevel: types.optional(
-      LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
-    ),
-    jobTimeout: types.optional(types.string()),
-    mode: types.string(),
-    timeRangeType: types.optional(types.string()),
-    earliest: types.optional(types.number()),
-    latest: types.optional(types.number()),
-    timestampTimezone: types.optional(z.any()),
-    timeWarning: types.optional(MetricsStore$inboundSchema),
-    expression: types.optional(types.string()),
-    minTaskSize: types.optional(types.string()),
-    maxTaskSize: types.optional(types.string()),
-  });
-
-export function scheduleTypeRunnableJobCollectionRunSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ScheduleTypeRunnableJobCollectionRunSettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ScheduleTypeRunnableJobCollectionRunSettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ScheduleTypeRunnableJobCollectionRunSettings' from JSON`,
-  );
-}
 
 /** @internal */
 export const ScheduleTypeRunnableJobCollection$inboundSchema: z.ZodType<
@@ -164,7 +51,7 @@ export const ScheduleTypeRunnableJobCollection$inboundSchema: z.ZodType<
   cronSchedule: types.optional(types.string()),
   maxConcurrentRuns: types.optional(types.number()),
   run: types.optional(
-    z.lazy(() => ScheduleTypeRunnableJobCollectionRunSettings$inboundSchema),
+    RunSettingsTypeRunnableJobCollectionSchedule$inboundSchema,
   ),
 });
 

@@ -132,13 +132,11 @@ const value: models.CollectorScript = {
 const value: models.CollectorSplunk = {
   type: "splunk",
   conf: {
-    authentication: "basic",
-    username: "Enrico53",
-    password: "a6l5mrPhEvtGkTu",
+    authentication: "none",
     searchHead: "<value>",
     search: "<value>",
     endpoint: "<value>",
-    outputMode: "json",
+    outputMode: "csv",
   },
 };
 ```

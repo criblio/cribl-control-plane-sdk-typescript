@@ -5,7 +5,14 @@
 ```typescript
 import { CountedConfigGroup } from "cribl-control-plane/models";
 
-let value: CountedConfigGroup = {};
+let value: CountedConfigGroup = {
+  items: [
+    {
+      estimatedIngestRate: 4096,
+      id: "<id>",
+    },
+  ],
+};
 ```
 
 ## Fields

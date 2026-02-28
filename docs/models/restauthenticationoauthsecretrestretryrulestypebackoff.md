@@ -1,25 +1,25 @@
 # RestAuthenticationOauthSecretRestRetryRulesTypeBackoff
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse`
 
 ```typescript
-import { RestAuthenticationOauthSecretRestRetryRulesTypeBackoff } from "cribl-control-plane/models";
-
-let value: RestAuthenticationOauthSecretRestRetryRulesTypeBackoff = {
-  type: "backoff",
-};
+const value:
+  models.RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderFalse =
+    {
+      type: "<value>",
+    };
 ```
 
-## Fields
+### `models.RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue`
 
-| Field                                             | Type                                              | Required                                          | Description                                       |
-| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| `type`                                            | *"backoff"*                                       | :heavy_check_mark:                                | The algorithm to use when performing HTTP retries |
-| `interval`                                        | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `limit`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `multiplier`                                      | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `maxIntervalMs`                                   | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `codes`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `enableHeader`                                    | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `retryConnectTimeout`                             | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `retryConnectReset`                               | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+```typescript
+const value:
+  models.RestAuthenticationOauthSecretRestRetryRulesTypeBackoffEnableHeaderTrue =
+    {
+      type: "<value>",
+    };
+```
+

@@ -10,11 +10,15 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
-    lakeId: "<id>",
-    criblLakeDataset: {
-      id: "<id>",
-    },
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    connectionString:
+      "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    tags: "production,mysql,customer-data",
   });
 
   console.log(result);

@@ -1,0 +1,19 @@
+# CreateInputSystemByPackCustomSystemMetrics
+
+## Example Usage
+
+```typescript
+import { CreateInputSystemByPackCustomSystemMetrics } from "cribl-control-plane/models/operations";
+
+let value: CreateInputSystemByPackCustomSystemMetrics = {};
+```
+
+## Fields
+
+| Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `system`                                                                                                                         | [operations.CreateInputSystemByPackSystemSystemMetrics](../../models/operations/createinputsystembypacksystemsystemmetrics.md)   | :heavy_minus_sign:                                                                                                               | N/A                                                                                                                              |
+| `cpu`                                                                                                                            | [operations.CreateInputSystemByPackCpuSystemMetrics](../../models/operations/createinputsystembypackcpusystemmetrics.md)         | :heavy_minus_sign:                                                                                                               | N/A                                                                                                                              |
+| `memory`                                                                                                                         | [operations.CreateInputSystemByPackMemorySystemMetrics](../../models/operations/createinputsystembypackmemorysystemmetrics.md)   | :heavy_minus_sign:                                                                                                               | N/A                                                                                                                              |
+| `network`                                                                                                                        | [operations.CreateInputSystemByPackNetworkSystemMetrics](../../models/operations/createinputsystembypacknetworksystemmetrics.md) | :heavy_minus_sign:                                                                                                               | N/A                                                                                                                              |
+| `disk`                                                                                                                           | [operations.CreateInputSystemByPackDiskSystemMetrics](../../models/operations/createinputsystembypackdisksystemmetrics.md)       | :heavy_minus_sign:                                                                                                               | N/A                                                                                                                              |

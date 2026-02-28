@@ -5,95 +5,90 @@ Output object
 
 ## Supported Types
 
-### `operations.OutputDefault`
+### `operations.CreateOutputOutputDefault`
 
 ```typescript
-const value: operations.OutputDefault = {
+const value: operations.CreateOutputOutputDefault = {
   id: "<id>",
   type: "default",
   defaultId: "<id>",
 };
 ```
 
-### `operations.OutputWebhook`
+### `operations.CreateOutputOutputWebhook`
 
 ```typescript
-const value: operations.OutputWebhook = {
+const value: operations.CreateOutputOutputWebhook = {
   id: "<id>",
   type: "webhook",
 };
 ```
 
-### `operations.OutputSentinel`
+### `operations.CreateOutputOutputSentinel`
 
 ```typescript
-const value: operations.OutputSentinel = {
+const value: operations.CreateOutputOutputSentinel = {
   id: "<id>",
   type: "sentinel",
-  loginUrl: "https://inexperienced-hydrolyze.com",
+  loginUrl: "https://baggy-louse.name",
   secret: "<value>",
   client_id: "<id>",
   endpointURLConfiguration: "ID",
 };
 ```
 
-### `operations.OutputDevnull`
+### `operations.CreateOutputOutputDevnull`
 
 ```typescript
-const value: operations.OutputDevnull = {
+const value: operations.CreateOutputOutputDevnull = {
   id: "<id>",
   type: "devnull",
 };
 ```
 
-### `operations.OutputSyslog`
+### `operations.CreateOutputOutputSyslog`
 
 ```typescript
-const value: operations.OutputSyslog = {
+const value: operations.CreateOutputOutputSyslog = {
   id: "<id>",
   type: "syslog",
 };
 ```
 
-### `operations.OutputSplunk`
+### `operations.CreateOutputOutputSplunk`
 
 ```typescript
-const value: operations.OutputSplunk = {
+const value: operations.CreateOutputOutputSplunk = {
   id: "<id>",
   type: "splunk",
-  host: "shiny-dime.org",
-  port: 4244.22,
+  host: "impartial-airline.name",
+  port: 6049.7,
 };
 ```
 
-### `operations.OutputSplunkLb`
+### `operations.CreateOutputOutputSplunkLb`
 
 ```typescript
-const value: operations.OutputSplunkLb = {
+const value: operations.CreateOutputOutputSplunkLb = {
   id: "<id>",
   type: "splunk_lb",
-  hosts: [
-    {
-      host: "apprehensive-cleaner.info",
-      port: 7777.88,
-    },
-  ],
+  hosts: [],
 };
 ```
 
-### `operations.OutputSplunkHec`
+### `operations.CreateOutputOutputSplunkHec`
 
 ```typescript
-const value: operations.OutputSplunkHec = {
+const value: operations.CreateOutputOutputSplunkHec = {
   id: "<id>",
   type: "splunk_hec",
 };
 ```
 
-### `operations.OutputWizHec`
+### `operations.CreateOutputOutputWizHec`
 
 ```typescript
-const value: operations.OutputWizHec = {
+const value: operations.CreateOutputOutputWizHec = {
   id: "<id>",
   type: "wiz_hec",
   wiz_connector_id: "<id>",
@@ -103,49 +98,49 @@ const value: operations.OutputWizHec = {
 };
 ```
 
-### `operations.OutputTcpjson`
+### `operations.CreateOutputOutputTcpjson`
 
 ```typescript
-const value: operations.OutputTcpjson = {
+const value: operations.CreateOutputOutputTcpjson = {
   id: "<id>",
   type: "tcpjson",
 };
 ```
 
-### `operations.OutputWavefront`
+### `operations.CreateOutputOutputWavefront`
 
 ```typescript
-const value: operations.OutputWavefront = {
+const value: operations.CreateOutputOutputWavefront = {
   id: "<id>",
   type: "wavefront",
-  domain: "immense-descent.org",
+  domain: "wilted-tusk.info",
 };
 ```
 
-### `operations.OutputSignalfx`
+### `operations.CreateOutputOutputSignalfx`
 
 ```typescript
-const value: operations.OutputSignalfx = {
+const value: operations.CreateOutputOutputSignalfx = {
   id: "<id>",
   type: "signalfx",
   realm: "<value>",
 };
 ```
 
-### `operations.OutputFilesystem`
+### `operations.CreateOutputOutputFilesystem`
 
 ```typescript
-const value: operations.OutputFilesystem = {
+const value: operations.CreateOutputOutputFilesystem = {
   id: "<id>",
   type: "filesystem",
   destPath: "<value>",
 };
 ```
 
-### `operations.OutputS3`
+### `operations.CreateOutputOutputS3`
 
 ```typescript
-const value: operations.OutputS3 = {
+const value: operations.CreateOutputOutputS3 = {
   id: "<id>",
   type: "s3",
   bucket: "<value>",
@@ -153,10 +148,10 @@ const value: operations.OutputS3 = {
 };
 ```
 
-### `operations.OutputAzureBlob`
+### `operations.CreateOutputOutputAzureBlob`
 
 ```typescript
-const value: operations.OutputAzureBlob = {
+const value: operations.CreateOutputOutputAzureBlob = {
   id: "<id>",
   type: "azure_blob",
   containerName: "<value>",
@@ -164,38 +159,38 @@ const value: operations.OutputAzureBlob = {
 };
 ```
 
-### `operations.OutputAzureDataExplorer`
+### `operations.CreateOutputOutputAzureDataExplorer`
 
 ```typescript
-const value: operations.OutputAzureDataExplorer = {
+const value: operations.CreateOutputOutputAzureDataExplorer = {
   id: "<id>",
   type: "azure_data_explorer",
-  clusterUrl: "https://mad-lamp.info/",
+  clusterUrl: "https://sinful-grandson.info",
   database: "<value>",
   table: "<value>",
   oauthEndpoint: "https://login.microsoftonline.com",
   tenantId: "<id>",
   clientId: "<id>",
   scope: "<value>",
-  oauthType: "certificate",
-  compress: "gzip",
+  oauthType: "clientSecret",
+  compress: "none",
 };
 ```
 
-### `operations.OutputAzureLogs`
+### `operations.CreateOutputOutputAzureLogs`
 
 ```typescript
-const value: operations.OutputAzureLogs = {
+const value: operations.CreateOutputOutputAzureLogs = {
   id: "<id>",
   type: "azure_logs",
   logType: "<value>",
 };
 ```
 
-### `operations.OutputKinesis`
+### `operations.CreateOutputOutputKinesis`
 
 ```typescript
-const value: operations.OutputKinesis = {
+const value: operations.CreateOutputOutputKinesis = {
   id: "<id>",
   type: "kinesis",
   streamName: "<value>",
@@ -203,44 +198,41 @@ const value: operations.OutputKinesis = {
 };
 ```
 
-### `operations.OutputHoneycomb`
+### `operations.CreateOutputOutputHoneycomb`
 
 ```typescript
-const value: operations.OutputHoneycomb = {
+const value: operations.CreateOutputOutputHoneycomb = {
   id: "<id>",
   type: "honeycomb",
   dataset: "<value>",
 };
 ```
 
-### `operations.OutputAzureEventhub`
+### `operations.CreateOutputOutputAzureEventhub`
 
 ```typescript
-const value: operations.OutputAzureEventhub = {
+const value: operations.CreateOutputOutputAzureEventhub = {
   id: "<id>",
   type: "azure_eventhub",
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  brokers: [],
   topic: "<value>",
 };
 ```
 
-### `operations.OutputGoogleChronicle`
+### `operations.CreateOutputOutputGoogleChronicle`
 
 ```typescript
-const value: operations.OutputGoogleChronicle = {
+const value: operations.CreateOutputOutputGoogleChronicle = {
   id: "<id>",
   type: "google_chronicle",
-  logFormatType: "unstructured",
+  logFormatType: "udm",
 };
 ```
 
-### `operations.OutputGoogleCloudStorage`
+### `operations.CreateOutputOutputGoogleCloudStorage`
 
 ```typescript
-const value: operations.OutputGoogleCloudStorage = {
+const value: operations.CreateOutputOutputGoogleCloudStorage = {
   id: "<id>",
   type: "google_cloud_storage",
   bucket: "<value>",
@@ -250,32 +242,32 @@ const value: operations.OutputGoogleCloudStorage = {
 };
 ```
 
-### `operations.OutputGoogleCloudLogging`
+### `operations.CreateOutputOutputGoogleCloudLogging`
 
 ```typescript
-const value: operations.OutputGoogleCloudLogging = {
+const value: operations.CreateOutputOutputGoogleCloudLogging = {
   id: "<id>",
   type: "google_cloud_logging",
-  logLocationType: "organization",
+  logLocationType: "folder",
   logNameExpression: "<value>",
   logLocationExpression: "<value>",
 };
 ```
 
-### `operations.OutputGooglePubsub`
+### `operations.CreateOutputOutputGooglePubsub`
 
 ```typescript
-const value: operations.OutputGooglePubsub = {
+const value: operations.CreateOutputOutputGooglePubsub = {
   id: "<id>",
   type: "google_pubsub",
   topicName: "<value>",
 };
 ```
 
-### `operations.OutputExabeam`
+### `operations.CreateOutputOutputExabeam`
 
 ```typescript
-const value: operations.OutputExabeam = {
+const value: operations.CreateOutputOutputExabeam = {
   id: "<id>",
   type: "exabeam",
   bucket: "<value>",
@@ -286,85 +278,77 @@ const value: operations.OutputExabeam = {
 };
 ```
 
-### `operations.OutputKafka`
+### `operations.CreateOutputOutputKafka`
 
 ```typescript
-const value: operations.OutputKafka = {
+const value: operations.CreateOutputOutputKafka = {
   id: "<id>",
   type: "kafka",
-  brokers: [
-    "<value 1>",
-  ],
+  brokers: [],
   topic: "<value>",
 };
 ```
 
-### `operations.OutputConfluentCloud`
+### `operations.CreateOutputOutputConfluentCloud`
 
 ```typescript
-const value: operations.OutputConfluentCloud = {
+const value: operations.CreateOutputOutputConfluentCloud = {
   id: "<id>",
   type: "confluent_cloud",
   brokers: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   topic: "<value>",
 };
 ```
 
-### `operations.OutputMsk`
+### `operations.CreateOutputOutputMsk`
 
 ```typescript
-const value: operations.OutputMsk = {
+const value: operations.CreateOutputOutputMsk = {
   id: "<id>",
   type: "msk",
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  brokers: [],
   topic: "<value>",
   awsAuthenticationMethod: "<value>",
   region: "<value>",
 };
 ```
 
-### `operations.OutputElastic`
+### `operations.CreateOutputOutputElastic`
 
 ```typescript
-const value: operations.OutputElastic = {
+const value: operations.CreateOutputOutputElastic = {
   id: "<id>",
   type: "elastic",
   index: "<value>",
 };
 ```
 
-### `operations.OutputElasticCloud`
+### `operations.CreateOutputOutputElasticCloud`
 
 ```typescript
-const value: operations.OutputElasticCloud = {
+const value: operations.CreateOutputOutputElasticCloud = {
   id: "<id>",
   type: "elastic_cloud",
-  url: "https://sweet-analogy.name",
+  url: "https://impractical-courtroom.net/",
   index: "<value>",
 };
 ```
 
-### `operations.OutputNewrelic`
+### `operations.CreateOutputOutputNewrelic`
 
 ```typescript
-const value: operations.OutputNewrelic = {
+const value: operations.CreateOutputOutputNewrelic = {
   id: "<id>",
   type: "newrelic",
 };
 ```
 
-### `operations.OutputNewrelicEvents`
+### `operations.CreateOutputOutputNewrelicEvents`
 
 ```typescript
-const value: operations.OutputNewrelicEvents = {
+const value: operations.CreateOutputOutputNewrelicEvents = {
   id: "<id>",
   type: "newrelic_events",
   accountId: "<id>",
@@ -372,20 +356,20 @@ const value: operations.OutputNewrelicEvents = {
 };
 ```
 
-### `operations.OutputInfluxdb`
+### `operations.CreateOutputOutputInfluxdb`
 
 ```typescript
-const value: operations.OutputInfluxdb = {
+const value: operations.CreateOutputOutputInfluxdb = {
   id: "<id>",
   type: "influxdb",
-  url: "https://noteworthy-sediment.com/",
+  url: "https://inborn-fuel.com/",
 };
 ```
 
-### `operations.OutputCloudwatch`
+### `operations.CreateOutputOutputCloudwatch`
 
 ```typescript
-const value: operations.OutputCloudwatch = {
+const value: operations.CreateOutputOutputCloudwatch = {
   id: "<id>",
   type: "cloudwatch",
   logGroupName: "<value>",
@@ -394,10 +378,10 @@ const value: operations.OutputCloudwatch = {
 };
 ```
 
-### `operations.OutputMinio`
+### `operations.CreateOutputOutputMinio`
 
 ```typescript
-const value: operations.OutputMinio = {
+const value: operations.CreateOutputOutputMinio = {
   id: "<id>",
   type: "minio",
   endpoint: "<value>",
@@ -406,46 +390,46 @@ const value: operations.OutputMinio = {
 };
 ```
 
-### `operations.OutputStatsd`
+### `operations.CreateOutputOutputStatsd`
 
 ```typescript
-const value: operations.OutputStatsd = {
+const value: operations.CreateOutputOutputStatsd = {
   id: "<id>",
   type: "statsd",
-  protocol: "tcp",
-  host: "obvious-vestment.net",
-  port: 3067.34,
+  protocol: "udp",
+  host: "scornful-heartache.biz",
+  port: 2050.73,
 };
 ```
 
-### `operations.OutputStatsdExt`
+### `operations.CreateOutputOutputStatsdExt`
 
 ```typescript
-const value: operations.OutputStatsdExt = {
+const value: operations.CreateOutputOutputStatsdExt = {
   id: "<id>",
   type: "statsd_ext",
   protocol: "udp",
-  host: "majestic-vision.biz",
-  port: 9803.43,
+  host: "pessimistic-charlatan.org",
+  port: 4732.2,
 };
 ```
 
-### `operations.OutputGraphite`
+### `operations.CreateOutputOutputGraphite`
 
 ```typescript
-const value: operations.OutputGraphite = {
+const value: operations.CreateOutputOutputGraphite = {
   id: "<id>",
   type: "graphite",
-  protocol: "udp",
-  host: "boiling-fencing.net",
-  port: 5977.34,
+  protocol: "tcp",
+  host: "fantastic-quinoa.name",
+  port: 2135.91,
 };
 ```
 
-### `operations.OutputRouter`
+### `operations.CreateOutputOutputRouter`
 
 ```typescript
-const value: operations.OutputRouter = {
+const value: operations.CreateOutputOutputRouter = {
   id: "<id>",
   type: "router",
   rules: [
@@ -457,10 +441,10 @@ const value: operations.OutputRouter = {
 };
 ```
 
-### `operations.OutputSns`
+### `operations.CreateOutputOutputSns`
 
 ```typescript
-const value: operations.OutputSns = {
+const value: operations.CreateOutputOutputSns = {
   id: "<id>",
   type: "sns",
   topicArn: "<value>",
@@ -468,175 +452,170 @@ const value: operations.OutputSns = {
 };
 ```
 
-### `operations.OutputSqs`
+### `operations.CreateOutputOutputSqs`
 
 ```typescript
-const value: operations.OutputSqs = {
+const value: operations.CreateOutputOutputSqs = {
   id: "<id>",
   type: "sqs",
   queueName: "<value>",
-  queueType: "standard",
+  queueType: "fifo",
 };
 ```
 
-### `operations.OutputSnmp`
+### `operations.CreateOutputOutputSnmp`
 
 ```typescript
-const value: operations.OutputSnmp = {
+const value: operations.CreateOutputOutputSnmp = {
   id: "<id>",
   type: "snmp",
-  hosts: [
-    {
-      host: "cool-earth.com",
-      port: 2969.25,
-    },
-  ],
+  hosts: [],
 };
 ```
 
-### `operations.OutputSumoLogic`
+### `operations.CreateOutputOutputSumoLogic`
 
 ```typescript
-const value: operations.OutputSumoLogic = {
+const value: operations.CreateOutputOutputSumoLogic = {
   id: "<id>",
   type: "sumo_logic",
-  url: "https://expensive-disconnection.name/",
+  url: "https://querulous-vol.name",
 };
 ```
 
-### `operations.OutputDatadog`
+### `operations.CreateOutputOutputDatadog`
 
 ```typescript
-const value: operations.OutputDatadog = {
+const value: operations.CreateOutputOutputDatadog = {
   id: "<id>",
   type: "datadog",
 };
 ```
 
-### `operations.OutputGrafanaCloud`
+### `operations.CreateOutputOutputGrafanaCloudUnion`
 
 ```typescript
-const value: operations.OutputGrafanaCloud = {
+const value: operations.CreateOutputOutputGrafanaCloudUnion = {
   id: "<id>",
   type: "grafana_cloud",
-  lokiUrl: "https://noted-jacket.net/",
+  prometheusUrl: "https://silver-granny.biz/",
 };
 ```
 
-### `operations.OutputLoki`
+### `operations.CreateOutputOutputLoki`
 
 ```typescript
-const value: operations.OutputLoki = {
+const value: operations.CreateOutputOutputLoki = {
   id: "<id>",
   type: "loki",
-  url: "https://deficient-t-shirt.org/",
+  url: "https://outstanding-feather.net/",
 };
 ```
 
-### `operations.OutputPrometheus`
+### `operations.CreateOutputOutputPrometheus`
 
 ```typescript
-const value: operations.OutputPrometheus = {
+const value: operations.CreateOutputOutputPrometheus = {
   id: "<id>",
   type: "prometheus",
-  url: "https://eminent-colon.name",
+  url: "https://silent-ravioli.org",
 };
 ```
 
-### `operations.OutputRing`
+### `operations.CreateOutputOutputRing`
 
 ```typescript
-const value: operations.OutputRing = {
+const value: operations.CreateOutputOutputRing = {
   id: "<id>",
   type: "ring",
 };
 ```
 
-### `operations.OutputOpenTelemetry`
+### `operations.CreateOutputOutputOpenTelemetry`
 
 ```typescript
-const value: operations.OutputOpenTelemetry = {
+const value: operations.CreateOutputOutputOpenTelemetry = {
   id: "<id>",
   type: "open_telemetry",
   endpoint: "<value>",
 };
 ```
 
-### `operations.OutputServiceNow`
+### `operations.CreateOutputOutputServiceNow`
 
 ```typescript
-const value: operations.OutputServiceNow = {
+const value: operations.CreateOutputOutputServiceNow = {
   id: "<id>",
   type: "service_now",
   endpoint: "<value>",
   tokenSecret: "<value>",
   otlpVersion: "1.3.1",
-  protocol: "http",
+  protocol: "grpc",
 };
 ```
 
-### `operations.OutputDataset`
+### `operations.CreateOutputOutputDataset`
 
 ```typescript
-const value: operations.OutputDataset = {
+const value: operations.CreateOutputOutputDataset = {
   id: "<id>",
   type: "dataset",
 };
 ```
 
-### `operations.OutputCriblTcp`
+### `operations.CreateOutputOutputCriblTcp`
 
 ```typescript
-const value: operations.OutputCriblTcp = {
+const value: operations.CreateOutputOutputCriblTcp = {
   id: "<id>",
   type: "cribl_tcp",
 };
 ```
 
-### `operations.OutputCriblHttp`
+### `operations.CreateOutputOutputCriblHttp`
 
 ```typescript
-const value: operations.OutputCriblHttp = {
+const value: operations.CreateOutputOutputCriblHttp = {
   id: "<id>",
   type: "cribl_http",
 };
 ```
 
-### `operations.OutputCriblSearchEngine`
+### `operations.CreateOutputOutputCriblSearchEngine`
 
 ```typescript
-const value: operations.OutputCriblSearchEngine = {
+const value: operations.CreateOutputOutputCriblSearchEngine = {
   id: "<id>",
   type: "cribl_search_engine",
 };
 ```
 
-### `operations.OutputHumioHec`
+### `operations.CreateOutputOutputHumioHec`
 
 ```typescript
-const value: operations.OutputHumioHec = {
+const value: operations.CreateOutputOutputHumioHec = {
   id: "<id>",
   type: "humio_hec",
-  url: "https://potable-pilot.org",
+  url: "https://standard-tenant.net/",
   format: "raw",
 };
 ```
 
-### `operations.OutputCrowdstrikeNextGenSiem`
+### `operations.CreateOutputOutputCrowdstrikeNextGenSiem`
 
 ```typescript
-const value: operations.OutputCrowdstrikeNextGenSiem = {
+const value: operations.CreateOutputOutputCrowdstrikeNextGenSiem = {
   id: "<id>",
   type: "crowdstrike_next_gen_siem",
-  url: "https://prickly-promise.org/",
+  url: "https://windy-catalyst.info/",
   format: "raw",
 };
 ```
 
-### `operations.OutputDlS3`
+### `operations.CreateOutputOutputDlS3`
 
 ```typescript
-const value: operations.OutputDlS3 = {
+const value: operations.CreateOutputOutputDlS3 = {
   id: "<id>",
   type: "dl_s3",
   bucket: "<value>",
@@ -644,10 +623,10 @@ const value: operations.OutputDlS3 = {
 };
 ```
 
-### `operations.OutputSecurityLake`
+### `operations.CreateOutputOutputSecurityLake`
 
 ```typescript
-const value: operations.OutputSecurityLake = {
+const value: operations.CreateOutputOutputSecurityLake = {
   id: "<id>",
   type: "security_lake",
   bucket: "<value>",
@@ -659,76 +638,88 @@ const value: operations.OutputSecurityLake = {
 };
 ```
 
-### `operations.OutputCriblLake`
+### `operations.CreateOutputOutputCriblLake`
 
 ```typescript
-const value: operations.OutputCriblLake = {
+const value: operations.CreateOutputOutputCriblLake = {
   id: "<id>",
   type: "cribl_lake",
 };
 ```
 
-### `operations.OutputDiskSpool`
+### `operations.CreateOutputOutputDiskSpool`
 
 ```typescript
-const value: operations.OutputDiskSpool = {
+const value: operations.CreateOutputOutputDiskSpool = {
   id: "<id>",
   type: "disk_spool",
 };
 ```
 
-### `operations.OutputClickHouse`
+### `operations.CreateOutputOutputClickHouse`
 
 ```typescript
-const value: operations.OutputClickHouse = {
+const value: operations.CreateOutputOutputClickHouse = {
   id: "<id>",
   type: "click_house",
-  url: "https://authentic-abacus.info",
+  url: "https://everlasting-hierarchy.net",
   database: "<value>",
   tableName: "<value>",
 };
 ```
 
-### `operations.OutputXsiam`
+### `operations.CreateOutputOutputLocalSearchStorage`
 
 ```typescript
-const value: operations.OutputXsiam = {
+const value: operations.CreateOutputOutputLocalSearchStorage = {
+  id: "<id>",
+  type: "local_search_storage",
+  url: "https://gloomy-march.biz",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputXsiam`
+
+```typescript
+const value: operations.CreateOutputOutputXsiam = {
   id: "<id>",
   type: "xsiam",
 };
 ```
 
-### `operations.OutputNetflow`
+### `operations.CreateOutputOutputNetflow`
 
 ```typescript
-const value: operations.OutputNetflow = {
+const value: operations.CreateOutputOutputNetflow = {
   id: "<id>",
   type: "netflow",
   hosts: [
     {
-      host: "taut-provider.org",
-      port: 130.89,
+      host: "creative-plumber.com",
+      port: 9037.53,
     },
   ],
 };
 ```
 
-### `operations.OutputDynatraceHttp`
+### `operations.CreateOutputOutputDynatraceHttp`
 
 ```typescript
-const value: operations.OutputDynatraceHttp = {
+const value: operations.CreateOutputOutputDynatraceHttp = {
   id: "<id>",
   type: "dynatrace_http",
-  format: "plaintext",
-  endpoint: "manual",
-  telemetryType: "logs",
+  format: "json_array",
+  endpoint: "cloud",
+  telemetryType: "metrics",
 };
 ```
 
-### `operations.OutputDynatraceOtlp`
+### `operations.CreateOutputOutputDynatraceOtlp`
 
 ```typescript
-const value: operations.OutputDynatraceOtlp = {
+const value: operations.CreateOutputOutputDynatraceOtlp = {
   id: "<id>",
   type: "dynatrace_otlp",
   protocol: "http",
@@ -739,21 +730,21 @@ const value: operations.OutputDynatraceOtlp = {
 };
 ```
 
-### `operations.OutputSentinelOneAiSiem`
+### `operations.CreateOutputOutputSentinelOneAiSiem`
 
 ```typescript
-const value: operations.OutputSentinelOneAiSiem = {
+const value: operations.CreateOutputOutputSentinelOneAiSiem = {
   id: "<id>",
   type: "sentinel_one_ai_siem",
-  region: "Custom",
-  endpoint: "/services/collector/raw",
+  region: "CA",
+  endpoint: "/services/collector/event",
 };
 ```
 
-### `operations.OutputChronicle`
+### `operations.CreateOutputOutputChronicle`
 
 ```typescript
-const value: operations.OutputChronicle = {
+const value: operations.CreateOutputOutputChronicle = {
   id: "<id>",
   type: "chronicle",
   region: "<value>",
@@ -763,10 +754,10 @@ const value: operations.OutputChronicle = {
 };
 ```
 
-### `operations.OutputDatabricks`
+### `operations.CreateOutputOutputDatabricks`
 
 ```typescript
-const value: operations.OutputDatabricks = {
+const value: operations.CreateOutputOutputDatabricks = {
   id: "<id>",
   type: "databricks",
   workspaceId: "<id>",
@@ -779,10 +770,10 @@ const value: operations.OutputDatabricks = {
 };
 ```
 
-### `operations.OutputMicrosoftFabric`
+### `operations.CreateOutputOutputMicrosoftFabric`
 
 ```typescript
-const value: operations.OutputMicrosoftFabric = {
+const value: operations.CreateOutputOutputMicrosoftFabric = {
   id: "<id>",
   type: "microsoft_fabric",
   topic: "<value>",
@@ -790,10 +781,10 @@ const value: operations.OutputMicrosoftFabric = {
 };
 ```
 
-### `operations.OutputCloudflareR2`
+### `operations.CreateOutputOutputCloudflareR2`
 
 ```typescript
-const value: operations.OutputCloudflareR2 = {
+const value: operations.CreateOutputOutputCloudflareR2 = {
   id: "<id>",
   type: "cloudflare_r2",
   endpoint: "<value>",

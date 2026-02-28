@@ -6,85 +6,10 @@ Actions related to Routes
 
 ### Available Operations
 
-* [list](#list) - List all Routes
 * [get](#get) - Get a Routing table
 * [update](#update) - Update a Route
+* [list](#list) - List all Routes
 * [append](#append) - Add a Route to the end of the Routing table
-
-## list
-
-Get a list of all Routes.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="listRoutes" method="get" path="/routes" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.routes.list();
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { routesList } from "cribl-control-plane/funcs/routesList.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await routesList(criblControlPlane);
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("routesList failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## get
 
@@ -190,12 +115,12 @@ async function run() {
       id: "default",
       routes: [
         {
+          description: "Route access logs to main pipeline",
+          filter: "source == \"access.log\"",
+          final: true,
           id: "default",
           name: "my-route",
-          filter: "source == \"access.log\"",
           pipeline: "main",
-          description: "Route access logs to main pipeline",
-          final: true,
         },
       ],
     },
@@ -231,12 +156,12 @@ async function run() {
       id: "default",
       routes: [
         {
+          description: "Route access logs to main pipeline",
+          filter: "source == \"access.log\"",
+          final: true,
           id: "default",
           name: "my-route",
-          filter: "source == \"access.log\"",
           pipeline: "main",
-          description: "Route access logs to main pipeline",
-          final: true,
         },
       ],
     },
@@ -271,40 +196,40 @@ async function run() {
       id: "default",
       routes: [
         {
+          description: "Route speedtest logs",
+          filter: "source == \"speedtest.log\"",
+          final: false,
           id: "route-speedtest",
           name: "speedtest",
-          filter: "source == \"speedtest.log\"",
-          pipeline: "main",
           output: "default",
-          description: "Route speedtest logs",
-          final: false,
+          pipeline: "main",
         },
         {
+          description: "Route mtr logs",
+          filter: "source == \"mtr.log\"",
+          final: false,
           id: "route-mtr",
           name: "mtr",
-          filter: "source == \"mtr.log\"",
-          pipeline: "passthru",
           output: "default",
-          description: "Route mtr logs",
-          final: false,
+          pipeline: "passthru",
         },
         {
+          description: "Route statsd metrics",
+          filter: "source == \"statsd.log\"",
+          final: false,
           id: "route-statsd",
           name: "statsd",
-          filter: "source == \"statsd.log\"",
-          pipeline: "prometheus_metrics",
           output: "devnull",
-          description: "Route statsd metrics",
-          final: false,
+          pipeline: "prometheus_metrics",
         },
         {
+          description: "Catch-all Route for all other events",
+          filter: "true",
+          final: true,
           id: "route-default",
           name: "default",
-          filter: "true",
-          pipeline: "main",
           output: "default",
-          description: "Catch-all Route for all other events",
-          final: true,
+          pipeline: "main",
         },
       ],
     },
@@ -340,40 +265,40 @@ async function run() {
       id: "default",
       routes: [
         {
+          description: "Route speedtest logs",
+          filter: "source == \"speedtest.log\"",
+          final: false,
           id: "route-speedtest",
           name: "speedtest",
-          filter: "source == \"speedtest.log\"",
-          pipeline: "main",
           output: "default",
-          description: "Route speedtest logs",
-          final: false,
+          pipeline: "main",
         },
         {
+          description: "Route mtr logs",
+          filter: "source == \"mtr.log\"",
+          final: false,
           id: "route-mtr",
           name: "mtr",
-          filter: "source == \"mtr.log\"",
-          pipeline: "passthru",
           output: "default",
-          description: "Route mtr logs",
-          final: false,
+          pipeline: "passthru",
         },
         {
+          description: "Route statsd metrics",
+          filter: "source == \"statsd.log\"",
+          final: false,
           id: "route-statsd",
           name: "statsd",
-          filter: "source == \"statsd.log\"",
-          pipeline: "prometheus_metrics",
           output: "devnull",
-          description: "Route statsd metrics",
-          final: false,
+          pipeline: "prometheus_metrics",
         },
         {
+          description: "Catch-all Route for all other events",
+          filter: "true",
+          final: true,
           id: "route-default",
           name: "default",
-          filter: "true",
-          pipeline: "main",
           output: "default",
-          description: "Catch-all Route for all other events",
-          final: true,
+          pipeline: "main",
         },
       ],
     },
@@ -408,14 +333,14 @@ async function run() {
       id: "default",
       routes: [
         {
+          description: "Route with dynamic Destination based on environment",
+          enableOutputExpression: true,
+          filter: "source == \"dynamic.log\"",
+          final: true,
           id: "route-dynamic",
           name: "dynamic-output",
-          filter: "source == \"dynamic.log\"",
-          pipeline: "main",
-          enableOutputExpression: true,
           outputExpression: "`myDest_${C.logStreamEnv}`",
-          description: "Route with dynamic Destination based on environment",
-          final: true,
+          pipeline: "main",
         },
       ],
     },
@@ -451,14 +376,14 @@ async function run() {
       id: "default",
       routes: [
         {
+          description: "Route with dynamic Destination based on environment",
+          enableOutputExpression: true,
+          filter: "source == \"dynamic.log\"",
+          final: true,
           id: "route-dynamic",
           name: "dynamic-output",
-          filter: "source == \"dynamic.log\"",
-          pipeline: "main",
-          enableOutputExpression: true,
           outputExpression: "`myDest_${C.logStreamEnv}`",
-          description: "Route with dynamic Destination based on environment",
-          final: true,
+          pipeline: "main",
         },
       ],
     },
@@ -479,6 +404,81 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.UpdateRoutesByIdRequest](../../models/operations/updateroutesbyidrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
+
+## list
+
+Get a list of all Routes.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getRoutes" method="get" path="/routes" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.list();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesList } from "cribl-control-plane/funcs/routesList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesList(criblControlPlane);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesList failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
