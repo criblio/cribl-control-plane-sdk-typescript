@@ -5,39 +5,31 @@
 import * as z from "zod/v3";
 import * as models from "../index.js";
 
-export type GetOutputSystemByPackRequest = {
+export type ListOutputRequest = {
   /**
    * Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
    */
   type?: models.DestinationType | undefined;
-  /**
-   * The <code>id</code> of the Pack to list.
-   */
-  pack: string;
 };
 
 /** @internal */
-export type GetOutputSystemByPackRequest$Outbound = {
+export type ListOutputRequest$Outbound = {
   type?: string | undefined;
-  pack: string;
 };
 
 /** @internal */
-export const GetOutputSystemByPackRequest$outboundSchema: z.ZodType<
-  GetOutputSystemByPackRequest$Outbound,
+export const ListOutputRequest$outboundSchema: z.ZodType<
+  ListOutputRequest$Outbound,
   z.ZodTypeDef,
-  GetOutputSystemByPackRequest
+  ListOutputRequest
 > = z.object({
   type: models.DestinationType$outboundSchema.optional(),
-  pack: z.string(),
 });
 
-export function getOutputSystemByPackRequestToJSON(
-  getOutputSystemByPackRequest: GetOutputSystemByPackRequest,
+export function listOutputRequestToJSON(
+  listOutputRequest: ListOutputRequest,
 ): string {
   return JSON.stringify(
-    GetOutputSystemByPackRequest$outboundSchema.parse(
-      getOutputSystemByPackRequest,
-    ),
+    ListOutputRequest$outboundSchema.parse(listOutputRequest),
   );
 }

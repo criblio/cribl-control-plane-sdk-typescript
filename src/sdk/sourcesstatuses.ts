@@ -31,7 +31,7 @@ export class SourcesStatuses extends ClientSDK {
    * List the status of all Sources
    *
    * @remarks
-   * Get a list of status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet.
+   * List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet.
    */
   async list(
     request?: operations.GetInputStatusRequest | undefined,

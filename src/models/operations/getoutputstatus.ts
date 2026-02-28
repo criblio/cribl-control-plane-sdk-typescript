@@ -6,7 +6,7 @@ import * as z from "zod/v3";
 
 export type GetOutputStatusRequest = {
   /**
-   * Set to true <code>true</code> to include metrics for each Destination. Otherwise, <code>false</code> (default).
+   * Set to <code>true</code> to include metrics for each Destination. Otherwise, <code>false</code> (default).
    */
   metrics?: boolean | undefined;
   /**
