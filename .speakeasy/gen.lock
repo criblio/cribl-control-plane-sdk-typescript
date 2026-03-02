@@ -3,23 +3,23 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: dc2c09d09a325d19bb9fd1aa5df3d70c
   docVersion: 4.17.0-alpha.1772253819150-d3f36156
-  speakeasyVersion: 1.733.3
-  generationVersion: 2.845.11
-  releaseVersion: 0.6.0-alpha.28
-  configChecksum: ba5c1f592a581d69e72ece0de54e43b7
+  speakeasyVersion: 1.736.3
+  generationVersion: 2.845.15
+  releaseVersion: 0.6.0-alpha.29
+  configChecksum: af8576de2eef5d697ebdbd50832607ad
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 74a1244b-5ddf-43ff-b88f-209e9443644b
-  pristine_commit_hash: 2a426d8e4d2a0659fa14e7c2a125bb739caabef0
-  pristine_tree_hash: d2b8189af962b11fc03718e61d76cc3978b6d539
+  generation_id: 8c0e3a7d-8578-44d8-9cd4-9d3c0b4dc35e
+  pristine_commit_hash: f3219418a02ca6d6e701afd3f6795ad18f995671
+  pristine_tree_hash: e51ad8d3c001dfbef58cd72d32935f8b4853e932
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.14
-    core: 3.26.37
+    core: 3.26.38
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -12662,12 +12662,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:aa0ed2b66ca130252f3f235416a78dbcf4d7d9f6
-    pristine_git_object: 207c4da38190d22294132c901b54b432722904c4
+    last_write_checksum: sha1:090555d8a07bd80fe8859809cdd12b4cac7cda9c
+    pristine_git_object: 8002a49e0c69ce0b7ce19ad0579015ff49131499
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:42893fe745f1443172caf788a5e4588f0bd9325c
-    pristine_git_object: e54b29a27cda4f74c2b9ab386df778034a70a19b
+    last_write_checksum: sha1:af231d2452df1901eeffd11a165cb2fdd5103346
+    pristine_git_object: 7f7b12543c198db4e252f79ea061c9fb971b91d4
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13166,8 +13166,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:33333be9c94eb2622834872f2a64592e3dd13dec
-    pristine_git_object: 853afb1aa48a4f8ccbcb64e7695062d86d3b6d03
+    last_write_checksum: sha1:504c8231995fb5cd62053c576032fbf1ae320407
+    pristine_git_object: 0c55b64bd415a31d4dafc4dd1d27b82319b50c0f
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
