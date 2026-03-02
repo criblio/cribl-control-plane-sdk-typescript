@@ -6,14 +6,7 @@ import * as models from "../models/index.js";
 import { HTTPClient } from "./http.js";
 import { Logger } from "./logger.js";
 import { RetryConfig } from "./retries.js";
-import { Params, pathToFunc } from "./url.js";
-
-/**
- * Contains the list of servers available to the SDK
- */
-export const ServerList = [
-  "/",
-] as const;
+import { pathToFunc } from "./url.js";
 
 export type SDKOptions = {
   /**
@@ -22,10 +15,6 @@ export type SDKOptions = {
   security?: models.Security | (() => Promise<models.Security>) | undefined;
 
   httpClient?: HTTPClient;
-  /**
-   * Allows overriding the default server used by the SDK
-   */
-  serverIdx?: number | undefined;
   /**
    * Specifies the server URL to be used by the SDK
    */
@@ -43,17 +32,13 @@ export type SDKOptions = {
 };
 
 export function serverURLFromOptions(options: SDKOptions): URL | null {
-  let serverURL = options.serverURL;
-
-  const params: Params = {};
+  const serverURL = options.serverURL;
 
   if (!serverURL) {
-    const serverIdx = options.serverIdx ?? 0;
-    if (serverIdx < 0 || serverIdx >= ServerList.length) {
-      throw new Error(`Invalid server index ${serverIdx}`);
-    }
-    serverURL = ServerList[serverIdx] || "";
+    return null;
   }
+
+  const params: Record<string, string | undefined> = {};
 
   const u = pathToFunc(serverURL)(params);
   return new URL(u);
@@ -62,8 +47,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "4.17.0-alpha.1772242696685-566cc787",
-  sdkVersion: "0.6.0-beta.53",
-  genVersion: "2.845.11",
+  sdkVersion: "0.6.0-beta.54",
+  genVersion: "2.845.15",
   userAgent:
-    "speakeasy-sdk/typescript 0.6.0-beta.53 2.845.11 4.17.0-alpha.1772242696685-566cc787 cribl-control-plane",
+    "speakeasy-sdk/typescript 0.6.0-beta.54 2.845.15 4.17.0-alpha.1772242696685-566cc787 cribl-control-plane",
 } as const;
