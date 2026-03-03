@@ -91,9 +91,9 @@ run();
 
 Send sample event data to the specified Destination to validate the configuration or test connectivity.
 
-### Example Usage
+### Example Usage: OutputTestExamplesMultipleEvents
 
-<!-- UsageSnippet language="typescript" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" -->
+<!-- UsageSnippet language="typescript" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestExamplesMultipleEvents" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -110,7 +110,14 @@ async function run() {
     outputTestRequest: {
       events: [
         {
-          "_raw": "<value>",
+          "_raw": "Test event 1",
+          "source": "test",
+          "sourcetype": "manual",
+        },
+        {
+          "_raw": "Test event 2",
+          "source": "test",
+          "sourcetype": "manual",
         },
       ],
     },
@@ -145,7 +152,87 @@ async function run() {
     outputTestRequest: {
       events: [
         {
-          "_raw": "<value>",
+          "_raw": "Test event 1",
+          "source": "test",
+          "sourcetype": "manual",
+        },
+        {
+          "_raw": "Test event 2",
+          "source": "test",
+          "sourcetype": "manual",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsSamplesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputTestExamplesSingleEvent
+
+<!-- UsageSnippet language="typescript" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestExamplesSingleEvent" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.samples.create({
+    id: "<id>",
+    outputTestRequest: {
+      events: [
+        {
+          "_raw": "This is a test event",
+          "source": "test",
+          "sourcetype": "manual",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsSamplesCreate } from "cribl-control-plane/funcs/destinationsSamplesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsSamplesCreate(criblControlPlane, {
+    id: "<id>",
+    outputTestRequest: {
+      events: [
+        {
+          "_raw": "This is a test event",
+          "source": "test",
+          "sourcetype": "manual",
         },
       ],
     },

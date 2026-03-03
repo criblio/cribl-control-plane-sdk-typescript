@@ -12,11 +12,11 @@ import {
   AcknowledgmentsOptions$outboundSchema,
 } from "./acknowledgmentsoptions.js";
 import {
-  AuthenticationType1,
-  AuthenticationType1$inboundSchema,
-  AuthenticationType1$Outbound,
-  AuthenticationType1$outboundSchema,
-} from "./authenticationtype1.js";
+  AuthenticationTypeUse,
+  AuthenticationTypeUse$inboundSchema,
+  AuthenticationTypeUse$Outbound,
+  AuthenticationTypeUse$outboundSchema,
+} from "./authenticationtypeuse.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -137,7 +137,7 @@ export type OutputAzureEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: AuthenticationType1 | undefined;
+  sasl?: AuthenticationTypeUse | undefined;
   tls?: TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
@@ -253,7 +253,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   backoffRate: types.optional(types.number()),
   authenticationTimeout: types.optional(types.number()),
   reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationType1$inboundSchema),
+  sasl: types.optional(AuthenticationTypeUse$inboundSchema),
   tls: types.optional(TlsSettingsClientSideType$inboundSchema),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
@@ -295,7 +295,7 @@ export type OutputAzureEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationType1$Outbound | undefined;
+  sasl?: AuthenticationTypeUse$Outbound | undefined;
   tls?: TlsSettingsClientSideType$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
@@ -340,7 +340,7 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationType1$outboundSchema.optional(),
+  sasl: AuthenticationTypeUse$outboundSchema.optional(),
   tls: TlsSettingsClientSideType$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),

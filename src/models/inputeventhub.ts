@@ -7,11 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationType1,
-  AuthenticationType1$inboundSchema,
-  AuthenticationType1$Outbound,
-  AuthenticationType1$outboundSchema,
-} from "./authenticationtype1.js";
+  AuthenticationTypeUse,
+  AuthenticationTypeUse$inboundSchema,
+  AuthenticationTypeUse$Outbound,
+  AuthenticationTypeUse$outboundSchema,
+} from "./authenticationtypeuse.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -121,7 +121,7 @@ export type InputEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: AuthenticationType1 | undefined;
+  sasl?: AuthenticationTypeUse | undefined;
   tls?: TlsSettingsClientSideType | undefined;
   /**
    *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
@@ -209,7 +209,7 @@ export const InputEventhub$inboundSchema: z.ZodType<
   backoffRate: types.optional(types.number()),
   authenticationTimeout: types.optional(types.number()),
   reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationType1$inboundSchema),
+  sasl: types.optional(AuthenticationTypeUse$inboundSchema),
   tls: types.optional(TlsSettingsClientSideType$inboundSchema),
   sessionTimeout: types.optional(types.number()),
   rebalanceTimeout: types.optional(types.number()),
@@ -247,7 +247,7 @@ export type InputEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationType1$Outbound | undefined;
+  sasl?: AuthenticationTypeUse$Outbound | undefined;
   tls?: TlsSettingsClientSideType$Outbound | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
@@ -290,7 +290,7 @@ export const InputEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationType1$outboundSchema.optional(),
+  sasl: AuthenticationTypeUse$outboundSchema.optional(),
   tls: TlsSettingsClientSideType$outboundSchema.optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),

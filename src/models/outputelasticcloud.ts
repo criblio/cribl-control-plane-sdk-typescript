@@ -7,11 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthType,
-  AuthType$inboundSchema,
-  AuthType$Outbound,
-  AuthType$outboundSchema,
-} from "./authtype.js";
+  AuthTypeAuthTypeCredentialsSecret,
+  AuthTypeAuthTypeCredentialsSecret$inboundSchema,
+  AuthTypeAuthTypeCredentialsSecret$Outbound,
+  AuthTypeAuthTypeCredentialsSecret$outboundSchema,
+} from "./authtypeauthtypecredentialssecret.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -143,7 +143,7 @@ export type OutputElasticCloud = {
    * Extra parameters to use in HTTP requests
    */
   extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: AuthType | undefined;
+  auth?: AuthTypeAuthTypeCredentialsSecret | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
    */
@@ -275,7 +275,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   extraParams: types.optional(
     z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
   ),
-  auth: types.optional(AuthType$inboundSchema),
+  auth: types.optional(AuthTypeAuthTypeCredentialsSecret$inboundSchema),
   elasticPipeline: types.optional(types.string()),
   includeDocId: types.optional(types.boolean()),
   responseRetrySettings: types.optional(
@@ -320,7 +320,7 @@ export type OutputElasticCloud$Outbound = {
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   extraParams?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: AuthType$Outbound | undefined;
+  auth?: AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
   responseRetrySettings?:
@@ -370,7 +370,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
-  auth: AuthType$outboundSchema.optional(),
+  auth: AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)

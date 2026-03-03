@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationTypeOptions1,
-  AuthenticationTypeOptions1$inboundSchema,
-  AuthenticationTypeOptions1$outboundSchema,
-} from "./authenticationtypeoptions1.js";
+  AuthenticationTypeOptionsBasicCredentialsSecret,
+  AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
+  AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema,
+} from "./authenticationtypeoptionsbasiccredentialssecret.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -58,11 +58,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideType1,
-  TlsSettingsClientSideType1$inboundSchema,
-  TlsSettingsClientSideType1$Outbound,
-  TlsSettingsClientSideType1$outboundSchema,
-} from "./tlssettingsclientsidetype1.js";
+  TlsSettingsClientSideTypeCaPathCertPathExtended,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpathextended.js";
 
 /**
  * Data format to use when sending data. Defaults to JSON Compact.
@@ -157,7 +157,7 @@ export type OutputLocalSearchStorage = {
    * URL of the database instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: AuthenticationTypeOptions1 | undefined;
+  authType?: AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
   database: string;
   /**
    * Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -175,7 +175,7 @@ export type OutputLocalSearchStorage = {
    * Collect data into batches for later processing. Disable to write to a table immediately.
    */
   asyncInserts?: boolean | undefined;
-  tls?: TlsSettingsClientSideType1 | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -501,7 +501,9 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   url: types.string(),
-  authType: types.optional(AuthenticationTypeOptions1$inboundSchema),
+  authType: types.optional(
+    AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
+  ),
   database: types.string(),
   tableName: types.string(),
   format: types.optional(OutputLocalSearchStorageFormat$inboundSchema),
@@ -509,7 +511,9 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
     OutputLocalSearchStorageMappingType$inboundSchema,
   ),
   asyncInserts: types.optional(types.boolean()),
-  tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  ),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
@@ -578,7 +582,7 @@ export type OutputLocalSearchStorage$Outbound = {
   format?: string | undefined;
   mappingType?: string | undefined;
   asyncInserts?: boolean | undefined;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -638,13 +642,15 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: AuthenticationTypeOptions1$outboundSchema.optional(),
+  authType: AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema
+    .optional(),
   database: z.string(),
   tableName: z.string(),
   format: OutputLocalSearchStorageFormat$outboundSchema.optional(),
   mappingType: OutputLocalSearchStorageMappingType$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
-  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),

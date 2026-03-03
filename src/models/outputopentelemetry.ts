@@ -19,15 +19,15 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions4,
-  CompressionOptions4$inboundSchema,
-  CompressionOptions4$outboundSchema,
-} from "./compressionoptions4.js";
+  CompressionOptionsDeflateGzip,
+  CompressionOptionsDeflateGzip$inboundSchema,
+  CompressionOptionsDeflateGzip$outboundSchema,
+} from "./compressionoptionsdeflategzip.js";
 import {
-  CompressionOptions5,
-  CompressionOptions5$inboundSchema,
-  CompressionOptions5$outboundSchema,
-} from "./compressionoptions5.js";
+  CompressionOptionsMessages,
+  CompressionOptionsMessages$inboundSchema,
+  CompressionOptionsMessages$outboundSchema,
+} from "./compressionoptionsmessages.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -79,11 +79,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideType2,
-  TlsSettingsClientSideType2$inboundSchema,
-  TlsSettingsClientSideType2$Outbound,
-  TlsSettingsClientSideType2$outboundSchema,
-} from "./tlssettingsclientsidetype2.js";
+  TlsSettingsClientSideTypeExtended,
+  TlsSettingsClientSideTypeExtended$inboundSchema,
+  TlsSettingsClientSideTypeExtended$Outbound,
+  TlsSettingsClientSideTypeExtended$outboundSchema,
+} from "./tlssettingsclientsidetypeextended.js";
 
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
@@ -144,11 +144,11 @@ export type OutputOpenTelemetry = {
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: CompressionOptions4 | undefined;
+  compress?: CompressionOptionsDeflateGzip | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: CompressionOptions5 | undefined;
+  httpCompress?: CompressionOptionsMessages | undefined;
   /**
    * OpenTelemetry authentication type
    */
@@ -249,7 +249,7 @@ export type OutputOpenTelemetry = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: TlsSettingsClientSideType2 | undefined;
+  tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -356,8 +356,8 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   protocol: types.optional(ProtocolOptions$inboundSchema),
   endpoint: types.string(),
   otlpVersion: types.optional(OutputOpenTelemetryOTLPVersion$inboundSchema),
-  compress: types.optional(CompressionOptions4$inboundSchema),
-  httpCompress: types.optional(CompressionOptions5$inboundSchema),
+  compress: types.optional(CompressionOptionsDeflateGzip$inboundSchema),
+  httpCompress: types.optional(CompressionOptionsMessages$inboundSchema),
   authType: types.optional(AuthenticationTypeOptions$inboundSchema),
   httpTracesEndpointOverride: types.optional(types.string()),
   httpMetricsEndpointOverride: types.optional(types.string()),
@@ -391,7 +391,7 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  tls: types.optional(TlsSettingsClientSideType2$inboundSchema),
+  tls: types.optional(TlsSettingsClientSideTypeExtended$inboundSchema),
   pqStrictOrdering: types.optional(types.boolean()),
   pqRatePerSec: types.optional(types.number()),
   pqMode: types.optional(ModeOptions$inboundSchema),
@@ -448,7 +448,7 @@ export type OutputOpenTelemetry$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: TlsSettingsClientSideType2$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeExtended$Outbound | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -477,8 +477,8 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   protocol: ProtocolOptions$outboundSchema.optional(),
   endpoint: z.string(),
   otlpVersion: OutputOpenTelemetryOTLPVersion$outboundSchema.optional(),
-  compress: CompressionOptions4$outboundSchema.optional(),
-  httpCompress: CompressionOptions5$outboundSchema.optional(),
+  compress: CompressionOptionsDeflateGzip$outboundSchema.optional(),
+  httpCompress: CompressionOptionsMessages$outboundSchema.optional(),
   authType: AuthenticationTypeOptions$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
@@ -509,7 +509,7 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  tls: TlsSettingsClientSideType2$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: ModeOptions$outboundSchema.optional(),

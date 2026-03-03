@@ -7,20 +7,20 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CompressionLevelOptions,
   CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$inboundSchema,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
   DataFormatOptions$inboundSchema,
@@ -65,15 +65,15 @@ import {
   ServerSideEncryptionOptions$outboundSchema,
 } from "./serversideencryptionoptions.js";
 import {
-  SignatureVersionOptions5,
-  SignatureVersionOptions5$inboundSchema,
-  SignatureVersionOptions5$outboundSchema,
-} from "./signatureversionoptions5.js";
+  SignatureVersionOptionsMinIo,
+  SignatureVersionOptionsMinIo$inboundSchema,
+  SignatureVersionOptionsMinIo$outboundSchema,
+} from "./signatureversionoptionsminio.js";
 import {
-  StorageClassOptions2,
-  StorageClassOptions2$inboundSchema,
-  StorageClassOptions2$outboundSchema,
-} from "./storageclassoptions2.js";
+  StorageClassOptionsReducedredundancyStandard,
+  StorageClassOptionsReducedredundancyStandard$inboundSchema,
+  StorageClassOptionsReducedredundancyStandard$outboundSchema,
+} from "./storageclassoptionsreducedredundancystandard.js";
 
 export type OutputMinio = {
   /**
@@ -132,7 +132,7 @@ export type OutputMinio = {
   /**
    * Signature version to use for signing MinIO requests
    */
-  signatureVersion?: SignatureVersionOptions5 | undefined;
+  signatureVersion?: SignatureVersionOptionsMinIo | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -140,7 +140,7 @@ export type OutputMinio = {
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: StorageClassOptions2 | undefined;
+  storageClass?: StorageClassOptionsReducedredundancyStandard | undefined;
   /**
    * Server-side encryption for uploaded objects
    */
@@ -196,7 +196,7 @@ export type OutputMinio = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -234,7 +234,7 @@ export type OutputMinio = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -337,9 +337,11 @@ export const OutputMinio$inboundSchema: z.ZodType<
   stagePath: types.string(),
   addIdToStagePath: types.optional(types.boolean()),
   destPath: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions5$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptionsMinIo$inboundSchema),
   objectACL: types.optional(ObjectAclOptions$inboundSchema),
-  storageClass: types.optional(StorageClassOptions2$inboundSchema),
+  storageClass: types.optional(
+    StorageClassOptionsReducedredundancyStandard$inboundSchema,
+  ),
   serverSideEncryption: types.optional(
     ServerSideEncryptionOptions$inboundSchema,
   ),
@@ -355,7 +357,9 @@ export const OutputMinio$inboundSchema: z.ZodType<
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
@@ -368,7 +372,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
-  compress: types.optional(CompressionOptions2$inboundSchema),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
   automaticSchema: types.optional(types.boolean()),
   parquetSchema: types.optional(types.string()),
@@ -478,9 +482,10 @@ export const OutputMinio$outboundSchema: z.ZodType<
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  signatureVersion: SignatureVersionOptions5$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsMinIo$outboundSchema.optional(),
   objectACL: ObjectAclOptions$outboundSchema.optional(),
-  storageClass: StorageClassOptions2$outboundSchema.optional(),
+  storageClass: StorageClassOptionsReducedredundancyStandard$outboundSchema
+    .optional(),
   serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
@@ -494,7 +499,8 @@ export const OutputMinio$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
@@ -505,7 +511,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.optional(),
+  compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),

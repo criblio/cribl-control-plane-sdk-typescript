@@ -494,6 +494,21 @@ const value: models.FunctionLocalSearchRulesetRunner = {
 };
 ```
 
+### `models.FunctionLocalSearchTransformer`
+
+```typescript
+const value: models.FunctionLocalSearchTransformer = {
+  __filename: "example.file",
+  group: "<value>",
+  id: "local_search_transformer",
+  loadTime: 3323,
+  modTime: 6911.72,
+  name: "<value>",
+  uischema: {},
+  version: "<value>",
+};
+```
+
 ### `models.FunctionLookup`
 
 ```typescript

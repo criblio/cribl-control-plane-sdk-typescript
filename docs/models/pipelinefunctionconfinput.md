@@ -310,6 +310,15 @@ const value: models.PipelineFunctionLocalSearchRulesetRunner = {
 };
 ```
 
+### `models.PipelineFunctionLocalSearchTransformer`
+
+```typescript
+const value: models.PipelineFunctionLocalSearchTransformer = {
+  id: "local_search_transformer",
+  conf: {},
+};
+```
+
 ### `models.PipelineFunctionLookup`
 
 ```typescript

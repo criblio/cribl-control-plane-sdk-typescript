@@ -83,11 +83,13 @@ export type CreateOutputOutputCloudflareR2 = {
   /**
    * Signature version to use for signing MinIO requests
    */
-  signatureVersion?: models.SignatureVersionOptions5 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsMinIo | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: models.StorageClassOptions2 | undefined;
+  storageClass?:
+    | models.StorageClassOptionsReducedredundancyStandard
+    | undefined;
   /**
    * Server-side encryption for uploaded objects
    */
@@ -143,7 +145,7 @@ export type CreateOutputOutputCloudflareR2 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -177,7 +179,7 @@ export type CreateOutputOutputCloudflareR2 = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -265,7 +267,7 @@ export type CreateOutputClientSecretAuthTypeAuthenticationMethod = OpenEnum<
  */
 export type CreateOutputAuthentication = {
   disabled: boolean;
-  mechanism?: models.SaslMechanismOptionsSasl1 | undefined;
+  mechanism?: models.SaslMechanismOptionsSaslOauthbearerPlain | undefined;
   /**
    * The username for authentication. This should always be $ConnectionString.
    */
@@ -534,7 +536,7 @@ export type CreateOutputOutputDatabricks = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -549,7 +551,7 @@ export type CreateOutputOutputDatabricks = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   /**
-   * Databricks workspace ID
+   * Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
    */
   workspaceId: string;
   /**
@@ -561,15 +563,15 @@ export type CreateOutputOutputDatabricks = {
    */
   clientId: string;
   /**
-   * Name of the catalog to use for the output
+   * Name of the Unity Catalog catalog to use for the Destination.
    */
   catalog: string;
   /**
-   * Name of the catalog schema to use for the output
+   * Name of the Unity Catalog schema to use for the Destination.
    */
   schema: string;
   /**
-   * Name of the events volume in Databricks
+   * Name of the Unity Catalog volume where event data is written.
    */
   eventsVolumeName: string;
   /**
@@ -577,14 +579,14 @@ export type CreateOutputOutputDatabricks = {
    */
   clientTextSecret: string;
   /**
-   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   * Amount of time, in seconds, to wait for a request to complete before canceling it.
    */
   timeoutSec?: number | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -1167,15 +1169,15 @@ export type CreateOutputOutputDynatraceOtlp = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion: models.OtlpVersionOptions1;
+  otlpVersion: models.OtlpVersionOptions131;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: models.CompressionOptions4 | undefined;
+  compress?: models.CompressionOptionsDeflateGzip | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: models.CompressionOptions5 | undefined;
+  httpCompress?: models.CompressionOptionsMessages | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -1896,7 +1898,7 @@ export type CreateOutputOutputLocalSearchStorage = {
    * URL of the database instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: models.AuthenticationTypeOptions1 | undefined;
+  authType?: models.AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
   database: string;
   /**
    * Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -1914,7 +1916,7 @@ export type CreateOutputOutputLocalSearchStorage = {
    * Collect data into batches for later processing. Disable to write to a table immediately.
    */
   asyncInserts?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2147,7 +2149,7 @@ export type CreateOutputOutputClickHouse = {
    * URL of the ClickHouse instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: models.AuthenticationTypeOptions1 | undefined;
+  authType?: models.AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
   database: string;
   /**
    * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -2165,7 +2167,7 @@ export type CreateOutputOutputClickHouse = {
    * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
    */
   asyncInserts?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2481,7 +2483,7 @@ export type CreateOutputOutputCriblLake = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -2691,7 +2693,7 @@ export type CreateOutputOutputSecurityLake = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -2960,7 +2962,7 @@ export type CreateOutputOutputDlS3 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -3010,7 +3012,7 @@ export type CreateOutputOutputDlS3 = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -3443,7 +3445,7 @@ export type CreateOutputOutputCriblSearchEngine = {
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
    */
@@ -3455,7 +3457,7 @@ export type CreateOutputOutputCriblSearchEngine = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: models.CompressionOptions1 | undefined;
+  compression?: models.CompressionOptionsGzipNone | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -3512,9 +3514,9 @@ export type CreateOutputOutputCriblSearchEngine = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<models.ItemsTypeAuthTokens1> | undefined;
+  authTokens?: Array<models.ItemsTypeAuthTokensTokenSecret> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -3616,7 +3618,7 @@ export type CreateOutputOutputCriblHttp = {
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
    */
@@ -3628,7 +3630,7 @@ export type CreateOutputOutputCriblHttp = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: models.CompressionOptions1 | undefined;
+  compression?: models.CompressionOptionsGzipNone | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -3687,7 +3689,7 @@ export type CreateOutputOutputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
    */
-  authTokens?: Array<models.ItemsTypeAuthTokens1> | undefined;
+  authTokens?: Array<models.ItemsTypeAuthTokensTokenSecret> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -3792,7 +3794,7 @@ export type CreateOutputOutputCriblTcp = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: models.CompressionOptions1 | undefined;
+  compression?: models.CompressionOptionsGzipNone | undefined;
   /**
    * Use to troubleshoot issues with sending data
    */
@@ -3801,7 +3803,7 @@ export type CreateOutputOutputCriblTcp = {
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
   throttleRatePerSec?: string | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -4082,7 +4084,7 @@ export type CreateOutputOutputDataset = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptionsApi | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -4180,7 +4182,7 @@ export type CreateOutputOutputServiceNow = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion: models.OtlpVersionOptions1;
+  otlpVersion: models.OtlpVersionOptions131;
   /**
    * Maximum size, in KB, of the request body
    */
@@ -4192,11 +4194,11 @@ export type CreateOutputOutputServiceNow = {
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: models.CompressionOptions4 | undefined;
+  compress?: models.CompressionOptionsDeflateGzip | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: models.CompressionOptions5 | undefined;
+  httpCompress?: models.CompressionOptionsMessages | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -4277,7 +4279,7 @@ export type CreateOutputOutputServiceNow = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType2 | undefined;
+  tls?: models.TlsSettingsClientSideTypeExtended | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4378,11 +4380,11 @@ export type CreateOutputOutputOpenTelemetry = {
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: models.CompressionOptions4 | undefined;
+  compress?: models.CompressionOptionsDeflateGzip | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: models.CompressionOptions5 | undefined;
+  httpCompress?: models.CompressionOptionsMessages | undefined;
   /**
    * OpenTelemetry authentication type
    */
@@ -4485,7 +4487,7 @@ export type CreateOutputOutputOpenTelemetry = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType2 | undefined;
+  tls?: models.TlsSettingsClientSideTypeExtended | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4589,7 +4591,7 @@ export type CreateOutputOutputRing = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   description?: string | undefined;
 };
 
@@ -4798,7 +4800,9 @@ export type CreateOutputOutputLoki = {
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
   labels?: Array<models.ItemsTypeContentConfigItemsRequestParams> | undefined;
-  authType?: models.AuthenticationTypeOptionsPrometheusAuth1 | undefined;
+  authType?:
+    | models.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
+    | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
    */
@@ -5516,7 +5520,7 @@ export type CreateOutputOutputDatadog = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptionsApi | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -5879,7 +5883,7 @@ export type CreateOutputOutputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: models.SignatureVersionOptions3 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsSqs | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -6594,7 +6598,7 @@ export type CreateOutputOutputMinio = {
   /**
    * Signature version to use for signing MinIO requests
    */
-  signatureVersion?: models.SignatureVersionOptions5 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsMinIo | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -6602,7 +6606,9 @@ export type CreateOutputOutputMinio = {
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: models.StorageClassOptions2 | undefined;
+  storageClass?:
+    | models.StorageClassOptionsReducedredundancyStandard
+    | undefined;
   /**
    * Server-side encryption for uploaded objects
    */
@@ -6658,7 +6664,7 @@ export type CreateOutputOutputMinio = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -6696,7 +6702,7 @@ export type CreateOutputOutputMinio = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -7296,7 +7302,7 @@ export type CreateOutputOutputNewrelicEvents = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptionsApi | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -7488,7 +7494,7 @@ export type CreateOutputOutputNewrelic = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptionsApi | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -7638,7 +7644,7 @@ export type CreateOutputOutputElasticCloud = {
    * Extra parameters to use in HTTP requests
    */
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: models.AuthType | undefined;
+  auth?: models.AuthTypeAuthTypeCredentialsSecret | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
    */
@@ -7855,7 +7861,7 @@ export type CreateOutputOutputElastic = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: models.AuthType | undefined;
+  auth?: models.AuthTypeAuthTypeCredentialsSecret | undefined;
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
@@ -7984,15 +7990,15 @@ export type CreateOutputOutputMsk = {
   /**
    * Control the number of required acknowledgments.
    */
-  ack?: models.AcknowledgmentsOptions1 | undefined;
+  ack?: models.AcknowledgmentsOptionsAllLeader | undefined;
   /**
    * Format to use to serialize events before writing to Kafka.
    */
-  format?: models.RecordDataFormatOptions1 | undefined;
+  format?: models.RecordDataFormatOptionsJsonProtobuf | undefined;
   /**
    * Codec to use to compress the data before sending to Kafka
    */
-  compression?: models.CompressionOptions3 | undefined;
+  compression?: models.CompressionOptionsGzipLz4 | undefined;
   /**
    * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
    */
@@ -8006,7 +8012,7 @@ export type CreateOutputOutputMsk = {
    */
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType1
+    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -8081,7 +8087,7 @@ export type CreateOutputOutputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -8195,7 +8201,7 @@ export type CreateOutputOutputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
    */
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The topic to publish events to. Can be overridden using the __topicOut field.
    */
@@ -8203,15 +8209,15 @@ export type CreateOutputOutputConfluentCloud = {
   /**
    * Control the number of required acknowledgments.
    */
-  ack?: models.AcknowledgmentsOptions1 | undefined;
+  ack?: models.AcknowledgmentsOptionsAllLeader | undefined;
   /**
    * Format to use to serialize events before writing to Kafka.
    */
-  format?: models.RecordDataFormatOptions1 | undefined;
+  format?: models.RecordDataFormatOptionsJsonProtobuf | undefined;
   /**
    * Codec to use to compress the data before sending to Kafka
    */
-  compression?: models.CompressionOptions3 | undefined;
+  compression?: models.CompressionOptionsGzipLz4 | undefined;
   /**
    * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
    */
@@ -8225,7 +8231,7 @@ export type CreateOutputOutputConfluentCloud = {
    */
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType1
+    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -8358,15 +8364,15 @@ export type CreateOutputOutputKafka = {
   /**
    * Control the number of required acknowledgments.
    */
-  ack?: models.AcknowledgmentsOptions1 | undefined;
+  ack?: models.AcknowledgmentsOptionsAllLeader | undefined;
   /**
    * Format to use to serialize events before writing to Kafka.
    */
-  format?: models.RecordDataFormatOptions1 | undefined;
+  format?: models.RecordDataFormatOptionsJsonProtobuf | undefined;
   /**
    * Codec to use to compress the data before sending to Kafka
    */
-  compression?: models.CompressionOptions3 | undefined;
+  compression?: models.CompressionOptionsGzipLz4 | undefined;
   /**
    * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
    */
@@ -8380,7 +8386,7 @@ export type CreateOutputOutputKafka = {
    */
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType1
+    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -8418,7 +8424,7 @@ export type CreateOutputOutputKafka = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: models.AuthenticationType | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -8520,15 +8526,17 @@ export type CreateOutputOutputExabeam = {
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
-  signatureVersion?: models.SignatureVersionOptions4 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsGoogle | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: models.ObjectAclOptions1 | undefined;
+  objectACL?:
+    | models.ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
+    | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: models.StorageClassOptions1 | undefined;
+  storageClass?: models.StorageClassOptionsArchiveColdline | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -8560,7 +8568,7 @@ export type CreateOutputOutputExabeam = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -9119,7 +9127,7 @@ export type CreateOutputOutputGoogleCloudStorage = {
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
-  signatureVersion?: models.SignatureVersionOptions4 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsGoogle | undefined;
   awsAuthenticationMethod?:
     | CreateOutputAuthenticationMethodGoogleCloudStorage
     | undefined;
@@ -9138,11 +9146,13 @@ export type CreateOutputOutputGoogleCloudStorage = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: models.ObjectAclOptions1 | undefined;
+  objectACL?:
+    | models.ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
+    | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: models.StorageClassOptions1 | undefined;
+  storageClass?: models.StorageClassOptionsArchiveColdline | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -9202,7 +9212,7 @@ export type CreateOutputOutputGoogleCloudStorage = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -9220,7 +9230,7 @@ export type CreateOutputOutputGoogleCloudStorage = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -9663,7 +9673,7 @@ export type CreateOutputOutputAzureEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: models.AuthenticationType1 | undefined;
+  sasl?: models.AuthenticationTypeUse | undefined;
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
@@ -9811,7 +9821,7 @@ export type CreateOutputOutputHoneycomb = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptionsApi | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -9973,8 +9983,10 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions5$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions2$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsMinIo$outboundSchema
+    .optional(),
+  storageClass: models
+    .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
   serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
     .optional(),
   reuseConnections: z.boolean().optional(),
@@ -9989,7 +10001,8 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -10000,7 +10013,7 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -10068,7 +10081,8 @@ export const CreateOutputAuthentication$outboundSchema: z.ZodType<
   CreateOutputAuthentication
 > = z.object({
   disabled: z.boolean(),
-  mechanism: models.SaslMechanismOptionsSasl1$outboundSchema.optional(),
+  mechanism: models.SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema
+    .optional(),
   username: z.string().optional(),
   textSecret: z.string().optional(),
   clientSecretAuthType:
@@ -10298,7 +10312,8 @@ export const CreateOutputOutputDatabricks$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -10311,9 +10326,9 @@ export const CreateOutputOutputDatabricks$outboundSchema: z.ZodType<
   schema: z.string(),
   eventsVolumeName: z.string(),
   clientTextSecret: z.string(),
-  timeoutSec: z.number().optional(),
+  timeoutSec: z.number().int().optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -10803,9 +10818,9 @@ export const CreateOutputOutputDynatraceOtlp$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   protocol: CreateOutputProtocolDynatraceOtlp$outboundSchema,
   endpoint: z.string(),
-  otlpVersion: models.OtlpVersionOptions1$outboundSchema,
-  compress: models.CompressionOptions4$outboundSchema.optional(),
-  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
+  otlpVersion: models.OtlpVersionOptions131$outboundSchema,
+  compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
+  httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
@@ -11381,7 +11396,9 @@ export type CreateOutputOutputLocalSearchStorage$Outbound = {
   format?: string | undefined;
   mappingType?: string | undefined;
   asyncInserts?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
+    | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -11443,14 +11460,16 @@ export const CreateOutputOutputLocalSearchStorage$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: models.AuthenticationTypeOptions1$outboundSchema.optional(),
+  authType: models
+    .AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
   format: CreateOutputFormatLocalSearchStorage$outboundSchema.optional(),
   mappingType: CreateOutputMappingTypeLocalSearchStorage$outboundSchema
     .optional(),
   asyncInserts: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -11590,7 +11609,9 @@ export type CreateOutputOutputClickHouse$Outbound = {
   format?: string | undefined;
   mappingType?: string | undefined;
   asyncInserts?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
+    | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -11651,13 +11672,15 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: models.AuthenticationTypeOptions1$outboundSchema.optional(),
+  authType: models
+    .AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
   format: CreateOutputFormatClickHouse$outboundSchema.optional(),
   mappingType: CreateOutputMappingTypeClickHouse$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -11860,7 +11883,8 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -12014,7 +12038,8 @@ export const CreateOutputOutputSecurityLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -12183,7 +12208,8 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -12198,7 +12224,7 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -12530,9 +12556,7 @@ export type CreateOutputOutputCriblSearchEngine$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced?: boolean | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   tokenTTLMinutes?: number | undefined;
   excludeFields?: Array<string> | undefined;
   compression?: string | undefined;
@@ -12553,7 +12577,9 @@ export type CreateOutputOutputCriblSearchEngine$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?: Array<models.ItemsTypeAuthTokens1$Outbound> | undefined;
+  authTokens?:
+    | Array<models.ItemsTypeAuthTokensTokenSecret$Outbound>
+    | undefined;
   onBackpressure?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   description?: string | undefined;
@@ -12589,11 +12615,10 @@ export const CreateOutputOutputCriblSearchEngine$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   tokenTTLMinutes: z.number().optional(),
   excludeFields: z.array(z.string()).optional(),
-  compression: models.CompressionOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptionsGzipNone$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -12612,7 +12637,8 @@ export const CreateOutputOutputCriblSearchEngine$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(models.ItemsTypeAuthTokens1$outboundSchema).optional(),
+  authTokens: z.array(models.ItemsTypeAuthTokensTokenSecret$outboundSchema)
+    .optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   useRoundRobinDns: z.boolean().optional(),
   description: z.string().optional(),
@@ -12676,9 +12702,7 @@ export type CreateOutputOutputCriblHttp$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced?: boolean | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   tokenTTLMinutes?: number | undefined;
   excludeFields?: Array<string> | undefined;
   compression?: string | undefined;
@@ -12699,7 +12723,9 @@ export type CreateOutputOutputCriblHttp$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?: Array<models.ItemsTypeAuthTokens1$Outbound> | undefined;
+  authTokens?:
+    | Array<models.ItemsTypeAuthTokensTokenSecret$Outbound>
+    | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   url?: string | undefined;
@@ -12735,11 +12761,10 @@ export const CreateOutputOutputCriblHttp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   tokenTTLMinutes: z.number().optional(),
   excludeFields: z.array(z.string()).optional(),
-  compression: models.CompressionOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptionsGzipNone$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -12758,7 +12783,8 @@ export const CreateOutputOutputCriblHttp$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(models.ItemsTypeAuthTokens1$outboundSchema).optional(),
+  authTokens: z.array(models.ItemsTypeAuthTokensTokenSecret$outboundSchema)
+    .optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
@@ -12824,9 +12850,7 @@ export type CreateOutputOutputCriblTcp$Outbound = {
   compression?: string | undefined;
   logFailedRequests?: boolean | undefined;
   throttleRatePerSec?: string | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
@@ -12869,11 +12893,10 @@ export const CreateOutputOutputCriblTcp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  compression: models.CompressionOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptionsGzipNone$outboundSchema.optional(),
   logFailedRequests: z.boolean().optional(),
   throttleRatePerSec: z.string().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
@@ -13038,7 +13061,7 @@ export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -13127,7 +13150,7 @@ export type CreateOutputOutputServiceNow$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  tls?: models.TlsSettingsClientSideTypeExtended$Outbound | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -13156,11 +13179,11 @@ export const CreateOutputOutputServiceNow$outboundSchema: z.ZodType<
   endpoint: z.string(),
   tokenSecret: z.string(),
   authTokenName: z.string().optional(),
-  otlpVersion: models.OtlpVersionOptions1$outboundSchema,
+  otlpVersion: models.OtlpVersionOptions131$outboundSchema,
   maxPayloadSizeKB: z.number().optional(),
   protocol: models.ProtocolOptions$outboundSchema,
-  compress: models.CompressionOptions4$outboundSchema.optional(),
-  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
+  compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
+  httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
@@ -13186,7 +13209,7 @@ export const CreateOutputOutputServiceNow$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: models.ModeOptions$outboundSchema.optional(),
@@ -13282,7 +13305,7 @@ export type CreateOutputOutputOpenTelemetry$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  tls?: models.TlsSettingsClientSideTypeExtended$Outbound | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -13311,8 +13334,8 @@ export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
   protocol: models.ProtocolOptions$outboundSchema.optional(),
   endpoint: z.string(),
   otlpVersion: CreateOutputOTLPVersion$outboundSchema.optional(),
-  compress: models.CompressionOptions4$outboundSchema.optional(),
-  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
+  compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
+  httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
   authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
@@ -13345,7 +13368,7 @@ export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: models.ModeOptions$outboundSchema.optional(),
@@ -13414,7 +13437,8 @@ export const CreateOutputOutputRing$outboundSchema: z.ZodType<
   compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
     .optional(),
   destPath: z.string().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   description: z.string().optional(),
 });
 
@@ -13656,7 +13680,8 @@ export const CreateOutputOutputLoki$outboundSchema: z.ZodType<
   labels: z.array(
     models.ItemsTypeContentConfigItemsRequestParams$outboundSchema,
   ).optional(),
-  authType: models.AuthenticationTypeOptionsPrometheusAuth1$outboundSchema
+  authType: models
+    .AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
     .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -14182,7 +14207,7 @@ export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -14511,7 +14536,7 @@ export const CreateOutputOutputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions3$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsSqs$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -15124,9 +15149,11 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions5$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsMinIo$outboundSchema
+    .optional(),
   objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions2$outboundSchema.optional(),
+  storageClass: models
+    .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
   serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
     .optional(),
   reuseConnections: z.boolean().optional(),
@@ -15141,7 +15168,8 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -15153,7 +15181,7 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -15582,7 +15610,7 @@ export const CreateOutputOutputNewrelicEvents$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -15756,7 +15784,7 @@ export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -15830,7 +15858,7 @@ export type CreateOutputOutputElasticCloud$Outbound = {
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: models.AuthType$Outbound | undefined;
+  auth?: models.AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
   responseRetrySettings?:
@@ -15881,7 +15909,7 @@ export const CreateOutputOutputElasticCloud$outboundSchema: z.ZodType<
   safeHeaders: z.array(z.string()).optional(),
   extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
     .optional(),
-  auth: models.AuthType$outboundSchema.optional(),
+  auth: models.AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
   responseRetrySettings: z.array(
@@ -16005,7 +16033,7 @@ export type CreateOutputOutputElastic$Outbound = {
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: models.AuthType$Outbound | undefined;
+  auth?: models.AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
   elasticVersion?: string | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
@@ -16068,7 +16096,7 @@ export const CreateOutputOutputElastic$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().optional(),
   extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
     .optional(),
-  auth: models.AuthType$outboundSchema.optional(),
+  auth: models.AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
   elasticVersion: CreateOutputElasticVersion$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
@@ -16140,7 +16168,7 @@ export type CreateOutputOutputMsk$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType1$Outbound
+    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -16161,9 +16189,7 @@ export type CreateOutputOutputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -16203,14 +16229,15 @@ export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
-  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
-  compression: models.CompressionOptions3$outboundSchema.optional(),
+  ack: models.AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
+  format: models.RecordDataFormatOptionsJsonProtobuf$outboundSchema.optional(),
+  compression: models.CompressionOptionsGzipLz4$outboundSchema.optional(),
   maxRecordSizeKB: z.number().optional(),
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
+    .KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+    .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
   maxRetries: z.number().optional(),
@@ -16230,8 +16257,7 @@ export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
@@ -16294,9 +16320,7 @@ export type CreateOutputOutputConfluentCloud$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   topic: string;
   ack?: number | undefined;
   format?: string | undefined;
@@ -16305,7 +16329,7 @@ export type CreateOutputOutputConfluentCloud$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType1$Outbound
+    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -16347,17 +16371,17 @@ export const CreateOutputOutputConfluentCloud$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
-  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
-  compression: models.CompressionOptions3$outboundSchema.optional(),
+  ack: models.AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
+  format: models.RecordDataFormatOptionsJsonProtobuf$outboundSchema.optional(),
+  compression: models.CompressionOptionsGzipLz4$outboundSchema.optional(),
   maxRecordSizeKB: z.number().optional(),
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
+    .KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+    .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
   maxRetries: z.number().optional(),
@@ -16433,7 +16457,7 @@ export type CreateOutputOutputKafka$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationType1$Outbound
+    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -16444,9 +16468,7 @@ export type CreateOutputOutputKafka$Outbound = {
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
   sasl?: models.AuthenticationType$Outbound | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   protobufLibraryId?: string | undefined;
@@ -16479,14 +16501,15 @@ export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
-  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
-  compression: models.CompressionOptions3$outboundSchema.optional(),
+  ack: models.AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
+  format: models.RecordDataFormatOptionsJsonProtobuf$outboundSchema.optional(),
+  compression: models.CompressionOptionsGzipLz4$outboundSchema.optional(),
   maxRecordSizeKB: z.number().optional(),
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
+    .KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+    .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
   maxRetries: z.number().optional(),
@@ -16496,8 +16519,7 @@ export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
   sasl: models.AuthenticationType$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   protobufLibraryId: z.string().optional(),
@@ -16583,9 +16605,13 @@ export const CreateOutputOutputExabeam$outboundSchema: z.ZodType<
   region: z.string(),
   stagePath: z.string(),
   endpoint: z.string(),
-  signatureVersion: models.SignatureVersionOptions4$outboundSchema.optional(),
-  objectACL: models.ObjectAclOptions1$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions1$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsGoogle$outboundSchema
+    .optional(),
+  objectACL: models
+    .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
+    .optional(),
+  storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   addIdToStagePath: z.boolean().optional(),
@@ -16593,7 +16619,8 @@ export const CreateOutputOutputExabeam$outboundSchema: z.ZodType<
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -17023,15 +17050,19 @@ export const CreateOutputOutputGoogleCloudStorage$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   endpoint: z.string(),
-  signatureVersion: models.SignatureVersionOptions4$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsGoogle$outboundSchema
+    .optional(),
   awsAuthenticationMethod:
     CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema
       .optional(),
   stagePath: z.string(),
   destPath: z.string().optional(),
   verifyPermissions: z.boolean().optional(),
-  objectACL: models.ObjectAclOptions1$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions1$outboundSchema.optional(),
+  objectACL: models
+    .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
+    .optional(),
+  storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   addIdToStagePath: z.boolean().optional(),
@@ -17046,14 +17077,15 @@ export const CreateOutputOutputGoogleCloudStorage$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -17345,7 +17377,7 @@ export type CreateOutputOutputAzureEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: models.AuthenticationType1$Outbound | undefined;
+  sasl?: models.AuthenticationTypeUse$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
@@ -17390,7 +17422,7 @@ export const CreateOutputOutputAzureEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: models.AuthenticationType1$outboundSchema.optional(),
+  sasl: models.AuthenticationTypeUse$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
@@ -17517,7 +17549,7 @@ export const CreateOutputOutputHoneycomb$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
