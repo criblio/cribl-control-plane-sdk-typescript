@@ -14,15 +14,15 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions4,
-  CompressionOptions4$inboundSchema,
-  CompressionOptions4$outboundSchema,
-} from "./compressionoptions4.js";
+  CompressionOptionsDeflateGzip,
+  CompressionOptionsDeflateGzip$inboundSchema,
+  CompressionOptionsDeflateGzip$outboundSchema,
+} from "./compressionoptionsdeflategzip.js";
 import {
-  CompressionOptions5,
-  CompressionOptions5$inboundSchema,
-  CompressionOptions5$outboundSchema,
-} from "./compressionoptions5.js";
+  CompressionOptionsMessages,
+  CompressionOptionsMessages$inboundSchema,
+  CompressionOptionsMessages$outboundSchema,
+} from "./compressionoptionsmessages.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -58,10 +58,10 @@ import {
   ModeOptions$outboundSchema,
 } from "./modeoptions.js";
 import {
-  OtlpVersionOptions1,
-  OtlpVersionOptions1$inboundSchema,
-  OtlpVersionOptions1$outboundSchema,
-} from "./otlpversionoptions1.js";
+  OtlpVersionOptions131,
+  OtlpVersionOptions131$inboundSchema,
+  OtlpVersionOptions131$outboundSchema,
+} from "./otlpversionoptions131.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$inboundSchema,
@@ -143,15 +143,15 @@ export type OutputDynatraceOtlp = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion: OtlpVersionOptions1;
+  otlpVersion: OtlpVersionOptions131;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: CompressionOptions4 | undefined;
+  compress?: CompressionOptionsDeflateGzip | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: CompressionOptions5 | undefined;
+  httpCompress?: CompressionOptionsMessages | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -361,9 +361,9 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   protocol: OutputDynatraceOtlpProtocol$inboundSchema,
   endpoint: types.string(),
-  otlpVersion: OtlpVersionOptions1$inboundSchema,
-  compress: types.optional(CompressionOptions4$inboundSchema),
-  httpCompress: types.optional(CompressionOptions5$inboundSchema),
+  otlpVersion: OtlpVersionOptions131$inboundSchema,
+  compress: types.optional(CompressionOptionsDeflateGzip$inboundSchema),
+  httpCompress: types.optional(CompressionOptionsMessages$inboundSchema),
   httpTracesEndpointOverride: types.optional(types.string()),
   httpMetricsEndpointOverride: types.optional(types.string()),
   httpLogsEndpointOverride: types.optional(types.string()),
@@ -474,9 +474,9 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   protocol: OutputDynatraceOtlpProtocol$outboundSchema,
   endpoint: z.string(),
-  otlpVersion: OtlpVersionOptions1$outboundSchema,
-  compress: CompressionOptions4$outboundSchema.optional(),
-  httpCompress: CompressionOptions5$outboundSchema.optional(),
+  otlpVersion: OtlpVersionOptions131$outboundSchema,
+  compress: CompressionOptionsDeflateGzip$outboundSchema.optional(),
+  httpCompress: CompressionOptionsMessages$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),

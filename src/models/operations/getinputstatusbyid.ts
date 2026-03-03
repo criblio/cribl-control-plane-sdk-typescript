@@ -10,7 +10,7 @@ export type GetInputStatusByIdRequest = {
    */
   id: string;
   /**
-   * Set to true <code>true</code> to include metrics for each Source. Otherwise, <code>false</code> (default).
+   * Set to <code>true</code> to include metrics for each Source. Otherwise, <code>false</code> (default).
    */
   metrics?: boolean | undefined;
   /**

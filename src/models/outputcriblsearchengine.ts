@@ -12,10 +12,10 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions1,
-  CompressionOptions1$inboundSchema,
-  CompressionOptions1$outboundSchema,
-} from "./compressionoptions1.js";
+  CompressionOptionsGzipNone,
+  CompressionOptionsGzipNone$inboundSchema,
+  CompressionOptionsGzipNone$outboundSchema,
+} from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -28,11 +28,11 @@ import {
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  ItemsTypeAuthTokens1,
-  ItemsTypeAuthTokens1$inboundSchema,
-  ItemsTypeAuthTokens1$Outbound,
-  ItemsTypeAuthTokens1$outboundSchema,
-} from "./itemstypeauthtokens1.js";
+  ItemsTypeAuthTokensTokenSecret,
+  ItemsTypeAuthTokensTokenSecret$inboundSchema,
+  ItemsTypeAuthTokensTokenSecret$Outbound,
+  ItemsTypeAuthTokensTokenSecret$outboundSchema,
+} from "./itemstypeauthtokenstokensecret.js";
 import {
   ItemsTypeExtraHttpHeaders,
   ItemsTypeExtraHttpHeaders$inboundSchema,
@@ -68,11 +68,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type OutputCriblSearchEnginePqControls = {};
 
@@ -102,7 +102,7 @@ export type OutputCriblSearchEngine = {
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
    */
@@ -114,7 +114,7 @@ export type OutputCriblSearchEngine = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: CompressionOptions1 | undefined;
+  compression?: CompressionOptionsGzipNone | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -169,9 +169,9 @@ export type OutputCriblSearchEngine = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokens1> | undefined;
+  authTokens?: Array<ItemsTypeAuthTokensTokenSecret> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -293,12 +293,10 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   loadBalanced: types.optional(types.boolean()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   tokenTTLMinutes: types.optional(types.number()),
   excludeFields: types.optional(z.array(types.string())),
-  compression: types.optional(CompressionOptions1$inboundSchema),
+  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
@@ -318,7 +316,9 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  authTokens: types.optional(z.array(ItemsTypeAuthTokens1$inboundSchema)),
+  authTokens: types.optional(
+    z.array(ItemsTypeAuthTokensTokenSecret$inboundSchema),
+  ),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   useRoundRobinDns: types.optional(types.boolean()),
   description: types.optional(types.string()),
@@ -351,7 +351,7 @@ export type OutputCriblSearchEngine$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced?: boolean | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   tokenTTLMinutes?: number | undefined;
   excludeFields?: Array<string> | undefined;
   compression?: string | undefined;
@@ -370,7 +370,7 @@ export type OutputCriblSearchEngine$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?: Array<ItemsTypeAuthTokens1$Outbound> | undefined;
+  authTokens?: Array<ItemsTypeAuthTokensTokenSecret$Outbound> | undefined;
   onBackpressure?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   description?: string | undefined;
@@ -406,10 +406,10 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   tokenTTLMinutes: z.number().optional(),
   excludeFields: z.array(z.string()).optional(),
-  compression: CompressionOptions1$outboundSchema.optional(),
+  compression: CompressionOptionsGzipNone$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -426,7 +426,7 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(ItemsTypeAuthTokens1$outboundSchema).optional(),
+  authTokens: z.array(ItemsTypeAuthTokensTokenSecret$outboundSchema).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   useRoundRobinDns: z.boolean().optional(),
   description: z.string().optional(),

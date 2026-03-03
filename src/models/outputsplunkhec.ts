@@ -56,11 +56,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideType1,
-  TlsSettingsClientSideType1$inboundSchema,
-  TlsSettingsClientSideType1$Outbound,
-  TlsSettingsClientSideType1$outboundSchema,
-} from "./tlssettingsclientsidetype1.js";
+  TlsSettingsClientSideTypeCaPathCertPathExtended,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpathextended.js";
 
 export type OutputSplunkHecUrl = {
   /**
@@ -113,7 +113,7 @@ export type OutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: TlsSettingsClientSideType1 | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -349,7 +349,9 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   loadBalanced: types.optional(types.boolean()),
   nextQueue: types.optional(types.string()),
   tcpRouting: types.optional(types.string()),
-  tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  ),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
@@ -409,7 +411,7 @@ export type OutputSplunkHec$Outbound = {
   loadBalanced?: boolean | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -466,7 +468,8 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanced: z.boolean().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
-  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),

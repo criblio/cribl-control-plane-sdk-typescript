@@ -14,10 +14,10 @@ import {
   AuthenticationMethodOptions$outboundSchema,
 } from "./authenticationmethodoptions.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
@@ -30,10 +30,10 @@ import {
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$inboundSchema,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
   DataFormatOptions$inboundSchema,
@@ -185,7 +185,7 @@ export type OutputAzureBlob = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -205,7 +205,7 @@ export type OutputAzureBlob = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -367,7 +367,9 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
@@ -377,7 +379,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   authType: types.optional(AuthenticationMethodOptions$inboundSchema),
   storageClass: types.optional(BlobAccessTier$inboundSchema),
   description: types.optional(types.string()),
-  compress: types.optional(CompressionOptions2$inboundSchema),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
   automaticSchema: types.optional(types.boolean()),
   parquetSchema: types.optional(types.string()),
@@ -508,7 +510,8 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
@@ -516,7 +519,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   authType: AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: BlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.optional(),
+  compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),

@@ -12,10 +12,10 @@ import {
   AwsAuthenticationMethodOptions$outboundSchema,
 } from "./awsauthenticationmethodoptions.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   DiskSpaceProtectionOptions,
   DiskSpaceProtectionOptions$inboundSchema,
@@ -178,7 +178,7 @@ export type OutputCriblLake = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -298,7 +298,9 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
@@ -423,7 +425,8 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),

@@ -48,11 +48,11 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type OutputSplunkPqControls = {};
 
@@ -102,7 +102,7 @@ export type OutputSplunk = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -246,9 +246,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   throttleRatePerSec: types.optional(types.string()),
   connectionTimeout: types.optional(types.number()),
   writeTimeout: types.optional(types.number()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   enableMultiMetrics: types.optional(types.boolean()),
   enableACK: types.optional(types.boolean()),
   logFailedRequests: types.optional(types.boolean()),
@@ -292,7 +290,7 @@ export type OutputSplunk$Outbound = {
   throttleRatePerSec?: string | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   enableMultiMetrics?: boolean | undefined;
   enableACK?: boolean | undefined;
   logFailedRequests?: boolean | undefined;
@@ -337,7 +335,7 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   enableMultiMetrics: z.boolean().optional(),
   enableACK: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),

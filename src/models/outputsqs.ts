@@ -30,10 +30,10 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  SignatureVersionOptions3,
-  SignatureVersionOptions3$inboundSchema,
-  SignatureVersionOptions3$outboundSchema,
-} from "./signatureversionoptions3.js";
+  SignatureVersionOptionsSqs,
+  SignatureVersionOptionsSqs$inboundSchema,
+  SignatureVersionOptionsSqs$outboundSchema,
+} from "./signatureversionoptionssqs.js";
 
 /**
  * The queue type used (or created). Defaults to Standard.
@@ -113,7 +113,7 @@ export type OutputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: SignatureVersionOptions3 | undefined;
+  signatureVersion?: SignatureVersionOptionsSqs | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -302,7 +302,7 @@ export const OutputSqs$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions3$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptionsSqs$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -409,7 +409,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions3$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsSqs$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),

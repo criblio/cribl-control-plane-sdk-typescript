@@ -1260,11 +1260,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });
@@ -1299,11 +1299,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });
@@ -5114,7 +5114,7 @@ run();
 
 ## update
 
-Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected within the specified Pack.
+Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected within the specified Pack.
 
 ### Example Usage: OutputCreateExamplesAzureBlob
 
@@ -6311,11 +6311,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });
@@ -6351,11 +6351,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });

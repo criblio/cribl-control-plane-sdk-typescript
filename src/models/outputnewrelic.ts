@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
+  AuthenticationMethodOptionsApi,
+  AuthenticationMethodOptionsApi$inboundSchema,
+  AuthenticationMethodOptionsApi$outboundSchema,
+} from "./authenticationmethodoptionsapi.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -183,7 +183,7 @@ export type OutputNewrelic = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOptionsApi | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -374,7 +374,7 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions2$inboundSchema),
+  authType: types.optional(AuthenticationMethodOptionsApi$inboundSchema),
   totalMemoryLimitKB: types.optional(types.number()),
   description: types.optional(types.string()),
   customUrl: types.optional(types.string()),
@@ -482,7 +482,7 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: AuthenticationMethodOptionsApi$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),

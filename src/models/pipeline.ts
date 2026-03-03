@@ -19,13 +19,7 @@ import {
 
 export type PipelineGroups = {
   name: string;
-  /**
-   * Short description of this group
-   */
   description?: string | undefined;
-  /**
-   * Whether this group is disabled
-   */
   disabled?: boolean | undefined;
 };
 

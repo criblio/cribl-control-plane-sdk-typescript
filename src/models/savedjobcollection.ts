@@ -19,17 +19,17 @@ import {
   JobTypeOptionsRunnableJobCollection$outboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
 import {
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
+} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
+import {
   ScheduleTypeSavedJobCollection,
   ScheduleTypeSavedJobCollection$inboundSchema,
   ScheduleTypeSavedJobCollection$Outbound,
   ScheduleTypeSavedJobCollection$outboundSchema,
 } from "./scheduletypesavedjobcollection.js";
-import {
-  TypeCollectionWithBreakerRulesetsConstraint,
-  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-  TypeCollectionWithBreakerRulesetsConstraint$Outbound,
-  TypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
-} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 export type SavedJobCollection = {
   /**
@@ -74,7 +74,9 @@ export type SavedJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
+    | undefined;
 };
 
 /** @internal */
@@ -96,7 +98,7 @@ export const SavedJobCollection$inboundSchema: z.ZodType<
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
   input: types.optional(
-    TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
 });
 /** @internal */
@@ -113,7 +115,9 @@ export type SavedJobCollection$Outbound = {
   streamtags?: Array<string> | undefined;
   workerAffinity?: boolean | undefined;
   collector: Collector$Outbound;
-  input?: TypeCollectionWithBreakerRulesetsConstraint$Outbound | undefined;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -134,7 +138,9 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().optional(),
   collector: Collector$outboundSchema,
-  input: TypeCollectionWithBreakerRulesetsConstraint$outboundSchema.optional(),
+  input:
+    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema
+      .optional(),
 });
 
 export function savedJobCollectionToJSON(

@@ -58,11 +58,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideType1,
-  TlsSettingsClientSideType1$inboundSchema,
-  TlsSettingsClientSideType1$Outbound,
-  TlsSettingsClientSideType1$outboundSchema,
-} from "./tlssettingsclientsidetype1.js";
+  TlsSettingsClientSideTypeCaPathCertPathExtended,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpathextended.js";
 
 /**
  * How to format events before sending out
@@ -264,7 +264,7 @@ export type OutputWebhook = {
    * Authentication method to use for the HTTP request
    */
   authType?: OutputWebhookAuthenticationType | undefined;
-  tls?: TlsSettingsClientSideType1 | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -641,7 +641,9 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   authType: types.optional(OutputWebhookAuthenticationType$inboundSchema),
-  tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  ),
   totalMemoryLimitKB: types.optional(types.number()),
   loadBalanced: types.optional(types.boolean()),
   description: types.optional(types.string()),
@@ -719,7 +721,7 @@ export type OutputWebhook$Outbound = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   onBackpressure?: string | undefined;
   authType?: string | undefined;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
   totalMemoryLimitKB?: number | undefined;
   loadBalanced?: boolean | undefined;
   description?: string | undefined;
@@ -799,7 +801,8 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: OutputWebhookAuthenticationType$outboundSchema.optional(),
-  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().optional(),
   description: z.string().optional(),

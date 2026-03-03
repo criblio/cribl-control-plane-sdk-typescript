@@ -95,7 +95,7 @@ run();
 
 ## list
 
-Get a list of status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
+List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
 
 ### Example Usage
 

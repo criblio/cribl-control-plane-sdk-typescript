@@ -45,10 +45,10 @@ import {
   RecordDataFormatOptions$outboundSchema,
 } from "./recorddataformatoptions.js";
 import {
-  SaslMechanismOptionsSasl1,
-  SaslMechanismOptionsSasl1$inboundSchema,
-  SaslMechanismOptionsSasl1$outboundSchema,
-} from "./saslmechanismoptionssasl1.js";
+  SaslMechanismOptionsSaslOauthbearerPlain,
+  SaslMechanismOptionsSaslOauthbearerPlain$inboundSchema,
+  SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema,
+} from "./saslmechanismoptionssasloauthbearerplain.js";
 import {
   TlsSettingsClientSideType,
   TlsSettingsClientSideType$inboundSchema,
@@ -69,7 +69,7 @@ export type OutputMicrosoftFabricAuthenticationMethod = OpenEnum<
  */
 export type OutputMicrosoftFabricAuthentication = {
   disabled: boolean;
-  mechanism?: SaslMechanismOptionsSasl1 | undefined;
+  mechanism?: SaslMechanismOptionsSaslOauthbearerPlain | undefined;
   /**
    * The username for authentication. This should always be $ConnectionString.
    */
@@ -271,7 +271,9 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: types.boolean(),
-  mechanism: types.optional(SaslMechanismOptionsSasl1$inboundSchema),
+  mechanism: types.optional(
+    SaslMechanismOptionsSaslOauthbearerPlain$inboundSchema,
+  ),
   username: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   clientSecretAuthType: types.optional(
@@ -314,7 +316,7 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   OutputMicrosoftFabricAuthentication
 > = z.object({
   disabled: z.boolean(),
-  mechanism: SaslMechanismOptionsSasl1$outboundSchema.optional(),
+  mechanism: SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema.optional(),
   username: z.string().optional(),
   textSecret: z.string().optional(),
   clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$outboundSchema

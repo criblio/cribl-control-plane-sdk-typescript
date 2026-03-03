@@ -36,11 +36,11 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 /**
  * The network protocol to use for sending out syslog messages
@@ -271,7 +271,7 @@ export type OutputSyslog = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -469,9 +469,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   maxConcurrentSenders: types.optional(types.number()),
   connectionTimeout: types.optional(types.number()),
   writeTimeout: types.optional(types.number()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   maxRecordSize: types.optional(types.number()),
   udpDnsResolvePeriodSec: types.optional(types.number()),
@@ -520,7 +518,7 @@ export type OutputSyslog$Outbound = {
   maxConcurrentSenders?: number | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   onBackpressure?: string | undefined;
   maxRecordSize?: number | undefined;
   udpDnsResolvePeriodSec?: number | undefined;
@@ -572,7 +570,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   maxConcurrentSenders: z.number().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   maxRecordSize: z.number().optional(),
   udpDnsResolvePeriodSec: z.number().optional(),

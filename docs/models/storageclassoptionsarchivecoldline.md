@@ -1,0 +1,19 @@
+# StorageClassOptionsArchiveColdline
+
+Storage class to select for uploaded objects
+
+## Example Usage
+
+```typescript
+import { StorageClassOptionsArchiveColdline } from "cribl-control-plane/models";
+
+let value: StorageClassOptionsArchiveColdline = "STANDARD";
+```
+
+## Values
+
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
+```typescript
+"STANDARD" | "NEARLINE" | "COLDLINE" | "ARCHIVE" | Unrecognized<string>
+```

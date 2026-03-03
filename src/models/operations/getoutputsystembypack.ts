@@ -3,8 +3,13 @@
  */
 
 import * as z from "zod/v3";
+import * as models from "../index.js";
 
 export type GetOutputSystemByPackRequest = {
+  /**
+   * Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
+   */
+  type?: models.DestinationType | undefined;
   /**
    * The <code>id</code> of the Pack to list.
    */
@@ -13,6 +18,7 @@ export type GetOutputSystemByPackRequest = {
 
 /** @internal */
 export type GetOutputSystemByPackRequest$Outbound = {
+  type?: string | undefined;
   pack: string;
 };
 
@@ -22,6 +28,7 @@ export const GetOutputSystemByPackRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetOutputSystemByPackRequest
 > = z.object({
+  type: models.DestinationType$outboundSchema.optional(),
   pack: z.string(),
 });
 

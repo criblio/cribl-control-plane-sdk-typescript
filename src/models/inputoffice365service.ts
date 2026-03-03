@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptions1,
-  AuthenticationMethodOptions1$inboundSchema,
-  AuthenticationMethodOptions1$outboundSchema,
-} from "./authenticationmethodoptions1.js";
+  AuthenticationMethodOptionsManualSecret,
+  AuthenticationMethodOptionsManualSecret$inboundSchema,
+  AuthenticationMethodOptionsManualSecret$outboundSchema,
+} from "./authenticationmethodoptionsmanualsecret.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -36,11 +36,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  RetryRulesType1,
-  RetryRulesType1$inboundSchema,
-  RetryRulesType1$Outbound,
-  RetryRulesType1$outboundSchema,
-} from "./retryrulestype1.js";
+  RetryRulesTypeCodesEnableHeader,
+  RetryRulesTypeCodesEnableHeader$inboundSchema,
+  RetryRulesTypeCodesEnableHeader$Outbound,
+  RetryRulesTypeCodesEnableHeader$outboundSchema,
+} from "./retryrulestypecodesenableheader.js";
 import {
   SubscriptionPlanOptions,
   SubscriptionPlanOptions$inboundSchema,
@@ -140,11 +140,11 @@ export type InputOffice365Service = {
    * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<InputOffice365ServiceContentConfig> | undefined;
-  retryRules?: RetryRulesType1 | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -253,8 +253,10 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   contentConfig: types.optional(
     z.array(z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema)),
   ),
-  retryRules: types.optional(RetryRulesType1$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions1$inboundSchema),
+  retryRules: types.optional(RetryRulesTypeCodesEnableHeader$inboundSchema),
+  authType: types.optional(
+    AuthenticationMethodOptionsManualSecret$inboundSchema,
+  ),
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
@@ -287,7 +289,7 @@ export type InputOffice365Service$Outbound = {
   contentConfig?:
     | Array<InputOffice365ServiceContentConfig$Outbound>
     | undefined;
-  retryRules?: RetryRulesType1$Outbound | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -326,8 +328,8 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   contentConfig: z.array(
     z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
   ).optional(),
-  retryRules: RetryRulesType1$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$outboundSchema.optional(),
+  retryRules: RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
+  authType: AuthenticationMethodOptionsManualSecret$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
