@@ -12,15 +12,15 @@ export type CreateSavedJobRequest = {
    */
   criblPack?: string | undefined;
   /**
-   * SavedJob object
+   * SavedJobCreateUpdate object
    */
-  savedJob: models.SavedJob;
+  savedJobCreateUpdate: models.SavedJobCreateUpdate;
 };
 
 /** @internal */
 export type CreateSavedJobRequest$Outbound = {
   criblPack?: string | undefined;
-  SavedJob: models.SavedJob$Outbound;
+  SavedJobCreateUpdate: models.SavedJobCreateUpdate$Outbound;
 };
 
 /** @internal */
@@ -30,10 +30,10 @@ export const CreateSavedJobRequest$outboundSchema: z.ZodType<
   CreateSavedJobRequest
 > = z.object({
   criblPack: z.string().optional(),
-  savedJob: models.SavedJob$outboundSchema,
+  savedJobCreateUpdate: models.SavedJobCreateUpdate$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    savedJob: "SavedJob",
+    savedJobCreateUpdate: "SavedJobCreateUpdate",
   });
 });
 

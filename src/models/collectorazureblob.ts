@@ -9,8 +9,6 @@ import * as types from "../types/primitives.js";
 import {
   AzureBlobCollectorConf,
   AzureBlobCollectorConf$inboundSchema,
-  AzureBlobCollectorConf$Outbound,
-  AzureBlobCollectorConf$outboundSchema,
 } from "./azureblobcollectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -44,33 +42,7 @@ export const CollectorAzureBlob$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
-/** @internal */
-export type CollectorAzureBlob$Outbound = {
-  type: "azure_blob";
-  conf: AzureBlobCollectorConf$Outbound;
-  destructive?: boolean | undefined;
-  encoding?: string | undefined;
-};
 
-/** @internal */
-export const CollectorAzureBlob$outboundSchema: z.ZodType<
-  CollectorAzureBlob$Outbound,
-  z.ZodTypeDef,
-  CollectorAzureBlob
-> = z.object({
-  type: z.literal("azure_blob"),
-  conf: AzureBlobCollectorConf$outboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
-});
-
-export function collectorAzureBlobToJSON(
-  collectorAzureBlob: CollectorAzureBlob,
-): string {
-  return JSON.stringify(
-    CollectorAzureBlob$outboundSchema.parse(collectorAzureBlob),
-  );
-}
 export function collectorAzureBlobFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorAzureBlob, SDKValidationError> {

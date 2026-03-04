@@ -21,9 +21,3 @@ export const JobTypeOptionsRunnableJobCollection$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(JobTypeOptionsRunnableJobCollection);
-/** @internal */
-export const JobTypeOptionsRunnableJobCollection$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  JobTypeOptionsRunnableJobCollection
-> = openEnums.outboundSchema(JobTypeOptionsRunnableJobCollection);

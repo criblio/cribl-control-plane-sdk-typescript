@@ -87,7 +87,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.SavedJob, { explode: true });
+  const body = encodeJSON("body", payload.SavedJobCreateUpdate, {
+    explode: true,
+  });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {

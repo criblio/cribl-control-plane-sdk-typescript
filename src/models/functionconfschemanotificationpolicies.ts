@@ -10,12 +10,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypePoliciesItemsTemplateTargetPairs,
-  ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
-  ItemsTypePoliciesItemsTemplateTargetPairs$Outbound,
-  ItemsTypePoliciesItemsTemplateTargetPairs$outboundSchema,
-} from "./itemstypepoliciesitemstemplatetargetpairs.js";
 
 /**
  * Comparison operator
@@ -51,6 +45,17 @@ export type Condition = {
   value: string | number | boolean;
 };
 
+export type FunctionConfSchemaNotificationPoliciesTemplateTargetPair = {
+  /**
+   * ID of the notification template to use
+   */
+  templateId: string;
+  /**
+   * ID of the notification target (output)
+   */
+  targetId: string;
+};
+
 export type Policy = {
   /**
    * Unique identifier for this policy
@@ -75,7 +80,9 @@ export type Policy = {
   /**
    * List of targets to route to and the templates to use
    */
-  templateTargetPairs: Array<ItemsTypePoliciesItemsTemplateTargetPairs>;
+  templateTargetPairs: Array<
+    FunctionConfSchemaNotificationPoliciesTemplateTargetPair
+  >;
   /**
    * If true, stop evaluating further policies after this one matches
    */
@@ -174,6 +181,58 @@ export function conditionFromJSON(
 }
 
 /** @internal */
+export const FunctionConfSchemaNotificationPoliciesTemplateTargetPair$inboundSchema:
+  z.ZodType<
+    FunctionConfSchemaNotificationPoliciesTemplateTargetPair,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    templateId: types.string(),
+    targetId: types.string(),
+  });
+/** @internal */
+export type FunctionConfSchemaNotificationPoliciesTemplateTargetPair$Outbound =
+  {
+    templateId: string;
+    targetId: string;
+  };
+
+/** @internal */
+export const FunctionConfSchemaNotificationPoliciesTemplateTargetPair$outboundSchema:
+  z.ZodType<
+    FunctionConfSchemaNotificationPoliciesTemplateTargetPair$Outbound,
+    z.ZodTypeDef,
+    FunctionConfSchemaNotificationPoliciesTemplateTargetPair
+  > = z.object({
+    templateId: z.string(),
+    targetId: z.string(),
+  });
+
+export function functionConfSchemaNotificationPoliciesTemplateTargetPairToJSON(
+  functionConfSchemaNotificationPoliciesTemplateTargetPair:
+    FunctionConfSchemaNotificationPoliciesTemplateTargetPair,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaNotificationPoliciesTemplateTargetPair$outboundSchema
+      .parse(functionConfSchemaNotificationPoliciesTemplateTargetPair),
+  );
+}
+export function functionConfSchemaNotificationPoliciesTemplateTargetPairFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  FunctionConfSchemaNotificationPoliciesTemplateTargetPair,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      FunctionConfSchemaNotificationPoliciesTemplateTargetPair$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'FunctionConfSchemaNotificationPoliciesTemplateTargetPair' from JSON`,
+  );
+}
+
+/** @internal */
 export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
   .object({
     id: types.string(),
@@ -184,7 +243,9 @@ export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
       z.array(z.array(z.lazy(() => Condition$inboundSchema))),
     ),
     templateTargetPairs: z.array(
-      ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
+      z.lazy(() =>
+        FunctionConfSchemaNotificationPoliciesTemplateTargetPair$inboundSchema
+      ),
     ),
     final: types.optional(types.boolean()),
     order: types.number(),
@@ -197,7 +258,7 @@ export type Policy$Outbound = {
   groupByLabels?: Array<string> | undefined;
   conditions?: Array<Array<Condition$Outbound>> | undefined;
   templateTargetPairs: Array<
-    ItemsTypePoliciesItemsTemplateTargetPairs$Outbound
+    FunctionConfSchemaNotificationPoliciesTemplateTargetPair$Outbound
   >;
   final?: boolean | undefined;
   order: number;
@@ -216,7 +277,9 @@ export const Policy$outboundSchema: z.ZodType<
   conditions: z.array(z.array(z.lazy(() => Condition$outboundSchema)))
     .optional(),
   templateTargetPairs: z.array(
-    ItemsTypePoliciesItemsTemplateTargetPairs$outboundSchema,
+    z.lazy(() =>
+      FunctionConfSchemaNotificationPoliciesTemplateTargetPair$outboundSchema
+    ),
   ),
   final: z.boolean().optional(),
   order: z.number(),

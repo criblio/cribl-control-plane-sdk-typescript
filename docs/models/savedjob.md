@@ -1,44 +1,28 @@
 # SavedJob
 
-
-## Supported Types
-
-### `models.SavedJobCollection`
+## Example Usage
 
 ```typescript
-const value: models.SavedJobCollection = {
-  type: "executor",
-  collector: {
-    type: "azure_blob",
-    conf: {
-      authType: "clientSecret",
-      storageAccountName: "<value>",
-      tenantId: "<id>",
-      clientId: "<id>",
-      clientTextSecret: "<value>",
-      containerName: "<value>",
-    },
-  },
+import { SavedJob } from "cribl-control-plane/models";
+
+let value: SavedJob = {
+  id: "<id>",
+  type: "<value>",
 };
 ```
 
-### `models.SavedJobExecutor`
+## Fields
 
-```typescript
-const value: models.SavedJobExecutor = {
-  type: "scheduledSearch",
-  executor: {
-    type: "<value>",
-  },
-};
-```
-
-### `models.SavedJobScheduledSearch`
-
-```typescript
-const value: models.SavedJobScheduledSearch = {
-  type: "collection",
-  savedQueryId: "<id>",
-};
-```
-
+| Field                                                                                                                                                                                    | Type                                                                                                                                                                                     | Required                                                                                                                                                                                 | Description                                                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `environment`                                                                                                                                                                            | *string*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                       | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                     |
+| `groupId`                                                                                                                                                                                | *string*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                       | Worker Group ID to run the job in. When empty, uses the default group.                                                                                                                   |
+| `id`                                                                                                                                                                                     | *string*                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                       | N/A                                                                                                                                                                                      |
+| `ignoreGroupJobsLimit`                                                                                                                                                                   | *boolean*                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                       | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live. |
+| `notifications`                                                                                                                                                                          | [models.Notification](../models/notification.md)[]                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                       | Notification targets.                                                                                                                                                                    |
+| `resumeOnBoot`                                                                                                                                                                           | *boolean*                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                       | Resume the ad hoc job if a failure condition causes Stream to restart during job execution.                                                                                              |
+| `savedState`                                                                                                                                                                             | Record<string, [models.CollectionStateEntry](../models/collectionstateentry.md)>                                                                                                         | :heavy_minus_sign:                                                                                                                                                                       | N/A                                                                                                                                                                                      |
+| `schedule`                                                                                                                                                                               | [models.ScheduleOpts](../models/scheduleopts.md)                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                       | N/A                                                                                                                                                                                      |
+| `ttl`                                                                                                                                                                                    | *string*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                       | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                          |
+| `type`                                                                                                                                                                                   | *string*                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                       | Job type: collection, executor, or scheduledSearch.                                                                                                                                      |
+| `additionalProperties`                                                                                                                                                                   | Record<string, *any*>                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                       | N/A                                                                                                                                                                                      |

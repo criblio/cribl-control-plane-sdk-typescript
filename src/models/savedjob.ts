@@ -5,62 +5,68 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import { smartUnion } from "../types/smartUnion.js";
+import * as types from "../types/primitives.js";
+import {
+  CollectionStateEntry,
+  CollectionStateEntry$inboundSchema,
+} from "./collectionstateentry.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  SavedJobCollection,
-  SavedJobCollection$inboundSchema,
-  SavedJobCollection$Outbound,
-  SavedJobCollection$outboundSchema,
-} from "./savedjobcollection.js";
-import {
-  SavedJobExecutor,
-  SavedJobExecutor$inboundSchema,
-  SavedJobExecutor$Outbound,
-  SavedJobExecutor$outboundSchema,
-} from "./savedjobexecutor.js";
-import {
-  SavedJobScheduledSearch,
-  SavedJobScheduledSearch$inboundSchema,
-  SavedJobScheduledSearch$Outbound,
-  SavedJobScheduledSearch$outboundSchema,
-} from "./savedjobscheduledsearch.js";
+import { Notification, Notification$inboundSchema } from "./notification.js";
+import { ScheduleOpts, ScheduleOpts$inboundSchema } from "./scheduleopts.js";
 
-export type SavedJob =
-  | SavedJobCollection
-  | SavedJobExecutor
-  | SavedJobScheduledSearch;
+export type SavedJob = {
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Worker Group ID to run the job in. When empty, uses the default group.
+   */
+  groupId?: string | undefined;
+  id: string;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Notification targets.
+   */
+  notifications?: Array<Notification> | undefined;
+  /**
+   * Resume the ad hoc job if a failure condition causes Stream to restart during job execution.
+   */
+  resumeOnBoot?: boolean | undefined;
+  savedState?: { [k: string]: CollectionStateEntry } | undefined;
+  schedule?: ScheduleOpts | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * Job type: collection, executor, or scheduledSearch.
+   */
+  type: string;
+  [additionalProperties: string]: unknown;
+};
 
 /** @internal */
 export const SavedJob$inboundSchema: z.ZodType<
   SavedJob,
   z.ZodTypeDef,
   unknown
-> = smartUnion([
-  SavedJobCollection$inboundSchema,
-  SavedJobExecutor$inboundSchema,
-  SavedJobScheduledSearch$inboundSchema,
-]);
-/** @internal */
-export type SavedJob$Outbound =
-  | SavedJobCollection$Outbound
-  | SavedJobExecutor$Outbound
-  | SavedJobScheduledSearch$Outbound;
+> = z.object({
+  environment: types.optional(types.string()),
+  groupId: types.optional(types.string()),
+  id: types.string(),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  notifications: types.optional(z.array(Notification$inboundSchema)),
+  resumeOnBoot: types.optional(types.boolean()),
+  savedState: types.optional(z.record(CollectionStateEntry$inboundSchema)),
+  schedule: types.optional(ScheduleOpts$inboundSchema),
+  ttl: types.optional(types.string()),
+  type: types.string(),
+}).catchall(z.any());
 
-/** @internal */
-export const SavedJob$outboundSchema: z.ZodType<
-  SavedJob$Outbound,
-  z.ZodTypeDef,
-  SavedJob
-> = smartUnion([
-  SavedJobCollection$outboundSchema,
-  SavedJobExecutor$outboundSchema,
-  SavedJobScheduledSearch$outboundSchema,
-]);
-
-export function savedJobToJSON(savedJob: SavedJob): string {
-  return JSON.stringify(SavedJob$outboundSchema.parse(savedJob));
-}
 export function savedJobFromJSON(
   jsonString: string,
 ): SafeParseResult<SavedJob, SDKValidationError> {

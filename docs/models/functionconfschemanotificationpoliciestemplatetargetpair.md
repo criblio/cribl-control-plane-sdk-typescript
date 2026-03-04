@@ -1,11 +1,11 @@
-# ItemsTypePoliciesItemsTemplateTargetPairs
+# FunctionConfSchemaNotificationPoliciesTemplateTargetPair
 
 ## Example Usage
 
 ```typescript
-import { ItemsTypePoliciesItemsTemplateTargetPairs } from "cribl-control-plane/models";
+import { FunctionConfSchemaNotificationPoliciesTemplateTargetPair } from "cribl-control-plane/models";
 
-let value: ItemsTypePoliciesItemsTemplateTargetPairs = {
+let value: FunctionConfSchemaNotificationPoliciesTemplateTargetPair = {
   templateId: "<id>",
   targetId: "<id>",
 };

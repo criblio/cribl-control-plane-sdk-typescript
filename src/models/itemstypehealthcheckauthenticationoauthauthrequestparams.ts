@@ -29,33 +29,7 @@ export const ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSch
     name: types.string(),
     value: types.string(),
   });
-/** @internal */
-export type ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound =
-  {
-    name: string;
-    value: string;
-  };
 
-/** @internal */
-export const ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema:
-  z.ZodType<
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound,
-    z.ZodTypeDef,
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function itemsTypeHealthCheckAuthenticationOauthAuthRequestParamsToJSON(
-  itemsTypeHealthCheckAuthenticationOauthAuthRequestParams:
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams,
-): string {
-  return JSON.stringify(
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema
-      .parse(itemsTypeHealthCheckAuthenticationOauthAuthRequestParams),
-  );
-}
 export function itemsTypeHealthCheckAuthenticationOauthAuthRequestParamsFromJSON(
   jsonString: string,
 ): SafeParseResult<

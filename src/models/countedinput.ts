@@ -7,14 +7,14 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Input1, Input1$inboundSchema } from "./input1.js";
+import { InputUnion1, InputUnion1$inboundSchema } from "./inputunion1.js";
 
 export type CountedInput = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<Input1> | undefined;
+  items?: Array<InputUnion1> | undefined;
 };
 
 /** @internal */
@@ -24,7 +24,7 @@ export const CountedInput$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: types.optional(types.number()),
-  items: types.optional(z.array(Input1$inboundSchema)),
+  items: types.optional(z.array(InputUnion1$inboundSchema)),
 });
 
 export function countedInputFromJSON(

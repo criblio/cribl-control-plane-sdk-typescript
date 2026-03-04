@@ -13,4 +13,4 @@ let value: CountedSavedJob = {};
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | *models.SavedJob*[]                        | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | [models.SavedJob](../models/savedjob.md)[] | :heavy_minus_sign:                         | N/A                                        |

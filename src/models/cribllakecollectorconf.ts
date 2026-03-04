@@ -23,27 +23,7 @@ export const CriblLakeCollectorConf$inboundSchema: z.ZodType<
 > = z.object({
   dataset: types.string(),
 });
-/** @internal */
-export type CriblLakeCollectorConf$Outbound = {
-  dataset: string;
-};
 
-/** @internal */
-export const CriblLakeCollectorConf$outboundSchema: z.ZodType<
-  CriblLakeCollectorConf$Outbound,
-  z.ZodTypeDef,
-  CriblLakeCollectorConf
-> = z.object({
-  dataset: z.string(),
-});
-
-export function criblLakeCollectorConfToJSON(
-  criblLakeCollectorConf: CriblLakeCollectorConf,
-): string {
-  return JSON.stringify(
-    CriblLakeCollectorConf$outboundSchema.parse(criblLakeCollectorConf),
-  );
-}
 export function criblLakeCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<CriblLakeCollectorConf, SDKValidationError> {

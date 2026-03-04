@@ -10,8 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SplunkCollectorConf,
   SplunkCollectorConf$inboundSchema,
-  SplunkCollectorConf$Outbound,
-  SplunkCollectorConf$outboundSchema,
 } from "./splunkcollectorconf.js";
 
 /**
@@ -44,31 +42,7 @@ export const CollectorSplunk$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
-/** @internal */
-export type CollectorSplunk$Outbound = {
-  type: "splunk";
-  conf: SplunkCollectorConf$Outbound;
-  destructive?: boolean | undefined;
-  encoding?: string | undefined;
-};
 
-/** @internal */
-export const CollectorSplunk$outboundSchema: z.ZodType<
-  CollectorSplunk$Outbound,
-  z.ZodTypeDef,
-  CollectorSplunk
-> = z.object({
-  type: z.literal("splunk"),
-  conf: SplunkCollectorConf$outboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
-});
-
-export function collectorSplunkToJSON(
-  collectorSplunk: CollectorSplunk,
-): string {
-  return JSON.stringify(CollectorSplunk$outboundSchema.parse(collectorSplunk));
-}
 export function collectorSplunkFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorSplunk, SDKValidationError> {

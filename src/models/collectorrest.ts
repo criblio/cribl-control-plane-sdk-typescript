@@ -10,8 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   RestCollectorConf,
   RestCollectorConf$inboundSchema,
-  RestCollectorConf$Outbound,
-  RestCollectorConf$outboundSchema,
 } from "./restcollectorconf.js";
 
 /**
@@ -44,29 +42,7 @@ export const CollectorRest$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
-/** @internal */
-export type CollectorRest$Outbound = {
-  type: "rest";
-  conf: RestCollectorConf$Outbound;
-  destructive?: boolean | undefined;
-  encoding?: string | undefined;
-};
 
-/** @internal */
-export const CollectorRest$outboundSchema: z.ZodType<
-  CollectorRest$Outbound,
-  z.ZodTypeDef,
-  CollectorRest
-> = z.object({
-  type: z.literal("rest"),
-  conf: RestCollectorConf$outboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
-});
-
-export function collectorRestToJSON(collectorRest: CollectorRest): string {
-  return JSON.stringify(CollectorRest$outboundSchema.parse(collectorRest));
-}
 export function collectorRestFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorRest, SDKValidationError> {
