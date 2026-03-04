@@ -13,4 +13,4 @@ let value: CountedInput = {};
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | *models.InputUnion1*[]                     | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | *models.Input1*[]                          | :heavy_minus_sign:                         | N/A                                        |

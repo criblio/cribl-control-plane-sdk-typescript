@@ -22,4 +22,4 @@ let value: UpdateInputByIdRequest = {
 | Field                                        | Type                                         | Required                                     | Description                                  |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | `id`                                         | *string*                                     | :heavy_check_mark:                           | The <code>id</code> of the Source to update. |
-| `input`                                      | *models.InputUnion2*                         | :heavy_check_mark:                           | Input object                                 |
+| `input`                                      | *models.Input2*                              | :heavy_check_mark:                           | Input object                                 |

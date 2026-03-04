@@ -9,6 +9,8 @@ import * as types from "../types/primitives.js";
 import {
   CriblLakeCollectorConf,
   CriblLakeCollectorConf$inboundSchema,
+  CriblLakeCollectorConf$Outbound,
+  CriblLakeCollectorConf$outboundSchema,
 } from "./cribllakecollectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -42,7 +44,33 @@ export const CollectorCriblLake$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
+/** @internal */
+export type CollectorCriblLake$Outbound = {
+  type: "cribl_lake";
+  conf: CriblLakeCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
+};
 
+/** @internal */
+export const CollectorCriblLake$outboundSchema: z.ZodType<
+  CollectorCriblLake$Outbound,
+  z.ZodTypeDef,
+  CollectorCriblLake
+> = z.object({
+  type: z.literal("cribl_lake"),
+  conf: CriblLakeCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
+});
+
+export function collectorCriblLakeToJSON(
+  collectorCriblLake: CollectorCriblLake,
+): string {
+  return JSON.stringify(
+    CollectorCriblLake$outboundSchema.parse(collectorCriblLake),
+  );
+}
 export function collectorCriblLakeFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorCriblLake, SDKValidationError> {

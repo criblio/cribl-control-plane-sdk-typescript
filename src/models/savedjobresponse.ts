@@ -6,63 +6,388 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  CollectionStateEntry,
-  CollectionStateEntry$inboundSchema,
-} from "./collectionstateentry.js";
+import { smartUnion } from "../types/smartUnion.js";
+import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Notification, Notification$inboundSchema } from "./notification.js";
-import { ScheduleOpts, ScheduleOpts$inboundSchema } from "./scheduleopts.js";
+import {
+  ExecutorTypeRunnableJobExecutor,
+  ExecutorTypeRunnableJobExecutor$inboundSchema,
+} from "./executortyperunnablejobexecutor.js";
+import {
+  JobTypeOptionsRunnableJobCollection,
+  JobTypeOptionsRunnableJobCollection$inboundSchema,
+} from "./jobtypeoptionsrunnablejobcollection.js";
+import {
+  NotificationUnion,
+  NotificationUnion$inboundSchema,
+} from "./notificationunion.js";
+import {
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
+import {
+  ScheduleTypeSavedJobResponseCollection,
+  ScheduleTypeSavedJobResponseCollection$inboundSchema,
+} from "./scheduletypesavedjobresponsecollection.js";
 
-export type SavedJobResponse = {
+export type SavedJobResponseScheduledSearchSavedState = {
+  data: { [k: string]: any };
+};
+
+export type SavedJobResponseScheduledSearch = {
   /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   * Unique ID for this Job
    */
-  environment?: string | undefined;
-  /**
-   * Unique ID for this Job.
-   */
-  id: string;
-  /**
-   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-   */
-  ignoreGroupJobsLimit?: boolean | undefined;
-  /**
-   * Notification targets.
-   */
-  notifications?: Array<Notification> | undefined;
-  /**
-   * Resume the ad hoc job if a failure condition causes Stream to restart during job execution.
-   */
-  resumeOnBoot?: boolean | undefined;
-  savedState?: { [k: string]: CollectionStateEntry } | undefined;
-  schedule?: ScheduleOpts | undefined;
+  id?: string | undefined;
+  description?: string | undefined;
+  type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
   ttl?: string | undefined;
   /**
-   * Job type: collection, executor, or scheduledSearch.
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
    */
-  type: string;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
+   */
+  removeFields?: Array<string> | undefined;
+  /**
+   * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
+   */
+  resumeOnBoot?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Configuration for a scheduled job
+   */
+  schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Identifies which search query to run
+   */
+  savedQueryId: string;
+  /**
+   * Runtime collection state.
+   */
+  savedState?:
+    | { [k: string]: SavedJobResponseScheduledSearchSavedState }
+    | undefined;
+  /**
+   * Notification targets.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
 };
+
+export type SavedJobResponseExecutorSavedState = {
+  data: { [k: string]: any };
+};
+
+export type SavedJobResponseExecutor = {
+  /**
+   * Unique ID for this Job
+   */
+  id?: string | undefined;
+  description?: string | undefined;
+  type: JobTypeOptionsRunnableJobCollection;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
+   */
+  removeFields?: Array<string> | undefined;
+  /**
+   * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
+   */
+  resumeOnBoot?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Configuration for a scheduled job
+   */
+  schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  executor: ExecutorTypeRunnableJobExecutor;
+  /**
+   * Runtime collection state.
+   */
+  savedState?: { [k: string]: SavedJobResponseExecutorSavedState } | undefined;
+  /**
+   * Notification targets.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+};
+
+export type SavedJobResponseCollectionSavedState = {
+  data: { [k: string]: any };
+};
+
+export type SavedJobResponseCollection = {
+  /**
+   * Unique ID for this Job
+   */
+  id?: string | undefined;
+  description?: string | undefined;
+  type: JobTypeOptionsRunnableJobCollection;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
+   */
+  removeFields?: Array<string> | undefined;
+  /**
+   * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
+   */
+  resumeOnBoot?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Configuration for a scheduled job
+   */
+  schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * If enabled, tasks are created and run by the same Worker Node
+   */
+  workerAffinity?: boolean | undefined;
+  /**
+   * Collector configuration
+   */
+  collector: Collector;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
+    | undefined;
+  /**
+   * Runtime collection state.
+   */
+  savedState?:
+    | { [k: string]: SavedJobResponseCollectionSavedState }
+    | undefined;
+  /**
+   * Notification targets.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+};
+
+export type SavedJobResponse =
+  | SavedJobResponseCollection
+  | SavedJobResponseExecutor
+  | SavedJobResponseScheduledSearch;
+
+/** @internal */
+export const SavedJobResponseScheduledSearchSavedState$inboundSchema: z.ZodType<
+  SavedJobResponseScheduledSearchSavedState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  data: z.record(z.any()),
+});
+
+export function savedJobResponseScheduledSearchSavedStateFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  SavedJobResponseScheduledSearchSavedState,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      SavedJobResponseScheduledSearchSavedState$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'SavedJobResponseScheduledSearchSavedState' from JSON`,
+  );
+}
+
+/** @internal */
+export const SavedJobResponseScheduledSearch$inboundSchema: z.ZodType<
+  SavedJobResponseScheduledSearch,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  description: types.optional(types.string()),
+  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  removeFields: types.optional(z.array(types.string())),
+  resumeOnBoot: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  schedule: types.optional(
+    ScheduleTypeSavedJobResponseCollection$inboundSchema,
+  ),
+  streamtags: types.optional(z.array(types.string())),
+  savedQueryId: types.string(),
+  savedState: types.optional(
+    z.record(z.lazy(() =>
+      SavedJobResponseScheduledSearchSavedState$inboundSchema
+    )),
+  ),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+});
+
+export function savedJobResponseScheduledSearchFromJSON(
+  jsonString: string,
+): SafeParseResult<SavedJobResponseScheduledSearch, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SavedJobResponseScheduledSearch$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SavedJobResponseScheduledSearch' from JSON`,
+  );
+}
+
+/** @internal */
+export const SavedJobResponseExecutorSavedState$inboundSchema: z.ZodType<
+  SavedJobResponseExecutorSavedState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  data: z.record(z.any()),
+});
+
+export function savedJobResponseExecutorSavedStateFromJSON(
+  jsonString: string,
+): SafeParseResult<SavedJobResponseExecutorSavedState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      SavedJobResponseExecutorSavedState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SavedJobResponseExecutorSavedState' from JSON`,
+  );
+}
+
+/** @internal */
+export const SavedJobResponseExecutor$inboundSchema: z.ZodType<
+  SavedJobResponseExecutor,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  description: types.optional(types.string()),
+  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  removeFields: types.optional(z.array(types.string())),
+  resumeOnBoot: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  schedule: types.optional(
+    ScheduleTypeSavedJobResponseCollection$inboundSchema,
+  ),
+  streamtags: types.optional(z.array(types.string())),
+  executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
+  savedState: types.optional(
+    z.record(z.lazy(() => SavedJobResponseExecutorSavedState$inboundSchema)),
+  ),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+});
+
+export function savedJobResponseExecutorFromJSON(
+  jsonString: string,
+): SafeParseResult<SavedJobResponseExecutor, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SavedJobResponseExecutor$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SavedJobResponseExecutor' from JSON`,
+  );
+}
+
+/** @internal */
+export const SavedJobResponseCollectionSavedState$inboundSchema: z.ZodType<
+  SavedJobResponseCollectionSavedState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  data: z.record(z.any()),
+});
+
+export function savedJobResponseCollectionSavedStateFromJSON(
+  jsonString: string,
+): SafeParseResult<SavedJobResponseCollectionSavedState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      SavedJobResponseCollectionSavedState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SavedJobResponseCollectionSavedState' from JSON`,
+  );
+}
+
+/** @internal */
+export const SavedJobResponseCollection$inboundSchema: z.ZodType<
+  SavedJobResponseCollection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  description: types.optional(types.string()),
+  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  removeFields: types.optional(z.array(types.string())),
+  resumeOnBoot: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  schedule: types.optional(
+    ScheduleTypeSavedJobResponseCollection$inboundSchema,
+  ),
+  streamtags: types.optional(z.array(types.string())),
+  workerAffinity: types.optional(types.boolean()),
+  collector: Collector$inboundSchema,
+  input: types.optional(
+    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+  ),
+  savedState: types.optional(
+    z.record(z.lazy(() => SavedJobResponseCollectionSavedState$inboundSchema)),
+  ),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+});
+
+export function savedJobResponseCollectionFromJSON(
+  jsonString: string,
+): SafeParseResult<SavedJobResponseCollection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SavedJobResponseCollection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SavedJobResponseCollection' from JSON`,
+  );
+}
 
 /** @internal */
 export const SavedJobResponse$inboundSchema: z.ZodType<
   SavedJobResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  environment: types.optional(types.string()),
-  id: types.string(),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  notifications: types.optional(z.array(Notification$inboundSchema)),
-  resumeOnBoot: types.optional(types.boolean()),
-  savedState: types.optional(z.record(CollectionStateEntry$inboundSchema)),
-  schedule: types.optional(ScheduleOpts$inboundSchema),
-  ttl: types.optional(types.string()),
-  type: types.string(),
-});
+> = smartUnion([
+  z.lazy(() => SavedJobResponseCollection$inboundSchema),
+  z.lazy(() => SavedJobResponseExecutor$inboundSchema),
+  z.lazy(() => SavedJobResponseScheduledSearch$inboundSchema),
+]);
 
 export function savedJobResponseFromJSON(
   jsonString: string,

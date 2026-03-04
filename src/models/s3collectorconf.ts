@@ -14,6 +14,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SignatureVersionOptionsS3CollectorConf,
   SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  SignatureVersionOptionsS3CollectorConf$outboundSchema,
 } from "./signatureversionoptionss3collectorconf.js";
 
 /**
@@ -623,6 +624,15 @@ export const S3AwsAuthenticationMethodSecretPartitioningScheme$inboundSchema:
   > = openEnums.inboundSchema(
     S3AwsAuthenticationMethodSecretPartitioningScheme,
   );
+/** @internal */
+export const S3AwsAuthenticationMethodSecretPartitioningScheme$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    S3AwsAuthenticationMethodSecretPartitioningScheme
+  > = openEnums.outboundSchema(
+    S3AwsAuthenticationMethodSecretPartitioningScheme,
+  );
 
 /** @internal */
 export const S3AwsAuthenticationMethodSecretExtractor$inboundSchema: z.ZodType<
@@ -633,7 +643,32 @@ export const S3AwsAuthenticationMethodSecretExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type S3AwsAuthenticationMethodSecretExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const S3AwsAuthenticationMethodSecretExtractor$outboundSchema: z.ZodType<
+  S3AwsAuthenticationMethodSecretExtractor$Outbound,
+  z.ZodTypeDef,
+  S3AwsAuthenticationMethodSecretExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function s3AwsAuthenticationMethodSecretExtractorToJSON(
+  s3AwsAuthenticationMethodSecretExtractor:
+    S3AwsAuthenticationMethodSecretExtractor,
+): string {
+  return JSON.stringify(
+    S3AwsAuthenticationMethodSecretExtractor$outboundSchema.parse(
+      s3AwsAuthenticationMethodSecretExtractor,
+    ),
+  );
+}
 export function s3AwsAuthenticationMethodSecretExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -686,7 +721,75 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
 });
+/** @internal */
+export type S3AwsAuthenticationMethodSecret$Outbound = {
+  awsAuthenticationMethod: "secret";
+  awsSecret?: string | undefined;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  region?: string | undefined;
+  path?: string | undefined;
+  partitioningScheme?: string | undefined;
+  extractors?:
+    | Array<S3AwsAuthenticationMethodSecretExtractor$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+};
 
+/** @internal */
+export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
+  S3AwsAuthenticationMethodSecret$Outbound,
+  z.ZodTypeDef,
+  S3AwsAuthenticationMethodSecret
+> = z.object({
+  awsAuthenticationMethod: z.literal("secret"),
+  awsSecret: z.string().optional(),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme:
+    S3AwsAuthenticationMethodSecretPartitioningScheme$outboundSchema.optional(),
+  extractors: z.array(
+    z.lazy(() => S3AwsAuthenticationMethodSecretExtractor$outboundSchema),
+  ).optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+});
+
+export function s3AwsAuthenticationMethodSecretToJSON(
+  s3AwsAuthenticationMethodSecret: S3AwsAuthenticationMethodSecret,
+): string {
+  return JSON.stringify(
+    S3AwsAuthenticationMethodSecret$outboundSchema.parse(
+      s3AwsAuthenticationMethodSecret,
+    ),
+  );
+}
 export function s3AwsAuthenticationMethodSecretFromJSON(
   jsonString: string,
 ): SafeParseResult<S3AwsAuthenticationMethodSecret, SDKValidationError> {
@@ -706,6 +809,15 @@ export const S3AwsAuthenticationMethodManualPartitioningScheme$inboundSchema:
   > = openEnums.inboundSchema(
     S3AwsAuthenticationMethodManualPartitioningScheme,
   );
+/** @internal */
+export const S3AwsAuthenticationMethodManualPartitioningScheme$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    S3AwsAuthenticationMethodManualPartitioningScheme
+  > = openEnums.outboundSchema(
+    S3AwsAuthenticationMethodManualPartitioningScheme,
+  );
 
 /** @internal */
 export const S3AwsAuthenticationMethodManualExtractor$inboundSchema: z.ZodType<
@@ -716,7 +828,32 @@ export const S3AwsAuthenticationMethodManualExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type S3AwsAuthenticationMethodManualExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const S3AwsAuthenticationMethodManualExtractor$outboundSchema: z.ZodType<
+  S3AwsAuthenticationMethodManualExtractor$Outbound,
+  z.ZodTypeDef,
+  S3AwsAuthenticationMethodManualExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function s3AwsAuthenticationMethodManualExtractorToJSON(
+  s3AwsAuthenticationMethodManualExtractor:
+    S3AwsAuthenticationMethodManualExtractor,
+): string {
+  return JSON.stringify(
+    S3AwsAuthenticationMethodManualExtractor$outboundSchema.parse(
+      s3AwsAuthenticationMethodManualExtractor,
+    ),
+  );
+}
 export function s3AwsAuthenticationMethodManualExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -770,7 +907,77 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
 });
+/** @internal */
+export type S3AwsAuthenticationMethodManual$Outbound = {
+  awsAuthenticationMethod: "manual";
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  region?: string | undefined;
+  path?: string | undefined;
+  partitioningScheme?: string | undefined;
+  extractors?:
+    | Array<S3AwsAuthenticationMethodManualExtractor$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+};
 
+/** @internal */
+export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
+  S3AwsAuthenticationMethodManual$Outbound,
+  z.ZodTypeDef,
+  S3AwsAuthenticationMethodManual
+> = z.object({
+  awsAuthenticationMethod: z.literal("manual"),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme:
+    S3AwsAuthenticationMethodManualPartitioningScheme$outboundSchema.optional(),
+  extractors: z.array(
+    z.lazy(() => S3AwsAuthenticationMethodManualExtractor$outboundSchema),
+  ).optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+});
+
+export function s3AwsAuthenticationMethodManualToJSON(
+  s3AwsAuthenticationMethodManual: S3AwsAuthenticationMethodManual,
+): string {
+  return JSON.stringify(
+    S3AwsAuthenticationMethodManual$outboundSchema.parse(
+      s3AwsAuthenticationMethodManual,
+    ),
+  );
+}
 export function s3AwsAuthenticationMethodManualFromJSON(
   jsonString: string,
 ): SafeParseResult<S3AwsAuthenticationMethodManual, SDKValidationError> {
@@ -788,6 +995,13 @@ export const S3AwsAuthenticationMethodAutoPartitioningScheme$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(S3AwsAuthenticationMethodAutoPartitioningScheme);
+/** @internal */
+export const S3AwsAuthenticationMethodAutoPartitioningScheme$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    S3AwsAuthenticationMethodAutoPartitioningScheme
+  > = openEnums.outboundSchema(S3AwsAuthenticationMethodAutoPartitioningScheme);
 
 /** @internal */
 export const S3AwsAuthenticationMethodAutoExtractor$inboundSchema: z.ZodType<
@@ -798,7 +1012,32 @@ export const S3AwsAuthenticationMethodAutoExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type S3AwsAuthenticationMethodAutoExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const S3AwsAuthenticationMethodAutoExtractor$outboundSchema: z.ZodType<
+  S3AwsAuthenticationMethodAutoExtractor$Outbound,
+  z.ZodTypeDef,
+  S3AwsAuthenticationMethodAutoExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function s3AwsAuthenticationMethodAutoExtractorToJSON(
+  s3AwsAuthenticationMethodAutoExtractor:
+    S3AwsAuthenticationMethodAutoExtractor,
+): string {
+  return JSON.stringify(
+    S3AwsAuthenticationMethodAutoExtractor$outboundSchema.parse(
+      s3AwsAuthenticationMethodAutoExtractor,
+    ),
+  );
+}
 export function s3AwsAuthenticationMethodAutoExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<S3AwsAuthenticationMethodAutoExtractor, SDKValidationError> {
@@ -843,7 +1082,73 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
 });
+/** @internal */
+export type S3AwsAuthenticationMethodAuto$Outbound = {
+  awsAuthenticationMethod: "auto";
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  region?: string | undefined;
+  path?: string | undefined;
+  partitioningScheme?: string | undefined;
+  extractors?:
+    | Array<S3AwsAuthenticationMethodAutoExtractor$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+};
 
+/** @internal */
+export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
+  S3AwsAuthenticationMethodAuto$Outbound,
+  z.ZodTypeDef,
+  S3AwsAuthenticationMethodAuto
+> = z.object({
+  awsAuthenticationMethod: z.literal("auto"),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme:
+    S3AwsAuthenticationMethodAutoPartitioningScheme$outboundSchema.optional(),
+  extractors: z.array(
+    z.lazy(() => S3AwsAuthenticationMethodAutoExtractor$outboundSchema),
+  ).optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+});
+
+export function s3AwsAuthenticationMethodAutoToJSON(
+  s3AwsAuthenticationMethodAuto: S3AwsAuthenticationMethodAuto,
+): string {
+  return JSON.stringify(
+    S3AwsAuthenticationMethodAuto$outboundSchema.parse(
+      s3AwsAuthenticationMethodAuto,
+    ),
+  );
+}
 export function s3AwsAuthenticationMethodAutoFromJSON(
   jsonString: string,
 ): SafeParseResult<S3AwsAuthenticationMethodAuto, SDKValidationError> {
@@ -858,6 +1163,10 @@ export function s3AwsAuthenticationMethodAutoFromJSON(
 export const S3PartitioningSchemeNonePartitioningScheme$inboundSchema:
   z.ZodType<S3PartitioningSchemeNonePartitioningScheme, z.ZodTypeDef, unknown> =
     openEnums.inboundSchema(S3PartitioningSchemeNonePartitioningScheme);
+/** @internal */
+export const S3PartitioningSchemeNonePartitioningScheme$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, S3PartitioningSchemeNonePartitioningScheme> =
+    openEnums.outboundSchema(S3PartitioningSchemeNonePartitioningScheme);
 
 /** @internal */
 export const S3PartitioningSchemeNoneExtractor$inboundSchema: z.ZodType<
@@ -868,7 +1177,31 @@ export const S3PartitioningSchemeNoneExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type S3PartitioningSchemeNoneExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const S3PartitioningSchemeNoneExtractor$outboundSchema: z.ZodType<
+  S3PartitioningSchemeNoneExtractor$Outbound,
+  z.ZodTypeDef,
+  S3PartitioningSchemeNoneExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function s3PartitioningSchemeNoneExtractorToJSON(
+  s3PartitioningSchemeNoneExtractor: S3PartitioningSchemeNoneExtractor,
+): string {
+  return JSON.stringify(
+    S3PartitioningSchemeNoneExtractor$outboundSchema.parse(
+      s3PartitioningSchemeNoneExtractor,
+    ),
+  );
+}
 export function s3PartitioningSchemeNoneExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<S3PartitioningSchemeNoneExtractor, SDKValidationError> {
@@ -913,7 +1246,71 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
 });
+/** @internal */
+export type S3PartitioningSchemeNone$Outbound = {
+  partitioningScheme?: string | undefined;
+  recurse?: boolean | undefined;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  region?: string | undefined;
+  path?: string | undefined;
+  extractors?: Array<S3PartitioningSchemeNoneExtractor$Outbound> | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+};
 
+/** @internal */
+export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
+  S3PartitioningSchemeNone$Outbound,
+  z.ZodTypeDef,
+  S3PartitioningSchemeNone
+> = z.object({
+  partitioningScheme: S3PartitioningSchemeNonePartitioningScheme$outboundSchema
+    .optional(),
+  recurse: z.boolean().optional(),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => S3PartitioningSchemeNoneExtractor$outboundSchema),
+  ).optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+});
+
+export function s3PartitioningSchemeNoneToJSON(
+  s3PartitioningSchemeNone: S3PartitioningSchemeNone,
+): string {
+  return JSON.stringify(
+    S3PartitioningSchemeNone$outboundSchema.parse(s3PartitioningSchemeNone),
+  );
+}
 export function s3PartitioningSchemeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<S3PartitioningSchemeNone, SDKValidationError> {
@@ -928,6 +1325,10 @@ export function s3PartitioningSchemeNoneFromJSON(
 export const S3PartitioningSchemeDdssPartitioningScheme$inboundSchema:
   z.ZodType<S3PartitioningSchemeDdssPartitioningScheme, z.ZodTypeDef, unknown> =
     openEnums.inboundSchema(S3PartitioningSchemeDdssPartitioningScheme);
+/** @internal */
+export const S3PartitioningSchemeDdssPartitioningScheme$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, S3PartitioningSchemeDdssPartitioningScheme> =
+    openEnums.outboundSchema(S3PartitioningSchemeDdssPartitioningScheme);
 
 /** @internal */
 export const S3PartitioningSchemeDdssExtractor$inboundSchema: z.ZodType<
@@ -938,7 +1339,31 @@ export const S3PartitioningSchemeDdssExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type S3PartitioningSchemeDdssExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const S3PartitioningSchemeDdssExtractor$outboundSchema: z.ZodType<
+  S3PartitioningSchemeDdssExtractor$Outbound,
+  z.ZodTypeDef,
+  S3PartitioningSchemeDdssExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function s3PartitioningSchemeDdssExtractorToJSON(
+  s3PartitioningSchemeDdssExtractor: S3PartitioningSchemeDdssExtractor,
+): string {
+  return JSON.stringify(
+    S3PartitioningSchemeDdssExtractor$outboundSchema.parse(
+      s3PartitioningSchemeDdssExtractor,
+    ),
+  );
+}
 export function s3PartitioningSchemeDdssExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<S3PartitioningSchemeDdssExtractor, SDKValidationError> {
@@ -982,7 +1407,69 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
 });
+/** @internal */
+export type S3PartitioningSchemeDdss$Outbound = {
+  partitioningScheme?: string | undefined;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  region?: string | undefined;
+  path?: string | undefined;
+  extractors?: Array<S3PartitioningSchemeDdssExtractor$Outbound> | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxBatchSize?: number | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+};
 
+/** @internal */
+export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
+  S3PartitioningSchemeDdss$Outbound,
+  z.ZodTypeDef,
+  S3PartitioningSchemeDdss
+> = z.object({
+  partitioningScheme: S3PartitioningSchemeDdssPartitioningScheme$outboundSchema
+    .optional(),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => S3PartitioningSchemeDdssExtractor$outboundSchema),
+  ).optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxBatchSize: z.number().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+});
+
+export function s3PartitioningSchemeDdssToJSON(
+  s3PartitioningSchemeDdss: S3PartitioningSchemeDdss,
+): string {
+  return JSON.stringify(
+    S3PartitioningSchemeDdss$outboundSchema.parse(s3PartitioningSchemeDdss),
+  );
+}
 export function s3PartitioningSchemeDdssFromJSON(
   jsonString: string,
 ): SafeParseResult<S3PartitioningSchemeDdss, SDKValidationError> {
@@ -1003,7 +1490,28 @@ export const S3CollectorConf$inboundSchema: z.ZodType<
   manual: z.lazy(() => S3AwsAuthenticationMethodManual$inboundSchema),
   secret: z.lazy(() => S3AwsAuthenticationMethodSecret$inboundSchema),
 });
+/** @internal */
+export type S3CollectorConf$Outbound =
+  | S3AwsAuthenticationMethodAuto$Outbound
+  | S3AwsAuthenticationMethodManual$Outbound
+  | S3AwsAuthenticationMethodSecret$Outbound;
 
+/** @internal */
+export const S3CollectorConf$outboundSchema: z.ZodType<
+  S3CollectorConf$Outbound,
+  z.ZodTypeDef,
+  S3CollectorConf
+> = z.union([
+  z.lazy(() => S3AwsAuthenticationMethodAuto$outboundSchema),
+  z.lazy(() => S3AwsAuthenticationMethodManual$outboundSchema),
+  z.lazy(() => S3AwsAuthenticationMethodSecret$outboundSchema),
+]);
+
+export function s3CollectorConfToJSON(
+  s3CollectorConf: S3CollectorConf,
+): string {
+  return JSON.stringify(S3CollectorConf$outboundSchema.parse(s3CollectorConf));
+}
 export function s3CollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<S3CollectorConf, SDKValidationError> {

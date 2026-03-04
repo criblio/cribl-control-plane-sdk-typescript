@@ -31,20 +31,10 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "azure-blob-collector",
-    schedule: {
-      cronSchedule: "0 */8 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    executor: {
+      type: "<value>",
+    },
   });
 
   console.log(result);
@@ -72,20 +62,10 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "azure-blob-collector",
-    schedule: {
-      cronSchedule: "0 */8 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    executor: {
+      type: "<value>",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -112,20 +92,14 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "cribl-lake-collector",
-    schedule: {
-      cronSchedule: "0 */2 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
 
   console.log(result);
@@ -153,20 +127,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "cribl-lake-collector",
-    schedule: {
-      cronSchedule: "0 */2 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -193,20 +161,10 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "database-collector",
-    schedule: {
-      cronSchedule: "0 2 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    executor: {
+      type: "<value>",
+    },
   });
 
   console.log(result);
@@ -234,20 +192,10 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "database-collector",
-    schedule: {
-      cronSchedule: "0 2 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    executor: {
+      type: "<value>",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -274,20 +222,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "filesystem-collector",
-    schedule: {
-      cronSchedule: "0 */2 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -315,20 +251,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "filesystem-collector",
-    schedule: {
-      cronSchedule: "0 */2 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -355,20 +279,10 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "gcs-collector",
-    schedule: {
-      cronSchedule: "0 */12 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    executor: {
+      type: "<value>",
+    },
   });
 
   console.log(result);
@@ -396,20 +310,10 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "gcs-collector",
-    schedule: {
-      cronSchedule: "0 */12 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    executor: {
+      type: "<value>",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -436,20 +340,14 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "rest-collector",
-    schedule: {
-      cronSchedule: "0 */4 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
 
   console.log(result);
@@ -477,20 +375,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "rest-collector",
-    schedule: {
-      cronSchedule: "0 */4 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -517,20 +409,14 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "s3-collector",
-    schedule: {
-      cronSchedule: "0 */6 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
 
   console.log(result);
@@ -558,20 +444,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "s3-collector",
-    schedule: {
-      cronSchedule: "0 */6 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -598,20 +478,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "script-collector",
-    schedule: {
-      cronSchedule: "0 */3 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -639,20 +507,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "script-collector",
-    schedule: {
-      cronSchedule: "0 */3 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -679,20 +535,14 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    id: "splunk-collector",
-    schedule: {
-      cronSchedule: "0 */1 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
 
   console.log(result);
@@ -720,20 +570,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    id: "splunk-collector",
-    schedule: {
-      cronSchedule: "0 */1 * * *",
-      enabled: true,
-      run: {
-        "mode": "run",
-        "timeRangeType": "relative",
-        "earliest": -300,
-        "expression": "true",
-        "logLevel": "info",
-      },
-      tz: "UTC",
-    },
     type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+      },
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -750,7 +594,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.SavedJobRequest](../../models/savedjobrequest.md)                                                                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.SavedJob](../../models/savedjob.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1026,21 +870,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "azure-blob-collector",
-      schedule: {
-        cronSchedule: "0 */8 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
 
@@ -1070,21 +902,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "azure-blob-collector",
-      schedule: {
-        cronSchedule: "0 */8 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
   if (res.ok) {
@@ -1113,21 +933,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "cribl-lake-collector",
-      schedule: {
-        cronSchedule: "0 */2 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
 
@@ -1157,21 +965,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "cribl-lake-collector",
-      schedule: {
-        cronSchedule: "0 */2 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
   if (res.ok) {
@@ -1200,21 +996,15 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "database-collector",
-      schedule: {
-        cronSchedule: "0 2 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
     },
   });
 
@@ -1244,21 +1034,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "database-collector",
-      schedule: {
-        cronSchedule: "0 2 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
     },
   });
   if (res.ok) {
@@ -1287,21 +1071,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "filesystem-collector",
-      schedule: {
-        cronSchedule: "0 */2 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
 
@@ -1331,21 +1103,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "filesystem-collector",
-      schedule: {
-        cronSchedule: "0 */2 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
   if (res.ok) {
@@ -1374,21 +1134,11 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "gcs-collector",
-      schedule: {
-        cronSchedule: "0 */12 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      executor: {
+        type: "<value>",
+      },
     },
   });
 
@@ -1418,21 +1168,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "gcs-collector",
-      schedule: {
-        cronSchedule: "0 */12 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      executor: {
+        type: "<value>",
+      },
     },
   });
   if (res.ok) {
@@ -1461,21 +1201,15 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "rest-collector",
-      schedule: {
-        cronSchedule: "0 */4 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
     },
   });
 
@@ -1505,21 +1239,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "rest-collector",
-      schedule: {
-        cronSchedule: "0 */4 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
     },
   });
   if (res.ok) {
@@ -1548,21 +1276,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "s3-collector",
-      schedule: {
-        cronSchedule: "0 */6 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
 
@@ -1592,21 +1308,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "s3-collector",
-      schedule: {
-        cronSchedule: "0 */6 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
   if (res.ok) {
@@ -1635,21 +1339,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "script-collector",
-      schedule: {
-        cronSchedule: "0 */3 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
 
@@ -1679,21 +1371,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "script-collector",
-      schedule: {
-        cronSchedule: "0 */3 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      savedQueryId: "<id>",
     },
   });
   if (res.ok) {
@@ -1722,21 +1402,15 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    savedJobRequest: {
-      id: "splunk-collector",
-      schedule: {
-        cronSchedule: "0 */1 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
     },
   });
 
@@ -1766,21 +1440,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    savedJobRequest: {
-      id: "splunk-collector",
-      schedule: {
-        cronSchedule: "0 */1 * * *",
-        enabled: true,
-        run: {
-          "mode": "run",
-          "timeRangeType": "relative",
-          "earliest": -300,
-          "expression": "true",
-          "logLevel": "info",
-        },
-        tz: "UTC",
-      },
+    savedJob: {
       type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
     },
   });
   if (res.ok) {

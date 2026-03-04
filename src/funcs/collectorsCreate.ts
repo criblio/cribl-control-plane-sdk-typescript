@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function collectorsCreate(
   client: CriblControlPlaneCore,
-  request: models.SavedJobRequest,
+  request: models.SavedJob,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +58,7 @@ export function collectorsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.SavedJobRequest,
+  request: models.SavedJob,
   options?: RequestOptions,
 ): Promise<
   [
@@ -79,7 +79,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.SavedJobRequest$outboundSchema.parse(value),
+    (value) => models.SavedJob$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

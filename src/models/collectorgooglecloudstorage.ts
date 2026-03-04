@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   GoogleCloudStorageCollectorConf,
   GoogleCloudStorageCollectorConf$inboundSchema,
+  GoogleCloudStorageCollectorConf$Outbound,
+  GoogleCloudStorageCollectorConf$outboundSchema,
 } from "./googlecloudstoragecollectorconf.js";
 
 /**
@@ -42,7 +44,35 @@ export const CollectorGoogleCloudStorage$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
+/** @internal */
+export type CollectorGoogleCloudStorage$Outbound = {
+  type: "google_cloud_storage";
+  conf: GoogleCloudStorageCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
+};
 
+/** @internal */
+export const CollectorGoogleCloudStorage$outboundSchema: z.ZodType<
+  CollectorGoogleCloudStorage$Outbound,
+  z.ZodTypeDef,
+  CollectorGoogleCloudStorage
+> = z.object({
+  type: z.literal("google_cloud_storage"),
+  conf: GoogleCloudStorageCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
+});
+
+export function collectorGoogleCloudStorageToJSON(
+  collectorGoogleCloudStorage: CollectorGoogleCloudStorage,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorage$outboundSchema.parse(
+      collectorGoogleCloudStorage,
+    ),
+  );
+}
 export function collectorGoogleCloudStorageFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorGoogleCloudStorage, SDKValidationError> {

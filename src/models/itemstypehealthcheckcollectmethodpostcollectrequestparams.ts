@@ -29,7 +29,33 @@ export const ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSc
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound =
+  {
+    name: string;
+    value: string;
+  };
 
+/** @internal */
+export const ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema:
+  z.ZodType<
+    ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound,
+    z.ZodTypeDef,
+    ItemsTypeHealthCheckCollectMethodPostCollectRequestParams
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function itemsTypeHealthCheckCollectMethodPostCollectRequestParamsToJSON(
+  itemsTypeHealthCheckCollectMethodPostCollectRequestParams:
+    ItemsTypeHealthCheckCollectMethodPostCollectRequestParams,
+): string {
+  return JSON.stringify(
+    ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema
+      .parse(itemsTypeHealthCheckCollectMethodPostCollectRequestParams),
+  );
+}
 export function itemsTypeHealthCheckCollectMethodPostCollectRequestParamsFromJSON(
   jsonString: string,
 ): SafeParseResult<

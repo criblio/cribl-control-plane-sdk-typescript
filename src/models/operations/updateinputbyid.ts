@@ -14,13 +14,13 @@ export type UpdateInputByIdRequest = {
   /**
    * Input object
    */
-  input: models.InputUnion2;
+  input: models.Input2;
 };
 
 /** @internal */
 export type UpdateInputByIdRequest$Outbound = {
   id: string;
-  Input: models.InputUnion2$Outbound;
+  Input: models.Input2$Outbound;
 };
 
 /** @internal */
@@ -30,7 +30,7 @@ export const UpdateInputByIdRequest$outboundSchema: z.ZodType<
   UpdateInputByIdRequest
 > = z.object({
   id: z.string(),
-  input: models.InputUnion2$outboundSchema,
+  input: models.Input2$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     input: "Input",

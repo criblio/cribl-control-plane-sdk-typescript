@@ -11,6 +11,8 @@ import * as types from "../types/primitives.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
+  CertificateTypeAzureBlobAuthTypeClientCert$Outbound,
+  CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
 } from "./certificatetypeazureblobauthtypeclientcert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -347,7 +349,31 @@ export const AzureBlobAuthTypeClientCertExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type AzureBlobAuthTypeClientCertExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeClientCertExtractor$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeClientCertExtractor$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeClientCertExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function azureBlobAuthTypeClientCertExtractorToJSON(
+  azureBlobAuthTypeClientCertExtractor: AzureBlobAuthTypeClientCertExtractor,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeClientCertExtractor$outboundSchema.parse(
+      azureBlobAuthTypeClientCertExtractor,
+    ),
+  );
+}
 export function azureBlobAuthTypeClientCertExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeClientCertExtractor, SDKValidationError> {
@@ -387,7 +413,67 @@ export const AzureBlobAuthTypeClientCert$inboundSchema: z.ZodType<
   __template_containerName: types.optional(types.string()),
   __template_path: types.optional(types.string()),
 });
+/** @internal */
+export type AzureBlobAuthTypeClientCert$Outbound = {
+  authType: "clientCert";
+  storageAccountName: string;
+  tenantId: string;
+  clientId: string;
+  certificate: CertificateTypeAzureBlobAuthTypeClientCert$Outbound;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<AzureBlobAuthTypeClientCertExtractor$Outbound> | undefined;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeClientCert$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeClientCert$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeClientCert
+> = z.object({
+  authType: z.literal("clientCert"),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => AzureBlobAuthTypeClientCertExtractor$outboundSchema),
+  ).optional(),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
+});
+
+export function azureBlobAuthTypeClientCertToJSON(
+  azureBlobAuthTypeClientCert: AzureBlobAuthTypeClientCert,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeClientCert$outboundSchema.parse(
+      azureBlobAuthTypeClientCert,
+    ),
+  );
+}
 export function azureBlobAuthTypeClientCertFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeClientCert, SDKValidationError> {
@@ -407,7 +493,32 @@ export const AzureBlobAuthTypeClientSecretExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type AzureBlobAuthTypeClientSecretExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeClientSecretExtractor$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeClientSecretExtractor$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeClientSecretExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function azureBlobAuthTypeClientSecretExtractorToJSON(
+  azureBlobAuthTypeClientSecretExtractor:
+    AzureBlobAuthTypeClientSecretExtractor,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeClientSecretExtractor$outboundSchema.parse(
+      azureBlobAuthTypeClientSecretExtractor,
+    ),
+  );
+}
 export function azureBlobAuthTypeClientSecretExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeClientSecretExtractor, SDKValidationError> {
@@ -447,7 +558,69 @@ export const AzureBlobAuthTypeClientSecret$inboundSchema: z.ZodType<
   __template_containerName: types.optional(types.string()),
   __template_path: types.optional(types.string()),
 });
+/** @internal */
+export type AzureBlobAuthTypeClientSecret$Outbound = {
+  authType: "clientSecret";
+  storageAccountName: string;
+  tenantId: string;
+  clientId: string;
+  clientTextSecret: string;
+  endpointSuffix?: string | undefined;
+  azureCloud?: string | undefined;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?:
+    | Array<AzureBlobAuthTypeClientSecretExtractor$Outbound>
+    | undefined;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeClientSecret$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeClientSecret$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeClientSecret
+> = z.object({
+  authType: z.literal("clientSecret"),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  clientTextSecret: z.string(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => AzureBlobAuthTypeClientSecretExtractor$outboundSchema),
+  ).optional(),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
+});
+
+export function azureBlobAuthTypeClientSecretToJSON(
+  azureBlobAuthTypeClientSecret: AzureBlobAuthTypeClientSecret,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeClientSecret$outboundSchema.parse(
+      azureBlobAuthTypeClientSecret,
+    ),
+  );
+}
 export function azureBlobAuthTypeClientSecretFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeClientSecret, SDKValidationError> {
@@ -467,7 +640,31 @@ export const AzureBlobAuthTypeSecretExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type AzureBlobAuthTypeSecretExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeSecretExtractor$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeSecretExtractor$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeSecretExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function azureBlobAuthTypeSecretExtractorToJSON(
+  azureBlobAuthTypeSecretExtractor: AzureBlobAuthTypeSecretExtractor,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeSecretExtractor$outboundSchema.parse(
+      azureBlobAuthTypeSecretExtractor,
+    ),
+  );
+}
 export function azureBlobAuthTypeSecretExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeSecretExtractor, SDKValidationError> {
@@ -501,7 +698,55 @@ export const AzureBlobAuthTypeSecret$inboundSchema: z.ZodType<
   __template_containerName: types.optional(types.string()),
   __template_path: types.optional(types.string()),
 });
+/** @internal */
+export type AzureBlobAuthTypeSecret$Outbound = {
+  authType: "secret";
+  textSecret: string;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<AzureBlobAuthTypeSecretExtractor$Outbound> | undefined;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeSecret$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeSecret$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeSecret
+> = z.object({
+  authType: z.literal("secret"),
+  textSecret: z.string(),
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => AzureBlobAuthTypeSecretExtractor$outboundSchema),
+  ).optional(),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
+});
+
+export function azureBlobAuthTypeSecretToJSON(
+  azureBlobAuthTypeSecret: AzureBlobAuthTypeSecret,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeSecret$outboundSchema.parse(azureBlobAuthTypeSecret),
+  );
+}
 export function azureBlobAuthTypeSecretFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeSecret, SDKValidationError> {
@@ -521,7 +766,31 @@ export const AzureBlobAuthTypeManualExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type AzureBlobAuthTypeManualExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeManualExtractor$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeManualExtractor$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeManualExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function azureBlobAuthTypeManualExtractorToJSON(
+  azureBlobAuthTypeManualExtractor: AzureBlobAuthTypeManualExtractor,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeManualExtractor$outboundSchema.parse(
+      azureBlobAuthTypeManualExtractor,
+    ),
+  );
+}
 export function azureBlobAuthTypeManualExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeManualExtractor, SDKValidationError> {
@@ -555,7 +824,55 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
   __template_containerName: types.optional(types.string()),
   __template_path: types.optional(types.string()),
 });
+/** @internal */
+export type AzureBlobAuthTypeManual$Outbound = {
+  authType: "manual";
+  connectionString: string;
+  outputName?: string | undefined;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<AzureBlobAuthTypeManualExtractor$Outbound> | undefined;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
+};
 
+/** @internal */
+export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
+  AzureBlobAuthTypeManual$Outbound,
+  z.ZodTypeDef,
+  AzureBlobAuthTypeManual
+> = z.object({
+  authType: z.literal("manual"),
+  connectionString: z.string(),
+  outputName: z.string().optional(),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => AzureBlobAuthTypeManualExtractor$outboundSchema),
+  ).optional(),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
+});
+
+export function azureBlobAuthTypeManualToJSON(
+  azureBlobAuthTypeManual: AzureBlobAuthTypeManual,
+): string {
+  return JSON.stringify(
+    AzureBlobAuthTypeManual$outboundSchema.parse(azureBlobAuthTypeManual),
+  );
+}
 export function azureBlobAuthTypeManualFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobAuthTypeManual, SDKValidationError> {
@@ -577,7 +894,32 @@ export const AzureBlobCollectorConf$inboundSchema: z.ZodType<
   clientSecret: z.lazy(() => AzureBlobAuthTypeClientSecret$inboundSchema),
   clientCert: z.lazy(() => AzureBlobAuthTypeClientCert$inboundSchema),
 });
+/** @internal */
+export type AzureBlobCollectorConf$Outbound =
+  | AzureBlobAuthTypeManual$Outbound
+  | AzureBlobAuthTypeSecret$Outbound
+  | AzureBlobAuthTypeClientSecret$Outbound
+  | AzureBlobAuthTypeClientCert$Outbound;
 
+/** @internal */
+export const AzureBlobCollectorConf$outboundSchema: z.ZodType<
+  AzureBlobCollectorConf$Outbound,
+  z.ZodTypeDef,
+  AzureBlobCollectorConf
+> = z.union([
+  z.lazy(() => AzureBlobAuthTypeManual$outboundSchema),
+  z.lazy(() => AzureBlobAuthTypeSecret$outboundSchema),
+  z.lazy(() => AzureBlobAuthTypeClientSecret$outboundSchema),
+  z.lazy(() => AzureBlobAuthTypeClientCert$outboundSchema),
+]);
+
+export function azureBlobCollectorConfToJSON(
+  azureBlobCollectorConf: AzureBlobCollectorConf,
+): string {
+  return JSON.stringify(
+    AzureBlobCollectorConf$outboundSchema.parse(azureBlobCollectorConf),
+  );
+}
 export function azureBlobCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureBlobCollectorConf, SDKValidationError> {

@@ -15,52 +15,88 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeRestCollectMethodGetCollectRequestParams,
   ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
+  ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound,
+  ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
 } from "./itemstyperestcollectmethodgetcollectrequestparams.js";
 import {
   RestAuthenticationGoogleOauthSecret,
   RestAuthenticationGoogleOauthSecret$inboundSchema,
+  RestAuthenticationGoogleOauthSecret$Outbound,
+  RestAuthenticationGoogleOauthSecret$outboundSchema,
   RestAuthenticationHmac,
   RestAuthenticationHmac$inboundSchema,
+  RestAuthenticationHmac$Outbound,
+  RestAuthenticationHmac$outboundSchema,
 } from "./restauthenticationgoogleoauthrestretryrulestypestaticenableheaderfalse.js";
 import {
   RestAuthenticationLoginSecret,
   RestAuthenticationLoginSecret$inboundSchema,
+  RestAuthenticationLoginSecret$Outbound,
+  RestAuthenticationLoginSecret$outboundSchema,
 } from "./restauthenticationlogingetauthtokenfromheaderfalserestdiscoverydiscovertypehttpenablestrictdiscoverparsingfalsediscovermethod.js";
 import {
   RestAuthenticationGoogleOauth,
   RestAuthenticationGoogleOauth$inboundSchema,
+  RestAuthenticationGoogleOauth$Outbound,
+  RestAuthenticationGoogleOauth$outboundSchema,
   RestAuthenticationOauth,
   RestAuthenticationOauth$inboundSchema,
+  RestAuthenticationOauth$Outbound,
+  RestAuthenticationOauth$outboundSchema,
   RestAuthenticationOauthSecret,
   RestAuthenticationOauthSecret$inboundSchema,
+  RestAuthenticationOauthSecret$Outbound,
+  RestAuthenticationOauthSecret$outboundSchema,
 } from "./restauthenticationloginsecretgetauthtokenfromheadertruerestpaginationtyperesponsebody.js";
 import {
   RestAuthenticationBasic,
   RestAuthenticationBasic$inboundSchema,
+  RestAuthenticationBasic$Outbound,
+  RestAuthenticationBasic$outboundSchema,
   RestAuthenticationBasicSecret,
   RestAuthenticationBasicSecret$inboundSchema,
+  RestAuthenticationBasicSecret$Outbound,
+  RestAuthenticationBasicSecret$outboundSchema,
   RestAuthenticationLogin,
   RestAuthenticationLogin$inboundSchema,
+  RestAuthenticationLogin$Outbound,
+  RestAuthenticationLogin$outboundSchema,
 } from "./restauthenticationnonerestdiscoverydiscovertypehttpenablediscovercodefalsepagination.js";
 import {
   RestAuthenticationNone,
   RestAuthenticationNone$inboundSchema,
+  RestAuthenticationNone$Outbound,
+  RestAuthenticationNone$outboundSchema,
   RestCollectMethodPostCollectMethod,
   RestCollectMethodPostCollectMethod$inboundSchema,
+  RestCollectMethodPostCollectMethod$outboundSchema,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema,
   RestCollectMethodPostRestDiscoveryDiscoverTypeJson,
   RestCollectMethodPostRestDiscoveryDiscoverTypeJson$inboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeJson$Outbound,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeJson$outboundSchema,
   RestCollectMethodPostRestDiscoveryDiscoverTypeList,
   RestCollectMethodPostRestDiscoveryDiscoverTypeList$inboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeList$Outbound,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeList$outboundSchema,
   RestCollectMethodPostRestDiscoveryDiscoverTypeNone,
   RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeNone$Outbound,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeNone$outboundSchema,
 } from "./restcollectmethodpostrestdiscoverydiscovertypehttpdiscovermethodgetdiscovertype.js";
 
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination =
@@ -1914,7 +1950,33 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPaginationToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1956,7 +2018,62 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1981,6 +2098,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
   > = openEnums.inboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema:
@@ -1989,6 +2115,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod,
   );
 
@@ -2001,7 +2136,33 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePaginationToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2042,7 +2203,59 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
+  {
+    enableDiscoverCode?: boolean | undefined;
+    formatResultCode?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue
+  > = z.object({
+    enableDiscoverCode: z.boolean().optional(),
+    formatResultCode: z.string().optional(),
+    discoverType:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2067,6 +2280,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
   > = openEnums.inboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema:
@@ -2075,6 +2297,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod,
   );
 
@@ -2087,7 +2318,33 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePaginationToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2127,7 +2384,57 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
+  {
+    enableDiscoverCode?: boolean | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse
+  > = z.object({
+    enableDiscoverCode: z.boolean().optional(),
+    discoverType:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2152,6 +2459,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
   > = openEnums.inboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema:
@@ -2160,6 +2476,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod,
   );
 
@@ -2172,7 +2497,33 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePaginationToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2213,7 +2564,59 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverDataField: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
+  {
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverResponseFormat: string;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
+  > = z.object({
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverResponseFormat: z.string(),
+    discoverType:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2238,6 +2641,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
   > = openEnums.inboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema:
@@ -2246,6 +2658,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod,
   );
 
@@ -2258,7 +2679,33 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePaginationToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2298,7 +2745,57 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverDataField: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$Outbound =
+  {
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse
+  > = z.object({
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverType:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$outboundSchema
+      .parse(
+        restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse,
+      ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2331,7 +2828,38 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttp$inboundSchema:
     other:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema,
   });
+/** @internal */
+export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttp$Outbound =
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound;
 
+/** @internal */
+export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema,
+  ]);
+
+export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpToJSON(
+  restCollectMethodPostRestDiscoveryDiscoverTypeHttp:
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttp$outboundSchema.parse(
+      restCollectMethodPostRestDiscoveryDiscoverTypeHttp,
+    ),
+  );
+}
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2369,7 +2897,47 @@ export const RestCollectMethodPostDiscovery$inboundSchema: z.ZodType<
   list: RestCollectMethodPostRestDiscoveryDiscoverTypeList$inboundSchema,
   none: RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema,
 });
+/** @internal */
+export type RestCollectMethodPostDiscovery$Outbound =
+  | (
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
+      & { discoverType: "http" }
+  )
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeJson$Outbound
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeList$Outbound
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const RestCollectMethodPostDiscovery$outboundSchema: z.ZodType<
+  RestCollectMethodPostDiscovery$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodPostDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema,
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  RestCollectMethodPostRestDiscoveryDiscoverTypeJson$outboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeList$outboundSchema,
+  RestCollectMethodPostRestDiscoveryDiscoverTypeNone$outboundSchema,
+]);
+
+export function restCollectMethodPostDiscoveryToJSON(
+  restCollectMethodPostDiscovery: RestCollectMethodPostDiscovery,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostDiscovery$outboundSchema.parse(
+      restCollectMethodPostDiscovery,
+    ),
+  );
+}
 export function restCollectMethodPostDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodPostDiscovery, SDKValidationError> {
@@ -2397,7 +2965,47 @@ export const RestCollectMethodPostRestPaginationTypeRequestPage$inboundSchema:
     maxPages: types.number(),
     zeroIndexed: types.boolean(),
   });
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeRequestPage$Outbound = {
+  type: "request_page";
+  pageField: string;
+  page?: number | undefined;
+  sizeField: string;
+  size: number;
+  totalPageField?: string | undefined;
+  totalRecordField?: string | undefined;
+  maxPages: number;
+  zeroIndexed: boolean;
+};
 
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeRequestPage$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeRequestPage$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeRequestPage
+  > = z.object({
+    type: z.literal("request_page"),
+    pageField: z.string(),
+    page: z.number().optional(),
+    sizeField: z.string(),
+    size: z.number(),
+    totalPageField: z.string().optional(),
+    totalRecordField: z.string().optional(),
+    maxPages: z.number(),
+    zeroIndexed: z.boolean(),
+  });
+
+export function restCollectMethodPostRestPaginationTypeRequestPageToJSON(
+  restCollectMethodPostRestPaginationTypeRequestPage:
+    RestCollectMethodPostRestPaginationTypeRequestPage,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeRequestPage$outboundSchema.parse(
+      restCollectMethodPostRestPaginationTypeRequestPage,
+    ),
+  );
+}
 export function restCollectMethodPostRestPaginationTypeRequestPageFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2430,7 +3038,45 @@ export const RestCollectMethodPostRestPaginationTypeRequestOffset$inboundSchema:
     maxPages: types.number(),
     zeroIndexed: types.boolean(),
   });
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeRequestOffset$Outbound = {
+  type: "request_offset";
+  offsetField: string;
+  offset?: number | undefined;
+  limitField: string;
+  limit: number;
+  totalRecordField?: string | undefined;
+  maxPages: number;
+  zeroIndexed: boolean;
+};
 
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeRequestOffset$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeRequestOffset$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeRequestOffset
+  > = z.object({
+    type: z.literal("request_offset"),
+    offsetField: z.string(),
+    offset: z.number().optional(),
+    limitField: z.string(),
+    limit: z.number(),
+    totalRecordField: z.string().optional(),
+    maxPages: z.number(),
+    zeroIndexed: z.boolean(),
+  });
+
+export function restCollectMethodPostRestPaginationTypeRequestOffsetToJSON(
+  restCollectMethodPostRestPaginationTypeRequestOffset:
+    RestCollectMethodPostRestPaginationTypeRequestOffset,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeRequestOffset$outboundSchema.parse(
+      restCollectMethodPostRestPaginationTypeRequestOffset,
+    ),
+  );
+}
 export function restCollectMethodPostRestPaginationTypeRequestOffsetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2459,7 +3105,37 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeaderLink$inboundSc
     curRelationAttribute: types.optional(types.string()),
     maxPages: types.number(),
   });
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeResponseHeaderLink$Outbound =
+  {
+    type: "response_header_link";
+    nextRelationAttribute: string;
+    curRelationAttribute?: string | undefined;
+    maxPages: number;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeResponseHeaderLink$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeResponseHeaderLink$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeResponseHeaderLink
+  > = z.object({
+    type: z.literal("response_header_link"),
+    nextRelationAttribute: z.string(),
+    curRelationAttribute: z.string().optional(),
+    maxPages: z.number(),
+  });
+
+export function restCollectMethodPostRestPaginationTypeResponseHeaderLinkToJSON(
+  restCollectMethodPostRestPaginationTypeResponseHeaderLink:
+    RestCollectMethodPostRestPaginationTypeResponseHeaderLink,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeResponseHeaderLink$outboundSchema
+      .parse(restCollectMethodPostRestPaginationTypeResponseHeaderLink),
+  );
+}
 export function restCollectMethodPostRestPaginationTypeResponseHeaderLinkFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2486,7 +3162,35 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema
     attribute: z.array(types.string()),
     maxPages: types.number(),
   });
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeResponseHeader$Outbound = {
+  type: "response_header";
+  attribute: Array<string>;
+  maxPages: number;
+};
 
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeResponseHeader$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeResponseHeader$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeResponseHeader
+  > = z.object({
+    type: z.literal("response_header"),
+    attribute: z.array(z.string()),
+    maxPages: z.number(),
+  });
+
+export function restCollectMethodPostRestPaginationTypeResponseHeaderToJSON(
+  restCollectMethodPostRestPaginationTypeResponseHeader:
+    RestCollectMethodPostRestPaginationTypeResponseHeader,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeResponseHeader$outboundSchema.parse(
+      restCollectMethodPostRestPaginationTypeResponseHeader,
+    ),
+  );
+}
 export function restCollectMethodPostRestPaginationTypeResponseHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2515,7 +3219,37 @@ export const RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema:
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
   });
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeResponseBody$Outbound = {
+  type: "response_body";
+  attribute: Array<string>;
+  maxPages: number;
+  lastPageExpr?: string | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeResponseBody$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeResponseBody$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeResponseBody
+  > = z.object({
+    type: z.literal("response_body"),
+    attribute: z.array(z.string()),
+    maxPages: z.number(),
+    lastPageExpr: z.string().optional(),
+  });
+
+export function restCollectMethodPostRestPaginationTypeResponseBodyToJSON(
+  restCollectMethodPostRestPaginationTypeResponseBody:
+    RestCollectMethodPostRestPaginationTypeResponseBody,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeResponseBody$outboundSchema.parse(
+      restCollectMethodPostRestPaginationTypeResponseBody,
+    ),
+  );
+}
 export function restCollectMethodPostRestPaginationTypeResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2541,7 +3275,31 @@ export const RestCollectMethodPostRestPaginationTypeNone$inboundSchema:
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeNone$Outbound = {
+  type: "none";
+};
 
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeNone$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeNone$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function restCollectMethodPostRestPaginationTypeNoneToJSON(
+  restCollectMethodPostRestPaginationTypeNone:
+    RestCollectMethodPostRestPaginationTypeNone,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeNone$outboundSchema.parse(
+      restCollectMethodPostRestPaginationTypeNone,
+    ),
+  );
+}
 export function restCollectMethodPostRestPaginationTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2581,7 +3339,48 @@ export const RestCollectMethodPostPaginationUnion$inboundSchema: z.ZodType<
     RestCollectMethodPostRestPaginationTypeRequestPage$inboundSchema
   ),
 });
+/** @internal */
+export type RestCollectMethodPostPaginationUnion$Outbound =
+  | RestCollectMethodPostRestPaginationTypeNone$Outbound
+  | RestCollectMethodPostRestPaginationTypeResponseBody$Outbound
+  | RestCollectMethodPostRestPaginationTypeResponseHeader$Outbound
+  | RestCollectMethodPostRestPaginationTypeResponseHeaderLink$Outbound
+  | RestCollectMethodPostRestPaginationTypeRequestOffset$Outbound
+  | RestCollectMethodPostRestPaginationTypeRequestPage$Outbound;
 
+/** @internal */
+export const RestCollectMethodPostPaginationUnion$outboundSchema: z.ZodType<
+  RestCollectMethodPostPaginationUnion$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodPostPaginationUnion
+> = z.union([
+  z.lazy(() => RestCollectMethodPostRestPaginationTypeNone$outboundSchema),
+  z.lazy(() =>
+    RestCollectMethodPostRestPaginationTypeResponseBody$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodPostRestPaginationTypeResponseHeader$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodPostRestPaginationTypeResponseHeaderLink$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodPostRestPaginationTypeRequestOffset$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodPostRestPaginationTypeRequestPage$outboundSchema
+  ),
+]);
+
+export function restCollectMethodPostPaginationUnionToJSON(
+  restCollectMethodPostPaginationUnion: RestCollectMethodPostPaginationUnion,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostPaginationUnion$outboundSchema.parse(
+      restCollectMethodPostPaginationUnion,
+    ),
+  );
+}
 export function restCollectMethodPostPaginationUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodPostPaginationUnion, SDKValidationError> {
@@ -2599,6 +3398,12 @@ export const RestCollectMethodPostAuthentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(RestCollectMethodPostAuthentication);
+/** @internal */
+export const RestCollectMethodPostAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RestCollectMethodPostAuthentication
+> = openEnums.outboundSchema(RestCollectMethodPostAuthentication);
 
 /** @internal */
 export const RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$inboundSchema:
@@ -2618,7 +3423,49 @@ export const RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$inbo
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    retryHeaderName?: string | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    retryHeaderName: z.string().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrueToJSON(
+  restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue:
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+      .parse(restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue),
+  );
+}
 export function restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2651,7 +3498,47 @@ export const RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$inb
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalseToJSON(
+  restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse:
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+      .parse(restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse),
+  );
+}
 export function restCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2681,7 +3568,36 @@ export const RestCollectMethodPostRestRetryRulesTypeBackoff$inboundSchema:
       RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$inboundSchema
     ),
   ]);
+/** @internal */
+export type RestCollectMethodPostRestRetryRulesTypeBackoff$Outbound =
+  | RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound
+  | RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound;
 
+/** @internal */
+export const RestCollectMethodPostRestRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestRetryRulesTypeBackoff
+  > = smartUnion([
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+    ),
+  ]);
+
+export function restCollectMethodPostRestRetryRulesTypeBackoffToJSON(
+  restCollectMethodPostRestRetryRulesTypeBackoff:
+    RestCollectMethodPostRestRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestRetryRulesTypeBackoff$outboundSchema.parse(
+      restCollectMethodPostRestRetryRulesTypeBackoff,
+    ),
+  );
+}
 export function restCollectMethodPostRestRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2714,7 +3630,45 @@ export const RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$inbou
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    retryHeaderName?: string | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    retryHeaderName: z.string().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrueToJSON(
+  restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue:
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+      .parse(restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue),
+  );
+}
 export function restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2745,7 +3699,43 @@ export const RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$inbo
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalseToJSON(
+  restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse:
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+      .parse(restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse),
+  );
+}
 export function restCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2775,7 +3765,36 @@ export const RestCollectMethodPostRestRetryRulesTypeStatic$inboundSchema:
       RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$inboundSchema
     ),
   ]);
+/** @internal */
+export type RestCollectMethodPostRestRetryRulesTypeStatic$Outbound =
+  | RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$Outbound
+  | RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$Outbound;
 
+/** @internal */
+export const RestCollectMethodPostRestRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestRetryRulesTypeStatic
+  > = smartUnion([
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+    ),
+  ]);
+
+export function restCollectMethodPostRestRetryRulesTypeStaticToJSON(
+  restCollectMethodPostRestRetryRulesTypeStatic:
+    RestCollectMethodPostRestRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestRetryRulesTypeStatic$outboundSchema.parse(
+      restCollectMethodPostRestRetryRulesTypeStatic,
+    ),
+  );
+}
 export function restCollectMethodPostRestRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2801,7 +3820,31 @@ export const RestCollectMethodPostRestRetryRulesTypeNone$inboundSchema:
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type RestCollectMethodPostRestRetryRulesTypeNone$Outbound = {
+  type: "none";
+};
 
+/** @internal */
+export const RestCollectMethodPostRestRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function restCollectMethodPostRestRetryRulesTypeNoneToJSON(
+  restCollectMethodPostRestRetryRulesTypeNone:
+    RestCollectMethodPostRestRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestRetryRulesTypeNone$outboundSchema.parse(
+      restCollectMethodPostRestRetryRulesTypeNone,
+    ),
+  );
+}
 export function restCollectMethodPostRestRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2842,7 +3885,55 @@ export const RestCollectMethodPostRetryRules$inboundSchema: z.ZodType<
     ),
   ]).and(z.object({ type: z.literal("backoff") })),
 });
+/** @internal */
+export type RestCollectMethodPostRetryRules$Outbound =
+  | RestCollectMethodPostRestRetryRulesTypeNone$Outbound
+  | (
+    | RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$Outbound
+    | RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$Outbound & {
+      type: "static";
+    }
+  )
+  | (
+    | RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound
+    | RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound
+      & { type: "backoff" }
+  );
 
+/** @internal */
+export const RestCollectMethodPostRetryRules$outboundSchema: z.ZodType<
+  RestCollectMethodPostRetryRules$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodPostRetryRules
+> = z.union([
+  z.lazy(() => RestCollectMethodPostRestRetryRulesTypeNone$outboundSchema),
+  smartUnion([
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+    ),
+  ]).and(z.object({ type: z.literal("static") })),
+  smartUnion([
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+    ),
+  ]).and(z.object({ type: z.literal("backoff") })),
+]);
+
+export function restCollectMethodPostRetryRulesToJSON(
+  restCollectMethodPostRetryRules: RestCollectMethodPostRetryRules,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRetryRules$outboundSchema.parse(
+      restCollectMethodPostRetryRules,
+    ),
+  );
+}
 export function restCollectMethodPostRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodPostRetryRules, SDKValidationError> {
@@ -2861,7 +3952,29 @@ export const RestCollectMethodPostStateTracking$inboundSchema: z.ZodType<
 > = z.object({
   enabled: types.optional(types.boolean()),
 });
+/** @internal */
+export type RestCollectMethodPostStateTracking$Outbound = {
+  enabled?: boolean | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodPostStateTracking$outboundSchema: z.ZodType<
+  RestCollectMethodPostStateTracking$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodPostStateTracking
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function restCollectMethodPostStateTrackingToJSON(
+  restCollectMethodPostStateTracking: RestCollectMethodPostStateTracking,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostStateTracking$outboundSchema.parse(
+      restCollectMethodPostStateTracking,
+    ),
+  );
+}
 export function restCollectMethodPostStateTrackingFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodPostStateTracking, SDKValidationError> {
@@ -2883,7 +3996,30 @@ export const RestCollectMethodPostScheduling$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodPostStateTracking$inboundSchema),
   ),
 });
+/** @internal */
+export type RestCollectMethodPostScheduling$Outbound = {
+  stateTracking?: RestCollectMethodPostStateTracking$Outbound | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodPostScheduling$outboundSchema: z.ZodType<
+  RestCollectMethodPostScheduling$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodPostScheduling
+> = z.object({
+  stateTracking: z.lazy(() => RestCollectMethodPostStateTracking$outboundSchema)
+    .optional(),
+});
+
+export function restCollectMethodPostSchedulingToJSON(
+  restCollectMethodPostScheduling: RestCollectMethodPostScheduling,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostScheduling$outboundSchema.parse(
+      restCollectMethodPostScheduling,
+    ),
+  );
+}
 export function restCollectMethodPostSchedulingFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodPostScheduling, SDKValidationError> {
@@ -2978,7 +4114,145 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodPostScheduling$inboundSchema),
   ),
 });
+/** @internal */
+export type RestCollectMethodPost$Outbound = {
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
+        & { discoverType: "http" }
+    )
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeJson$Outbound
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeList$Outbound
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  pagination?:
+    | RestCollectMethodPostRestPaginationTypeNone$Outbound
+    | RestCollectMethodPostRestPaginationTypeResponseBody$Outbound
+    | RestCollectMethodPostRestPaginationTypeResponseHeader$Outbound
+    | RestCollectMethodPostRestPaginationTypeResponseHeaderLink$Outbound
+    | RestCollectMethodPostRestPaginationTypeRequestOffset$Outbound
+    | RestCollectMethodPostRestPaginationTypeRequestPage$Outbound
+    | undefined;
+  authentication: string;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  decodeUrl?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  stopOnEmptyResults?: boolean | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | RestCollectMethodPostRestRetryRulesTypeNone$Outbound
+    | (
+      | RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$Outbound
+      | RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$Outbound
+        & { type: "static" }
+    )
+    | (
+      | RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound
+      | RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound
+        & { type: "backoff" }
+    )
+    | undefined;
+  __scheduling?: RestCollectMethodPostScheduling$Outbound | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodPost$outboundSchema: z.ZodType<
+  RestCollectMethodPost$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodPost
+> = z.object({
+  collectMethod: RestCollectMethodPostCollectMethod$outboundSchema,
+  collectRequestParams: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema,
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema,
+      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema,
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    RestCollectMethodPostRestDiscoveryDiscoverTypeJson$outboundSchema,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeList$outboundSchema,
+    RestCollectMethodPostRestDiscoveryDiscoverTypeNone$outboundSchema,
+  ]).optional(),
+  collectUrl: z.string(),
+  collectRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  pagination: z.union([
+    z.lazy(() => RestCollectMethodPostRestPaginationTypeNone$outboundSchema),
+    z.lazy(() =>
+      RestCollectMethodPostRestPaginationTypeResponseBody$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestPaginationTypeResponseHeader$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestPaginationTypeResponseHeaderLink$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestPaginationTypeRequestOffset$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodPostRestPaginationTypeRequestPage$outboundSchema
+    ),
+  ]).optional(),
+  authentication: RestCollectMethodPostAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  decodeUrl: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  stopOnEmptyResults: z.boolean().optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() => RestCollectMethodPostRestRetryRulesTypeNone$outboundSchema),
+    smartUnion([
+      z.lazy(() =>
+        RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodPostRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+      ),
+    ]).and(z.object({ type: z.literal("static") })),
+    smartUnion([
+      z.lazy(() =>
+        RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+      ),
+    ]).and(z.object({ type: z.literal("backoff") })),
+  ]).optional(),
+  __scheduling: z.lazy(() => RestCollectMethodPostScheduling$outboundSchema)
+    .optional(),
+});
+
+export function restCollectMethodPostToJSON(
+  restCollectMethodPost: RestCollectMethodPost,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPost$outboundSchema.parse(restCollectMethodPost),
+  );
+}
 export function restCollectMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodPost, SDKValidationError> {
@@ -2995,6 +4269,12 @@ export const RestCollectMethodGetCollectMethod$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(RestCollectMethodGetCollectMethod);
+/** @internal */
+export const RestCollectMethodGetCollectMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RestCollectMethodGetCollectMethod
+> = openEnums.outboundSchema(RestCollectMethodGetCollectMethod);
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema:
@@ -3005,7 +4285,31 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema:
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeNone$Outbound = {
+  discoverType: "none";
+};
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeNoneToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeNone:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeNone$outboundSchema.parse(
+      restCollectMethodGetRestDiscoveryDiscoverTypeNone,
+    ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3032,7 +4336,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeList$inboundSchema:
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeList$Outbound = {
+  discoverType: "list";
+  itemList: Array<string>;
+};
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeListToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeList:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeList$outboundSchema.parse(
+      restCollectMethodGetRestDiscoveryDiscoverTypeList,
+    ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3060,7 +4390,35 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeJson$inboundSchema:
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeJson$Outbound = {
+  discoverType: "json";
+  manualDiscoverResult: string;
+  discoverDataField?: string | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeJsonToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeJson:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeJson$outboundSchema.parse(
+      restCollectMethodGetRestDiscoveryDiscoverTypeJson,
+    ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3086,6 +4444,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema:
@@ -3096,7 +4463,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3140,7 +4533,66 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
+  {
+    discoverMethod: "other";
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  > = z.object({
+    discoverMethod: z.literal("other"),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3165,6 +4617,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema:
@@ -3175,7 +4636,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3215,7 +4702,58 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody: string;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3240,6 +4778,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema:
@@ -3250,7 +4797,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3292,7 +4865,62 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3317,6 +4945,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetD
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema:
@@ -3327,7 +4964,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetP
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3369,7 +5032,62 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3394,6 +5112,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema:
@@ -3402,6 +5129,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod,
   );
 
@@ -3414,7 +5150,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3455,7 +5217,59 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
+  {
+    enableDiscoverCode?: boolean | undefined;
+    formatResultCode?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue
+  > = z.object({
+    enableDiscoverCode: z.boolean().optional(),
+    formatResultCode: z.string().optional(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTruePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3480,6 +5294,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema:
@@ -3488,6 +5311,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod,
   );
 
@@ -3500,7 +5332,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3540,7 +5398,57 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
+  {
+    enableDiscoverCode?: boolean | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse
+  > = z.object({
+    enableDiscoverCode: z.boolean().optional(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalsePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3565,6 +5473,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema:
@@ -3573,6 +5490,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod,
   );
 
@@ -3585,7 +5511,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3626,7 +5578,59 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     discoverDataField: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
+  {
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverResponseFormat: string;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
+  > = z.object({
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverResponseFormat: z.string(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTruePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3651,6 +5655,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
   > = openEnums.inboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType,
   );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType,
+  );
 
 /** @internal */
 export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema:
@@ -3659,6 +5672,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod,
+  );
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod
+  > = openEnums.outboundSchema(
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod,
   );
 
@@ -3671,7 +5693,33 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
   > = z.object({
     type: types.string(),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound =
+  {
+    type: string;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination
+  > = z.object({
+    type: z.string(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePaginationToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePaginationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3711,7 +5759,57 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     discoverDataField: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$Outbound =
+  {
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverMethod: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse
+  > = z.object({
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverType:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverMethod:
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
+    ).optional(),
+    discoverDataField: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse$outboundSchema
+      .parse(
+        restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalse,
+      ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3747,7 +5845,44 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttp$inboundSchema:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
   });
+/** @internal */
+export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttp$Outbound =
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound;
 
+/** @internal */
+export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+    ),
+  ]);
+
+export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpToJSON(
+  restCollectMethodGetRestDiscoveryDiscoverTypeHttp:
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestDiscoveryDiscoverTypeHttp$outboundSchema.parse(
+      restCollectMethodGetRestDiscoveryDiscoverTypeHttp,
+    ),
+  );
+}
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3794,7 +5929,59 @@ export const RestCollectMethodGetDiscovery$inboundSchema: z.ZodType<
     RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
 });
+/** @internal */
+export type RestCollectMethodGetDiscovery$Outbound =
+  | (
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
+      & { discoverType: "http" }
+  )
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeJson$Outbound
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeList$Outbound
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const RestCollectMethodGetDiscovery$outboundSchema: z.ZodType<
+  RestCollectMethodGetDiscovery$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodGetDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    RestCollectMethodGetRestDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodGetRestDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodGetRestDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function restCollectMethodGetDiscoveryToJSON(
+  restCollectMethodGetDiscovery: RestCollectMethodGetDiscovery,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetDiscovery$outboundSchema.parse(
+      restCollectMethodGetDiscovery,
+    ),
+  );
+}
 export function restCollectMethodGetDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodGetDiscovery, SDKValidationError> {
@@ -3822,7 +6009,47 @@ export const RestCollectMethodGetRestPaginationTypeRequestPage$inboundSchema:
     maxPages: types.number(),
     zeroIndexed: types.boolean(),
   });
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeRequestPage$Outbound = {
+  type: "request_page";
+  pageField: string;
+  page?: number | undefined;
+  sizeField: string;
+  size: number;
+  totalPageField?: string | undefined;
+  totalRecordField?: string | undefined;
+  maxPages: number;
+  zeroIndexed: boolean;
+};
 
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeRequestPage$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeRequestPage$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeRequestPage
+  > = z.object({
+    type: z.literal("request_page"),
+    pageField: z.string(),
+    page: z.number().optional(),
+    sizeField: z.string(),
+    size: z.number(),
+    totalPageField: z.string().optional(),
+    totalRecordField: z.string().optional(),
+    maxPages: z.number(),
+    zeroIndexed: z.boolean(),
+  });
+
+export function restCollectMethodGetRestPaginationTypeRequestPageToJSON(
+  restCollectMethodGetRestPaginationTypeRequestPage:
+    RestCollectMethodGetRestPaginationTypeRequestPage,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeRequestPage$outboundSchema.parse(
+      restCollectMethodGetRestPaginationTypeRequestPage,
+    ),
+  );
+}
 export function restCollectMethodGetRestPaginationTypeRequestPageFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3855,7 +6082,45 @@ export const RestCollectMethodGetRestPaginationTypeRequestOffset$inboundSchema:
     maxPages: types.number(),
     zeroIndexed: types.boolean(),
   });
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeRequestOffset$Outbound = {
+  type: "request_offset";
+  offsetField: string;
+  offset?: number | undefined;
+  limitField: string;
+  limit: number;
+  totalRecordField?: string | undefined;
+  maxPages: number;
+  zeroIndexed: boolean;
+};
 
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeRequestOffset$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeRequestOffset$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeRequestOffset
+  > = z.object({
+    type: z.literal("request_offset"),
+    offsetField: z.string(),
+    offset: z.number().optional(),
+    limitField: z.string(),
+    limit: z.number(),
+    totalRecordField: z.string().optional(),
+    maxPages: z.number(),
+    zeroIndexed: z.boolean(),
+  });
+
+export function restCollectMethodGetRestPaginationTypeRequestOffsetToJSON(
+  restCollectMethodGetRestPaginationTypeRequestOffset:
+    RestCollectMethodGetRestPaginationTypeRequestOffset,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeRequestOffset$outboundSchema.parse(
+      restCollectMethodGetRestPaginationTypeRequestOffset,
+    ),
+  );
+}
 export function restCollectMethodGetRestPaginationTypeRequestOffsetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3884,7 +6149,37 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeaderLink$inboundSch
     curRelationAttribute: types.optional(types.string()),
     maxPages: types.number(),
   });
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeResponseHeaderLink$Outbound =
+  {
+    type: "response_header_link";
+    nextRelationAttribute: string;
+    curRelationAttribute?: string | undefined;
+    maxPages: number;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeResponseHeaderLink$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeResponseHeaderLink$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeResponseHeaderLink
+  > = z.object({
+    type: z.literal("response_header_link"),
+    nextRelationAttribute: z.string(),
+    curRelationAttribute: z.string().optional(),
+    maxPages: z.number(),
+  });
+
+export function restCollectMethodGetRestPaginationTypeResponseHeaderLinkToJSON(
+  restCollectMethodGetRestPaginationTypeResponseHeaderLink:
+    RestCollectMethodGetRestPaginationTypeResponseHeaderLink,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeResponseHeaderLink$outboundSchema
+      .parse(restCollectMethodGetRestPaginationTypeResponseHeaderLink),
+  );
+}
 export function restCollectMethodGetRestPaginationTypeResponseHeaderLinkFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3911,7 +6206,35 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema:
     attribute: z.array(types.string()),
     maxPages: types.number(),
   });
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeResponseHeader$Outbound = {
+  type: "response_header";
+  attribute: Array<string>;
+  maxPages: number;
+};
 
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeResponseHeader$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeResponseHeader$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeResponseHeader
+  > = z.object({
+    type: z.literal("response_header"),
+    attribute: z.array(z.string()),
+    maxPages: z.number(),
+  });
+
+export function restCollectMethodGetRestPaginationTypeResponseHeaderToJSON(
+  restCollectMethodGetRestPaginationTypeResponseHeader:
+    RestCollectMethodGetRestPaginationTypeResponseHeader,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeResponseHeader$outboundSchema.parse(
+      restCollectMethodGetRestPaginationTypeResponseHeader,
+    ),
+  );
+}
 export function restCollectMethodGetRestPaginationTypeResponseHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3940,7 +6263,37 @@ export const RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema:
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
   });
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeResponseBody$Outbound = {
+  type: "response_body";
+  attribute: Array<string>;
+  maxPages: number;
+  lastPageExpr?: string | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeResponseBody$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeResponseBody$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeResponseBody
+  > = z.object({
+    type: z.literal("response_body"),
+    attribute: z.array(z.string()),
+    maxPages: z.number(),
+    lastPageExpr: z.string().optional(),
+  });
+
+export function restCollectMethodGetRestPaginationTypeResponseBodyToJSON(
+  restCollectMethodGetRestPaginationTypeResponseBody:
+    RestCollectMethodGetRestPaginationTypeResponseBody,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeResponseBody$outboundSchema.parse(
+      restCollectMethodGetRestPaginationTypeResponseBody,
+    ),
+  );
+}
 export function restCollectMethodGetRestPaginationTypeResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -3963,7 +6316,31 @@ export const RestCollectMethodGetRestPaginationTypeNone$inboundSchema:
     z.object({
       type: types.literal("none"),
     });
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeNone$Outbound = {
+  type: "none";
+};
 
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeNone$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeNone$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function restCollectMethodGetRestPaginationTypeNoneToJSON(
+  restCollectMethodGetRestPaginationTypeNone:
+    RestCollectMethodGetRestPaginationTypeNone,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeNone$outboundSchema.parse(
+      restCollectMethodGetRestPaginationTypeNone,
+    ),
+  );
+}
 export function restCollectMethodGetRestPaginationTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4003,7 +6380,48 @@ export const RestCollectMethodGetPaginationUnion$inboundSchema: z.ZodType<
     RestCollectMethodGetRestPaginationTypeRequestPage$inboundSchema
   ),
 });
+/** @internal */
+export type RestCollectMethodGetPaginationUnion$Outbound =
+  | RestCollectMethodGetRestPaginationTypeNone$Outbound
+  | RestCollectMethodGetRestPaginationTypeResponseBody$Outbound
+  | RestCollectMethodGetRestPaginationTypeResponseHeader$Outbound
+  | RestCollectMethodGetRestPaginationTypeResponseHeaderLink$Outbound
+  | RestCollectMethodGetRestPaginationTypeRequestOffset$Outbound
+  | RestCollectMethodGetRestPaginationTypeRequestPage$Outbound;
 
+/** @internal */
+export const RestCollectMethodGetPaginationUnion$outboundSchema: z.ZodType<
+  RestCollectMethodGetPaginationUnion$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodGetPaginationUnion
+> = z.union([
+  z.lazy(() => RestCollectMethodGetRestPaginationTypeNone$outboundSchema),
+  z.lazy(() =>
+    RestCollectMethodGetRestPaginationTypeResponseBody$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodGetRestPaginationTypeResponseHeader$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodGetRestPaginationTypeResponseHeaderLink$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodGetRestPaginationTypeRequestOffset$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodGetRestPaginationTypeRequestPage$outboundSchema
+  ),
+]);
+
+export function restCollectMethodGetPaginationUnionToJSON(
+  restCollectMethodGetPaginationUnion: RestCollectMethodGetPaginationUnion,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetPaginationUnion$outboundSchema.parse(
+      restCollectMethodGetPaginationUnion,
+    ),
+  );
+}
 export function restCollectMethodGetPaginationUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodGetPaginationUnion, SDKValidationError> {
@@ -4021,6 +6439,12 @@ export const RestCollectMethodGetAuthentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(RestCollectMethodGetAuthentication);
+/** @internal */
+export const RestCollectMethodGetAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RestCollectMethodGetAuthentication
+> = openEnums.outboundSchema(RestCollectMethodGetAuthentication);
 
 /** @internal */
 export const RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$inboundSchema:
@@ -4040,7 +6464,49 @@ export const RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$inbou
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    retryHeaderName?: string | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    retryHeaderName: z.string().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrueToJSON(
+  restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue:
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+      .parse(restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue),
+  );
+}
 export function restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4073,7 +6539,47 @@ export const RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$inbo
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalseToJSON(
+  restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse:
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+      .parse(restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse),
+  );
+}
 export function restCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4103,7 +6609,36 @@ export const RestCollectMethodGetRestRetryRulesTypeBackoff$inboundSchema:
       RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$inboundSchema
     ),
   ]);
+/** @internal */
+export type RestCollectMethodGetRestRetryRulesTypeBackoff$Outbound =
+  | RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound
+  | RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound;
 
+/** @internal */
+export const RestCollectMethodGetRestRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestRetryRulesTypeBackoff
+  > = smartUnion([
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+    ),
+  ]);
+
+export function restCollectMethodGetRestRetryRulesTypeBackoffToJSON(
+  restCollectMethodGetRestRetryRulesTypeBackoff:
+    RestCollectMethodGetRestRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestRetryRulesTypeBackoff$outboundSchema.parse(
+      restCollectMethodGetRestRetryRulesTypeBackoff,
+    ),
+  );
+}
 export function restCollectMethodGetRestRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4136,7 +6671,45 @@ export const RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$inboun
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    retryHeaderName?: string | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    retryHeaderName: z.string().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrueToJSON(
+  restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue:
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+      .parse(restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue),
+  );
+}
 export function restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrueFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4167,7 +6740,43 @@ export const RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$inbou
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
   });
+/** @internal */
+export type RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$Outbound =
+  {
+    enableHeader?: boolean | undefined;
+    type: string;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
+  };
 
+/** @internal */
+export const RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse
+  > = z.object({
+    enableHeader: z.boolean().optional(),
+    type: z.string(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
+  });
+
+export function restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalseToJSON(
+  restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse:
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+      .parse(restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse),
+  );
+}
 export function restCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalseFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4197,7 +6806,36 @@ export const RestCollectMethodGetRestRetryRulesTypeStatic$inboundSchema:
       RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$inboundSchema
     ),
   ]);
+/** @internal */
+export type RestCollectMethodGetRestRetryRulesTypeStatic$Outbound =
+  | RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$Outbound
+  | RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$Outbound;
 
+/** @internal */
+export const RestCollectMethodGetRestRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestRetryRulesTypeStatic
+  > = smartUnion([
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+    ),
+  ]);
+
+export function restCollectMethodGetRestRetryRulesTypeStaticToJSON(
+  restCollectMethodGetRestRetryRulesTypeStatic:
+    RestCollectMethodGetRestRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestRetryRulesTypeStatic$outboundSchema.parse(
+      restCollectMethodGetRestRetryRulesTypeStatic,
+    ),
+  );
+}
 export function restCollectMethodGetRestRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4220,7 +6858,31 @@ export const RestCollectMethodGetRestRetryRulesTypeNone$inboundSchema:
     z.object({
       type: types.literal("none"),
     });
+/** @internal */
+export type RestCollectMethodGetRestRetryRulesTypeNone$Outbound = {
+  type: "none";
+};
 
+/** @internal */
+export const RestCollectMethodGetRestRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function restCollectMethodGetRestRetryRulesTypeNoneToJSON(
+  restCollectMethodGetRestRetryRulesTypeNone:
+    RestCollectMethodGetRestRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestRetryRulesTypeNone$outboundSchema.parse(
+      restCollectMethodGetRestRetryRulesTypeNone,
+    ),
+  );
+}
 export function restCollectMethodGetRestRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4261,7 +6923,56 @@ export const RestCollectMethodGetRetryRules$inboundSchema: z.ZodType<
     ),
   ]).and(z.object({ type: z.literal("backoff") })),
 });
+/** @internal */
+export type RestCollectMethodGetRetryRules$Outbound =
+  | RestCollectMethodGetRestRetryRulesTypeNone$Outbound
+  | (
+    | RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$Outbound
+    | RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$Outbound & {
+      type: "static";
+    }
+  )
+  | (
+    | RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound
+    | RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound & {
+      type: "backoff";
+    }
+  );
 
+/** @internal */
+export const RestCollectMethodGetRetryRules$outboundSchema: z.ZodType<
+  RestCollectMethodGetRetryRules$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodGetRetryRules
+> = z.union([
+  z.lazy(() => RestCollectMethodGetRestRetryRulesTypeNone$outboundSchema),
+  smartUnion([
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+    ),
+  ]).and(z.object({ type: z.literal("static") })),
+  smartUnion([
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+    ),
+  ]).and(z.object({ type: z.literal("backoff") })),
+]);
+
+export function restCollectMethodGetRetryRulesToJSON(
+  restCollectMethodGetRetryRules: RestCollectMethodGetRetryRules,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRetryRules$outboundSchema.parse(
+      restCollectMethodGetRetryRules,
+    ),
+  );
+}
 export function restCollectMethodGetRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodGetRetryRules, SDKValidationError> {
@@ -4280,7 +6991,29 @@ export const RestCollectMethodGetStateTracking$inboundSchema: z.ZodType<
 > = z.object({
   enabled: types.optional(types.boolean()),
 });
+/** @internal */
+export type RestCollectMethodGetStateTracking$Outbound = {
+  enabled?: boolean | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodGetStateTracking$outboundSchema: z.ZodType<
+  RestCollectMethodGetStateTracking$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodGetStateTracking
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function restCollectMethodGetStateTrackingToJSON(
+  restCollectMethodGetStateTracking: RestCollectMethodGetStateTracking,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetStateTracking$outboundSchema.parse(
+      restCollectMethodGetStateTracking,
+    ),
+  );
+}
 export function restCollectMethodGetStateTrackingFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodGetStateTracking, SDKValidationError> {
@@ -4301,7 +7034,30 @@ export const RestCollectMethodGetScheduling$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodGetStateTracking$inboundSchema),
   ),
 });
+/** @internal */
+export type RestCollectMethodGetScheduling$Outbound = {
+  stateTracking?: RestCollectMethodGetStateTracking$Outbound | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodGetScheduling$outboundSchema: z.ZodType<
+  RestCollectMethodGetScheduling$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodGetScheduling
+> = z.object({
+  stateTracking: z.lazy(() => RestCollectMethodGetStateTracking$outboundSchema)
+    .optional(),
+});
+
+export function restCollectMethodGetSchedulingToJSON(
+  restCollectMethodGetScheduling: RestCollectMethodGetScheduling,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetScheduling$outboundSchema.parse(
+      restCollectMethodGetScheduling,
+    ),
+  );
+}
 export function restCollectMethodGetSchedulingFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodGetScheduling, SDKValidationError> {
@@ -4405,7 +7161,157 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodGetScheduling$inboundSchema),
   ),
 });
+/** @internal */
+export type RestCollectMethodGet$Outbound = {
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
+        & { discoverType: "http" }
+    )
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeJson$Outbound
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeList$Outbound
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  pagination?:
+    | RestCollectMethodGetRestPaginationTypeNone$Outbound
+    | RestCollectMethodGetRestPaginationTypeResponseBody$Outbound
+    | RestCollectMethodGetRestPaginationTypeResponseHeader$Outbound
+    | RestCollectMethodGetRestPaginationTypeResponseHeaderLink$Outbound
+    | RestCollectMethodGetRestPaginationTypeRequestOffset$Outbound
+    | RestCollectMethodGetRestPaginationTypeRequestPage$Outbound
+    | undefined;
+  authentication: string;
+  timeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  disableTimeFilter?: boolean | undefined;
+  decodeUrl?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  stopOnEmptyResults?: boolean | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | RestCollectMethodGetRestRetryRulesTypeNone$Outbound
+    | (
+      | RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$Outbound
+      | RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$Outbound
+        & { type: "static" }
+    )
+    | (
+      | RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$Outbound
+      | RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$Outbound
+        & { type: "backoff" }
+    )
+    | undefined;
+  __scheduling?: RestCollectMethodGetScheduling$Outbound | undefined;
+};
 
+/** @internal */
+export const RestCollectMethodGet$outboundSchema: z.ZodType<
+  RestCollectMethodGet$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodGet
+> = z.object({
+  collectMethod: RestCollectMethodGetCollectMethod$outboundSchema,
+  collectRequestParams: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  pagination: z.union([
+    z.lazy(() => RestCollectMethodGetRestPaginationTypeNone$outboundSchema),
+    z.lazy(() =>
+      RestCollectMethodGetRestPaginationTypeResponseBody$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestPaginationTypeResponseHeader$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestPaginationTypeResponseHeaderLink$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestPaginationTypeRequestOffset$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodGetRestPaginationTypeRequestPage$outboundSchema
+    ),
+  ]).optional(),
+  authentication: RestCollectMethodGetAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  decodeUrl: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  stopOnEmptyResults: z.boolean().optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() => RestCollectMethodGetRestRetryRulesTypeNone$outboundSchema),
+    smartUnion([
+      z.lazy(() =>
+        RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderFalse$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodGetRestRetryRulesTypeStaticEnableHeaderTrue$outboundSchema
+      ),
+    ]).and(z.object({ type: z.literal("static") })),
+    smartUnion([
+      z.lazy(() =>
+        RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderFalse$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodGetRestRetryRulesTypeBackoffEnableHeaderTrue$outboundSchema
+      ),
+    ]).and(z.object({ type: z.literal("backoff") })),
+  ]).optional(),
+  __scheduling: z.lazy(() => RestCollectMethodGetScheduling$outboundSchema)
+    .optional(),
+});
+
+export function restCollectMethodGetToJSON(
+  restCollectMethodGet: RestCollectMethodGet,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGet$outboundSchema.parse(restCollectMethodGet),
+  );
+}
 export function restCollectMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectMethodGet, SDKValidationError> {
@@ -4437,7 +7343,48 @@ export const RestCollectorConf$inboundSchema: z.ZodType<
   google_oauthSecret: RestAuthenticationGoogleOauthSecret$inboundSchema,
   hmac: RestAuthenticationHmac$inboundSchema,
 });
+/** @internal */
+export type RestCollectorConf$Outbound =
+  | RestAuthenticationNone$Outbound
+  | RestAuthenticationBasic$Outbound
+  | RestAuthenticationBasicSecret$Outbound
+  | (RestAuthenticationLogin$Outbound & { authentication: "login" })
+  | (RestAuthenticationLoginSecret$Outbound & { authentication: "loginSecret" })
+  | RestAuthenticationOauth$Outbound
+  | RestAuthenticationOauthSecret$Outbound
+  | RestAuthenticationGoogleOauth$Outbound
+  | RestAuthenticationGoogleOauthSecret$Outbound
+  | RestAuthenticationHmac$Outbound;
 
+/** @internal */
+export const RestCollectorConf$outboundSchema: z.ZodType<
+  RestCollectorConf$Outbound,
+  z.ZodTypeDef,
+  RestCollectorConf
+> = z.union([
+  RestAuthenticationNone$outboundSchema,
+  RestAuthenticationBasic$outboundSchema,
+  RestAuthenticationBasicSecret$outboundSchema,
+  RestAuthenticationLogin$outboundSchema.and(
+    z.object({ authentication: z.literal("login") }),
+  ),
+  RestAuthenticationLoginSecret$outboundSchema.and(
+    z.object({ authentication: z.literal("loginSecret") }),
+  ),
+  RestAuthenticationOauth$outboundSchema,
+  RestAuthenticationOauthSecret$outboundSchema,
+  RestAuthenticationGoogleOauth$outboundSchema,
+  RestAuthenticationGoogleOauthSecret$outboundSchema,
+  RestAuthenticationHmac$outboundSchema,
+]);
+
+export function restCollectorConfToJSON(
+  restCollectorConf: RestCollectorConf,
+): string {
+  return JSON.stringify(
+    RestCollectorConf$outboundSchema.parse(restCollectorConf),
+  );
+}
 export function restCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<RestCollectorConf, SDKValidationError> {

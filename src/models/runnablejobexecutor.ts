@@ -8,6 +8,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  ExecutorTypeRunnableJobExecutor,
+  ExecutorTypeRunnableJobExecutor$inboundSchema,
+} from "./executortyperunnablejobexecutor.js";
+import {
   JobTypeOptionsRunnableJobCollection,
   JobTypeOptionsRunnableJobCollection$inboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
@@ -19,20 +23,6 @@ import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
-
-export type ExecutorSpecificSettings = {};
-
-export type Executor = {
-  /**
-   * The type of executor to run
-   */
-  type: string;
-  /**
-   * Determines whether or not to write task results to disk
-   */
-  storeTaskResults?: boolean | undefined;
-  conf?: ExecutorSpecificSettings | undefined;
-};
 
 export type RunnableJobExecutorRun = {
   /**
@@ -88,47 +78,9 @@ export type RunnableJobExecutor = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  executor: Executor;
+  executor: ExecutorTypeRunnableJobExecutor;
   run: RunnableJobExecutorRun;
 };
-
-/** @internal */
-export const ExecutorSpecificSettings$inboundSchema: z.ZodType<
-  ExecutorSpecificSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function executorSpecificSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<ExecutorSpecificSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ExecutorSpecificSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ExecutorSpecificSettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const Executor$inboundSchema: z.ZodType<
-  Executor,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: types.string(),
-  storeTaskResults: types.optional(types.boolean()),
-  conf: types.optional(z.lazy(() => ExecutorSpecificSettings$inboundSchema)),
-});
-
-export function executorFromJSON(
-  jsonString: string,
-): SafeParseResult<Executor, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Executor$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Executor' from JSON`,
-  );
-}
 
 /** @internal */
 export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
@@ -170,7 +122,7 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   schedule: types.optional(ScheduleTypeRunnableJobCollection$inboundSchema),
   streamtags: types.optional(z.array(types.string())),
-  executor: z.lazy(() => Executor$inboundSchema),
+  executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
   run: z.lazy(() => RunnableJobExecutorRun$inboundSchema),
 });
 
