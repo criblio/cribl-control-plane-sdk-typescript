@@ -6,17 +6,33 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import {
+  AuthenticationMethodOptionsAuth,
+  AuthenticationMethodOptionsAuth$inboundSchema,
+  AuthenticationMethodOptionsAuth$outboundSchema,
+} from "./authenticationmethodoptionsauth.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-/**
- * Credentials to use when authenticating with the schema registry using basic HTTP authentication
- */
 export type AuthType = {
   disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptionsAuth | undefined;
   /**
    * Select or create a secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * Enter API key directly
+   */
+  manualAPIKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -26,12 +42,22 @@ export const AuthType$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: types.boolean(),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  authType: types.optional(AuthenticationMethodOptionsAuth$inboundSchema),
   credentialsSecret: types.optional(types.string()),
+  manualAPIKey: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type AuthType$Outbound = {
   disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  authType?: string | undefined;
   credentialsSecret?: string | undefined;
+  manualAPIKey?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -41,7 +67,12 @@ export const AuthType$outboundSchema: z.ZodType<
   AuthType
 > = z.object({
   disabled: z.boolean(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: AuthenticationMethodOptionsAuth$outboundSchema.optional(),
   credentialsSecret: z.string().optional(),
+  manualAPIKey: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function authTypeToJSON(authType: AuthType): string {

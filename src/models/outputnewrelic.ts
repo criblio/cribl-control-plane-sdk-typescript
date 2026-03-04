@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptionsApi,
-  AuthenticationMethodOptionsApi$inboundSchema,
-  AuthenticationMethodOptionsApi$outboundSchema,
-} from "./authenticationmethodoptionsapi.js";
+  AuthenticationMethodOptions3,
+  AuthenticationMethodOptions3$inboundSchema,
+  AuthenticationMethodOptions3$outboundSchema,
+} from "./authenticationmethodoptions3.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -183,7 +183,7 @@ export type OutputNewrelic = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptionsApi | undefined;
+  authType?: AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -203,7 +203,7 @@ export type OutputNewrelic = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -230,10 +230,6 @@ export type OutputNewrelic = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputNewrelicPqControls | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
@@ -378,7 +374,7 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptionsApi$inboundSchema),
+  authType: types.optional(AuthenticationMethodOptions3$inboundSchema),
   totalMemoryLimitKB: types.optional(types.number()),
   description: types.optional(types.string()),
   customUrl: types.optional(types.string()),
@@ -392,7 +388,6 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputNewrelicPqControls$inboundSchema),
   ),
@@ -445,7 +440,6 @@ export type OutputNewrelic$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputNewrelicPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -488,7 +482,7 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationMethodOptionsApi$outboundSchema.optional(),
+  authType: AuthenticationMethodOptions3$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -502,7 +496,6 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputNewrelicPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),

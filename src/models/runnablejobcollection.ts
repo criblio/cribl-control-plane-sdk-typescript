@@ -20,13 +20,13 @@ import {
 } from "./logleveloptionsrunnablejobcollectionschedulerun.js";
 import { MetricsStore, MetricsStore$inboundSchema } from "./metricsstore.js";
 import {
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
-import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
+import {
+  TypeCollectionWithBreakerRulesetsConstraint,
+  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 /**
  * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
@@ -186,9 +186,7 @@ export type RunnableJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
-    | undefined;
+  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
   run: RunnableJobCollectionRun;
 };
 
@@ -288,7 +286,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
   input: types.optional(
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+    TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });

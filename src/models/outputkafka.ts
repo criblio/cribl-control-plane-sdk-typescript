@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AcknowledgmentsOptionsAllLeader,
-  AcknowledgmentsOptionsAllLeader$inboundSchema,
-  AcknowledgmentsOptionsAllLeader$outboundSchema,
-} from "./acknowledgmentsoptionsallleader.js";
+  AcknowledgmentsOptions1,
+  AcknowledgmentsOptions1$inboundSchema,
+  AcknowledgmentsOptions1$outboundSchema,
+} from "./acknowledgmentsoptions1.js";
 import {
   AuthenticationType,
   AuthenticationType$inboundSchema,
@@ -23,10 +23,10 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptionsGzipLz4,
-  CompressionOptionsGzipLz4$inboundSchema,
-  CompressionOptionsGzipLz4$outboundSchema,
-} from "./compressionoptionsgziplz4.js";
+  CompressionOptions3,
+  CompressionOptions3$inboundSchema,
+  CompressionOptions3$outboundSchema,
+} from "./compressionoptions3.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -34,11 +34,11 @@ import {
 } from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout,
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$inboundSchema,
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound,
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema,
-} from "./kafkaschemaregistryauthenticationtypeauthconnectiontimeout.js";
+  KafkaSchemaRegistryAuthenticationType1,
+  KafkaSchemaRegistryAuthenticationType1$inboundSchema,
+  KafkaSchemaRegistryAuthenticationType1$Outbound,
+  KafkaSchemaRegistryAuthenticationType1$outboundSchema,
+} from "./kafkaschemaregistryauthenticationtype1.js";
 import {
   ModeOptions,
   ModeOptions$inboundSchema,
@@ -50,16 +50,16 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  RecordDataFormatOptionsJsonProtobuf,
-  RecordDataFormatOptionsJsonProtobuf$inboundSchema,
-  RecordDataFormatOptionsJsonProtobuf$outboundSchema,
-} from "./recorddataformatoptionsjsonprotobuf.js";
+  RecordDataFormatOptions1,
+  RecordDataFormatOptions1$inboundSchema,
+  RecordDataFormatOptions1$outboundSchema,
+} from "./recorddataformatoptions1.js";
 import {
-  TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
-} from "./tlssettingsclientsidetypecapathcertpath.js";
+  TlsSettingsClientSideTypeKafkaSchemaRegistry,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
+} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type OutputKafkaPqControls = {};
 
@@ -96,15 +96,15 @@ export type OutputKafka = {
   /**
    * Control the number of required acknowledgments.
    */
-  ack?: AcknowledgmentsOptionsAllLeader | undefined;
+  ack?: AcknowledgmentsOptions1 | undefined;
   /**
    * Format to use to serialize events before writing to Kafka.
    */
-  format?: RecordDataFormatOptionsJsonProtobuf | undefined;
+  format?: RecordDataFormatOptions1 | undefined;
   /**
    * Codec to use to compress the data before sending to Kafka
    */
-  compression?: CompressionOptionsGzipLz4 | undefined;
+  compression?: CompressionOptions3 | undefined;
   /**
    * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
    */
@@ -117,9 +117,7 @@ export type OutputKafka = {
    * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
    */
   flushPeriodSec?: number | undefined;
-  kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
-    | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType1 | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
    */
@@ -156,7 +154,7 @@ export type OutputKafka = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: AuthenticationType | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -183,7 +181,7 @@ export type OutputKafka = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -210,10 +208,6 @@ export type OutputKafka = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKafkaPqControls | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
@@ -268,14 +262,14 @@ export const OutputKafka$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   brokers: z.array(types.string()),
   topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptionsAllLeader$inboundSchema),
-  format: types.optional(RecordDataFormatOptionsJsonProtobuf$inboundSchema),
-  compression: types.optional(CompressionOptionsGzipLz4$inboundSchema),
+  ack: types.optional(AcknowledgmentsOptions1$inboundSchema),
+  format: types.optional(RecordDataFormatOptions1$inboundSchema),
+  compression: types.optional(CompressionOptions3$inboundSchema),
   maxRecordSizeKB: types.optional(types.number()),
   flushEventCount: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   kafkaSchemaRegistry: types.optional(
-    KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$inboundSchema,
+    KafkaSchemaRegistryAuthenticationType1$inboundSchema,
   ),
   connectionTimeout: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
@@ -286,7 +280,9 @@ export const OutputKafka$inboundSchema: z.ZodType<
   authenticationTimeout: types.optional(types.number()),
   reauthenticationThreshold: types.optional(types.number()),
   sasl: types.optional(AuthenticationType$inboundSchema),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
   protobufLibraryId: types.optional(types.string()),
@@ -301,7 +297,6 @@ export const OutputKafka$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputKafkaPqControls$inboundSchema)),
   __template_topic: types.optional(types.string()),
 });
@@ -322,7 +317,7 @@ export type OutputKafka$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
+    | KafkaSchemaRegistryAuthenticationType1$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -333,7 +328,7 @@ export type OutputKafka$Outbound = {
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
   sasl?: AuthenticationType$Outbound | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   protobufLibraryId?: string | undefined;
@@ -348,7 +343,6 @@ export type OutputKafka$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKafkaPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
 };
@@ -367,15 +361,14 @@ export const OutputKafka$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
-  format: RecordDataFormatOptionsJsonProtobuf$outboundSchema.optional(),
-  compression: CompressionOptionsGzipLz4$outboundSchema.optional(),
+  ack: AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: CompressionOptions3$outboundSchema.optional(),
   maxRecordSizeKB: z.number().optional(),
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  kafkaSchemaRegistry:
-    KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
-      .optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType1$outboundSchema
+    .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
   maxRetries: z.number().optional(),
@@ -385,7 +378,7 @@ export const OutputKafka$outboundSchema: z.ZodType<
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$outboundSchema.optional(),
-  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   protobufLibraryId: z.string().optional(),
@@ -400,7 +393,6 @@ export const OutputKafka$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputKafkaPqControls$outboundSchema).optional(),
   __template_topic: z.string().optional(),
 });

@@ -38,11 +38,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
-} from "./tlssettingsclientsidetypecapathcertpath.js";
+  TlsSettingsClientSideTypeKafkaSchemaRegistry,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
+} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type InputConfluentCloud = {
   /**
@@ -80,7 +80,7 @@ export type InputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
    */
@@ -201,7 +201,9 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   brokers: z.array(types.string()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
   topics: z.array(types.string()),
   groupId: types.optional(types.string()),
   fromBeginning: types.optional(types.boolean()),
@@ -241,7 +243,7 @@ export type InputConfluentCloud$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
   topics: Array<string>;
   groupId?: string | undefined;
   fromBeginning?: boolean | undefined;
@@ -286,7 +288,7 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
-  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
   topics: z.array(z.string()),
   groupId: z.string().optional(),
   fromBeginning: z.boolean().optional(),

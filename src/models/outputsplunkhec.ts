@@ -56,11 +56,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideTypeCaPathCertPathExtended,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
-} from "./tlssettingsclientsidetypecapathcertpathextended.js";
+  TlsSettingsClientSideType1,
+  TlsSettingsClientSideType1$inboundSchema,
+  TlsSettingsClientSideType1$Outbound,
+  TlsSettingsClientSideType1$outboundSchema,
+} from "./tlssettingsclientsidetype1.js";
 
 export type OutputSplunkHecUrl = {
   /**
@@ -113,7 +113,7 @@ export type OutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  tls?: TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -222,7 +222,7 @@ export type OutputSplunkHec = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -249,10 +249,6 @@ export type OutputSplunkHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSplunkHecPqControls | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -353,9 +349,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   loadBalanced: types.optional(types.boolean()),
   nextQueue: types.optional(types.string()),
   tcpRouting: types.optional(types.string()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
@@ -399,7 +393,6 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputSplunkHecPqControls$inboundSchema),
   ),
@@ -416,7 +409,7 @@ export type OutputSplunkHec$Outbound = {
   loadBalanced?: boolean | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -454,7 +447,6 @@ export type OutputSplunkHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSplunkHecPqControls$Outbound | undefined;
   __template_url?: string | undefined;
 };
@@ -474,8 +466,7 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanced: z.boolean().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
-  tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
-    .optional(),
+  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -515,7 +506,6 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$outboundSchema).optional(),
   __template_url: z.string().optional(),
 });

@@ -82,6 +82,10 @@ import {
 import { InputLoki, InputLoki$inboundSchema } from "./inputloki.js";
 import { InputMetrics, InputMetrics$inboundSchema } from "./inputmetrics.js";
 import {
+  InputMicrosoftGraph,
+  InputMicrosoftGraph$inboundSchema,
+} from "./inputmicrosoftgraph.js";
+import {
   InputModelDrivenTelemetry,
   InputModelDrivenTelemetry$inboundSchema,
 } from "./inputmodeldriventelemetry.js";
@@ -182,6 +186,7 @@ export type Input1 =
   | InputOffice365Mgmt
   | InputOffice365Service
   | InputOffice365MsgTrace
+  | InputMicrosoftGraph
   | InputEventhub
   | InputExec
   | InputFirehose
@@ -252,6 +257,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     office365_mgmt: InputOffice365Mgmt$inboundSchema,
     office365_service: InputOffice365Service$inboundSchema,
     office365_msg_trace: InputOffice365MsgTrace$inboundSchema,
+    microsoft_graph: InputMicrosoftGraph$inboundSchema,
     eventhub: InputEventhub$inboundSchema,
     exec: InputExec$inboundSchema,
     firehose: InputFirehose$inboundSchema,

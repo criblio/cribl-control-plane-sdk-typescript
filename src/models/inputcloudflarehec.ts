@@ -22,15 +22,15 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  MaximumTlsVersionOptionsTls,
-  MaximumTlsVersionOptionsTls$inboundSchema,
-  MaximumTlsVersionOptionsTls$outboundSchema,
-} from "./maximumtlsversionoptionstls.js";
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
+} from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
 import {
-  MinimumTlsVersionOptionsTls,
-  MinimumTlsVersionOptionsTls$inboundSchema,
-  MinimumTlsVersionOptionsTls$outboundSchema,
-} from "./minimumtlsversionoptionstls.js";
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls,
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
+} from "./minimumtlsversionoptionskafkaschemaregistrytls.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -109,8 +109,8 @@ export type TLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  minVersion?: MinimumTlsVersionOptionsTls | undefined;
-  maxVersion?: MaximumTlsVersionOptionsTls | undefined;
+  minVersion?: MinimumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
+  maxVersion?: MaximumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
 };
 
 export type InputCloudflareHec = {
@@ -327,8 +327,12 @@ export const TLSSettingsServerSide$inboundSchema: z.ZodType<
   passphrase: types.optional(types.string()),
   certPath: types.optional(types.string()),
   caPath: types.optional(types.string()),
-  minVersion: types.optional(MinimumTlsVersionOptionsTls$inboundSchema),
-  maxVersion: types.optional(MaximumTlsVersionOptionsTls$inboundSchema),
+  minVersion: types.optional(
+    MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+  maxVersion: types.optional(
+    MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
 });
 /** @internal */
 export type TLSSettingsServerSide$Outbound = {
@@ -360,8 +364,10 @@ export const TLSSettingsServerSide$outboundSchema: z.ZodType<
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  minVersion: MinimumTlsVersionOptionsTls$outboundSchema.optional(),
-  maxVersion: MaximumTlsVersionOptionsTls$outboundSchema.optional(),
+  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
+    .optional(),
+  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
+    .optional(),
 });
 
 export function tlsSettingsServerSideToJSON(

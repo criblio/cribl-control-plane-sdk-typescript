@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationTypeOptionsBasicCredentialsSecret,
-  AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
-  AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema,
-} from "./authenticationtypeoptionsbasiccredentialssecret.js";
+  AuthenticationTypeOptions1,
+  AuthenticationTypeOptions1$inboundSchema,
+  AuthenticationTypeOptions1$outboundSchema,
+} from "./authenticationtypeoptions1.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -58,11 +58,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideTypeCaPathCertPathExtended,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
-} from "./tlssettingsclientsidetypecapathcertpathextended.js";
+  TlsSettingsClientSideType1,
+  TlsSettingsClientSideType1$inboundSchema,
+  TlsSettingsClientSideType1$Outbound,
+  TlsSettingsClientSideType1$outboundSchema,
+} from "./tlssettingsclientsidetype1.js";
 
 /**
  * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
@@ -145,7 +145,7 @@ export type OutputClickHouse = {
    * URL of the ClickHouse instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
+  authType?: AuthenticationTypeOptions1 | undefined;
   database: string;
   /**
    * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -163,7 +163,7 @@ export type OutputClickHouse = {
    * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
    */
   asyncInserts?: boolean | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  tls?: TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -266,7 +266,7 @@ export type OutputClickHouse = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -293,10 +293,6 @@ export type OutputClickHouse = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputClickHousePqControls | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -431,17 +427,13 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   url: types.string(),
-  authType: types.optional(
-    AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
-  ),
+  authType: types.optional(AuthenticationTypeOptions1$inboundSchema),
   database: types.string(),
   tableName: types.string(),
   format: types.optional(OutputClickHouseFormat$inboundSchema),
   mappingType: types.optional(OutputClickHouseMappingType$inboundSchema),
   asyncInserts: types.optional(types.boolean()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
@@ -485,7 +477,6 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputClickHousePqControls$inboundSchema),
   ),
@@ -508,7 +499,7 @@ export type OutputClickHouse$Outbound = {
   format?: string | undefined;
   mappingType?: string | undefined;
   asyncInserts?: boolean | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -546,7 +537,6 @@ export type OutputClickHouse$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputClickHousePqControls$Outbound | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
@@ -566,15 +556,13 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema
-    .optional(),
+  authType: AuthenticationTypeOptions1$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
   format: OutputClickHouseFormat$outboundSchema.optional(),
   mappingType: OutputClickHouseMappingType$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
-  tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
-    .optional(),
+  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -615,7 +603,6 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputClickHousePqControls$outboundSchema)
     .optional(),
   __template_url: z.string().optional(),

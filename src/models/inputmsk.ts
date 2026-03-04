@@ -37,11 +37,11 @@ import {
   SignatureVersionOptions$outboundSchema,
 } from "./signatureversionoptions.js";
 import {
-  TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
-} from "./tlssettingsclientsidetypecapathcertpath.js";
+  TlsSettingsClientSideTypeKafkaSchemaRegistry,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
+} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type InputMsk = {
   /**
@@ -194,7 +194,7 @@ export type InputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
    */
@@ -291,7 +291,9 @@ export const InputMsk$inboundSchema: z.ZodType<
   assumeRoleArn: types.optional(types.string()),
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
   autoCommitInterval: types.optional(types.number()),
   autoCommitThreshold: types.optional(types.number()),
   maxBytesPerPartition: types.optional(types.number()),
@@ -348,7 +350,7 @@ export type InputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
   maxBytesPerPartition?: number | undefined;
@@ -409,7 +411,7 @@ export const InputMsk$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
-  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
   maxBytesPerPartition: z.number().optional(),

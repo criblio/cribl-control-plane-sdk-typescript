@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
-} from "./backpressurebehavioroptionsblockdrop.js";
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
 import {
   DataCompressionFormatOptionsPersistence,
   DataCompressionFormatOptionsPersistence$inboundSchema,
@@ -78,7 +78,7 @@ export type OutputRing = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   description?: string | undefined;
 };
 
@@ -115,9 +115,7 @@ export const OutputRing$inboundSchema: z.ZodType<
     DataCompressionFormatOptionsPersistence$inboundSchema,
   ),
   destPath: types.optional(types.string()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
+  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
   description: types.optional(types.string()),
 });
 /** @internal */
@@ -156,8 +154,7 @@ export const OutputRing$outboundSchema: z.ZodType<
   maxDataTime: z.string().optional(),
   compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
   destPath: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
   description: z.string().optional(),
 });
 

@@ -13,15 +13,15 @@ import {
   JobTypeOptionsRunnableJobCollection$outboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
 import {
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
-} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
-import {
   ScheduleTypeSavedJobResponseCollection,
   ScheduleTypeSavedJobResponseCollection$Outbound,
   ScheduleTypeSavedJobResponseCollection$outboundSchema,
 } from "./scheduletypesavedjobresponsecollection.js";
+import {
+  TypeCollectionWithBreakerRulesetsConstraint,
+  TypeCollectionWithBreakerRulesetsConstraint$Outbound,
+  TypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
+} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 export type SavedJobCollection = {
   /**
@@ -66,9 +66,7 @@ export type SavedJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
-    | undefined;
+  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
 };
 
 /** @internal */
@@ -85,9 +83,7 @@ export type SavedJobCollection$Outbound = {
   streamtags?: Array<string> | undefined;
   workerAffinity?: boolean | undefined;
   collector: Collector$Outbound;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound
-    | undefined;
+  input?: TypeCollectionWithBreakerRulesetsConstraint$Outbound | undefined;
 };
 
 /** @internal */
@@ -108,9 +104,7 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().optional(),
   collector: Collector$outboundSchema,
-  input:
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema
-      .optional(),
+  input: TypeCollectionWithBreakerRulesetsConstraint$outboundSchema.optional(),
 });
 
 export function savedJobCollectionToJSON(

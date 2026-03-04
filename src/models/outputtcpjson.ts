@@ -17,10 +17,10 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptionsGzipNone,
-  CompressionOptionsGzipNone$inboundSchema,
-  CompressionOptionsGzipNone$outboundSchema,
-} from "./compressionoptionsgzipnone.js";
+  CompressionOptions1,
+  CompressionOptions1$inboundSchema,
+  CompressionOptions1$outboundSchema,
+} from "./compressionoptions1.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -44,11 +44,11 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
-} from "./tlssettingsclientsidetypecapathcertpath.js";
+  TlsSettingsClientSideTypeKafkaSchemaRegistry,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
+} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type OutputTcpjsonPqControls = {};
 
@@ -81,7 +81,7 @@ export type OutputTcpjson = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: CompressionOptionsGzipNone | undefined;
+  compression?: CompressionOptions1 | undefined;
   /**
    * Use to troubleshoot issues with sending data
    */
@@ -90,7 +90,7 @@ export type OutputTcpjson = {
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
   throttleRatePerSec?: string | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -157,7 +157,7 @@ export type OutputTcpjson = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -184,10 +184,6 @@ export type OutputTcpjson = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputTcpjsonPqControls | undefined;
   /**
    * Optional authentication token to include as part of the connection header
@@ -253,10 +249,12 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   loadBalanced: types.optional(types.boolean()),
-  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
+  compression: types.optional(CompressionOptions1$inboundSchema),
   logFailedRequests: types.optional(types.boolean()),
   throttleRatePerSec: types.optional(types.string()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
   connectionTimeout: types.optional(types.number()),
   writeTimeout: types.optional(types.number()),
   tokenTTLMinutes: types.optional(types.number()),
@@ -283,7 +281,6 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputTcpjsonPqControls$inboundSchema),
   ),
@@ -304,7 +301,7 @@ export type OutputTcpjson$Outbound = {
   compression?: string | undefined;
   logFailedRequests?: boolean | undefined;
   throttleRatePerSec?: string | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
@@ -329,7 +326,6 @@ export type OutputTcpjson$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputTcpjsonPqControls$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
@@ -350,10 +346,10 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  compression: CompressionOptionsGzipNone$outboundSchema.optional(),
+  compression: CompressionOptions1$outboundSchema.optional(),
   logFailedRequests: z.boolean().optional(),
   throttleRatePerSec: z.string().optional(),
-  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
@@ -379,7 +375,6 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputTcpjsonPqControls$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
