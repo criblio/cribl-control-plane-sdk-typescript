@@ -7,8 +7,13 @@ import { UpdateSavedJobByIdRequest } from "cribl-control-plane/models/operations
 
 let value: UpdateSavedJobByIdRequest = {
   id: "<id>",
-  savedJobCreateUpdate: {
+  savedJobRequest: {
     id: "<id>",
+    schedule: {
+      enabled: true,
+      run: {},
+      tz: "UTC",
+    },
     type: "<value>",
   },
 };
@@ -16,8 +21,7 @@ let value: UpdateSavedJobByIdRequest = {
 
 ## Fields
 
-| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Collector to update.                        |
-| `criblPack`                                                            | *string*                                                               | :heavy_minus_sign:                                                     | The <code>id</code> of the Pack that includes the Collector to update. |
-| `savedJobCreateUpdate`                                                 | [models.SavedJobCreateUpdate](../../models/savedjobcreateupdate.md)    | :heavy_check_mark:                                                     | SavedJobCreateUpdate object                                            |
+| Field                                                     | Type                                                      | Required                                                  | Description                                               |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `id`                                                      | *string*                                                  | :heavy_check_mark:                                        | The <code>id</code> of the Collector to update.           |
+| `savedJobRequest`                                         | [models.SavedJobRequest](../../models/savedjobrequest.md) | :heavy_check_mark:                                        | SavedJobRequest object                                    |

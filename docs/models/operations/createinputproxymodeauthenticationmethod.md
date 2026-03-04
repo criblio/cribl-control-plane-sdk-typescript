@@ -8,11 +8,11 @@ Enter credentials directly, or select a stored secret
 import { CreateInputProxyModeAuthenticationMethod } from "cribl-control-plane/models/operations";
 
 let value: CreateInputProxyModeAuthenticationMethod = "secret";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "none" | "manual" | "secret" | Unrecognized<string>

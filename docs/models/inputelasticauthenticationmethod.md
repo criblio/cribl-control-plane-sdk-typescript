@@ -8,11 +8,11 @@ Enter credentials directly, or select a stored secret
 import { InputElasticAuthenticationMethod } from "cribl-control-plane/models";
 
 let value: InputElasticAuthenticationMethod = "none";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "none" | "manual" | "secret" | Unrecognized<string>

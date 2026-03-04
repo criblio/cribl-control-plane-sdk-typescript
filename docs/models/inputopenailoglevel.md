@@ -8,11 +8,11 @@ Collector runtime log level.
 import { InputOpenaiLogLevel } from "cribl-control-plane/models";
 
 let value: InputOpenaiLogLevel = "silly";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "error" | "warn" | "info" | "debug" | "silly" | Unrecognized<string>

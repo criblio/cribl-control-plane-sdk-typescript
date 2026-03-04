@@ -18,11 +18,17 @@ export type RunSettings = {
    * Maximum number of times a task can be rescheduled.
    */
   maxTaskReschedule?: number | undefined;
+  /**
+   * Reference timestamp for the run. Used for scheduled execution time and relative time expressions.
+   */
   now?: Date | undefined;
   /**
    * Reschedule tasks that failed with non-fatal errors.
    */
   rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Interval in seconds at which running tasks report heartbeats to the Leader. Used to detect stalled or dead tasks.
+   */
   taskHeartbeatPeriod?: number | undefined;
   type?: RunType | undefined;
   [additionalProperties: string]: unknown;

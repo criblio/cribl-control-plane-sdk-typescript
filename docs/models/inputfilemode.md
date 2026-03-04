@@ -8,11 +8,11 @@ Choose how to discover files to monitor
 import { InputFileMode } from "cribl-control-plane/models";
 
 let value: InputFileMode = "auto";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "manual" | "auto" | Unrecognized<string>

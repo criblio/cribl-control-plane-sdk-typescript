@@ -8,11 +8,11 @@ Server-side encryption for uploaded objects
 import { ServerSideEncryptionOptions } from "cribl-control-plane/models";
 
 let value: ServerSideEncryptionOptions = "AES256";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "AES256" | Unrecognized<string>

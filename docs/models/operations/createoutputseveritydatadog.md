@@ -8,11 +8,11 @@ Default value for message severity. When you send logs as JSON objects, the even
 import { CreateOutputSeverityDatadog } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputSeverityDatadog = "info";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "emergency" | "alert" | "critical" | "error" | "warning" | "notice" | "info" | "debug" | Unrecognized<string>

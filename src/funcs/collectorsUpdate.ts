@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery, encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -38,7 +38,7 @@ export function collectorsUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedSavedJob,
+    models.CountedSavedJobResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -64,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedSavedJob,
+      models.CountedSavedJobResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -87,9 +87,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.SavedJobCreateUpdate, {
-    explode: true,
-  });
+  const body = encodeJSON("body", payload.SavedJobRequest, { explode: true });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -99,10 +97,6 @@ async function $do(
   };
 
   const path = pathToFunc("/lib/jobs/{id}")(pathParams);
-
-  const query = encodeFormQuery({
-    "criblPack": payload.criblPack,
-  });
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -143,7 +137,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -169,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedSavedJob,
+    models.CountedSavedJobResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -180,7 +173,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedSavedJob$inboundSchema),
+    M.json(200, models.CountedSavedJobResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

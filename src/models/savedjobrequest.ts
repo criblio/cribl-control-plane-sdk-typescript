@@ -9,15 +9,14 @@ import {
   ScheduleOpts$outboundSchema,
 } from "./scheduleopts.js";
 
-export type SavedJobCreateUpdate = {
+export type SavedJobRequest = {
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
   environment?: string | undefined;
   /**
-   * Worker Group ID to run the job in. When empty, uses the default group.
+   * Unique ID for this Job.
    */
-  groupId?: string | undefined;
   id: string;
   /**
    * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -39,9 +38,8 @@ export type SavedJobCreateUpdate = {
 };
 
 /** @internal */
-export type SavedJobCreateUpdate$Outbound = {
+export type SavedJobRequest$Outbound = {
   environment?: string | undefined;
-  groupId?: string | undefined;
   id: string;
   ignoreGroupJobsLimit?: boolean | undefined;
   resumeOnBoot?: boolean | undefined;
@@ -51,13 +49,12 @@ export type SavedJobCreateUpdate$Outbound = {
 };
 
 /** @internal */
-export const SavedJobCreateUpdate$outboundSchema: z.ZodType<
-  SavedJobCreateUpdate$Outbound,
+export const SavedJobRequest$outboundSchema: z.ZodType<
+  SavedJobRequest$Outbound,
   z.ZodTypeDef,
-  SavedJobCreateUpdate
+  SavedJobRequest
 > = z.object({
   environment: z.string().optional(),
-  groupId: z.string().optional(),
   id: z.string(),
   ignoreGroupJobsLimit: z.boolean().optional(),
   resumeOnBoot: z.boolean().optional(),
@@ -66,10 +63,8 @@ export const SavedJobCreateUpdate$outboundSchema: z.ZodType<
   type: z.string(),
 });
 
-export function savedJobCreateUpdateToJSON(
-  savedJobCreateUpdate: SavedJobCreateUpdate,
+export function savedJobRequestToJSON(
+  savedJobRequest: SavedJobRequest,
 ): string {
-  return JSON.stringify(
-    SavedJobCreateUpdate$outboundSchema.parse(savedJobCreateUpdate),
-  );
+  return JSON.stringify(SavedJobRequest$outboundSchema.parse(savedJobRequest));
 }

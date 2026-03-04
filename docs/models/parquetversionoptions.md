@@ -8,11 +8,11 @@ Determines which data types are supported and how they are represented
 import { ParquetVersionOptions } from "cribl-control-plane/models";
 
 let value: ParquetVersionOptions = "PARQUET_1_0";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "PARQUET_1_0" | "PARQUET_2_4" | "PARQUET_2_6" | Unrecognized<string>

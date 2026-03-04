@@ -8,11 +8,11 @@ Select Secret to use a text secret to authenticate
 import { CreateInputAuthTokenAuthenticationMethod } from "cribl-control-plane/models/operations";
 
 let value: CreateInputAuthTokenAuthenticationMethod = "secret";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "secret" | Unrecognized<string>

@@ -8,11 +8,11 @@ Format of data inside the Kinesis Stream records. Gzip compression is automatica
 import { RecordDataFormat } from "cribl-control-plane/models";
 
 let value: RecordDataFormat = "line";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "cribl" | "ndjson" | "cloudwatch" | "line" | Unrecognized<string>

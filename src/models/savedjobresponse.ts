@@ -14,15 +14,14 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Notification, Notification$inboundSchema } from "./notification.js";
 import { ScheduleOpts, ScheduleOpts$inboundSchema } from "./scheduleopts.js";
 
-export type SavedJob = {
+export type SavedJobResponse = {
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
   environment?: string | undefined;
   /**
-   * Worker Group ID to run the job in. When empty, uses the default group.
+   * Unique ID for this Job.
    */
-  groupId?: string | undefined;
   id: string;
   /**
    * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -46,17 +45,15 @@ export type SavedJob = {
    * Job type: collection, executor, or scheduledSearch.
    */
   type: string;
-  [additionalProperties: string]: unknown;
 };
 
 /** @internal */
-export const SavedJob$inboundSchema: z.ZodType<
-  SavedJob,
+export const SavedJobResponse$inboundSchema: z.ZodType<
+  SavedJobResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   environment: types.optional(types.string()),
-  groupId: types.optional(types.string()),
   id: types.string(),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   notifications: types.optional(z.array(Notification$inboundSchema)),
@@ -65,14 +62,14 @@ export const SavedJob$inboundSchema: z.ZodType<
   schedule: types.optional(ScheduleOpts$inboundSchema),
   ttl: types.optional(types.string()),
   type: types.string(),
-}).catchall(z.any());
+});
 
-export function savedJobFromJSON(
+export function savedJobResponseFromJSON(
   jsonString: string,
-): SafeParseResult<SavedJob, SDKValidationError> {
+): SafeParseResult<SavedJobResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SavedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJob' from JSON`,
+    (x) => SavedJobResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SavedJobResponse' from JSON`,
   );
 }
