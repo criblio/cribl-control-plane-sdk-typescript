@@ -309,7 +309,7 @@ import {
   InputZscalerHec$outboundSchema,
 } from "./inputzscalerhec.js";
 
-export type Input2 =
+export type InputUnion2 =
   | InputCollection
   | InputKafka
   | InputMsk
@@ -373,7 +373,7 @@ export type Input2 =
   | InputCloudflareHec;
 
 /** @internal */
-export type Input2$Outbound =
+export type InputUnion2$Outbound =
   | InputCollection$Outbound
   | InputKafka$Outbound
   | InputMsk$Outbound
@@ -437,10 +437,10 @@ export type Input2$Outbound =
   | InputCloudflareHec$Outbound;
 
 /** @internal */
-export const Input2$outboundSchema: z.ZodType<
-  Input2$Outbound,
+export const InputUnion2$outboundSchema: z.ZodType<
+  InputUnion2$Outbound,
   z.ZodTypeDef,
-  Input2
+  InputUnion2
 > = z.union([
   InputCollection$outboundSchema,
   InputKafka$outboundSchema,
@@ -507,6 +507,6 @@ export const Input2$outboundSchema: z.ZodType<
   InputCloudflareHec$outboundSchema,
 ]);
 
-export function input2ToJSON(input2: Input2): string {
-  return JSON.stringify(Input2$outboundSchema.parse(input2));
+export function inputUnion2ToJSON(inputUnion2: InputUnion2): string {
+  return JSON.stringify(InputUnion2$outboundSchema.parse(inputUnion2));
 }

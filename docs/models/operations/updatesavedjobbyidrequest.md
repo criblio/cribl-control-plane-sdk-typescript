@@ -7,9 +7,9 @@ import { UpdateSavedJobByIdRequest } from "cribl-control-plane/models/operations
 
 let value: UpdateSavedJobByIdRequest = {
   id: "<id>",
-  savedJob: {
-    type: "collection",
-    savedQueryId: "<id>",
+  savedJobCreateUpdate: {
+    id: "<id>",
+    type: "<value>",
   },
 };
 ```
@@ -20,4 +20,4 @@ let value: UpdateSavedJobByIdRequest = {
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Collector to update.                        |
 | `criblPack`                                                            | *string*                                                               | :heavy_minus_sign:                                                     | The <code>id</code> of the Pack that includes the Collector to update. |
-| `savedJob`                                                             | *models.SavedJob*                                                      | :heavy_check_mark:                                                     | SavedJob object                                                        |
+| `savedJobCreateUpdate`                                                 | [models.SavedJobCreateUpdate](../../models/savedjobcreateupdate.md)    | :heavy_check_mark:                                                     | SavedJobCreateUpdate object                                            |

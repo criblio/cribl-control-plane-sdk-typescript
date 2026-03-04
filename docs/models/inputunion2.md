@@ -1,4 +1,4 @@
-# Input2
+# InputUnion2
 
 
 ## Supported Types

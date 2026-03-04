@@ -9,8 +9,6 @@ import * as types from "../types/primitives.js";
 import {
   DatabaseCollectorConf,
   DatabaseCollectorConf$inboundSchema,
-  DatabaseCollectorConf$Outbound,
-  DatabaseCollectorConf$outboundSchema,
 } from "./databasecollectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -44,33 +42,7 @@ export const CollectorDatabase$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
-/** @internal */
-export type CollectorDatabase$Outbound = {
-  type: "database";
-  conf: DatabaseCollectorConf$Outbound;
-  destructive?: boolean | undefined;
-  encoding?: string | undefined;
-};
 
-/** @internal */
-export const CollectorDatabase$outboundSchema: z.ZodType<
-  CollectorDatabase$Outbound,
-  z.ZodTypeDef,
-  CollectorDatabase
-> = z.object({
-  type: z.literal("database"),
-  conf: DatabaseCollectorConf$outboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
-});
-
-export function collectorDatabaseToJSON(
-  collectorDatabase: CollectorDatabase,
-): string {
-  return JSON.stringify(
-    CollectorDatabase$outboundSchema.parse(collectorDatabase),
-  );
-}
 export function collectorDatabaseFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorDatabase, SDKValidationError> {

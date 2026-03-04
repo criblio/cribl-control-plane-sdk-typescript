@@ -177,7 +177,7 @@ export type OutputNewrelicEvents = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -204,6 +204,10 @@ export type OutputNewrelicEvents = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputNewrelicEventsPqControls | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
@@ -315,6 +319,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputNewrelicEventsPqControls$inboundSchema),
   ),
@@ -366,6 +371,7 @@ export type OutputNewrelicEvents$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputNewrelicEventsPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -421,6 +427,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputNewrelicEventsPqControls$outboundSchema)
     .optional(),
   apiKey: z.string().optional(),

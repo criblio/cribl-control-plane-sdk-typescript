@@ -10,8 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HealthCheckCollectorConf,
   HealthCheckCollectorConf$inboundSchema,
-  HealthCheckCollectorConf$Outbound,
-  HealthCheckCollectorConf$outboundSchema,
 } from "./healthcheckcollectorconf.js";
 
 /**
@@ -44,33 +42,7 @@ export const CollectorHealthCheck$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
-/** @internal */
-export type CollectorHealthCheck$Outbound = {
-  type: "health_check";
-  conf: HealthCheckCollectorConf$Outbound;
-  destructive?: boolean | undefined;
-  encoding?: string | undefined;
-};
 
-/** @internal */
-export const CollectorHealthCheck$outboundSchema: z.ZodType<
-  CollectorHealthCheck$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheck
-> = z.object({
-  type: z.literal("health_check"),
-  conf: HealthCheckCollectorConf$outboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
-});
-
-export function collectorHealthCheckToJSON(
-  collectorHealthCheck: CollectorHealthCheck,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheck$outboundSchema.parse(collectorHealthCheck),
-  );
-}
 export function collectorHealthCheckFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorHealthCheck, SDKValidationError> {

@@ -29,33 +29,7 @@ export const ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSc
     name: types.string(),
     value: types.string(),
   });
-/** @internal */
-export type ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound =
-  {
-    name: string;
-    value: string;
-  };
 
-/** @internal */
-export const ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema:
-  z.ZodType<
-    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound,
-    z.ZodTypeDef,
-    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function itemsTypeHealthCheckAuthenticationLoginAuthRequestHeadersToJSON(
-  itemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders:
-    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders,
-): string {
-  return JSON.stringify(
-    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema
-      .parse(itemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders),
-  );
-}
 export function itemsTypeHealthCheckAuthenticationLoginAuthRequestHeadersFromJSON(
   jsonString: string,
 ): SafeParseResult<

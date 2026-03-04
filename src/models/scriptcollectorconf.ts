@@ -44,25 +44,7 @@ export const EnvVar$inboundSchema: z.ZodType<EnvVar, z.ZodTypeDef, unknown> = z
     name: types.string(),
     value: types.string(),
   });
-/** @internal */
-export type EnvVar$Outbound = {
-  name: string;
-  value: string;
-};
 
-/** @internal */
-export const EnvVar$outboundSchema: z.ZodType<
-  EnvVar$Outbound,
-  z.ZodTypeDef,
-  EnvVar
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function envVarToJSON(envVar: EnvVar): string {
-  return JSON.stringify(EnvVar$outboundSchema.parse(envVar));
-}
 export function envVarFromJSON(
   jsonString: string,
 ): SafeParseResult<EnvVar, SDKValidationError> {
@@ -84,33 +66,7 @@ export const ScriptCollectorConf$inboundSchema: z.ZodType<
   shell: types.optional(types.string()),
   envVars: types.optional(z.array(z.lazy(() => EnvVar$inboundSchema))),
 });
-/** @internal */
-export type ScriptCollectorConf$Outbound = {
-  discoverScript: string;
-  collectScript: string;
-  shell?: string | undefined;
-  envVars?: Array<EnvVar$Outbound> | undefined;
-};
 
-/** @internal */
-export const ScriptCollectorConf$outboundSchema: z.ZodType<
-  ScriptCollectorConf$Outbound,
-  z.ZodTypeDef,
-  ScriptCollectorConf
-> = z.object({
-  discoverScript: z.string(),
-  collectScript: z.string(),
-  shell: z.string().optional(),
-  envVars: z.array(z.lazy(() => EnvVar$outboundSchema)).optional(),
-});
-
-export function scriptCollectorConfToJSON(
-  scriptCollectorConf: ScriptCollectorConf,
-): string {
-  return JSON.stringify(
-    ScriptCollectorConf$outboundSchema.parse(scriptCollectorConf),
-  );
-}
 export function scriptCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<ScriptCollectorConf, SDKValidationError> {

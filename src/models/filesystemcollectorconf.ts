@@ -51,31 +51,7 @@ export const FilesystemCollectorConfExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
-/** @internal */
-export type FilesystemCollectorConfExtractor$Outbound = {
-  key: string;
-  expression: string;
-};
 
-/** @internal */
-export const FilesystemCollectorConfExtractor$outboundSchema: z.ZodType<
-  FilesystemCollectorConfExtractor$Outbound,
-  z.ZodTypeDef,
-  FilesystemCollectorConfExtractor
-> = z.object({
-  key: z.string(),
-  expression: z.string(),
-});
-
-export function filesystemCollectorConfExtractorToJSON(
-  filesystemCollectorConfExtractor: FilesystemCollectorConfExtractor,
-): string {
-  return JSON.stringify(
-    FilesystemCollectorConfExtractor$outboundSchema.parse(
-      filesystemCollectorConfExtractor,
-    ),
-  );
-}
 export function filesystemCollectorConfExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<FilesystemCollectorConfExtractor, SDKValidationError> {
@@ -100,37 +76,7 @@ export const FilesystemCollectorConf$inboundSchema: z.ZodType<
   recurse: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
 });
-/** @internal */
-export type FilesystemCollectorConf$Outbound = {
-  outputName?: string | undefined;
-  path: string;
-  extractors?: Array<FilesystemCollectorConfExtractor$Outbound> | undefined;
-  recurse?: boolean | undefined;
-  maxBatchSize?: number | undefined;
-};
 
-/** @internal */
-export const FilesystemCollectorConf$outboundSchema: z.ZodType<
-  FilesystemCollectorConf$Outbound,
-  z.ZodTypeDef,
-  FilesystemCollectorConf
-> = z.object({
-  outputName: z.string().optional(),
-  path: z.string(),
-  extractors: z.array(
-    z.lazy(() => FilesystemCollectorConfExtractor$outboundSchema),
-  ).optional(),
-  recurse: z.boolean().optional(),
-  maxBatchSize: z.number().optional(),
-});
-
-export function filesystemCollectorConfToJSON(
-  filesystemCollectorConf: FilesystemCollectorConf,
-): string {
-  return JSON.stringify(
-    FilesystemCollectorConf$outboundSchema.parse(filesystemCollectorConf),
-  );
-}
 export function filesystemCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<FilesystemCollectorConf, SDKValidationError> {

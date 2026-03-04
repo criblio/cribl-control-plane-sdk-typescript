@@ -11,6 +11,10 @@ import * as types from "../types/primitives.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+} from "./itemstypemetadata.js";
+import {
   JobTypeOptionsRunnableJobCollection,
   JobTypeOptionsRunnableJobCollection$inboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
@@ -20,13 +24,53 @@ import {
 } from "./logleveloptionsrunnablejobcollectionschedulerun.js";
 import { MetricsStore, MetricsStore$inboundSchema } from "./metricsstore.js";
 import {
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
+  PreprocessType,
+  PreprocessType$inboundSchema,
+} from "./preprocesstype.js";
 import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
+
+export const RunnableJobCollectionType = {
+  Collection: "collection",
+} as const;
+export type RunnableJobCollectionType = OpenEnum<
+  typeof RunnableJobCollectionType
+>;
+
+export type RunnableJobCollectionInput = {
+  type?: RunnableJobCollectionType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+   */
+  sendToRoutes?: boolean | undefined;
+  preprocess?: PreprocessType | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Pipeline to process results
+   */
+  pipeline?: string | undefined;
+  /**
+   * Destination to send results to
+   */
+  output?: string | undefined;
+};
 
 /**
  * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
@@ -186,11 +230,43 @@ export type RunnableJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
-    | undefined;
+  input?: RunnableJobCollectionInput | undefined;
   run: RunnableJobCollectionRun;
 };
+
+/** @internal */
+export const RunnableJobCollectionType$inboundSchema: z.ZodType<
+  RunnableJobCollectionType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobCollectionType);
+
+/** @internal */
+export const RunnableJobCollectionInput$inboundSchema: z.ZodType<
+  RunnableJobCollectionInput,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.optional(RunnableJobCollectionType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  sendToRoutes: types.optional(types.boolean()),
+  preprocess: types.optional(PreprocessType$inboundSchema),
+  throttleRatePerSec: types.optional(types.string()),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  pipeline: types.optional(types.string()),
+  output: types.optional(types.string()),
+});
+
+export function runnableJobCollectionInputFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobCollectionInput, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RunnableJobCollectionInput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobCollectionInput' from JSON`,
+  );
+}
 
 /** @internal */
 export const RunnableJobCollectionMode$inboundSchema: z.ZodType<
@@ -287,9 +363,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
-  input: types.optional(
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-  ),
+  input: types.optional(z.lazy(() => RunnableJobCollectionInput$inboundSchema)),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });
 

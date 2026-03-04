@@ -22,12 +22,3 @@ export const HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema:
   > = openEnums.inboundSchema(
     HiddenDefaultBreakersOptionsDatabaseCollectorConf,
   );
-/** @internal */
-export const HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf
-  > = openEnums.outboundSchema(
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf,
-  );

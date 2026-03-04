@@ -30,10 +30,3 @@ export const LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(LogLevelOptionsRunnableJobCollectionScheduleRun);
-/** @internal */
-export const LogLevelOptionsRunnableJobCollectionScheduleRun$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    LogLevelOptionsRunnableJobCollectionScheduleRun
-  > = openEnums.outboundSchema(LogLevelOptionsRunnableJobCollectionScheduleRun);

@@ -18,14 +18,14 @@ export type UpdateInputSystemByPackAndIdRequest = {
   /**
    * Input object
    */
-  input: models.Input2;
+  input: models.InputUnion2;
 };
 
 /** @internal */
 export type UpdateInputSystemByPackAndIdRequest$Outbound = {
   id: string;
   pack: string;
-  Input: models.Input2$Outbound;
+  Input: models.InputUnion2$Outbound;
 };
 
 /** @internal */
@@ -36,7 +36,7 @@ export const UpdateInputSystemByPackAndIdRequest$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   pack: z.string(),
-  input: models.Input2$outboundSchema,
+  input: models.InputUnion2$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     input: "Input",
