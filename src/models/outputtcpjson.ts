@@ -17,10 +17,10 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions1,
-  CompressionOptions1$inboundSchema,
-  CompressionOptions1$outboundSchema,
-} from "./compressionoptions1.js";
+  CompressionOptionsGzipNone,
+  CompressionOptionsGzipNone$inboundSchema,
+  CompressionOptionsGzipNone$outboundSchema,
+} from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -44,11 +44,11 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type OutputTcpjsonPqControls = {};
 
@@ -81,7 +81,7 @@ export type OutputTcpjson = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: CompressionOptions1 | undefined;
+  compression?: CompressionOptionsGzipNone | undefined;
   /**
    * Use to troubleshoot issues with sending data
    */
@@ -90,7 +90,7 @@ export type OutputTcpjson = {
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
   throttleRatePerSec?: string | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -253,12 +253,10 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   loadBalanced: types.optional(types.boolean()),
-  compression: types.optional(CompressionOptions1$inboundSchema),
+  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
   logFailedRequests: types.optional(types.boolean()),
   throttleRatePerSec: types.optional(types.string()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   connectionTimeout: types.optional(types.number()),
   writeTimeout: types.optional(types.number()),
   tokenTTLMinutes: types.optional(types.number()),
@@ -306,7 +304,7 @@ export type OutputTcpjson$Outbound = {
   compression?: string | undefined;
   logFailedRequests?: boolean | undefined;
   throttleRatePerSec?: string | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
@@ -352,10 +350,10 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  compression: CompressionOptions1$outboundSchema.optional(),
+  compression: CompressionOptionsGzipNone$outboundSchema.optional(),
   logFailedRequests: z.boolean().optional(),
   throttleRatePerSec: z.string().optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),

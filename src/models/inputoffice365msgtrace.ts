@@ -28,11 +28,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  RetryRulesType1,
-  RetryRulesType1$inboundSchema,
-  RetryRulesType1$Outbound,
-  RetryRulesType1$outboundSchema,
-} from "./retryrulestype1.js";
+  RetryRulesTypeCodesEnableHeader,
+  RetryRulesTypeCodesEnableHeader$inboundSchema,
+  RetryRulesTypeCodesEnableHeader$Outbound,
+  RetryRulesTypeCodesEnableHeader$outboundSchema,
+} from "./retryrulestypecodesenableheader.js";
 import {
   SubscriptionPlanOptions,
   SubscriptionPlanOptions$inboundSchema,
@@ -188,7 +188,7 @@ export type InputOffice365MsgTrace = {
    * Fields to add to events from this input
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
-  retryRules?: RetryRulesType1 | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -347,7 +347,7 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
-  retryRules: types.optional(RetryRulesType1$inboundSchema),
+  retryRules: types.optional(RetryRulesTypeCodesEnableHeader$inboundSchema),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
   password: types.optional(types.string()),
@@ -392,7 +392,7 @@ export type InputOffice365MsgTrace$Outbound = {
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  retryRules?: RetryRulesType1$Outbound | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -443,7 +443,7 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  retryRules: RetryRulesType1$outboundSchema.optional(),
+  retryRules: RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),

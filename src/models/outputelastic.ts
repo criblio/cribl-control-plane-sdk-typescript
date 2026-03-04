@@ -9,11 +9,11 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthType,
-  AuthType$inboundSchema,
-  AuthType$Outbound,
-  AuthType$outboundSchema,
-} from "./authtype.js";
+  AuthTypeAuthTypeCredentialsSecret,
+  AuthTypeAuthTypeCredentialsSecret$inboundSchema,
+  AuthTypeAuthTypeCredentialsSecret$Outbound,
+  AuthTypeAuthTypeCredentialsSecret$outboundSchema,
+} from "./authtypeauthtypecredentialssecret.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -210,7 +210,7 @@ export type OutputElastic = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: AuthType | undefined;
+  auth?: AuthTypeAuthTypeCredentialsSecret | undefined;
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
@@ -449,7 +449,7 @@ export const OutputElastic$inboundSchema: z.ZodType<
   extraParams: types.optional(
     z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
   ),
-  auth: types.optional(AuthType$inboundSchema),
+  auth: types.optional(AuthTypeAuthTypeCredentialsSecret$inboundSchema),
   elasticVersion: types.optional(ElasticVersion$inboundSchema),
   elasticPipeline: types.optional(types.string()),
   includeDocId: types.optional(types.boolean()),
@@ -506,7 +506,7 @@ export type OutputElastic$Outbound = {
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: AuthType$Outbound | undefined;
+  auth?: AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
   elasticVersion?: string | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
@@ -567,7 +567,7 @@ export const OutputElastic$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
-  auth: AuthType$outboundSchema.optional(),
+  auth: AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
   elasticVersion: ElasticVersion$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
