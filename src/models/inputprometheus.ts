@@ -44,10 +44,10 @@ import {
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
 import {
-  SignatureVersionOptionsV2V4,
-  SignatureVersionOptionsV2V4$inboundSchema,
-  SignatureVersionOptionsV2V4$outboundSchema,
-} from "./signatureversionoptionsv2v4.js";
+  SignatureVersionOptions1,
+  SignatureVersionOptions1$inboundSchema,
+  SignatureVersionOptions1$outboundSchema,
+} from "./signatureversionoptions1.js";
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -237,7 +237,7 @@ export type InputPrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: SignatureVersionOptionsV2V4 | undefined;
+  signatureVersion?: SignatureVersionOptions1 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -381,7 +381,7 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptionsV2V4$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptions1$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
   assumeRoleArn: types.optional(types.string()),
@@ -498,7 +498,7 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsV2V4$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),

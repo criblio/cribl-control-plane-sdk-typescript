@@ -214,7 +214,7 @@ export type CreateOutputOutputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: models.SignatureVersionOptionsKinesis | undefined;
+  signatureVersion?: models.SignatureVersionOptions2 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -290,7 +290,7 @@ export type CreateOutputOutputKinesis = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -317,10 +317,6 @@ export type CreateOutputOutputKinesis = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsKinesis | undefined;
   /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
@@ -476,7 +472,7 @@ export type CreateOutputOutputAzureLogs = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -503,10 +499,6 @@ export type CreateOutputOutputAzureLogs = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureLogs | undefined;
   /**
    * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
@@ -727,7 +719,7 @@ export type CreateOutputOutputAzureDataExplorer = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress: models.CompressionOptionsHttp;
+  compress: models.CompressionOptions2;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -945,7 +937,7 @@ export type CreateOutputOutputAzureDataExplorer = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -972,10 +964,6 @@ export type CreateOutputOutputAzureDataExplorer = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureDataExplorer | undefined;
   /**
    * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
@@ -1134,7 +1122,7 @@ export type CreateOutputOutputAzureBlob = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -1154,7 +1142,7 @@ export type CreateOutputOutputAzureBlob = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptionsHttp | undefined;
+  compress?: models.CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -1410,7 +1398,7 @@ export type CreateOutputOutputS3 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -1456,7 +1444,7 @@ export type CreateOutputOutputS3 = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptionsHttp | undefined;
+  compress?: models.CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -1632,7 +1620,7 @@ export type CreateOutputOutputFilesystem = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -1650,7 +1638,7 @@ export type CreateOutputOutputFilesystem = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptionsHttp | undefined;
+  compress?: models.CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -1838,7 +1826,7 @@ export type CreateOutputOutputSignalfx = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -1865,10 +1853,6 @@ export type CreateOutputOutputSignalfx = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSignalfx | undefined;
 };
 
@@ -1989,7 +1973,7 @@ export type CreateOutputOutputWavefront = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2016,10 +2000,6 @@ export type CreateOutputOutputWavefront = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWavefront | undefined;
 };
 
@@ -2054,7 +2034,7 @@ export type CreateOutputOutputTcpjson = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: models.CompressionOptionsGzipNone | undefined;
+  compression?: models.CompressionOptions1 | undefined;
   /**
    * Use to troubleshoot issues with sending data
    */
@@ -2063,7 +2043,7 @@ export type CreateOutputOutputTcpjson = {
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
   throttleRatePerSec?: string | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -2130,7 +2110,7 @@ export type CreateOutputOutputTcpjson = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2157,10 +2137,6 @@ export type CreateOutputOutputTcpjson = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsTcpjson | undefined;
   /**
    * Optional authentication token to include as part of the connection header
@@ -2212,7 +2188,7 @@ export type CreateOutputOutputWizHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2303,7 +2279,7 @@ export type CreateOutputOutputWizHec = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2330,10 +2306,6 @@ export type CreateOutputOutputWizHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWizHec | undefined;
   /**
    * Wiz Defend Auth token
@@ -2408,7 +2380,7 @@ export type CreateOutputOutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2519,7 +2491,7 @@ export type CreateOutputOutputSplunkHec = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2546,10 +2518,6 @@ export type CreateOutputOutputSplunkHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkHec | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -2662,7 +2630,7 @@ export type CreateOutputOutputSplunkLb = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -2729,7 +2697,7 @@ export type CreateOutputOutputSplunkLb = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2756,10 +2724,6 @@ export type CreateOutputOutputSplunkLb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkLb | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -2819,7 +2783,7 @@ export type CreateOutputOutputSplunk = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -2866,7 +2830,7 @@ export type CreateOutputOutputSplunk = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2893,10 +2857,6 @@ export type CreateOutputOutputSplunk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunk | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -3153,7 +3113,7 @@ export type CreateOutputOutputSyslog = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -3183,7 +3143,7 @@ export type CreateOutputOutputSyslog = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -3210,10 +3170,6 @@ export type CreateOutputOutputSyslog = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSyslog | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -3447,7 +3403,7 @@ export type CreateOutputOutputSentinel = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -3474,10 +3430,6 @@ export type CreateOutputOutputSentinel = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSentinel | undefined;
   /**
    * URL to send events to. Can be overwritten by an event's __url field.
@@ -3733,7 +3685,7 @@ export type CreateOutputOutputWebhook = {
    * Authentication method to use for the HTTP request
    */
   authType?: CreateOutputAuthenticationTypeWebhook | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -3788,7 +3740,7 @@ export type CreateOutputOutputWebhook = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -3815,10 +3767,6 @@ export type CreateOutputOutputWebhook = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWebhook | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -4062,7 +4010,6 @@ export type CreateOutputOutputKinesis$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsKinesis$Outbound | undefined;
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -4089,8 +4036,7 @@ export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsKinesis$outboundSchema
-    .optional(),
+  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -4118,7 +4064,6 @@ export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsKinesis$outboundSchema)
     .optional(),
   __template_streamName: z.string().optional(),
@@ -4204,7 +4149,6 @@ export type CreateOutputOutputAzureLogs$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureLogs$Outbound | undefined;
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
@@ -4260,7 +4204,6 @@ export const CreateOutputOutputAzureLogs$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsAzureLogs$outboundSchema)
     .optional(),
   workspaceId: z.string().optional(),
@@ -4521,7 +4464,6 @@ export type CreateOutputOutputAzureDataExplorer$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureDataExplorer$Outbound | undefined;
   __template_clusterUrl?: string | undefined;
   __template_database?: string | undefined;
@@ -4562,7 +4504,7 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   certificate: z.lazy(() => CreateOutputCertificate$outboundSchema).optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema,
+  compress: models.CompressionOptions2$outboundSchema,
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -4635,7 +4577,6 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() =>
     CreateOutputPqControlsAzureDataExplorer$outboundSchema
   ).optional(),
@@ -4766,8 +4707,7 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -4776,7 +4716,7 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
   authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: CreateOutputBlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -4941,8 +4881,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -4956,7 +4895,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -5068,15 +5007,14 @@ export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -5170,7 +5108,6 @@ export type CreateOutputOutputSignalfx$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSignalfx$Outbound | undefined;
 };
 
@@ -5222,7 +5159,6 @@ export const CreateOutputOutputSignalfx$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSignalfx$outboundSchema)
     .optional(),
 });
@@ -5297,7 +5233,6 @@ export type CreateOutputOutputWavefront$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWavefront$Outbound | undefined;
 };
 
@@ -5349,7 +5284,6 @@ export const CreateOutputOutputWavefront$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsWavefront$outboundSchema)
     .optional(),
 });
@@ -5396,7 +5330,9 @@ export type CreateOutputOutputTcpjson$Outbound = {
   compression?: string | undefined;
   logFailedRequests?: boolean | undefined;
   throttleRatePerSec?: string | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
@@ -5421,7 +5357,6 @@ export type CreateOutputOutputTcpjson$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsTcpjson$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
@@ -5442,10 +5377,11 @@ export const CreateOutputOutputTcpjson$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  compression: models.CompressionOptionsGzipNone$outboundSchema.optional(),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
   logFailedRequests: z.boolean().optional(),
   throttleRatePerSec: z.string().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
@@ -5471,7 +5407,6 @@ export const CreateOutputOutputTcpjson$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsTcpjson$outboundSchema)
     .optional(),
   authToken: z.string().optional(),
@@ -5518,9 +5453,7 @@ export type CreateOutputOutputWizHec$Outbound = {
   streamtags?: Array<string> | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -5555,7 +5488,6 @@ export type CreateOutputOutputWizHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWizHec$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
@@ -5578,8 +5510,7 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -5616,7 +5547,6 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsWizHec$outboundSchema)
     .optional(),
   token: z.string().optional(),
@@ -5691,9 +5621,7 @@ export type CreateOutputOutputSplunkHec$Outbound = {
   loadBalanced?: boolean | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -5733,7 +5661,6 @@ export type CreateOutputOutputSplunkHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkHec$Outbound | undefined;
   __template_url?: string | undefined;
 };
@@ -5753,8 +5680,7 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanced: z.boolean().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -5797,7 +5723,6 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSplunkHec$outboundSchema)
     .optional(),
   __template_url: z.string().optional(),
@@ -5915,7 +5840,9 @@ export type CreateOutputOutputSplunkLb$Outbound = {
   throttleRatePerSec?: string | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   enableMultiMetrics?: boolean | undefined;
   enableACK?: boolean | undefined;
   logFailedRequests?: boolean | undefined;
@@ -5942,7 +5869,6 @@ export type CreateOutputOutputSplunkLb$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkLb$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
@@ -5968,7 +5894,8 @@ export const CreateOutputOutputSplunkLb$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   enableMultiMetrics: z.boolean().optional(),
   enableACK: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -5996,7 +5923,6 @@ export const CreateOutputOutputSplunkLb$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSplunkLb$outboundSchema)
     .optional(),
   authToken: z.string().optional(),
@@ -6045,7 +5971,9 @@ export type CreateOutputOutputSplunk$Outbound = {
   throttleRatePerSec?: string | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   enableMultiMetrics?: boolean | undefined;
   enableACK?: boolean | undefined;
   logFailedRequests?: boolean | undefined;
@@ -6065,7 +5993,6 @@ export type CreateOutputOutputSplunk$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunk$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
@@ -6092,7 +6019,8 @@ export const CreateOutputOutputSplunk$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   enableMultiMetrics: z.boolean().optional(),
   enableACK: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -6113,7 +6041,6 @@ export const CreateOutputOutputSplunk$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSplunk$outboundSchema)
     .optional(),
   authToken: z.string().optional(),
@@ -6213,7 +6140,9 @@ export type CreateOutputOutputSyslog$Outbound = {
   maxConcurrentSenders?: number | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   onBackpressure?: string | undefined;
   maxRecordSize?: number | undefined;
   udpDnsResolvePeriodSec?: number | undefined;
@@ -6228,7 +6157,6 @@ export type CreateOutputOutputSyslog$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSyslog$Outbound | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -6266,7 +6194,8 @@ export const CreateOutputOutputSyslog$outboundSchema: z.ZodType<
   maxConcurrentSenders: z.number().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   maxRecordSize: z.number().optional(),
   udpDnsResolvePeriodSec: z.number().optional(),
@@ -6281,7 +6210,6 @@ export const CreateOutputOutputSyslog$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSyslog$outboundSchema)
     .optional(),
   __template_host: z.string().optional(),
@@ -6424,7 +6352,6 @@ export type CreateOutputOutputSentinel$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSentinel$Outbound | undefined;
   url?: string | undefined;
   dcrID?: string | undefined;
@@ -6500,7 +6427,6 @@ export const CreateOutputOutputSentinel$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSentinel$outboundSchema)
     .optional(),
   url: z.string().optional(),
@@ -6664,9 +6590,7 @@ export type CreateOutputOutputWebhook$Outbound = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   onBackpressure?: string | undefined;
   authType?: string | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
   totalMemoryLimitKB?: number | undefined;
   loadBalanced?: boolean | undefined;
   description?: string | undefined;
@@ -6688,7 +6612,6 @@ export type CreateOutputOutputWebhook$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWebhook$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6749,8 +6672,7 @@ export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: CreateOutputAuthenticationTypeWebhook$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().optional(),
   description: z.string().optional(),
@@ -6772,7 +6694,6 @@ export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsWebhook$outboundSchema)
     .optional(),
   username: z.string().optional(),

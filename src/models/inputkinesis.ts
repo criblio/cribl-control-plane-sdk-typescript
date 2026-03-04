@@ -28,10 +28,10 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  SignatureVersionOptionsKinesis,
-  SignatureVersionOptionsKinesis$inboundSchema,
-  SignatureVersionOptionsKinesis$outboundSchema,
-} from "./signatureversionoptionskinesis.js";
+  SignatureVersionOptions2,
+  SignatureVersionOptions2$inboundSchema,
+  SignatureVersionOptions2$outboundSchema,
+} from "./signatureversionoptions2.js";
 
 /**
  * Location at which to start reading a shard for the first time
@@ -175,7 +175,7 @@ export type InputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: SignatureVersionOptionsKinesis | undefined;
+  signatureVersion?: SignatureVersionOptions2 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -313,9 +313,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.string(),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsKinesis$inboundSchema,
-  ),
+  signatureVersion: types.optional(SignatureVersionOptions2$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -408,7 +406,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsKinesis$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),

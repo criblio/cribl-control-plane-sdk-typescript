@@ -58,11 +58,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideTypeCaPathCertPathExtended,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
-} from "./tlssettingsclientsidetypecapathcertpathextended.js";
+  TlsSettingsClientSideType1,
+  TlsSettingsClientSideType1$inboundSchema,
+  TlsSettingsClientSideType1$Outbound,
+  TlsSettingsClientSideType1$outboundSchema,
+} from "./tlssettingsclientsidetype1.js";
 
 /**
  * How to format events before sending out
@@ -264,7 +264,7 @@ export type OutputWebhook = {
    * Authentication method to use for the HTTP request
    */
   authType?: OutputWebhookAuthenticationType | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  tls?: TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -319,7 +319,7 @@ export type OutputWebhook = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -346,10 +346,6 @@ export type OutputWebhook = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputWebhookPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -645,9 +641,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   authType: types.optional(OutputWebhookAuthenticationType$inboundSchema),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
   totalMemoryLimitKB: types.optional(types.number()),
   loadBalanced: types.optional(types.boolean()),
   description: types.optional(types.string()),
@@ -669,7 +663,6 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputWebhookPqControls$inboundSchema),
   ),
@@ -726,7 +719,7 @@ export type OutputWebhook$Outbound = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   onBackpressure?: string | undefined;
   authType?: string | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
+  tls?: TlsSettingsClientSideType1$Outbound | undefined;
   totalMemoryLimitKB?: number | undefined;
   loadBalanced?: boolean | undefined;
   description?: string | undefined;
@@ -748,7 +741,6 @@ export type OutputWebhook$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputWebhookPqControls$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -807,8 +799,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: OutputWebhookAuthenticationType$outboundSchema.optional(),
-  tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
-    .optional(),
+  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().optional(),
   description: z.string().optional(),
@@ -830,7 +821,6 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputWebhookPqControls$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),

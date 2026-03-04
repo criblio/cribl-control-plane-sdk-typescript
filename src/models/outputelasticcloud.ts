@@ -7,11 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthTypeAuthTypeCredentialsSecret,
-  AuthTypeAuthTypeCredentialsSecret$inboundSchema,
-  AuthTypeAuthTypeCredentialsSecret$Outbound,
-  AuthTypeAuthTypeCredentialsSecret$outboundSchema,
-} from "./authtypeauthtypecredentialssecret.js";
+  AuthType,
+  AuthType$inboundSchema,
+  AuthType$Outbound,
+  AuthType$outboundSchema,
+} from "./authtype.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -143,7 +143,7 @@ export type OutputElasticCloud = {
    * Extra parameters to use in HTTP requests
    */
   extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: AuthTypeAuthTypeCredentialsSecret | undefined;
+  auth?: AuthType | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
    */
@@ -179,7 +179,7 @@ export type OutputElasticCloud = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -206,10 +206,6 @@ export type OutputElasticCloud = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls | undefined;
 };
 
@@ -279,7 +275,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   extraParams: types.optional(
     z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
   ),
-  auth: types.optional(AuthTypeAuthTypeCredentialsSecret$inboundSchema),
+  auth: types.optional(AuthType$inboundSchema),
   elasticPipeline: types.optional(types.string()),
   includeDocId: types.optional(types.boolean()),
   responseRetrySettings: types.optional(
@@ -299,7 +295,6 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputElasticCloudPqControls$inboundSchema),
   ),
@@ -325,7 +320,7 @@ export type OutputElasticCloud$Outbound = {
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   extraParams?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
+  auth?: AuthType$Outbound | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
   responseRetrySettings?:
@@ -345,7 +340,6 @@ export type OutputElasticCloud$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls$Outbound | undefined;
 };
 
@@ -376,7 +370,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
-  auth: AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
+  auth: AuthType$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
@@ -395,7 +389,6 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$outboundSchema)
     .optional(),
 });

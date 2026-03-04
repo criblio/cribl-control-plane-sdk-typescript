@@ -9,20 +9,20 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
-} from "./backpressurebehavioroptionsblockdrop.js";
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
 import {
   CompressionLevelOptions,
   CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptionsHttp,
-  CompressionOptionsHttp$inboundSchema,
-  CompressionOptionsHttp$outboundSchema,
-} from "./compressionoptionshttp.js";
+  CompressionOptions2,
+  CompressionOptions2$inboundSchema,
+  CompressionOptions2$outboundSchema,
+} from "./compressionoptions2.js";
 import {
   DataFormatOptions,
   DataFormatOptions$inboundSchema,
@@ -46,10 +46,10 @@ import {
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
-  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol,
-  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
-  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema,
-} from "./objectacloptionsauthenticatedreadbucketownerfullcontrol.js";
+  ObjectAclOptions1,
+  ObjectAclOptions1$inboundSchema,
+  ObjectAclOptions1$outboundSchema,
+} from "./objectacloptions1.js";
 import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
@@ -62,15 +62,15 @@ import {
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
-  SignatureVersionOptionsGoogle,
-  SignatureVersionOptionsGoogle$inboundSchema,
-  SignatureVersionOptionsGoogle$outboundSchema,
-} from "./signatureversionoptionsgoogle.js";
+  SignatureVersionOptions4,
+  SignatureVersionOptions4$inboundSchema,
+  SignatureVersionOptions4$outboundSchema,
+} from "./signatureversionoptions4.js";
 import {
-  StorageClassOptionsArchiveColdline,
-  StorageClassOptionsArchiveColdline$inboundSchema,
-  StorageClassOptionsArchiveColdline$outboundSchema,
-} from "./storageclassoptionsarchivecoldline.js";
+  StorageClassOptions1,
+  StorageClassOptions1$inboundSchema,
+  StorageClassOptions1$outboundSchema,
+} from "./storageclassoptions1.js";
 
 export const OutputGoogleCloudStorageAuthenticationMethod = {
   /**
@@ -127,7 +127,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
-  signatureVersion?: SignatureVersionOptionsGoogle | undefined;
+  signatureVersion?: SignatureVersionOptions4 | undefined;
   awsAuthenticationMethod?:
     | OutputGoogleCloudStorageAuthenticationMethod
     | undefined;
@@ -146,13 +146,11 @@ export type OutputGoogleCloudStorage = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?:
-    | ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
-    | undefined;
+  objectACL?: ObjectAclOptions1 | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: StorageClassOptionsArchiveColdline | undefined;
+  storageClass?: StorageClassOptions1 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -212,7 +210,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -230,7 +228,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptionsHttp | undefined;
+  compress?: CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -351,19 +349,15 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   bucket: types.string(),
   region: types.string(),
   endpoint: types.string(),
-  signatureVersion: types.optional(SignatureVersionOptionsGoogle$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptions4$inboundSchema),
   awsAuthenticationMethod: types.optional(
     OutputGoogleCloudStorageAuthenticationMethod$inboundSchema,
   ),
   stagePath: types.string(),
   destPath: types.optional(types.string()),
   verifyPermissions: types.optional(types.boolean()),
-  objectACL: types.optional(
-    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
-  ),
-  storageClass: types.optional(
-    StorageClassOptionsArchiveColdline$inboundSchema,
-  ),
+  objectACL: types.optional(ObjectAclOptions1$inboundSchema),
+  storageClass: types.optional(StorageClassOptions1$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   addIdToStagePath: types.optional(types.boolean()),
@@ -378,9 +372,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
+  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
@@ -388,7 +380,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
   description: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsHttp$inboundSchema),
+  compress: types.optional(CompressionOptions2$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
   automaticSchema: types.optional(types.boolean()),
   parquetSchema: types.optional(types.string()),
@@ -492,16 +484,14 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   endpoint: z.string(),
-  signatureVersion: SignatureVersionOptionsGoogle$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions4$outboundSchema.optional(),
   awsAuthenticationMethod:
     OutputGoogleCloudStorageAuthenticationMethod$outboundSchema.optional(),
   stagePath: z.string(),
   destPath: z.string().optional(),
   verifyPermissions: z.boolean().optional(),
-  objectACL:
-    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
-      .optional(),
-  storageClass: StorageClassOptionsArchiveColdline$outboundSchema.optional(),
+  objectACL: ObjectAclOptions1$outboundSchema.optional(),
+  storageClass: StorageClassOptions1$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   addIdToStagePath: z.boolean().optional(),
@@ -516,14 +506,13 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: CompressionOptionsHttp$outboundSchema.optional(),
+  compress: CompressionOptions2$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),

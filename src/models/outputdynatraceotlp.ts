@@ -14,15 +14,15 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptionsDeflateGzip,
-  CompressionOptionsDeflateGzip$inboundSchema,
-  CompressionOptionsDeflateGzip$outboundSchema,
-} from "./compressionoptionsdeflategzip.js";
+  CompressionOptions4,
+  CompressionOptions4$inboundSchema,
+  CompressionOptions4$outboundSchema,
+} from "./compressionoptions4.js";
 import {
-  CompressionOptionsMessages,
-  CompressionOptionsMessages$inboundSchema,
-  CompressionOptionsMessages$outboundSchema,
-} from "./compressionoptionsmessages.js";
+  CompressionOptions5,
+  CompressionOptions5$inboundSchema,
+  CompressionOptions5$outboundSchema,
+} from "./compressionoptions5.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -58,10 +58,10 @@ import {
   ModeOptions$outboundSchema,
 } from "./modeoptions.js";
 import {
-  OtlpVersionOptions131,
-  OtlpVersionOptions131$inboundSchema,
-  OtlpVersionOptions131$outboundSchema,
-} from "./otlpversionoptions131.js";
+  OtlpVersionOptions1,
+  OtlpVersionOptions1$inboundSchema,
+  OtlpVersionOptions1$outboundSchema,
+} from "./otlpversionoptions1.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$inboundSchema,
@@ -143,15 +143,15 @@ export type OutputDynatraceOtlp = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion: OtlpVersionOptions131;
+  otlpVersion: OtlpVersionOptions1;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: CompressionOptionsDeflateGzip | undefined;
+  compress?: CompressionOptions4 | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: CompressionOptionsMessages | undefined;
+  httpCompress?: CompressionOptions5 | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -256,7 +256,7 @@ export type OutputDynatraceOtlp = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -283,10 +283,6 @@ export type OutputDynatraceOtlp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceOtlpPqControls | undefined;
 };
 
@@ -365,9 +361,9 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   protocol: OutputDynatraceOtlpProtocol$inboundSchema,
   endpoint: types.string(),
-  otlpVersion: OtlpVersionOptions131$inboundSchema,
-  compress: types.optional(CompressionOptionsDeflateGzip$inboundSchema),
-  httpCompress: types.optional(CompressionOptionsMessages$inboundSchema),
+  otlpVersion: OtlpVersionOptions1$inboundSchema,
+  compress: types.optional(CompressionOptions4$inboundSchema),
+  httpCompress: types.optional(CompressionOptions5$inboundSchema),
   httpTracesEndpointOverride: types.optional(types.string()),
   httpMetricsEndpointOverride: types.optional(types.string()),
   httpLogsEndpointOverride: types.optional(types.string()),
@@ -408,7 +404,6 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputDynatraceOtlpPqControls$inboundSchema),
   ),
@@ -462,7 +457,6 @@ export type OutputDynatraceOtlp$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceOtlpPqControls$Outbound | undefined;
 };
 
@@ -480,9 +474,9 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   protocol: OutputDynatraceOtlpProtocol$outboundSchema,
   endpoint: z.string(),
-  otlpVersion: OtlpVersionOptions131$outboundSchema,
-  compress: CompressionOptionsDeflateGzip$outboundSchema.optional(),
-  httpCompress: CompressionOptionsMessages$outboundSchema.optional(),
+  otlpVersion: OtlpVersionOptions1$outboundSchema,
+  compress: CompressionOptions4$outboundSchema.optional(),
+  httpCompress: CompressionOptions5$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
@@ -520,7 +514,6 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$outboundSchema)
     .optional(),
 });

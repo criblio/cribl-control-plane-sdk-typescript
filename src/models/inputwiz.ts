@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptionsManualSecret,
-  AuthenticationMethodOptionsManualSecret$inboundSchema,
-  AuthenticationMethodOptionsManualSecret$outboundSchema,
-} from "./authenticationmethodoptionsmanualsecret.js";
+  AuthenticationMethodOptions1,
+  AuthenticationMethodOptions1$inboundSchema,
+  AuthenticationMethodOptions1$outboundSchema,
+} from "./authenticationmethodoptions1.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -183,7 +183,7 @@ export type InputWiz = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptionsManualSecret | undefined;
+  authType?: AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -361,9 +361,7 @@ export const InputWiz$inboundSchema: z.ZodType<
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
-  authType: types.optional(
-    AuthenticationMethodOptionsManualSecret$inboundSchema,
-  ),
+  authType: types.optional(AuthenticationMethodOptions1$inboundSchema),
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
@@ -432,7 +430,7 @@ export const InputWiz$outboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
-  authType: AuthenticationMethodOptionsManualSecret$outboundSchema.optional(),
+  authType: AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),

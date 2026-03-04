@@ -79,8 +79,12 @@ export type CreateInputTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
-  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
+  minVersion?:
+    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+  maxVersion?:
+    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
 };
 
 export type CreateInputInputCloudflareHec = {
@@ -1090,7 +1094,7 @@ export type CreateInputInputWiz = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -1431,8 +1435,12 @@ export type CreateInputMTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
-  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
+  minVersion?:
+    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+  maxVersion?:
+    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -2409,7 +2417,7 @@ export type CreateInputInputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: models.SignatureVersionOptionsSqs | undefined;
+  signatureVersion?: models.SignatureVersionOptions3 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -3486,7 +3494,7 @@ export type CreateInputInputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: models.SignatureVersionOptionsKinesis | undefined;
+  signatureVersion?: models.SignatureVersionOptions2 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -5953,7 +5961,7 @@ export type CreateInputInputEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: models.AuthenticationTypeUse | undefined;
+  sasl?: models.AuthenticationType1 | undefined;
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
    *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
@@ -6011,57 +6019,157 @@ export type CreateInputInputEventhub = {
   description?: string | undefined;
 };
 
-/**
- * Select authentication method.
- */
-export const CreateInputAuthenticationMethodOffice365MsgTrace = {
-  Manual: "manual",
-  Secret: "secret",
-  Oauth: "oauth",
-  OauthSecret: "oauthSecret",
-  OauthCert: "oauthCert",
-} as const;
-/**
- * Select authentication method.
- */
-export type CreateInputAuthenticationMethodOffice365MsgTrace = OpenEnum<
-  typeof CreateInputAuthenticationMethodOffice365MsgTrace
->;
-
-/**
- * Log Level (verbosity) for collection runtime behavior.
- */
-export const CreateInputLogLevelOffice365MsgTrace = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Log Level (verbosity) for collection runtime behavior.
- */
-export type CreateInputLogLevelOffice365MsgTrace = OpenEnum<
-  typeof CreateInputLogLevelOffice365MsgTrace
->;
-
-export type CreateInputCertOptions = {
+export type CreateInputInputMicrosoftGraph = {
   /**
-   * The name of the predefined certificate.
+   * Unique ID for this input
    */
-  certificateName?: string | undefined;
+  id: string;
+  type: "microsoft_graph";
+  disabled?: boolean | undefined;
   /**
-   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   * Pipeline to process data from this Source before sending it through the Routes
    */
-  privKeyPath: string;
+  pipeline?: string | undefined;
   /**
-   * Passphrase to use to decrypt the private key.
+   * Select whether to send data to Routes, or directly to Destinations.
    */
-  passphrase?: string | undefined;
+  sendToRoutes?: boolean | undefined;
   /**
-   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
-  certPath: string;
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
+   */
+  url: string;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval: number;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Microsoft Graph data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Microsoft Graph data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select authentication method.
+   */
+  authType?: models.AuthenticationMethodOptions2 | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: models.LogLevelOptions | undefined;
+  retryRules?: models.RetryRulesType1 | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Microsoft Graph API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Microsoft Graph API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: models.SubscriptionPlanOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: models.CertOptionsType | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+   */
+  __template_resource?: string | undefined;
 };
 
 export type CreateInputInputOffice365MsgTrace = {
@@ -6123,27 +6231,15 @@ export type CreateInputInputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: CreateInputAuthenticationMethodOffice365MsgTrace | undefined;
-  /**
-   * Reschedule tasks that failed with non-fatal errors
-   */
-  rescheduleDroppedTasks?: boolean | undefined;
-  /**
-   * Maximum number of times a task can be rescheduled
-   */
-  maxTaskReschedule?: number | undefined;
-  /**
-   * Log Level (verbosity) for collection runtime behavior.
-   */
-  logLevel?: CreateInputLogLevelOffice365MsgTrace | undefined;
-  /**
-   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-   */
-  jobTimeout?: string | undefined;
+  authType?: models.AuthenticationMethodOptions2 | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
   keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
   /**
    * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
    */
@@ -6160,7 +6256,19 @@ export type CreateInputInputOffice365MsgTrace = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
-  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: models.LogLevelOptions | undefined;
+  retryRules?: models.RetryRulesType1 | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -6198,7 +6306,7 @@ export type CreateInputInputOffice365MsgTrace = {
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
   textSecret?: string | undefined;
-  certOptions?: CreateInputCertOptions | undefined;
+  certOptions?: models.CertOptionsType | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -6310,11 +6418,11 @@ export type CreateInputInputOffice365Service = {
    * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<CreateInputContentConfigOffice365Service> | undefined;
-  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  retryRules?: models.RetryRulesType1 | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -6439,11 +6547,11 @@ export type CreateInputInputOffice365Mgmt = {
    * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
-  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  retryRules?: models.RetryRulesType1 | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -6656,7 +6764,7 @@ export type CreateInputInputEdgePrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
+  signatureVersion?: models.SignatureVersionOptions1 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -6927,7 +7035,7 @@ export type CreateInputInputPrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
+  signatureVersion?: models.SignatureVersionOptions1 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -7592,7 +7700,7 @@ export type CreateInputInputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
    */
@@ -8875,7 +8983,7 @@ export type CreateInputInputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
    */
@@ -9011,7 +9119,7 @@ export type CreateInputInputKafka = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: models.AuthenticationType | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -9144,6 +9252,7 @@ export type CreateInputRequest =
   | CreateInputInputOffice365Mgmt
   | CreateInputInputOffice365Service
   | CreateInputInputOffice365MsgTrace
+  | CreateInputInputMicrosoftGraph
   | CreateInputInputEventhub
   | CreateInputInputExec
   | CreateInputInputFirehose
@@ -9262,8 +9371,10 @@ export const CreateInputTLSSettingsServerSide$outboundSchema: z.ZodType<
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
-  maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
+  minVersion: models
+    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  maxVersion: models
+    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
 });
 
 export function createInputTLSSettingsServerSideToJSON(
@@ -10101,8 +10212,7 @@ export const CreateInputInputWiz$outboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
-    .optional(),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -10384,8 +10494,10 @@ export const CreateInputMTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().optional(),
-  minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
-  maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
+  minVersion: models
+    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  maxVersion: models
+    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
   ocspCheck: z.boolean().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
@@ -11219,7 +11331,7 @@ export const CreateInputInputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsSqs$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptions3$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -12026,8 +12138,7 @@ export const CreateInputInputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsKinesis$outboundSchema
-    .optional(),
+  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -14490,7 +14601,7 @@ export type CreateInputInputEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: models.AuthenticationTypeUse$Outbound | undefined;
+  sasl?: models.AuthenticationType1$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
@@ -14534,7 +14645,7 @@ export const CreateInputInputEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: models.AuthenticationTypeUse$outboundSchema.optional(),
+  sasl: models.AuthenticationType1$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
@@ -14558,47 +14669,109 @@ export function createInputInputEventhubToJSON(
 }
 
 /** @internal */
-export const CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputAuthenticationMethodOffice365MsgTrace
-  > = openEnums.outboundSchema(
-    CreateInputAuthenticationMethodOffice365MsgTrace,
-  );
-
-/** @internal */
-export const CreateInputLogLevelOffice365MsgTrace$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateInputLogLevelOffice365MsgTrace
-> = openEnums.outboundSchema(CreateInputLogLevelOffice365MsgTrace);
-
-/** @internal */
-export type CreateInputCertOptions$Outbound = {
-  certificateName?: string | undefined;
-  privKeyPath: string;
-  passphrase?: string | undefined;
-  certPath: string;
+export type CreateInputInputMicrosoftGraph$Outbound = {
+  id: string;
+  type: "microsoft_graph";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout?: number | undefined;
+  disableTimeFilter?: boolean | undefined;
+  authType?: string | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
+  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource?: string | undefined;
+  planType?: string | undefined;
+  textSecret?: string | undefined;
+  certOptions?: models.CertOptionsType$Outbound | undefined;
+  __template_url?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_resource?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputCertOptions$outboundSchema: z.ZodType<
-  CreateInputCertOptions$Outbound,
+export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
+  CreateInputInputMicrosoftGraph$Outbound,
   z.ZodTypeDef,
-  CreateInputCertOptions
+  CreateInputInputMicrosoftGraph
 > = z.object({
-  certificateName: z.string().optional(),
-  privKeyPath: z.string(),
-  passphrase: z.string().optional(),
-  certPath: z.string(),
+  id: z.string(),
+  type: z.literal("microsoft_graph"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  url: z.string(),
+  interval: z.number().int(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: models.LogLevelOptions$outboundSchema.optional(),
+  retryRules: models.RetryRulesType1$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().optional(),
+  planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
+  textSecret: z.string().optional(),
+  certOptions: models.CertOptionsType$outboundSchema.optional(),
+  __template_url: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_resource: z.string().optional(),
 });
 
-export function createInputCertOptionsToJSON(
-  createInputCertOptions: CreateInputCertOptions,
+export function createInputInputMicrosoftGraphToJSON(
+  createInputInputMicrosoftGraph: CreateInputInputMicrosoftGraph,
 ): string {
   return JSON.stringify(
-    CreateInputCertOptions$outboundSchema.parse(createInputCertOptions),
+    CreateInputInputMicrosoftGraph$outboundSchema.parse(
+      createInputInputMicrosoftGraph,
+    ),
   );
 }
 
@@ -14621,16 +14794,16 @@ export type CreateInputInputOffice365MsgTrace$Outbound = {
   timeout?: number | undefined;
   disableTimeFilter?: boolean | undefined;
   authType?: string | undefined;
-  rescheduleDroppedTasks?: boolean | undefined;
-  maxTaskReschedule?: number | undefined;
-  logLevel?: string | undefined;
-  jobTimeout?: string | undefined;
   keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
-  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
+  retryRules?: models.RetryRulesType1$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -14641,7 +14814,7 @@ export type CreateInputInputOffice365MsgTrace$Outbound = {
   resource?: string | undefined;
   planType?: string | undefined;
   textSecret?: string | undefined;
-  certOptions?: CreateInputCertOptions$Outbound | undefined;
+  certOptions?: models.CertOptionsType$Outbound | undefined;
   __template_url?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
@@ -14666,23 +14839,22 @@ export const CreateInputInputOffice365MsgTrace$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   url: z.string(),
-  interval: z.number(),
+  interval: z.number().int(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema
-    .optional(),
-  rescheduleDroppedTasks: z.boolean().optional(),
-  maxTaskReschedule: z.number().optional(),
-  logLevel: CreateInputLogLevelOffice365MsgTrace$outboundSchema.optional(),
-  jobTimeout: z.string().optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
   keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
-  retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: models.LogLevelOptions$outboundSchema.optional(),
+  retryRules: models.RetryRulesType1$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -14693,7 +14865,7 @@ export const CreateInputInputOffice365MsgTrace$outboundSchema: z.ZodType<
   resource: z.string().optional(),
   planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
   textSecret: z.string().optional(),
-  certOptions: z.lazy(() => CreateInputCertOptions$outboundSchema).optional(),
+  certOptions: models.CertOptionsType$outboundSchema.optional(),
   __template_url: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
@@ -14768,7 +14940,7 @@ export type CreateInputInputOffice365Service$Outbound = {
   contentConfig?:
     | Array<CreateInputContentConfigOffice365Service$Outbound>
     | undefined;
-  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
+  retryRules?: models.RetryRulesType1$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -14808,9 +14980,8 @@ export const CreateInputInputOffice365Service$outboundSchema: z.ZodType<
   contentConfig: z.array(
     z.lazy(() => CreateInputContentConfigOffice365Service$outboundSchema),
   ).optional(),
-  retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
-    .optional(),
+  retryRules: models.RetryRulesType1$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -14888,7 +15059,7 @@ export type CreateInputInputOffice365Mgmt$Outbound = {
     | Array<CreateInputContentConfigOffice365Mgmt$Outbound>
     | undefined;
   ingestionLag?: number | undefined;
-  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
+  retryRules?: models.RetryRulesType1$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -14931,9 +15102,8 @@ export const CreateInputInputOffice365Mgmt$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputContentConfigOffice365Mgmt$outboundSchema),
   ).optional(),
   ingestionLag: z.number().optional(),
-  retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
-    .optional(),
+  retryRules: models.RetryRulesType1$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -15115,8 +15285,7 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
-    .optional(),
+  signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -15271,8 +15440,7 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
-    .optional(),
+  signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
@@ -15838,7 +16006,9 @@ export type CreateInputInputConfluentCloud$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   topics: Array<string>;
   groupId?: string | undefined;
   fromBeginning?: boolean | undefined;
@@ -15884,7 +16054,8 @@ export const CreateInputInputConfluentCloud$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   topics: z.array(z.string()),
   groupId: z.string().optional(),
   fromBeginning: z.boolean().optional(),
@@ -16745,7 +16916,9 @@ export type CreateInputInputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
   maxBytesPerPartition?: number | undefined;
@@ -16807,7 +16980,8 @@ export const CreateInputInputMsk$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
   maxBytesPerPartition: z.number().optional(),
@@ -16859,7 +17033,9 @@ export type CreateInputInputKafka$Outbound = {
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
   sasl?: models.AuthenticationType$Outbound | undefined;
-  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
@@ -16904,7 +17080,8 @@ export const CreateInputInputKafka$outboundSchema: z.ZodType<
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
   sasl: models.AuthenticationType$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
@@ -17001,6 +17178,7 @@ export type CreateInputRequest$Outbound =
   | CreateInputInputOffice365Mgmt$Outbound
   | CreateInputInputOffice365Service$Outbound
   | CreateInputInputOffice365MsgTrace$Outbound
+  | CreateInputInputMicrosoftGraph$Outbound
   | CreateInputInputEventhub$Outbound
   | CreateInputInputExec$Outbound
   | CreateInputInputFirehose$Outbound
@@ -17075,6 +17253,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputInputOffice365Mgmt$outboundSchema),
   z.lazy(() => CreateInputInputOffice365Service$outboundSchema),
   z.lazy(() => CreateInputInputOffice365MsgTrace$outboundSchema),
+  z.lazy(() => CreateInputInputMicrosoftGraph$outboundSchema),
   z.lazy(() => CreateInputInputEventhub$outboundSchema),
   z.lazy(() => CreateInputInputExec$outboundSchema),
   z.lazy(() => CreateInputInputFirehose$outboundSchema),

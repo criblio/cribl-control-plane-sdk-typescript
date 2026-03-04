@@ -30,10 +30,10 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  SignatureVersionOptionsKinesis,
-  SignatureVersionOptionsKinesis$inboundSchema,
-  SignatureVersionOptionsKinesis$outboundSchema,
-} from "./signatureversionoptionskinesis.js";
+  SignatureVersionOptions2,
+  SignatureVersionOptions2$inboundSchema,
+  SignatureVersionOptions2$outboundSchema,
+} from "./signatureversionoptions2.js";
 
 /**
  * Compression type to use for records
@@ -99,7 +99,7 @@ export type OutputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: SignatureVersionOptionsKinesis | undefined;
+  signatureVersion?: SignatureVersionOptions2 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -175,7 +175,7 @@ export type OutputKinesis = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -202,10 +202,6 @@ export type OutputKinesis = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKinesisPqControls | undefined;
   /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
@@ -296,9 +292,7 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.string(),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsKinesis$inboundSchema,
-  ),
+  signatureVersion: types.optional(SignatureVersionOptions2$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -326,7 +320,6 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputKinesisPqControls$inboundSchema),
   ),
@@ -378,7 +371,6 @@ export type OutputKinesis$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKinesisPqControls$Outbound | undefined;
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -405,7 +397,7 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsKinesis$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -433,7 +425,6 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputKinesisPqControls$outboundSchema).optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),

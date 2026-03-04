@@ -12,11 +12,11 @@ import {
   AcknowledgmentsOptions$outboundSchema,
 } from "./acknowledgmentsoptions.js";
 import {
-  AuthenticationTypeUse,
-  AuthenticationTypeUse$inboundSchema,
-  AuthenticationTypeUse$Outbound,
-  AuthenticationTypeUse$outboundSchema,
-} from "./authenticationtypeuse.js";
+  AuthenticationType1,
+  AuthenticationType1$inboundSchema,
+  AuthenticationType1$Outbound,
+  AuthenticationType1$outboundSchema,
+} from "./authenticationtype1.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -137,7 +137,7 @@ export type OutputAzureEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: AuthenticationTypeUse | undefined;
+  sasl?: AuthenticationType1 | undefined;
   tls?: TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
@@ -157,7 +157,7 @@ export type OutputAzureEventhub = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -184,10 +184,6 @@ export type OutputAzureEventhub = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureEventhubPqControls | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
@@ -257,7 +253,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   backoffRate: types.optional(types.number()),
   authenticationTimeout: types.optional(types.number()),
   reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationTypeUse$inboundSchema),
+  sasl: types.optional(AuthenticationType1$inboundSchema),
   tls: types.optional(TlsSettingsClientSideType$inboundSchema),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
@@ -271,7 +267,6 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputAzureEventhubPqControls$inboundSchema),
   ),
@@ -300,7 +295,7 @@ export type OutputAzureEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationTypeUse$Outbound | undefined;
+  sasl?: AuthenticationType1$Outbound | undefined;
   tls?: TlsSettingsClientSideType$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
@@ -314,7 +309,6 @@ export type OutputAzureEventhub$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureEventhubPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
 };
@@ -346,7 +340,7 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationTypeUse$outboundSchema.optional(),
+  sasl: AuthenticationType1$outboundSchema.optional(),
   tls: TlsSettingsClientSideType$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
@@ -360,7 +354,6 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputAzureEventhubPqControls$outboundSchema)
     .optional(),
   __template_topic: z.string().optional(),

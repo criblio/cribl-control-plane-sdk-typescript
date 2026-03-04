@@ -7,6 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState,
+  AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
+} from "./additionalpropertiestypesavedjobenrichedfieldssavedstate.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -22,17 +26,13 @@ import {
   NotificationUnion$inboundSchema,
 } from "./notificationunion.js";
 import {
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
-import {
   ScheduleTypeSavedJobResponseCollection,
   ScheduleTypeSavedJobResponseCollection$inboundSchema,
 } from "./scheduletypesavedjobresponsecollection.js";
-
-export type SavedJobResponseScheduledSearchSavedState = {
-  data: { [k: string]: any };
-};
+import {
+  TypeCollectionWithBreakerRulesetsConstraint,
+  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 export type SavedJobResponseScheduledSearch = {
   /**
@@ -76,17 +76,13 @@ export type SavedJobResponseScheduledSearch = {
   /**
    * Runtime collection state.
    */
-  savedState?:
-    | { [k: string]: SavedJobResponseScheduledSearchSavedState }
-    | undefined;
+  savedState?: {
+    [k: string]: AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState;
+  } | undefined;
   /**
    * Notification targets.
    */
   notifications?: Array<NotificationUnion> | undefined;
-};
-
-export type SavedJobResponseExecutorSavedState = {
-  data: { [k: string]: any };
 };
 
 export type SavedJobResponseExecutor = {
@@ -128,15 +124,13 @@ export type SavedJobResponseExecutor = {
   /**
    * Runtime collection state.
    */
-  savedState?: { [k: string]: SavedJobResponseExecutorSavedState } | undefined;
+  savedState?: {
+    [k: string]: AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState;
+  } | undefined;
   /**
    * Notification targets.
    */
   notifications?: Array<NotificationUnion> | undefined;
-};
-
-export type SavedJobResponseCollectionSavedState = {
-  data: { [k: string]: any };
 };
 
 export type SavedJobResponseCollection = {
@@ -182,15 +176,13 @@ export type SavedJobResponseCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
-    | undefined;
+  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
   /**
    * Runtime collection state.
    */
-  savedState?:
-    | { [k: string]: SavedJobResponseCollectionSavedState }
-    | undefined;
+  savedState?: {
+    [k: string]: AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState;
+  } | undefined;
   /**
    * Notification targets.
    */
@@ -201,31 +193,6 @@ export type SavedJobResponse =
   | SavedJobResponseCollection
   | SavedJobResponseExecutor
   | SavedJobResponseScheduledSearch;
-
-/** @internal */
-export const SavedJobResponseScheduledSearchSavedState$inboundSchema: z.ZodType<
-  SavedJobResponseScheduledSearchSavedState,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  data: z.record(z.any()),
-});
-
-export function savedJobResponseScheduledSearchSavedStateFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SavedJobResponseScheduledSearchSavedState,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SavedJobResponseScheduledSearchSavedState$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SavedJobResponseScheduledSearchSavedState' from JSON`,
-  );
-}
 
 /** @internal */
 export const SavedJobResponseScheduledSearch$inboundSchema: z.ZodType<
@@ -247,9 +214,9 @@ export const SavedJobResponseScheduledSearch$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   savedQueryId: types.string(),
   savedState: types.optional(
-    z.record(z.lazy(() =>
-      SavedJobResponseScheduledSearchSavedState$inboundSchema
-    )),
+    z.record(
+      AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
+    ),
   ),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
 });
@@ -261,26 +228,6 @@ export function savedJobResponseScheduledSearchFromJSON(
     jsonString,
     (x) => SavedJobResponseScheduledSearch$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'SavedJobResponseScheduledSearch' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobResponseExecutorSavedState$inboundSchema: z.ZodType<
-  SavedJobResponseExecutorSavedState,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  data: z.record(z.any()),
-});
-
-export function savedJobResponseExecutorSavedStateFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobResponseExecutorSavedState, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SavedJobResponseExecutorSavedState$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobResponseExecutorSavedState' from JSON`,
   );
 }
 
@@ -304,7 +251,9 @@ export const SavedJobResponseExecutor$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
   savedState: types.optional(
-    z.record(z.lazy(() => SavedJobResponseExecutorSavedState$inboundSchema)),
+    z.record(
+      AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
+    ),
   ),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
 });
@@ -316,26 +265,6 @@ export function savedJobResponseExecutorFromJSON(
     jsonString,
     (x) => SavedJobResponseExecutor$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'SavedJobResponseExecutor' from JSON`,
-  );
-}
-
-/** @internal */
-export const SavedJobResponseCollectionSavedState$inboundSchema: z.ZodType<
-  SavedJobResponseCollectionSavedState,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  data: z.record(z.any()),
-});
-
-export function savedJobResponseCollectionSavedStateFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobResponseCollectionSavedState, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SavedJobResponseCollectionSavedState$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobResponseCollectionSavedState' from JSON`,
   );
 }
 
@@ -360,10 +289,12 @@ export const SavedJobResponseCollection$inboundSchema: z.ZodType<
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
   input: types.optional(
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+    TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
   savedState: types.optional(
-    z.record(z.lazy(() => SavedJobResponseCollectionSavedState$inboundSchema)),
+    z.record(
+      AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
+    ),
   ),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
 });

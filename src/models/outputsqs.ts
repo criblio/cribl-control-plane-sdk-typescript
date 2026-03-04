@@ -30,10 +30,10 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  SignatureVersionOptionsSqs,
-  SignatureVersionOptionsSqs$inboundSchema,
-  SignatureVersionOptionsSqs$outboundSchema,
-} from "./signatureversionoptionssqs.js";
+  SignatureVersionOptions3,
+  SignatureVersionOptions3$inboundSchema,
+  SignatureVersionOptions3$outboundSchema,
+} from "./signatureversionoptions3.js";
 
 /**
  * The queue type used (or created). Defaults to Standard.
@@ -113,7 +113,7 @@ export type OutputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: SignatureVersionOptionsSqs | undefined;
+  signatureVersion?: SignatureVersionOptions3 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -177,7 +177,7 @@ export type OutputSqs = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   * The maximum number of events to hold in memory before writing the events to disk
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -204,10 +204,6 @@ export type OutputSqs = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSqsPqControls | undefined;
   /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
@@ -306,7 +302,7 @@ export const OutputSqs$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptionsSqs$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptions3$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -331,7 +327,6 @@ export const OutputSqs$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputSqsPqControls$inboundSchema)),
   __template_queueName: types.optional(types.string()),
   __template_awsAccountId: types.optional(types.string()),
@@ -383,7 +378,6 @@ export type OutputSqs$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSqsPqControls$Outbound | undefined;
   __template_queueName?: string | undefined;
   __template_awsAccountId?: string | undefined;
@@ -415,7 +409,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsSqs$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions3$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -440,7 +434,6 @@ export const OutputSqs$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSqsPqControls$outboundSchema).optional(),
   __template_queueName: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
