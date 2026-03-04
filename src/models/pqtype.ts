@@ -26,7 +26,11 @@ export type PqType = {
    */
   mode?: ModeOptionsPq | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  maxBufferSizeBytes?: string | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use maxBufferSizeBytes instead.
    */
   maxBufferSize?: number | undefined;
   /**
@@ -89,6 +93,7 @@ export function pqTypePqControlsFromJSON(
 export const PqType$inboundSchema: z.ZodType<PqType, z.ZodTypeDef, unknown> = z
   .object({
     mode: types.optional(ModeOptionsPq$inboundSchema),
+    maxBufferSizeBytes: types.optional(types.string()),
     maxBufferSize: types.optional(types.number()),
     commitFrequency: types.optional(types.number()),
     maxFileSize: types.optional(types.string()),
@@ -100,6 +105,7 @@ export const PqType$inboundSchema: z.ZodType<PqType, z.ZodTypeDef, unknown> = z
 /** @internal */
 export type PqType$Outbound = {
   mode?: string | undefined;
+  maxBufferSizeBytes?: string | undefined;
   maxBufferSize?: number | undefined;
   commitFrequency?: number | undefined;
   maxFileSize?: string | undefined;
@@ -116,6 +122,7 @@ export const PqType$outboundSchema: z.ZodType<
   PqType
 > = z.object({
   mode: ModeOptionsPq$outboundSchema.optional(),
+  maxBufferSizeBytes: z.string().optional(),
   maxBufferSize: z.number().optional(),
   commitFrequency: z.number().optional(),
   maxFileSize: z.string().optional(),
