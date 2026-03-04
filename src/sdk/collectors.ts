@@ -20,7 +20,7 @@ export class Collectors extends ClientSDK {
    * Create a new Collector.
    */
   async create(
-    request: models.SavedJobRequest,
+    request: models.SavedJob,
     options?: RequestOptions,
   ): Promise<models.CountedSavedJobResponse> {
     return unwrapAsync(collectorsCreate(

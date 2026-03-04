@@ -207,7 +207,33 @@ export const GoogleCloudStorageAuthTypeSecretExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type GoogleCloudStorageAuthTypeSecretExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const GoogleCloudStorageAuthTypeSecretExtractor$outboundSchema:
+  z.ZodType<
+    GoogleCloudStorageAuthTypeSecretExtractor$Outbound,
+    z.ZodTypeDef,
+    GoogleCloudStorageAuthTypeSecretExtractor
+  > = z.object({
+    key: z.string(),
+    expression: z.string(),
+  });
+
+export function googleCloudStorageAuthTypeSecretExtractorToJSON(
+  googleCloudStorageAuthTypeSecretExtractor:
+    GoogleCloudStorageAuthTypeSecretExtractor,
+): string {
+  return JSON.stringify(
+    GoogleCloudStorageAuthTypeSecretExtractor$outboundSchema.parse(
+      googleCloudStorageAuthTypeSecretExtractor,
+    ),
+  );
+}
 export function googleCloudStorageAuthTypeSecretExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -247,7 +273,55 @@ export const GoogleCloudStorageAuthTypeSecret$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
 });
+/** @internal */
+export type GoogleCloudStorageAuthTypeSecret$Outbound = {
+  authType: "secret";
+  textSecret: string;
+  outputName?: string | undefined;
+  bucket: string;
+  path?: string | undefined;
+  extractors?:
+    | Array<GoogleCloudStorageAuthTypeSecretExtractor$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  disableTimeFilter?: boolean | undefined;
+  recurse?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+};
 
+/** @internal */
+export const GoogleCloudStorageAuthTypeSecret$outboundSchema: z.ZodType<
+  GoogleCloudStorageAuthTypeSecret$Outbound,
+  z.ZodTypeDef,
+  GoogleCloudStorageAuthTypeSecret
+> = z.object({
+  authType: z.literal("secret"),
+  textSecret: z.string(),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => GoogleCloudStorageAuthTypeSecretExtractor$outboundSchema),
+  ).optional(),
+  endpoint: z.string().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+});
+
+export function googleCloudStorageAuthTypeSecretToJSON(
+  googleCloudStorageAuthTypeSecret: GoogleCloudStorageAuthTypeSecret,
+): string {
+  return JSON.stringify(
+    GoogleCloudStorageAuthTypeSecret$outboundSchema.parse(
+      googleCloudStorageAuthTypeSecret,
+    ),
+  );
+}
 export function googleCloudStorageAuthTypeSecretFromJSON(
   jsonString: string,
 ): SafeParseResult<GoogleCloudStorageAuthTypeSecret, SDKValidationError> {
@@ -267,7 +341,33 @@ export const GoogleCloudStorageAuthTypeManualExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type GoogleCloudStorageAuthTypeManualExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const GoogleCloudStorageAuthTypeManualExtractor$outboundSchema:
+  z.ZodType<
+    GoogleCloudStorageAuthTypeManualExtractor$Outbound,
+    z.ZodTypeDef,
+    GoogleCloudStorageAuthTypeManualExtractor
+  > = z.object({
+    key: z.string(),
+    expression: z.string(),
+  });
+
+export function googleCloudStorageAuthTypeManualExtractorToJSON(
+  googleCloudStorageAuthTypeManualExtractor:
+    GoogleCloudStorageAuthTypeManualExtractor,
+): string {
+  return JSON.stringify(
+    GoogleCloudStorageAuthTypeManualExtractor$outboundSchema.parse(
+      googleCloudStorageAuthTypeManualExtractor,
+    ),
+  );
+}
 export function googleCloudStorageAuthTypeManualExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -307,7 +407,55 @@ export const GoogleCloudStorageAuthTypeManual$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
 });
+/** @internal */
+export type GoogleCloudStorageAuthTypeManual$Outbound = {
+  authType: "manual";
+  serviceAccountCredentials: string;
+  outputName?: string | undefined;
+  bucket: string;
+  path?: string | undefined;
+  extractors?:
+    | Array<GoogleCloudStorageAuthTypeManualExtractor$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  disableTimeFilter?: boolean | undefined;
+  recurse?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+};
 
+/** @internal */
+export const GoogleCloudStorageAuthTypeManual$outboundSchema: z.ZodType<
+  GoogleCloudStorageAuthTypeManual$Outbound,
+  z.ZodTypeDef,
+  GoogleCloudStorageAuthTypeManual
+> = z.object({
+  authType: z.literal("manual"),
+  serviceAccountCredentials: z.string(),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => GoogleCloudStorageAuthTypeManualExtractor$outboundSchema),
+  ).optional(),
+  endpoint: z.string().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+});
+
+export function googleCloudStorageAuthTypeManualToJSON(
+  googleCloudStorageAuthTypeManual: GoogleCloudStorageAuthTypeManual,
+): string {
+  return JSON.stringify(
+    GoogleCloudStorageAuthTypeManual$outboundSchema.parse(
+      googleCloudStorageAuthTypeManual,
+    ),
+  );
+}
 export function googleCloudStorageAuthTypeManualFromJSON(
   jsonString: string,
 ): SafeParseResult<GoogleCloudStorageAuthTypeManual, SDKValidationError> {
@@ -327,7 +475,32 @@ export const GoogleCloudStorageAuthTypeAutoExtractor$inboundSchema: z.ZodType<
   key: types.string(),
   expression: types.string(),
 });
+/** @internal */
+export type GoogleCloudStorageAuthTypeAutoExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const GoogleCloudStorageAuthTypeAutoExtractor$outboundSchema: z.ZodType<
+  GoogleCloudStorageAuthTypeAutoExtractor$Outbound,
+  z.ZodTypeDef,
+  GoogleCloudStorageAuthTypeAutoExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function googleCloudStorageAuthTypeAutoExtractorToJSON(
+  googleCloudStorageAuthTypeAutoExtractor:
+    GoogleCloudStorageAuthTypeAutoExtractor,
+): string {
+  return JSON.stringify(
+    GoogleCloudStorageAuthTypeAutoExtractor$outboundSchema.parse(
+      googleCloudStorageAuthTypeAutoExtractor,
+    ),
+  );
+}
 export function googleCloudStorageAuthTypeAutoExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -366,7 +539,53 @@ export const GoogleCloudStorageAuthTypeAuto$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
 });
+/** @internal */
+export type GoogleCloudStorageAuthTypeAuto$Outbound = {
+  authType: "auto";
+  outputName?: string | undefined;
+  bucket: string;
+  path?: string | undefined;
+  extractors?:
+    | Array<GoogleCloudStorageAuthTypeAutoExtractor$Outbound>
+    | undefined;
+  endpoint?: string | undefined;
+  disableTimeFilter?: boolean | undefined;
+  recurse?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+};
 
+/** @internal */
+export const GoogleCloudStorageAuthTypeAuto$outboundSchema: z.ZodType<
+  GoogleCloudStorageAuthTypeAuto$Outbound,
+  z.ZodTypeDef,
+  GoogleCloudStorageAuthTypeAuto
+> = z.object({
+  authType: z.literal("auto"),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => GoogleCloudStorageAuthTypeAutoExtractor$outboundSchema),
+  ).optional(),
+  endpoint: z.string().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+});
+
+export function googleCloudStorageAuthTypeAutoToJSON(
+  googleCloudStorageAuthTypeAuto: GoogleCloudStorageAuthTypeAuto,
+): string {
+  return JSON.stringify(
+    GoogleCloudStorageAuthTypeAuto$outboundSchema.parse(
+      googleCloudStorageAuthTypeAuto,
+    ),
+  );
+}
 export function googleCloudStorageAuthTypeAutoFromJSON(
   jsonString: string,
 ): SafeParseResult<GoogleCloudStorageAuthTypeAuto, SDKValidationError> {
@@ -387,7 +606,32 @@ export const GoogleCloudStorageCollectorConf$inboundSchema: z.ZodType<
   manual: z.lazy(() => GoogleCloudStorageAuthTypeManual$inboundSchema),
   secret: z.lazy(() => GoogleCloudStorageAuthTypeSecret$inboundSchema),
 });
+/** @internal */
+export type GoogleCloudStorageCollectorConf$Outbound =
+  | GoogleCloudStorageAuthTypeAuto$Outbound
+  | GoogleCloudStorageAuthTypeManual$Outbound
+  | GoogleCloudStorageAuthTypeSecret$Outbound;
 
+/** @internal */
+export const GoogleCloudStorageCollectorConf$outboundSchema: z.ZodType<
+  GoogleCloudStorageCollectorConf$Outbound,
+  z.ZodTypeDef,
+  GoogleCloudStorageCollectorConf
+> = z.union([
+  z.lazy(() => GoogleCloudStorageAuthTypeAuto$outboundSchema),
+  z.lazy(() => GoogleCloudStorageAuthTypeManual$outboundSchema),
+  z.lazy(() => GoogleCloudStorageAuthTypeSecret$outboundSchema),
+]);
+
+export function googleCloudStorageCollectorConfToJSON(
+  googleCloudStorageCollectorConf: GoogleCloudStorageCollectorConf,
+): string {
+  return JSON.stringify(
+    GoogleCloudStorageCollectorConf$outboundSchema.parse(
+      googleCloudStorageCollectorConf,
+    ),
+  );
+}
 export function googleCloudStorageCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<GoogleCloudStorageCollectorConf, SDKValidationError> {

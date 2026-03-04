@@ -26,7 +26,33 @@ export const ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema:
+  z.ZodType<
+    ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound,
+    z.ZodTypeDef,
+    ItemsTypeRestCollectMethodGetCollectRequestParams
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function itemsTypeRestCollectMethodGetCollectRequestParamsToJSON(
+  itemsTypeRestCollectMethodGetCollectRequestParams:
+    ItemsTypeRestCollectMethodGetCollectRequestParams,
+): string {
+  return JSON.stringify(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema.parse(
+      itemsTypeRestCollectMethodGetCollectRequestParams,
+    ),
+  );
+}
 export function itemsTypeRestCollectMethodGetCollectRequestParamsFromJSON(
   jsonString: string,
 ): SafeParseResult<

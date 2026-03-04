@@ -10,6 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HiddenDefaultBreakersOptionsDatabaseCollectorConf,
   HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema,
 } from "./hiddendefaultbreakersoptionsdatabasecollectorconf.js";
 
 export type DatabaseCollectorConfStateTracking = {
@@ -50,7 +51,29 @@ export const DatabaseCollectorConfStateTracking$inboundSchema: z.ZodType<
 > = z.object({
   enabled: types.optional(types.boolean()),
 });
+/** @internal */
+export type DatabaseCollectorConfStateTracking$Outbound = {
+  enabled?: boolean | undefined;
+};
 
+/** @internal */
+export const DatabaseCollectorConfStateTracking$outboundSchema: z.ZodType<
+  DatabaseCollectorConfStateTracking$Outbound,
+  z.ZodTypeDef,
+  DatabaseCollectorConfStateTracking
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function databaseCollectorConfStateTrackingToJSON(
+  databaseCollectorConfStateTracking: DatabaseCollectorConfStateTracking,
+): string {
+  return JSON.stringify(
+    DatabaseCollectorConfStateTracking$outboundSchema.parse(
+      databaseCollectorConfStateTracking,
+    ),
+  );
+}
 export function databaseCollectorConfStateTrackingFromJSON(
   jsonString: string,
 ): SafeParseResult<DatabaseCollectorConfStateTracking, SDKValidationError> {
@@ -72,7 +95,30 @@ export const DatabaseCollectorConfScheduling$inboundSchema: z.ZodType<
     z.lazy(() => DatabaseCollectorConfStateTracking$inboundSchema),
   ),
 });
+/** @internal */
+export type DatabaseCollectorConfScheduling$Outbound = {
+  stateTracking?: DatabaseCollectorConfStateTracking$Outbound | undefined;
+};
 
+/** @internal */
+export const DatabaseCollectorConfScheduling$outboundSchema: z.ZodType<
+  DatabaseCollectorConfScheduling$Outbound,
+  z.ZodTypeDef,
+  DatabaseCollectorConfScheduling
+> = z.object({
+  stateTracking: z.lazy(() => DatabaseCollectorConfStateTracking$outboundSchema)
+    .optional(),
+});
+
+export function databaseCollectorConfSchedulingToJSON(
+  databaseCollectorConfScheduling: DatabaseCollectorConfScheduling,
+): string {
+  return JSON.stringify(
+    DatabaseCollectorConfScheduling$outboundSchema.parse(
+      databaseCollectorConfScheduling,
+    ),
+  );
+}
 export function databaseCollectorConfSchedulingFromJSON(
   jsonString: string,
 ): SafeParseResult<DatabaseCollectorConfScheduling, SDKValidationError> {
@@ -99,7 +145,37 @@ export const DatabaseCollectorConf$inboundSchema: z.ZodType<
     z.lazy(() => DatabaseCollectorConfScheduling$inboundSchema),
   ),
 });
+/** @internal */
+export type DatabaseCollectorConf$Outbound = {
+  connectionId: string;
+  query: string;
+  queryValidationEnabled?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  __scheduling?: DatabaseCollectorConfScheduling$Outbound | undefined;
+};
 
+/** @internal */
+export const DatabaseCollectorConf$outboundSchema: z.ZodType<
+  DatabaseCollectorConf$Outbound,
+  z.ZodTypeDef,
+  DatabaseCollectorConf
+> = z.object({
+  connectionId: z.string(),
+  query: z.string(),
+  queryValidationEnabled: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  __scheduling: z.lazy(() => DatabaseCollectorConfScheduling$outboundSchema)
+    .optional(),
+});
+
+export function databaseCollectorConfToJSON(
+  databaseCollectorConf: DatabaseCollectorConf,
+): string {
+  return JSON.stringify(
+    DatabaseCollectorConf$outboundSchema.parse(databaseCollectorConf),
+  );
+}
 export function databaseCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<DatabaseCollectorConf, SDKValidationError> {

@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ScriptCollectorConf,
   ScriptCollectorConf$inboundSchema,
+  ScriptCollectorConf$Outbound,
+  ScriptCollectorConf$outboundSchema,
 } from "./scriptcollectorconf.js";
 
 /**
@@ -42,7 +44,31 @@ export const CollectorScript$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
+/** @internal */
+export type CollectorScript$Outbound = {
+  type: "script";
+  conf: ScriptCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
+};
 
+/** @internal */
+export const CollectorScript$outboundSchema: z.ZodType<
+  CollectorScript$Outbound,
+  z.ZodTypeDef,
+  CollectorScript
+> = z.object({
+  type: z.literal("script"),
+  conf: ScriptCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
+});
+
+export function collectorScriptToJSON(
+  collectorScript: CollectorScript,
+): string {
+  return JSON.stringify(CollectorScript$outboundSchema.parse(collectorScript));
+}
 export function collectorScriptFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorScript, SDKValidationError> {

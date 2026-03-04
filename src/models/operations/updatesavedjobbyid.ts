@@ -12,15 +12,15 @@ export type UpdateSavedJobByIdRequest = {
    */
   id: string;
   /**
-   * SavedJobRequest object
+   * SavedJob object
    */
-  savedJobRequest: models.SavedJobRequest;
+  savedJob: models.SavedJob;
 };
 
 /** @internal */
 export type UpdateSavedJobByIdRequest$Outbound = {
   id: string;
-  SavedJobRequest: models.SavedJobRequest$Outbound;
+  SavedJob: models.SavedJob$Outbound;
 };
 
 /** @internal */
@@ -30,10 +30,10 @@ export const UpdateSavedJobByIdRequest$outboundSchema: z.ZodType<
   UpdateSavedJobByIdRequest
 > = z.object({
   id: z.string(),
-  savedJobRequest: models.SavedJobRequest$outboundSchema,
+  savedJob: models.SavedJob$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    savedJobRequest: "SavedJobRequest",
+    savedJob: "SavedJob",
   });
 });
 

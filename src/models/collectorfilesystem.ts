@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FilesystemCollectorConf,
   FilesystemCollectorConf$inboundSchema,
+  FilesystemCollectorConf$Outbound,
+  FilesystemCollectorConf$outboundSchema,
 } from "./filesystemcollectorconf.js";
 
 /**
@@ -42,7 +44,33 @@ export const CollectorFilesystem$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
+/** @internal */
+export type CollectorFilesystem$Outbound = {
+  type: "filesystem";
+  conf: FilesystemCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
+};
 
+/** @internal */
+export const CollectorFilesystem$outboundSchema: z.ZodType<
+  CollectorFilesystem$Outbound,
+  z.ZodTypeDef,
+  CollectorFilesystem
+> = z.object({
+  type: z.literal("filesystem"),
+  conf: FilesystemCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
+});
+
+export function collectorFilesystemToJSON(
+  collectorFilesystem: CollectorFilesystem,
+): string {
+  return JSON.stringify(
+    CollectorFilesystem$outboundSchema.parse(collectorFilesystem),
+  );
+}
 export function collectorFilesystemFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorFilesystem, SDKValidationError> {

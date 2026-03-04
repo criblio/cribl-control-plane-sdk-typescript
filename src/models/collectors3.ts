@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   S3CollectorConf,
   S3CollectorConf$inboundSchema,
+  S3CollectorConf$Outbound,
+  S3CollectorConf$outboundSchema,
 } from "./s3collectorconf.js";
 
 /**
@@ -42,7 +44,29 @@ export const CollectorS3$inboundSchema: z.ZodType<
   destructive: types.optional(types.boolean()),
   encoding: types.optional(types.string()),
 });
+/** @internal */
+export type CollectorS3$Outbound = {
+  type: "s3";
+  conf: S3CollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
+};
 
+/** @internal */
+export const CollectorS3$outboundSchema: z.ZodType<
+  CollectorS3$Outbound,
+  z.ZodTypeDef,
+  CollectorS3
+> = z.object({
+  type: z.literal("s3"),
+  conf: S3CollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
+});
+
+export function collectorS3ToJSON(collectorS3: CollectorS3): string {
+  return JSON.stringify(CollectorS3$outboundSchema.parse(collectorS3));
+}
 export function collectorS3FromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorS3, SDKValidationError> {

@@ -14,22 +14,31 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HiddenDefaultBreakersOptionsDatabaseCollectorConf,
   HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema,
 } from "./hiddendefaultbreakersoptionsdatabasecollectorconf.js";
 import {
   ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders,
   ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+  ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound,
+  ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
 } from "./itemstypehealthcheckauthenticationloginauthrequestheaders.js";
 import {
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders,
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$Outbound,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$outboundSchema,
 } from "./itemstypehealthcheckauthenticationoauthauthrequestheaders.js";
 import {
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams,
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound,
+  ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
 } from "./itemstypehealthcheckauthenticationoauthauthrequestparams.js";
 import {
   ItemsTypeHealthCheckCollectMethodPostCollectRequestParams,
   ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound,
+  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
 } from "./itemstypehealthcheckcollectmethodpostcollectrequestparams.js";
 
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone =
@@ -4283,7 +4292,33 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4309,7 +4344,35 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4336,7 +4399,37 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4361,6 +4454,15 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -4381,7 +4483,50 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4404,6 +4549,15 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -4430,7 +4584,56 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4453,6 +4656,15 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -4479,7 +4691,56 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4512,7 +4773,41 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4556,7 +4851,57 @@ export const HealthCheckAuthenticationOauthSecretDiscovery$inboundSchema:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretDiscovery$Outbound =
+  | (
+    | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretDiscovery$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretDiscovery$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretDiscovery
+  > = z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationOauthSecretDiscoveryToJSON(
+  healthCheckAuthenticationOauthSecretDiscovery:
+    HealthCheckAuthenticationOauthSecretDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretDiscovery$outboundSchema.parse(
+      healthCheckAuthenticationOauthSecretDiscovery,
+    ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4582,6 +4927,15 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckMethod$inboundSchema
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationOauthSecretHealthCheckMethod,
   );
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckMethod
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationOauthSecretHealthCheckMethod,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationOauthSecretCollectRequestHeader$inboundSchema:
@@ -4593,7 +4947,33 @@ export const HealthCheckAuthenticationOauthSecretCollectRequestHeader$inboundSch
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretCollectRequestHeader$Outbound =
+  {
+    name: string;
+    value: string;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckAuthenticationOauthSecretCollectRequestHeaderToJSON(
+  healthCheckAuthenticationOauthSecretCollectRequestHeader:
+    HealthCheckAuthenticationOauthSecretCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretCollectRequestHeader$outboundSchema
+      .parse(healthCheckAuthenticationOauthSecretCollectRequestHeader),
+  );
+}
 export function healthCheckAuthenticationOauthSecretCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4623,7 +5003,43 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackof
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff:
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4652,7 +5068,41 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic:
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4677,7 +5127,31 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$i
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone:
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4710,7 +5184,40 @@ export const HealthCheckAuthenticationOauthSecretRetryRules$inboundSchema:
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecretRetryRules$Outbound =
+  | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecretRetryRules$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthSecretRetryRules$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthSecretRetryRules
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationOauthSecretRetryRulesToJSON(
+  healthCheckAuthenticationOauthSecretRetryRules:
+    HealthCheckAuthenticationOauthSecretRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecretRetryRules$outboundSchema.parse(
+      healthCheckAuthenticationOauthSecretRetryRules,
+    ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4798,7 +5305,124 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckAuthenticationOauthSecret$Outbound = {
+  authentication: "oauthSecret";
+  loginUrl: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  clientSecretParamName: string;
+  textSecret: string;
+  authRequestParams?:
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound>
+    | undefined;
+  authRequestHeaders?:
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckAuthenticationOauthSecretCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationOauthSecret$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationOauthSecret
+> = z.object({
+  authentication: z.literal("oauthSecret"),
+  loginUrl: z.string(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string(),
+  clientSecretParamName: z.string(),
+  textSecret: z.string(),
+  authRequestParams: z.array(
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
+  ).optional(),
+  authRequestHeaders: z.array(
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$outboundSchema,
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectMethod:
+    HealthCheckAuthenticationOauthSecretHealthCheckMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckAuthenticationOauthSecretToJSON(
+  healthCheckAuthenticationOauthSecret: HealthCheckAuthenticationOauthSecret,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthSecret$outboundSchema.parse(
+      healthCheckAuthenticationOauthSecret,
+    ),
+  );
+}
 export function healthCheckAuthenticationOauthSecretFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationOauthSecret, SDKValidationError> {
@@ -4819,7 +5443,33 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4845,7 +5495,35 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4872,7 +5550,37 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4897,6 +5605,15 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -4917,7 +5634,50 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4940,6 +5700,15 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -4966,7 +5735,56 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -4989,6 +5807,15 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -5015,7 +5842,56 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5048,7 +5924,41 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp$
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(
+        healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp,
+      ),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5091,7 +6001,56 @@ export const HealthCheckAuthenticationOauthDiscovery$inboundSchema: z.ZodType<
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationOauthDiscovery$Outbound =
+  | (
+    | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationOauthDiscovery$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationOauthDiscovery$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationOauthDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationOauthDiscoveryToJSON(
+  healthCheckAuthenticationOauthDiscovery:
+    HealthCheckAuthenticationOauthDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthDiscovery$outboundSchema.parse(
+      healthCheckAuthenticationOauthDiscovery,
+    ),
+  );
+}
 export function healthCheckAuthenticationOauthDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5115,6 +6074,13 @@ export const HealthCheckAuthenticationOauthHealthCheckMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(HealthCheckAuthenticationOauthHealthCheckMethod);
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckMethod
+  > = openEnums.outboundSchema(HealthCheckAuthenticationOauthHealthCheckMethod);
 
 /** @internal */
 export const HealthCheckAuthenticationOauthCollectRequestHeader$inboundSchema:
@@ -5126,7 +6092,33 @@ export const HealthCheckAuthenticationOauthCollectRequestHeader$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationOauthCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckAuthenticationOauthCollectRequestHeaderToJSON(
+  healthCheckAuthenticationOauthCollectRequestHeader:
+    HealthCheckAuthenticationOauthCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthCollectRequestHeader$outboundSchema.parse(
+      healthCheckAuthenticationOauthCollectRequestHeader,
+    ),
+  );
+}
 export function healthCheckAuthenticationOauthCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5157,7 +6149,41 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inbo
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff:
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(healthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5186,7 +6212,39 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$inbou
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic:
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(healthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5211,7 +6269,31 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$inbound
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone:
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5243,7 +6325,39 @@ export const HealthCheckAuthenticationOauthRetryRules$inboundSchema: z.ZodType<
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationOauthRetryRules$Outbound =
+  | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationOauthRetryRules$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationOauthRetryRules$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationOauthRetryRules
+> = z.union([
+  z.lazy(() =>
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationOauthRetryRulesToJSON(
+  healthCheckAuthenticationOauthRetryRules:
+    HealthCheckAuthenticationOauthRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauthRetryRules$outboundSchema.parse(
+      healthCheckAuthenticationOauthRetryRules,
+    ),
+  );
+}
 export function healthCheckAuthenticationOauthRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5330,7 +6444,123 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckAuthenticationOauth$Outbound = {
+  authentication: "oauth";
+  loginUrl: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  clientSecretParamName: string;
+  clientSecretParamValue: string;
+  authRequestParams?:
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound>
+    | undefined;
+  authRequestHeaders?:
+    | Array<ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckAuthenticationOauthCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationOauth$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationOauth
+> = z.object({
+  authentication: z.literal("oauth"),
+  loginUrl: z.string(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string(),
+  clientSecretParamName: z.string(),
+  clientSecretParamValue: z.string(),
+  authRequestParams: z.array(
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
+  ).optional(),
+  authRequestHeaders: z.array(
+    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$outboundSchema,
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckAuthenticationOauthToJSON(
+  healthCheckAuthenticationOauth: HealthCheckAuthenticationOauth,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationOauth$outboundSchema.parse(
+      healthCheckAuthenticationOauth,
+    ),
+  );
+}
 export function healthCheckAuthenticationOauthFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationOauth, SDKValidationError> {
@@ -5350,7 +6580,33 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5376,7 +6632,35 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5403,7 +6687,37 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5428,6 +6742,15 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -5448,7 +6771,50 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5471,6 +6837,15 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -5497,7 +6872,56 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5520,6 +6944,15 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -5546,7 +6979,56 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5579,7 +7061,41 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5623,7 +7139,57 @@ export const HealthCheckAuthenticationLoginSecretDiscovery$inboundSchema:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretDiscovery$Outbound =
+  | (
+    | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretDiscovery$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretDiscovery$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretDiscovery
+  > = z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationLoginSecretDiscoveryToJSON(
+  healthCheckAuthenticationLoginSecretDiscovery:
+    HealthCheckAuthenticationLoginSecretDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretDiscovery$outboundSchema.parse(
+      healthCheckAuthenticationLoginSecretDiscovery,
+    ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5649,6 +7215,15 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckMethod$inboundSchema
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationLoginSecretHealthCheckMethod,
   );
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckMethod
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationLoginSecretHealthCheckMethod,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationLoginSecretCollectRequestHeader$inboundSchema:
@@ -5660,7 +7235,33 @@ export const HealthCheckAuthenticationLoginSecretCollectRequestHeader$inboundSch
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretCollectRequestHeader$Outbound =
+  {
+    name: string;
+    value: string;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckAuthenticationLoginSecretCollectRequestHeaderToJSON(
+  healthCheckAuthenticationLoginSecretCollectRequestHeader:
+    HealthCheckAuthenticationLoginSecretCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretCollectRequestHeader$outboundSchema
+      .parse(healthCheckAuthenticationLoginSecretCollectRequestHeader),
+  );
+}
 export function healthCheckAuthenticationLoginSecretCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5690,7 +7291,43 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackof
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff:
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5719,7 +7356,41 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic:
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5744,7 +7415,31 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$i
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone:
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5777,7 +7472,40 @@ export const HealthCheckAuthenticationLoginSecretRetryRules$inboundSchema:
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecretRetryRules$Outbound =
+  | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecretRetryRules$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginSecretRetryRules$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginSecretRetryRules
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationLoginSecretRetryRulesToJSON(
+  healthCheckAuthenticationLoginSecretRetryRules:
+    HealthCheckAuthenticationLoginSecretRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecretRetryRules$outboundSchema.parse(
+      healthCheckAuthenticationLoginSecretRetryRules,
+    ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5860,7 +7588,118 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckAuthenticationLoginSecret$Outbound = {
+  authentication: "loginSecret";
+  loginUrl: string;
+  credentialsSecret: string;
+  loginBody: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckAuthenticationLoginSecretCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationLoginSecret$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationLoginSecret
+> = z.object({
+  authentication: z.literal("loginSecret"),
+  loginUrl: z.string(),
+  credentialsSecret: z.string(),
+  loginBody: z.string(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string(),
+  authRequestHeaders: z.array(
+    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectMethod:
+    HealthCheckAuthenticationLoginSecretHealthCheckMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckAuthenticationLoginSecretToJSON(
+  healthCheckAuthenticationLoginSecret: HealthCheckAuthenticationLoginSecret,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginSecret$outboundSchema.parse(
+      healthCheckAuthenticationLoginSecret,
+    ),
+  );
+}
 export function healthCheckAuthenticationLoginSecretFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationLoginSecret, SDKValidationError> {
@@ -5881,7 +7720,33 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5907,7 +7772,35 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5934,7 +7827,37 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -5959,6 +7882,15 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -5979,7 +7911,50 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6002,6 +7977,15 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -6028,7 +8012,56 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6051,6 +8084,15 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -6077,7 +8119,56 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6110,7 +8201,41 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp$
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(
+        healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp,
+      ),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6153,7 +8278,56 @@ export const HealthCheckAuthenticationLoginDiscovery$inboundSchema: z.ZodType<
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationLoginDiscovery$Outbound =
+  | (
+    | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationLoginDiscovery$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationLoginDiscovery$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationLoginDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationLoginDiscoveryToJSON(
+  healthCheckAuthenticationLoginDiscovery:
+    HealthCheckAuthenticationLoginDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginDiscovery$outboundSchema.parse(
+      healthCheckAuthenticationLoginDiscovery,
+    ),
+  );
+}
 export function healthCheckAuthenticationLoginDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6177,6 +8351,13 @@ export const HealthCheckAuthenticationLoginHealthCheckMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(HealthCheckAuthenticationLoginHealthCheckMethod);
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckMethod
+  > = openEnums.outboundSchema(HealthCheckAuthenticationLoginHealthCheckMethod);
 
 /** @internal */
 export const HealthCheckAuthenticationLoginCollectRequestHeader$inboundSchema:
@@ -6188,7 +8369,33 @@ export const HealthCheckAuthenticationLoginCollectRequestHeader$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationLoginCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckAuthenticationLoginCollectRequestHeaderToJSON(
+  healthCheckAuthenticationLoginCollectRequestHeader:
+    HealthCheckAuthenticationLoginCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginCollectRequestHeader$outboundSchema.parse(
+      healthCheckAuthenticationLoginCollectRequestHeader,
+    ),
+  );
+}
 export function healthCheckAuthenticationLoginCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6219,7 +8426,41 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inbo
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff:
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(healthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6248,7 +8489,39 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$inbou
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic:
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(healthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6273,7 +8546,31 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$inbound
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone:
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6305,7 +8602,39 @@ export const HealthCheckAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationLoginRetryRules$Outbound =
+  | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationLoginRetryRules$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationLoginRetryRules$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationLoginRetryRules
+> = z.union([
+  z.lazy(() =>
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationLoginRetryRulesToJSON(
+  healthCheckAuthenticationLoginRetryRules:
+    HealthCheckAuthenticationLoginRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLoginRetryRules$outboundSchema.parse(
+      healthCheckAuthenticationLoginRetryRules,
+    ),
+  );
+}
 export function healthCheckAuthenticationLoginRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6388,7 +8717,119 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckAuthenticationLogin$Outbound = {
+  authentication: "login";
+  loginUrl: string;
+  username: string;
+  password: string;
+  loginBody: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  authRequestHeaders?:
+    | Array<ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckAuthenticationLoginCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationLogin$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationLogin
+> = z.object({
+  authentication: z.literal("login"),
+  loginUrl: z.string(),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string(),
+  authRequestHeaders: z.array(
+    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckAuthenticationLoginToJSON(
+  healthCheckAuthenticationLogin: HealthCheckAuthenticationLogin,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationLogin$outboundSchema.parse(
+      healthCheckAuthenticationLogin,
+    ),
+  );
+}
 export function healthCheckAuthenticationLoginFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationLogin, SDKValidationError> {
@@ -6408,7 +8849,33 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6434,7 +8901,35 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6461,7 +8956,37 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6486,6 +9011,15 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -6506,7 +9040,50 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6529,6 +9106,15 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -6555,7 +9141,56 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6578,6 +9213,15 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -6604,7 +9248,56 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6637,7 +9330,41 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6681,7 +9408,57 @@ export const HealthCheckAuthenticationBasicSecretDiscovery$inboundSchema:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretDiscovery$Outbound =
+  | (
+    | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretDiscovery$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretDiscovery$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretDiscovery
+  > = z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationBasicSecretDiscoveryToJSON(
+  healthCheckAuthenticationBasicSecretDiscovery:
+    HealthCheckAuthenticationBasicSecretDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretDiscovery$outboundSchema.parse(
+      healthCheckAuthenticationBasicSecretDiscovery,
+    ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6707,6 +9484,15 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckMethod$inboundSchema
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationBasicSecretHealthCheckMethod,
   );
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckMethod
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationBasicSecretHealthCheckMethod,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationBasicSecretCollectRequestHeader$inboundSchema:
@@ -6718,7 +9504,33 @@ export const HealthCheckAuthenticationBasicSecretCollectRequestHeader$inboundSch
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretCollectRequestHeader$Outbound =
+  {
+    name: string;
+    value: string;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckAuthenticationBasicSecretCollectRequestHeaderToJSON(
+  healthCheckAuthenticationBasicSecretCollectRequestHeader:
+    HealthCheckAuthenticationBasicSecretCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretCollectRequestHeader$outboundSchema
+      .parse(healthCheckAuthenticationBasicSecretCollectRequestHeader),
+  );
+}
 export function healthCheckAuthenticationBasicSecretCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6748,7 +9560,43 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackof
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff:
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6777,7 +9625,41 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic:
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6802,7 +9684,31 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$i
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone:
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6835,7 +9741,40 @@ export const HealthCheckAuthenticationBasicSecretRetryRules$inboundSchema:
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecretRetryRules$Outbound =
+  | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecretRetryRules$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicSecretRetryRules$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicSecretRetryRules
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationBasicSecretRetryRulesToJSON(
+  healthCheckAuthenticationBasicSecretRetryRules:
+    HealthCheckAuthenticationBasicSecretRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecretRetryRules$outboundSchema.parse(
+      healthCheckAuthenticationBasicSecretRetryRules,
+    ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6909,7 +9848,104 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckAuthenticationBasicSecret$Outbound = {
+  authentication: "basicSecret";
+  credentialsSecret: string;
+  discovery?:
+    | (
+      | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckAuthenticationBasicSecretCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationBasicSecret$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationBasicSecret
+> = z.object({
+  authentication: z.literal("basicSecret"),
+  credentialsSecret: z.string(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectMethod:
+    HealthCheckAuthenticationBasicSecretHealthCheckMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckAuthenticationBasicSecretToJSON(
+  healthCheckAuthenticationBasicSecret: HealthCheckAuthenticationBasicSecret,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicSecret$outboundSchema.parse(
+      healthCheckAuthenticationBasicSecret,
+    ),
+  );
+}
 export function healthCheckAuthenticationBasicSecretFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationBasicSecret, SDKValidationError> {
@@ -6930,7 +9966,33 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6956,7 +10018,35 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -6983,7 +10073,37 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7008,6 +10128,15 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -7028,7 +10157,50 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7051,6 +10223,15 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -7077,7 +10258,56 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7100,6 +10330,15 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -7126,7 +10365,56 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7159,7 +10447,41 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp$
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(
+        healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp,
+      ),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7202,7 +10524,56 @@ export const HealthCheckAuthenticationBasicDiscovery$inboundSchema: z.ZodType<
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationBasicDiscovery$Outbound =
+  | (
+    | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationBasicDiscovery$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationBasicDiscovery$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationBasicDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationBasicDiscoveryToJSON(
+  healthCheckAuthenticationBasicDiscovery:
+    HealthCheckAuthenticationBasicDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicDiscovery$outboundSchema.parse(
+      healthCheckAuthenticationBasicDiscovery,
+    ),
+  );
+}
 export function healthCheckAuthenticationBasicDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7226,6 +10597,13 @@ export const HealthCheckAuthenticationBasicHealthCheckMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(HealthCheckAuthenticationBasicHealthCheckMethod);
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckMethod
+  > = openEnums.outboundSchema(HealthCheckAuthenticationBasicHealthCheckMethod);
 
 /** @internal */
 export const HealthCheckAuthenticationBasicCollectRequestHeader$inboundSchema:
@@ -7237,7 +10615,33 @@ export const HealthCheckAuthenticationBasicCollectRequestHeader$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationBasicCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckAuthenticationBasicCollectRequestHeaderToJSON(
+  healthCheckAuthenticationBasicCollectRequestHeader:
+    HealthCheckAuthenticationBasicCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicCollectRequestHeader$outboundSchema.parse(
+      healthCheckAuthenticationBasicCollectRequestHeader,
+    ),
+  );
+}
 export function healthCheckAuthenticationBasicCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7268,7 +10672,41 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inbo
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff:
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(healthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7297,7 +10735,39 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$inbou
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic:
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(healthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7322,7 +10792,31 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$inbound
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone:
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7354,7 +10848,39 @@ export const HealthCheckAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationBasicRetryRules$Outbound =
+  | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationBasicRetryRules$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationBasicRetryRules$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationBasicRetryRules
+> = z.union([
+  z.lazy(() =>
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationBasicRetryRulesToJSON(
+  healthCheckAuthenticationBasicRetryRules:
+    HealthCheckAuthenticationBasicRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasicRetryRules$outboundSchema.parse(
+      healthCheckAuthenticationBasicRetryRules,
+    ),
+  );
+}
 export function healthCheckAuthenticationBasicRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7428,7 +10954,105 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckAuthenticationBasic$Outbound = {
+  authentication: "basic";
+  username: string;
+  password: string;
+  discovery?:
+    | (
+      | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckAuthenticationBasicCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationBasic$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationBasic
+> = z.object({
+  authentication: z.literal("basic"),
+  username: z.string(),
+  password: z.string(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckAuthenticationBasicToJSON(
+  healthCheckAuthenticationBasic: HealthCheckAuthenticationBasic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationBasic$outboundSchema.parse(
+      healthCheckAuthenticationBasic,
+    ),
+  );
+}
 export function healthCheckAuthenticationBasicFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationBasic, SDKValidationError> {
@@ -7448,7 +11072,31 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$i
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7474,7 +11122,33 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$i
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7501,7 +11175,35 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$i
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7526,6 +11228,15 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
   > = openEnums.inboundSchema(
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -7546,7 +11257,50 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7569,6 +11323,15 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -7595,7 +11358,56 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7618,6 +11430,15 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -7644,7 +11465,56 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7677,7 +11547,39 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp$i
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7720,7 +11622,56 @@ export const HealthCheckAuthenticationNoneDiscovery$inboundSchema: z.ZodType<
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationNoneDiscovery$Outbound =
+  | (
+    | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationNoneDiscovery$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationNoneDiscovery$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationNoneDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationNoneDiscoveryToJSON(
+  healthCheckAuthenticationNoneDiscovery:
+    HealthCheckAuthenticationNoneDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneDiscovery$outboundSchema.parse(
+      healthCheckAuthenticationNoneDiscovery,
+    ),
+  );
+}
 export function healthCheckAuthenticationNoneDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationNoneDiscovery, SDKValidationError> {
@@ -7739,6 +11690,13 @@ export const HealthCheckAuthenticationNoneHealthCheckMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(HealthCheckAuthenticationNoneHealthCheckMethod);
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckMethod
+  > = openEnums.outboundSchema(HealthCheckAuthenticationNoneHealthCheckMethod);
 
 /** @internal */
 export const HealthCheckAuthenticationNoneCollectRequestHeader$inboundSchema:
@@ -7750,7 +11708,33 @@ export const HealthCheckAuthenticationNoneCollectRequestHeader$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationNoneCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckAuthenticationNoneCollectRequestHeaderToJSON(
+  healthCheckAuthenticationNoneCollectRequestHeader:
+    HealthCheckAuthenticationNoneCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneCollectRequestHeader$outboundSchema.parse(
+      healthCheckAuthenticationNoneCollectRequestHeader,
+    ),
+  );
+}
 export function healthCheckAuthenticationNoneCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7781,7 +11765,41 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inbou
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff:
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(healthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7810,7 +11828,39 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$inboun
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic:
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(healthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7835,7 +11885,31 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$inboundS
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone:
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7867,7 +11941,39 @@ export const HealthCheckAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckAuthenticationNoneRetryRules$Outbound =
+  | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckAuthenticationNoneRetryRules$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationNoneRetryRules$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationNoneRetryRules
+> = z.union([
+  z.lazy(() =>
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema
+  ),
+]);
+
+export function healthCheckAuthenticationNoneRetryRulesToJSON(
+  healthCheckAuthenticationNoneRetryRules:
+    HealthCheckAuthenticationNoneRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNoneRetryRules$outboundSchema.parse(
+      healthCheckAuthenticationNoneRetryRules,
+    ),
+  );
+}
 export function healthCheckAuthenticationNoneRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7939,7 +12045,101 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckAuthenticationNone$Outbound = {
+  authentication: "none";
+  discovery?:
+    | (
+      | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckAuthenticationNoneCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
+  HealthCheckAuthenticationNone$Outbound,
+  z.ZodTypeDef,
+  HealthCheckAuthenticationNone
+> = z.object({
+  authentication: z.literal("none"),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckAuthenticationNoneToJSON(
+  healthCheckAuthenticationNone: HealthCheckAuthenticationNone,
+): string {
+  return JSON.stringify(
+    HealthCheckAuthenticationNone$outboundSchema.parse(
+      healthCheckAuthenticationNone,
+    ),
+  );
+}
 export function healthCheckAuthenticationNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckAuthenticationNone, SDKValidationError> {
@@ -7959,6 +12159,15 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckMethod$inboundSchema
   > = openEnums.inboundSchema(
     HealthCheckCollectMethodPostWithBodyHealthCheckMethod,
   );
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckMethod
+  > = openEnums.outboundSchema(
+    HealthCheckCollectMethodPostWithBodyHealthCheckMethod,
+  );
 
 /** @internal */
 export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$inboundSchema:
@@ -7969,7 +12178,33 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -7995,7 +12230,35 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8022,7 +12285,37 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8047,6 +12340,15 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
   > = openEnums.inboundSchema(
     HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -8067,7 +12369,50 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8090,6 +12435,15 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -8116,7 +12470,56 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8139,6 +12542,15 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -8165,7 +12577,56 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8198,7 +12659,41 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8242,7 +12737,57 @@ export const HealthCheckCollectMethodPostWithBodyDiscovery$inboundSchema:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyDiscovery$Outbound =
+  | (
+    | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyDiscovery$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyDiscovery$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyDiscovery
+  > = z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]);
+
+export function healthCheckCollectMethodPostWithBodyDiscoveryToJSON(
+  healthCheckCollectMethodPostWithBodyDiscovery:
+    HealthCheckCollectMethodPostWithBodyDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyDiscovery$outboundSchema.parse(
+      healthCheckCollectMethodPostWithBodyDiscovery,
+    ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8269,7 +12814,33 @@ export const HealthCheckCollectMethodPostWithBodyCollectRequestHeader$inboundSch
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyCollectRequestHeader$Outbound =
+  {
+    name: string;
+    value: string;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckCollectMethodPostWithBodyCollectRequestHeaderToJSON(
+  healthCheckCollectMethodPostWithBodyCollectRequestHeader:
+    HealthCheckCollectMethodPostWithBodyCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyCollectRequestHeader$outboundSchema
+      .parse(healthCheckCollectMethodPostWithBodyCollectRequestHeader),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8294,6 +12865,15 @@ export const HealthCheckCollectMethodPostWithBodyAuthentication$inboundSchema:
   > = openEnums.inboundSchema(
     HealthCheckCollectMethodPostWithBodyAuthentication,
   );
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyAuthentication$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyAuthentication
+  > = openEnums.outboundSchema(
+    HealthCheckCollectMethodPostWithBodyAuthentication,
+  );
 
 /** @internal */
 export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema:
@@ -8309,7 +12889,43 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackof
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff:
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8338,7 +12954,41 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic:
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8363,7 +13013,31 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$i
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone:
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8396,7 +13070,40 @@ export const HealthCheckCollectMethodPostWithBodyRetryRules$inboundSchema:
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBodyRetryRules$Outbound =
+  | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBodyRetryRules$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostWithBodyRetryRules$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostWithBodyRetryRules
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]);
+
+export function healthCheckCollectMethodPostWithBodyRetryRulesToJSON(
+  healthCheckCollectMethodPostWithBodyRetryRules:
+    HealthCheckCollectMethodPostWithBodyRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBodyRetryRules$outboundSchema.parse(
+      healthCheckCollectMethodPostWithBodyRetryRules,
+    ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8471,7 +13178,105 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckCollectMethodPostWithBody$Outbound = {
+  collectMethod: string;
+  collectBody?: string | undefined;
+  discovery?:
+    | (
+      | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckCollectMethodPostWithBodyCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  authentication: string;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
+  HealthCheckCollectMethodPostWithBody$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectMethodPostWithBody
+> = z.object({
+  collectMethod:
+    HealthCheckCollectMethodPostWithBodyHealthCheckMethod$outboundSchema,
+  collectBody: z.string().optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  authentication:
+    HealthCheckCollectMethodPostWithBodyAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckCollectMethodPostWithBodyToJSON(
+  healthCheckCollectMethodPostWithBody: HealthCheckCollectMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostWithBody$outboundSchema.parse(
+      healthCheckCollectMethodPostWithBody,
+    ),
+  );
+}
 export function healthCheckCollectMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectMethodPostWithBody, SDKValidationError> {
@@ -8490,6 +13295,13 @@ export const HealthCheckCollectMethodPostHealthCheckMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(HealthCheckCollectMethodPostHealthCheckMethod);
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckMethod
+  > = openEnums.outboundSchema(HealthCheckCollectMethodPostHealthCheckMethod);
 
 /** @internal */
 export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$inboundSchema:
@@ -8500,7 +13312,31 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$in
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8526,7 +13362,33 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$in
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8553,7 +13415,35 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$in
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8578,6 +13468,15 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
   > = openEnums.inboundSchema(
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -8598,7 +13497,50 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8621,6 +13563,15 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -8647,7 +13598,56 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8670,6 +13670,15 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -8696,7 +13705,56 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8729,7 +13787,39 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp$in
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8772,7 +13862,55 @@ export const HealthCheckCollectMethodPostDiscovery$inboundSchema: z.ZodType<
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckCollectMethodPostDiscovery$Outbound =
+  | (
+    | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodPostDiscovery$outboundSchema: z.ZodType<
+  HealthCheckCollectMethodPostDiscovery$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectMethodPostDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function healthCheckCollectMethodPostDiscoveryToJSON(
+  healthCheckCollectMethodPostDiscovery: HealthCheckCollectMethodPostDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostDiscovery$outboundSchema.parse(
+      healthCheckCollectMethodPostDiscovery,
+    ),
+  );
+}
 export function healthCheckCollectMethodPostDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectMethodPostDiscovery, SDKValidationError> {
@@ -8794,7 +13932,33 @@ export const HealthCheckCollectMethodPostCollectRequestHeader$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const HealthCheckCollectMethodPostCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckCollectMethodPostCollectRequestHeaderToJSON(
+  healthCheckCollectMethodPostCollectRequestHeader:
+    HealthCheckCollectMethodPostCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostCollectRequestHeader$outboundSchema.parse(
+      healthCheckCollectMethodPostCollectRequestHeader,
+    ),
+  );
+}
 export function healthCheckCollectMethodPostCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8815,6 +13979,10 @@ export function healthCheckCollectMethodPostCollectRequestHeaderFromJSON(
 export const HealthCheckCollectMethodPostAuthentication$inboundSchema:
   z.ZodType<HealthCheckCollectMethodPostAuthentication, z.ZodTypeDef, unknown> =
     openEnums.inboundSchema(HealthCheckCollectMethodPostAuthentication);
+/** @internal */
+export const HealthCheckCollectMethodPostAuthentication$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, HealthCheckCollectMethodPostAuthentication> =
+    openEnums.outboundSchema(HealthCheckCollectMethodPostAuthentication);
 
 /** @internal */
 export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema:
@@ -8830,7 +13998,41 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboun
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff:
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(healthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8859,7 +14061,39 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$inbound
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic:
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(healthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8884,7 +14118,31 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$inboundSc
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckCollectMethodPostHealthCheckRetryRulesTypeNone:
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckCollectMethodPostHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -8916,7 +14174,39 @@ export const HealthCheckCollectMethodPostRetryRules$inboundSchema: z.ZodType<
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckCollectMethodPostRetryRules$Outbound =
+  | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodPostRetryRules$outboundSchema: z.ZodType<
+  HealthCheckCollectMethodPostRetryRules$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectMethodPostRetryRules
+> = z.union([
+  z.lazy(() =>
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema
+  ),
+]);
+
+export function healthCheckCollectMethodPostRetryRulesToJSON(
+  healthCheckCollectMethodPostRetryRules:
+    HealthCheckCollectMethodPostRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPostRetryRules$outboundSchema.parse(
+      healthCheckCollectMethodPostRetryRules,
+    ),
+  );
+}
 export function healthCheckCollectMethodPostRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectMethodPostRetryRules, SDKValidationError> {
@@ -8988,7 +14278,107 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckCollectMethodPost$Outbound = {
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckCollectMethodPostCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  authentication: string;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
+  HealthCheckCollectMethodPost$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectMethodPost
+> = z.object({
+  collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.array(
+    ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckCollectMethodPostCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  authentication: HealthCheckCollectMethodPostAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckCollectMethodPostToJSON(
+  healthCheckCollectMethodPost: HealthCheckCollectMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodPost$outboundSchema.parse(
+      healthCheckCollectMethodPost,
+    ),
+  );
+}
 export function healthCheckCollectMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectMethodPost, SDKValidationError> {
@@ -9006,6 +14396,13 @@ export const HealthCheckCollectMethodGetHealthCheckMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(HealthCheckCollectMethodGetHealthCheckMethod);
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckMethod
+  > = openEnums.outboundSchema(HealthCheckCollectMethodGetHealthCheckMethod);
 
 /** @internal */
 export const HealthCheckCollectMethodGetCollectRequestParam$inboundSchema:
@@ -9017,7 +14414,33 @@ export const HealthCheckCollectMethodGetCollectRequestParam$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetCollectRequestParam$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const HealthCheckCollectMethodGetCollectRequestParam$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetCollectRequestParam$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetCollectRequestParam
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckCollectMethodGetCollectRequestParamToJSON(
+  healthCheckCollectMethodGetCollectRequestParam:
+    HealthCheckCollectMethodGetCollectRequestParam,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetCollectRequestParam$outboundSchema.parse(
+      healthCheckCollectMethodGetCollectRequestParam,
+    ),
+  );
+}
 export function healthCheckCollectMethodGetCollectRequestParamFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9043,7 +14466,31 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inb
   > = z.object({
     discoverType: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outbound =
+  {
+    discoverType: "none";
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNoneToJSON(
+  healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone:
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+      .parse(healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9069,7 +14516,33 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$inb
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$Outbound =
+  {
+    discoverType: "list";
+    itemList: Array<string>;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeListToJSON(
+  healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList:
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+      .parse(healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeListFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9096,7 +14569,35 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$inb
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$Outbound =
+  {
+    discoverType: "json";
+    manualDiscoverResult: string;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJsonToJSON(
+  healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson:
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+      .parse(healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJsonFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9121,6 +14622,15 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
   > = openEnums.inboundSchema(
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
   );
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
 
 /** @internal */
 export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
@@ -9141,7 +14651,50 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody?: string | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string().optional(),
+    discoverType:
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9164,6 +14717,15 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
   );
 
@@ -9190,7 +14752,56 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9213,6 +14824,15 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
   );
 
@@ -9239,7 +14859,56 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     ),
     discoverDataField: types.optional(types.string()),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
+      >
+      | undefined;
+    discoverDataField?: string | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
+    ).optional(),
+    discoverDataField: z.string().optional(),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9272,7 +14941,39 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp$inb
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]);
+
+export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpToJSON(
+  healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp:
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp$outboundSchema
+      .parse(healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9315,7 +15016,55 @@ export const HealthCheckCollectMethodGetDiscovery$inboundSchema: z.ZodType<
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckCollectMethodGetDiscovery$Outbound =
+  | (
+    | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      & { discoverType: "http" }
+  )
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$Outbound
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$Outbound
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodGetDiscovery$outboundSchema: z.ZodType<
+  HealthCheckCollectMethodGetDiscovery$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectMethodGetDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function healthCheckCollectMethodGetDiscoveryToJSON(
+  healthCheckCollectMethodGetDiscovery: HealthCheckCollectMethodGetDiscovery,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetDiscovery$outboundSchema.parse(
+      healthCheckCollectMethodGetDiscovery,
+    ),
+  );
+}
 export function healthCheckCollectMethodGetDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectMethodGetDiscovery, SDKValidationError> {
@@ -9337,7 +15086,33 @@ export const HealthCheckCollectMethodGetCollectRequestHeader$inboundSchema:
     name: types.string(),
     value: types.string(),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const HealthCheckCollectMethodGetCollectRequestHeader$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetCollectRequestHeader$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetCollectRequestHeader
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckCollectMethodGetCollectRequestHeaderToJSON(
+  healthCheckCollectMethodGetCollectRequestHeader:
+    HealthCheckCollectMethodGetCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetCollectRequestHeader$outboundSchema.parse(
+      healthCheckCollectMethodGetCollectRequestHeader,
+    ),
+  );
+}
 export function healthCheckCollectMethodGetCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9360,6 +15135,10 @@ export const HealthCheckCollectMethodGetAuthentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(HealthCheckCollectMethodGetAuthentication);
+/** @internal */
+export const HealthCheckCollectMethodGetAuthentication$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, HealthCheckCollectMethodGetAuthentication> =
+    openEnums.outboundSchema(HealthCheckCollectMethodGetAuthentication);
 
 /** @internal */
 export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema:
@@ -9375,7 +15154,41 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inbound
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound =
+  {
+    type: "backoff";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
+  > = z.object({
+    type: z.literal("backoff"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoffToJSON(
+  healthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff:
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema
+      .parse(healthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoffFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9404,7 +15217,39 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$inboundS
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound =
+  {
+    type: "static";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic
+  > = z.object({
+    type: z.literal("static"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeStaticToJSON(
+  healthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic:
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$outboundSchema
+      .parse(healthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeStaticFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9429,7 +15274,31 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$inboundSch
   > = z.object({
     type: types.literal("none"),
   });
+/** @internal */
+export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound =
+  {
+    type: "none";
+  };
 
+/** @internal */
+export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone
+  > = z.object({
+    type: z.literal("none"),
+  });
+
+export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeNoneToJSON(
+  healthCheckCollectMethodGetHealthCheckRetryRulesTypeNone:
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$outboundSchema
+      .parse(healthCheckCollectMethodGetHealthCheckRetryRulesTypeNone),
+  );
+}
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeNoneFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -9461,7 +15330,38 @@ export const HealthCheckCollectMethodGetRetryRules$inboundSchema: z.ZodType<
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
 });
+/** @internal */
+export type HealthCheckCollectMethodGetRetryRules$Outbound =
+  | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound
+  | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound
+  | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound;
 
+/** @internal */
+export const HealthCheckCollectMethodGetRetryRules$outboundSchema: z.ZodType<
+  HealthCheckCollectMethodGetRetryRules$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectMethodGetRetryRules
+> = z.union([
+  z.lazy(() =>
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$outboundSchema
+  ),
+  z.lazy(() =>
+    HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema
+  ),
+]);
+
+export function healthCheckCollectMethodGetRetryRulesToJSON(
+  healthCheckCollectMethodGetRetryRules: HealthCheckCollectMethodGetRetryRules,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetRetryRules$outboundSchema.parse(
+      healthCheckCollectMethodGetRetryRules,
+    ),
+  );
+}
 export function healthCheckCollectMethodGetRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectMethodGetRetryRules, SDKValidationError> {
@@ -9533,7 +15433,107 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
     ),
   })),
 });
+/** @internal */
+export type HealthCheckCollectMethodGet$Outbound = {
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<HealthCheckCollectMethodGetCollectRequestParam$Outbound>
+    | undefined;
+  discovery?:
+    | (
+      | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+        & { discoverType: "http" }
+    )
+    | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$Outbound
+    | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$Outbound
+    | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
+  collectUrl: string;
+  collectRequestHeaders?:
+    | Array<HealthCheckCollectMethodGetCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect?: boolean | undefined;
+  authentication: string;
+  timeout?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound
+    | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound
+    | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound
+    | undefined;
+};
 
+/** @internal */
+export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
+  HealthCheckCollectMethodGet$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectMethodGet
+> = z.object({
+  collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.array(
+    z.lazy(() => HealthCheckCollectMethodGetCollectRequestParam$outboundSchema),
+  ).optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
+  collectUrl: z.string(),
+  collectRequestHeaders: z.array(
+    z.lazy(() =>
+      HealthCheckCollectMethodGetCollectRequestHeader$outboundSchema
+    ),
+  ).optional(),
+  authenticateCollect: z.boolean().optional(),
+  authentication: HealthCheckCollectMethodGetAuthentication$outboundSchema,
+  timeout: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  defaultBreakers:
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$outboundSchema
+    ),
+    z.lazy(() =>
+      HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema
+    ),
+  ]).optional(),
+});
+
+export function healthCheckCollectMethodGetToJSON(
+  healthCheckCollectMethodGet: HealthCheckCollectMethodGet,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGet$outboundSchema.parse(
+      healthCheckCollectMethodGet,
+    ),
+  );
+}
 export function healthCheckCollectMethodGetFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectMethodGet, SDKValidationError> {
@@ -9558,7 +15558,38 @@ export const HealthCheckCollectorConf$inboundSchema: z.ZodType<
   oauth: z.lazy(() => HealthCheckAuthenticationOauth$inboundSchema),
   oauthSecret: z.lazy(() => HealthCheckAuthenticationOauthSecret$inboundSchema),
 });
+/** @internal */
+export type HealthCheckCollectorConf$Outbound =
+  | HealthCheckAuthenticationNone$Outbound
+  | HealthCheckAuthenticationBasic$Outbound
+  | HealthCheckAuthenticationBasicSecret$Outbound
+  | HealthCheckAuthenticationLogin$Outbound
+  | HealthCheckAuthenticationLoginSecret$Outbound
+  | HealthCheckAuthenticationOauth$Outbound
+  | HealthCheckAuthenticationOauthSecret$Outbound;
 
+/** @internal */
+export const HealthCheckCollectorConf$outboundSchema: z.ZodType<
+  HealthCheckCollectorConf$Outbound,
+  z.ZodTypeDef,
+  HealthCheckCollectorConf
+> = z.union([
+  z.lazy(() => HealthCheckAuthenticationNone$outboundSchema),
+  z.lazy(() => HealthCheckAuthenticationBasic$outboundSchema),
+  z.lazy(() => HealthCheckAuthenticationBasicSecret$outboundSchema),
+  z.lazy(() => HealthCheckAuthenticationLogin$outboundSchema),
+  z.lazy(() => HealthCheckAuthenticationLoginSecret$outboundSchema),
+  z.lazy(() => HealthCheckAuthenticationOauth$outboundSchema),
+  z.lazy(() => HealthCheckAuthenticationOauthSecret$outboundSchema),
+]);
+
+export function healthCheckCollectorConfToJSON(
+  healthCheckCollectorConf: HealthCheckCollectorConf,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectorConf$outboundSchema.parse(healthCheckCollectorConf),
+  );
+}
 export function healthCheckCollectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthCheckCollectorConf, SDKValidationError> {
