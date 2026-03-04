@@ -7,14 +7,15 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { MetadataItem, MetadataItem$inboundSchema } from "./metadataitem.js";
 import {
   NotificationMode,
   NotificationMode$inboundSchema,
 } from "./notificationmode.js";
 import {
-  NotificationTargetConfigUnion,
-  NotificationTargetConfigUnion$inboundSchema,
-} from "./notificationtargetconfigunion.js";
+  NotificationTargetConfig,
+  NotificationTargetConfig$inboundSchema,
+} from "./notificationtargetconfig.js";
 import {
   NotificationTargetDetails,
   NotificationTargetDetails$inboundSchema,
@@ -52,12 +53,15 @@ export type Notification = {
   /**
    * Metadata fields.
    */
-  metadata?: Array<any> | undefined;
+  metadata?: Array<MetadataItem> | undefined;
   mode?: NotificationMode | undefined;
   /**
    * Target configuration.
    */
-  targetConfigs?: Array<NotificationTargetConfigUnion> | undefined;
+  targetConfigs?: Array<NotificationTargetConfig> | undefined;
+  /**
+   * Target details.
+   */
   targetDetails?: Array<NotificationTargetDetails> | undefined;
   /**
    * Notification targets.
@@ -100,10 +104,10 @@ export const Notification$inboundSchema: z.ZodType<
   disabled: types.optional(types.boolean()),
   group: types.optional(types.string()),
   id: types.string(),
-  metadata: types.optional(z.array(z.any())),
+  metadata: types.optional(z.array(MetadataItem$inboundSchema)),
   mode: types.optional(NotificationMode$inboundSchema),
   targetConfigs: types.optional(
-    z.array(NotificationTargetConfigUnion$inboundSchema),
+    z.array(NotificationTargetConfig$inboundSchema),
   ),
   targetDetails: types.optional(
     z.array(NotificationTargetDetails$inboundSchema),

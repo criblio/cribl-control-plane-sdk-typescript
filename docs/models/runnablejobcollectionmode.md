@@ -8,11 +8,11 @@ Job run mode. Preview will either return up to N matching results, or will run u
 import { RunnableJobCollectionMode } from "cribl-control-plane/models";
 
 let value: RunnableJobCollectionMode = "preview";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "list" | "preview" | "run" | Unrecognized<string>

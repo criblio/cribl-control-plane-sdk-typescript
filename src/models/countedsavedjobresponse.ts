@@ -7,32 +7,35 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { SavedJob, SavedJob$inboundSchema } from "./savedjob.js";
+import {
+  SavedJobResponse,
+  SavedJobResponse$inboundSchema,
+} from "./savedjobresponse.js";
 
-export type CountedSavedJob = {
+export type CountedSavedJobResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<SavedJob> | undefined;
+  items?: Array<SavedJobResponse> | undefined;
 };
 
 /** @internal */
-export const CountedSavedJob$inboundSchema: z.ZodType<
-  CountedSavedJob,
+export const CountedSavedJobResponse$inboundSchema: z.ZodType<
+  CountedSavedJobResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   count: types.optional(types.number()),
-  items: types.optional(z.array(SavedJob$inboundSchema)),
+  items: types.optional(z.array(SavedJobResponse$inboundSchema)),
 });
 
-export function countedSavedJobFromJSON(
+export function countedSavedJobResponseFromJSON(
   jsonString: string,
-): SafeParseResult<CountedSavedJob, SDKValidationError> {
+): SafeParseResult<CountedSavedJobResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CountedSavedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CountedSavedJob' from JSON`,
+    (x) => CountedSavedJobResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CountedSavedJobResponse' from JSON`,
   );
 }

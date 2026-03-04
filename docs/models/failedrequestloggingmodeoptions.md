@@ -8,11 +8,11 @@ Data to log when a request fails. All headers are redacted by default, unless li
 import { FailedRequestLoggingModeOptions } from "cribl-control-plane/models";
 
 let value: FailedRequestLoggingModeOptions = "none";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "payload" | "payloadAndHeaders" | "none" | Unrecognized<string>

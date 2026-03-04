@@ -12,8 +12,8 @@ let value: EmailRecipient = {
 
 ## Fields
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `to`                             | *string*                         | :heavy_check_mark:               | Recipients' email addresses      |
-| `cc`                             | *string*                         | :heavy_minus_sign:               | Cc: Recipients' email addresses  |
-| `bcc`                            | *string*                         | :heavy_minus_sign:               | Bcc: Recipients' email addresses |
+| Field                      | Type                       | Required                   | Description                |
+| -------------------------- | -------------------------- | -------------------------- | -------------------------- |
+| `bcc`                      | *string*                   | :heavy_minus_sign:         | Bcc email addresses.       |
+| `cc`                       | *string*                   | :heavy_minus_sign:         | Cc email addresses.        |
+| `to`                       | *string*                   | :heavy_check_mark:         | Recipient email addresses. |

@@ -8,11 +8,11 @@ The content type to use when sending logs
 import { CreateOutputSystemByPackSendLogsAs } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputSystemByPackSendLogsAs = "text";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "text" | "json" | Unrecognized<string>

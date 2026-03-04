@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type NotificationTargetDetails = {
+  /**
+   * ID of the notification target.
+   */
   id: string;
+  /**
+   * Target type.
+   */
   type: string;
 };
 

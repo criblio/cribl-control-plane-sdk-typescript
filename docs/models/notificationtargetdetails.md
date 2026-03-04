@@ -7,13 +7,13 @@ import { NotificationTargetDetails } from "cribl-control-plane/models";
 
 let value: NotificationTargetDetails = {
   id: "<id>",
-  type: "<value>",
+  type: "smtp",
 };
 ```
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *string*           | :heavy_check_mark: | N/A                |
-| `type`             | *string*           | :heavy_check_mark: | N/A                |
+| Field                          | Type                           | Required                       | Description                    | Example                        |
+| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
+| `id`                           | *string*                       | :heavy_check_mark:             | ID of the notification target. |                                |
+| `type`                         | *string*                       | :heavy_check_mark:             | Target type.                   | smtp                           |

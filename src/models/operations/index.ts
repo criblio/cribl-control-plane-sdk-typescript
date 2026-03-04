@@ -18,7 +18,6 @@ export * from "./createoutputtestbyid.js";
 export * from "./createpipelinesbypack.js";
 export * from "./createroutesappendbyid.js";
 export * from "./createroutesappendbypackandid.js";
-export * from "./createsavedjob.js";
 export * from "./deleteconfiggroupbyproductandid.js";
 export * from "./deletecribllakedatasetbylakeidandid.js";
 export * from "./deletedatabaseconnectionconfigbyid.js";

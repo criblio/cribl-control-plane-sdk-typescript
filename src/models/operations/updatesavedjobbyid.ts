@@ -12,20 +12,15 @@ export type UpdateSavedJobByIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack that includes the Collector to update.
+   * SavedJobRequest object
    */
-  criblPack?: string | undefined;
-  /**
-   * SavedJobCreateUpdate object
-   */
-  savedJobCreateUpdate: models.SavedJobCreateUpdate;
+  savedJobRequest: models.SavedJobRequest;
 };
 
 /** @internal */
 export type UpdateSavedJobByIdRequest$Outbound = {
   id: string;
-  criblPack?: string | undefined;
-  SavedJobCreateUpdate: models.SavedJobCreateUpdate$Outbound;
+  SavedJobRequest: models.SavedJobRequest$Outbound;
 };
 
 /** @internal */
@@ -35,11 +30,10 @@ export const UpdateSavedJobByIdRequest$outboundSchema: z.ZodType<
   UpdateSavedJobByIdRequest
 > = z.object({
   id: z.string(),
-  criblPack: z.string().optional(),
-  savedJobCreateUpdate: models.SavedJobCreateUpdate$outboundSchema,
+  savedJobRequest: models.SavedJobRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    savedJobCreateUpdate: "SavedJobCreateUpdate",
+    savedJobRequest: "SavedJobRequest",
   });
 });
 

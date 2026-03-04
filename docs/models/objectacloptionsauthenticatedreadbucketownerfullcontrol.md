@@ -9,11 +9,11 @@ import { ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol } from "cribl-c
 
 let value: ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol =
   "project-private";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "private" | "bucket-owner-read" | "bucket-owner-full-control" | "project-private" | "authenticated-read" | "public-read" | Unrecognized<string>

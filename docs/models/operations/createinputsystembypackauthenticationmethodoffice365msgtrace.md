@@ -9,11 +9,11 @@ import { CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace } from "cr
 
 let value: CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace =
   "oauth";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "manual" | "secret" | "oauth" | "oauthSecret" | "oauthCert" | Unrecognized<string>

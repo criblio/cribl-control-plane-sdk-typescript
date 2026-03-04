@@ -41,7 +41,7 @@ export type ScheduleOpts = {
    */
   skippable?: boolean | undefined;
   /**
-   * IANA timezone for the cron schedule (e.g., America/New_York, UTC).
+   * IANA timezone for the cron schedule.
    */
   tz?: string | undefined;
 };

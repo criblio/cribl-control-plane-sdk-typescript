@@ -8,11 +8,11 @@ The highest S2S protocol version to advertise during handshake
 import { CreateInputMaxS2SVersion } from "cribl-control-plane/models/operations";
 
 let value: CreateInputMaxS2SVersion = "v3";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "v3" | "v4" | Unrecognized<string>

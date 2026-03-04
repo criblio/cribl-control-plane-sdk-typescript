@@ -8,11 +8,11 @@ The load-balancing algorithm to use for spreading out shards across Workers and 
 import { CreateInputShardLoadBalancing } from "cribl-control-plane/models/operations";
 
 let value: CreateInputShardLoadBalancing = "ConsistentHashing";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "ConsistentHashing" | "RoundRobin" | Unrecognized<string>

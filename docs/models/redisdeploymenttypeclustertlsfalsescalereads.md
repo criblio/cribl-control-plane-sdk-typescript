@@ -8,11 +8,11 @@ Which nodes read commands should be sent to
 import { RedisDeploymentTypeClusterTlsFalseScaleReads } from "cribl-control-plane/models";
 
 let value: RedisDeploymentTypeClusterTlsFalseScaleReads = "master";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "master" | "replica" | "all" | Unrecognized<string>
