@@ -30,10 +30,10 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  SignatureVersionOptions2,
-  SignatureVersionOptions2$inboundSchema,
-  SignatureVersionOptions2$outboundSchema,
-} from "./signatureversionoptions2.js";
+  SignatureVersionOptionsKinesis,
+  SignatureVersionOptionsKinesis$inboundSchema,
+  SignatureVersionOptionsKinesis$outboundSchema,
+} from "./signatureversionoptionskinesis.js";
 
 /**
  * Compression type to use for records
@@ -99,7 +99,7 @@ export type OutputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: SignatureVersionOptions2 | undefined;
+  signatureVersion?: SignatureVersionOptionsKinesis | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -296,7 +296,9 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.string(),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions2$inboundSchema),
+  signatureVersion: types.optional(
+    SignatureVersionOptionsKinesis$inboundSchema,
+  ),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -403,7 +405,7 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsKinesis$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),

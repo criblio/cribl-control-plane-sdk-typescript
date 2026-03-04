@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationTypeOptionsPrometheusAuth1,
-  AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
-  AuthenticationTypeOptionsPrometheusAuth1$outboundSchema,
-} from "./authenticationtypeoptionsprometheusauth1.js";
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret,
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema,
+} from "./authenticationtypeoptionsprometheusauthbasiccredentialssecret.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -107,7 +107,9 @@ export type OutputLoki = {
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
   labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
-  authType?: AuthenticationTypeOptionsPrometheusAuth1 | undefined;
+  authType?:
+    | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
+    | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
    */
@@ -297,7 +299,7 @@ export const OutputLoki$inboundSchema: z.ZodType<
     z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
   ),
   authType: types.optional(
-    AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
+    AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
   ),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
@@ -410,7 +412,9 @@ export const OutputLoki$outboundSchema: z.ZodType<
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
   labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
     .optional(),
-  authType: AuthenticationTypeOptionsPrometheusAuth1$outboundSchema.optional(),
+  authType:
+    AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
+      .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),

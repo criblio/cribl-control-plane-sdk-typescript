@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
+  AuthenticationMethodOptionsApi,
+  AuthenticationMethodOptionsApi$inboundSchema,
+  AuthenticationMethodOptionsApi$outboundSchema,
+} from "./authenticationmethodoptionsapi.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -161,7 +161,7 @@ export type OutputNewrelicEvents = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOptionsApi | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -306,7 +306,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions2$inboundSchema),
+  authType: types.optional(AuthenticationMethodOptionsApi$inboundSchema),
   description: types.optional(types.string()),
   customUrl: types.optional(types.string()),
   pqStrictOrdering: types.optional(types.boolean()),
@@ -414,7 +414,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: AuthenticationMethodOptionsApi$outboundSchema.optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),

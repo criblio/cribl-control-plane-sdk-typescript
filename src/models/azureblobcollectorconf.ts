@@ -93,6 +93,14 @@ export type AzureBlobAuthTypeClientCert = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobAuthTypeClientSecretExtractor = {
@@ -175,6 +183,14 @@ export type AzureBlobAuthTypeClientSecret = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobAuthTypeSecretExtractor = {
@@ -237,6 +253,14 @@ export type AzureBlobAuthTypeSecret = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobAuthTypeManualExtractor = {
@@ -299,6 +323,14 @@ export type AzureBlobAuthTypeManual = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobCollectorConf =
@@ -378,6 +410,8 @@ export const AzureBlobAuthTypeClientCert$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeClientCert$Outbound = {
@@ -398,6 +432,8 @@ export type AzureBlobAuthTypeClientCert$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -425,6 +461,8 @@ export const AzureBlobAuthTypeClientCert$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeClientCertToJSON(
@@ -517,6 +555,8 @@ export const AzureBlobAuthTypeClientSecret$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeClientSecret$Outbound = {
@@ -539,6 +579,8 @@ export type AzureBlobAuthTypeClientSecret$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -566,6 +608,8 @@ export const AzureBlobAuthTypeClientSecret$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeClientSecretToJSON(
@@ -651,6 +695,8 @@ export const AzureBlobAuthTypeSecret$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeSecret$Outbound = {
@@ -666,6 +712,8 @@ export type AzureBlobAuthTypeSecret$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -688,6 +736,8 @@ export const AzureBlobAuthTypeSecret$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeSecretToJSON(
@@ -771,6 +821,8 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeManual$Outbound = {
@@ -786,6 +838,8 @@ export type AzureBlobAuthTypeManual$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -808,6 +862,8 @@ export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeManualToJSON(

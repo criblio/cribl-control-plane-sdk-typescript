@@ -1,5 +1,7 @@
 # AuthType
 
+Credentials to use when authenticating with the schema registry using basic HTTP authentication
+
 ## Example Usage
 
 ```typescript
@@ -12,12 +14,7 @@ let value: AuthType = {
 
 ## Fields
 
-| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `disabled`                                                                             | *boolean*                                                                              | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `username`                                                                             | *string*                                                                               | :heavy_minus_sign:                                                                     | N/A                                                                                    |
-| `password`                                                                             | *string*                                                                               | :heavy_minus_sign:                                                                     | N/A                                                                                    |
-| `authType`                                                                             | [models.AuthenticationMethodOptionsAuth](../models/authenticationmethodoptionsauth.md) | :heavy_minus_sign:                                                                     | Enter credentials directly, or select a stored secret                                  |
-| `credentialsSecret`                                                                    | *string*                                                                               | :heavy_minus_sign:                                                                     | Select or create a secret that references your credentials                             |
-| `manualAPIKey`                                                                         | *string*                                                                               | :heavy_minus_sign:                                                                     | Enter API key directly                                                                 |
-| `textSecret`                                                                           | *string*                                                                               | :heavy_minus_sign:                                                                     | Select or create a stored text secret                                                  |
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `disabled`                                                 | *boolean*                                                  | :heavy_check_mark:                                         | N/A                                                        |
+| `credentialsSecret`                                        | *string*                                                   | :heavy_minus_sign:                                         | Select or create a secret that references your credentials |

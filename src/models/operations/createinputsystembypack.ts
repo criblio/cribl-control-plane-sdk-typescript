@@ -80,12 +80,8 @@ export type CreateInputSystemByPackTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  minVersion?:
-    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
-  maxVersion?:
-    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
+  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
 };
 
 export type CreateInputSystemByPackInputCloudflareHec = {
@@ -1097,7 +1093,7 @@ export type CreateInputSystemByPackInputWiz = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -1442,12 +1438,8 @@ export type CreateInputSystemByPackMTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?:
-    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
-  maxVersion?:
-    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
+  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -2430,7 +2422,7 @@ export type CreateInputSystemByPackInputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: models.SignatureVersionOptions3 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsSqs | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -3513,7 +3505,7 @@ export type CreateInputSystemByPackInputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsKinesis | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -5984,7 +5976,7 @@ export type CreateInputSystemByPackInputEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: models.AuthenticationType1 | undefined;
+  sasl?: models.AuthenticationTypeUse | undefined;
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
    *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
@@ -6192,7 +6184,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -6344,11 +6336,11 @@ export type CreateInputSystemByPackInputOffice365Service = {
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Service>
     | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -6475,11 +6467,11 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -6693,7 +6685,7 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptions1 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -6964,7 +6956,7 @@ export type CreateInputSystemByPackInputPrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptions1 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -7629,7 +7621,7 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
    */
@@ -8916,7 +8908,7 @@ export type CreateInputSystemByPackInputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
    */
@@ -9052,7 +9044,7 @@ export type CreateInputSystemByPackInputKafka = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: models.AuthenticationType | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -9389,10 +9381,8 @@ export const CreateInputSystemByPackTLSSettingsServerSide$outboundSchema:
     passphrase: z.string().optional(),
     certPath: z.string().optional(),
     caPath: z.string().optional(),
-    minVersion: models
-      .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
-    maxVersion: models
-      .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+    minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+    maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
   });
 
 export function createInputSystemByPackTLSSettingsServerSideToJSON(
@@ -10263,7 +10253,8 @@ export const CreateInputSystemByPackInputWiz$outboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
+    .optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -10561,10 +10552,8 @@ export const CreateInputSystemByPackMTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().optional(),
-  minVersion: models
-    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
-  maxVersion: models
-    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
   ocspCheck: z.boolean().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
@@ -11432,7 +11421,7 @@ export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions3$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsSqs$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -12257,7 +12246,8 @@ export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsKinesis$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -14892,7 +14882,7 @@ export type CreateInputSystemByPackInputEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: models.AuthenticationType1$Outbound | undefined;
+  sasl?: models.AuthenticationTypeUse$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
@@ -14936,7 +14926,7 @@ export const CreateInputSystemByPackInputEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: models.AuthenticationType1$outboundSchema.optional(),
+  sasl: models.AuthenticationTypeUse$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
@@ -15039,7 +15029,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -15094,7 +15084,8 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     ttl: z.string().optional(),
     ignoreGroupJobsLimit: z.boolean().optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
-    retryRules: models.RetryRulesType1$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -15184,7 +15175,7 @@ export type CreateInputSystemByPackInputOffice365Service$Outbound = {
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Service$Outbound>
     | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -15227,8 +15218,10 @@ export const CreateInputSystemByPackInputOffice365Service$outboundSchema:
         CreateInputSystemByPackContentConfigOffice365Service$outboundSchema
       ),
     ).optional(),
-    retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
+    authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
+      .optional(),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -15310,7 +15303,7 @@ export type CreateInputSystemByPackInputOffice365Mgmt$Outbound = {
     | Array<CreateInputSystemByPackContentConfigOffice365Mgmt$Outbound>
     | undefined;
   ingestionLag?: number | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -15356,8 +15349,10 @@ export const CreateInputSystemByPackInputOffice365Mgmt$outboundSchema:
       ),
     ).optional(),
     ingestionLag: z.number().optional(),
-    retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
+    authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
+      .optional(),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -15555,7 +15550,8 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
+    signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
+      .optional(),
     reuseConnections: z.boolean().optional(),
     rejectUnauthorized: z.boolean().optional(),
     enableAssumeRole: z.boolean().optional(),
@@ -15713,7 +15709,8 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
@@ -16304,9 +16301,7 @@ export type CreateInputSystemByPackInputConfluentCloud$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   brokers: Array<string>;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   topics: Array<string>;
   groupId?: string | undefined;
   fromBeginning?: boolean | undefined;
@@ -16353,7 +16348,7 @@ export const CreateInputSystemByPackInputConfluentCloud$outboundSchema:
       .optional(),
     pq: models.PqType$outboundSchema.optional(),
     brokers: z.array(z.string()),
-    tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema
       .optional(),
     topics: z.array(z.string()),
     groupId: z.string().optional(),
@@ -17261,9 +17256,7 @@ export type CreateInputSystemByPackInputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
   maxBytesPerPartition?: number | undefined;
@@ -17325,8 +17318,7 @@ export const CreateInputSystemByPackInputMsk$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
   maxBytesPerPartition: z.number().optional(),
@@ -17380,9 +17372,7 @@ export type CreateInputSystemByPackInputKafka$Outbound = {
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
   sasl?: models.AuthenticationType$Outbound | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
@@ -17427,8 +17417,7 @@ export const CreateInputSystemByPackInputKafka$outboundSchema: z.ZodType<
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
   sasl: models.AuthenticationType$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),

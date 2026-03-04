@@ -19,10 +19,10 @@ import {
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$inboundSchema,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -280,7 +280,7 @@ export type OutputAzureDataExplorer = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress: CompressionOptions2;
+  compress: CompressionOptionsHttp;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -847,7 +847,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   textSecret: types.optional(types.string()),
   certificate: types.optional(z.lazy(() => Certificate$inboundSchema)),
   format: types.optional(DataFormatOptions$inboundSchema),
-  compress: CompressionOptions2$inboundSchema,
+  compress: CompressionOptionsHttp$inboundSchema,
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
   automaticSchema: types.optional(types.boolean()),
   parquetSchema: types.optional(types.string()),
@@ -1061,7 +1061,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   certificate: z.lazy(() => Certificate$outboundSchema).optional(),
   format: DataFormatOptions$outboundSchema.optional(),
-  compress: CompressionOptions2$outboundSchema,
+  compress: CompressionOptionsHttp$outboundSchema,
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
