@@ -8,11 +8,11 @@ Target discovery mechanism. Use static to manually enter a list of targets.
 import { CreateInputDiscoveryTypeEdgePrometheus } from "cribl-control-plane/models/operations";
 
 let value: CreateInputDiscoveryTypeEdgePrometheus = "dns";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "static" | "dns" | "ec2" | "k8s-node" | "k8s-pods" | Unrecognized<string>

@@ -8,11 +8,11 @@ Enter password directly, or select a stored secret
 import { AuthenticationMethodOptionsSaslManualSecret } from "cribl-control-plane/models";
 
 let value: AuthenticationMethodOptionsSaslManualSecret = "secret";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "manual" | "secret" | Unrecognized<string>

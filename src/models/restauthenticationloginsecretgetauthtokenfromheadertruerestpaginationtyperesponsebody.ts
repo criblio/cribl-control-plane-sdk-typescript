@@ -151,6 +151,10 @@ export type RestAuthenticationGoogleOauth = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationGoogleOauthScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone = {
@@ -1200,6 +1204,10 @@ export type RestAuthenticationOauthSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationOauthSecretScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeNone = {
@@ -2247,6 +2255,10 @@ export type RestAuthenticationOauth = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationOauthScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -3337,6 +3349,7 @@ export const RestAuthenticationGoogleOauth$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationGoogleOauthScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationGoogleOauth$Outbound = {
@@ -3373,6 +3386,7 @@ export type RestAuthenticationGoogleOauth$Outbound = {
     })
     | undefined;
   __scheduling?: RestAuthenticationGoogleOauthScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -3416,6 +3430,7 @@ export const RestAuthenticationGoogleOauth$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestAuthenticationGoogleOauthScheduling$outboundSchema
   ).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationGoogleOauthToJSON(
@@ -6369,6 +6384,7 @@ export const RestAuthenticationOauthSecret$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationOauthSecretScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationOauthSecret$Outbound = {
@@ -6432,6 +6448,7 @@ export type RestAuthenticationOauthSecret$Outbound = {
     )
     | undefined;
   __scheduling?: RestAuthenticationOauthSecretScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -6535,6 +6552,7 @@ export const RestAuthenticationOauthSecret$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestAuthenticationOauthSecretScheduling$outboundSchema
   ).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationOauthSecretToJSON(
@@ -9457,6 +9475,7 @@ export const RestAuthenticationOauth$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationOauthScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationOauth$Outbound = {
@@ -9520,6 +9539,7 @@ export type RestAuthenticationOauth$Outbound = {
     )
     | undefined;
   __scheduling?: RestAuthenticationOauthScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -9618,6 +9638,7 @@ export const RestAuthenticationOauth$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestAuthenticationOauthScheduling$outboundSchema)
     .optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationOauthToJSON(

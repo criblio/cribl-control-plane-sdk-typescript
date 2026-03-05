@@ -573,6 +573,10 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse = {
   __scheduling?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationLogin =
@@ -1597,6 +1601,10 @@ export type RestAuthenticationBasicSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone = {
@@ -2613,6 +2621,10 @@ export type RestAuthenticationBasic = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationBasicScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeNone = {
@@ -4529,6 +4541,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$inboundSchema:
         RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$inboundSchema
       ),
     ),
+    __template_collectUrl: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound = {
@@ -4593,6 +4606,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalse$Outbound = {
   __scheduling?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -4684,6 +4698,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalse$outboundSchema:
     __scheduling: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling$outboundSchema
     ).optional(),
+    __template_collectUrl: z.string().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderFalseToJSON(
@@ -7678,6 +7693,7 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationBasicSecretScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationBasicSecret$Outbound = {
@@ -7730,6 +7746,7 @@ export type RestAuthenticationBasicSecret$Outbound = {
     )
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -7822,6 +7839,7 @@ export const RestAuthenticationBasicSecret$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestAuthenticationBasicSecretScheduling$outboundSchema
   ).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationBasicSecretToJSON(
@@ -10734,6 +10752,7 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationBasicScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationBasic$Outbound = {
@@ -10787,6 +10806,7 @@ export type RestAuthenticationBasic$Outbound = {
     )
     | undefined;
   __scheduling?: RestAuthenticationBasicScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -10875,6 +10895,7 @@ export const RestAuthenticationBasic$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestAuthenticationBasicScheduling$outboundSchema)
     .optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationBasicToJSON(

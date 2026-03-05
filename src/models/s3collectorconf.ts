@@ -135,6 +135,30 @@ export type S3AwsAuthenticationMethodSecret = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+   */
+  __template_awsAuthenticationMethod?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -259,6 +283,30 @@ export type S3AwsAuthenticationMethodManual = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+   */
+  __template_awsAuthenticationMethod?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -375,6 +423,30 @@ export type S3AwsAuthenticationMethodAuto = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+   */
+  __template_awsAuthenticationMethod?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -493,6 +565,30 @@ export type S3PartitioningSchemeNone = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+   */
+  __template_awsAuthenticationMethod?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -607,6 +703,30 @@ export type S3PartitioningSchemeDdss = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
+   */
+  __template_awsAuthenticationMethod?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 export type S3CollectorConf =
@@ -720,6 +840,12 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_awsAuthenticationMethod: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodSecret$Outbound = {
@@ -746,6 +872,12 @@ export type S3AwsAuthenticationMethodSecret$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsAuthenticationMethod?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -779,6 +911,12 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsAuthenticationMethod: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodSecretToJSON(
@@ -906,6 +1044,12 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_awsAuthenticationMethod: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodManual$Outbound = {
@@ -933,6 +1077,12 @@ export type S3AwsAuthenticationMethodManual$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsAuthenticationMethod?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -967,6 +1117,12 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsAuthenticationMethod: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodManualToJSON(
@@ -1081,6 +1237,12 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_awsAuthenticationMethod: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodAuto$Outbound = {
@@ -1106,6 +1268,12 @@ export type S3AwsAuthenticationMethodAuto$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsAuthenticationMethod?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -1138,6 +1306,12 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsAuthenticationMethod: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodAutoToJSON(
@@ -1245,6 +1419,12 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_awsAuthenticationMethod: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3PartitioningSchemeNone$Outbound = {
@@ -1269,6 +1449,12 @@ export type S3PartitioningSchemeNone$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsAuthenticationMethod?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -1302,6 +1488,12 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsAuthenticationMethod: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3PartitioningSchemeNoneToJSON(
@@ -1406,6 +1598,12 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_awsAuthenticationMethod: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3PartitioningSchemeDdss$Outbound = {
@@ -1429,6 +1627,12 @@ export type S3PartitioningSchemeDdss$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsAuthenticationMethod?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -1461,6 +1665,12 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsAuthenticationMethod: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3PartitioningSchemeDdssToJSON(

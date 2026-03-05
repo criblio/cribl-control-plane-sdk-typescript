@@ -888,6 +888,10 @@ export type RestCollectMethodPost = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodPostScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export const RestCollectMethodGetCollectMethod = {
@@ -1926,6 +1930,10 @@ export type RestCollectMethodGet = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodGetScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestCollectorConf =
@@ -4113,6 +4121,7 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodPostScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodPost$Outbound = {
@@ -4167,6 +4176,7 @@ export type RestCollectMethodPost$Outbound = {
     )
     | undefined;
   __scheduling?: RestCollectMethodPostScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -4244,6 +4254,7 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestCollectMethodPostScheduling$outboundSchema)
     .optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodPostToJSON(
@@ -7160,6 +7171,7 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodGetScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodGet$Outbound = {
@@ -7214,6 +7226,7 @@ export type RestCollectMethodGet$Outbound = {
     )
     | undefined;
   __scheduling?: RestCollectMethodGetScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -7303,6 +7316,7 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestCollectMethodGetScheduling$outboundSchema)
     .optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodGetToJSON(
