@@ -8,11 +8,11 @@ Extract creates new fields. Reserialize extracts and filters fields, and then re
 import { SerdeTypeDelimOperationMode } from "cribl-control-plane/models";
 
 let value: SerdeTypeDelimOperationMode = "reserialize";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "extract" | "reserialize" | Unrecognized<string>

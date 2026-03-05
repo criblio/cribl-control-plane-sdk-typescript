@@ -181,6 +181,30 @@ export type SplunkAuthenticationTokenSecret = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+   */
+  __template_outputMode?: string | undefined;
 };
 
 export type SplunkAuthenticationTokenCollectRequestParam = {
@@ -346,6 +370,30 @@ export type SplunkAuthenticationToken = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+   */
+  __template_outputMode?: string | undefined;
 };
 
 export type SplunkAuthenticationBasicSecretCollectRequestParam = {
@@ -514,6 +562,30 @@ export type SplunkAuthenticationBasicSecret = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+   */
+  __template_outputMode?: string | undefined;
 };
 
 export type SplunkAuthenticationBasicCollectRequestParam = {
@@ -686,6 +758,30 @@ export type SplunkAuthenticationBasic = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+   */
+  __template_outputMode?: string | undefined;
 };
 
 export type SplunkAuthenticationNoneCollectRequestParam = {
@@ -850,6 +946,30 @@ export type SplunkAuthenticationNone = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'outputMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'outputMode' at runtime.
+   */
+  __template_outputMode?: string | undefined;
 };
 
 export type SplunkCollectorConf =
@@ -1257,6 +1377,12 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_searchHead: types.optional(types.string()),
+  __template_search: types.optional(types.string()),
+  __template_earliest: types.optional(types.string()),
+  __template_latest: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_outputMode: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationTokenSecret$Outbound = {
@@ -1284,6 +1410,12 @@ export type SplunkAuthenticationTokenSecret$Outbound = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_searchHead?: string | undefined;
+  __template_search?: string | undefined;
+  __template_earliest?: string | undefined;
+  __template_latest?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_outputMode?: string | undefined;
 };
 
 /** @internal */
@@ -1326,6 +1458,12 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_searchHead: z.string().optional(),
+  __template_search: z.string().optional(),
+  __template_earliest: z.string().optional(),
+  __template_latest: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_outputMode: z.string().optional(),
 });
 
 export function splunkAuthenticationTokenSecretToJSON(
@@ -1741,6 +1879,12 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_searchHead: types.optional(types.string()),
+  __template_search: types.optional(types.string()),
+  __template_earliest: types.optional(types.string()),
+  __template_latest: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_outputMode: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationToken$Outbound = {
@@ -1768,6 +1912,12 @@ export type SplunkAuthenticationToken$Outbound = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_searchHead?: string | undefined;
+  __template_search?: string | undefined;
+  __template_earliest?: string | undefined;
+  __template_latest?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_outputMode?: string | undefined;
 };
 
 /** @internal */
@@ -1806,6 +1956,12 @@ export const SplunkAuthenticationToken$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_searchHead: z.string().optional(),
+  __template_search: z.string().optional(),
+  __template_earliest: z.string().optional(),
+  __template_latest: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_outputMode: z.string().optional(),
 });
 
 export function splunkAuthenticationTokenToJSON(
@@ -2222,6 +2378,12 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_searchHead: types.optional(types.string()),
+  __template_search: types.optional(types.string()),
+  __template_earliest: types.optional(types.string()),
+  __template_latest: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_outputMode: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationBasicSecret$Outbound = {
@@ -2249,6 +2411,12 @@ export type SplunkAuthenticationBasicSecret$Outbound = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_searchHead?: string | undefined;
+  __template_search?: string | undefined;
+  __template_earliest?: string | undefined;
+  __template_latest?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_outputMode?: string | undefined;
 };
 
 /** @internal */
@@ -2291,6 +2459,12 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_searchHead: z.string().optional(),
+  __template_search: z.string().optional(),
+  __template_earliest: z.string().optional(),
+  __template_latest: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_outputMode: z.string().optional(),
 });
 
 export function splunkAuthenticationBasicSecretToJSON(
@@ -2707,6 +2881,12 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_searchHead: types.optional(types.string()),
+  __template_search: types.optional(types.string()),
+  __template_earliest: types.optional(types.string()),
+  __template_latest: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_outputMode: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationBasic$Outbound = {
@@ -2735,6 +2915,12 @@ export type SplunkAuthenticationBasic$Outbound = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_searchHead?: string | undefined;
+  __template_search?: string | undefined;
+  __template_earliest?: string | undefined;
+  __template_latest?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_outputMode?: string | undefined;
 };
 
 /** @internal */
@@ -2774,6 +2960,12 @@ export const SplunkAuthenticationBasic$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_searchHead: z.string().optional(),
+  __template_search: z.string().optional(),
+  __template_earliest: z.string().optional(),
+  __template_latest: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_outputMode: z.string().optional(),
 });
 
 export function splunkAuthenticationBasicToJSON(
@@ -3184,6 +3376,12 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_searchHead: types.optional(types.string()),
+  __template_search: types.optional(types.string()),
+  __template_earliest: types.optional(types.string()),
+  __template_latest: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_outputMode: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationNone$Outbound = {
@@ -3210,6 +3408,12 @@ export type SplunkAuthenticationNone$Outbound = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_searchHead?: string | undefined;
+  __template_search?: string | undefined;
+  __template_earliest?: string | undefined;
+  __template_latest?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_outputMode?: string | undefined;
 };
 
 /** @internal */
@@ -3247,6 +3451,12 @@ export const SplunkAuthenticationNone$outboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_searchHead: z.string().optional(),
+  __template_search: z.string().optional(),
+  __template_earliest: z.string().optional(),
+  __template_latest: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_outputMode: z.string().optional(),
 });
 
 export function splunkAuthenticationNoneToJSON(

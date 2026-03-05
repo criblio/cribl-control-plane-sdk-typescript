@@ -353,6 +353,10 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue = {
   __scheduling?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -1441,6 +1445,10 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse = {
   __scheduling?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationLoginSecret =
@@ -2522,6 +2530,10 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue = {
   __scheduling?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -3960,6 +3972,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$inboundSche
         RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$inboundSchema
       ),
     ),
+    __template_collectUrl: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound = {
@@ -4013,6 +4026,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$Outbound = {
   __scheduling?:
     | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -4084,6 +4098,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue$outboundSch
     __scheduling: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling$outboundSchema
     ).optional(),
+    __template_collectUrl: z.string().optional(),
   });
 
 export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueToJSON(
@@ -7111,6 +7126,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$inboundSch
         RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$inboundSchema
       ),
     ),
+    __template_collectUrl: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound =
@@ -7175,6 +7191,7 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$Outbound =
     __scheduling?:
       | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$Outbound
       | undefined;
+    __template_collectUrl?: string | undefined;
   };
 
 /** @internal */
@@ -7279,6 +7296,7 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse$outboundSc
     __scheduling: z.lazy(() =>
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling$outboundSchema
     ).optional(),
+    __template_collectUrl: z.string().optional(),
   });
 
 export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseToJSON(
@@ -10349,6 +10367,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$inboundSchema:
         RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$inboundSchema
       ),
     ),
+    __template_collectUrl: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound = {
@@ -10412,6 +10431,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrue$Outbound = {
   __scheduling?:
     | RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -10516,6 +10536,7 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrue$outboundSchema:
     __scheduling: z.lazy(() =>
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling$outboundSchema
     ).optional(),
+    __template_collectUrl: z.string().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderTrueToJSON(

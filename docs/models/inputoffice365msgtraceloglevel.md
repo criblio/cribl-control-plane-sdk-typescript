@@ -8,11 +8,11 @@ Log Level (verbosity) for collection runtime behavior.
 import { InputOffice365MsgTraceLogLevel } from "cribl-control-plane/models";
 
 let value: InputOffice365MsgTraceLogLevel = "warn";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "error" | "warn" | "info" | "debug" | "silly" | Unrecognized<string>

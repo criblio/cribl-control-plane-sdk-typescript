@@ -8,11 +8,11 @@ Enter the data collection endpoint URL or the individual ID
 import { EndpointConfiguration } from "cribl-control-plane/models";
 
 let value: EndpointConfiguration = "ID";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "url" | "ID" | Unrecognized<string>

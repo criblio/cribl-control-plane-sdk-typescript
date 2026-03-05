@@ -1034,6 +1034,10 @@ export type RestAuthenticationHmac = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationHmacScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone = {
@@ -2063,6 +2067,10 @@ export type RestAuthenticationGoogleOauthSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationGoogleOauthSecretScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone = {
@@ -5848,6 +5856,7 @@ export const RestAuthenticationHmac$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationHmacScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationHmac$Outbound = {
@@ -5900,6 +5909,7 @@ export type RestAuthenticationHmac$Outbound = {
     )
     | undefined;
   __scheduling?: RestAuthenticationHmacScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -5987,6 +5997,7 @@ export const RestAuthenticationHmac$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestAuthenticationHmacScheduling$outboundSchema)
     .optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationHmacToJSON(
@@ -8954,6 +8965,7 @@ export const RestAuthenticationGoogleOauthSecret$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationGoogleOauthSecretScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecret$Outbound = {
@@ -9010,6 +9022,7 @@ export type RestAuthenticationGoogleOauthSecret$Outbound = {
   __scheduling?:
     | RestAuthenticationGoogleOauthSecretScheduling$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -9105,6 +9118,7 @@ export const RestAuthenticationGoogleOauthSecret$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestAuthenticationGoogleOauthSecretScheduling$outboundSchema
   ).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationGoogleOauthSecretToJSON(

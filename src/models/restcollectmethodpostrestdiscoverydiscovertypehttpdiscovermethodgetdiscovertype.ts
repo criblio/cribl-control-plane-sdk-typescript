@@ -680,6 +680,10 @@ export type RestAuthenticationNone = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationNoneScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export const RestCollectMethodOtherCollectMethod = {
@@ -1726,6 +1730,10 @@ export type RestCollectMethodOther = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodOtherScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export const RestCollectMethodPostWithBodyCollectMethod = {
@@ -2768,6 +2776,10 @@ export type RestCollectMethodPostWithBody = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodPostWithBodyScheduling | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export const RestCollectMethodPostCollectMethod = {
@@ -4761,6 +4773,7 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationNoneScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationNone$Outbound = {
@@ -4812,6 +4825,7 @@ export type RestAuthenticationNone$Outbound = {
     )
     | undefined;
   __scheduling?: RestAuthenticationNoneScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -4884,6 +4898,7 @@ export const RestAuthenticationNone$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestAuthenticationNoneScheduling$outboundSchema)
     .optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restAuthenticationNoneToJSON(
@@ -7811,6 +7826,7 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodOtherScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodOther$Outbound = {
@@ -7867,6 +7883,7 @@ export type RestCollectMethodOther$Outbound = {
     )
     | undefined;
   __scheduling?: RestCollectMethodOtherScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -7958,6 +7975,7 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestCollectMethodOtherScheduling$outboundSchema)
     .optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodOtherToJSON(
@@ -10910,6 +10928,7 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodPostWithBodyScheduling$inboundSchema),
   ),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodPostWithBody$Outbound = {
@@ -10962,6 +10981,7 @@ export type RestCollectMethodPostWithBody$Outbound = {
     )
     | undefined;
   __scheduling?: RestCollectMethodPostWithBodyScheduling$Outbound | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -11054,6 +11074,7 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestCollectMethodPostWithBodyScheduling$outboundSchema
   ).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodPostWithBodyToJSON(

@@ -8,11 +8,11 @@ Controls whether the sender should send compressed data to the server. Select 'D
 import { CompressionOptions } from "cribl-control-plane/models";
 
 let value: CompressionOptions = "always";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "disabled" | "auto" | "always" | Unrecognized<string>
