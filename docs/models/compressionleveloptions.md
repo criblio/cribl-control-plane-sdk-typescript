@@ -8,11 +8,11 @@ Compression level to apply before moving files to final destination
 import { CompressionLevelOptions } from "cribl-control-plane/models";
 
 let value: CompressionLevelOptions = "best_speed";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "best_speed" | "normal" | "best_compression" | Unrecognized<string>

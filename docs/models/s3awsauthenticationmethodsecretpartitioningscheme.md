@@ -8,11 +8,11 @@ Partitioning scheme used for this dataset. Using a known scheme like DDSS enable
 import { S3AwsAuthenticationMethodSecretPartitioningScheme } from "cribl-control-plane/models";
 
 let value: S3AwsAuthenticationMethodSecretPartitioningScheme = "ddss";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "none" | "ddss" | Unrecognized<string>

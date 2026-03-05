@@ -8,11 +8,11 @@ Further defines how to handle multiple matches: return the first match, the most
 import { MatchType } from "cribl-control-plane/models";
 
 let value: MatchType = "first";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "first" | "specific" | "all" | Unrecognized<string>

@@ -224,7 +224,18 @@ const value: operations.CreateInputSystemByPackInputOffice365MsgTrace = {
   id: "<id>",
   type: "office365_msg_trace",
   url: "https://close-grouper.com",
-  interval: 6837.57,
+  interval: 683757,
+};
+```
+
+### `operations.CreateInputSystemByPackInputMicrosoftGraph`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputMicrosoftGraph = {
+  id: "<id>",
+  type: "microsoft_graph",
+  url: "https://powerful-asset.name/",
+  interval: 600072,
 };
 ```
 

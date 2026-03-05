@@ -8,11 +8,11 @@ Enter workspace ID and workspace key directly, or select a stored secret
 import { CreateOutputAuthenticationMethodAzureLogs } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputAuthenticationMethodAzureLogs = "manual";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "manual" | "secret" | Unrecognized<string>

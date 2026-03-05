@@ -6,11 +6,11 @@
 import { DatabaseConnectionType } from "cribl-control-plane/models";
 
 let value: DatabaseConnectionType = "postgres";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "mysql" | "oracle" | "postgres" | "sqlserver" | Unrecognized<string>

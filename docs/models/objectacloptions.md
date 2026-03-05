@@ -8,11 +8,11 @@ Object ACL to assign to uploaded objects
 import { ObjectAclOptions } from "cribl-control-plane/models";
 
 let value: ObjectAclOptions = "public-read-write";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "private" | "public-read" | "public-read-write" | "authenticated-read" | "aws-exec-read" | "bucket-owner-read" | "bucket-owner-full-control" | Unrecognized<string>

@@ -8,11 +8,11 @@ Serialization format of data pages. Note that some reader implementations use Da
 import { DataPageVersionOptions } from "cribl-control-plane/models";
 
 let value: DataPageVersionOptions = "DATA_PAGE_V2";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "DATA_PAGE_V1" | "DATA_PAGE_V2" | Unrecognized<string>
