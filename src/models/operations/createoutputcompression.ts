@@ -4082,7 +4082,7 @@ export type CreateOutputOutputDataset = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -5516,7 +5516,7 @@ export type CreateOutputOutputDatadog = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -7296,7 +7296,7 @@ export type CreateOutputOutputNewrelicEvents = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -7488,7 +7488,7 @@ export type CreateOutputOutputNewrelic = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -9811,7 +9811,7 @@ export type CreateOutputOutputHoneycomb = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: models.AuthenticationMethodOptions3 | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -13038,7 +13038,7 @@ export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions3$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -14182,7 +14182,7 @@ export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions3$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -15582,7 +15582,7 @@ export const CreateOutputOutputNewrelicEvents$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions3$outboundSchema.optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -15756,7 +15756,7 @@ export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions3$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -17517,7 +17517,7 @@ export const CreateOutputOutputHoneycomb$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions3$outboundSchema.optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),

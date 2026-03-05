@@ -8,11 +8,11 @@ Codec to use to compress the data before sending to Kafka
 import { CompressionOptions3 } from "cribl-control-plane/models";
 
 let value: CompressionOptions3 = "zstd";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "none" | "gzip" | "snappy" | "lz4" | "zstd" | Unrecognized<string>

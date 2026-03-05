@@ -220,7 +220,18 @@ const value: operations.CreateInputInputOffice365MsgTrace = {
   id: "<id>",
   type: "office365_msg_trace",
   url: "https://substantial-translation.info/",
-  interval: 9554.09,
+  interval: 955409,
+};
+```
+
+### `operations.CreateInputInputMicrosoftGraph`
+
+```typescript
+const value: operations.CreateInputInputMicrosoftGraph = {
+  id: "<id>",
+  type: "microsoft_graph",
+  url: "https://urban-goat.com/",
+  interval: 847173,
 };
 ```
 

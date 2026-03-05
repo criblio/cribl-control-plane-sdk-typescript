@@ -8,11 +8,11 @@ Select the level of details for network metrics
 import { CreateInputNetworkModeWindowsMetrics } from "cribl-control-plane/models/operations";
 
 let value: CreateInputNetworkModeWindowsMetrics = "all";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "basic" | "all" | "custom" | "disabled" | Unrecognized<string>

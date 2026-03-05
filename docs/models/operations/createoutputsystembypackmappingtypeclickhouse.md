@@ -8,11 +8,11 @@ How event fields are mapped to ClickHouse columns.
 import { CreateOutputSystemByPackMappingTypeClickHouse } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputSystemByPackMappingTypeClickHouse = "custom";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "automatic" | "custom" | Unrecognized<string>

@@ -8,11 +8,11 @@ How to format events before sending out
 import { CreateOutputSystemByPackFormatWebhook } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputSystemByPackFormatWebhook = "ndjson";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "ndjson" | "json_array" | "custom" | "advanced" | Unrecognized<string>

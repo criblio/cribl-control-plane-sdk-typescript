@@ -8,11 +8,11 @@ The network protocol to use for sending out syslog messages
 import { OutputSyslogProtocol } from "cribl-control-plane/models";
 
 let value: OutputSyslogProtocol = "tcp";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "tcp" | "udp" | Unrecognized<string>

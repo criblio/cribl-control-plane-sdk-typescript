@@ -2010,6 +2010,71 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesMicrosoftGraph
+
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesMicrosoftGraph" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.create({
+    id: "microsoft-graph-source",
+    type: "microsoft_graph",
+    sendToRoutes: true,
+    pqEnabled: false,
+    url: "https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces",
+    interval: 15,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesCreate } from "cribl-control-plane/funcs/sourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesCreate(criblControlPlane, {
+    id: "microsoft-graph-source",
+    type: "microsoft_graph",
+    sendToRoutes: true,
+    pqEnabled: false,
+    url: "https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces",
+    interval: 15,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesModelDrivenTelemetry
 
 <!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesModelDrivenTelemetry" -->
@@ -6240,6 +6305,77 @@ async function run() {
       pqEnabled: false,
       host: "0.0.0.0",
       udpPort: 8125,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesMicrosoftGraph
+
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesMicrosoftGraph" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.update({
+    id: "<id>",
+    input: {
+      id: "microsoft-graph-source",
+      type: "microsoft_graph",
+      sendToRoutes: true,
+      pqEnabled: false,
+      url: "https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces",
+      interval: 15,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesUpdate } from "cribl-control-plane/funcs/sourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    input: {
+      id: "microsoft-graph-source",
+      type: "microsoft_graph",
+      sendToRoutes: true,
+      pqEnabled: false,
+      url: "https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces",
+      interval: 15,
     },
   });
   if (res.ok) {

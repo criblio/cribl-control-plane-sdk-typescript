@@ -8,11 +8,11 @@ The version of OTLP Protobuf definitions to use when structuring data to send
 import { OutputOpenTelemetryOTLPVersion } from "cribl-control-plane/models";
 
 let value: OutputOpenTelemetryOTLPVersion = "0.10.0";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "0.10.0" | "1.3.1" | Unrecognized<string>

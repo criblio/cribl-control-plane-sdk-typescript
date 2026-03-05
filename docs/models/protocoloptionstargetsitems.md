@@ -8,11 +8,11 @@ Protocol to use when collecting metrics
 import { ProtocolOptionsTargetsItems } from "cribl-control-plane/models";
 
 let value: ProtocolOptionsTargetsItems = "http";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "http" | "https" | Unrecognized<string>
