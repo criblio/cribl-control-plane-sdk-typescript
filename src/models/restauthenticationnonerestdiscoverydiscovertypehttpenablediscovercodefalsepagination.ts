@@ -285,7 +285,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesType
      */
     type: string;
     /**
-     * Time interval between a failed request and the first retry
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -322,7 +322,7 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesType
      */
     type: string;
     /**
-     * Time interval between a failed request and the first retry
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -383,6 +383,11 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesType
      * Retry request when a connection reset (ECONNRESET) error occurs
      */
     retryConnectReset?: boolean | undefined;
+    /**
+     * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+     */
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse =
@@ -415,6 +420,11 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesType
      * Retry request when a connection reset (ECONNRESET) error occurs
      */
     retryConnectReset?: boolean | undefined;
+    /**
+     * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+     */
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStatic =
@@ -427,6 +437,35 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesType
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * Maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+     */
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
+    /**
+     * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+     */
+    retryConnectTimeout?: boolean | undefined;
+    /**
+     * Retry request when a connection reset (ECONNRESET) error occurs
+     */
+    retryConnectReset?: boolean | undefined;
   };
 
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules =
@@ -1339,7 +1378,7 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderTr
      */
     type: string;
     /**
-     * Time interval between a failed request and the first retry
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -1376,7 +1415,7 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeBackoffEnableHeaderFa
      */
     type: string;
     /**
-     * Time interval between a failed request and the first retry
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -1437,6 +1476,11 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTru
      * Retry request when a connection reset (ECONNRESET) error occurs
      */
     retryConnectReset?: boolean | undefined;
+    /**
+     * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+     */
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 export type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse =
@@ -1469,6 +1513,11 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFal
      * Retry request when a connection reset (ECONNRESET) error occurs
      */
     retryConnectReset?: boolean | undefined;
+    /**
+     * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+     */
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 export type RestAuthenticationBasicSecretRestRetryRulesTypeStatic =
@@ -1480,6 +1529,35 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * Maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  maxIntervalMs?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type RestAuthenticationBasicSecretRetryRules =
@@ -2357,7 +2435,7 @@ export type RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderTrue = {
    */
   type: string;
   /**
-   * Time interval between a failed request and the first retry
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -2394,7 +2472,7 @@ export type RestAuthenticationBasicRestRetryRulesTypeBackoffEnableHeaderFalse =
      */
     type: string;
     /**
-     * Time interval between a failed request and the first retry
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -2454,6 +2532,11 @@ export type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  maxIntervalMs?: number | undefined;
 };
 
 export type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse = {
@@ -2485,6 +2568,11 @@ export type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  maxIntervalMs?: number | undefined;
 };
 
 export type RestAuthenticationBasicRestRetryRulesTypeStatic =
@@ -2496,6 +2584,35 @@ export type RestAuthenticationBasicRestRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * Maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
+   */
+  multiplier?: number | undefined;
+  maxIntervalMs?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
 };
 
 export type RestAuthenticationBasicRetryRules =
@@ -3995,6 +4112,8 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTyp
     codes: types.optional(z.array(types.number())),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrue$Outbound =
@@ -4007,6 +4126,8 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesType
     codes?: Array<number> | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 /** @internal */
@@ -4024,6 +4145,8 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTyp
     codes: z.array(z.number()).optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderTrueToJSON(
@@ -4066,6 +4189,8 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTyp
     codes: types.optional(z.array(types.number())),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalse$Outbound =
@@ -4077,6 +4202,8 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesType
     codes?: Array<number> | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 /** @internal */
@@ -4093,6 +4220,8 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTyp
     codes: z.array(z.number()).optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeStaticEnableHeaderFalseToJSON(
@@ -4189,11 +4318,27 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTyp
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
+    retryConnectTimeout?: boolean | undefined;
+    retryConnectReset?: boolean | undefined;
   };
 
 /** @internal */
@@ -4204,6 +4349,14 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTyp
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderFalseRestRetryRulesTypeNoneToJSON(
@@ -7158,6 +7311,8 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTr
     codes: types.optional(z.array(types.number())),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue$Outbound =
@@ -7170,6 +7325,8 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTru
     codes?: Array<number> | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 /** @internal */
@@ -7187,6 +7344,8 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTr
     codes: z.array(z.number()).optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
   });
 
 export function restAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrueToJSON(
@@ -7229,6 +7388,8 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFa
     codes: types.optional(z.array(types.number())),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse$Outbound =
@@ -7240,6 +7401,8 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFal
     codes?: Array<number> | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 /** @internal */
@@ -7256,6 +7419,8 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFa
     codes: z.array(z.number()).optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
   });
 
 export function restAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalseToJSON(
@@ -7352,10 +7517,26 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestRetryRulesTypeNone$Outbound = {
   type: "none";
+  interval?: number | undefined;
+  limit?: number | undefined;
+  multiplier?: number | undefined;
+  maxIntervalMs?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -7366,6 +7547,14 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeNone$outboundSchema:
     RestAuthenticationBasicSecretRestRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function restAuthenticationBasicSecretRestRetryRulesTypeNoneToJSON(
@@ -10240,6 +10429,8 @@ export const RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue$inb
     codes: types.optional(z.array(types.number())),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue$Outbound =
@@ -10252,6 +10443,8 @@ export type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue$Outb
     codes?: Array<number> | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 /** @internal */
@@ -10269,6 +10462,8 @@ export const RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrue$out
     codes: z.array(z.number()).optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
   });
 
 export function restAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderTrueToJSON(
@@ -10309,6 +10504,8 @@ export const RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse$in
     codes: types.optional(z.array(types.number())),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse$Outbound =
@@ -10320,6 +10517,8 @@ export type RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse$Out
     codes?: Array<number> | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
+    multiplier?: number | undefined;
+    maxIntervalMs?: number | undefined;
   };
 
 /** @internal */
@@ -10336,6 +10535,8 @@ export const RestAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalse$ou
     codes: z.array(z.number()).optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
   });
 
 export function restAuthenticationBasicRestRetryRulesTypeStaticEnableHeaderFalseToJSON(
@@ -10430,10 +10631,26 @@ export const RestAuthenticationBasicRestRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    maxIntervalMs: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
+    retryConnectTimeout: types.optional(types.boolean()),
+    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestRetryRulesTypeNone$Outbound = {
   type: "none";
+  interval?: number | undefined;
+  limit?: number | undefined;
+  multiplier?: number | undefined;
+  maxIntervalMs?: number | undefined;
+  codes?: Array<number> | undefined;
+  enableHeader?: boolean | undefined;
+  retryConnectTimeout?: boolean | undefined;
+  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -10444,6 +10661,14 @@ export const RestAuthenticationBasicRestRetryRulesTypeNone$outboundSchema:
     RestAuthenticationBasicRestRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    maxIntervalMs: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
+    retryConnectTimeout: z.boolean().optional(),
+    retryConnectReset: z.boolean().optional(),
   });
 
 export function restAuthenticationBasicRestRetryRulesTypeNoneToJSON(

@@ -326,7 +326,7 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
      */
     type: "backoff";
     /**
-     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -369,6 +369,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic 
      * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
      */
     enableHeader?: boolean | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
   };
 
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone =
@@ -377,6 +381,26 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationOauthSecretRetryRules =
@@ -761,7 +785,7 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -803,6 +827,10 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic = {
    * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
    */
   enableHeader?: boolean | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
 };
 
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone = {
@@ -810,6 +838,26 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationOauthRetryRules =
@@ -1195,7 +1243,7 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
      */
     type: "backoff";
     /**
-     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -1238,6 +1286,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic 
      * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
      */
     enableHeader?: boolean | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
   };
 
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone =
@@ -1246,6 +1298,26 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationLoginSecretRetryRules =
@@ -1624,7 +1696,7 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -1666,6 +1738,10 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic = {
    * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
    */
   enableHeader?: boolean | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
 };
 
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone = {
@@ -1673,6 +1749,26 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationLoginRetryRules =
@@ -2056,7 +2152,7 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
      */
     type: "backoff";
     /**
-     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -2099,6 +2195,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic 
      * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
      */
     enableHeader?: boolean | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
   };
 
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone =
@@ -2107,6 +2207,26 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationBasicSecretRetryRules =
@@ -2463,7 +2583,7 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -2505,6 +2625,10 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic = {
    * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
    */
   enableHeader?: boolean | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
 };
 
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone = {
@@ -2512,6 +2636,26 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationBasicRetryRules =
@@ -2872,7 +3016,7 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -2914,6 +3058,10 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic = {
    * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
    */
   enableHeader?: boolean | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
 };
 
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone = {
@@ -2921,6 +3069,26 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationNoneRetryRules =
@@ -3293,7 +3461,7 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
      */
     type: "backoff";
     /**
-     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
      */
     interval?: number | undefined;
     /**
@@ -3336,6 +3504,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic 
      * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
      */
     enableHeader?: boolean | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
   };
 
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone =
@@ -3344,6 +3516,26 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckCollectMethodPostWithBodyRetryRules =
@@ -3716,7 +3908,7 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -3758,6 +3950,10 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic = {
    * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
    */
   enableHeader?: boolean | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
 };
 
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone = {
@@ -3765,6 +3961,26 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckCollectMethodPostRetryRules =
@@ -4150,7 +4366,7 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -4192,6 +4408,10 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic = {
    * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
    */
   enableHeader?: boolean | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
 };
 
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone = {
@@ -4199,6 +4419,26 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckCollectMethodGetRetryRules =
@@ -5067,6 +5307,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound =
@@ -5076,6 +5317,7 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -5090,6 +5332,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStaticToJSON(
@@ -5126,11 +5369,21 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -5141,6 +5394,11 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$o
     HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNoneToJSON(
@@ -6211,6 +6469,7 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$inbou
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound =
@@ -6220,6 +6479,7 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbou
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -6234,6 +6494,7 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$outbo
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeStaticToJSON(
@@ -6268,11 +6529,21 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$inbound
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -6283,6 +6554,11 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$outboun
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeNoneToJSON(
@@ -7355,6 +7631,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound =
@@ -7364,6 +7641,7 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -7378,6 +7656,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStaticToJSON(
@@ -7414,11 +7693,21 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -7429,6 +7718,11 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$o
     HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNoneToJSON(
@@ -8488,6 +8782,7 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$inbou
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound =
@@ -8497,6 +8792,7 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbou
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -8511,6 +8807,7 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$outbo
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeStaticToJSON(
@@ -8545,11 +8842,21 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$inbound
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -8560,6 +8867,11 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$outboun
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeNoneToJSON(
@@ -9624,6 +9936,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound =
@@ -9633,6 +9946,7 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -9647,6 +9961,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStaticToJSON(
@@ -9683,11 +9998,21 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -9698,6 +10023,11 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$o
     HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNoneToJSON(
@@ -10734,6 +11064,7 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$inbou
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound =
@@ -10743,6 +11074,7 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbou
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -10757,6 +11089,7 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$outbo
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeStaticToJSON(
@@ -10791,11 +11124,21 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$inbound
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -10806,6 +11149,11 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$outboun
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeNoneToJSON(
@@ -11827,6 +12175,7 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$inboun
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound =
@@ -11836,6 +12185,7 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outboun
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -11850,6 +12200,7 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$outbou
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeStaticToJSON(
@@ -11884,11 +12235,21 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$inboundS
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -11899,6 +12260,11 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$outbound
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeNoneToJSON(
@@ -12953,6 +13319,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound =
@@ -12962,6 +13329,7 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -12976,6 +13344,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStaticToJSON(
@@ -13012,11 +13381,21 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -13027,6 +13406,11 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$o
     HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNoneToJSON(
@@ -14060,6 +14444,7 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$inbound
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound =
@@ -14069,6 +14454,7 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -14083,6 +14469,7 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$outboun
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeStaticToJSON(
@@ -14117,11 +14504,21 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$inboundSc
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -14132,6 +14529,11 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$outboundS
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeNoneToJSON(
@@ -15216,6 +15618,7 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$inboundS
     limit: types.optional(types.number()),
     codes: types.optional(z.array(types.number())),
     enableHeader: types.optional(types.boolean()),
+    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound =
@@ -15225,6 +15628,7 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound 
     limit?: number | undefined;
     codes?: Array<number> | undefined;
     enableHeader?: boolean | undefined;
+    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -15239,6 +15643,7 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$outbound
     limit: z.number().optional(),
     codes: z.array(z.number()).optional(),
     enableHeader: z.boolean().optional(),
+    multiplier: z.number().optional(),
   });
 
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeStaticToJSON(
@@ -15273,11 +15678,21 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$inboundSch
     unknown
   > = z.object({
     type: types.literal("none"),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -15288,6 +15703,11 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$outboundSc
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeNoneToJSON(
