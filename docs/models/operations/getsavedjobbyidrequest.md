@@ -12,7 +12,6 @@ let value: GetSavedJobByIdRequest = {
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *string*                                                            | :heavy_check_mark:                                                  | The <code>id</code> of the Collector to get.                        |
-| `criblPack`                                                         | *string*                                                            | :heavy_minus_sign:                                                  | The <code>id</code> of the Pack that includes the Collector to get. |
+| Field                                        | Type                                         | Required                                     | Description                                  |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| `id`                                         | *string*                                     | :heavy_check_mark:                           | The <code>id</code> of the Collector to get. |
