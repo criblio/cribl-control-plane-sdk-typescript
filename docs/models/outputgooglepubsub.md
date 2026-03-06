@@ -6,42 +6,8 @@
 import { OutputGooglePubsub } from "cribl-control-plane/models";
 
 let value: OutputGooglePubsub = {
-  id: "<id>",
   type: "google_pubsub",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   topicName: "<value>",
-  createTopic: false,
-  orderedDelivery: false,
-  region: "<value>",
-  googleAuthMethod: "auto",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  batchSize: 2707.65,
-  batchTimeout: 7129.19,
-  maxQueueSize: 9085.06,
-  maxRecordSizeKB: 6170.11,
-  flushPeriod: 4324.52,
-  maxInProgress: 249.75,
-  onBackpressure: "queue",
-  description: "stormy considering hippodrome hmph ha",
-  pqStrictOrdering: true,
-  pqRatePerSec: 4604.01,
-  pqMode: "error",
-  pqMaxBufferSize: 4653.53,
-  pqMaxBackpressureSec: 9069.05,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 
@@ -81,3 +47,5 @@ let value: OutputGooglePubsub = {
 | `pqCompress`                                                                                                                                                                                                                                                   | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                    |
 | `pqOnBackpressure`                                                                                                                                                                                                                                             | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                          |
 | `pqControls`                                                                                                                                                                                                                                                   | [models.OutputGooglePubsubPqControls](../models/outputgooglepubsubpqcontrols.md)                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
+| `templateTopicName`                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.                                                                |
+| `templateRegion`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                      |

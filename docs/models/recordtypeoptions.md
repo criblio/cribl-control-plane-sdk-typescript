@@ -8,11 +8,11 @@ DNS record type to resolve
 import { RecordTypeOptions } from "cribl-control-plane/models";
 
 let value: RecordTypeOptions = "AAAA";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "SRV" | "A" | "AAAA" | Unrecognized<string>

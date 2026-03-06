@@ -8,7 +8,6 @@ import { RestCollectMethodOtherRestDiscoveryDiscoverTypeJson } from "cribl-contr
 let value: RestCollectMethodOtherRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

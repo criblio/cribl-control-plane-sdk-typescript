@@ -19,11 +19,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -59,7 +59,7 @@ export type InputZscalerHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
 };
 
 export type InputZscalerHec = {
@@ -139,7 +139,6 @@ export type InputZscalerHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -155,7 +154,7 @@ export type InputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -177,6 +176,18 @@ export type InputZscalerHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+   */
+  __template_hecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -193,9 +204,7 @@ export const InputZscalerHecAuthToken$inboundSchema: z.ZodType<
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
 });
 /** @internal */
 export type InputZscalerHecAuthToken$Outbound = {
@@ -205,7 +214,7 @@ export type InputZscalerHecAuthToken$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -221,7 +230,7 @@ export const InputZscalerHecAuthToken$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
 });
 
 export function inputZscalerHecAuthTokenToJSON(
@@ -273,19 +282,19 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(z.any()),
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   hecAPI: types.string(),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
   hecAcks: types.optional(types.boolean()),
   accessControlAllowOrigin: types.optional(z.array(types.string())),
   accessControlAllowHeaders: types.optional(z.array(types.string())),
   emitTokenMetrics: types.optional(types.boolean()),
   description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_hecAPI: types.optional(types.string()),
 });
 /** @internal */
 export type InputZscalerHec$Outbound = {
@@ -311,17 +320,19 @@ export type InputZscalerHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   hecAcks?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_hecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -353,17 +364,19 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   hecAcks: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_hecAPI: z.string().optional(),
 });
 
 export function inputZscalerHecToJSON(

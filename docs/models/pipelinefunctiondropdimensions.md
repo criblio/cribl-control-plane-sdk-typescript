@@ -6,20 +6,14 @@
 import { PipelineFunctionDropDimensions } from "cribl-control-plane/models";
 
 let value: PipelineFunctionDropDimensions = {
-  filter: "<value>",
   id: "drop_dimensions",
-  description: "limited cruelty disconnection whether fund outset across oddly",
-  disabled: false,
-  final: true,
   conf: {
     timeWindow: "<value>",
     dropDimensions: [
       "<value 1>",
       "<value 2>",
     ],
-    flushOnInputClose: true,
   },
-  groupId: "<id>",
 };
 ```
 

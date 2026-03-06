@@ -8,11 +8,11 @@ Signature version to use for signing SQS requests
 import { SignatureVersionOptions3 } from "cribl-control-plane/models";
 
 let value: SignatureVersionOptions3 = "v2";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "v2" | "v4" | Unrecognized<string>

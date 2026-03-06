@@ -8,21 +8,7 @@ import { AzureBlobAuthTypeManual } from "cribl-control-plane/models";
 let value: AzureBlobAuthTypeManual = {
   authType: "manual",
   connectionString: "<value>",
-  outputName: "<value>",
   containerName: "<value>",
-  path: "/usr/local/bin",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  recurse: false,
-  includeMetadata: true,
-  includeTags: false,
-  maxBatchSize: 5816.74,
-  parquetChunkSizeMB: 5632.14,
-  parquetChunkDownloadTimeout: 6143.11,
 };
 ```
 

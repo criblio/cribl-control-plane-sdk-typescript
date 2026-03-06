@@ -7,25 +7,15 @@ import { FunctionAggregateMetrics } from "cribl-control-plane/models";
 
 let value: FunctionAggregateMetrics = {
   __filename: "example.file",
-  asyncTimeout: 9195.61,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "aggregate_metrics",
-  loadTime: 8650.04,
-  modTime: 9819.96,
+  loadTime: 9195.61,
+  modTime: 3243.01,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

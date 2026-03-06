@@ -8,11 +8,11 @@ Select a transport option for OpenTelemetry
 import { ProtocolOptions } from "cribl-control-plane/models";
 
 let value: ProtocolOptions = "http";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "grpc" | "http" | Unrecognized<string>

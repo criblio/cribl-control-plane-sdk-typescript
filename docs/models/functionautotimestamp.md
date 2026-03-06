@@ -7,27 +7,15 @@ import { FunctionAutoTimestamp } from "cribl-control-plane/models";
 
 let value: FunctionAutoTimestamp = {
   __filename: "example.file",
-  asyncTimeout: 3412.89,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "auto_timestamp",
-  loadTime: 2322.66,
-  modTime: 1347.26,
+  loadTime: 3412.89,
+  modTime: 1982.4,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

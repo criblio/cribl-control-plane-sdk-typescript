@@ -6,100 +6,7 @@
 import { OutputCriblHttp } from "cribl-control-plane/models";
 
 let value: OutputCriblHttp = {
-  id: "<id>",
   type: "cribl_http",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  loadBalanced: true,
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  tokenTTLMinutes: 3778.48,
-  excludeFields: [
-    "<value 1>",
-  ],
-  compression: "gzip",
-  concurrency: 3693.69,
-  maxPayloadSizeKB: 4341.69,
-  maxPayloadEvents: 8300.81,
-  rejectUnauthorized: true,
-  timeoutSec: 4473.35,
-  flushPeriodSec: 8998.14,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  throttleRatePerSec: "<value>",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "censor lest rarely",
-    },
-  ],
-  onBackpressure: "drop",
-  description: "failing whoa mixture painfully dilate coaxingly present",
-  url: "https://stylish-cruelty.net/",
-  useRoundRobinDns: true,
-  excludeSelf: false,
-  urls: [
-    {
-      url: "https://imaginary-decision.net/",
-      weight: 1083.02,
-    },
-  ],
-  dnsResolvePeriodSec: 9031.19,
-  loadBalanceStatsPeriodSec: 3625.72,
-  pqStrictOrdering: false,
-  pqRatePerSec: 8241.25,
-  pqMode: "always",
-  pqMaxBufferSize: 2370.38,
-  pqMaxBackpressureSec: 487.63,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -151,3 +58,4 @@ let value: OutputCriblHttp = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputCriblHttpPqControls](../models/outputcriblhttppqcontrols.md)                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                              |

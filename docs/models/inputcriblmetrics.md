@@ -6,41 +6,7 @@
 import { InputCriblmetrics } from "cribl-control-plane/models";
 
 let value: InputCriblmetrics = {
-  id: "<id>",
   type: "criblmetrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  prefix: "<value>",
-  fullFidelity: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "miskey before behind er",
 };
 ```
 
@@ -60,5 +26,5 @@ let value: InputCriblmetrics = {
 | `pq`                                                                                                                                                                                                                                                                                                                                                              | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | N/A                                                                                                                                                                                                                                                                                                                                                               |
 | `prefix`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | A prefix that is applied to the metrics provided by Cribl Stream                                                                                                                                                                                                                                                                                                  |
 | `fullFidelity`                                                                                                                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`. |
-| `metadata`                                                                                                                                                                                                                                                                                                                                                        | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                           |
+| `metadata`                                                                                                                                                                                                                                                                                                                                                        | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                           |
 | `description`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                | N/A                                                                                                                                                                                                                                                                                                                                                               |

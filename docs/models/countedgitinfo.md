@@ -5,15 +5,7 @@
 ```typescript
 import { CountedGitInfo } from "cribl-control-plane/models";
 
-let value: CountedGitInfo = {
-  count: 501871,
-  items: [
-    {
-      remote: "<value>",
-      versioning: false,
-    },
-  ],
-};
+let value: CountedGitInfo = {};
 ```
 
 ## Fields

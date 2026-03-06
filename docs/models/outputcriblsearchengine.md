@@ -6,99 +6,7 @@
 import { OutputCriblSearchEngine } from "cribl-control-plane/models";
 
 let value: OutputCriblSearchEngine = {
-  id: "<id>",
   type: "cribl_search_engine",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  loadBalanced: true,
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  tokenTTLMinutes: 835.72,
-  excludeFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  compression: "none",
-  concurrency: 5704.16,
-  maxPayloadSizeKB: 5268.41,
-  maxPayloadEvents: 4990.97,
-  rejectUnauthorized: false,
-  timeoutSec: 6947.21,
-  flushPeriodSec: 6969.83,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  throttleRatePerSec: "<value>",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "censor lest rarely",
-    },
-  ],
-  onBackpressure: "block",
-  useRoundRobinDns: true,
-  description: "miserably simplistic drat",
-  url: "https://shrill-information.com/",
-  excludeSelf: true,
-  urls: [
-    {
-      url: "https://imaginary-decision.net/",
-      weight: 1083.02,
-    },
-  ],
-  dnsResolvePeriodSec: 7770.21,
-  loadBalanceStatsPeriodSec: 2330.98,
-  pqStrictOrdering: true,
-  pqRatePerSec: 8.78,
-  pqMode: "always",
-  pqMaxBufferSize: 1814.97,
-  pqMaxBackpressureSec: 9070.49,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 
@@ -130,7 +38,7 @@ let value: OutputCriblSearchEngine = {
 | `responseRetrySettings`                                                                                                                                                                                                                                                                                                                          | [models.ItemsTypeResponseRetrySettings](../models/itemstyperesponseretrysettings.md)[]                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                       |
 | `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.TimeoutRetrySettingsType](../models/timeoutretrysettingstype.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
-| `authTokens`                                                                                                                                                                                                                                                                                                                                     | [models.ItemsTypeAuthTokens1](../models/itemstypeauthtokens1.md)[]                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.                                                                                                                                                                                         |
+| `authTokens`                                                                                                                                                                                                                                                                                                                                     | [models.ItemsTypeAuthTokens1](../models/itemstypeauthtokens1.md)[]                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.                                                                                                                                                                                       |
 | `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.BackpressureBehaviorOptions](../models/backpressurebehavioroptions.md)                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
 | `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.                                                                                                               |
 | `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
@@ -150,3 +58,4 @@ let value: OutputCriblSearchEngine = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputCriblSearchEnginePqControls](../models/outputcriblsearchenginepqcontrols.md)                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                              |

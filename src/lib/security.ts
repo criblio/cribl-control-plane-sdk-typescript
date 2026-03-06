@@ -88,7 +88,6 @@ type SecurityInputOAuth2ClientCredentials = {
       clientID?: string | undefined;
       clientSecret?: string | undefined;
       audience?: string | undefined;
-      tokenURL?: string | undefined;
     }
     | null
     | string
@@ -200,8 +199,7 @@ export function resolveSecurity(
         applyBearer(state, spec);
         break;
       default:
-        spec satisfies never;
-        throw SecurityError.unrecognizedType(type);
+        throw SecurityError.unrecognizedType((spec satisfies never, type));
     }
   });
 

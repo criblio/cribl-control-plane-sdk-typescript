@@ -7,59 +7,8 @@ import { RestCollectMethodPost } from "cribl-control-plane/models";
 
 let value: RestCollectMethodPost = {
   collectMethod: "other",
-  collectRequestParams: "<value>",
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://blue-exploration.com",
-  collectVerb: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "request_page",
-    pageField: "<value>",
-    page: 9322.76,
-    sizeField: "<value>",
-    size: 5033.26,
-    totalPageField: "<value>",
-    totalRecordField: "<value>",
-    maxPages: 2284.39,
-    zeroIndexed: true,
-  },
-  authentication: "hmac",
-  timeout: 4382.51,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  decodeUrl: true,
-  rejectUnauthorized: false,
-  captureHeaders: false,
-  stopOnEmptyResults: false,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
+  collectUrl: "https://rusty-beret.biz",
+  authentication: "basic",
 };
 ```
 
@@ -68,11 +17,9 @@ let value: RestCollectMethodPost = {
 | Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `collectMethod`                                                                                                                                    | [models.RestCollectMethodPostCollectMethod](../models/restcollectmethodpostcollectmethod.md)                                                       | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectRequestParams`                                                                                                                             | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `discovery`                                                                                                                                        | *models.RestCollectMethodPostDiscovery*                                                                                                            | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `pagination`                                                                                                                                       | *models.RestCollectMethodPostPaginationUnion*                                                                                                      | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `authentication`                                                                                                                                   | [models.RestCollectMethodPostAuthentication](../models/restcollectmethodpostauthentication.md)                                                     | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |

@@ -6,79 +6,7 @@
 import { OutputDataset } from "cribl-control-plane/models";
 
 let value: OutputDataset = {
-  id: "<id>",
   type: "dataset",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  messageField: "<value>",
-  excludeFields: [
-    "<value 1>",
-  ],
-  serverHostField: "<value>",
-  timestampField: "<value>",
-  defaultSeverity: "info",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  site: "custom",
-  concurrency: 9905.59,
-  maxPayloadSizeKB: 9072.18,
-  maxPayloadEvents: 8574.41,
-  compress: false,
-  rejectUnauthorized: true,
-  timeoutSec: 7999.21,
-  flushPeriodSec: 5684.75,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  onBackpressure: "block",
-  authType: "secret",
-  totalMemoryLimitKB: 1955.31,
-  description: "oddly softly tremendously amazing",
-  customUrl: "https://minor-freckle.org",
-  pqStrictOrdering: false,
-  pqRatePerSec: 1066.91,
-  pqMode: "error",
-  pqMaxBufferSize: 1858.03,
-  pqMaxBackpressureSec: 9911.69,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  apiKey: "<value>",
-  textSecret: "<value>",
 };
 ```
 
@@ -113,7 +41,7 @@ let value: OutputDataset = {
 | `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                       | [models.FailedRequestLoggingModeOptions](../models/failedrequestloggingmodeoptions.md)                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                      |
 | `safeHeaders`                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                               |
 | `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.BackpressureBehaviorOptions](../models/backpressurebehavioroptions.md)                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
-| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions2](../models/authenticationmethodoptions2.md)                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
+| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptions3](../models/authenticationmethodoptions3.md)                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter API key directly, or select a stored secret                                                                                                                                                                                                                                                                                                |
 | `totalMemoryLimitKB`                                                                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.                                                                                                                                                                                                 |
 | `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `customUrl`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
@@ -130,3 +58,4 @@ let value: OutputDataset = {
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputDatasetPqControls](../models/outputdatasetpqcontrols.md)                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `apiKey`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | A 'Log Write Access' API key for the DataSet account                                                                                                                                                                                                                                                                                             |
 | `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
+| `templateCustomUrl`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.                                                                                                                                                  |

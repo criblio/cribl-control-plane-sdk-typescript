@@ -6,89 +6,7 @@
 import { InputAppscope } from "cribl-control-plane/models";
 
 let value: InputAppscope = {
-  id: "<id>",
   type: "appscope",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 4559.47,
-  socketIdleTimeout: 7115.31,
-  socketEndingMaxWait: 5650.48,
-  socketMaxLifespan: 4966.67,
-  enableProxyHeader: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 1872.92,
-  enableUnixPath: false,
-  filter: {
-    allow: [
-      {
-        procname: "<value>",
-        arg: "<value>",
-        config: "<value>",
-      },
-    ],
-    transportURL: "https://likable-importance.net/",
-  },
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "none",
-    destPath: "<value>",
-  },
-  authType: "manual",
-  description: "alliance extremely coaxingly",
-  host: "sniveling-order.net",
-  port: 9741.69,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  unixSocketPath: "<value>",
-  unixSocketPerms: "<value>",
-  authToken: "<value>",
-  textSecret: "<value>",
 };
 ```
 
@@ -112,7 +30,7 @@ let value: InputAppscope = {
 | `socketEndingMaxWait`                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring. |
 | `socketMaxLifespan`                                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.                                                                                                                                                                                                   |
 | `enableProxyHeader`                                                                                                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Enable if the connection is proxied by a device that supports proxy protocol v1 or v2                                                                                                                                                                                                                                                                        |
-| `metadata`                                                                                                                                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                      |
 | `breakerRulesets`                                                                                                                                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                                                                                                                                   |
 | `staleChannelFlushMs`                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                                                                                                                                            |
 | `enableUnixPath`                                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.                                                                                                                                                                                                                                                    |
@@ -127,3 +45,5 @@ let value: InputAppscope = {
 | `unixSocketPerms`                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.                                                                                                                                                                                                                                                     |
 | `authToken`                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.                                                                                                                                                                                                                                          |
 | `textSecret`                                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Select or create a stored text secret                                                                                                                                                                                                                                                                                                                        |
+| `templateHost`                                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                                                                                                                        |
+| `templatePort`                                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                                                                                                                        |

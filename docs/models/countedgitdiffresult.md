@@ -5,40 +5,7 @@
 ```typescript
 import { CountedGitDiffResult } from "cribl-control-plane/models";
 
-let value: CountedGitDiffResult = {
-  count: 297747,
-  items: [
-    {
-      diffJson: [
-        {
-          addedLines: 4985.35,
-          blocks: [],
-          changedPercentage: 5504.85,
-          checksumAfter: "<value>",
-          checksumBefore: "<value>",
-          deletedFileMode: "<value>",
-          deletedLines: 4323.22,
-          isBinary: true,
-          isCombined: false,
-          isCopy: true,
-          isDeleted: false,
-          isGitDiff: true,
-          isNew: true,
-          isRename: false,
-          isTooBig: false,
-          language: "<value>",
-          mode: "<value>",
-          newFileMode: "<value>",
-          newMode: "<value>",
-          newName: "<value>",
-          oldMode: "<value>",
-          oldName: "<value>",
-          unchangedPercentage: 1354.76,
-        },
-      ],
-    },
-  ],
-};
+let value: CountedGitDiffResult = {};
 ```
 
 ## Fields

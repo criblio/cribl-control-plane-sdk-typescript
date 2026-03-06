@@ -160,6 +160,26 @@ export type OutputCloudwatch = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputCloudwatchPqControls | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -239,6 +259,11 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputCloudwatchPqControls$inboundSchema),
   ),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCloudwatch$Outbound = {
@@ -278,6 +303,11 @@ export type OutputCloudwatch$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputCloudwatchPqControls$Outbound | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -323,6 +353,11 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$outboundSchema)
     .optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputCloudwatchToJSON(

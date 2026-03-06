@@ -5,6 +5,9 @@
 import * as z from "zod/v3";
 
 export type OutputTestRequest = {
+  /**
+   * Array of event objects to send to the Destination for testing.
+   */
   events: Array<{ [k: string]: any }>;
 };
 

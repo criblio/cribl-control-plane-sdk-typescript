@@ -14,11 +14,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -70,7 +70,7 @@ export type InputDatagen = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -128,9 +128,7 @@ export const InputDatagen$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   samples: z.array(z.lazy(() => Sample$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
 });
 /** @internal */
@@ -146,7 +144,7 @@ export type InputDatagen$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   samples: Array<Sample$Outbound>;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -167,7 +165,7 @@ export const InputDatagen$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   samples: z.array(z.lazy(() => Sample$outboundSchema)),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

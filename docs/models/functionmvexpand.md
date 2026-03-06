@@ -7,24 +7,13 @@ import { FunctionMvExpand } from "cribl-control-plane/models";
 
 let value: FunctionMvExpand = {
   __filename: "example.file",
-  asyncTimeout: 8384.22,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "mv_expand",
-  loadTime: 3002.28,
-  modTime: 9375.71,
+  loadTime: 8384.22,
+  modTime: 223.39,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

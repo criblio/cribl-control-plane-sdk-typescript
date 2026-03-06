@@ -6,118 +6,7 @@
 import { InputSystemMetrics } from "cribl-control-plane/models";
 
 let value: InputSystemMetrics = {
-  id: "<id>",
   type: "system_metrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  interval: 5902.57,
-  host: {
-    mode: "custom",
-    custom: {
-      system: {
-        mode: "disabled",
-        processes: false,
-      },
-      cpu: {
-        mode: "all",
-        perCpu: true,
-        detail: false,
-        time: true,
-      },
-      memory: {
-        mode: "disabled",
-        detail: false,
-      },
-      network: {
-        mode: "basic",
-        detail: true,
-        protocols: true,
-        devices: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        perInterface: false,
-      },
-      disk: {
-        mode: "basic",
-        detail: true,
-        inodes: false,
-        devices: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        mountpoints: [
-          "<value 1>",
-        ],
-        fstypes: [
-          "<value 1>",
-        ],
-        perDevice: true,
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-        includeChildren: true,
-      },
-    ],
-  },
-  container: {
-    mode: "custom",
-    dockerSocket: [
-      "<value 1>",
-    ],
-    dockerTimeout: 9123.42,
-    filters: [
-      {
-        expr: "<value>",
-      },
-    ],
-    allContainers: false,
-    perDevice: false,
-    detail: true,
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "none",
-    destPath: "<value>",
-  },
-  description: "pfft to thorny um daily gently cultivated",
 };
 ```
 
@@ -139,6 +28,6 @@ let value: InputSystemMetrics = {
 | `host`                                                                                                                                                                                                                                       | [models.InputSystemMetricsHost](../models/inputsystemmetricshost.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `process`                                                                                                                                                                                                                                    | [models.ProcessType](../models/processtype.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `container`                                                                                                                                                                                                                                  | [models.Container](../models/container.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `persistence`                                                                                                                                                                                                                                | [models.InputSystemMetricsPersistence](../models/inputsystemmetricspersistence.md)                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

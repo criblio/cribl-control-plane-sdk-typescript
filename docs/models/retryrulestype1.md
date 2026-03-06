@@ -7,16 +7,6 @@ import { RetryRulesType1 } from "cribl-control-plane/models";
 
 let value: RetryRulesType1 = {
   type: "<value>",
-  interval: 8080.17,
-  limit: 4063.96,
-  multiplier: 2672.23,
-  codes: [
-    4828.02,
-    9882.29,
-  ],
-  enableHeader: true,
-  retryConnectTimeout: true,
-  retryConnectReset: false,
 };
 ```
 

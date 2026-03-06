@@ -16,9 +16,9 @@
 
 Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
-### Example Usage
+### Example Usage: VersionCommitExamplesCommitAll
 
-<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" -->
+<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitExamplesCommitAll" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -31,15 +31,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.create({
-    groupId: "<id>",
-    gitCommitParams: {
-      effective: false,
-      files: [
-        "<value 1>",
-      ],
-      group: "<value>",
-      message: "<value>",
-    },
+    message: "Updated pipeline configuration for syslog parsing",
   });
 
   console.log(result);
@@ -67,15 +59,72 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsCreate(criblControlPlane, {
-    groupId: "<id>",
-    gitCommitParams: {
-      effective: false,
-      files: [
-        "<value 1>",
-      ],
-      group: "<value>",
-      message: "<value>",
-    },
+    message: "Updated pipeline configuration for syslog parsing",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("versionsCommitsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: VersionCommitExamplesCommitSpecificFiles
+
+<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitExamplesCommitSpecificFiles" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.versions.commits.create({
+    effective: true,
+    files: [
+      "groups/default/local/cribl/pipelines/http_input/conf.yml",
+      "groups/default/local/cribl/routes.yml",
+    ],
+    message: "Update Route and Pipeline for HTTP Sources",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { versionsCommitsCreate } from "cribl-control-plane/funcs/versionsCommitsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await versionsCommitsCreate(criblControlPlane, {
+    effective: true,
+    files: [
+      "groups/default/local/cribl/pipelines/http_input/conf.yml",
+      "groups/default/local/cribl/routes.yml",
+    ],
+    message: "Update Route and Pipeline for HTTP Sources",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -92,7 +141,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateVersionCommitRequest](../../models/operations/createversioncommitrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.GitCommitBody](../../models/gitcommitbody.md)                                                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -128,7 +177,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.versions.commits.diff({
     commit: "<value>",
-    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 6362,
   });
@@ -159,7 +207,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await versionsCommitsDiff(criblControlPlane, {
     commit: "<value>",
-    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 6362,
   });
@@ -213,7 +260,6 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.list({
-    groupId: "<id>",
     count: 893.58,
   });
 
@@ -242,7 +288,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsList(criblControlPlane, {
-    groupId: "<id>",
     count: 893.58,
   });
   if (res.ok) {
@@ -355,9 +400,9 @@ run();
 
 Revert a commit in the local repository.
 
-### Example Usage
+### Example Usage: VersionRevertExamplesForceRevertWithMessage
 
-<!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" -->
+<!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" example="VersionRevertExamplesForceRevertWithMessage" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -370,12 +415,9 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.revert({
-    groupId: "<id>",
-    gitRevertParams: {
-      commit: "<value>",
-      force: false,
-      message: "<value>",
-    },
+    commit: "a1b2c3d4e5f6",
+    force: true,
+    message: "Revert commit due to misconfiguration in Pipeline settings",
   });
 
   console.log(result);
@@ -403,12 +445,64 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsRevert(criblControlPlane, {
-    groupId: "<id>",
-    gitRevertParams: {
-      commit: "<value>",
-      force: false,
-      message: "<value>",
-    },
+    commit: "a1b2c3d4e5f6",
+    force: true,
+    message: "Revert commit due to misconfiguration in Pipeline settings",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("versionsCommitsRevert failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: VersionRevertExamplesRevertCommit
+
+<!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" example="VersionRevertExamplesRevertCommit" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.versions.commits.revert({
+    commit: "a1b2c3d4e5f6",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { versionsCommitsRevert } from "cribl-control-plane/funcs/versionsCommitsRevert.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await versionsCommitsRevert(criblControlPlane, {
+    commit: "a1b2c3d4e5f6",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -425,7 +519,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateVersionRevertRequest](../../models/operations/createversionrevertrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.GitRevertParams](../../models/gitrevertparams.md)                                                                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -461,7 +555,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.versions.commits.get({
     commit: "<value>",
-    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 7771.94,
   });
@@ -492,7 +585,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await versionsCommitsGet(criblControlPlane, {
     commit: "<value>",
-    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 7771.94,
   });
@@ -545,9 +637,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versions.commits.undo({
-    groupId: "<id>",
-  });
+  const result = await criblControlPlane.versions.commits.undo();
 
   console.log(result);
 }
@@ -573,9 +663,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versionsCommitsUndo(criblControlPlane, {
-    groupId: "<id>",
-  });
+  const res = await versionsCommitsUndo(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -591,14 +679,13 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateVersionUndoRequest](../../models/operations/createversionundorequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.CountedObject](../../models/countedobject.md)\>**
+**Promise\<[models.CountedBoolean](../../models/countedboolean.md)\>**
 
 ### Errors
 

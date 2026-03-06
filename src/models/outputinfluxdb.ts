@@ -31,18 +31,6 @@ import {
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
-  ItemsTypeOauthHeaders,
-  ItemsTypeOauthHeaders$inboundSchema,
-  ItemsTypeOauthHeaders$Outbound,
-  ItemsTypeOauthHeaders$outboundSchema,
-} from "./itemstypeoauthheaders.js";
-import {
-  ItemsTypeOauthParams,
-  ItemsTypeOauthParams$inboundSchema,
-  ItemsTypeOauthParams$Outbound,
-  ItemsTypeOauthParams$outboundSchema,
-} from "./itemstypeoauthparams.js";
-import {
   ItemsTypeResponseRetrySettings,
   ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
@@ -103,12 +91,26 @@ export type TimestampPrecision = OpenEnum<typeof TimestampPrecision>;
  * InfluxDB authentication type
  */
 export const OutputInfluxdbAuthenticationType = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
   Token: "token",
+  /**
+   * Token (text secret)
+   */
   TextSecret: "textSecret",
-  Oauth: "oauth",
 } as const;
 /**
  * InfluxDB authentication type
@@ -295,37 +297,17 @@ export type OutputInfluxdb = {
    */
   textSecret?: string | undefined;
   /**
-   * URL for OAuth
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
-  loginUrl?: string | undefined;
+  __template_url?: string | undefined;
   /**
-   * Secret parameter name to pass in request body
+   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
    */
-  secretParamName?: string | undefined;
+  __template_database?: string | undefined;
   /**
-   * Secret parameter value to pass in request body
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  __template_bucket?: string | undefined;
 };
 
 /** @internal */
@@ -448,14 +430,9 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
+  __template_url: types.optional(types.string()),
+  __template_database: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
 });
 /** @internal */
 export type OutputInfluxdb$Outbound = {
@@ -508,14 +485,9 @@ export type OutputInfluxdb$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_url?: string | undefined;
+  __template_database?: string | undefined;
+  __template_bucket?: string | undefined;
 };
 
 /** @internal */
@@ -574,14 +546,9 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_database: z.string().optional(),
+  __template_bucket: z.string().optional(),
 });
 
 export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {

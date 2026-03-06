@@ -8,12 +8,10 @@ import { RestAuthenticationOauthRestPaginationTypeRequestOffset } from "cribl-co
 let value: RestAuthenticationOauthRestPaginationTypeRequestOffset = {
   type: "request_offset",
   offsetField: "<value>",
-  offset: 8252.43,
   limitField: "<value>",
-  limit: 6779.68,
-  totalRecordField: "<value>",
-  maxPages: 3962.29,
-  zeroIndexed: false,
+  limit: 8252.43,
+  maxPages: 6779.68,
+  zeroIndexed: true,
 };
 ```
 

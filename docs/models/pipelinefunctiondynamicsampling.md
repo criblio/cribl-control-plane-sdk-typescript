@@ -6,19 +6,11 @@
 import { PipelineFunctionDynamicSampling } from "cribl-control-plane/models";
 
 let value: PipelineFunctionDynamicSampling = {
-  filter: "<value>",
   id: "dynamic_sampling",
-  description: "creamy under yum speedily if",
-  disabled: true,
-  final: true,
   conf: {
     mode: "log",
     keyExpr: "<value>",
-    samplePeriod: 6554.27,
-    minEvents: 4963.7,
-    maxSampleRate: 7995.35,
   },
-  groupId: "<id>",
 };
 ```
 

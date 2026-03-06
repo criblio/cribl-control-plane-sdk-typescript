@@ -13,23 +13,7 @@ let value: AzureBlobAuthTypeClientCert = {
   certificate: {
     certificateName: "<value>",
   },
-  azureCloud: "<value>",
-  endpointSuffix: "<value>",
-  outputName: "<value>",
   containerName: "<value>",
-  path: "/etc/periodic",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  recurse: false,
-  includeMetadata: true,
-  includeTags: true,
-  maxBatchSize: 6646.64,
-  parquetChunkSizeMB: 2653.83,
-  parquetChunkDownloadTimeout: 2784.48,
 };
 ```
 

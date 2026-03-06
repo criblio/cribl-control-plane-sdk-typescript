@@ -13,21 +13,6 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Routes extends ClientSDK {
   /**
-   * List all Routes
-   *
-   * @remarks
-   * Get a list of all Routes.
-   */
-  async list(
-    options?: RequestOptions,
-  ): Promise<models.CountedRoutes> {
-    return unwrapAsync(routesList(
-      this,
-      options,
-    ));
-  }
-
-  /**
    * Get a Routing table
    *
    * @remarks
@@ -57,6 +42,21 @@ export class Routes extends ClientSDK {
     return unwrapAsync(routesUpdate(
       this,
       request,
+      options,
+    ));
+  }
+
+  /**
+   * List all Routes
+   *
+   * @remarks
+   * Get a list of all Routes.
+   */
+  async list(
+    options?: RequestOptions,
+  ): Promise<models.CountedRoutes> {
+    return unwrapAsync(routesList(
+      this,
       options,
     ));
   }

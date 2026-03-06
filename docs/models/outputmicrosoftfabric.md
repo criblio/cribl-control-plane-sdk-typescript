@@ -6,64 +6,9 @@
 import { OutputMicrosoftFabric } from "cribl-control-plane/models";
 
 let value: OutputMicrosoftFabric = {
-  id: "<id>",
   type: "microsoft_fabric",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   topic: "<value>",
-  ack: 0,
-  format: "json",
-  maxRecordSizeKB: 4340.68,
-  flushEventCount: 7008.06,
-  flushPeriodSec: 4410.77,
-  connectionTimeout: 600.34,
-  requestTimeout: 5198.08,
-  maxRetries: 2233.52,
-  maxBackOff: 3402.47,
-  initialBackoff: 462.24,
-  backoffRate: 2873.18,
-  authenticationTimeout: 7656.88,
-  reauthenticationThreshold: 9854.98,
-  sasl: {
-    disabled: true,
-    mechanism: "oauthbearer",
-    username: "Gennaro.Kassulke",
-    textSecret: "<value>",
-    clientSecretAuthType: "certificate",
-    clientTextSecret: "<value>",
-    certificateName: "<value>",
-    certPath: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    oauthEndpoint: "https://login.microsoftonline.us",
-    clientId: "<id>",
-    tenantId: "<id>",
-    scope: "<value>",
-  },
-  tls: {
-    disabled: false,
-    rejectUnauthorized: false,
-  },
-  onBackpressure: "block",
   bootstrap_server: "<value>",
-  description: "ugh hubris partridge exploration spook gee",
-  pqStrictOrdering: false,
-  pqRatePerSec: 2280.93,
-  pqMode: "error",
-  pqMaxBufferSize: 7666.33,
-  pqMaxBackpressureSec: 1226.06,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -107,3 +52,5 @@ let value: OutputMicrosoftFabric = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                                   | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                                    |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                                             | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                                          |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                                   | [models.OutputMicrosoftFabricPqControls](../models/outputmicrosoftfabricpqcontrols.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
+| `templateTopic`                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.                                                                                                                                                                        |
+| `templateBootstrapServer`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.                                                                                                                                                  |

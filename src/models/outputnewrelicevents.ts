@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
+  AuthenticationMethodOptions3,
+  AuthenticationMethodOptions3$inboundSchema,
+  AuthenticationMethodOptions3$outboundSchema,
+} from "./authenticationmethodoptions3.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -161,7 +161,7 @@ export type OutputNewrelicEvents = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOptions3 | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -213,6 +213,22 @@ export type OutputNewrelicEvents = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
+   */
+  __template_accountId?: string | undefined;
+  /**
+   * Binds 'eventType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'eventType' at runtime.
+   */
+  __template_eventType?: string | undefined;
+  /**
+   * Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
+   */
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -286,7 +302,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions2$inboundSchema),
+  authType: types.optional(AuthenticationMethodOptions3$inboundSchema),
   description: types.optional(types.string()),
   customUrl: types.optional(types.string()),
   pqStrictOrdering: types.optional(types.boolean()),
@@ -304,6 +320,10 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   ),
   apiKey: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_accountId: types.optional(types.string()),
+  __template_eventType: types.optional(types.string()),
+  __template_customUrl: types.optional(types.string()),
 });
 /** @internal */
 export type OutputNewrelicEvents$Outbound = {
@@ -349,6 +369,10 @@ export type OutputNewrelicEvents$Outbound = {
   pqControls?: OutputNewrelicEventsPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_region?: string | undefined;
+  __template_accountId?: string | undefined;
+  __template_eventType?: string | undefined;
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -384,7 +408,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: AuthenticationMethodOptions3$outboundSchema.optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -401,6 +425,10 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_accountId: z.string().optional(),
+  __template_eventType: z.string().optional(),
+  __template_customUrl: z.string().optional(),
 });
 
 export function outputNewrelicEventsToJSON(

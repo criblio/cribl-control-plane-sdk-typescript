@@ -7,7 +7,6 @@ import { ItemsTypeRules } from "cribl-control-plane/models";
 
 let value: ItemsTypeRules = {
   filter: "<value>",
-  description: "mechanically tomb pave",
 };
 ```
 

@@ -8,11 +8,11 @@ Format of the returned output
 import { OutputModeOptionsSplunkCollectorConf } from "cribl-control-plane/models";
 
 let value: OutputModeOptionsSplunkCollectorConf = "csv";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "csv" | "json" | Unrecognized<string>

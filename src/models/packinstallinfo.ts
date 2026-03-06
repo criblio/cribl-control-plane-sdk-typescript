@@ -14,6 +14,7 @@ import {
 
 export type PackInstallInfo = {
   author?: string | undefined;
+  collectors?: number | undefined;
   dependencies?: { [k: string]: string } | undefined;
   description?: string | undefined;
   displayName?: string | undefined;
@@ -38,6 +39,7 @@ export const PackInstallInfo$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   author: types.optional(types.string()),
+  collectors: types.optional(types.number()),
   dependencies: types.optional(z.record(types.string())),
   description: types.optional(types.string()),
   displayName: types.optional(types.string()),

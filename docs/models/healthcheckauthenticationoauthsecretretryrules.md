@@ -9,11 +9,6 @@
 const value:
   models.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone = {
     type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
   };
 ```
 
@@ -23,11 +18,6 @@ const value:
 const value:
   models.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic = {
     type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
   };
 ```
 
@@ -38,11 +28,6 @@ const value:
   models.HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff =
     {
       type: "backoff",
-      interval: "<value>",
-      limit: "<value>",
-      multiplier: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
     };
 ```
 

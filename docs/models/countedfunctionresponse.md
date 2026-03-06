@@ -5,33 +5,7 @@
 ```typescript
 import { CountedFunctionResponse } from "cribl-control-plane/models";
 
-let value: CountedFunctionResponse = {
-  count: 937893,
-  items: [
-    {
-      __filename: "example.file",
-      asyncTimeout: 803.8,
-      cribl_version: "<value>",
-      disabled: true,
-      group: "<value>",
-      handleSignals: true,
-      id: "distinct",
-      loadTime: 555.8,
-      modTime: 1576.77,
-      name: "<value>",
-      sync: false,
-      uischema: {
-        "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
-      },
-      version: "<value>",
-      schema: {
-        "key": "<value>",
-      },
-    },
-  ],
-};
+let value: CountedFunctionResponse = {};
 ```
 
 ## Fields

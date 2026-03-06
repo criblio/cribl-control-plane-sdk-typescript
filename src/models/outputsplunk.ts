@@ -185,6 +185,14 @@ export type OutputSplunk = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -267,6 +275,8 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   ),
   authToken: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSplunk$Outbound = {
@@ -305,6 +315,8 @@ export type OutputSplunk$Outbound = {
   pqControls?: OutputSplunkPqControls$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -349,6 +361,8 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSplunkPqControls$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {

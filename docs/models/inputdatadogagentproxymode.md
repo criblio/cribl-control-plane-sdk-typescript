@@ -7,7 +7,6 @@ import { InputDatadogAgentProxyMode } from "cribl-control-plane/models";
 
 let value: InputDatadogAgentProxyMode = {
   enabled: false,
-  rejectUnauthorized: false,
 };
 ```
 

@@ -13,7 +13,7 @@ export class Cribl extends ClientSDK {
    * Get Cribl system settings
    *
    * @remarks
-   * Get Cribl system settings
+   * Get Cribl system settings.
    */
   async list(
     options?: RequestOptions,
@@ -28,7 +28,7 @@ export class Cribl extends ClientSDK {
    * Update Cribl system settings
    *
    * @remarks
-   * Update Cribl system settings
+   * Update Cribl system settings.
    */
   async update(
     request: models.SystemSettingsConf,

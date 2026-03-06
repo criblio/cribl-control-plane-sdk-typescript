@@ -8,11 +8,11 @@ Storage class to select for uploaded objects
 import { StorageClassOptions1 } from "cribl-control-plane/models";
 
 let value: StorageClassOptions1 = "NEARLINE";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "STANDARD" | "NEARLINE" | "COLDLINE" | "ARCHIVE" | Unrecognized<string>

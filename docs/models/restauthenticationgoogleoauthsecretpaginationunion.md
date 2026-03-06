@@ -24,7 +24,6 @@ const value:
       "<value 3>",
     ],
     maxPages: 3021.47,
-    lastPageExpr: "<value>",
   };
 ```
 
@@ -47,7 +46,6 @@ const value:
     {
       type: "response_header_link",
       nextRelationAttribute: "<value>",
-      curRelationAttribute: "<value>",
       maxPages: 8706.47,
     };
 ```
@@ -59,11 +57,9 @@ const value:
   models.RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset = {
     type: "request_offset",
     offsetField: "<value>",
-    offset: 3299.64,
     limitField: "<value>",
-    limit: 1677.11,
-    totalRecordField: "<value>",
-    maxPages: 4405.08,
+    limit: 3299.64,
+    maxPages: 1677.11,
     zeroIndexed: true,
   };
 ```
@@ -75,13 +71,10 @@ const value:
   models.RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage = {
     type: "request_page",
     pageField: "<value>",
-    page: 5382.91,
     sizeField: "<value>",
-    size: 592.12,
-    totalPageField: "<value>",
-    totalRecordField: "<value>",
-    maxPages: 4632.73,
-    zeroIndexed: false,
+    size: 5382.91,
+    maxPages: 592.12,
+    zeroIndexed: true,
   };
 ```
 

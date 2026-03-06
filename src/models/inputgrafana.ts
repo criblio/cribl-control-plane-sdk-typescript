@@ -26,23 +26,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  ItemsTypeOauthHeaders,
-  ItemsTypeOauthHeaders$inboundSchema,
-  ItemsTypeOauthHeaders$Outbound,
-  ItemsTypeOauthHeaders$outboundSchema,
-} from "./itemstypeoauthheaders.js";
-import {
-  ItemsTypeOauthParams,
-  ItemsTypeOauthParams$inboundSchema,
-  ItemsTypeOauthParams$Outbound,
-  ItemsTypeOauthParams$outboundSchema,
-} from "./itemstypeoauthparams.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -80,38 +68,6 @@ export type PrometheusAuth2 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
 export type LokiAuth2 = {
@@ -133,38 +89,6 @@ export type LokiAuth2 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
 export type InputGrafanaGrafana2 = {
@@ -265,8 +189,16 @@ export type InputGrafanaGrafana2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 export const InputGrafanaType1 = {
@@ -293,38 +225,6 @@ export type PrometheusAuth1 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
 export type LokiAuth1 = {
@@ -346,38 +246,6 @@ export type LokiAuth1 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
 
 export type InputGrafanaGrafana1 = {
@@ -478,8 +346,16 @@ export type InputGrafanaGrafana1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
@@ -507,14 +383,6 @@ export const PrometheusAuth2$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
 });
 /** @internal */
 export type PrometheusAuth2$Outbound = {
@@ -524,14 +392,6 @@ export type PrometheusAuth2$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
@@ -546,14 +406,6 @@ export const PrometheusAuth2$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
 export function prometheusAuth2ToJSON(
@@ -583,14 +435,6 @@ export const LokiAuth2$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
 });
 /** @internal */
 export type LokiAuth2$Outbound = {
@@ -600,14 +444,6 @@ export type LokiAuth2$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
@@ -622,14 +458,6 @@ export const LokiAuth2$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
 export function lokiAuth2ToJSON(lokiAuth2: LokiAuth2): string {
@@ -681,10 +509,10 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   lokiAPI: types.string(),
   prometheusAuth: types.optional(z.lazy(() => PrometheusAuth2$inboundSchema)),
   lokiAuth: types.optional(z.lazy(() => LokiAuth2$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputGrafanaGrafana2$Outbound = {
@@ -716,8 +544,10 @@ export type InputGrafanaGrafana2$Outbound = {
   lokiAPI: string;
   prometheusAuth?: PrometheusAuth2$Outbound | undefined;
   lokiAuth?: LokiAuth2$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -754,8 +584,10 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   lokiAPI: z.string(),
   prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
   lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputGrafanaGrafana2ToJSON(
@@ -798,14 +630,6 @@ export const PrometheusAuth1$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
 });
 /** @internal */
 export type PrometheusAuth1$Outbound = {
@@ -815,14 +639,6 @@ export type PrometheusAuth1$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
@@ -837,14 +653,6 @@ export const PrometheusAuth1$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
 export function prometheusAuth1ToJSON(
@@ -874,14 +682,6 @@ export const LokiAuth1$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
 });
 /** @internal */
 export type LokiAuth1$Outbound = {
@@ -891,14 +691,6 @@ export type LokiAuth1$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
@@ -913,14 +705,6 @@ export const LokiAuth1$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
 export function lokiAuth1ToJSON(lokiAuth1: LokiAuth1): string {
@@ -972,10 +756,10 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   lokiAPI: types.optional(types.string()),
   prometheusAuth: types.optional(z.lazy(() => PrometheusAuth1$inboundSchema)),
   lokiAuth: types.optional(z.lazy(() => LokiAuth1$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputGrafanaGrafana1$Outbound = {
@@ -1007,8 +791,10 @@ export type InputGrafanaGrafana1$Outbound = {
   lokiAPI?: string | undefined;
   prometheusAuth?: PrometheusAuth1$Outbound | undefined;
   lokiAuth?: LokiAuth1$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -1045,8 +831,10 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   lokiAPI: z.string().optional(),
   prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
   lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputGrafanaGrafana1ToJSON(

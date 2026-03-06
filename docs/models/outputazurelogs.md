@@ -6,73 +6,8 @@
 import { OutputAzureLogs } from "cribl-control-plane/models";
 
 let value: OutputAzureLogs = {
-  id: "<id>",
   type: "azure_logs",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
   logType: "<value>",
-  resourceId: "<id>",
-  concurrency: 7684.99,
-  maxPayloadSizeKB: 6885.22,
-  maxPayloadEvents: 6704.51,
-  compress: true,
-  rejectUnauthorized: true,
-  timeoutSec: 3540.18,
-  flushPeriodSec: 5311.29,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  apiUrl: "https://medium-kinase.name/",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "drop",
-  authType: "secret",
-  description: "aha gallery monthly jot individual",
-  pqStrictOrdering: false,
-  pqRatePerSec: 3216.16,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 1270.81,
-  pqMaxBackpressureSec: 3929.97,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
-  workspaceId: "<id>",
-  workspaceKey: "<value>",
-  keypairSecret: "<value>",
 };
 ```
 
@@ -120,3 +55,5 @@ let value: OutputAzureLogs = {
 | `workspaceId`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.                                                                                                                                                                                                                                                             |
 | `workspaceKey`                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.                                                                                                                                                                                                                                |
 | `keypairSecret`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored secret that references your access key and secret key                                                                                                                                                                                                                                                                  |
+| `templateWorkspaceId`                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.                                                                                                                                              |
+| `templateWorkspaceKey`                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.                                                                                                                                            |

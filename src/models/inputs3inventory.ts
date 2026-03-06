@@ -20,11 +20,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -32,11 +32,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  PreprocessTypeSavedJobCollectionInput,
-  PreprocessTypeSavedJobCollectionInput$inboundSchema,
-  PreprocessTypeSavedJobCollectionInput$Outbound,
-  PreprocessTypeSavedJobCollectionInput$outboundSchema,
-} from "./preprocesstypesavedjobcollectioninput.js";
+  PreprocessType,
+  PreprocessType$inboundSchema,
+  PreprocessType$Outbound,
+  PreprocessType$outboundSchema,
+} from "./preprocesstype.js";
 import {
   SignatureVersionOptionsS3CollectorConf,
   SignatureVersionOptionsS3CollectorConf$inboundSchema,
@@ -169,11 +169,11 @@ export type InputS3Inventory = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -214,6 +214,34 @@ export type InputS3Inventory = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+   */
+  __template_awsAccountId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -259,12 +287,8 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
   enableSQSAssumeRole: types.optional(types.boolean()),
-  preprocess: types.optional(
-    PreprocessTypeSavedJobCollectionInput$inboundSchema,
-  ),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  preprocess: types.optional(PreprocessType$inboundSchema),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   checkpointing: types.optional(CheckpointingType$inboundSchema),
@@ -278,6 +302,13 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   tagAfterProcessing: types.optional(TagAfterProcessingOptions$inboundSchema),
   processedTagKey: types.optional(types.string()),
   processedTagValue: types.optional(types.string()),
+  __template_queueName: types.optional(types.string()),
+  __template_awsAccountId: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
 });
 /** @internal */
 export type InputS3Inventory$Outbound = {
@@ -314,8 +345,8 @@ export type InputS3Inventory$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: PreprocessType$Outbound | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: CheckpointingType$Outbound | undefined;
@@ -329,6 +360,13 @@ export type InputS3Inventory$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -371,8 +409,8 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  preprocess: PreprocessType$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$outboundSchema.optional(),
@@ -386,6 +424,13 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
 export function inputS3InventoryToJSON(

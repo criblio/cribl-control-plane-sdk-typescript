@@ -7,23 +7,13 @@ import { FunctionPublishMetrics } from "cribl-control-plane/models";
 
 let value: FunctionPublishMetrics = {
   __filename: "example.file",
-  asyncTimeout: 7718.35,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "publish_metrics",
-  loadTime: 3710.5,
-  modTime: 4815.9,
+  loadTime: 7718.35,
+  modTime: 5382.32,
   name: "<value>",
-  sync: true,
   uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

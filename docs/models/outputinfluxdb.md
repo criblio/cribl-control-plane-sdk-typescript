@@ -6,96 +6,8 @@
 import { OutputInfluxdb } from "cribl-control-plane/models";
 
 let value: OutputInfluxdb = {
-  id: "<id>",
   type: "influxdb",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  url: "https://wasteful-forage.org",
-  useV2API: true,
-  timestampPrecision: "ms",
-  dynamicValueFieldName: true,
-  valueFieldName: "<value>",
-  concurrency: 1878.4,
-  maxPayloadSizeKB: 6791.01,
-  maxPayloadEvents: 767.96,
-  compress: true,
-  rejectUnauthorized: true,
-  timeoutSec: 7566.67,
-  flushPeriodSec: 4868.72,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "block",
-  authType: "token",
-  description:
-    "economise although trolley whoa gratefully premeditation sport since charming powerfully",
-  database: "<value>",
-  bucket: "<value>",
-  org: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 9002.89,
-  pqMode: "always",
-  pqMaxBufferSize: 4629.74,
-  pqMaxBackpressureSec: 4743.58,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
-  username: "Mohammed17",
-  password: "vlCBxsGfaBE5Xbd",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://square-shore.com",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 2284.96,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
+  url: "https://next-strategy.org/",
 };
 ```
 
@@ -150,11 +62,6 @@ let value: OutputInfluxdb = {
 | `token`                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Bearer token to include in the authorization header                                                                                                                                                                                                                                                                                              |
 | `credentialsSecret`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a secret that references your credentials                                                                                                                                                                                                                                                                                       |
 | `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
-| `loginUrl`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | URL for OAuth                                                                                                                                                                                                                                                                                                                                    |
-| `secretParamName`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter name to pass in request body                                                                                                                                                                                                                                                                                                    |
-| `secret`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter value to pass in request body                                                                                                                                                                                                                                                                                                   |
-| `tokenAttributeName`                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                                        |
-| `authHeaderExpr`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                                  |
-| `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                                   |
-| `oauthParams`                                                                                                                                                                                                                                                                                                                                    | [models.ItemsTypeOauthParams](../models/itemstypeoauthparams.md)[]                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.          |
-| `oauthHeaders`                                                                                                                                                                                                                                                                                                                                   | [models.ItemsTypeOauthHeaders](../models/itemstypeoauthheaders.md)[]                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                                  |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                              |
+| `templateDatabase`                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.                                                                                                                                                    |
+| `templateBucket`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.                                                                                                                                                        |

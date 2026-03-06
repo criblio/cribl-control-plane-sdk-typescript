@@ -6,112 +6,8 @@
 import { OutputOpenTelemetry } from "cribl-control-plane/models";
 
 let value: OutputOpenTelemetry = {
-  id: "<id>",
   type: "open_telemetry",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  protocol: "grpc",
   endpoint: "<value>",
-  otlpVersion: "0.10.0",
-  compress: "deflate",
-  httpCompress: "gzip",
-  authType: "oauth",
-  httpTracesEndpointOverride: "<value>",
-  httpMetricsEndpointOverride: "<value>",
-  httpLogsEndpointOverride: "<value>",
-  metadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  concurrency: 2160.91,
-  maxPayloadSizeKB: 1153.89,
-  timeoutSec: 7471.62,
-  flushPeriodSec: 4006.42,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  connectionTimeout: 1569.27,
-  keepAliveTime: 6455.13,
-  keepAlive: false,
-  onBackpressure: "drop",
-  description: "sternly yowza etch by um ha out yum",
-  username: "Adah_Prohaska19",
-  password: "QkOK8sg6_rjU1Ff",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://spherical-eternity.biz/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 570.46,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  rejectUnauthorized: true,
-  useRoundRobinDns: true,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  tls: {
-    disabled: false,
-    rejectUnauthorized: false,
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1",
-  },
-  pqStrictOrdering: false,
-  pqRatePerSec: 5283.29,
-  pqMode: "always",
-  pqMaxBufferSize: 261.23,
-  pqMaxBackpressureSec: 2023.56,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 
@@ -150,14 +46,6 @@ let value: OutputOpenTelemetry = {
 | `token`                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Bearer token to include in the authorization header                                                                                                                                                                                                                                                                                              |
 | `credentialsSecret`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a secret that references your credentials                                                                                                                                                                                                                                                                                       |
 | `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
-| `loginUrl`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | URL for OAuth                                                                                                                                                                                                                                                                                                                                    |
-| `secretParamName`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter name to pass in request body                                                                                                                                                                                                                                                                                                    |
-| `secret`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter value to pass in request body                                                                                                                                                                                                                                                                                                   |
-| `tokenAttributeName`                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                                        |
-| `authHeaderExpr`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                                  |
-| `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                                   |
-| `oauthParams`                                                                                                                                                                                                                                                                                                                                    | [models.ItemsTypeOauthParams](../models/itemstypeoauthparams.md)[]                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.          |
-| `oauthHeaders`                                                                                                                                                                                                                                                                                                                                   | [models.ItemsTypeOauthHeaders](../models/itemstypeoauthheaders.md)[]                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                                  |
 | `rejectUnauthorized`                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's). <br/>        Enabled by default. When this setting is also present in TLS Settings (Client Side), <br/>        that value will take precedence.                                                                           |
 | `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.                                                                                                               |
 | `extraHttpHeaders`                                                                                                                                                                                                                                                                                                                               | [models.ItemsTypeExtraHttpHeaders](../models/itemstypeextrahttpheaders.md)[]                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Headers to add to all events                                                                                                                                                                                                                                                                                                                     |

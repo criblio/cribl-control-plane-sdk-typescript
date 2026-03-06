@@ -8,11 +8,11 @@ With Smart mode, PQ will write events to the filesystem only when it detects bac
 import { ModeOptionsPq } from "cribl-control-plane/models";
 
 let value: ModeOptionsPq = "smart";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "smart" | "always" | Unrecognized<string>

@@ -8,7 +8,6 @@ import { RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink } fro
 let value: RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink = {
   type: "response_header_link",
   nextRelationAttribute: "<value>",
-  curRelationAttribute: "<value>",
   maxPages: 1524.69,
 };
 ```

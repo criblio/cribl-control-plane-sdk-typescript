@@ -6,134 +6,16 @@
 import { OutputAzureDataExplorer } from "cribl-control-plane/models";
 
 let value: OutputAzureDataExplorer = {
-  id: "<id>",
   type: "azure_data_explorer",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  clusterUrl: "https://royal-duffel.biz",
+  clusterUrl: "https://ample-making.net/",
   database: "<value>",
   table: "<value>",
-  validateDatabaseSettings: false,
-  ingestMode: "streaming",
-  oauthEndpoint: "https://login.microsoftonline.us",
+  oauthEndpoint: "https://login.microsoftonline.com",
   tenantId: "<id>",
   clientId: "<id>",
   scope: "<value>",
   oauthType: "clientSecret",
-  description:
-    "near carnival where menacing improbable past malfunction ugh too ripe",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
-  format: "raw",
   compress: "gzip",
-  compressionLevel: "best_speed",
-  automaticSchema: true,
-  parquetSchema: "<value>",
-  parquetVersion: "PARQUET_1_0",
-  parquetDataPageVersion: "DATA_PAGE_V2",
-  parquetRowGroupLength: 8347.51,
-  parquetPageSize: "<value>",
-  shouldLogInvalidRows: true,
-  keyValueMetadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  enableStatistics: false,
-  enableWritePageIndex: true,
-  enablePageChecksum: false,
-  removeEmptyDirs: false,
-  emptyDirCleanupSec: 4894.6,
-  directoryBatchSize: 3751.84,
-  deadletterEnabled: true,
-  deadletterPath: "<value>",
-  maxRetryNum: 7674.55,
-  isMappingObj: false,
-  mappingObj: "<value>",
-  mappingRef: "<value>",
-  ingestUrl: "https://married-follower.name/",
-  onBackpressure: "block",
-  stagePath: "<value>",
-  fileNameSuffix: "<value>",
-  maxFileSizeMB: 8986.12,
-  maxFileOpenTimeSec: 5494.42,
-  maxFileIdleTimeSec: 3325.36,
-  maxOpenFiles: 1533.52,
-  maxConcurrentFileParts: 643.8,
-  onDiskFullBackpressure: "block",
-  addIdToStagePath: false,
-  retrySettings: {
-    enabled: false,
-    initialBackoffMs: 192.63,
-    backoffMultiplier: 5447.21,
-    maxBackoffMs: 1266.88,
-    jitterPercent: 3342.59,
-  },
-  timeoutSec: 8707.37,
-  flushImmediately: false,
-  retainBlobOnSuccess: false,
-  extentTags: [
-    {
-      prefix: "ingestBy",
-      value: "<value>",
-    },
-  ],
-  ingestIfNotExists: [
-    {
-      value: "<value>",
-    },
-  ],
-  reportLevel: "failuresOnly",
-  reportMethod: "queueAndTable",
-  additionalProperties: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  concurrency: 3972.35,
-  maxPayloadSizeKB: 6117.29,
-  maxPayloadEvents: 3935.73,
-  flushPeriodSec: 1617.04,
-  rejectUnauthorized: false,
-  useRoundRobinDns: false,
-  keepAlive: false,
-  pqStrictOrdering: false,
-  pqRatePerSec: 2939.38,
-  pqMode: "error",
-  pqMaxBufferSize: 2965.07,
-  pqMaxBackpressureSec: 9056.22,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -225,3 +107,12 @@ let value: OutputAzureDataExplorer = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputAzureDataExplorerPqControls](../models/outputazuredataexplorerpqcontrols.md)                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateClusterUrl`                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.                                                                                                                                                |
+| `templateDatabase`                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.                                                                                                                                                    |
+| `templateTable`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.                                                                                                                                                          |
+| `templateTenantId`                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.                                                                                                                                                    |
+| `templateClientId`                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.                                                                                                                                                    |
+| `templateScope`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.                                                                                                                                                          |
+| `templateClientSecret`                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.                                                                                                                                            |
+| `templateFormat`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.                                                                                                                                                        |
+| `templateIngestUrl`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.                                                                                                                                                  |
