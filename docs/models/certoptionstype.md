@@ -1,11 +1,11 @@
-# CertOptions
+# CertOptionsType
 
 ## Example Usage
 
 ```typescript
-import { CertOptions } from "cribl-control-plane/models";
+import { CertOptionsType } from "cribl-control-plane/models";
 
-let value: CertOptions = {
+let value: CertOptionsType = {
   privKeyPath: "<value>",
   certPath: "<value>",
 };

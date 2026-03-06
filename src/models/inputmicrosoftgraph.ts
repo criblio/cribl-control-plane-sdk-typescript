@@ -53,12 +53,12 @@ import {
   SubscriptionPlanOptions$outboundSchema,
 } from "./subscriptionplanoptions.js";
 
-export type InputOffice365MsgTrace = {
+export type InputMicrosoftGraph = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: "office365_msg_trace";
+  type: "microsoft_graph";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -86,7 +86,7 @@ export type InputOffice365MsgTrace = {
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
-   * URL to use when retrieving report data.
+   * Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
    */
   url: string;
   /**
@@ -94,11 +94,11 @@ export type InputOffice365MsgTrace = {
    */
   interval: number;
   /**
-   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   * Backward offset for the search range's head. (E.g.: -3h@h) Microsoft Graph data is delayed; this parameter (with Date range end) compensates for delay and gaps.
    */
   startDate?: string | undefined;
   /**
-   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Microsoft Graph data is delayed; this parameter (with Date range start) compensates for delay and gaps.
    */
   endDate?: string | undefined;
   /**
@@ -152,11 +152,11 @@ export type InputOffice365MsgTrace = {
   retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
-   * Username to run Message Trace API call.
+   * Username to run Microsoft Graph API call.
    */
   username?: string | undefined;
   /**
-   * Password to run Message Trace API call.
+   * Password to run Microsoft Graph API call.
    */
   password?: string | undefined;
   /**
@@ -207,13 +207,13 @@ export type InputOffice365MsgTrace = {
 };
 
 /** @internal */
-export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
-  InputOffice365MsgTrace,
+export const InputMicrosoftGraph$inboundSchema: z.ZodType<
+  InputMicrosoftGraph,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: types.optional(types.string()),
-  type: types.literal("office365_msg_trace"),
+  type: types.literal("microsoft_graph"),
   disabled: types.optional(types.boolean()),
   pipeline: types.optional(types.string()),
   sendToRoutes: types.optional(types.boolean()),
@@ -260,9 +260,9 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   __template_resource: types.optional(types.string()),
 });
 /** @internal */
-export type InputOffice365MsgTrace$Outbound = {
+export type InputMicrosoftGraph$Outbound = {
   id?: string | undefined;
-  type: "office365_msg_trace";
+  type: "microsoft_graph";
   disabled?: boolean | undefined;
   pipeline?: string | undefined;
   sendToRoutes?: boolean | undefined;
@@ -306,13 +306,13 @@ export type InputOffice365MsgTrace$Outbound = {
 };
 
 /** @internal */
-export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
-  InputOffice365MsgTrace$Outbound,
+export const InputMicrosoftGraph$outboundSchema: z.ZodType<
+  InputMicrosoftGraph$Outbound,
   z.ZodTypeDef,
-  InputOffice365MsgTrace
+  InputMicrosoftGraph
 > = z.object({
   id: z.string().optional(),
-  type: z.literal("office365_msg_trace"),
+  type: z.literal("microsoft_graph"),
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
@@ -355,19 +355,19 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   __template_resource: z.string().optional(),
 });
 
-export function inputOffice365MsgTraceToJSON(
-  inputOffice365MsgTrace: InputOffice365MsgTrace,
+export function inputMicrosoftGraphToJSON(
+  inputMicrosoftGraph: InputMicrosoftGraph,
 ): string {
   return JSON.stringify(
-    InputOffice365MsgTrace$outboundSchema.parse(inputOffice365MsgTrace),
+    InputMicrosoftGraph$outboundSchema.parse(inputMicrosoftGraph),
   );
 }
-export function inputOffice365MsgTraceFromJSON(
+export function inputMicrosoftGraphFromJSON(
   jsonString: string,
-): SafeParseResult<InputOffice365MsgTrace, SDKValidationError> {
+): SafeParseResult<InputMicrosoftGraph, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputOffice365MsgTrace$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTrace' from JSON`,
+    (x) => InputMicrosoftGraph$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMicrosoftGraph' from JSON`,
   );
 }

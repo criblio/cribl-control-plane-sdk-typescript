@@ -200,7 +200,17 @@ const value: models.InputOffice365Service = {
 const value: models.InputOffice365MsgTrace = {
   type: "office365_msg_trace",
   url: "https://paltry-obedience.com",
-  interval: 2809.28,
+  interval: 280928,
+};
+```
+
+### `models.InputMicrosoftGraph`
+
+```typescript
+const value: models.InputMicrosoftGraph = {
+  type: "microsoft_graph",
+  url: "https://apprehensive-stock.name",
+  interval: 628836,
 };
 ```
 

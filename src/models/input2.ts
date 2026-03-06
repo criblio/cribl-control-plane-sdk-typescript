@@ -159,6 +159,11 @@ import {
   InputMetrics$outboundSchema,
 } from "./inputmetrics.js";
 import {
+  InputMicrosoftGraph,
+  InputMicrosoftGraph$Outbound,
+  InputMicrosoftGraph$outboundSchema,
+} from "./inputmicrosoftgraph.js";
+import {
   InputModelDrivenTelemetry,
   InputModelDrivenTelemetry$Outbound,
   InputModelDrivenTelemetry$outboundSchema,
@@ -328,6 +333,7 @@ export type Input2 =
   | InputOffice365Mgmt
   | InputOffice365Service
   | InputOffice365MsgTrace
+  | InputMicrosoftGraph
   | InputEventhub
   | InputExec
   | InputFirehose
@@ -392,6 +398,7 @@ export type Input2$Outbound =
   | InputOffice365Mgmt$Outbound
   | InputOffice365Service$Outbound
   | InputOffice365MsgTrace$Outbound
+  | InputMicrosoftGraph$Outbound
   | InputEventhub$Outbound
   | InputExec$Outbound
   | InputFirehose$Outbound
@@ -462,6 +469,7 @@ export const Input2$outboundSchema: z.ZodType<
   InputOffice365Mgmt$outboundSchema,
   InputOffice365Service$outboundSchema,
   InputOffice365MsgTrace$outboundSchema,
+  InputMicrosoftGraph$outboundSchema,
   InputEventhub$outboundSchema,
   InputExec$outboundSchema,
   InputFirehose$outboundSchema,

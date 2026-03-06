@@ -1,13 +1,13 @@
-# CreateInputAuthenticationMethodOffice365MsgTrace
+# AuthenticationMethodOptionsManualOauth
 
 Select authentication method.
 
 ## Example Usage
 
 ```typescript
-import { CreateInputAuthenticationMethodOffice365MsgTrace } from "cribl-control-plane/models/operations";
+import { AuthenticationMethodOptionsManualOauth } from "cribl-control-plane/models";
 
-let value: CreateInputAuthenticationMethodOffice365MsgTrace = "oauthCert";
+let value: AuthenticationMethodOptionsManualOauth = "oauth";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
