@@ -8,9 +8,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import {
-  AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState,
-  AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
-} from "./additionalpropertiestypesavedjobenrichedfieldssavedstate.js";
+  AdditionalPropertiesTypeEnrichedFieldsSavedState,
+  AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema,
+} from "./additionalpropertiestypeenrichedfieldssavedstate.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -76,9 +76,9 @@ export type SavedJobResponseScheduledSearch = {
   /**
    * Runtime collection state.
    */
-  savedState?: {
-    [k: string]: AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState;
-  } | undefined;
+  savedState?:
+    | { [k: string]: AdditionalPropertiesTypeEnrichedFieldsSavedState }
+    | undefined;
   /**
    * Notification targets.
    */
@@ -124,9 +124,9 @@ export type SavedJobResponseExecutor = {
   /**
    * Runtime collection state.
    */
-  savedState?: {
-    [k: string]: AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState;
-  } | undefined;
+  savedState?:
+    | { [k: string]: AdditionalPropertiesTypeEnrichedFieldsSavedState }
+    | undefined;
   /**
    * Notification targets.
    */
@@ -180,9 +180,9 @@ export type SavedJobResponseCollection = {
   /**
    * Runtime collection state.
    */
-  savedState?: {
-    [k: string]: AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState;
-  } | undefined;
+  savedState?:
+    | { [k: string]: AdditionalPropertiesTypeEnrichedFieldsSavedState }
+    | undefined;
   /**
    * Notification targets.
    */
@@ -214,9 +214,7 @@ export const SavedJobResponseScheduledSearch$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   savedQueryId: types.string(),
   savedState: types.optional(
-    z.record(
-      AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
-    ),
+    z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
 });
@@ -251,9 +249,7 @@ export const SavedJobResponseExecutor$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
   savedState: types.optional(
-    z.record(
-      AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
-    ),
+    z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
 });
@@ -292,9 +288,7 @@ export const SavedJobResponseCollection$inboundSchema: z.ZodType<
     TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
   savedState: types.optional(
-    z.record(
-      AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState$inboundSchema,
-    ),
+    z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
 });

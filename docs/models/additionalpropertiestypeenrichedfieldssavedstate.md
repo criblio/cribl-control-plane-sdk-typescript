@@ -1,14 +1,13 @@
-# AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState
+# AdditionalPropertiesTypeEnrichedFieldsSavedState
 
 ## Example Usage
 
 ```typescript
-import { AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState } from "cribl-control-plane/models";
+import { AdditionalPropertiesTypeEnrichedFieldsSavedState } from "cribl-control-plane/models";
 
-let value: AdditionalPropertiesTypeSavedJobEnrichedFieldsSavedState = {
+let value: AdditionalPropertiesTypeEnrichedFieldsSavedState = {
   data: {
     "key": "<value>",
-    "key1": "<value>",
   },
 };
 ```
