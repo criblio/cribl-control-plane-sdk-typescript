@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
+  AuthenticationMethodOptions3,
+  AuthenticationMethodOptions3$inboundSchema,
+  AuthenticationMethodOptions3$outboundSchema,
+} from "./authenticationmethodoptions3.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -230,7 +230,7 @@ export type OutputDataset = {
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -286,6 +286,10 @@ export type OutputDataset = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
+   */
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -386,7 +390,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions2$inboundSchema),
+  authType: types.optional(AuthenticationMethodOptions3$inboundSchema),
   totalMemoryLimitKB: types.optional(types.number()),
   description: types.optional(types.string()),
   customUrl: types.optional(types.string()),
@@ -405,6 +409,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
   ),
   apiKey: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_customUrl: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDataset$Outbound = {
@@ -454,6 +459,7 @@ export type OutputDataset$Outbound = {
   pqControls?: OutputDatasetPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -492,7 +498,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: AuthenticationMethodOptions3$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
@@ -509,6 +515,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputDatasetPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_customUrl: z.string().optional(),
 });
 
 export function outputDatasetToJSON(outputDataset: OutputDataset): string {

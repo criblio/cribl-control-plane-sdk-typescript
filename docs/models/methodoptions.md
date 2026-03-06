@@ -8,11 +8,11 @@ The method to use when sending events
 import { MethodOptions } from "cribl-control-plane/models";
 
 let value: MethodOptions = "PUT";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "POST" | "PUT" | "PATCH" | Unrecognized<string>

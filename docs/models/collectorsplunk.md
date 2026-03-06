@@ -10,45 +10,12 @@ import { CollectorSplunk } from "cribl-control-plane/models";
 let value: CollectorSplunk = {
   type: "splunk",
   conf: {
-    authentication: "basic",
-    username: "Enrico53",
-    password: "a6l5mrPhEvtGkTu",
+    authentication: "none",
     searchHead: "<value>",
     search: "<value>",
-    earliest: "<value>",
-    latest: "<value>",
     endpoint: "<value>",
-    outputMode: "json",
-    collectRequestParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    collectRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    timeout: 2992.03,
-    useRoundRobinDns: true,
-    disableTimeFilter: true,
-    rejectUnauthorized: true,
-    handleEscapedChars: false,
-    retryRules: {
-      type: "static",
-      interval: "<value>",
-      limit: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
-      retryConnectTimeout: "<value>",
-      retryConnectReset: "<value>",
-      multiplier: "<value>",
-    },
+    outputMode: "csv",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

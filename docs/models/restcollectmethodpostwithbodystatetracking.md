@@ -5,9 +5,7 @@
 ```typescript
 import { RestCollectMethodPostWithBodyStateTracking } from "cribl-control-plane/models";
 
-let value: RestCollectMethodPostWithBodyStateTracking = {
-  enabled: false,
-};
+let value: RestCollectMethodPostWithBodyStateTracking = {};
 ```
 
 ## Fields

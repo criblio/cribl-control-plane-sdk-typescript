@@ -9,38 +9,8 @@ let value: HealthCheckAuthenticationBasic = {
   authentication: "basic",
   username: "Lyric.Grant",
   password: "j8oqJdqwGmAtefF",
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  collectUrl: "https://silver-plain.com",
+  collectUrl: "https://regal-tooth.net",
   collectMethod: "post_with_body",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: false,
-  timeout: 1066.62,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
 };
 ```
 
@@ -54,8 +24,6 @@ let value: HealthCheckAuthenticationBasic = {
 | `discovery`                                                                                                                                        | *models.HealthCheckAuthenticationBasicDiscovery*                                                                                                   | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Expression to derive URL to use for the health check operation (can be a constant).                                                                |
 | `collectMethod`                                                                                                                                    | [models.HealthCheckAuthenticationBasicHealthCheckMethod](../models/healthcheckauthenticationbasichealthcheckmethod.md)                             | :heavy_check_mark:                                                                                                                                 | Health check HTTP method.                                                                                                                          |
-| `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.HealthCheckAuthenticationBasicCollectRequestHeader](../models/healthcheckauthenticationbasiccollectrequestheader.md)[]                     | :heavy_minus_sign:                                                                                                                                 | Optional health check request headers.                                                                                                             |
 | `authenticateCollect`                                                                                                                              | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Enable to make auth health check call.                                                                                                             |
 | `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout, use 0 to disable                                                                                                  |

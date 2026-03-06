@@ -8,13 +8,10 @@ import { RestAuthenticationNoneRestPaginationTypeRequestPage } from "cribl-contr
 let value: RestAuthenticationNoneRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 2358.74,
   sizeField: "<value>",
-  size: 1013.67,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 8758.77,
-  zeroIndexed: true,
+  size: 2358.74,
+  maxPages: 1013.67,
+  zeroIndexed: false,
 };
 ```
 

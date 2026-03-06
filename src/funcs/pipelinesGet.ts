@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function pipelinesGet(
   client: CriblControlPlaneCore,
-  request: operations.GetPipelineByIdRequest,
+  request: operations.GetPipelinesByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function pipelinesGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetPipelineByIdRequest,
+  request: operations.GetPipelinesByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetPipelineByIdRequest$outboundSchema.parse(value),
+    (value) => operations.GetPipelinesByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -108,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getPipelineById",
+    operationID: "getPipelinesById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

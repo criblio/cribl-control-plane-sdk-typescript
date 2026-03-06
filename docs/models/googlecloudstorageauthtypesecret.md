@@ -8,21 +8,7 @@ import { GoogleCloudStorageAuthTypeSecret } from "cribl-control-plane/models";
 let value: GoogleCloudStorageAuthTypeSecret = {
   authType: "secret",
   textSecret: "<value>",
-  outputName: "<value>",
   bucket: "<value>",
-  path: "/boot",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  disableTimeFilter: true,
-  recurse: false,
-  maxBatchSize: 3411.84,
-  parquetChunkSizeMB: 7593.48,
-  parquetChunkDownloadTimeout: 6733.73,
 };
 ```
 

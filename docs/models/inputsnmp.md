@@ -6,60 +6,9 @@
 import { InputSnmp } from "cribl-control-plane/models";
 
 let value: InputSnmp = {
-  id: "<id>",
   type: "snmp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "simple-cheese.info",
-  port: 1363.98,
-  snmpV3Auth: {
-    v3AuthEnabled: true,
-    allowUnmatchedTrap: true,
-    v3Users: [
-      {
-        name: "<value>",
-        authProtocol: "md5",
-        authKey: "<value>",
-        privProtocol: "des",
-        privKey: "<value>",
-      },
-    ],
-  },
-  maxBufferSize: 5243.71,
-  ipWhitelistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 5271.05,
-  varbindsWithTypes: false,
-  bestEffortParsing: false,
-  description: "possible merrily along below geez horse",
+  host: "zesty-gray.org",
+  port: 3485.4,
 };
 ```
 
@@ -82,8 +31,10 @@ let value: InputSnmp = {
 | `snmpV3Auth`                                                                                                                                                                                                                                                                       | [models.SNMPv3Authentication](../models/snmpv3authentication.md)                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.                                                                                                                                                 |
 | `maxBufferSize`                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Maximum number of events to buffer when downstream is blocking.                                                                                                                                                                                                                    |
 | `ipWhitelistRegex`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Regex matching IP addresses that are allowed to send data                                                                                                                                                                                                                          |
-| `metadata`                                                                                                                                                                                                                                                                         | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Fields to add to events from this input                                                                                                                                                                                                                                            |
+| `metadata`                                                                                                                                                                                                                                                                         | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Fields to add to events from this input                                                                                                                                                                                                                                            |
 | `udpSocketRxBufSize`                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization. |
 | `varbindsWithTypes`                                                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | If enabled, parses varbinds as an array of objects that include OID, value, and type                                                                                                                                                                                               |
 | `bestEffortParsing`                                                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods                                                                                                                                                       |
 | `description`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+| `templateHost`                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                                              |
+| `templatePort`                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                                              |

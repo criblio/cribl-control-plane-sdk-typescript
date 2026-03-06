@@ -7,22 +7,16 @@ import { FunctionTrimTimestamp } from "cribl-control-plane/models";
 
 let value: FunctionTrimTimestamp = {
   __filename: "example.file",
-  asyncTimeout: 5.56,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "trim_timestamp",
-  loadTime: 9909.57,
-  modTime: 1019.23,
+  loadTime: 5.56,
+  modTime: 3003.7,
   name: "<value>",
-  sync: false,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
     "key1": "<value>",
   },
+  version: "<value>",
 };
 ```
 

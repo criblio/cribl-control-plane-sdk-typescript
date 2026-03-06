@@ -8,12 +8,12 @@ Loki logs authentication type
 import { AuthenticationTypeOptionsLokiAuth } from "cribl-control-plane/models";
 
 let value: AuthenticationTypeOptionsLokiAuth = "token";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"none" | "basic" | "credentialsSecret" | "token" | "textSecret" | "oauth" | Unrecognized<string>
+"none" | "basic" | "credentialsSecret" | "token" | "textSecret" | Unrecognized<string>
 ```

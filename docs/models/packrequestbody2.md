@@ -6,32 +6,7 @@
 import { PackRequestBody2 } from "cribl-control-plane/models";
 
 let value: PackRequestBody2 = {
-  id: "<id>",
-  spec: "<value>",
-  version: "<value>",
-  minLogStreamVersion: "<value>",
-  displayName: "Cristal18",
-  author: "<value>",
-  description: "via sick impact quash failing ornate",
   source: "<value>",
-  tags: {
-    dataType: [
-      "decimal",
-    ],
-    domain: [
-      "big-ostrich.net",
-    ],
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    technology: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  allowCustomFunctions: true,
-  force: true,
 };
 ```
 

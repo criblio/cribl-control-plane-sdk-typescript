@@ -5,11 +5,7 @@
 ```typescript
 import { DnsLookupField } from "cribl-control-plane/models";
 
-let value: DnsLookupField = {
-  inFieldName: "<value>",
-  resourceRecordType: "A",
-  outFieldName: "<value>",
-};
+let value: DnsLookupField = {};
 ```
 
 ## Fields

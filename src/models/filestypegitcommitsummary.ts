@@ -7,12 +7,25 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { GitFileRename, GitFileRename$inboundSchema } from "./gitfilerename.js";
 
 export type FilesTypeGitCommitSummary = {
+  /**
+   * Array of file paths that were created in the commit.
+   */
   created?: Array<string> | undefined;
+  /**
+   * Array of file paths that were deleted in the commit.
+   */
   deleted?: Array<string> | undefined;
+  /**
+   * Array of file paths that were modified in the commit.
+   */
   modified?: Array<string> | undefined;
-  renamed?: Array<string> | undefined;
+  /**
+   * Array of file rename operations, each containing the original path and the new path.
+   */
+  renamed?: Array<GitFileRename> | undefined;
 };
 
 /** @internal */
@@ -24,7 +37,7 @@ export const FilesTypeGitCommitSummary$inboundSchema: z.ZodType<
   created: types.optional(z.array(types.string())),
   deleted: types.optional(z.array(types.string())),
   modified: types.optional(z.array(types.string())),
-  renamed: types.optional(z.array(types.string())),
+  renamed: types.optional(z.array(GitFileRename$inboundSchema)),
 });
 
 export function filesTypeGitCommitSummaryFromJSON(

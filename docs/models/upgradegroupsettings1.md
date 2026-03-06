@@ -5,12 +5,7 @@
 ```typescript
 import { UpgradeGroupSettings1 } from "cribl-control-plane/models";
 
-let value: UpgradeGroupSettings1 = {
-  isRolling: true,
-  quantity: 1440.37,
-  retryCount: 9212.76,
-  retryDelay: 7958.84,
-};
+let value: UpgradeGroupSettings1 = {};
 ```
 
 ## Fields

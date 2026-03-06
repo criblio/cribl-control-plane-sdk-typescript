@@ -7,53 +7,8 @@ import { RestCollectMethodGet } from "cribl-control-plane/models";
 
 let value: RestCollectMethodGet = {
   collectMethod: "post",
-  collectRequestParams: "<value>",
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://uncomfortable-napkin.net",
-  collectVerb: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_header_link",
-    nextRelationAttribute: "<value>",
-    curRelationAttribute: "<value>",
-    maxPages: 8754.14,
-  },
-  authentication: "none",
-  timeout: 220.4,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  decodeUrl: true,
-  rejectUnauthorized: true,
-  captureHeaders: true,
-  stopOnEmptyResults: true,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: false,
-    },
-  },
+  collectUrl: "https://phony-siege.com/",
+  authentication: "login",
 };
 ```
 
@@ -62,11 +17,9 @@ let value: RestCollectMethodGet = {
 | Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `collectMethod`                                                                                                                                    | [models.RestCollectMethodGetCollectMethod](../models/restcollectmethodgetcollectmethod.md)                                                         | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectRequestParams`                                                                                                                             | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `discovery`                                                                                                                                        | *models.RestCollectMethodGetDiscovery*                                                                                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `pagination`                                                                                                                                       | *models.RestCollectMethodGetPaginationUnion*                                                                                                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `authentication`                                                                                                                                   | [models.RestCollectMethodGetAuthentication](../models/restcollectmethodgetauthentication.md)                                                       | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |

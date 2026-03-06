@@ -6,90 +6,9 @@
 import { InputPrometheus } from "cribl-control-plane/models";
 
 let value: InputPrometheus = {
-  id: "<id>",
   type: "prometheus",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  dimensionList: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  discoveryType: "ec2",
-  interval: 2386.57,
+  interval: 8895.72,
   logLevel: "info",
-  rejectUnauthorized: true,
-  timeout: 9689.51,
-  keepAliveTime: 2125.09,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 8778.22,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authType: "secret",
-  description: "what closely mob gently or ack sudden legal good",
-  targetList: [
-    "<value 1>",
-  ],
-  recordType: "AAAA",
-  scrapePort: 6229.35,
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  scrapeProtocol: "http",
-  scrapePath: "<value>",
-  awsAuthenticationMethod: "<value>",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  usePublicIp: true,
-  searchFilter: [
-    {
-      Name: "<value>",
-      Values: [
-        "<value 1>",
-      ],
-    },
-  ],
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: true,
-  enableAssumeRole: false,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 2790.27,
-  username: "Xander5",
-  password: "th_udqpW8UBrZko",
-  credentialsSecret: "<value>",
 };
 ```
 
@@ -118,7 +37,7 @@ let value: InputPrometheus = {
 | `maxMissedKeepAlives`                                                                                                                                                                                                                                                           | *number*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                                                         |
 | `ttl`                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                                                                 |
 | `ignoreGroupJobsLimit`                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                              | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                                                        |
-| `metadata`                                                                                                                                                                                                                                                                      | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Fields to add to events from this input                                                                                                                                                                                                                                         |
+| `metadata`                                                                                                                                                                                                                                                                      | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Fields to add to events from this input                                                                                                                                                                                                                                         |
 | `authType`                                                                                                                                                                                                                                                                      | [models.AuthenticationMethodOptionsSasl](../models/authenticationmethodoptionssasl.md)                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Enter credentials directly, or select a stored secret                                                                                                                                                                                                                           |
 | `description`                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                             |
 | `targetList`                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                              | List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'. |
@@ -144,3 +63,9 @@ let value: InputPrometheus = {
 | `username`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Username for Prometheus Basic authentication                                                                                                                                                                                                                                    |
 | `password`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Password for Prometheus Basic authentication                                                                                                                                                                                                                                    |
 | `credentialsSecret`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Select or create a secret that references your credentials                                                                                                                                                                                                                      |
+| `templateLogLevel`                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.                                                                                   |
+| `templateAwsApiKey`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.                                                                                 |
+| `templateAwsSecretKey`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.                                                                           |
+| `templateRegion`                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                                       |
+| `templateAssumeRoleArn`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.                                                                         |
+| `templateAssumeRoleExternalId`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                              | Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.                                                           |

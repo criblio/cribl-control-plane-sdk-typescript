@@ -7,24 +7,17 @@ import { FunctionDropDimensions } from "cribl-control-plane/models";
 
 let value: FunctionDropDimensions = {
   __filename: "example.file",
-  asyncTimeout: 8672.88,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "drop_dimensions",
-  loadTime: 2190.54,
-  modTime: 1816.44,
+  loadTime: 8672.88,
+  modTime: 6277.32,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
+    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

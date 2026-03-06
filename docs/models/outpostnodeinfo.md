@@ -15,5 +15,6 @@ let value: OutpostNodeInfo = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `groupname`        | *string*           | :heavy_minus_sign: | N/A                |
 | `guid`             | *string*           | :heavy_check_mark: | N/A                |
 | `host`             | *string*           | :heavy_check_mark: | N/A                |

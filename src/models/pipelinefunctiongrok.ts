@@ -7,20 +7,19 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PatternList = {
-  /**
-   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-   */
-  pattern: string;
-};
+import {
+  ItemsTypeSerdeTypeGrokPatternList,
+  ItemsTypeSerdeTypeGrokPatternList$inboundSchema,
+  ItemsTypeSerdeTypeGrokPatternList$Outbound,
+  ItemsTypeSerdeTypeGrokPatternList$outboundSchema,
+} from "./itemstypeserdetypegrokpatternlist.js";
 
 export type PipelineFunctionGrokConf = {
   /**
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern: string;
-  patternList?: Array<PatternList> | undefined;
+  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
   /**
    * Field on which to perform Grok extractions
    */
@@ -56,54 +55,21 @@ export type PipelineFunctionGrok = {
 };
 
 /** @internal */
-export const PatternList$inboundSchema: z.ZodType<
-  PatternList,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pattern: types.string(),
-});
-/** @internal */
-export type PatternList$Outbound = {
-  pattern: string;
-};
-
-/** @internal */
-export const PatternList$outboundSchema: z.ZodType<
-  PatternList$Outbound,
-  z.ZodTypeDef,
-  PatternList
-> = z.object({
-  pattern: z.string(),
-});
-
-export function patternListToJSON(patternList: PatternList): string {
-  return JSON.stringify(PatternList$outboundSchema.parse(patternList));
-}
-export function patternListFromJSON(
-  jsonString: string,
-): SafeParseResult<PatternList, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PatternList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PatternList' from JSON`,
-  );
-}
-
-/** @internal */
 export const PipelineFunctionGrokConf$inboundSchema: z.ZodType<
   PipelineFunctionGrokConf,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pattern: types.string(),
-  patternList: types.optional(z.array(z.lazy(() => PatternList$inboundSchema))),
+  patternList: types.optional(
+    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+  ),
   source: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionGrokConf$Outbound = {
   pattern: string;
-  patternList?: Array<PatternList$Outbound> | undefined;
+  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
   source?: string | undefined;
 };
 
@@ -114,7 +80,8 @@ export const PipelineFunctionGrokConf$outboundSchema: z.ZodType<
   PipelineFunctionGrokConf
 > = z.object({
   pattern: z.string(),
-  patternList: z.array(z.lazy(() => PatternList$outboundSchema)).optional(),
+  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
+    .optional(),
   source: z.string().optional(),
 });
 

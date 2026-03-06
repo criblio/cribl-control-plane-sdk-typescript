@@ -5,13 +5,7 @@
 ```typescript
 import { FunctionConfSchemaSignalFilter } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaSignalFilter = {
-  signals: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-};
+let value: FunctionConfSchemaSignalFilter = {};
 ```
 
 ## Fields

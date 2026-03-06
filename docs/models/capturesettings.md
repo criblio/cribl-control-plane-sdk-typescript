@@ -5,11 +5,7 @@
 ```typescript
 import { CaptureSettings } from "cribl-control-plane/models";
 
-let value: CaptureSettings = {
-  duration: 4716.2,
-  maxEvents: 970.75,
-  level: 2,
-};
+let value: CaptureSettings = {};
 ```
 
 ## Fields

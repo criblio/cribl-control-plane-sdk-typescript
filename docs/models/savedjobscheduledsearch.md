@@ -6,44 +6,7 @@
 import { SavedJobScheduledSearch } from "cribl-control-plane/models";
 
 let value: SavedJobScheduledSearch = {
-  id: "<id>",
-  description: "hoof profane woot",
   type: "collection",
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  removeFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  resumeOnBoot: true,
-  environment: "<value>",
-  schedule: {
-    enabled: true,
-    skippable: false,
-    resumeMissed: true,
-    cronSchedule: "<value>",
-    maxConcurrentRuns: 6515.34,
-    run: {
-      type: "collection",
-      rescheduleDroppedTasks: true,
-      maxTaskReschedule: 981.31,
-      logLevel: "warn",
-      jobTimeout: "<value>",
-      mode: "<value>",
-      timeRangeType: "<value>",
-      earliest: 6541.75,
-      latest: 2881.28,
-      timestampTimezone: "<value>",
-      timeWarning: {},
-      expression: "<value>",
-      minTaskSize: "<value>",
-      maxTaskSize: "<value>",
-    },
-  },
-  streamtags: [
-    "<value 1>",
-  ],
   savedQueryId: "<id>",
 };
 ```
@@ -54,7 +17,7 @@ let value: SavedJobScheduledSearch = {
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `id`                                                                                                                                                                                                     | *string*                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | Unique ID for this Job                                                                                                                                                                                   |
 | `description`                                                                                                                                                                                            | *string*                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
-| `type`                                                                                                                                                                                                   | [models.JobTypeOptionsSavedJobCollection](../models/jobtypeoptionssavedjobcollection.md)                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
+| `type`                                                                                                                                                                                                   | [models.JobTypeOptionsRunnableJobCollection](../models/jobtypeoptionsrunnablejobcollection.md)                                                                                                           | :heavy_check_mark:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
 | `ttl`                                                                                                                                                                                                    | *string*                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                          |
 | `ignoreGroupJobsLimit`                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                       | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                 |
 | `removeFields`                                                                                                                                                                                           | *string*[]                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                       | List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface. |

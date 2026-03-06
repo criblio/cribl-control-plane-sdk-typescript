@@ -5,9 +5,7 @@
 ```typescript
 import { FunctionConfSchemaTrimTimestamp } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaTrimTimestamp = {
-  field: "<value>",
-};
+let value: FunctionConfSchemaTrimTimestamp = {};
 ```
 
 ## Fields

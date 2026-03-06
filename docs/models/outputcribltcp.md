@@ -6,77 +6,7 @@
 import { OutputCriblTcp } from "cribl-control-plane/models";
 
 let value: OutputCriblTcp = {
-  id: "<id>",
   type: "cribl_tcp",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  loadBalanced: true,
-  compression: "gzip",
-  logFailedRequests: false,
-  throttleRatePerSec: "<value>",
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  connectionTimeout: 1067.5,
-  writeTimeout: 8333.21,
-  tokenTTLMinutes: 6793.84,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  excludeFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  onBackpressure: "queue",
-  description: "as anaesthetise offend fearless confirm commandeer bashfully",
-  host: "early-pepper.info",
-  port: 518.54,
-  excludeSelf: true,
-  hosts: [
-    {
-      host: "favorite-drive.org",
-      port: 6983.36,
-      tls: "inherit",
-      servername: "<value>",
-      weight: 890.95,
-    },
-  ],
-  dnsResolvePeriodSec: 2314.82,
-  loadBalanceStatsPeriodSec: 1703,
-  maxConcurrentSenders: 1951.19,
-  pqStrictOrdering: true,
-  pqRatePerSec: 3148.31,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 6812.39,
-  pqMaxBackpressureSec: 3707.78,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -120,3 +50,5 @@ let value: OutputCriblTcp = {
 | `pqCompress`                                                                                                                                                                                                                                                   | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                    |
 | `pqOnBackpressure`                                                                                                                                                                                                                                             | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                          |
 | `pqControls`                                                                                                                                                                                                                                                   | [models.OutputCriblTcpPqControls](../models/outputcribltcppqcontrols.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
+| `templateHost`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                          |
+| `templatePort`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                          |

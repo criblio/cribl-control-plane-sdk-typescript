@@ -6,105 +6,9 @@
 import { InputEdgePrometheus } from "cribl-control-plane/models";
 
 let value: InputEdgePrometheus = {
-  id: "<id>",
   type: "edge_prometheus",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  dimensionList: [
-    "<value 1>",
-    "<value 2>",
-  ],
   discoveryType: "ec2",
-  interval: 3298.52,
-  timeout: 7099.51,
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authType: "kubernetes",
-  description: "authorized wealthy hm lest how plumber",
-  targets: [
-    {
-      protocol: "http",
-      host: "gloomy-petticoat.info",
-      port: 146.54,
-      path: "/net",
-    },
-  ],
-  recordType: "A",
-  scrapePort: 9821.24,
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  scrapeProtocol: "http",
-  scrapePath: "<value>",
-  awsAuthenticationMethod: "<value>",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  usePublicIp: true,
-  searchFilter: [
-    {
-      Name: "<value>",
-      Values: [
-        "<value 1>",
-      ],
-    },
-  ],
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: true,
-  rejectUnauthorized: true,
-  enableAssumeRole: false,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 1316.68,
-  scrapeProtocolExpr: "<value>",
-  scrapePortExpr: "<value>",
-  scrapePathExpr: "<value>",
-  podFilter: [
-    {
-      filter: "<value>",
-      description: "meh that oof lest mainstream times anti reboot packaging",
-    },
-  ],
-  username: "Lindsay48",
-  password: "YXAl8n5UV0w6JPk",
-  credentialsSecret: "<value>",
+  interval: 1632.08,
 };
 ```
 
@@ -127,7 +31,7 @@ let value: InputEdgePrometheus = {
 | `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | How often in seconds to scrape targets for metrics.                                                                                                                                                                                          |
 | `timeout`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable                                                                                                                                                  |
 | `persistence`                                                                                                                                                                                                                                | [models.DiskSpoolingType](../models/diskspoolingtype.md)                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `authType`                                                                                                                                                                                                                                   | [models.InputEdgePrometheusAuthenticationMethod](../models/inputedgeprometheusauthenticationmethod.md)                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | Enter credentials directly, or select a stored secret                                                                                                                                                                                        |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `targets`                                                                                                                                                                                                                                    | [models.Target](../models/target.md)[]                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
@@ -158,3 +62,8 @@ let value: InputEdgePrometheus = {
 | `username`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Username for Prometheus Basic authentication                                                                                                                                                                                                 |
 | `password`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Password for Prometheus Basic authentication                                                                                                                                                                                                 |
 | `credentialsSecret`                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a secret that references your credentials                                                                                                                                                                                   |
+| `templateAwsApiKey`                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.                                              |
+| `templateAwsSecretKey`                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.                                        |
+| `templateRegion`                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                    |
+| `templateAssumeRoleArn`                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.                                      |
+| `templateAssumeRoleExternalId`                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.                        |

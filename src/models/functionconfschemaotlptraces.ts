@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OtlpVersionOptions,
@@ -13,42 +14,180 @@ import {
   OtlpVersionOptions$outboundSchema,
 } from "./otlpversionoptions.js";
 
-export type FunctionConfSchemaOtlpTraces = {
-  dropNonTraceEvents?: boolean | undefined;
-  otlpVersion?: OtlpVersionOptions | undefined;
+export type OTLPTracesBatchOTLPTracesTrue = {
   /**
    * Batch OTLP traces by shared top-level `resource` attributes
    */
   batchOTLPTraces?: boolean | undefined;
+  /**
+   * Number of spans after which a batch will be sent, regardless of the timeout
+   */
+  sendBatchSize?: number | undefined;
+  /**
+   * Time duration after which a batch will be sent, regardless of size
+   */
+  timeout?: number | undefined;
+  /**
+   * Maximum batch size. Enter 0 for no maximum.
+   */
+  sendBatchMaxSize?: number | undefined;
+  /**
+   * When set, this processor will create one batcher instance per distinct combination of values in the metadata
+   */
+  metadataKeys?: Array<any> | undefined;
+  /**
+   * Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
+   */
+  metadataCardinalityLimit?: number | undefined;
+  dropNonTraceEvents?: boolean | undefined;
+  otlpVersion?: OtlpVersionOptions | undefined;
 };
+
+export type OTLPTracesBatchOTLPTracesFalse = {
+  /**
+   * Batch OTLP traces by shared top-level `resource` attributes
+   */
+  batchOTLPTraces?: boolean | undefined;
+  dropNonTraceEvents?: boolean | undefined;
+  otlpVersion?: OtlpVersionOptions | undefined;
+};
+
+export type FunctionConfSchemaOtlpTraces =
+  | OTLPTracesBatchOTLPTracesFalse
+  | OTLPTracesBatchOTLPTracesTrue;
+
+/** @internal */
+export const OTLPTracesBatchOTLPTracesTrue$inboundSchema: z.ZodType<
+  OTLPTracesBatchOTLPTracesTrue,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  batchOTLPTraces: types.optional(types.boolean()),
+  sendBatchSize: types.optional(types.number()),
+  timeout: types.optional(types.number()),
+  sendBatchMaxSize: types.optional(types.number()),
+  metadataKeys: types.optional(z.array(z.any())),
+  metadataCardinalityLimit: types.optional(types.number()),
+  dropNonTraceEvents: types.optional(types.boolean()),
+  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
+});
+/** @internal */
+export type OTLPTracesBatchOTLPTracesTrue$Outbound = {
+  batchOTLPTraces?: boolean | undefined;
+  sendBatchSize?: number | undefined;
+  timeout?: number | undefined;
+  sendBatchMaxSize?: number | undefined;
+  metadataKeys?: Array<any> | undefined;
+  metadataCardinalityLimit?: number | undefined;
+  dropNonTraceEvents?: boolean | undefined;
+  otlpVersion?: string | undefined;
+};
+
+/** @internal */
+export const OTLPTracesBatchOTLPTracesTrue$outboundSchema: z.ZodType<
+  OTLPTracesBatchOTLPTracesTrue$Outbound,
+  z.ZodTypeDef,
+  OTLPTracesBatchOTLPTracesTrue
+> = z.object({
+  batchOTLPTraces: z.boolean().optional(),
+  sendBatchSize: z.number().optional(),
+  timeout: z.number().optional(),
+  sendBatchMaxSize: z.number().optional(),
+  metadataKeys: z.array(z.any()).optional(),
+  metadataCardinalityLimit: z.number().optional(),
+  dropNonTraceEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+});
+
+export function otlpTracesBatchOTLPTracesTrueToJSON(
+  otlpTracesBatchOTLPTracesTrue: OTLPTracesBatchOTLPTracesTrue,
+): string {
+  return JSON.stringify(
+    OTLPTracesBatchOTLPTracesTrue$outboundSchema.parse(
+      otlpTracesBatchOTLPTracesTrue,
+    ),
+  );
+}
+export function otlpTracesBatchOTLPTracesTrueFromJSON(
+  jsonString: string,
+): SafeParseResult<OTLPTracesBatchOTLPTracesTrue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OTLPTracesBatchOTLPTracesTrue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OTLPTracesBatchOTLPTracesTrue' from JSON`,
+  );
+}
+
+/** @internal */
+export const OTLPTracesBatchOTLPTracesFalse$inboundSchema: z.ZodType<
+  OTLPTracesBatchOTLPTracesFalse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  batchOTLPTraces: types.optional(types.boolean()),
+  dropNonTraceEvents: types.optional(types.boolean()),
+  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
+});
+/** @internal */
+export type OTLPTracesBatchOTLPTracesFalse$Outbound = {
+  batchOTLPTraces?: boolean | undefined;
+  dropNonTraceEvents?: boolean | undefined;
+  otlpVersion?: string | undefined;
+};
+
+/** @internal */
+export const OTLPTracesBatchOTLPTracesFalse$outboundSchema: z.ZodType<
+  OTLPTracesBatchOTLPTracesFalse$Outbound,
+  z.ZodTypeDef,
+  OTLPTracesBatchOTLPTracesFalse
+> = z.object({
+  batchOTLPTraces: z.boolean().optional(),
+  dropNonTraceEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+});
+
+export function otlpTracesBatchOTLPTracesFalseToJSON(
+  otlpTracesBatchOTLPTracesFalse: OTLPTracesBatchOTLPTracesFalse,
+): string {
+  return JSON.stringify(
+    OTLPTracesBatchOTLPTracesFalse$outboundSchema.parse(
+      otlpTracesBatchOTLPTracesFalse,
+    ),
+  );
+}
+export function otlpTracesBatchOTLPTracesFalseFromJSON(
+  jsonString: string,
+): SafeParseResult<OTLPTracesBatchOTLPTracesFalse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OTLPTracesBatchOTLPTracesFalse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OTLPTracesBatchOTLPTracesFalse' from JSON`,
+  );
+}
 
 /** @internal */
 export const FunctionConfSchemaOtlpTraces$inboundSchema: z.ZodType<
   FunctionConfSchemaOtlpTraces,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  dropNonTraceEvents: types.optional(types.boolean()),
-  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
-  batchOTLPTraces: types.optional(types.boolean()),
-});
+> = smartUnion([
+  z.lazy(() => OTLPTracesBatchOTLPTracesFalse$inboundSchema),
+  z.lazy(() => OTLPTracesBatchOTLPTracesTrue$inboundSchema),
+]);
 /** @internal */
-export type FunctionConfSchemaOtlpTraces$Outbound = {
-  dropNonTraceEvents?: boolean | undefined;
-  otlpVersion?: string | undefined;
-  batchOTLPTraces?: boolean | undefined;
-};
+export type FunctionConfSchemaOtlpTraces$Outbound =
+  | OTLPTracesBatchOTLPTracesFalse$Outbound
+  | OTLPTracesBatchOTLPTracesTrue$Outbound;
 
 /** @internal */
 export const FunctionConfSchemaOtlpTraces$outboundSchema: z.ZodType<
   FunctionConfSchemaOtlpTraces$Outbound,
   z.ZodTypeDef,
   FunctionConfSchemaOtlpTraces
-> = z.object({
-  dropNonTraceEvents: z.boolean().optional(),
-  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
-  batchOTLPTraces: z.boolean().optional(),
-});
+> = smartUnion([
+  z.lazy(() => OTLPTracesBatchOTLPTracesFalse$outboundSchema),
+  z.lazy(() => OTLPTracesBatchOTLPTracesTrue$outboundSchema),
+]);
 
 export function functionConfSchemaOtlpTracesToJSON(
   functionConfSchemaOtlpTraces: FunctionConfSchemaOtlpTraces,

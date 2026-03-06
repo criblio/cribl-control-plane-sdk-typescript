@@ -6,40 +6,10 @@
 import { OutputStatsdExt } from "cribl-control-plane/models";
 
 let value: OutputStatsdExt = {
-  id: "<id>",
   type: "statsd_ext",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  protocol: "tcp",
-  host: "impractical-legislature.org",
-  port: 5607.95,
-  mtu: 3380.54,
-  flushPeriodSec: 8095.13,
-  dnsResolvePeriodSec: 6503.27,
-  description:
-    "keenly coincide unkempt that furthermore lecture abaft marvelous noteworthy",
-  throttleRatePerSec: "<value>",
-  connectionTimeout: 3389.77,
-  writeTimeout: 6152.19,
-  onBackpressure: "block",
-  pqStrictOrdering: false,
-  pqRatePerSec: 8434.76,
-  pqMode: "always",
-  pqMaxBufferSize: 5191.62,
-  pqMaxBackpressureSec: 5985.02,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
+  protocol: "udp",
+  host: "familiar-switch.info",
+  port: 5203.95,
 };
 ```
 

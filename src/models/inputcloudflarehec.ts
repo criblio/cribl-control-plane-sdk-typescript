@@ -16,30 +16,33 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
+import {
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
+} from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
+import {
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls,
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
+} from "./minimumtlsversionoptionskafkaschemaregistrytls.js";
 import {
   PqType,
   PqType$inboundSchema,
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
-} from "./tlssettingsserversidetype.js";
 
 /**
  * Select Secret to use a text secret to authenticate
  */
 export const InputCloudflareHecAuthenticationMethod = {
   Secret: "secret",
-  Manual: "manual",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
@@ -57,10 +60,6 @@ export type InputCloudflareHecAuthToken = {
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
-  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -70,7 +69,48 @@ export type InputCloudflareHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+};
+
+export type TLSSettingsServerSide = {
+  /**
+   * Enable or disable TLS. Defaults to enabled for Cloudflare sources.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl private key when TLS is enabled.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: MinimumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
+  maxVersion?: MaximumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
 };
 
 export type InputCloudflareHec = {
@@ -117,7 +157,7 @@ export type InputCloudflareHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: TLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -150,7 +190,6 @@ export type InputCloudflareHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -166,7 +205,7 @@ export type InputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -192,6 +231,14 @@ export type InputCloudflareHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -217,23 +264,19 @@ export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
     InputCloudflareHecAuthenticationMethod$inboundSchema,
   ),
   tokenSecret: types.optional(types.string()),
-  token: types.optional(types.string()),
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
 });
 /** @internal */
 export type InputCloudflareHecAuthToken$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
-  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -244,11 +287,10 @@ export const InputCloudflareHecAuthToken$outboundSchema: z.ZodType<
 > = z.object({
   authType: InputCloudflareHecAuthenticationMethod$outboundSchema.optional(),
   tokenSecret: z.string().optional(),
-  token: z.string().optional(),
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
 });
 
 export function inputCloudflareHecAuthTokenToJSON(
@@ -267,6 +309,81 @@ export function inputCloudflareHecAuthTokenFromJSON(
     jsonString,
     (x) => InputCloudflareHecAuthToken$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'InputCloudflareHecAuthToken' from JSON`,
+  );
+}
+
+/** @internal */
+export const TLSSettingsServerSide$inboundSchema: z.ZodType<
+  TLSSettingsServerSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: types.optional(types.boolean()),
+  requestCert: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  commonNameRegex: types.optional(types.string()),
+  certificateName: types.optional(types.string()),
+  privKeyPath: types.optional(types.string()),
+  passphrase: types.optional(types.string()),
+  certPath: types.optional(types.string()),
+  caPath: types.optional(types.string()),
+  minVersion: types.optional(
+    MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+  maxVersion: types.optional(
+    MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+});
+/** @internal */
+export type TLSSettingsServerSide$Outbound = {
+  disabled?: boolean | undefined;
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  commonNameRegex?: string | undefined;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const TLSSettingsServerSide$outboundSchema: z.ZodType<
+  TLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  TLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  commonNameRegex: z.string().optional(),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
+    .optional(),
+  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
+    .optional(),
+});
+
+export function tlsSettingsServerSideToJSON(
+  tlsSettingsServerSide: TLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    TLSSettingsServerSide$outboundSchema.parse(tlsSettingsServerSide),
+  );
+}
+export function tlsSettingsServerSideFromJSON(
+  jsonString: string,
+): SafeParseResult<TLSSettingsServerSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TLSSettingsServerSide' from JSON`,
   );
 }
 
@@ -293,7 +410,7 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   authTokens: types.optional(
     z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema)),
   ),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  tls: types.optional(z.lazy(() => TLSSettingsServerSide$inboundSchema)),
   maxActiveReq: types.optional(types.number()),
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
@@ -302,13 +419,10 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(z.any()),
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   hecAPI: types.string(),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
@@ -316,6 +430,8 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   accessControlAllowHeaders: types.optional(z.array(types.string())),
   emitTokenMetrics: types.optional(types.boolean()),
   description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputCloudflareHec$Outbound = {
@@ -332,7 +448,7 @@ export type InputCloudflareHec$Outbound = {
   host: string;
   port: number;
   authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  tls?: TLSSettingsServerSide$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: boolean | undefined;
@@ -341,11 +457,10 @@ export type InputCloudflareHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -353,6 +468,8 @@ export type InputCloudflareHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -375,7 +492,7 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$outboundSchema))
     .optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => TLSSettingsServerSide$outboundSchema).optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
   enableProxyHeader: z.boolean().optional(),
@@ -384,11 +501,10 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -396,6 +512,8 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputCloudflareHecToJSON(

@@ -8,11 +8,11 @@ When set to JSON, the event is automatically formatted with required fields befo
 import { RequestFormatOptions } from "cribl-control-plane/models";
 
 let value: RequestFormatOptions = "raw";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "JSON" | "raw" | Unrecognized<string>

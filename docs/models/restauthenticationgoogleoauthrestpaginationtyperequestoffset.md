@@ -8,12 +8,10 @@ import { RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset } from "cr
 let value: RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset = {
   type: "request_offset",
   offsetField: "<value>",
-  offset: 3975.57,
   limitField: "<value>",
-  limit: 6744.7,
-  totalRecordField: "<value>",
-  maxPages: 7846.02,
-  zeroIndexed: true,
+  limit: 3975.57,
+  maxPages: 6744.7,
+  zeroIndexed: false,
 };
 ```
 

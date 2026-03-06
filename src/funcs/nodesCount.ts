@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a count of Worker and Edge Nodes
+ * Get a count of Worker or Edge Nodes
  *
  * @remarks
- * Get a count of all Worker and Edge Nodes.
+ * Get a count of all Worker or Edge Nodes for the specified Cribl product.
  */
 export function nodesCount(
   client: CriblControlPlaneCore,
-  request?: operations.GetMasterWorkerEntryRequest | undefined,
+  request: operations.GetProductsSummaryWorkersByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function nodesCount(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetMasterWorkerEntryRequest | undefined,
+  request: operations.GetProductsSummaryWorkersByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,7 +81,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetMasterWorkerEntryRequest$outboundSchema.optional().parse(
+      operations.GetProductsSummaryWorkersByProductRequest$outboundSchema.parse(
         value,
       ),
     "Input validation failed",
@@ -92,10 +92,17 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/master/summary/workers")();
+  const pathParams = {
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/products/{product}/summary/workers")(pathParams);
 
   const query = encodeFormQuery({
-    "filterExp": payload?.filterExp,
+    "filterExp": payload.filterExp,
   });
 
   const headers = new Headers(compactMap({
@@ -108,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getMasterWorkerEntry",
+    operationID: "getProductsSummaryWorkersByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -148,7 +155,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -175,7 +182,7 @@ async function $do(
   >(
     M.json(200, models.CountedNumber$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 401, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

@@ -8,11 +8,9 @@ import { RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset } from "cr
 let value: RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset = {
   type: "request_offset",
   offsetField: "<value>",
-  offset: 3152.54,
   limitField: "<value>",
-  limit: 4998.62,
-  totalRecordField: "<value>",
-  maxPages: 6131.76,
+  limit: 3152.54,
+  maxPages: 4998.62,
   zeroIndexed: false,
 };
 ```

@@ -9,10 +9,25 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputTestResponse = {
+  /**
+   * Additional details about the Destination test, such as per-event results and transport-level information.
+   */
   details?: { [k: string]: any } | undefined;
+  /**
+   * Error message that describes a failed Destination test.
+   */
   error?: string | undefined;
+  /**
+   * The <code>id</code> of the Destination that was tested.
+   */
   outputId: string;
+  /**
+   * If <code>true</code>, the Destination test succeeded. Otherwise, <code>false</code>.
+   */
   success: boolean;
+  /**
+   * Human-readable description for a successful Destination test result.
+   */
   successDetail?: string | undefined;
 };
 

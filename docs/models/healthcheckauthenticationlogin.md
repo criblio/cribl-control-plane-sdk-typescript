@@ -11,48 +11,9 @@ let value: HealthCheckAuthenticationLogin = {
   username: "Pink.Kris17",
   password: "Pm9peETaxfHLEYC",
   loginBody: "<value>",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  collectUrl: "https://whispered-conversation.biz",
-  collectMethod: "post",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 587.2,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
+  collectUrl: "https://worst-minion.org",
+  collectMethod: "get",
 };
 ```
 
@@ -71,8 +32,6 @@ let value: HealthCheckAuthenticationLogin = {
 | `discovery`                                                                                                                                                                                                 | *models.HealthCheckAuthenticationLoginDiscovery*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                          | N/A                                                                                                                                                                                                         |
 | `collectUrl`                                                                                                                                                                                                | *string*                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                          | Expression to derive URL to use for the health check operation (can be a constant).                                                                                                                         |
 | `collectMethod`                                                                                                                                                                                             | [models.HealthCheckAuthenticationLoginHealthCheckMethod](../models/healthcheckauthenticationloginhealthcheckmethod.md)                                                                                      | :heavy_check_mark:                                                                                                                                                                                          | Health check HTTP method.                                                                                                                                                                                   |
-| `collectRequestParams`                                                                                                                                                                                      | *any*                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                          | N/A                                                                                                                                                                                                         |
-| `collectBody`                                                                                                                                                                                               | *any*                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                          | N/A                                                                                                                                                                                                         |
 | `collectRequestHeaders`                                                                                                                                                                                     | [models.HealthCheckAuthenticationLoginCollectRequestHeader](../models/healthcheckauthenticationlogincollectrequestheader.md)[]                                                                              | :heavy_minus_sign:                                                                                                                                                                                          | Optional health check request headers.                                                                                                                                                                      |
 | `authenticateCollect`                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                          | Enable to make auth health check call.                                                                                                                                                                      |
 | `timeout`                                                                                                                                                                                                   | *number*                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                          | HTTP request inactivity timeout, use 0 to disable                                                                                                                                                           |

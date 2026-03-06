@@ -6,130 +6,13 @@
 import { InputConfluentCloud } from "cribl-control-plane/models";
 
 let value: InputConfluentCloud = {
-  id: "<id>",
   type: "confluent_cloud",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   brokers: [
     "<value 1>",
   ],
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
   topics: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  groupId: "<id>",
-  fromBeginning: false,
-  kafkaSchemaRegistry: {
-    disabled: true,
-    schemaRegistryURL: "https://regal-switchboard.biz/",
-    connectionTimeout: 9747.78,
-    requestTimeout: 5018.66,
-    maxRetries: 4285.6,
-    auth: {
-      disabled: false,
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      disabled: false,
-      rejectUnauthorized: true,
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
-    },
-  },
-  connectionTimeout: 4548.16,
-  requestTimeout: 9243.43,
-  maxRetries: 7542.92,
-  maxBackOff: 1623.19,
-  initialBackoff: 1264.79,
-  backoffRate: 614.07,
-  authenticationTimeout: 8676.73,
-  reauthenticationThreshold: 173.2,
-  sasl: {
-    disabled: true,
-    username: "Mertie.Abbott",
-    password: "pD36Q7Bu1OSy91K",
-    authType: "manual",
-    credentialsSecret: "<value>",
-    mechanism: "kerberos",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    oauthEnabled: false,
-    tokenUrl: "https://victorious-tectonics.net",
-    clientId: "<id>",
-    oauthSecretType: "<value>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  sessionTimeout: 8004.77,
-  rebalanceTimeout: 273.28,
-  heartbeatInterval: 7569.19,
-  autoCommitInterval: 5951.71,
-  autoCommitThreshold: 4048.53,
-  maxBytesPerPartition: 9060.05,
-  maxBytes: 7602.77,
-  maxSocketErrors: 285.77,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "soupy why accessorise tune sans aware smuggle",
 };
 ```
 
@@ -170,5 +53,5 @@ let value: InputConfluentCloud = {
 | `maxBytesPerPartition`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).                                                                                                                                                                                                                            |
 | `maxBytes`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `maxSocketErrors`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Maximum number of network errors before the consumer re-creates a socket                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `metadata`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `metadata`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `description`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |

@@ -8,11 +8,11 @@ Read all stored and future event logs, or only future events
 import { ReadMode } from "cribl-control-plane/models";
 
 let value: ReadMode = "newest";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "oldest" | "newest" | Unrecognized<string>

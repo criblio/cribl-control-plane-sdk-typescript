@@ -8,37 +8,8 @@
 ```typescript
 const value: models.HealthCheckAuthenticationNone = {
   authentication: "none",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://untried-marketplace.info/",
+  collectUrl: "https://dreary-thigh.name/",
   collectMethod: "post",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: false,
-  timeout: 4834.21,
-  rejectUnauthorized: false,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
 };
 ```
 
@@ -49,38 +20,8 @@ const value: models.HealthCheckAuthenticationBasic = {
   authentication: "basic",
   username: "Lyric.Grant",
   password: "j8oqJdqwGmAtefF",
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  collectUrl: "https://silver-plain.com",
+  collectUrl: "https://regal-tooth.net",
   collectMethod: "post_with_body",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: false,
-  timeout: 1066.62,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
 };
 ```
 
@@ -90,36 +31,8 @@ const value: models.HealthCheckAuthenticationBasic = {
 const value: models.HealthCheckAuthenticationBasicSecret = {
   authentication: "basicSecret",
   credentialsSecret: "<value>",
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://legal-chiffonier.info/",
+  collectUrl: "https://fussy-season.biz/",
   collectMethod: "post_with_body",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 9116.25,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
-  },
 };
 ```
 
@@ -132,48 +45,9 @@ const value: models.HealthCheckAuthenticationLogin = {
   username: "Pink.Kris17",
   password: "Pm9peETaxfHLEYC",
   loginBody: "<value>",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  collectUrl: "https://whispered-conversation.biz",
-  collectMethod: "post",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 587.2,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
+  collectUrl: "https://worst-minion.org",
+  collectMethod: "get",
 };
 ```
 
@@ -185,44 +59,9 @@ const value: models.HealthCheckAuthenticationLoginSecret = {
   loginUrl: "https://husky-granny.name/",
   credentialsSecret: "<value>",
   loginBody: "<value>",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://rural-lady.net/",
-  collectMethod: "get",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 7385.66,
-  rejectUnauthorized: false,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
+  collectUrl: "https://beloved-premier.name",
+  collectMethod: "post_with_body",
 };
 ```
 
@@ -232,52 +71,11 @@ const value: models.HealthCheckAuthenticationLoginSecret = {
 const value: models.HealthCheckAuthenticationOauth = {
   authentication: "oauth",
   loginUrl: "https://jittery-almighty.com/",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
   clientSecretParamName: "<value>",
   clientSecretParamValue: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://rowdy-hose.biz/",
-  collectMethod: "post",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 8452.96,
-  rejectUnauthorized: false,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
-  },
+  collectUrl: "https://incomparable-populist.info/",
+  collectMethod: "get",
 };
 ```
 
@@ -287,52 +85,11 @@ const value: models.HealthCheckAuthenticationOauth = {
 const value: models.HealthCheckAuthenticationOauthSecret = {
   authentication: "oauthSecret",
   loginUrl: "https://artistic-zen.info",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
   clientSecretParamName: "<value>",
   textSecret: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://smooth-mixture.info/",
-  collectMethod: "get",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: false,
-  timeout: 4422.82,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
-  },
+  collectUrl: "https://sticky-dish.com/",
+  collectMethod: "post",
 };
 ```
 
