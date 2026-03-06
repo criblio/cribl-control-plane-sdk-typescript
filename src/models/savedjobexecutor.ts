@@ -8,16 +8,16 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ExecutorTypeSavedJobExecutor,
-  ExecutorTypeSavedJobExecutor$inboundSchema,
-  ExecutorTypeSavedJobExecutor$Outbound,
-  ExecutorTypeSavedJobExecutor$outboundSchema,
-} from "./executortypesavedjobexecutor.js";
+  ExecutorTypeRunnableJobExecutor,
+  ExecutorTypeRunnableJobExecutor$inboundSchema,
+  ExecutorTypeRunnableJobExecutor$Outbound,
+  ExecutorTypeRunnableJobExecutor$outboundSchema,
+} from "./executortyperunnablejobexecutor.js";
 import {
-  JobTypeOptionsSavedJobCollection,
-  JobTypeOptionsSavedJobCollection$inboundSchema,
-  JobTypeOptionsSavedJobCollection$outboundSchema,
-} from "./jobtypeoptionssavedjobcollection.js";
+  JobTypeOptionsRunnableJobCollection,
+  JobTypeOptionsRunnableJobCollection$inboundSchema,
+  JobTypeOptionsRunnableJobCollection$outboundSchema,
+} from "./jobtypeoptionsrunnablejobcollection.js";
 import {
   ScheduleTypeSavedJobCollection,
   ScheduleTypeSavedJobCollection$inboundSchema,
@@ -31,7 +31,7 @@ export type SavedJobExecutor = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type: JobTypeOptionsSavedJobCollection;
+  type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -60,7 +60,7 @@ export type SavedJobExecutor = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  executor: ExecutorTypeSavedJobExecutor;
+  executor: ExecutorTypeRunnableJobExecutor;
 };
 
 /** @internal */
@@ -71,7 +71,7 @@ export const SavedJobExecutor$inboundSchema: z.ZodType<
 > = z.object({
   id: types.optional(types.string()),
   description: types.optional(types.string()),
-  type: JobTypeOptionsSavedJobCollection$inboundSchema,
+  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   removeFields: types.optional(z.array(types.string())),
@@ -79,7 +79,7 @@ export const SavedJobExecutor$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   schedule: types.optional(ScheduleTypeSavedJobCollection$inboundSchema),
   streamtags: types.optional(z.array(types.string())),
-  executor: ExecutorTypeSavedJobExecutor$inboundSchema,
+  executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
 });
 /** @internal */
 export type SavedJobExecutor$Outbound = {
@@ -93,7 +93,7 @@ export type SavedJobExecutor$Outbound = {
   environment?: string | undefined;
   schedule?: ScheduleTypeSavedJobCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
-  executor: ExecutorTypeSavedJobExecutor$Outbound;
+  executor: ExecutorTypeRunnableJobExecutor$Outbound;
 };
 
 /** @internal */
@@ -104,7 +104,7 @@ export const SavedJobExecutor$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  type: JobTypeOptionsSavedJobCollection$outboundSchema,
+  type: JobTypeOptionsRunnableJobCollection$outboundSchema,
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
@@ -112,7 +112,7 @@ export const SavedJobExecutor$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   schedule: ScheduleTypeSavedJobCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
-  executor: ExecutorTypeSavedJobExecutor$outboundSchema,
+  executor: ExecutorTypeRunnableJobExecutor$outboundSchema,
 });
 
 export function savedJobExecutorToJSON(

@@ -5,15 +5,7 @@
 ```typescript
 import { CountedUserAccessControlList } from "cribl-control-plane/models";
 
-let value: CountedUserAccessControlList = {
-  count: 818880,
-  items: [
-    {
-      perms: [],
-      user: "Ryder.Casper50",
-    },
-  ],
-};
+let value: CountedUserAccessControlList = {};
 ```
 
 ## Fields

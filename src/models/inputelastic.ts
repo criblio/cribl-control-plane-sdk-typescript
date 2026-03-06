@@ -22,11 +22,11 @@ import {
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -130,6 +130,10 @@ export type InputElasticProxyMode = {
    * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
    */
   timeoutSec?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 export type InputElastic = {
@@ -233,7 +237,7 @@ export type InputElastic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   proxyMode?: InputElasticProxyMode | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -250,6 +254,14 @@ export type InputElastic = {
    * Custom version information to respond to requests
    */
   customAPIVersion?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -306,6 +318,7 @@ export const InputElasticProxyMode$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   removeHeaders: types.optional(z.array(types.string())),
   timeoutSec: types.optional(types.number()),
+  __template_url: types.optional(types.string()),
 });
 /** @internal */
 export type InputElasticProxyMode$Outbound = {
@@ -318,6 +331,7 @@ export type InputElasticProxyMode$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   removeHeaders?: Array<string> | undefined;
   timeoutSec?: number | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -335,6 +349,7 @@ export const InputElasticProxyMode$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 
 export function inputElasticProxyModeToJSON(
@@ -392,9 +407,7 @@ export const InputElastic$inboundSchema: z.ZodType<
   extraHttpHeaders: types.optional(
     z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
   ),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   proxyMode: types.optional(z.lazy(() => InputElasticProxyMode$inboundSchema)),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -402,6 +415,8 @@ export const InputElastic$inboundSchema: z.ZodType<
   credentialsSecret: types.optional(types.string()),
   authTokens: types.optional(z.array(types.string())),
   customAPIVersion: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputElastic$Outbound = {
@@ -433,7 +448,7 @@ export type InputElastic$Outbound = {
   authType?: string | undefined;
   apiVersion?: string | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -441,6 +456,8 @@ export type InputElastic$Outbound = {
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
   customAPIVersion?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -478,7 +495,7 @@ export const InputElastic$outboundSchema: z.ZodType<
   apiVersion: InputElasticAPIVersion$outboundSchema.optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -486,6 +503,8 @@ export const InputElastic$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputElasticToJSON(inputElastic: InputElastic): string {

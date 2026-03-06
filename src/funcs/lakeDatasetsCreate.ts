@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create a Lake Dataset
+ * Create a Lake Dataset (Cribl.Cloud only)
  *
  * @remarks
- * Create a new Lake Dataset in the specified Lake.
+ * Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
  */
 export function lakeDatasetsCreate(
   client: CriblControlPlaneCore,

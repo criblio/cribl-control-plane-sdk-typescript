@@ -8,12 +8,12 @@ AWS authentication method. Choose Auto to use IAM roles.
 import { OutputCloudflareR2AuthenticationMethod } from "cribl-control-plane/models";
 
 let value: OutputCloudflareR2AuthenticationMethod = "auto";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"auto" | "secret" | "manual" | Unrecognized<string>
+"auto" | "secret" | Unrecognized<string>
 ```

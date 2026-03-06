@@ -6,70 +6,12 @@
 import { OutputAzureEventhub } from "cribl-control-plane/models";
 
 let value: OutputAzureEventhub = {
-  id: "<id>",
   type: "azure_eventhub",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
+  brokers: [
     "<value 1>",
     "<value 2>",
   ],
-  brokers: [],
   topic: "<value>",
-  ack: 1,
-  format: "raw",
-  maxRecordSizeKB: 5918.13,
-  flushEventCount: 624.1,
-  flushPeriodSec: 7063.32,
-  connectionTimeout: 1593.62,
-  requestTimeout: 5292.21,
-  maxRetries: 7096.21,
-  maxBackOff: 8086.11,
-  initialBackoff: 4103.81,
-  backoffRate: 8281.51,
-  authenticationTimeout: 1234.21,
-  reauthenticationThreshold: 287.51,
-  sasl: {
-    disabled: false,
-    authType: "manual",
-    password: "CtfATUqXAfby_x5",
-    textSecret: "<value>",
-    mechanism: "oauthbearer",
-    username: "Rosa.Lakin33",
-    clientSecretAuthType: "secret",
-    clientSecret: "<value>",
-    clientTextSecret: "<value>",
-    certificateName: "<value>",
-    certPath: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    oauthEndpoint: "https://login.microsoftonline.com",
-    clientId: "<id>",
-    tenantId: "<id>",
-    scope: "<value>",
-  },
-  tls: {
-    disabled: false,
-    rejectUnauthorized: false,
-  },
-  onBackpressure: "block",
-  description: "with but atomize like gah",
-  pqStrictOrdering: true,
-  pqRatePerSec: 4884.41,
-  pqMode: "always",
-  pqMaxBufferSize: 747.63,
-  pqMaxBackpressureSec: 1945.77,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -113,3 +55,4 @@ let value: OutputAzureEventhub = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                                   | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                                    |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                                             | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                                          |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                                   | [models.OutputAzureEventhubPqControls](../models/outputazureeventhubpqcontrols.md)                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
+| `templateTopic`                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.                                                                                                                                                                        |

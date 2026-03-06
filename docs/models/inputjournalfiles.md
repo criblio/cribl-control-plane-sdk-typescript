@@ -6,56 +6,11 @@
 import { InputJournalFiles } from "cribl-control-plane/models";
 
 let value: InputJournalFiles = {
-  id: "<id>",
   type: "journal_files",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  path: "/tmp",
-  interval: 2154.67,
+  path: "/bin",
   journals: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "catalog self-reliant scare frightened voluminous till fooey other",
-    },
-  ],
-  currentBoot: true,
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "vengeful repeatedly yippee govern near tricky whose",
 };
 ```
 
@@ -79,5 +34,5 @@ let value: InputJournalFiles = {
 | `rules`                                                                                                                                                                                                                                      | [models.InputJournalFilesRule](../models/inputjournalfilesrule.md)[]                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.                                                                                            |
 | `currentBoot`                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Skip log messages that are not part of the current boot session.                                                                                                                                                                             |
 | `maxAgeDur`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.                                                                                                                   |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

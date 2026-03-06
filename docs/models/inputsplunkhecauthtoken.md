@@ -6,22 +6,7 @@
 import { InputSplunkHecAuthToken } from "cribl-control-plane/models";
 
 let value: InputSplunkHecAuthToken = {
-  authType: "manual",
-  tokenSecret: "<value>",
   token: "<value>",
-  enabled: false,
-  description: "faithfully anenst subsidy spook depart utter uh-huh",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 
@@ -35,4 +20,4 @@ let value: InputSplunkHecAuthToken = {
 | `enabled`                                                                                                                                | *boolean*                                                                                                                                | :heavy_minus_sign:                                                                                                                       | N/A                                                                                                                                      |
 | `description`                                                                                                                            | *string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                       | Optional token description                                                                                                               |
 | `allowedIndexesAtToken`                                                                                                                  | *string*[]                                                                                                                               | :heavy_minus_sign:                                                                                                                       | Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank. |
-| `metadata`                                                                                                                               | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                     | :heavy_minus_sign:                                                                                                                       | Fields to add to events referencing this token                                                                                           |
+| `metadata`                                                                                                                               | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                             | :heavy_minus_sign:                                                                                                                       | Fields to add to events referencing this token                                                                                           |

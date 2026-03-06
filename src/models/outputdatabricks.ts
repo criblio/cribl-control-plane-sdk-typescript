@@ -151,7 +151,7 @@ export type OutputDatabricks = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
   /**
-   * Databricks workspace ID
+   * Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
    */
   workspaceId: string;
   /**
@@ -163,15 +163,15 @@ export type OutputDatabricks = {
    */
   clientId: string;
   /**
-   * Name of the catalog to use for the output
+   * Name of the Unity Catalog catalog to use for the Destination.
    */
   catalog: string;
   /**
-   * Name of the catalog schema to use for the output
+   * Name of the Unity Catalog schema to use for the Destination.
    */
   schema: string;
   /**
-   * Name of the events volume in Databricks
+   * Name of the Unity Catalog volume where event data is written.
    */
   eventsVolumeName: string;
   /**
@@ -179,7 +179,7 @@ export type OutputDatabricks = {
    */
   clientTextSecret: string;
   /**
-   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   * Amount of time, in seconds, to wait for a request to complete before canceling it.
    */
   timeoutSec?: number | undefined;
   description?: string | undefined;
@@ -251,6 +251,10 @@ export type OutputDatabricks = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -314,6 +318,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_format: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDatabricks$Outbound = {
@@ -368,6 +373,7 @@ export type OutputDatabricks$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -408,7 +414,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   schema: z.string(),
   eventsVolumeName: z.string(),
   clientTextSecret: z.string(),
-  timeoutSec: z.number().optional(),
+  timeoutSec: z.number().int().optional(),
   description: z.string().optional(),
   compress: CompressionOptions2$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
@@ -428,6 +434,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_format: z.string().optional(),
 });
 
 export function outputDatabricksToJSON(

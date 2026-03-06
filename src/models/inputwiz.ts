@@ -21,11 +21,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -39,7 +39,7 @@ import {
   RetryRulesType$outboundSchema,
 } from "./retryrulestype.js";
 
-export type ManageState = {};
+export type InputWizManageState = {};
 
 /**
  * Collector runtime log level
@@ -75,7 +75,7 @@ export type InputWizContentConfig = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageState | undefined;
+  manageState?: InputWizManageState | undefined;
   /**
    * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
    */
@@ -178,7 +178,7 @@ export type InputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
@@ -193,34 +193,50 @@ export type InputWiz = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
+   */
+  __template_authUrl?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
-export const ManageState$inboundSchema: z.ZodType<
-  ManageState,
+export const InputWizManageState$inboundSchema: z.ZodType<
+  InputWizManageState,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 /** @internal */
-export type ManageState$Outbound = {};
+export type InputWizManageState$Outbound = {};
 
 /** @internal */
-export const ManageState$outboundSchema: z.ZodType<
-  ManageState$Outbound,
+export const InputWizManageState$outboundSchema: z.ZodType<
+  InputWizManageState$Outbound,
   z.ZodTypeDef,
-  ManageState
+  InputWizManageState
 > = z.object({});
 
-export function manageStateToJSON(manageState: ManageState): string {
-  return JSON.stringify(ManageState$outboundSchema.parse(manageState));
+export function inputWizManageStateToJSON(
+  inputWizManageState: InputWizManageState,
+): string {
+  return JSON.stringify(
+    InputWizManageState$outboundSchema.parse(inputWizManageState),
+  );
 }
-export function manageStateFromJSON(
+export function inputWizManageStateFromJSON(
   jsonString: string,
-): SafeParseResult<ManageState, SDKValidationError> {
+): SafeParseResult<InputWizManageState, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ManageState$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ManageState' from JSON`,
+    (x) => InputWizManageState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizManageState' from JSON`,
   );
 }
 
@@ -249,7 +265,7 @@ export const InputWizContentConfig$inboundSchema: z.ZodType<
   stateTracking: types.optional(types.boolean()),
   stateUpdateExpression: types.optional(types.string()),
   stateMergeExpression: types.optional(types.string()),
-  manageState: types.optional(z.lazy(() => ManageState$inboundSchema)),
+  manageState: types.optional(z.lazy(() => InputWizManageState$inboundSchema)),
   contentQuery: types.string(),
   cronSchedule: types.string(),
   earliest: types.string(),
@@ -266,7 +282,7 @@ export type InputWizContentConfig$Outbound = {
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: ManageState$Outbound | undefined;
+  manageState?: InputWizManageState$Outbound | undefined;
   contentQuery: string;
   cronSchedule: string;
   earliest: string;
@@ -288,7 +304,7 @@ export const InputWizContentConfig$outboundSchema: z.ZodType<
   stateTracking: z.boolean().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
-  manageState: z.lazy(() => ManageState$outboundSchema).optional(),
+  manageState: z.lazy(() => InputWizManageState$outboundSchema).optional(),
   contentQuery: z.string(),
   cronSchedule: z.string(),
   earliest: z.string(),
@@ -343,14 +359,15 @@ export const InputWiz$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   authType: types.optional(AuthenticationMethodOptions1$inboundSchema),
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_authUrl: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
 });
 /** @internal */
 export type InputWiz$Outbound = {
@@ -374,12 +391,15 @@ export type InputWiz$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_authUrl?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -408,12 +428,15 @@ export const InputWiz$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
   authType: AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_authUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
 export function inputWizToJSON(inputWiz: InputWiz): string {

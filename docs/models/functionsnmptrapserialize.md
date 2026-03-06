@@ -7,24 +7,16 @@ import { FunctionSnmpTrapSerialize } from "cribl-control-plane/models";
 
 let value: FunctionSnmpTrapSerialize = {
   __filename: "example.file",
-  asyncTimeout: 3177.3,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "snmp_trap_serialize",
-  loadTime: 9112.65,
-  modTime: 7663.12,
+  loadTime: 3177.3,
+  modTime: 6476.82,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

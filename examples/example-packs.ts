@@ -26,9 +26,8 @@
 
 import {
   PipelineInput,
-  RoutesRoute,
+  RouteConf,
 } from "../dist/esm/models";
-import { InputTcpjson, OutputS3 } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PACK_URL = "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.5/cribl-palo-alto-networks-d6bc6883-1.1.5.crbl";
@@ -41,7 +40,7 @@ const PORT = 9020;
 
 // Amazon S3 Destination configuration: Replace the placeholder values
 const AWS_API_KEY = "your-aws-api-key"; // Replace with your AWS Access Key ID
-const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Access Key
+const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Key
 const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket name
 const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
@@ -49,26 +48,26 @@ const groupUrl = `${baseUrl}/m/${WORKER_GROUP_ID}`;
 const packUrl = `${groupUrl}/p/${PACK_ID}`;
 
 // TCP JSON Source configuration
-const tcpJsonSource: InputTcpjson = {
+const tcpJsonSource = {
   id: "my-tcp-json",
-  type: "tcpjson",
+  type: "tcpjson" as const,
   host: "0.0.0.0",
   port: PORT,
-  authType: "manual",
+  authType: "manual" as const,
   authToken: AUTH_TOKEN,
 };
 
 // Amazon S3 Destination configuration
-const s3Destination: OutputS3 = {
+const s3Destination = {
   id: "my-s3-destination",
-  type: "s3",
+  type: "s3" as const,
   bucket: AWS_BUCKET_NAME,
   region: AWS_REGION,
   awsSecretKey: AWS_SECRET_KEY,
   awsApiKey: AWS_API_KEY,
   stagePath: "/tmp/s3-staging",
-  compress: "gzip",
-  compressionLevel: "best_speed",
+  compress: "gzip" as const,
+  compressionLevel: "best_speed" as const,
   emptyDirCleanupSec: 300,
 };
 
@@ -93,7 +92,7 @@ const pipeline: PipelineInput = {
 };
 
 // Route configuration: route data from the Source to the Pipeline and Destination
-const route: RoutesRoute = {
+const route: RouteConf = {
   final: false,
   id: "my-route",
   name: "my-route",
@@ -101,7 +100,6 @@ const route: RoutesRoute = {
   output: s3Destination.id,
   filter: "__inputId=='tcpjson:my-tcp-json'",
   description: "This is my new Route",
-  additionalProperties: {},
 };
 
 async function main() {
@@ -138,4 +136,3 @@ async function main() {
 main().catch(error => {
   console.error("❌ Something went wrong: ", error);
 });
-  

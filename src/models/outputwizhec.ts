@@ -86,7 +86,6 @@ export type OutputWizHec = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   /**
    * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
    */
@@ -140,7 +139,6 @@ export type OutputWizHec = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -221,6 +219,18 @@ export type OutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
+   */
+  __template_wiz_environment?: string | undefined;
+  /**
+   * Binds 'data_center' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'data_center' at runtime.
+   */
+  __template_data_center?: string | undefined;
+  /**
+   * Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
+   */
+  __template_wiz_sourcetype?: string | undefined;
 };
 
 /** @internal */
@@ -268,7 +278,6 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   systemFields: types.optional(z.array(types.string())),
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(z.any()),
   nextQueue: types.optional(types.string()),
   tcpRouting: types.optional(types.string()),
   tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
@@ -286,7 +295,6 @@ export const OutputWizHec$inboundSchema: z.ZodType<
     FailedRequestLoggingModeOptions$inboundSchema,
   ),
   safeHeaders: types.optional(z.array(types.string())),
-  enableMultiMetrics: types.optional(z.any()),
   authType: types.optional(
     AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   ),
@@ -316,6 +324,9 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   ),
   token: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_wiz_environment: types.optional(types.string()),
+  __template_data_center: types.optional(types.string()),
+  __template_wiz_sourcetype: types.optional(types.string()),
 });
 /** @internal */
 export type OutputWizHec$Outbound = {
@@ -325,7 +336,6 @@ export type OutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
   tls?: TlsSettingsClientSideType1$Outbound | undefined;
@@ -339,7 +349,6 @@ export type OutputWizHec$Outbound = {
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
@@ -365,6 +374,9 @@ export type OutputWizHec$Outbound = {
   pqControls?: OutputWizHecPqControls$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  __template_wiz_environment?: string | undefined;
+  __template_data_center?: string | undefined;
+  __template_wiz_sourcetype?: string | undefined;
 };
 
 /** @internal */
@@ -379,7 +391,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.any().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
   tls: TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -395,7 +406,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.any().optional(),
   authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
@@ -421,6 +431,9 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputWizHecPqControls$outboundSchema).optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_wiz_environment: z.string().optional(),
+  __template_data_center: z.string().optional(),
+  __template_wiz_sourcetype: z.string().optional(),
 });
 
 export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {

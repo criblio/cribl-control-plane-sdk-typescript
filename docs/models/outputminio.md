@@ -6,81 +6,10 @@
 import { OutputMinio } from "cribl-control-plane/models";
 
 let value: OutputMinio = {
-  id: "<id>",
   type: "minio",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   endpoint: "<value>",
   bucket: "<value>",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
   stagePath: "<value>",
-  addIdToStagePath: false,
-  destPath: "<value>",
-  signatureVersion: "v4",
-  objectACL: "public-read",
-  storageClass: "REDUCED_REDUNDANCY",
-  serverSideEncryption: "AES256",
-  reuseConnections: true,
-  rejectUnauthorized: true,
-  verifyPermissions: true,
-  removeEmptyDirs: false,
-  partitionExpr: "<value>",
-  format: "parquet",
-  baseFileName: "<value>",
-  fileNameSuffix: "<value>",
-  maxFileSizeMB: 796.55,
-  maxOpenFiles: 5463.78,
-  headerLine: "<value>",
-  writeHighWaterMark: 5536.78,
-  onBackpressure: "drop",
-  deadletterEnabled: true,
-  onDiskFullBackpressure: "drop",
-  forceCloseOnShutdown: true,
-  retrySettings: {
-    enabled: false,
-    initialBackoffMs: 192.63,
-    backoffMultiplier: 5447.21,
-    maxBackoffMs: 1266.88,
-    jitterPercent: 3342.59,
-  },
-  maxFileOpenTimeSec: 3219.32,
-  maxFileIdleTimeSec: 9846.47,
-  maxConcurrentFileParts: 4485.43,
-  description: "weary pronoun between really mid rebuild weakly",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  compress: "gzip",
-  compressionLevel: "normal",
-  automaticSchema: true,
-  parquetSchema: "<value>",
-  parquetVersion: "PARQUET_2_4",
-  parquetDataPageVersion: "DATA_PAGE_V1",
-  parquetRowGroupLength: 9627.61,
-  parquetPageSize: "<value>",
-  shouldLogInvalidRows: false,
-  keyValueMetadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  enableStatistics: false,
-  enableWritePageIndex: true,
-  enablePageChecksum: false,
-  emptyDirCleanupSec: 6211.01,
-  directoryBatchSize: 103.99,
-  deadletterPath: "<value>",
-  maxRetryNum: 3038.98,
 };
 ```
 
@@ -146,3 +75,7 @@ let value: OutputMinio = {
 | `directoryBatchSize`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.                                                                                                          |
 | `deadletterPath`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                             |
 | `maxRetryNum`                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                          |
+| `templateBucket`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.                                                                            |
+| `templateRegion`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                            |
+| `templateFormat`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.                                                                            |
+| `templateAwsApiKey`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.                                                                      |

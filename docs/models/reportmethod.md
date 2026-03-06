@@ -8,11 +8,11 @@ Target of the ingestion status reporting. Defaults to Queue.
 import { ReportMethod } from "cribl-control-plane/models";
 
 let value: ReportMethod = "table";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "queue" | "table" | "queueAndTable" | Unrecognized<string>

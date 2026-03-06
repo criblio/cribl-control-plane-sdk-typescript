@@ -8,11 +8,11 @@ The DNS record type (RR) to return. Defaults to 'A'.
 import { ResourceRecordType } from "cribl-control-plane/models";
 
 let value: ResourceRecordType = "MX";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "A" | "AAAA" | "ANY" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SRV" | "TXT" | Unrecognized<string>

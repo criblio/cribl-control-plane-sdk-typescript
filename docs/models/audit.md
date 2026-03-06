@@ -6,26 +6,6 @@
 import { Audit } from "cribl-control-plane/models";
 
 let value: Audit = {
-  files: {
-    created: [
-      "<value 1>",
-    ],
-    deleted: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    modified: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    renamed: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  group: "<value>",
   id: "<id>",
 };
 ```

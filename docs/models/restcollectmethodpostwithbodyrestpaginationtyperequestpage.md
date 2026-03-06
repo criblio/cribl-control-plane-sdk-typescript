@@ -8,13 +8,10 @@ import { RestCollectMethodPostWithBodyRestPaginationTypeRequestPage } from "crib
 let value: RestCollectMethodPostWithBodyRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 7398.81,
   sizeField: "<value>",
-  size: 4916.2,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 9315.33,
-  zeroIndexed: true,
+  size: 7398.81,
+  maxPages: 4916.2,
+  zeroIndexed: false,
 };
 ```
 

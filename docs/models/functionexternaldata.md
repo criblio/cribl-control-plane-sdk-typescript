@@ -7,23 +7,17 @@ import { FunctionExternaldata } from "cribl-control-plane/models";
 
 let value: FunctionExternaldata = {
   __filename: "example.file",
-  asyncTimeout: 2130.05,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "externaldata",
-  loadTime: 3395.47,
-  modTime: 3451.45,
+  loadTime: 2130.05,
+  modTime: 7766.92,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

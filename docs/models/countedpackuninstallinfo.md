@@ -5,15 +5,7 @@
 ```typescript
 import { CountedPackUninstallInfo } from "cribl-control-plane/models";
 
-let value: CountedPackUninstallInfo = {
-  count: 50114,
-  items: [
-    {
-      id: "<id>",
-      source: "<value>",
-    },
-  ],
-};
+let value: CountedPackUninstallInfo = {};
 ```
 
 ## Fields

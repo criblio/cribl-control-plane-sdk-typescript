@@ -7,7 +7,6 @@ import { PipelineFunctionPackConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionPackConf = {
   unpackedFields: [],
-  target: "<value>",
 };
 ```
 

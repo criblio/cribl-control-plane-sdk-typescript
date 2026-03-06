@@ -6,79 +6,11 @@
 import { OutputGoogleCloudStorage } from "cribl-control-plane/models";
 
 let value: OutputGoogleCloudStorage = {
-  id: "<id>",
   type: "google_cloud_storage",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   bucket: "<value>",
   region: "<value>",
   endpoint: "<value>",
-  signatureVersion: "v4",
-  awsAuthenticationMethod: "auto",
   stagePath: "<value>",
-  destPath: "<value>",
-  verifyPermissions: true,
-  objectACL: "bucket-owner-full-control",
-  storageClass: "NEARLINE",
-  reuseConnections: false,
-  rejectUnauthorized: true,
-  addIdToStagePath: true,
-  removeEmptyDirs: false,
-  partitionExpr: "<value>",
-  format: "parquet",
-  baseFileName: "<value>",
-  fileNameSuffix: "<value>",
-  maxFileSizeMB: 4891.25,
-  maxFileOpenTimeSec: 8126.78,
-  maxFileIdleTimeSec: 1695.99,
-  maxOpenFiles: 9601.45,
-  headerLine: "<value>",
-  writeHighWaterMark: 1253.84,
-  onBackpressure: "drop",
-  deadletterEnabled: false,
-  onDiskFullBackpressure: "block",
-  forceCloseOnShutdown: true,
-  retrySettings: {
-    enabled: false,
-    initialBackoffMs: 192.63,
-    backoffMultiplier: 5447.21,
-    maxBackoffMs: 1266.88,
-    jitterPercent: 3342.59,
-  },
-  description: "crumble until valiantly per",
-  compress: "gzip",
-  compressionLevel: "best_speed",
-  automaticSchema: true,
-  parquetSchema: "<value>",
-  parquetVersion: "PARQUET_2_4",
-  parquetDataPageVersion: "DATA_PAGE_V1",
-  parquetRowGroupLength: 9006.62,
-  parquetPageSize: "<value>",
-  shouldLogInvalidRows: true,
-  keyValueMetadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  enableStatistics: false,
-  enableWritePageIndex: true,
-  enablePageChecksum: true,
-  emptyDirCleanupSec: 5294.98,
-  directoryBatchSize: 8863.55,
-  deadletterPath: "<value>",
-  maxRetryNum: 8444.14,
-  awsApiKey: "<value>",
-  awsSecretKey: "<value>",
-  awsSecret: "<value>",
 };
 ```
 
@@ -142,3 +74,6 @@ let value: OutputGoogleCloudStorage = {
 | `awsApiKey`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.                                                                                                                                                         |
 | `awsSecretKey`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.                                                                                                                                                                 |
 | `awsSecret`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Select or create a stored secret that references your access key and secret key                                                                                                                                                                                      |
+| `templateBucket`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.                                                                            |
+| `templateRegion`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                            |
+| `templateFormat`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.                                                                            |

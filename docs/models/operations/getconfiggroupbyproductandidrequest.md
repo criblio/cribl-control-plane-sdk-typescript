@@ -8,7 +8,6 @@ import { GetConfigGroupByProductAndIdRequest } from "cribl-control-plane/models/
 let value: GetConfigGroupByProductAndIdRequest = {
   product: "stream",
   id: "<id>",
-  fields: "<value>",
 };
 ```
 

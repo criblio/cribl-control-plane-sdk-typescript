@@ -7,23 +7,16 @@ import { FunctionRegexFilter } from "cribl-control-plane/models";
 
 let value: FunctionRegexFilter = {
   __filename: "example.file",
-  asyncTimeout: 5697.57,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "regex_filter",
-  loadTime: 3109.56,
-  modTime: 9803.88,
+  loadTime: 5697.57,
+  modTime: 8988.05,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
+    "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

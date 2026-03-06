@@ -8,11 +8,11 @@ In Sender mode, forwards search results directly to the destination. In Metrics 
 import { PipelineFunctionSendMode } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSendMode = "metrics";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "sender" | "metrics" | Unrecognized<string>

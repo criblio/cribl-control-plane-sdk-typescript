@@ -6,73 +6,7 @@
 import { OutputSyslog } from "cribl-control-plane/models";
 
 let value: OutputSyslog = {
-  id: "<id>",
   type: "syslog",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  protocol: "tcp",
-  facility: 1,
-  severity: 5,
-  appName: "<value>",
-  messageFormat: "rfc5424",
-  timestampFormat: "iso8601",
-  throttleRatePerSec: "<value>",
-  octetCountFraming: true,
-  logFailedRequests: true,
-  description: "wherever annually preclude lovely",
-  loadBalanced: true,
-  host: "odd-reconsideration.net",
-  port: 8420.54,
-  excludeSelf: true,
-  hosts: [
-    {
-      host: "favorite-drive.org",
-      port: 6983.36,
-      tls: "inherit",
-      servername: "<value>",
-      weight: 890.95,
-    },
-  ],
-  dnsResolvePeriodSec: 6040.13,
-  loadBalanceStatsPeriodSec: 4125.29,
-  maxConcurrentSenders: 356.62,
-  connectionTimeout: 4249.76,
-  writeTimeout: 7583.88,
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  onBackpressure: "block",
-  maxRecordSize: 7971.18,
-  udpDnsResolvePeriodSec: 4102.16,
-  enableIpSpoofing: false,
-  pqStrictOrdering: false,
-  pqRatePerSec: 2258.76,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 5830.09,
-  pqMaxBackpressureSec: 337.9,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -91,7 +25,7 @@ let value: OutputSyslog = {
 | `severity`                                                                                                                                                                                                                                                     | [models.OutputSyslogSeverity](../models/outputsyslogseverity.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                             | Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.                                                                                                                                                     |
 | `appName`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.                                                                                                                   |
 | `messageFormat`                                                                                                                                                                                                                                                | [models.MessageFormat](../models/messageformat.md)                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                             | The syslog message format depending on the receiver's support                                                                                                                                                                                                  |
-| `timestampFormat`                                                                                                                                                                                                                                              | [models.TimestampFormat](../models/timestampformat.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                             | Timestamp format to use when serializing event's time field                                                                                                                                                                                                    |
+| `timestampFormat`                                                                                                                                                                                                                                              | [models.TimestampFormatEnum](../models/timestampformatenum.md)                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                             | Timestamp format to use when serializing event's time field                                                                                                                                                                                                    |
 | `throttleRatePerSec`                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.                                                               |
 | `octetCountFraming`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.                                                                                                                            |
 | `logFailedRequests`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Use to troubleshoot issues with sending data                                                                                                                                                                                                                   |
@@ -122,3 +56,5 @@ let value: OutputSyslog = {
 | `pqCompress`                                                                                                                                                                                                                                                   | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                    |
 | `pqOnBackpressure`                                                                                                                                                                                                                                             | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                          |
 | `pqControls`                                                                                                                                                                                                                                                   | [models.OutputSyslogPqControls](../models/outputsyslogpqcontrols.md)                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
+| `templateHost`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                          |
+| `templatePort`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                          |

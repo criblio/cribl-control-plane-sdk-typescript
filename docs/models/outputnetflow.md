@@ -6,25 +6,13 @@
 import { OutputNetflow } from "cribl-control-plane/models";
 
 let value: OutputNetflow = {
-  id: "<id>",
   type: "netflow",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
+  hosts: [
+    {
+      host: "well-worn-conservative.name",
+      port: 1071.21,
+    },
   ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  hosts: [],
-  dnsResolvePeriodSec: 6215.97,
-  enableIpSpoofing: true,
-  description: "meander solvency flickering ack until shocked",
-  maxRecordSize: 5706.07,
 };
 ```
 

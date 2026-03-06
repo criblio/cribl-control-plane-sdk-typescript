@@ -8,7 +8,6 @@ import { PipelineFunctionMaskRule } from "cribl-control-plane/models";
 let value: PipelineFunctionMaskRule = {
   matchRegex: "<value>",
   replaceExpr: "<value>",
-  disabled: false,
 };
 ```
 

@@ -12,16 +12,7 @@ let value: CollectorDatabase = {
   conf: {
     connectionId: "<id>",
     query: "<value>",
-    queryValidationEnabled: true,
-    defaultBreakers: "Cribl",
-    __scheduling: {
-      stateTracking: {
-        enabled: true,
-      },
-    },
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

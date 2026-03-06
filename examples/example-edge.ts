@@ -34,16 +34,15 @@ const SYSLOG_PORT = 9021;
 
 // Amazon S3 Destination configuration: Replace the placeholder values
 const AWS_API_KEY = "your-aws-api-key"; // Replace with your AWS Access Key ID
-const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Access Key
+const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Key
 const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket name
 const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
 import {
   ConfigGroup,
   PipelineInput,
-  RoutesRoute,
+  RouteConf,
 } from "../dist/esm/models";
-import { InputSyslog, OutputS3 } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 // Create Fleet
@@ -56,9 +55,9 @@ const myFleet: ConfigGroup = {
 };
 
 // Create Syslog Source
-const syslogSource: InputSyslog = {
+const syslogSource = {
   id: "my-syslog-source",
-  type: "syslog",
+  type: "syslog" as const,
   host: "0.0.0.0",
   tcpPort: SYSLOG_PORT,
   tls: {
@@ -67,16 +66,16 @@ const syslogSource: InputSyslog = {
 };
 
 // Create Amazon S3 Destination
-const s3Destination: OutputS3 = {
+const s3Destination = {
   id: "my-s3-destination",
-  type: "s3",
+  type: "s3" as const,
   bucket: AWS_BUCKET_NAME,
   region: AWS_REGION,
   awsSecretKey: AWS_SECRET_KEY,
   awsApiKey: AWS_API_KEY,
   stagePath: "/tmp/s3-staging",
-  compress: "gzip",
-  compressionLevel: "best_speed",
+  compress: "gzip" as const,
+  compressionLevel: "best_speed" as const,
   emptyDirCleanupSec: 300,
 };
 
@@ -99,7 +98,7 @@ const pipeline: PipelineInput = {
 };
 
 // Route configuration: route data from the Source to the Pipeline and Destination
-const route: RoutesRoute = {
+const route: RouteConf = {
   final: false,
   id: "my-route",
   name: "my-route",
@@ -107,7 +106,6 @@ const route: RoutesRoute = {
   output: s3Destination.id,
   filter: `__inputId=='${syslogSource.id}'`,
   description: "This is my new Route",
-  additionalProperties: {},
 };
 const groupUrl = `${baseUrl}/m/${myFleet.id}`;
 
@@ -149,9 +147,9 @@ async function main() {
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
-  const commitResponse = await cribl.versions.commits.create({ groupId: myFleet.id, gitCommitParams: {
-    message: "Commit for Edge example", effective: true, files: ["."]}
-  });
+  const commitResponse = await cribl.versions.commits.create({
+    message: "Commit for Edge example", effective: true, files: ["."]
+  }, { serverURL: groupUrl });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the fleet: ${myFleet.id}, commit ID: ${version}`);

@@ -8,13 +8,10 @@ import { RestAuthenticationGoogleOauthRestPaginationTypeRequestPage } from "crib
 let value: RestAuthenticationGoogleOauthRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 577.97,
   sizeField: "<value>",
-  size: 1115.7,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 401.89,
-  zeroIndexed: false,
+  size: 577.97,
+  maxPages: 1115.7,
+  zeroIndexed: true,
 };
 ```
 

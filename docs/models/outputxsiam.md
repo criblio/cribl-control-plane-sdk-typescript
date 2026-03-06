@@ -6,80 +6,7 @@
 import { OutputXsiam } from "cribl-control-plane/models";
 
 let value: OutputXsiam = {
-  id: "<id>",
   type: "xsiam",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  loadBalanced: false,
-  concurrency: 7784.84,
-  maxPayloadSizeKB: 847.48,
-  maxPayloadEvents: 3622.03,
-  rejectUnauthorized: false,
-  timeoutSec: 8506.93,
-  flushPeriodSec: 9800.95,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  authType: "secret",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  throttleRateReqPerSec: 378026,
-  onBackpressure: "queue",
-  totalMemoryLimitKB: 8404.69,
-  description: "psst unsteady pull reboot mild",
-  url: "https://remarkable-retention.info",
-  useRoundRobinDns: false,
-  excludeSelf: true,
-  urls: [
-    {
-      url: "https://royal-signature.net/",
-      weight: 4998.07,
-    },
-  ],
-  dnsResolvePeriodSec: 414.89,
-  loadBalanceStatsPeriodSec: 4470.6,
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 1694.85,
-  pqMode: "always",
-  pqMaxBufferSize: 9306.28,
-  pqMaxBackpressureSec: 295.81,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -130,3 +57,4 @@ let value: OutputXsiam = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputXsiamPqControls](../models/outputxsiampqcontrols.md)                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                              |

@@ -8,8 +8,6 @@ import { Os } from "cribl-control-plane/models";
 let value: Os = {
   addresses: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
 };
 ```

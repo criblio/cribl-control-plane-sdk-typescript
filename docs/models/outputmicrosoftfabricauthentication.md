@@ -9,19 +9,6 @@ import { OutputMicrosoftFabricAuthentication } from "cribl-control-plane/models"
 
 let value: OutputMicrosoftFabricAuthentication = {
   disabled: true,
-  mechanism: "plain",
-  username: "Don_Considine",
-  textSecret: "<value>",
-  clientSecretAuthType: "certificate",
-  clientTextSecret: "<value>",
-  certificateName: "<value>",
-  certPath: "<value>",
-  privKeyPath: "<value>",
-  passphrase: "<value>",
-  oauthEndpoint: "https://login.microsoftonline.us",
-  clientId: "<id>",
-  tenantId: "<id>",
-  scope: "<value>",
 };
 ```
 
