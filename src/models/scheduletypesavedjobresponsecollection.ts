@@ -8,16 +8,16 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  RunSettingsTypeSavedJobCollectionSchedule,
-  RunSettingsTypeSavedJobCollectionSchedule$inboundSchema,
-  RunSettingsTypeSavedJobCollectionSchedule$Outbound,
-  RunSettingsTypeSavedJobCollectionSchedule$outboundSchema,
-} from "./runsettingstypesavedjobcollectionschedule.js";
+  RunSettingsTypeSavedJobResponseCollectionSchedule,
+  RunSettingsTypeSavedJobResponseCollectionSchedule$inboundSchema,
+  RunSettingsTypeSavedJobResponseCollectionSchedule$Outbound,
+  RunSettingsTypeSavedJobResponseCollectionSchedule$outboundSchema,
+} from "./runsettingstypesavedjobresponsecollectionschedule.js";
 
 /**
  * Configuration for a scheduled job
  */
-export type ScheduleTypeSavedJobCollection = {
+export type ScheduleTypeSavedJobResponseCollection = {
   /**
    * Enable to configure scheduling for this Collector
    */
@@ -38,12 +38,12 @@ export type ScheduleTypeSavedJobCollection = {
    * The maximum number of instances of this scheduled job that may be running at any time
    */
   maxConcurrentRuns?: number | undefined;
-  run?: RunSettingsTypeSavedJobCollectionSchedule | undefined;
+  run?: RunSettingsTypeSavedJobResponseCollectionSchedule | undefined;
 };
 
 /** @internal */
-export const ScheduleTypeSavedJobCollection$inboundSchema: z.ZodType<
-  ScheduleTypeSavedJobCollection,
+export const ScheduleTypeSavedJobResponseCollection$inboundSchema: z.ZodType<
+  ScheduleTypeSavedJobResponseCollection,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -52,47 +52,52 @@ export const ScheduleTypeSavedJobCollection$inboundSchema: z.ZodType<
   resumeMissed: types.optional(types.boolean()),
   cronSchedule: types.optional(types.string()),
   maxConcurrentRuns: types.optional(types.number()),
-  run: types.optional(RunSettingsTypeSavedJobCollectionSchedule$inboundSchema),
+  run: types.optional(
+    RunSettingsTypeSavedJobResponseCollectionSchedule$inboundSchema,
+  ),
 });
 /** @internal */
-export type ScheduleTypeSavedJobCollection$Outbound = {
+export type ScheduleTypeSavedJobResponseCollection$Outbound = {
   enabled?: boolean | undefined;
   skippable?: boolean | undefined;
   resumeMissed?: boolean | undefined;
   cronSchedule?: string | undefined;
   maxConcurrentRuns?: number | undefined;
-  run?: RunSettingsTypeSavedJobCollectionSchedule$Outbound | undefined;
+  run?: RunSettingsTypeSavedJobResponseCollectionSchedule$Outbound | undefined;
 };
 
 /** @internal */
-export const ScheduleTypeSavedJobCollection$outboundSchema: z.ZodType<
-  ScheduleTypeSavedJobCollection$Outbound,
+export const ScheduleTypeSavedJobResponseCollection$outboundSchema: z.ZodType<
+  ScheduleTypeSavedJobResponseCollection$Outbound,
   z.ZodTypeDef,
-  ScheduleTypeSavedJobCollection
+  ScheduleTypeSavedJobResponseCollection
 > = z.object({
   enabled: z.boolean().optional(),
   skippable: z.boolean().optional(),
   resumeMissed: z.boolean().optional(),
   cronSchedule: z.string().optional(),
   maxConcurrentRuns: z.number().optional(),
-  run: RunSettingsTypeSavedJobCollectionSchedule$outboundSchema.optional(),
+  run: RunSettingsTypeSavedJobResponseCollectionSchedule$outboundSchema
+    .optional(),
 });
 
-export function scheduleTypeSavedJobCollectionToJSON(
-  scheduleTypeSavedJobCollection: ScheduleTypeSavedJobCollection,
+export function scheduleTypeSavedJobResponseCollectionToJSON(
+  scheduleTypeSavedJobResponseCollection:
+    ScheduleTypeSavedJobResponseCollection,
 ): string {
   return JSON.stringify(
-    ScheduleTypeSavedJobCollection$outboundSchema.parse(
-      scheduleTypeSavedJobCollection,
+    ScheduleTypeSavedJobResponseCollection$outboundSchema.parse(
+      scheduleTypeSavedJobResponseCollection,
     ),
   );
 }
-export function scheduleTypeSavedJobCollectionFromJSON(
+export function scheduleTypeSavedJobResponseCollectionFromJSON(
   jsonString: string,
-): SafeParseResult<ScheduleTypeSavedJobCollection, SDKValidationError> {
+): SafeParseResult<ScheduleTypeSavedJobResponseCollection, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ScheduleTypeSavedJobCollection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ScheduleTypeSavedJobCollection' from JSON`,
+    (x) =>
+      ScheduleTypeSavedJobResponseCollection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScheduleTypeSavedJobResponseCollection' from JSON`,
   );
 }
