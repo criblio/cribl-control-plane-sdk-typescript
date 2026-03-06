@@ -6034,56 +6034,157 @@ export type CreateInputSystemByPackInputEventhub = {
   description?: string | undefined;
 };
 
-/**
- * Select authentication method.
- */
-export const CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = {
-  Manual: "manual",
-  Secret: "secret",
-  Oauth: "oauth",
-  OauthSecret: "oauthSecret",
-  OauthCert: "oauthCert",
-} as const;
-/**
- * Select authentication method.
- */
-export type CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace =
-  OpenEnum<typeof CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace>;
-
-/**
- * Log Level (verbosity) for collection runtime behavior.
- */
-export const CreateInputSystemByPackLogLevelOffice365MsgTrace = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Log Level (verbosity) for collection runtime behavior.
- */
-export type CreateInputSystemByPackLogLevelOffice365MsgTrace = OpenEnum<
-  typeof CreateInputSystemByPackLogLevelOffice365MsgTrace
->;
-
-export type CreateInputSystemByPackCertOptions = {
+export type CreateInputSystemByPackInputMicrosoftGraph = {
   /**
-   * The name of the predefined certificate.
+   * Unique ID for this input
    */
-  certificateName?: string | undefined;
+  id: string;
+  type: "microsoft_graph";
+  disabled?: boolean | undefined;
   /**
-   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   * Pipeline to process data from this Source before sending it through the Routes
    */
-  privKeyPath: string;
+  pipeline?: string | undefined;
   /**
-   * Passphrase to use to decrypt the private key.
+   * Select whether to send data to Routes, or directly to Destinations.
    */
-  passphrase?: string | undefined;
+  sendToRoutes?: boolean | undefined;
   /**
-   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
-  certPath: string;
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
+   */
+  url: string;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval: number;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Microsoft Graph data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Microsoft Graph data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select authentication method.
+   */
+  authType?: models.AuthenticationMethodOptionsManualOauth | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: models.LogLevelOptions | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Microsoft Graph API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Microsoft Graph API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: models.SubscriptionPlanOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: models.CertOptionsType | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+   */
+  __template_resource?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputOffice365MsgTrace = {
@@ -6145,29 +6246,15 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?:
-    | CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace
-    | undefined;
-  /**
-   * Reschedule tasks that failed with non-fatal errors
-   */
-  rescheduleDroppedTasks?: boolean | undefined;
-  /**
-   * Maximum number of times a task can be rescheduled
-   */
-  maxTaskReschedule?: number | undefined;
-  /**
-   * Log Level (verbosity) for collection runtime behavior.
-   */
-  logLevel?: CreateInputSystemByPackLogLevelOffice365MsgTrace | undefined;
-  /**
-   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-   */
-  jobTimeout?: string | undefined;
+  authType?: models.AuthenticationMethodOptionsManualOauth | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
   keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
   /**
    * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
    */
@@ -6184,6 +6271,18 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: models.LogLevelOptions | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
@@ -6222,7 +6321,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
   textSecret?: string | undefined;
-  certOptions?: CreateInputSystemByPackCertOptions | undefined;
+  certOptions?: models.CertOptionsType | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -9177,6 +9276,7 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputOffice365Mgmt
   | CreateInputSystemByPackInputOffice365Service
   | CreateInputSystemByPackInputOffice365MsgTrace
+  | CreateInputSystemByPackInputMicrosoftGraph
   | CreateInputSystemByPackInputEventhub
   | CreateInputSystemByPackInputExec
   | CreateInputSystemByPackInputFirehose
@@ -9254,6 +9354,7 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputOffice365Mgmt
     | CreateInputSystemByPackInputOffice365Service
     | CreateInputSystemByPackInputOffice365MsgTrace
+    | CreateInputSystemByPackInputMicrosoftGraph
     | CreateInputSystemByPackInputEventhub
     | CreateInputSystemByPackInputExec
     | CreateInputSystemByPackInputFirehose
@@ -14952,51 +15053,112 @@ export function createInputSystemByPackInputEventhubToJSON(
 }
 
 /** @internal */
-export const CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace,
-  );
-
-/** @internal */
-export const CreateInputSystemByPackLogLevelOffice365MsgTrace$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackLogLevelOffice365MsgTrace
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackLogLevelOffice365MsgTrace,
-  );
-
-/** @internal */
-export type CreateInputSystemByPackCertOptions$Outbound = {
-  certificateName?: string | undefined;
-  privKeyPath: string;
-  passphrase?: string | undefined;
-  certPath: string;
+export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
+  id: string;
+  type: "microsoft_graph";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout?: number | undefined;
+  disableTimeFilter?: boolean | undefined;
+  authType?: string | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource?: string | undefined;
+  planType?: string | undefined;
+  textSecret?: string | undefined;
+  certOptions?: models.CertOptionsType$Outbound | undefined;
+  __template_url?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_resource?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackCertOptions$outboundSchema: z.ZodType<
-  CreateInputSystemByPackCertOptions$Outbound,
-  z.ZodTypeDef,
-  CreateInputSystemByPackCertOptions
-> = z.object({
-  certificateName: z.string().optional(),
-  privKeyPath: z.string(),
-  passphrase: z.string().optional(),
-  certPath: z.string(),
-});
+export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackInputMicrosoftGraph$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackInputMicrosoftGraph
+  > = z.object({
+    id: z.string(),
+    type: z.literal("microsoft_graph"),
+    disabled: z.boolean().optional(),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: models.PqType$outboundSchema.optional(),
+    url: z.string(),
+    interval: z.number().int(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    timeout: z.number().optional(),
+    disableTimeFilter: z.boolean().optional(),
+    authType: models.AuthenticationMethodOptionsManualOauth$outboundSchema
+      .optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+    rescheduleDroppedTasks: z.boolean().optional(),
+    maxTaskReschedule: z.number().optional(),
+    logLevel: models.LogLevelOptions$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    clientSecret: z.string().optional(),
+    tenantId: z.string().optional(),
+    clientId: z.string().optional(),
+    resource: z.string().optional(),
+    planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
+    textSecret: z.string().optional(),
+    certOptions: models.CertOptionsType$outboundSchema.optional(),
+    __template_url: z.string().optional(),
+    __template_tenantId: z.string().optional(),
+    __template_clientId: z.string().optional(),
+    __template_resource: z.string().optional(),
+  });
 
-export function createInputSystemByPackCertOptionsToJSON(
-  createInputSystemByPackCertOptions: CreateInputSystemByPackCertOptions,
+export function createInputSystemByPackInputMicrosoftGraphToJSON(
+  createInputSystemByPackInputMicrosoftGraph:
+    CreateInputSystemByPackInputMicrosoftGraph,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackCertOptions$outboundSchema.parse(
-      createInputSystemByPackCertOptions,
+    CreateInputSystemByPackInputMicrosoftGraph$outboundSchema.parse(
+      createInputSystemByPackInputMicrosoftGraph,
     ),
   );
 }
@@ -15020,15 +15182,15 @@ export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
   timeout?: number | undefined;
   disableTimeFilter?: boolean | undefined;
   authType?: string | undefined;
-  rescheduleDroppedTasks?: boolean | undefined;
-  maxTaskReschedule?: number | undefined;
-  logLevel?: string | undefined;
-  jobTimeout?: string | undefined;
   keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -15040,7 +15202,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
   resource?: string | undefined;
   planType?: string | undefined;
   textSecret?: string | undefined;
-  certOptions?: CreateInputSystemByPackCertOptions$Outbound | undefined;
+  certOptions?: models.CertOptionsType$Outbound | undefined;
   __template_url?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
@@ -15066,24 +15228,22 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
       .optional(),
     pq: models.PqType$outboundSchema.optional(),
     url: z.string(),
-    interval: z.number(),
+    interval: z.number().int(),
     startDate: z.string().optional(),
     endDate: z.string().optional(),
     timeout: z.number().optional(),
     disableTimeFilter: z.boolean().optional(),
-    authType:
-      CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace$outboundSchema
-        .optional(),
-    rescheduleDroppedTasks: z.boolean().optional(),
-    maxTaskReschedule: z.number().optional(),
-    logLevel: CreateInputSystemByPackLogLevelOffice365MsgTrace$outboundSchema
+    authType: models.AuthenticationMethodOptionsManualOauth$outboundSchema
       .optional(),
-    jobTimeout: z.string().optional(),
     keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
     maxMissedKeepAlives: z.number().optional(),
     ttl: z.string().optional(),
     ignoreGroupJobsLimit: z.boolean().optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+    rescheduleDroppedTasks: z.boolean().optional(),
+    maxTaskReschedule: z.number().optional(),
+    logLevel: models.LogLevelOptions$outboundSchema.optional(),
     retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
       .optional(),
     description: z.string().optional(),
@@ -15096,8 +15256,7 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     resource: z.string().optional(),
     planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
     textSecret: z.string().optional(),
-    certOptions: z.lazy(() => CreateInputSystemByPackCertOptions$outboundSchema)
-      .optional(),
+    certOptions: models.CertOptionsType$outboundSchema.optional(),
     __template_url: z.string().optional(),
     __template_tenantId: z.string().optional(),
     __template_clientId: z.string().optional(),
@@ -17519,6 +17678,7 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputOffice365Mgmt$Outbound
   | CreateInputSystemByPackInputOffice365Service$Outbound
   | CreateInputSystemByPackInputOffice365MsgTrace$Outbound
+  | CreateInputSystemByPackInputMicrosoftGraph$Outbound
   | CreateInputSystemByPackInputEventhub$Outbound
   | CreateInputSystemByPackInputExec$Outbound
   | CreateInputSystemByPackInputFirehose$Outbound
@@ -17593,6 +17753,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputOffice365Mgmt$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputOffice365Service$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema),
+  z.lazy(() => CreateInputSystemByPackInputMicrosoftGraph$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputEventhub$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputExec$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputFirehose$outboundSchema),
@@ -17678,6 +17839,7 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputOffice365Mgmt$Outbound
     | CreateInputSystemByPackInputOffice365Service$Outbound
     | CreateInputSystemByPackInputOffice365MsgTrace$Outbound
+    | CreateInputSystemByPackInputMicrosoftGraph$Outbound
     | CreateInputSystemByPackInputEventhub$Outbound
     | CreateInputSystemByPackInputExec$Outbound
     | CreateInputSystemByPackInputFirehose$Outbound
@@ -17755,6 +17917,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackInputOffice365Mgmt$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputOffice365Service$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema),
+    z.lazy(() => CreateInputSystemByPackInputMicrosoftGraph$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputEventhub$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputExec$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputFirehose$outboundSchema),

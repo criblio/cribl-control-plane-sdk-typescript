@@ -144,10 +144,6 @@ export type S3AwsAuthenticationMethodSecret = {
    */
   __template_region?: string | undefined;
   /**
-   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-   */
-  __template_awsAuthenticationMethod?: string | undefined;
-  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -292,10 +288,6 @@ export type S3AwsAuthenticationMethodManual = {
    */
   __template_region?: string | undefined;
   /**
-   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-   */
-  __template_awsAuthenticationMethod?: string | undefined;
-  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -431,10 +423,6 @@ export type S3AwsAuthenticationMethodAuto = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
-  /**
-   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-   */
-  __template_awsAuthenticationMethod?: string | undefined;
   /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
@@ -574,10 +562,6 @@ export type S3PartitioningSchemeNone = {
    */
   __template_region?: string | undefined;
   /**
-   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-   */
-  __template_awsAuthenticationMethod?: string | undefined;
-  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -712,10 +696,6 @@ export type S3PartitioningSchemeDdss = {
    */
   __template_region?: string | undefined;
   /**
-   * Binds 'awsAuthenticationMethod' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAuthenticationMethod' at runtime.
-   */
-  __template_awsAuthenticationMethod?: string | undefined;
-  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -842,7 +822,6 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   disableTimeFilter: types.optional(types.boolean()),
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
-  __template_awsAuthenticationMethod: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
@@ -874,7 +853,6 @@ export type S3AwsAuthenticationMethodSecret$Outbound = {
   disableTimeFilter?: boolean | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
-  __template_awsAuthenticationMethod?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -913,7 +891,6 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
   disableTimeFilter: z.boolean().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
-  __template_awsAuthenticationMethod: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -1046,7 +1023,6 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   disableTimeFilter: types.optional(types.boolean()),
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
-  __template_awsAuthenticationMethod: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
@@ -1079,7 +1055,6 @@ export type S3AwsAuthenticationMethodManual$Outbound = {
   disableTimeFilter?: boolean | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
-  __template_awsAuthenticationMethod?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -1119,7 +1094,6 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
   disableTimeFilter: z.boolean().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
-  __template_awsAuthenticationMethod: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -1239,7 +1213,6 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   disableTimeFilter: types.optional(types.boolean()),
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
-  __template_awsAuthenticationMethod: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
@@ -1270,7 +1243,6 @@ export type S3AwsAuthenticationMethodAuto$Outbound = {
   disableTimeFilter?: boolean | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
-  __template_awsAuthenticationMethod?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -1308,7 +1280,6 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
   disableTimeFilter: z.boolean().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
-  __template_awsAuthenticationMethod: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -1421,7 +1392,6 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   disableTimeFilter: types.optional(types.boolean()),
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
-  __template_awsAuthenticationMethod: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
@@ -1451,7 +1421,6 @@ export type S3PartitioningSchemeNone$Outbound = {
   disableTimeFilter?: boolean | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
-  __template_awsAuthenticationMethod?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -1490,7 +1459,6 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
   disableTimeFilter: z.boolean().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
-  __template_awsAuthenticationMethod: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -1600,7 +1568,6 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   disableTimeFilter: types.optional(types.boolean()),
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
-  __template_awsAuthenticationMethod: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
@@ -1629,7 +1596,6 @@ export type S3PartitioningSchemeDdss$Outbound = {
   disableTimeFilter?: boolean | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
-  __template_awsAuthenticationMethod?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -1667,7 +1633,6 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   disableTimeFilter: z.boolean().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
-  __template_awsAuthenticationMethod: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
