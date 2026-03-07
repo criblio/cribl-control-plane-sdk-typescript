@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 93fef35e33e0e9802f333872898dd2e9
-  docVersion: 4.18.0-alpha.1772751842453-480197ad
+  docChecksum: 45ee03b8c0cbc607f8181b27979e8845
+  docVersion: 4.18.0-alpha.1772838269349-c9491184
   speakeasyVersion: 1.741.2
   generationVersion: 2.849.3
-  releaseVersion: 0.6.0-beta.60
-  configChecksum: c3fc68ba7103f987f47a09038dd49c5c
+  releaseVersion: 0.6.0-beta.61
+  configChecksum: f3e15377cb6c5158e168a3e42cc3f3aa
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 92aff6cb-c1c4-4da2-9c50-73719b35d82b
-  pristine_commit_hash: 4adf615aee8f4cd900b8b94c1ac282392edf0179
-  pristine_tree_hash: 5d4a8cf759ab2530af9e13b0f36e04aab18c4641
+  generation_id: ab8c7029-8866-459f-893c-432f7f01e220
+  pristine_commit_hash: ac9a747779622074870d38b9c95b5ed7bb574d66
+  pristine_tree_hash: d57bb8c8342ab8c1b34e0e14a2b6ea7057fb3717
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -12294,8 +12294,8 @@ trackedFiles:
     pristine_git_object: bd1cb0b0265e4ad473f8e0f73dcb944b11c451ea
   docs/models/supporttypesystemsettingsconf.md:
     id: b0205cd3b4c5
-    last_write_checksum: sha1:90758960db666c79b2c7e0a73ae2a1ce9a0d505a
-    pristine_git_object: f0d5d59d9609e8d60ff08dd2e97d644743a43e40
+    last_write_checksum: sha1:bfd697e3b4d3e17e2348310f09a294afdf428769
+    pristine_git_object: 7fb5a76dccb6d07561bd96c5dd2d2dce85dae712
   docs/models/systemrestartresponse.md:
     id: 11050162adf9
     last_write_checksum: sha1:b6dfa8b0d66da5a59b7376cc97311ce0a76b38ce
@@ -12650,12 +12650,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:e4dc56460050e9d981af6db13d371828987f5f2f
-    pristine_git_object: cebd6acd6fcee2266bc1bc14ee600178b3430ade
+    last_write_checksum: sha1:cd1b260b9ae24ea3fd1bcff0c4a710ab1f1be4b0
+    pristine_git_object: a27701ea6a5bdebd87017de6e9b88e44b2c8c023
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:4d96b010b44a0a7ab76afd0eb9b4f5ca5cb58da6
-    pristine_git_object: 05fc9d5eafb8b6c3861ddef038ad29fada3fd2a3
+    last_write_checksum: sha1:49ba1ca6164fdec035466f401bea6ac8c02c7920
+    pristine_git_object: a8eb4c577736101782f3c7a494c966c82c2a7304
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13154,8 +13154,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:763988c6a4686b50978a92f8cdebdb42207c15ae
-    pristine_git_object: 85702d85aa79e6d53fd36a90db3f69a8c290e2b2
+    last_write_checksum: sha1:69806c4f8ddd8d37a8e662ade1420cfb0ed8c4e1
+    pristine_git_object: 839392149bd199c776c10f768191a84e7f55fc3d
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -16138,8 +16138,8 @@ trackedFiles:
     pristine_git_object: ab8d00e78a98b7cca7834cf46e41e6ae90792df7
   src/models/supporttypesystemsettingsconf.ts:
     id: 54e5d8ff0fd3
-    last_write_checksum: sha1:055bf619c5ec9f916b7956f35fa7dba9e9bb012b
-    pristine_git_object: cbeb63f60dea6ae80f9da516e6e8fecfdec97918
+    last_write_checksum: sha1:75075ecc23b9e0aa07c7134612237d86dd687e73
+    pristine_git_object: 91616fd33d70f7dcefbade2bc96f445b4af63c0c
   src/models/systemrestartresponse.ts:
     id: 259252cab461
     last_write_checksum: sha1:bfdec45903e18c438a49f7ee68cf0a2165b17fe9
@@ -26917,7 +26917,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.list()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.get()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** (Breaking ⚠️)\n  *  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.delete()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.list()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody` **Changed** (Breaking ⚠️)\n  *  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.get()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input` **Changed** (Breaking ⚠️)\n  *  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.destinations.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.destinations.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.create()`: \n  *  `request.savedJob.union(SavedJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(SavedJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.list()`:  `response.items[].union(SavedJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.delete()`:  `response.items[].union(SavedJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.get()`:  `response.items[].union(SavedJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.update()`: \n  *  `request.savedJob.union(SavedJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(SavedJobCollection).collector.union(s3).conf` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items[].support` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request.support` **Changed**\n  *  `response.items[].support` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
