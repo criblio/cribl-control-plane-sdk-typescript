@@ -3,33 +3,25 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   Collector,
-  Collector$inboundSchema,
   Collector$Outbound,
   Collector$outboundSchema,
 } from "./collector.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   JobTypeOptionsRunnableJobCollection,
-  JobTypeOptionsRunnableJobCollection$inboundSchema,
   JobTypeOptionsRunnableJobCollection$outboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
 import {
   RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound,
   RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
 } from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
 import {
-  ScheduleTypeSavedJobCollection,
-  ScheduleTypeSavedJobCollection$inboundSchema,
-  ScheduleTypeSavedJobCollection$Outbound,
-  ScheduleTypeSavedJobCollection$outboundSchema,
-} from "./scheduletypesavedjobcollection.js";
+  ScheduleTypeSavedJobResponseCollection,
+  ScheduleTypeSavedJobResponseCollection$Outbound,
+  ScheduleTypeSavedJobResponseCollection$outboundSchema,
+} from "./scheduletypesavedjobresponsecollection.js";
 
 export type SavedJobCollection = {
   /**
@@ -61,7 +53,7 @@ export type SavedJobCollection = {
   /**
    * Configuration for a scheduled job
    */
-  schedule?: ScheduleTypeSavedJobCollection | undefined;
+  schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -80,28 +72,6 @@ export type SavedJobCollection = {
 };
 
 /** @internal */
-export const SavedJobCollection$inboundSchema: z.ZodType<
-  SavedJobCollection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  description: types.optional(types.string()),
-  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  removeFields: types.optional(z.array(types.string())),
-  resumeOnBoot: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  schedule: types.optional(ScheduleTypeSavedJobCollection$inboundSchema),
-  streamtags: types.optional(z.array(types.string())),
-  workerAffinity: types.optional(types.boolean()),
-  collector: Collector$inboundSchema,
-  input: types.optional(
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-  ),
-});
-/** @internal */
 export type SavedJobCollection$Outbound = {
   id?: string | undefined;
   description?: string | undefined;
@@ -111,7 +81,7 @@ export type SavedJobCollection$Outbound = {
   removeFields?: Array<string> | undefined;
   resumeOnBoot?: boolean | undefined;
   environment?: string | undefined;
-  schedule?: ScheduleTypeSavedJobCollection$Outbound | undefined;
+  schedule?: ScheduleTypeSavedJobResponseCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
   workerAffinity?: boolean | undefined;
   collector: Collector$Outbound;
@@ -134,7 +104,7 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
-  schedule: ScheduleTypeSavedJobCollection$outboundSchema.optional(),
+  schedule: ScheduleTypeSavedJobResponseCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().optional(),
   collector: Collector$outboundSchema,
@@ -148,14 +118,5 @@ export function savedJobCollectionToJSON(
 ): string {
   return JSON.stringify(
     SavedJobCollection$outboundSchema.parse(savedJobCollection),
-  );
-}
-export function savedJobCollectionFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobCollection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobCollection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobCollection' from JSON`,
   );
 }

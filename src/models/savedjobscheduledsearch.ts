@@ -3,21 +3,15 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   JobTypeOptionsRunnableJobCollection,
-  JobTypeOptionsRunnableJobCollection$inboundSchema,
   JobTypeOptionsRunnableJobCollection$outboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
 import {
-  ScheduleTypeSavedJobCollection,
-  ScheduleTypeSavedJobCollection$inboundSchema,
-  ScheduleTypeSavedJobCollection$Outbound,
-  ScheduleTypeSavedJobCollection$outboundSchema,
-} from "./scheduletypesavedjobcollection.js";
+  ScheduleTypeSavedJobResponseCollection,
+  ScheduleTypeSavedJobResponseCollection$Outbound,
+  ScheduleTypeSavedJobResponseCollection$outboundSchema,
+} from "./scheduletypesavedjobresponsecollection.js";
 
 export type SavedJobScheduledSearch = {
   /**
@@ -49,7 +43,7 @@ export type SavedJobScheduledSearch = {
   /**
    * Configuration for a scheduled job
    */
-  schedule?: ScheduleTypeSavedJobCollection | undefined;
+  schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -61,24 +55,6 @@ export type SavedJobScheduledSearch = {
 };
 
 /** @internal */
-export const SavedJobScheduledSearch$inboundSchema: z.ZodType<
-  SavedJobScheduledSearch,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  description: types.optional(types.string()),
-  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  removeFields: types.optional(z.array(types.string())),
-  resumeOnBoot: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  schedule: types.optional(ScheduleTypeSavedJobCollection$inboundSchema),
-  streamtags: types.optional(z.array(types.string())),
-  savedQueryId: types.string(),
-});
-/** @internal */
 export type SavedJobScheduledSearch$Outbound = {
   id?: string | undefined;
   description?: string | undefined;
@@ -88,7 +64,7 @@ export type SavedJobScheduledSearch$Outbound = {
   removeFields?: Array<string> | undefined;
   resumeOnBoot?: boolean | undefined;
   environment?: string | undefined;
-  schedule?: ScheduleTypeSavedJobCollection$Outbound | undefined;
+  schedule?: ScheduleTypeSavedJobResponseCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
   savedQueryId: string;
 };
@@ -107,7 +83,7 @@ export const SavedJobScheduledSearch$outboundSchema: z.ZodType<
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
-  schedule: ScheduleTypeSavedJobCollection$outboundSchema.optional(),
+  schedule: ScheduleTypeSavedJobResponseCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   savedQueryId: z.string(),
 });
@@ -117,14 +93,5 @@ export function savedJobScheduledSearchToJSON(
 ): string {
   return JSON.stringify(
     SavedJobScheduledSearch$outboundSchema.parse(savedJobScheduledSearch),
-  );
-}
-export function savedJobScheduledSearchFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobScheduledSearch, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobScheduledSearch$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobScheduledSearch' from JSON`,
   );
 }
