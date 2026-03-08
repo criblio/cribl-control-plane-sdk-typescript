@@ -21,15 +21,15 @@ import {
   MetricsStore$outboundSchema,
 } from "./metricsstore.js";
 
-export const RunSettingsTypeSavedJobCollectionScheduleType = {
+export const RunSettingsTypeSavedJobResponseCollectionScheduleType = {
   Collection: "collection",
 } as const;
-export type RunSettingsTypeSavedJobCollectionScheduleType = OpenEnum<
-  typeof RunSettingsTypeSavedJobCollectionScheduleType
+export type RunSettingsTypeSavedJobResponseCollectionScheduleType = OpenEnum<
+  typeof RunSettingsTypeSavedJobResponseCollectionScheduleType
 >;
 
-export type RunSettingsTypeSavedJobCollectionSchedule = {
-  type?: RunSettingsTypeSavedJobCollectionScheduleType | undefined;
+export type RunSettingsTypeSavedJobResponseCollectionSchedule = {
+  type?: RunSettingsTypeSavedJobResponseCollectionScheduleType | undefined;
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
@@ -84,47 +84,52 @@ export type RunSettingsTypeSavedJobCollectionSchedule = {
 };
 
 /** @internal */
-export const RunSettingsTypeSavedJobCollectionScheduleType$inboundSchema:
+export const RunSettingsTypeSavedJobResponseCollectionScheduleType$inboundSchema:
   z.ZodType<
-    RunSettingsTypeSavedJobCollectionScheduleType,
+    RunSettingsTypeSavedJobResponseCollectionScheduleType,
     z.ZodTypeDef,
     unknown
-  > = openEnums.inboundSchema(RunSettingsTypeSavedJobCollectionScheduleType);
+  > = openEnums.inboundSchema(
+    RunSettingsTypeSavedJobResponseCollectionScheduleType,
+  );
 /** @internal */
-export const RunSettingsTypeSavedJobCollectionScheduleType$outboundSchema:
+export const RunSettingsTypeSavedJobResponseCollectionScheduleType$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    RunSettingsTypeSavedJobCollectionScheduleType
-  > = openEnums.outboundSchema(RunSettingsTypeSavedJobCollectionScheduleType);
+    RunSettingsTypeSavedJobResponseCollectionScheduleType
+  > = openEnums.outboundSchema(
+    RunSettingsTypeSavedJobResponseCollectionScheduleType,
+  );
 
 /** @internal */
-export const RunSettingsTypeSavedJobCollectionSchedule$inboundSchema: z.ZodType<
-  RunSettingsTypeSavedJobCollectionSchedule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: types.optional(
-    RunSettingsTypeSavedJobCollectionScheduleType$inboundSchema,
-  ),
-  rescheduleDroppedTasks: types.optional(types.boolean()),
-  maxTaskReschedule: types.optional(types.number()),
-  logLevel: types.optional(
-    LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
-  ),
-  jobTimeout: types.optional(types.string()),
-  mode: types.string(),
-  timeRangeType: types.optional(types.string()),
-  earliest: types.optional(types.number()),
-  latest: types.optional(types.number()),
-  timestampTimezone: types.optional(z.any()),
-  timeWarning: types.optional(MetricsStore$inboundSchema),
-  expression: types.optional(types.string()),
-  minTaskSize: types.optional(types.string()),
-  maxTaskSize: types.optional(types.string()),
-});
+export const RunSettingsTypeSavedJobResponseCollectionSchedule$inboundSchema:
+  z.ZodType<
+    RunSettingsTypeSavedJobResponseCollectionSchedule,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    type: types.optional(
+      RunSettingsTypeSavedJobResponseCollectionScheduleType$inboundSchema,
+    ),
+    rescheduleDroppedTasks: types.optional(types.boolean()),
+    maxTaskReschedule: types.optional(types.number()),
+    logLevel: types.optional(
+      LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
+    ),
+    jobTimeout: types.optional(types.string()),
+    mode: types.string(),
+    timeRangeType: types.optional(types.string()),
+    earliest: types.optional(types.number()),
+    latest: types.optional(types.number()),
+    timestampTimezone: types.optional(z.any()),
+    timeWarning: types.optional(MetricsStore$inboundSchema),
+    expression: types.optional(types.string()),
+    minTaskSize: types.optional(types.string()),
+    maxTaskSize: types.optional(types.string()),
+  });
 /** @internal */
-export type RunSettingsTypeSavedJobCollectionSchedule$Outbound = {
+export type RunSettingsTypeSavedJobResponseCollectionSchedule$Outbound = {
   type?: string | undefined;
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
@@ -142,13 +147,13 @@ export type RunSettingsTypeSavedJobCollectionSchedule$Outbound = {
 };
 
 /** @internal */
-export const RunSettingsTypeSavedJobCollectionSchedule$outboundSchema:
+export const RunSettingsTypeSavedJobResponseCollectionSchedule$outboundSchema:
   z.ZodType<
-    RunSettingsTypeSavedJobCollectionSchedule$Outbound,
+    RunSettingsTypeSavedJobResponseCollectionSchedule$Outbound,
     z.ZodTypeDef,
-    RunSettingsTypeSavedJobCollectionSchedule
+    RunSettingsTypeSavedJobResponseCollectionSchedule
   > = z.object({
-    type: RunSettingsTypeSavedJobCollectionScheduleType$outboundSchema
+    type: RunSettingsTypeSavedJobResponseCollectionScheduleType$outboundSchema
       .optional(),
     rescheduleDroppedTasks: z.boolean().optional(),
     maxTaskReschedule: z.number().optional(),
@@ -166,28 +171,28 @@ export const RunSettingsTypeSavedJobCollectionSchedule$outboundSchema:
     maxTaskSize: z.string().optional(),
   });
 
-export function runSettingsTypeSavedJobCollectionScheduleToJSON(
-  runSettingsTypeSavedJobCollectionSchedule:
-    RunSettingsTypeSavedJobCollectionSchedule,
+export function runSettingsTypeSavedJobResponseCollectionScheduleToJSON(
+  runSettingsTypeSavedJobResponseCollectionSchedule:
+    RunSettingsTypeSavedJobResponseCollectionSchedule,
 ): string {
   return JSON.stringify(
-    RunSettingsTypeSavedJobCollectionSchedule$outboundSchema.parse(
-      runSettingsTypeSavedJobCollectionSchedule,
+    RunSettingsTypeSavedJobResponseCollectionSchedule$outboundSchema.parse(
+      runSettingsTypeSavedJobResponseCollectionSchedule,
     ),
   );
 }
-export function runSettingsTypeSavedJobCollectionScheduleFromJSON(
+export function runSettingsTypeSavedJobResponseCollectionScheduleFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  RunSettingsTypeSavedJobCollectionSchedule,
+  RunSettingsTypeSavedJobResponseCollectionSchedule,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      RunSettingsTypeSavedJobCollectionSchedule$inboundSchema.parse(
+      RunSettingsTypeSavedJobResponseCollectionSchedule$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'RunSettingsTypeSavedJobCollectionSchedule' from JSON`,
+    `Failed to parse 'RunSettingsTypeSavedJobResponseCollectionSchedule' from JSON`,
   );
 }

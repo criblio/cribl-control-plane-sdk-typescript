@@ -31,52 +31,49 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "which um whenever pro chase video uh-huh atop baritone yum",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 7324.19,
-          latest: 6945.52,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "which um whenever pro chase video uh-huh atop baritone yum",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 7324.19,
+        latest: 6945.52,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      executor: {
-        type: "<value>",
-        storeTaskResults: true,
-        conf: {},
-      },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    executor: {
+      type: "<value>",
+      storeTaskResults: true,
+      conf: {},
     },
   });
 
@@ -105,52 +102,49 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "which um whenever pro chase video uh-huh atop baritone yum",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 7324.19,
-          latest: 6945.52,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "which um whenever pro chase video uh-huh atop baritone yum",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 7324.19,
+        latest: 6945.52,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      executor: {
-        type: "<value>",
-        storeTaskResults: true,
-        conf: {},
-      },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    executor: {
+      type: "<value>",
+      storeTaskResults: true,
+      conf: {},
     },
   });
   if (res.ok) {
@@ -178,47 +172,44 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -246,47 +237,44 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -313,51 +301,48 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      executor: {
-        type: "<value>",
-        storeTaskResults: true,
-        conf: {},
-      },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    executor: {
+      type: "<value>",
+      storeTaskResults: true,
+      conf: {},
     },
   });
 
@@ -386,51 +371,48 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      executor: {
-        type: "<value>",
-        storeTaskResults: true,
-        conf: {},
-      },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    executor: {
+      type: "<value>",
+      storeTaskResults: true,
+      conf: {},
     },
   });
   if (res.ok) {
@@ -458,51 +440,48 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      executor: {
-        type: "<value>",
-        storeTaskResults: true,
-        conf: {},
-      },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    executor: {
+      type: "<value>",
+      storeTaskResults: true,
+      conf: {},
     },
   });
 
@@ -531,51 +510,48 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      executor: {
-        type: "<value>",
-        storeTaskResults: true,
-        conf: {},
-      },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    executor: {
+      type: "<value>",
+      storeTaskResults: true,
+      conf: {},
     },
   });
   if (res.ok) {
@@ -603,47 +579,44 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -671,47 +644,44 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -738,87 +708,84 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      workerAffinity: false,
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-          queryValidationEnabled: true,
-          defaultBreakers: "Cribl",
-          __scheduling: {
-            stateTracking: {
-              enabled: true,
-            },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    workerAffinity: false,
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+        queryValidationEnabled: true,
+        defaultBreakers: "Cribl",
+        __scheduling: {
+          stateTracking: {
+            enabled: true,
           },
         },
-        destructive: true,
-        encoding: "<value>",
       },
-      input: {
-        type: "collection",
-        breakerRulesets: [
+      destructive: true,
+      encoding: "<value>",
+    },
+    input: {
+      type: "collection",
+      breakerRulesets: [
+        "<value 1>",
+      ],
+      staleChannelFlushMs: 10000,
+      sendToRoutes: true,
+      preprocess: {
+        disabled: true,
+        command: "<value>",
+        args: [
           "<value 1>",
         ],
-        staleChannelFlushMs: 10000,
-        sendToRoutes: true,
-        preprocess: {
-          disabled: true,
-          command: "<value>",
-          args: [
-            "<value 1>",
-          ],
-        },
-        throttleRatePerSec: "0",
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        pipeline: "<value>",
-        output: "<value>",
       },
+      throttleRatePerSec: "0",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      pipeline: "<value>",
+      output: "<value>",
     },
   });
 
@@ -847,87 +814,84 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      workerAffinity: false,
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-          queryValidationEnabled: true,
-          defaultBreakers: "Cribl",
-          __scheduling: {
-            stateTracking: {
-              enabled: true,
-            },
+    },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    workerAffinity: false,
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
+        queryValidationEnabled: true,
+        defaultBreakers: "Cribl",
+        __scheduling: {
+          stateTracking: {
+            enabled: true,
           },
         },
-        destructive: true,
-        encoding: "<value>",
       },
-      input: {
-        type: "collection",
-        breakerRulesets: [
+      destructive: true,
+      encoding: "<value>",
+    },
+    input: {
+      type: "collection",
+      breakerRulesets: [
+        "<value 1>",
+      ],
+      staleChannelFlushMs: 10000,
+      sendToRoutes: true,
+      preprocess: {
+        disabled: true,
+        command: "<value>",
+        args: [
           "<value 1>",
         ],
-        staleChannelFlushMs: 10000,
-        sendToRoutes: true,
-        preprocess: {
-          disabled: true,
-          command: "<value>",
-          args: [
-            "<value 1>",
-          ],
-        },
-        throttleRatePerSec: "0",
-        metadata: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        pipeline: "<value>",
-        output: "<value>",
       },
+      throttleRatePerSec: "0",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      pipeline: "<value>",
+      output: "<value>",
     },
   });
   if (res.ok) {
@@ -955,48 +919,45 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -1024,48 +985,45 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "pomelo outside offensively ew",
-      type: "executor",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 432.8,
-          latest: 2023.34,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "pomelo outside offensively ew",
+    type: "executor",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 432.8,
+        latest: 2023.34,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1092,47 +1050,44 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -1160,47 +1115,44 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1227,47 +1179,44 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -1295,47 +1244,44 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      id: "<id>",
-      description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
-      type: "collection",
-      ttl: "4h",
-      ignoreGroupJobsLimit: false,
-      removeFields: [
-        "<value 1>",
-      ],
-      resumeOnBoot: false,
-      environment: "<value>",
-      schedule: {
-        enabled: true,
-        skippable: true,
-        resumeMissed: false,
-        cronSchedule: "*/5 * * * *",
-        maxConcurrentRuns: 1,
-        run: {
-          type: "collection",
-          rescheduleDroppedTasks: true,
-          maxTaskReschedule: 1,
-          logLevel: "info",
-          jobTimeout: "0",
-          mode: "list",
-          timeRangeType: "relative",
-          earliest: 2728.52,
-          latest: 4162.9,
-          timestampTimezone: "<value>",
-          timeWarning: {},
-          expression: "true",
-          minTaskSize: "1MB",
-          maxTaskSize: "10MB",
-        },
+    id: "<id>",
+    description: "cautiously annual worth before cleaner parsnip nimble onset once burgeon",
+    type: "collection",
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
+    removeFields: [
+      "<value 1>",
+    ],
+    resumeOnBoot: false,
+    environment: "<value>",
+    schedule: {
+      enabled: true,
+      skippable: true,
+      resumeMissed: false,
+      cronSchedule: "*/5 * * * *",
+      maxConcurrentRuns: 1,
+      run: {
+        type: "collection",
+        rescheduleDroppedTasks: true,
+        maxTaskReschedule: 1,
+        logLevel: "info",
+        jobTimeout: "0",
+        mode: "list",
+        timeRangeType: "relative",
+        earliest: 2728.52,
+        latest: 4162.9,
+        timestampTimezone: "<value>",
+        timeWarning: {},
+        expression: "true",
+        minTaskSize: "1MB",
+        maxTaskSize: "10MB",
       },
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      savedQueryId: "<id>",
     },
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1352,14 +1298,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateSavedJobRequest](../../models/operations/createsavedjobrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.SavedJob](../../models/savedjob.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -1388,8 +1334,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.list({
     collectorType: "<value>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
 
   console.log(result);
@@ -1418,8 +1362,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsList(criblControlPlane, {
     collectorType: "<value>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1443,7 +1385,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -1472,8 +1414,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.delete({
     id: "<id>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
 
   console.log(result);
@@ -1502,8 +1442,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsDelete(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1527,7 +1465,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -1556,7 +1494,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.get({
     id: "<id>",
-    criblPack: "<value>",
   });
 
   console.log(result);
@@ -1585,7 +1522,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsGet(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1609,7 +1545,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -1638,7 +1574,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "wee supposing blaring spectate dark",
@@ -1712,7 +1647,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "wee supposing blaring spectate dark",
@@ -1785,7 +1719,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -1898,7 +1831,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -2010,7 +1942,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -2080,7 +2011,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -2149,7 +2079,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "wee supposing blaring spectate dark",
@@ -2223,7 +2152,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "wee supposing blaring spectate dark",
@@ -2296,7 +2224,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "horde before huzzah apud ha even murky favorite",
@@ -2366,7 +2293,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "horde before huzzah apud ha even murky favorite",
@@ -2435,7 +2361,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -2548,7 +2473,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -2660,7 +2584,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -2730,7 +2653,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -2799,7 +2721,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "wee supposing blaring spectate dark",
@@ -2873,7 +2794,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "wee supposing blaring spectate dark",
@@ -2946,7 +2866,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -3020,7 +2939,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       id: "<id>",
       description: "unabashedly notwithstanding ugh digestive",
@@ -3089,7 +3007,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
