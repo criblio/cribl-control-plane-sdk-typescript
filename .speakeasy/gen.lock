@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 934d42a90ab688308cba1413e645edd2
-  docVersion: 4.18.0-alpha.1772924584949-0a0dc495
-  speakeasyVersion: 1.748.0
-  generationVersion: 2.852.1
-  releaseVersion: 0.6.0-beta.63
-  configChecksum: c962628e94b6c8d17ceac3b99b6258e2
+  docChecksum: 5612f7af6896f92ef824b36bbe3253f6
+  docVersion: 4.18.0-alpha.1773097388248-a1453eb4
+  speakeasyVersion: 1.749.1
+  generationVersion: 2.855.2
+  releaseVersion: 0.6.0-beta.64
+  configChecksum: 51c19e530705a757ee3174fff7d83598
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: b59a674c-e0aa-475b-a710-265d5278b963
-  pristine_commit_hash: b5b3e36c3e57be675235e7b2d3a764fa4cfa0a15
-  pristine_tree_hash: 7bb048f2083aba7d64db81f5f051a8fcfe70e7ba
+  generation_id: 92c5eb29-5f91-4696-a76c-7112435aaac0
+  pristine_commit_hash: 91c49215a1bf6fc77d8a9db8558677f273d332d5
+  pristine_tree_hash: 99d36b6a68a9e2705f039049d84361f4bb110df7
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3008,6 +3008,10 @@ trackedFiles:
     id: 82ee7442934f
     last_write_checksum: sha1:469fe0da1ccd47e4a1e4ad6f29691796b39b7a6e
     pristine_git_object: 29d810ec658ede94cfe570d1287f44b99c6fa7d5
+  docs/models/itemstypepackinstallinfonavitems.md:
+    id: f3bba7c6114b
+    last_write_checksum: sha1:a2b9c55c469134ed1d6999ae3d941debc015d7c4
+    pristine_git_object: 711b6cadd70ff236361726178b6a1209bfeed135
   docs/models/itemstypepoliciesitemstemplatetargetpairs.md:
     id: 2ea42aedc46a
     last_write_checksum: sha1:0760db144732e92225f247a07d2e83fd837deacd
@@ -7614,12 +7618,12 @@ trackedFiles:
     pristine_git_object: 7d0fb045c9fda37a75d8b096398e95921512d65d
   docs/models/packinfo.md:
     id: 1cc26c7e105b
-    last_write_checksum: sha1:8059c651390918eed1d278f641d2a7ef5c129e83
-    pristine_git_object: 0614685822eb00bc542f5ffa4a00f3f5176edf32
+    last_write_checksum: sha1:236925343a62dec02a37df3115e63cef60439a31
+    pristine_git_object: 23184c61255ef1ed583539deb49ed544c5a56d6b
   docs/models/packinstallinfo.md:
     id: 78d53c382d88
-    last_write_checksum: sha1:3c1dffe14a59ea54190aa108534dda6c3f0273c0
-    pristine_git_object: f736228a6ce80367f80e53588dc3717273e9bc8a
+    last_write_checksum: sha1:ab1c8d446433119c17dd39539cebdd30ee238bc2
+    pristine_git_object: 269fdf7221519ed2bbf8f69470a605106a89b559
   docs/models/packrequestbody1.md:
     id: 3845abbc326d
     last_write_checksum: sha1:d85c898dc5e3d0db93652e8169d8e6834bcf7e98
@@ -12754,12 +12758,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:1d9d965085736dd55a80f4b309fb0980e69c3823
-    pristine_git_object: 11fffaefc0368b24068cdf92e45679ab5183dc13
+    last_write_checksum: sha1:d1b2afc94ab01db0b77ecfe442d855e0ff23c575
+    pristine_git_object: eb036249e272d9937a8df89e882322b1310a4a9e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:d202ef833d6d62045e299b86d09e430297e572aa
-    pristine_git_object: 23e0a792114d3d7dfced8881ead100baefb35290
+    last_write_checksum: sha1:4db8670fb6c18d6c27adb4e812aa1541d1d50ece
+    pristine_git_object: 4aaa62b9ed976e64d2a4fd2035ca207329bf881d
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13258,8 +13262,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:3310d2cd20ecc40af04b6451baa1555e292ef927
-    pristine_git_object: ca669a22fa05466c338757d2c6322b9222bea5dc
+    last_write_checksum: sha1:e37a24f8fb52a1c797ec10ac6452b09e9bee6942
+    pristine_git_object: d9e648f8a4b02094cacda385c5acfdc672878878
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -14410,8 +14414,8 @@ trackedFiles:
     pristine_git_object: c1bbef9bdace9960ec217f63372212041f1fc367
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:d3f48da2dfdde27247ba967d0a7943d952526576
-    pristine_git_object: 9c9d9fd58f5009791422e6952d155b0b4bf6bf5d
+    last_write_checksum: sha1:8e25d034d6e0e00ed6c4557f0cbb02aa082ee2ed
+    pristine_git_object: babacb025e4638b130334864c4de57dba8b6617c
   src/models/input1.ts:
     id: ad08c98f2081
     last_write_checksum: sha1:c964d56b03ba591b5caeec971a92ce82f538fc35
@@ -14732,6 +14736,10 @@ trackedFiles:
     id: 4dabb9ce234e
     last_write_checksum: sha1:e59cfacb8ac701ac7e06e352da017fee5fd9db6e
     pristine_git_object: 7dfe4e9169986216c70f7a1162f8c9a6ecf8b579
+  src/models/itemstypepackinstallinfonavitems.ts:
+    id: 05fba6b1a870
+    last_write_checksum: sha1:961f5901af446944e5d7da144c5e5c213a8d6bf1
+    pristine_git_object: 6542e82061336c4aea24c7343a62598f3320026d
   src/models/itemstypepoliciesitemstemplatetargetpairs.ts:
     id: 7dde095422cf
     last_write_checksum: sha1:e34fd5336e6bfdfe8efc3485a604e1ee066129c2
@@ -15650,12 +15658,12 @@ trackedFiles:
     pristine_git_object: df9d988af78872988489af86bb71267584cd65cd
   src/models/packinfo.ts:
     id: 7a2ff7f5a602
-    last_write_checksum: sha1:59ff800fef5c2040509951acf7e75caaf78b76e6
-    pristine_git_object: d4425258eff917b8f661c17fa97114bf7a5e1877
+    last_write_checksum: sha1:218c07f6eb85cf755d2d83cd4e59ee92648a7691
+    pristine_git_object: b4d114eb53690e0714181e77b5f391649cce815f
   src/models/packinstallinfo.ts:
     id: ebf7d06b357c
-    last_write_checksum: sha1:03d13733191c80078e9ebd4dd8070e32061d4289
-    pristine_git_object: 57fb89064f3cc2550115823ce7c3cd48d647445a
+    last_write_checksum: sha1:0af18977a9ba4d9b8a80be1d7d9edbe7376e89a7
+    pristine_git_object: 56642deca5547efed76c22300ffa6da13ebbe171
   src/models/packrequestbodyunion.ts:
     id: 010b865e8ec9
     last_write_checksum: sha1:fc75f30542870e2b1b1d0ec9c8d20b37fe5bf95c
@@ -27029,6 +27037,12 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `criblcontrolplane.packs.install()`:  `response.items[].navItems` **Added**
+  * `criblcontrolplane.packs.list()`:  `response.items[].navItems` **Added**
+  * `criblcontrolplane.packs.get()`:  `response.items[].navItems` **Added**
+  * `criblcontrolplane.packs.update()`:  `response.items[].navItems` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
