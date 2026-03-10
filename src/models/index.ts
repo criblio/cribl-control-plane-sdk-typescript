@@ -345,6 +345,7 @@ export * from "./itemstypehosts.js";
 export * from "./itemstypekeyvaluemetadata.js";
 export * from "./itemstypeloglabels.js";
 export * from "./itemstypemetadata.js";
+export * from "./itemstypepackinstallinfonavitems.js";
 export * from "./itemstypepoliciesitemstemplatetargetpairs.js";
 export * from "./itemstypeprocesssets.js";
 export * from "./itemstyperesponseretrysettings.js";
