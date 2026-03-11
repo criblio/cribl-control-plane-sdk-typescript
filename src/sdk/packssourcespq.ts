@@ -36,7 +36,7 @@ export class PacksSourcesPq extends ClientSDK {
   async get(
     request: operations.GetInputSystemPqByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedObject> {
+  ): Promise<models.CountedJobInfo> {
     return unwrapAsync(packsSourcesPqGet(
       this,
       request,
