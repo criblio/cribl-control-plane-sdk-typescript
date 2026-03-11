@@ -81,6 +81,7 @@ export * from "./getversiondiff.js";
 export * from "./getversionfiles.js";
 export * from "./getversionshow.js";
 export * from "./listconfiggroupbyproduct.js";
+export * from "./listinput.js";
 export * from "./listoutput.js";
 export * from "./updateconfiggroupbyproductandid.js";
 export * from "./updateconfiggroupdeploybyproductandid.js";
