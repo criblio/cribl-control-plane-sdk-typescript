@@ -37,7 +37,7 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -95,10 +95,6 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic = {
    * Retry request when a connection reset error (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
 };
 
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone = {
@@ -106,34 +102,6 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset error (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationTokenSecretRetryRules =
@@ -237,7 +205,7 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -295,10 +263,6 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic = {
    * Retry request when a connection reset error (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
 };
 
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone = {
@@ -306,34 +270,6 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset error (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationTokenRetryRules =
@@ -434,7 +370,7 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -492,10 +428,6 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic = {
    * Retry request when a connection reset error (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
 };
 
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone = {
@@ -503,34 +435,6 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset error (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationBasicSecretRetryRules =
@@ -634,7 +538,7 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -692,10 +596,6 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic = {
    * Retry request when a connection reset error (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
 };
 
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone = {
@@ -703,34 +603,6 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset error (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationBasicRetryRules =
@@ -838,7 +710,7 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff = {
    */
   type: "backoff";
   /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
    */
   interval?: number | undefined;
   /**
@@ -896,10 +768,6 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic = {
    * Retry request when a connection reset error (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
 };
 
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone = {
@@ -907,34 +775,6 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff. For example, base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset error (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
 };
 
 export type SplunkAuthenticationNoneRetryRules =
@@ -1210,7 +1050,6 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$inboundSc
     enableHeader: types.optional(types.boolean()),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
-    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound =
@@ -1222,7 +1061,6 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound =
     enableHeader?: boolean | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
-    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -1239,7 +1077,6 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$outboundS
     enableHeader: z.boolean().optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
-    multiplier: z.number().optional(),
   });
 
 export function splunkAuthenticationTokenSecretSplunkRetryRulesTypeStaticToJSON(
@@ -1274,24 +1111,10 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$inboundSche
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(types.number()),
-    limit: types.optional(types.number()),
-    multiplier: types.optional(types.number()),
-    codes: types.optional(z.array(types.number())),
-    enableHeader: types.optional(types.boolean()),
-    retryConnectTimeout: types.optional(types.boolean()),
-    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: number | undefined;
-  limit?: number | undefined;
-  multiplier?: number | undefined;
-  codes?: Array<number> | undefined;
-  enableHeader?: boolean | undefined;
-  retryConnectTimeout?: boolean | undefined;
-  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -1302,13 +1125,6 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$outboundSch
     SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.number().optional(),
-    limit: z.number().optional(),
-    multiplier: z.number().optional(),
-    codes: z.array(z.number()).optional(),
-    enableHeader: z.boolean().optional(),
-    retryConnectTimeout: z.boolean().optional(),
-    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationTokenSecretSplunkRetryRulesTypeNoneToJSON(
@@ -1722,7 +1538,6 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$inboundSchema:
     enableHeader: types.optional(types.boolean()),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
-    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound = {
@@ -1733,7 +1548,6 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound = {
   enableHeader?: boolean | undefined;
   retryConnectTimeout?: boolean | undefined;
   retryConnectReset?: boolean | undefined;
-  multiplier?: number | undefined;
 };
 
 /** @internal */
@@ -1750,7 +1564,6 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$outboundSchema:
     enableHeader: z.boolean().optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
-    multiplier: z.number().optional(),
   });
 
 export function splunkAuthenticationTokenSplunkRetryRulesTypeStaticToJSON(
@@ -1787,24 +1600,10 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(types.number()),
-    limit: types.optional(types.number()),
-    multiplier: types.optional(types.number()),
-    codes: types.optional(z.array(types.number())),
-    enableHeader: types.optional(types.boolean()),
-    retryConnectTimeout: types.optional(types.boolean()),
-    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: number | undefined;
-  limit?: number | undefined;
-  multiplier?: number | undefined;
-  codes?: Array<number> | undefined;
-  enableHeader?: boolean | undefined;
-  retryConnectTimeout?: boolean | undefined;
-  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -1815,13 +1614,6 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeNone$outboundSchema:
     SplunkAuthenticationTokenSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.number().optional(),
-    limit: z.number().optional(),
-    multiplier: z.number().optional(),
-    codes: z.array(z.number()).optional(),
-    enableHeader: z.boolean().optional(),
-    retryConnectTimeout: z.boolean().optional(),
-    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationTokenSplunkRetryRulesTypeNoneToJSON(
@@ -2223,7 +2015,6 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$inboundSc
     enableHeader: types.optional(types.boolean()),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
-    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound =
@@ -2235,7 +2026,6 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound =
     enableHeader?: boolean | undefined;
     retryConnectTimeout?: boolean | undefined;
     retryConnectReset?: boolean | undefined;
-    multiplier?: number | undefined;
   };
 
 /** @internal */
@@ -2252,7 +2042,6 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$outboundS
     enableHeader: z.boolean().optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
-    multiplier: z.number().optional(),
   });
 
 export function splunkAuthenticationBasicSecretSplunkRetryRulesTypeStaticToJSON(
@@ -2287,24 +2076,10 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$inboundSche
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(types.number()),
-    limit: types.optional(types.number()),
-    multiplier: types.optional(types.number()),
-    codes: types.optional(z.array(types.number())),
-    enableHeader: types.optional(types.boolean()),
-    retryConnectTimeout: types.optional(types.boolean()),
-    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: number | undefined;
-  limit?: number | undefined;
-  multiplier?: number | undefined;
-  codes?: Array<number> | undefined;
-  enableHeader?: boolean | undefined;
-  retryConnectTimeout?: boolean | undefined;
-  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -2315,13 +2090,6 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$outboundSch
     SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.number().optional(),
-    limit: z.number().optional(),
-    multiplier: z.number().optional(),
-    codes: z.array(z.number()).optional(),
-    enableHeader: z.boolean().optional(),
-    retryConnectTimeout: z.boolean().optional(),
-    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationBasicSecretSplunkRetryRulesTypeNoneToJSON(
@@ -2735,7 +2503,6 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$inboundSchema:
     enableHeader: types.optional(types.boolean()),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
-    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound = {
@@ -2746,7 +2513,6 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound = {
   enableHeader?: boolean | undefined;
   retryConnectTimeout?: boolean | undefined;
   retryConnectReset?: boolean | undefined;
-  multiplier?: number | undefined;
 };
 
 /** @internal */
@@ -2763,7 +2529,6 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$outboundSchema:
     enableHeader: z.boolean().optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
-    multiplier: z.number().optional(),
   });
 
 export function splunkAuthenticationBasicSplunkRetryRulesTypeStaticToJSON(
@@ -2800,24 +2565,10 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(types.number()),
-    limit: types.optional(types.number()),
-    multiplier: types.optional(types.number()),
-    codes: types.optional(z.array(types.number())),
-    enableHeader: types.optional(types.boolean()),
-    retryConnectTimeout: types.optional(types.boolean()),
-    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: number | undefined;
-  limit?: number | undefined;
-  multiplier?: number | undefined;
-  codes?: Array<number> | undefined;
-  enableHeader?: boolean | undefined;
-  retryConnectTimeout?: boolean | undefined;
-  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -2828,13 +2579,6 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeNone$outboundSchema:
     SplunkAuthenticationBasicSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.number().optional(),
-    limit: z.number().optional(),
-    multiplier: z.number().optional(),
-    codes: z.array(z.number()).optional(),
-    enableHeader: z.boolean().optional(),
-    retryConnectTimeout: z.boolean().optional(),
-    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationBasicSplunkRetryRulesTypeNoneToJSON(
@@ -3240,7 +2984,6 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$inboundSchema:
     enableHeader: types.optional(types.boolean()),
     retryConnectTimeout: types.optional(types.boolean()),
     retryConnectReset: types.optional(types.boolean()),
-    multiplier: types.optional(types.number()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound = {
@@ -3251,7 +2994,6 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound = {
   enableHeader?: boolean | undefined;
   retryConnectTimeout?: boolean | undefined;
   retryConnectReset?: boolean | undefined;
-  multiplier?: number | undefined;
 };
 
 /** @internal */
@@ -3268,7 +3010,6 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$outboundSchema:
     enableHeader: z.boolean().optional(),
     retryConnectTimeout: z.boolean().optional(),
     retryConnectReset: z.boolean().optional(),
-    multiplier: z.number().optional(),
   });
 
 export function splunkAuthenticationNoneSplunkRetryRulesTypeStaticToJSON(
@@ -3305,24 +3046,10 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(types.number()),
-    limit: types.optional(types.number()),
-    multiplier: types.optional(types.number()),
-    codes: types.optional(z.array(types.number())),
-    enableHeader: types.optional(types.boolean()),
-    retryConnectTimeout: types.optional(types.boolean()),
-    retryConnectReset: types.optional(types.boolean()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone$Outbound = {
   type: "none";
-  interval?: number | undefined;
-  limit?: number | undefined;
-  multiplier?: number | undefined;
-  codes?: Array<number> | undefined;
-  enableHeader?: boolean | undefined;
-  retryConnectTimeout?: boolean | undefined;
-  retryConnectReset?: boolean | undefined;
 };
 
 /** @internal */
@@ -3333,13 +3060,6 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeNone$outboundSchema:
     SplunkAuthenticationNoneSplunkRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.number().optional(),
-    limit: z.number().optional(),
-    multiplier: z.number().optional(),
-    codes: z.array(z.number()).optional(),
-    enableHeader: z.boolean().optional(),
-    retryConnectTimeout: z.boolean().optional(),
-    retryConnectReset: z.boolean().optional(),
   });
 
 export function splunkAuthenticationNoneSplunkRetryRulesTypeNoneToJSON(
