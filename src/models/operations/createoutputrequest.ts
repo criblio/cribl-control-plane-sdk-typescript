@@ -7,8 +7,6 @@ import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 import {
-  CreateOutputCompression,
-  CreateOutputCompression$outboundSchema,
   CreateOutputOutputAzureEventhub,
   CreateOutputOutputAzureEventhub$Outbound,
   CreateOutputOutputAzureEventhub$outboundSchema,
@@ -168,7 +166,25 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-} from "./createoutputcompression.js";
+} from "./createoutputoutputhoneycomb.js";
+
+/**
+ * Compression type to use for records
+ */
+export const CreateOutputCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Compression type to use for records
+ */
+export type CreateOutputCompression = OpenEnum<typeof CreateOutputCompression>;
 
 export type CreateOutputPqControlsKinesis = {};
 
@@ -3948,6 +3964,13 @@ export type CreateOutputRequest =
   | CreateOutputOutputDatabricks
   | CreateOutputOutputMicrosoftFabric
   | CreateOutputOutputCloudflareR2;
+
+/** @internal */
+export const CreateOutputCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputCompression
+> = openEnums.outboundSchema(CreateOutputCompression);
 
 /** @internal */
 export type CreateOutputPqControlsKinesis$Outbound = {};

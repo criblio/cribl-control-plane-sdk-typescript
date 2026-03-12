@@ -2371,6 +2371,15 @@ export type CreateOutputSystemByPackOutputDiskSpool = {
   description?: string | undefined;
 };
 
+export const CreateOutputSystemByPackAwsAuthenticationMethod = {
+  Auto: "auto",
+  AutoRpc: "auto_rpc",
+  Manual: "manual",
+} as const;
+export type CreateOutputSystemByPackAwsAuthenticationMethod = OpenEnum<
+  typeof CreateOutputSystemByPackAwsAuthenticationMethod
+>;
+
 export type CreateOutputSystemByPackOutputCriblLake = {
   /**
    * Unique ID for this output
@@ -2525,7 +2534,9 @@ export type CreateOutputSystemByPackOutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: models.AwsAuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?:
+    | CreateOutputSystemByPackAwsAuthenticationMethod
+    | undefined;
   format?: models.FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
@@ -9904,26 +9915,6 @@ export type CreateOutputSystemByPackOutputHoneycomb = {
   textSecret?: string | undefined;
 };
 
-/**
- * Compression type to use for records
- */
-export const CreateOutputSystemByPackCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Compression type to use for records
- */
-export type CreateOutputSystemByPackCompression = OpenEnum<
-  typeof CreateOutputSystemByPackCompression
->;
-
 /** @internal */
 export const CreateOutputSystemByPackAuthenticationMethodCloudflareR2$outboundSchema:
   z.ZodType<
@@ -11917,6 +11908,14 @@ export function createOutputSystemByPackOutputDiskSpoolToJSON(
 }
 
 /** @internal */
+export const CreateOutputSystemByPackAwsAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAwsAuthenticationMethod
+  > = openEnums.outboundSchema(CreateOutputSystemByPackAwsAuthenticationMethod);
+
+/** @internal */
 export type CreateOutputSystemByPackOutputCriblLake$Outbound = {
   id: string;
   type: "cribl_lake";
@@ -12023,8 +12022,8 @@ export const CreateOutputSystemByPackOutputCriblLake$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
   maxClosingFilesToBackpressure: z.number().optional(),
-  awsAuthenticationMethod: models.AwsAuthenticationMethodOptions$outboundSchema
-    .optional(),
+  awsAuthenticationMethod:
+    CreateOutputSystemByPackAwsAuthenticationMethod$outboundSchema.optional(),
   format: models.FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
@@ -17926,10 +17925,3 @@ export function createOutputSystemByPackOutputHoneycombToJSON(
     ),
   );
 }
-
-/** @internal */
-export const CreateOutputSystemByPackCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputSystemByPackCompression
-> = openEnums.outboundSchema(CreateOutputSystemByPackCompression);

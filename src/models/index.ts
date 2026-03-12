@@ -27,7 +27,6 @@ export * from "./authenticationtypeoptionsprometheusauth1.js";
 export * from "./authtoken.js";
 export * from "./authtype.js";
 export * from "./authtypekafkaschemaregistry.js";
-export * from "./awsauthenticationmethodoptions.js";
 export * from "./awstypeheartbeatmetadata.js";
 export * from "./azureblobcollectorconf.js";
 export * from "./azuretypeheartbeatmetadata.js";
