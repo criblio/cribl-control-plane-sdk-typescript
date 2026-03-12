@@ -7089,6 +7089,10 @@ export type CreateInputSystemByPackInputPrometheus = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
+   */
+  __template_discoveryType?: string | undefined;
+  /**
    * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
    */
   __template_logLevel?: string | undefined;
@@ -7112,6 +7116,14 @@ export type CreateInputSystemByPackInputPrometheus = {
    * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
    */
   __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputPrometheusRw = {
@@ -7238,6 +7250,10 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
    */
   __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputLoki = {
@@ -15813,12 +15829,15 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_discoveryType?: string | undefined;
   __template_logLevel?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_username?: string | undefined;
+  __template_password?: string | undefined;
 };
 
 /** @internal */
@@ -15878,12 +15897,15 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_discoveryType: z.string().optional(),
   __template_logLevel: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_username: z.string().optional(),
+  __template_password: z.string().optional(),
 });
 
 export function createInputSystemByPackInputPrometheusToJSON(
@@ -15935,6 +15957,7 @@ export type CreateInputSystemByPackInputPrometheusRw$Outbound = {
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
+  __template_username?: string | undefined;
 };
 
 /** @internal */
@@ -15981,6 +16004,7 @@ export const CreateInputSystemByPackInputPrometheusRw$outboundSchema: z.ZodType<
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),
+  __template_username: z.string().optional(),
 });
 
 export function createInputSystemByPackInputPrometheusRwToJSON(

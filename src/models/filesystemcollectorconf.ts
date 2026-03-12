@@ -40,6 +40,10 @@ export type FilesystemCollectorConf = {
    * Maximum number of metadata files to batch before recording as results
    */
   maxBatchSize?: number | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -99,6 +103,7 @@ export const FilesystemCollectorConf$inboundSchema: z.ZodType<
   ),
   recurse: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type FilesystemCollectorConf$Outbound = {
@@ -107,6 +112,7 @@ export type FilesystemCollectorConf$Outbound = {
   extractors?: Array<FilesystemCollectorConfExtractor$Outbound> | undefined;
   recurse?: boolean | undefined;
   maxBatchSize?: number | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -122,6 +128,7 @@ export const FilesystemCollectorConf$outboundSchema: z.ZodType<
   ).optional(),
   recurse: z.boolean().optional(),
   maxBatchSize: z.number().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function filesystemCollectorConfToJSON(
