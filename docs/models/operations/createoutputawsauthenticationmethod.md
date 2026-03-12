@@ -1,11 +1,11 @@
-# AwsAuthenticationMethodOptions
+# CreateOutputAwsAuthenticationMethod
 
 ## Example Usage
 
 ```typescript
-import { AwsAuthenticationMethodOptions } from "cribl-control-plane/models";
+import { CreateOutputAwsAuthenticationMethod } from "cribl-control-plane/models/operations";
 
-let value: AwsAuthenticationMethodOptions = "auto";
+let value: CreateOutputAwsAuthenticationMethod = "manual";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

@@ -2357,6 +2357,15 @@ export type CreateOutputOutputDiskSpool = {
   description?: string | undefined;
 };
 
+export const CreateOutputAwsAuthenticationMethod = {
+  Auto: "auto",
+  AutoRpc: "auto_rpc",
+  Manual: "manual",
+} as const;
+export type CreateOutputAwsAuthenticationMethod = OpenEnum<
+  typeof CreateOutputAwsAuthenticationMethod
+>;
+
 export type CreateOutputOutputCriblLake = {
   /**
    * Unique ID for this output
@@ -2511,7 +2520,7 @@ export type CreateOutputOutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: models.AwsAuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: CreateOutputAwsAuthenticationMethod | undefined;
   format?: models.FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
@@ -9864,24 +9873,6 @@ export type CreateOutputOutputHoneycomb = {
   textSecret?: string | undefined;
 };
 
-/**
- * Compression type to use for records
- */
-export const CreateOutputCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Compression type to use for records
- */
-export type CreateOutputCompression = OpenEnum<typeof CreateOutputCompression>;
-
 /** @internal */
 export const CreateOutputAuthenticationMethodCloudflareR2$outboundSchema:
   z.ZodType<
@@ -11764,6 +11755,13 @@ export function createOutputOutputDiskSpoolToJSON(
 }
 
 /** @internal */
+export const CreateOutputAwsAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputAwsAuthenticationMethod
+> = openEnums.outboundSchema(CreateOutputAwsAuthenticationMethod);
+
+/** @internal */
 export type CreateOutputOutputCriblLake$Outbound = {
   id: string;
   type: "cribl_lake";
@@ -11870,7 +11868,7 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
   maxClosingFilesToBackpressure: z.number().optional(),
-  awsAuthenticationMethod: models.AwsAuthenticationMethodOptions$outboundSchema
+  awsAuthenticationMethod: CreateOutputAwsAuthenticationMethod$outboundSchema
     .optional(),
   format: models.FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -17544,10 +17542,3 @@ export function createOutputOutputHoneycombToJSON(
     ),
   );
 }
-
-/** @internal */
-export const CreateOutputCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputCompression
-> = openEnums.outboundSchema(CreateOutputCompression);
