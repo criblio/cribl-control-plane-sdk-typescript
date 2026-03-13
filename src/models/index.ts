@@ -370,6 +370,7 @@ export * from "./logleveloptions.js";
 export * from "./logleveloptionscontentconfigitems.js";
 export * from "./logleveloptionsrunnablejobcollectionschedulerun.js";
 export * from "./masterworkerentry.js";
+export * from "./matchtypeoptionslookupdblookupfalsematchmodecidr.js";
 export * from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
 export * from "./maximumtlsversionoptionsredisdeploymenttypestandalonetlsoptions.js";
 export * from "./maxs2sversionoptions.js";

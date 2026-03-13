@@ -15,7 +15,7 @@ const value: models.LookupDbLookupTrue = {
 
 ```typescript
 const value: models.LookupDbLookupFalse = {
-  matchMode: "exact",
+  matchMode: "regex",
   file: "<value>",
 };
 ```
