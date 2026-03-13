@@ -10,7 +10,12 @@ const value: models.PipelineFunctionAggregateMetrics = {
   id: "aggregate_metrics",
   conf: {
     timeWindow: "<value>",
-    aggregations: [],
+    aggregations: [
+      {
+        metricType: "automatic",
+        agg: "<value>",
+      },
+    ],
   },
 };
 ```
@@ -25,7 +30,6 @@ const value: models.PipelineFunctionAggregation = {
     aggregations: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
 };
