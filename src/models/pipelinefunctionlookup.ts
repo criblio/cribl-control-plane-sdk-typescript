@@ -6,12 +6,15 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
 import { discriminatedUnion } from "../types/discriminatedUnion.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MatchTypeOptionsLookupDbLookupFalseMatchModeCidr,
+  MatchTypeOptionsLookupDbLookupFalseMatchModeCidr$inboundSchema,
+  MatchTypeOptionsLookupDbLookupFalseMatchModeCidr$outboundSchema,
+} from "./matchtypeoptionslookupdblookupfalsematchmodecidr.js";
 
 export type LookupDbLookupFalseMatchModeExactInField = {
   /**
@@ -74,18 +77,70 @@ export type LookupDbLookupFalseMatchModeExact = {
   addToEvent?: boolean | undefined;
 };
 
-/**
- * Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
- */
-export const MatchType = {
-  First: "first",
-  Specific: "specific",
-  All: "all",
-} as const;
-/**
- * Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
- */
-export type MatchType = OpenEnum<typeof MatchType>;
+export type LookupDbLookupFalseMatchModeRegexInField = {
+  /**
+   * Field name as it appears in events
+   */
+  eventField: string;
+  /**
+   * Optional: The field name as it appears in the lookup file. Defaults to event field name
+   */
+  lookupField?: string | undefined;
+};
+
+export type LookupDbLookupFalseMatchModeRegexOutField = {
+  /**
+   * The field name as it appears in the lookup file
+   */
+  lookupField: string;
+  /**
+   * Optional: Field name to add to event. Defaults to lookup field name.
+   */
+  eventField?: string | undefined;
+  /**
+   * Optional: Value to assign if lookup entry is not found
+   */
+  defaultValue?: string | undefined;
+};
+
+export type LookupDbLookupFalseMatchModeRegex = {
+  /**
+   * Specifies the matching method based on the format and logic used in the lookup file
+   */
+  matchMode: "regex";
+  /**
+   * Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
+   */
+  matchType?: MatchTypeOptionsLookupDbLookupFalseMatchModeCidr | undefined;
+  /**
+   * Whether to ignore case when performing lookups using Match Mode: Regex.
+   */
+  ignoreCase?: boolean | undefined;
+  /**
+   * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
+   */
+  dbLookup?: boolean | undefined;
+  /**
+   * Checks the lookup file periodically for changes and reloads it if modified. Set to -1 to disable reloading (default). Useful for lookups not managed by Stream or not updated by an external process. [Learn more](https://docs.cribl.io/stream/lookup-function/#advanced-settings)
+   */
+  reloadPeriodSec?: number | undefined;
+  /**
+   * Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
+   */
+  file: string;
+  /**
+   * Fields that should be used to key into the lookup table
+   */
+  inFields?: Array<LookupDbLookupFalseMatchModeRegexInField> | undefined;
+  /**
+   * Fields to add to events after matching lookup. Defaults to all if not specified.
+   */
+  outFields?: Array<LookupDbLookupFalseMatchModeRegexOutField> | undefined;
+  /**
+   * Add the looked-up values to _raw, as key=value pairs
+   */
+  addToEvent?: boolean | undefined;
+};
 
 export type LookupDbLookupFalseMatchModeCidrInField = {
   /**
@@ -121,7 +176,7 @@ export type LookupDbLookupFalseMatchModeCidr = {
   /**
    * Further defines how to handle multiple matches: return the first match, the most specific match, or all matches
    */
-  matchType?: MatchType | undefined;
+  matchType?: MatchTypeOptionsLookupDbLookupFalseMatchModeCidr | undefined;
   /**
    * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
    */
@@ -150,6 +205,7 @@ export type LookupDbLookupFalseMatchModeCidr = {
 
 export type LookupDbLookupFalse =
   | LookupDbLookupFalseMatchModeCidr
+  | LookupDbLookupFalseMatchModeRegex
   | LookupDbLookupFalseMatchModeExact
   | discriminatedUnionTypes.Unknown<"matchMode">;
 
@@ -205,6 +261,7 @@ export type LookupDbLookupTrue = {
 export type PipelineFunctionLookupConf =
   | LookupDbLookupTrue
   | LookupDbLookupFalseMatchModeCidr
+  | LookupDbLookupFalseMatchModeRegex
   | LookupDbLookupFalseMatchModeExact
   | discriminatedUnionTypes.Unknown<"matchMode">;
 
@@ -232,6 +289,7 @@ export type PipelineFunctionLookup = {
   conf:
     | LookupDbLookupTrue
     | LookupDbLookupFalseMatchModeCidr
+    | LookupDbLookupFalseMatchModeRegex
     | LookupDbLookupFalseMatchModeExact
     | discriminatedUnionTypes.Unknown<"matchMode">;
   /**
@@ -425,17 +483,194 @@ export function lookupDbLookupFalseMatchModeExactFromJSON(
 }
 
 /** @internal */
-export const MatchType$inboundSchema: z.ZodType<
-  MatchType,
+export const LookupDbLookupFalseMatchModeRegexInField$inboundSchema: z.ZodType<
+  LookupDbLookupFalseMatchModeRegexInField,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(MatchType);
+> = z.object({
+  eventField: types.string(),
+  lookupField: types.optional(types.string()),
+});
 /** @internal */
-export const MatchType$outboundSchema: z.ZodType<
-  string,
+export type LookupDbLookupFalseMatchModeRegexInField$Outbound = {
+  eventField: string;
+  lookupField?: string | undefined;
+};
+
+/** @internal */
+export const LookupDbLookupFalseMatchModeRegexInField$outboundSchema: z.ZodType<
+  LookupDbLookupFalseMatchModeRegexInField$Outbound,
   z.ZodTypeDef,
-  MatchType
-> = openEnums.outboundSchema(MatchType);
+  LookupDbLookupFalseMatchModeRegexInField
+> = z.object({
+  eventField: z.string(),
+  lookupField: z.string().optional(),
+});
+
+export function lookupDbLookupFalseMatchModeRegexInFieldToJSON(
+  lookupDbLookupFalseMatchModeRegexInField:
+    LookupDbLookupFalseMatchModeRegexInField,
+): string {
+  return JSON.stringify(
+    LookupDbLookupFalseMatchModeRegexInField$outboundSchema.parse(
+      lookupDbLookupFalseMatchModeRegexInField,
+    ),
+  );
+}
+export function lookupDbLookupFalseMatchModeRegexInFieldFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  LookupDbLookupFalseMatchModeRegexInField,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      LookupDbLookupFalseMatchModeRegexInField$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'LookupDbLookupFalseMatchModeRegexInField' from JSON`,
+  );
+}
+
+/** @internal */
+export const LookupDbLookupFalseMatchModeRegexOutField$inboundSchema: z.ZodType<
+  LookupDbLookupFalseMatchModeRegexOutField,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  lookupField: types.string(),
+  eventField: types.optional(types.string()),
+  defaultValue: types.optional(types.string()),
+});
+/** @internal */
+export type LookupDbLookupFalseMatchModeRegexOutField$Outbound = {
+  lookupField: string;
+  eventField?: string | undefined;
+  defaultValue?: string | undefined;
+};
+
+/** @internal */
+export const LookupDbLookupFalseMatchModeRegexOutField$outboundSchema:
+  z.ZodType<
+    LookupDbLookupFalseMatchModeRegexOutField$Outbound,
+    z.ZodTypeDef,
+    LookupDbLookupFalseMatchModeRegexOutField
+  > = z.object({
+    lookupField: z.string(),
+    eventField: z.string().optional(),
+    defaultValue: z.string().optional(),
+  });
+
+export function lookupDbLookupFalseMatchModeRegexOutFieldToJSON(
+  lookupDbLookupFalseMatchModeRegexOutField:
+    LookupDbLookupFalseMatchModeRegexOutField,
+): string {
+  return JSON.stringify(
+    LookupDbLookupFalseMatchModeRegexOutField$outboundSchema.parse(
+      lookupDbLookupFalseMatchModeRegexOutField,
+    ),
+  );
+}
+export function lookupDbLookupFalseMatchModeRegexOutFieldFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  LookupDbLookupFalseMatchModeRegexOutField,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      LookupDbLookupFalseMatchModeRegexOutField$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'LookupDbLookupFalseMatchModeRegexOutField' from JSON`,
+  );
+}
+
+/** @internal */
+export const LookupDbLookupFalseMatchModeRegex$inboundSchema: z.ZodType<
+  LookupDbLookupFalseMatchModeRegex,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  matchMode: types.literal("regex"),
+  matchType: types.optional(
+    MatchTypeOptionsLookupDbLookupFalseMatchModeCidr$inboundSchema,
+  ),
+  ignoreCase: types.optional(types.boolean()),
+  dbLookup: types.optional(types.boolean()),
+  reloadPeriodSec: types.optional(types.number()),
+  file: types.string(),
+  inFields: types.optional(
+    z.array(
+      z.lazy(() => LookupDbLookupFalseMatchModeRegexInField$inboundSchema),
+    ),
+  ),
+  outFields: types.optional(
+    z.array(
+      z.lazy(() => LookupDbLookupFalseMatchModeRegexOutField$inboundSchema),
+    ),
+  ),
+  addToEvent: types.optional(types.boolean()),
+});
+/** @internal */
+export type LookupDbLookupFalseMatchModeRegex$Outbound = {
+  matchMode: "regex";
+  matchType?: string | undefined;
+  ignoreCase?: boolean | undefined;
+  dbLookup?: boolean | undefined;
+  reloadPeriodSec?: number | undefined;
+  file: string;
+  inFields?:
+    | Array<LookupDbLookupFalseMatchModeRegexInField$Outbound>
+    | undefined;
+  outFields?:
+    | Array<LookupDbLookupFalseMatchModeRegexOutField$Outbound>
+    | undefined;
+  addToEvent?: boolean | undefined;
+};
+
+/** @internal */
+export const LookupDbLookupFalseMatchModeRegex$outboundSchema: z.ZodType<
+  LookupDbLookupFalseMatchModeRegex$Outbound,
+  z.ZodTypeDef,
+  LookupDbLookupFalseMatchModeRegex
+> = z.object({
+  matchMode: z.literal("regex"),
+  matchType: MatchTypeOptionsLookupDbLookupFalseMatchModeCidr$outboundSchema
+    .optional(),
+  ignoreCase: z.boolean().optional(),
+  dbLookup: z.boolean().optional(),
+  reloadPeriodSec: z.number().optional(),
+  file: z.string(),
+  inFields: z.array(
+    z.lazy(() => LookupDbLookupFalseMatchModeRegexInField$outboundSchema),
+  ).optional(),
+  outFields: z.array(
+    z.lazy(() => LookupDbLookupFalseMatchModeRegexOutField$outboundSchema),
+  ).optional(),
+  addToEvent: z.boolean().optional(),
+});
+
+export function lookupDbLookupFalseMatchModeRegexToJSON(
+  lookupDbLookupFalseMatchModeRegex: LookupDbLookupFalseMatchModeRegex,
+): string {
+  return JSON.stringify(
+    LookupDbLookupFalseMatchModeRegex$outboundSchema.parse(
+      lookupDbLookupFalseMatchModeRegex,
+    ),
+  );
+}
+export function lookupDbLookupFalseMatchModeRegexFromJSON(
+  jsonString: string,
+): SafeParseResult<LookupDbLookupFalseMatchModeRegex, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LookupDbLookupFalseMatchModeRegex$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LookupDbLookupFalseMatchModeRegex' from JSON`,
+  );
+}
 
 /** @internal */
 export const LookupDbLookupFalseMatchModeCidrInField$inboundSchema: z.ZodType<
@@ -549,7 +784,9 @@ export const LookupDbLookupFalseMatchModeCidr$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   matchMode: types.literal("cidr"),
-  matchType: types.optional(MatchType$inboundSchema),
+  matchType: types.optional(
+    MatchTypeOptionsLookupDbLookupFalseMatchModeCidr$inboundSchema,
+  ),
   dbLookup: types.optional(types.boolean()),
   reloadPeriodSec: types.optional(types.number()),
   file: types.string(),
@@ -588,7 +825,8 @@ export const LookupDbLookupFalseMatchModeCidr$outboundSchema: z.ZodType<
   LookupDbLookupFalseMatchModeCidr
 > = z.object({
   matchMode: z.literal("cidr"),
-  matchType: MatchType$outboundSchema.optional(),
+  matchType: MatchTypeOptionsLookupDbLookupFalseMatchModeCidr$outboundSchema
+    .optional(),
   dbLookup: z.boolean().optional(),
   reloadPeriodSec: z.number().optional(),
   file: z.string(),
@@ -627,11 +865,13 @@ export const LookupDbLookupFalse$inboundSchema: z.ZodType<
   unknown
 > = discriminatedUnion("matchMode", {
   cidr: z.lazy(() => LookupDbLookupFalseMatchModeCidr$inboundSchema),
+  regex: z.lazy(() => LookupDbLookupFalseMatchModeRegex$inboundSchema),
   exact: z.lazy(() => LookupDbLookupFalseMatchModeExact$inboundSchema),
 });
 /** @internal */
 export type LookupDbLookupFalse$Outbound =
   | LookupDbLookupFalseMatchModeCidr$Outbound
+  | LookupDbLookupFalseMatchModeRegex$Outbound
   | LookupDbLookupFalseMatchModeExact$Outbound;
 
 /** @internal */
@@ -641,6 +881,7 @@ export const LookupDbLookupFalse$outboundSchema: z.ZodType<
   LookupDbLookupFalse
 > = z.union([
   z.lazy(() => LookupDbLookupFalseMatchModeCidr$outboundSchema),
+  z.lazy(() => LookupDbLookupFalseMatchModeRegex$outboundSchema),
   z.lazy(() => LookupDbLookupFalseMatchModeExact$outboundSchema),
 ]);
 
@@ -814,6 +1055,7 @@ export const PipelineFunctionLookupConf$inboundSchema: z.ZodType<
   z.lazy(() => LookupDbLookupTrue$inboundSchema),
   discriminatedUnion("matchMode", {
     cidr: z.lazy(() => LookupDbLookupFalseMatchModeCidr$inboundSchema),
+    regex: z.lazy(() => LookupDbLookupFalseMatchModeRegex$inboundSchema),
     exact: z.lazy(() => LookupDbLookupFalseMatchModeExact$inboundSchema),
   }),
 ]);
@@ -821,6 +1063,7 @@ export const PipelineFunctionLookupConf$inboundSchema: z.ZodType<
 export type PipelineFunctionLookupConf$Outbound =
   | LookupDbLookupTrue$Outbound
   | LookupDbLookupFalseMatchModeCidr$Outbound
+  | LookupDbLookupFalseMatchModeRegex$Outbound
   | LookupDbLookupFalseMatchModeExact$Outbound;
 
 /** @internal */
@@ -832,6 +1075,7 @@ export const PipelineFunctionLookupConf$outboundSchema: z.ZodType<
   z.lazy(() => LookupDbLookupTrue$outboundSchema),
   z.union([
     z.lazy(() => LookupDbLookupFalseMatchModeCidr$outboundSchema),
+    z.lazy(() => LookupDbLookupFalseMatchModeRegex$outboundSchema),
     z.lazy(() => LookupDbLookupFalseMatchModeExact$outboundSchema),
   ]),
 ]);
@@ -868,6 +1112,7 @@ export const PipelineFunctionLookup$inboundSchema: z.ZodType<
     z.lazy(() => LookupDbLookupTrue$inboundSchema),
     discriminatedUnion("matchMode", {
       cidr: z.lazy(() => LookupDbLookupFalseMatchModeCidr$inboundSchema),
+      regex: z.lazy(() => LookupDbLookupFalseMatchModeRegex$inboundSchema),
       exact: z.lazy(() => LookupDbLookupFalseMatchModeExact$inboundSchema),
     }),
   ]),
@@ -883,6 +1128,7 @@ export type PipelineFunctionLookup$Outbound = {
   conf:
     | LookupDbLookupTrue$Outbound
     | LookupDbLookupFalseMatchModeCidr$Outbound
+    | LookupDbLookupFalseMatchModeRegex$Outbound
     | LookupDbLookupFalseMatchModeExact$Outbound;
   groupId?: string | undefined;
 };
@@ -902,6 +1148,7 @@ export const PipelineFunctionLookup$outboundSchema: z.ZodType<
     z.lazy(() => LookupDbLookupTrue$outboundSchema),
     z.union([
       z.lazy(() => LookupDbLookupFalseMatchModeCidr$outboundSchema),
+      z.lazy(() => LookupDbLookupFalseMatchModeRegex$outboundSchema),
       z.lazy(() => LookupDbLookupFalseMatchModeExact$outboundSchema),
     ]),
   ]),

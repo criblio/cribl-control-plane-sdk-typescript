@@ -12,6 +12,15 @@ const value: models.LookupDbLookupFalseMatchModeCidr = {
 };
 ```
 
+### `models.LookupDbLookupFalseMatchModeRegex`
+
+```typescript
+const value: models.LookupDbLookupFalseMatchModeRegex = {
+  matchMode: "regex",
+  file: "<value>",
+};
+```
+
 ### `models.LookupDbLookupFalseMatchModeExact`
 
 ```typescript
