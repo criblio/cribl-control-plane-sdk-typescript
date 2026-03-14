@@ -8,6 +8,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class PacksSourcesStatuses extends ClientSDK {
   /**
@@ -36,8 +37,13 @@ export class PacksSourcesStatuses extends ClientSDK {
   async list(
     request: operations.GetInputStatusSystemInputsByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInputStatus> {
-    return unwrapAsync(packsSourcesStatusesList(
+  ): Promise<
+    PageIterator<
+      operations.GetInputStatusSystemInputsByPackResponse,
+      { offset: number }
+    >
+  > {
+    return unwrapResultIterator(packsSourcesStatusesList(
       this,
       request,
       options,

@@ -94,7 +94,7 @@ export type OutputNewrelicEvents = {
    */
   accountId: string;
   /**
-   * Default eventType to use when not present in an event. For more information, see [here](https://docs.newrelic.com/docs/telemetry-data-platform/custom-data/custom-events/data-requirements-limits-custom-event-data/#reserved-words).
+   * Default New Relic eventType to use when event type is not present. For more information, see the [New Relic eventType documentation](https://docs.newrelic.com/docs/telemetry-data-platform/custom-data/custom-events/data-requirements-limits-custom-event-data/#reserved-words).
    */
   eventType: string;
   /**
