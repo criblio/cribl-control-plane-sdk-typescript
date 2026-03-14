@@ -180,7 +180,7 @@ export type InputOffice365MsgTrace = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: SubscriptionPlanOptions | undefined;
   /**
