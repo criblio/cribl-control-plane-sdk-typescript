@@ -107,7 +107,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.sources.statuses.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -134,7 +136,9 @@ async function run() {
   const res = await sourcesStatusesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("sourcesStatusesList failed:", res.error);
   }
@@ -154,7 +158,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInputStatus](../../models/countedinputstatus.md)\>**
+**Promise\<[operations.GetInputStatusResponse](../../models/operations/getinputstatusresponse.md)\>**
 
 ### Errors
 

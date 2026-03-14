@@ -204,6 +204,10 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse = {
    * Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
    */
   parentFieldsToCopy?: Array<string> | undefined;
+  /**
+   * List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+   */
+  fieldsToRemove?: Array<string> | undefined;
   existingOrNew:
     EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew;
   /**
@@ -276,6 +280,10 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue = {
    * Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
    */
   parentFieldsToCopy?: Array<string> | undefined;
+  /**
+   * List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+   */
+  fieldsToRemove?: Array<string> | undefined;
   existingOrNew:
     EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew;
   /**
@@ -970,6 +978,7 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$in
     ruleType: types.optional(types.string()),
     jsonArrayField: types.optional(types.string()),
     parentFieldsToCopy: types.optional(z.array(types.string())),
+    fieldsToRemove: types.optional(z.array(types.string())),
     existingOrNew:
       EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew$inboundSchema,
     maxEventBytes: types.optional(types.number()),
@@ -991,6 +1000,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$Out
     ruleType?: string | undefined;
     jsonArrayField?: string | undefined;
     parentFieldsToCopy?: Array<string> | undefined;
+    fieldsToRemove?: Array<string> | undefined;
     existingOrNew: string;
     maxEventBytes?: number | undefined;
     timestampAnchorRegex?: string | undefined;
@@ -1014,6 +1024,7 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$ou
     ruleType: z.string().optional(),
     jsonArrayField: z.string().optional(),
     parentFieldsToCopy: z.array(z.string()).optional(),
+    fieldsToRemove: z.array(z.string()).optional(),
     existingOrNew:
       EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew$outboundSchema,
     maxEventBytes: z.number().optional(),
@@ -1141,6 +1152,7 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$inb
     ruleType: types.optional(types.string()),
     jsonArrayField: types.optional(types.string()),
     parentFieldsToCopy: types.optional(z.array(types.string())),
+    fieldsToRemove: types.optional(z.array(types.string())),
     existingOrNew:
       EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew$inboundSchema,
     maxEventBytes: types.optional(types.number()),
@@ -1163,6 +1175,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$Outb
     ruleType?: string | undefined;
     jsonArrayField?: string | undefined;
     parentFieldsToCopy?: Array<string> | undefined;
+    fieldsToRemove?: Array<string> | undefined;
     existingOrNew: string;
     maxEventBytes?: number | undefined;
     timestampAnchorRegex?: string | undefined;
@@ -1187,6 +1200,7 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$out
     ruleType: z.string().optional(),
     jsonArrayField: z.string().optional(),
     parentFieldsToCopy: z.array(z.string()).optional(),
+    fieldsToRemove: z.array(z.string()).optional(),
     existingOrNew:
       EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew$outboundSchema,
     maxEventBytes: z.number().optional(),

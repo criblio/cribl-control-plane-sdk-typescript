@@ -678,15 +678,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.nodes.list({
-    product: "stream",
-    filterExp: "<value>",
-    sortExp: "<value>",
-    filter: "<value>",
-    sort: "<value>",
-    limit: 881129,
-    offset: 990978,
-  });
+  const result = await criblControlPlane.sources.statuses.list();
 
   for await (const page of result) {
     console.log(page);
