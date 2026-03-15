@@ -5,15 +5,15 @@ management:
   docVersion: 4.18.0-alpha.1773443038855-8fc278ec
   speakeasyVersion: 1.753.0
   generationVersion: 2.862.0
-  releaseVersion: 0.7.0-beta.3
-  configChecksum: 2994a75cd9f3ec5fdf278e889b8da543
+  releaseVersion: 0.7.0-beta.4
+  configChecksum: 83210a95b07e058b9b0089241b0a76c8
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 43a00286-ac7e-44c2-83c9-679c6cb82b3b
-  pristine_commit_hash: 64b415b59bab1a2c65178720485c9cffa1b7b77f
-  pristine_tree_hash: fc64953a195b4c4a815bff55047c96631a104fea
+  generation_id: 22eb867d-aeaf-4543-a15c-cf536006bdd7
+  pristine_commit_hash: ef86f2fdd35adbcb66dae3572e8f043af547a066
+  pristine_tree_hash: c6392f038051003dd1f4a46328f050a1a7049269
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -12778,12 +12778,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:4125cf3395fa9c7eb009957a40f435701d5ed0e3
-    pristine_git_object: 3af699ac8eb0bc33b1e4c99684260512164f77bd
+    last_write_checksum: sha1:073cd1c3a7fdc2d43d857bfc6d08ea8a8a27b213
+    pristine_git_object: 9e0af5a6e84d1f1c1857a76cf2be2b0f3e5e7831
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:1854eefef693cf24c0ced1ced30f0124a53e8e0d
-    pristine_git_object: c8ddb312dc7f4d6698efb819d6984f01f19f74f7
+    last_write_checksum: sha1:dcccc2d371361ce549ea299796739fa8e6f251d3
+    pristine_git_object: c00a67c50a4e6b2de10ed118d9ed7635702d7b24
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13282,8 +13282,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:2db55ff7594710c114344279290ea62ceee9d74e
-    pristine_git_object: e1cce5590b533e3ccc968ca6a174c2602773783e
+    last_write_checksum: sha1:5face701e4f814dde5c1e57db5560e6b946859aa
+    pristine_git_object: 5f939eb73926d09f0a4886e7df3512694a85df5a
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -27061,7 +27061,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.statuses.list()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `criblcontrolplane.packs.sources.statuses.list()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `criblcontrolplane.packs.destinations.statuses.list()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `criblcontrolplane.packs.pipelines.create()`: \n  *  `request.pipeline.conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n  *  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.packs.pipelines.list()`:  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.packs.pipelines.delete()`:  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.packs.pipelines.get()`:  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.packs.pipelines.update()`: \n  *  `request.pipeline.conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n  *  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.destinations.statuses.list()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n  *  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.pipelines.list()`:  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.pipelines.delete()`:  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.pipelines.get()`:  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n  *  `response.items[].conf.functions[].union(event_breaker).conf.union(new).union(json_array)` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
