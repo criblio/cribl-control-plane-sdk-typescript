@@ -3,23 +3,23 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: f0f0d06bc6e31cfaa05f1bd74a4eb075
   docVersion: 4.17.0-7e952fa7
-  speakeasyVersion: 1.750.0
-  generationVersion: 2.856.1
-  releaseVersion: 0.6.0
-  configChecksum: 8fc016e88de31ad6f4a8d5d7303e70c9
+  speakeasyVersion: 1.753.0
+  generationVersion: 2.862.0
+  releaseVersion: 0.6.1
+  configChecksum: f2d3ae39cc680055c2eed54398c9efbe
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: c72cec47-0e83-417c-951f-f070a0800a45
-  pristine_commit_hash: ca7ff3cc37edddf8ad7ed0ce4d66b0b03e7f5258
-  pristine_tree_hash: 24674dd8cccf22fc96c05f1424d60e799acf3936
+  generation_id: 7f0bae01-cab5-420f-aaa3-5faeb1d65104
+  pristine_commit_hash: 322bebcf6610e794a8753982edfbcd453281fae8
+  pristine_tree_hash: 6152df22599a3b823e323e9ef4927e1793aca828
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.14
-    core: 3.26.41
+    core: 3.26.42
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -12650,12 +12650,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:9da32af15d6a7dd0eb317c09dc812598e9fc2835
-    pristine_git_object: 5786996f693d7601f3490be732fc5bf78e160045
+    last_write_checksum: sha1:c2b8e295b8a80325ce7fe32af73a2d545ea02254
+    pristine_git_object: c95d42a61d52c6eeab64100d56acabdc54cbb0a9
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:6cc69a6ed1a5c1d4b98965d78fc64635a73f622c
-    pristine_git_object: 25fb5d8a62a248c86249915f2a75813009c1a388
+    last_write_checksum: sha1:a25a037409a7fe859c46932bf14f348907f55169
+    pristine_git_object: 24854764bdb04d33c84970212671d850048fe68e
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13154,8 +13154,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:2c506815fc7d4b78d36384f6cf19518a760dc893
-    pristine_git_object: 05180bcaf2071e1bd962dd82ebb5da29cba2296d
+    last_write_checksum: sha1:b69af81d663fff2fe9929595d8f618c5b6a2a911
+    pristine_git_object: 020da0bd4504f35138be8f167c7aab2663698b64
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -26891,66 +26891,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: |
-  ## TypeScript SDK Changes
-
-  This version of the SDK is generated for Cribl version 4.17.0.
-
-  ### Added new endpoints
-  * Database Connections:
-  * `criblcontrolplane.databaseConnections.create()`
-  * `criblcontrolplane.databaseConnections.get()`
-  * `criblcontrolplane.databaseConnections.update()`
-  * `criblcontrolplane.databaseConnections.delete()`
-  * System:
-  * `criblcontrolplane.system.captures.create()`
-  * `criblcontrolplane.system.settings.restart()`
-  * Nodes:
-  * `criblcontrolplane.nodes.get()`
-  * `criblcontrolplane.nodes.restart()`
-  * Destinations:
-  * `criblcontrolplane.destinations.statuses.get()`
-  * `criblcontrolplane.destinations.statuses.list()`
-  * Packs - Destinations:
-  * `criblcontrolplane.packs.destinations.delete()`
-  * `criblcontrolplane.packs.destinations.create()`
-  * `criblcontrolplane.packs.destinations.get()`
-  * `criblcontrolplane.packs.destinations.list()`
-  * `criblcontrolplane.packs.destinations.update()`
-  * `criblcontrolplane.packs.destinations.statuses.list()`
-  * `criblcontrolplane.packs.destinations.statuses.get()`
-  * `criblcontrolplane.packs.destinations.samples.create()`
-  * `criblcontrolplane.packs.destinations.samples.get()`
-  * `criblcontrolplane.packs.destinations.pq.get()`
-  * `criblcontrolplane.packs.destinations.pq.clear()`
-  * Packs - Routes:
-  * `criblcontrolplane.packs.routes.append()`
-  * `criblcontrolplane.packs.routes.list()`
-  * `criblcontrolplane.packs.routes.update()`
-  * `criblcontrolplane.packs.routes.get()`
-  * Packs - Pipelines:
-  * `criblcontrolplane.packs.pipelines.create()`
-  * `criblcontrolplane.packs.pipelines.list()`
-  * `criblcontrolplane.packs.pipelines.get()`
-  * `criblcontrolplane.packs.pipelines.update()`
-  * `criblcontrolplane.packs.pipelines.delete()`
-  * Packs - Sources:
-  * `criblcontrolplane.packs.sources.list()`
-  * `criblcontrolplane.packs.sources.create()`
-  * `criblcontrolplane.packs.sources.get()`
-  * `criblcontrolplane.packs.sources.update()`
-  * `criblcontrolplane.packs.sources.delete()`
-  * `criblcontrolplane.packs.sources.statuses.list()`
-  * `criblcontrolplane.packs.sources.statuses.get()`
-  * `criblcontrolplane.packs.sources.pq.get()`
-  * `criblcontrolplane.packs.sources.pq.clear()`
-  * `criblcontrolplane.packs.sources.hecTokens.create()`
-  * `criblcontrolplane.packs.sources.hecTokens.update()`
-  * Sources:
-  * `criblcontrolplane.sources.statuses.list()`
-  * `criblcontrolplane.sources.statuses.get()`
-  * `criblcontrolplane.sources.pq.get()`
-  * `criblcontrolplane.sources.pq.clear()`
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
