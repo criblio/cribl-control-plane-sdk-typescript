@@ -23,10 +23,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get the health status of the server
+ * Retrieve health status of the server
  *
  * @remarks
- * Get the current health status of the server (Leader or Worker Node).
+ * Get the current health status of the server.
  */
 export function healthGet(
   client: CriblControlPlaneCore,

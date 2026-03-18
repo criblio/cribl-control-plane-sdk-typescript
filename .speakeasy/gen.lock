@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 2e8d4c4e28c21b411611bd7a53c54b66
-  docVersion: 4.17.1-alpha.1773821436593-97dab7cb
+  docChecksum: d26ff8edc249515c92100af19c249e0b
+  docVersion: 4.17.1-alpha.1773834299624-1aaffdec
   speakeasyVersion: 1.753.0
   generationVersion: 2.862.0
-  releaseVersion: 0.7.0-rc.2
-  configChecksum: a2ccccd00d1f883032b2a938db658861
+  releaseVersion: 0.7.0-rc.3
+  configChecksum: f6ee7ae69b39cee603189e38952613bc
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 7ec6e4f1-9a1b-40d0-bb60-97c7ed6d859a
-  pristine_commit_hash: 82bec48c3c5fc4aaae6eac794fbf5904f6a8ac19
-  pristine_tree_hash: da901c2fd38beed4c1dacdbff94e1d2a0c36684b
+  generation_id: bf2af12f-3ccb-402e-8787-b93a275b9aac
+  pristine_commit_hash: febd2dc1732f4e1d4b644deeaa216df98d161b10
+  pristine_tree_hash: c8467662eef7598ca119f3e7a81ff98c5d724b59
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -108,6 +108,10 @@ trackedFiles:
     id: 58c4b516b4de
     last_write_checksum: sha1:054bc52de375b816452f93c3675cd855eb91f173
     pristine_git_object: c927caa6a26ba98853d881e03e14f7fcf7d1265d
+  docs/models/additionalpropertiestyperoutesgroups.md:
+    id: a1d88b09687f
+    last_write_checksum: sha1:a7f604675fd23c8b776e1cb219322c03339b2a0b
+    pristine_git_object: 82dbc6032e6d5f8034745c6aae55f610d2a4eb0c
   docs/models/additionalproperty.md:
     id: 33b1dbdd871b
     last_write_checksum: sha1:4350fb91b95fae8863abe1aa3e9e6f00fe945ba5
@@ -850,8 +854,8 @@ trackedFiles:
     pristine_git_object: 6691d2a5c59cc1447b35fd02147d5c8f9146a5b4
   docs/models/errors/healthserverstatuserror.md:
     id: 972c34402312
-    last_write_checksum: sha1:bf81bbcfeeb036ffa9ba35b5c57b6e56995b97da
-    pristine_git_object: b8f325921f4f2867b82db1ee25a7b1c417659a58
+    last_write_checksum: sha1:da0b75f0a1c6b30b3b7aac24c3de3fb9e0c359d2
+    pristine_git_object: c9b61b87b01cc2d05ea00d476155fc8de7bcfde3
   docs/models/errortypestatus.md:
     id: e08e8a6c70e6
     last_write_checksum: sha1:e86906430f989f09b2b9b9e0b1400c26b93803ea
@@ -2290,12 +2294,12 @@ trackedFiles:
     pristine_git_object: cd318726d090f74c958ede91b95d7f43136f184f
   docs/models/healthserverstatus.md:
     id: 21caf27f9b33
-    last_write_checksum: sha1:13c3724391428537bf1b3752cbbdea3df5f58f9f
-    pristine_git_object: d7056621efcb70b74f2cae542b6879e91cfb21b8
+    last_write_checksum: sha1:bbd84275cccff71c0bba251f37f5d0887b51c7da
+    pristine_git_object: 10d21c67dcd0670d02d977c09d2b45ccf1c754c2
   docs/models/healthserverstatusstatus.md:
     id: cb806a3f5492
-    last_write_checksum: sha1:76fec9cbc3afd9b9e421051b3c26bd0c2a8e9396
-    pristine_git_object: 1bf18423e969493d37fb0ccadaa9aaabe998e928
+    last_write_checksum: sha1:6865a5ee93259ef24684f3fdc3ecfeb20655b718
+    pristine_git_object: b250951989d3d2d72bb5166c176deed53e09cf16
   docs/models/healthstringtype.md:
     id: e25582f8d87e
     last_write_checksum: sha1:fae89501008ec8f1910cfe363a8705f8849b086a
@@ -6462,12 +6466,12 @@ trackedFiles:
     pristine_git_object: b8791f9c66361d931d6fd8354f6ad249d8c99f6b
   docs/models/operations/createroutesappendbyidrequest.md:
     id: 339cd5b78188
-    last_write_checksum: sha1:60c5c6018a561414ec235b0fadf2080283686069
-    pristine_git_object: e3222c7d9799bebdff87f2a7243b594f60235900
+    last_write_checksum: sha1:bed6917f7c4250df4de947173a1c043235c661a0
+    pristine_git_object: 8391057ff400890b425cfba931646a93006a2448
   docs/models/operations/createroutesappendbypackandidrequest.md:
     id: 380b3449514c
-    last_write_checksum: sha1:0aa6357af8671d7ce6da0eae61a4c00902edf01c
-    pristine_git_object: ded2f4f8a6d7a03f580f7064ff33e1ef416cc2e5
+    last_write_checksum: sha1:87e1ffe548a2a4e2b54023fe001491f9ce54cb59
+    pristine_git_object: 794208d3d072ebacdf1824683e700c244ad16b48
   docs/models/operations/deleteconfiggroupbyproductandidrequest.md:
     id: c1edf08e6246
     last_write_checksum: sha1:ce1b6aec35ad8f5af0b671c02b29c1f25bdb79ae
@@ -6790,12 +6794,12 @@ trackedFiles:
     pristine_git_object: df150f174b7bf18719792521c55c5f30a66b1599
   docs/models/operations/updateroutesbyidrequest.md:
     id: fb4fce29d689
-    last_write_checksum: sha1:eeb48e02033bdf59e84ace32a8c66bac4a02f2c0
-    pristine_git_object: 89f2ec7bf01b13552b5cbb8cec95308c08ca8545
+    last_write_checksum: sha1:cbc8b0a6e68e641490027cb2ed2d9d275da591bd
+    pristine_git_object: 72d16b0ed19382fd2118b1a18abd352e3068da2f
   docs/models/operations/updateroutesbypackandidrequest.md:
     id: 1d3cb281f059
-    last_write_checksum: sha1:742bf8265e5114dd266cd06aefa58bef5c3b993c
-    pristine_git_object: 644f96ad0ca485c5460cd6b4c895029ed345adda
+    last_write_checksum: sha1:b57e16c3cafe5100093f395b081091c215ae5599
+    pristine_git_object: e6b4fed917cf3f9f4e0fd7b3f85507b42df7e0e3
   docs/models/operations/updatesavedjobbyidrequest.md:
     id: f124cd469e7a
     last_write_checksum: sha1:c30677e755f1d17b7b2d0e56631c0c0153a0d294
@@ -10114,8 +10118,8 @@ trackedFiles:
     pristine_git_object: cb1cc4f4658aa937c3b5db29f484c5cd511e51aa
   docs/models/role.md:
     id: b694540a5b1e
-    last_write_checksum: sha1:688d4d102c5bc7ba58bdfba1bf13edf5e258a8a3
-    pristine_git_object: 04125958f17bcadc2a9f2acbb55dd23b5be4886b
+    last_write_checksum: sha1:13877fcaf7f5b581200ed528b4124b46b8f0e0fe
+    pristine_git_object: 36d35f311c98fbe6d077b4c1602612c5542e2197
   docs/models/rollbacksettings1.md:
     id: 9ddd318dcf8c
     last_write_checksum: sha1:f3616fc1bc3e1bae759056479bc5369216fedce9
@@ -10134,16 +10138,20 @@ trackedFiles:
     pristine_git_object: a63443a715017357c41843206d0876f7b1033e81
   docs/models/routeconf.md:
     id: 6b5e005c057d
-    last_write_checksum: sha1:bc35dbaaad6fe5f35ffef30abc271e9ca0e9f26f
-    pristine_git_object: 963b3c2b80ba21e037b36ee2bc9b52f1fd061cb0
+    last_write_checksum: sha1:1f644b4618f698cd632bb5ea3995b04031cf8782
+    pristine_git_object: 750fb9ff749ec22c61e09597920df81d9ff0f337
+  docs/models/routeconfinput.md:
+    id: 9dd81075b2ab
+    last_write_checksum: sha1:54bd53cf64f78fb161f70c89b7c0574d38b985c1
+    pristine_git_object: d4c41a1c8761f86c5c3b1b0fbdd08109a81822a1
   docs/models/routes.md:
     id: 7b56d6da5562
-    last_write_checksum: sha1:814952cb9247582e845bd3d73c360cff440dd2e5
-    pristine_git_object: ff0d2ab9623c481422647045868f604edfb00a7e
-  docs/models/routesgroups.md:
-    id: c939a6f14630
-    last_write_checksum: sha1:96e670c99540e11afa0b03063ae2763ae72586e4
-    pristine_git_object: 75a2fa3067a13801b1e13996f9aec39102262bd5
+    last_write_checksum: sha1:28e2ef7a7f1b0adac7daf892e78c71875ad8973f
+    pristine_git_object: be05ee62a180d94114f9247ab6fa4eba62032547
+  docs/models/routesinput.md:
+    id: 8665618b74a3
+    last_write_checksum: sha1:ac3d061407a6ae10fb7b6854b0b68f6ed52929f7
+    pristine_git_object: 67e2d3e0ac9a71c7f6aa340c3145170412bfbe39
   docs/models/rulesettype.md:
     id: da9997acb07e
     last_write_checksum: sha1:d90eb1c2a4a81a9ef003c1fab69c31ee3500f886
@@ -10978,8 +10986,8 @@ trackedFiles:
     pristine_git_object: a91a282b3b65dd572ea27da7afeb21697b01159b
   docs/sdks/health/README.md:
     id: 5082c50d5e82
-    last_write_checksum: sha1:9810101009f8b18cecd0d29ace4ae41f486beaeb
-    pristine_git_object: bb334dd1f15b0005eea07a3b291bc9e46c057e63
+    last_write_checksum: sha1:a62b2523d5a8b736cf45f2702cfeb193acafae96
+    pristine_git_object: 46dfec9d37669217309e22eef8ea56b4e1242780
   docs/sdks/hectokens/README.md:
     id: 341daeeec3d1
     last_write_checksum: sha1:b19a6f78d95b2959a6d06a6520e6c9ea3f96ab5a
@@ -11018,8 +11026,8 @@ trackedFiles:
     pristine_git_object: 20b61efad2c4b1f20bd4890a8cd07d115a0cbdac
   docs/sdks/packsroutes/README.md:
     id: a1fb73e27b09
-    last_write_checksum: sha1:e17fe901e724776bb628e14c78f4762727076a73
-    pristine_git_object: f181c97a1d0d641ee8295d4596c6c9653135bf85
+    last_write_checksum: sha1:bc3512fa8caf06da21d78a28f9aa15233976d681
+    pristine_git_object: fc2665d783af98b1bcdf4c0f7feace24d6e7af53
   docs/sdks/packssamples/README.md:
     id: d2c04868bca4
     last_write_checksum: sha1:8a20a995f5eb337072f869c6b661395f26d4e464
@@ -11042,8 +11050,8 @@ trackedFiles:
     pristine_git_object: e2daa2c1b04bc76df7a67c121fc93fd816157cf4
   docs/sdks/routes/README.md:
     id: 8eceb878c9af
-    last_write_checksum: sha1:1105d0b2c3e52b558c87e469b7b9690f2d4c5207
-    pristine_git_object: aae5528a1db398f7ee6e4664e97d2df6839cc229
+    last_write_checksum: sha1:bead7ea5b400c2d14fb7b5b2f3ea59f30dfb91fd
+    pristine_git_object: 4f4c0267bd9570c5caf3e34e269e93f5edb2f5c8
   docs/sdks/samples/README.md:
     id: 2b3e67e9f9a5
     last_write_checksum: sha1:d4fb5a6e00b15c55ca832de8236827324d5d8f88
@@ -11086,12 +11094,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:4d278541d7eb3cfd0b4a226341229ef89034893e
-    pristine_git_object: 7dff08c4e09cd3ddbee42ed6a6bdbfa9bb236902
+    last_write_checksum: sha1:6761555b44e9a0f5066ad29a365c93e4f6e493c4
+    pristine_git_object: 2309b60398c99247119b522ae093433d02526ce8
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:1613bb7273674896d41b171af505fa94ce36370d
-    pristine_git_object: a2df08807ab5d4b80e2a6002eecc952c93d8c54f
+    last_write_checksum: sha1:1d843a8eabe7bfa5b04e8382a24d497bcb9c6b73
+    pristine_git_object: 0d32e935034e73ea99de6516422a351dd9416ed9
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -11226,8 +11234,8 @@ trackedFiles:
     pristine_git_object: 991ffec409157b87cec8d8d720edf6ffe4a98abd
   src/funcs/healthGet.ts:
     id: e9c08b6f7e1c
-    last_write_checksum: sha1:30594b5fd8e86d15d26642f42f206d543896420a
-    pristine_git_object: 4a0b5bdad127934851d7090148c8c29d09b5ddab
+    last_write_checksum: sha1:65dc6dd4e3219658e109e58db32ec083d6531718
+    pristine_git_object: fe47dac5fd5b3dea470269dc2aab77a5d09defed
   src/funcs/lakeDatasetsCreate.ts:
     id: 6d585ead5bbf
     last_write_checksum: sha1:4e3ac006d13db662f96d922c919b9be00057fc3f
@@ -11362,8 +11370,8 @@ trackedFiles:
     pristine_git_object: 181e313c06d7107b2fa84c8638b960eb1a4996ec
   src/funcs/packsRoutesUpdate.ts:
     id: 093d083c91a5
-    last_write_checksum: sha1:38ed20d3a393edf686127e624c0397e1edac1f41
-    pristine_git_object: aa5e5d7307a0e4e54b12ba421c5a48697b6acb69
+    last_write_checksum: sha1:ec81b20cab4af98cdb6113d604afa6830efc1d08
+    pristine_git_object: 0410f97a2be127b98aaf0fd6a68acb3284796108
   src/funcs/packsSourcesCreate.ts:
     id: 31796fa8357e
     last_write_checksum: sha1:005890a1f736706ebfbebc08569176de6c81dbc7
@@ -11450,8 +11458,8 @@ trackedFiles:
     pristine_git_object: 8043c175f855a36bd6e2289ffa1bc4fe50033e4b
   src/funcs/routesUpdate.ts:
     id: aa44fb4e71b9
-    last_write_checksum: sha1:c268765aa0458e6c2967b9a194d923e19890c7c5
-    pristine_git_object: 2470cdee66b6b6828555aa63b81bf3760d14facc
+    last_write_checksum: sha1:884dcb055389185d80b14f655965a1dd53cd8328
+    pristine_git_object: 6db83ffd793ca318bc4c21543cb021f4c518ec6f
   src/funcs/sourcesCreate.ts:
     id: 8c2db9bd475a
     last_write_checksum: sha1:317324ded00cb05d723773104b12c8e0c753fdc9
@@ -11590,8 +11598,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:85d2f2b5ea44a5561ff0f17e284647efe6deda4a
-    pristine_git_object: 0c4384f60bbd8d6881611023f38b50be66e34f94
+    last_write_checksum: sha1:abc0cc9c57087210e650bf76fb63ed378b3e6203
+    pristine_git_object: f49f56cc2ef8b0af787607ab81e52af2248a62f3
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -11676,6 +11684,10 @@ trackedFiles:
     id: b6f3449bbcc7
     last_write_checksum: sha1:2cbe680bd75891b879a7319a5fdac46a84524a72
     pristine_git_object: 28b1c24f403f0bbbddea14d44d0f1fd618f0c363
+  src/models/additionalpropertiestyperoutesgroups.ts:
+    id: ac8d90a61956
+    last_write_checksum: sha1:b7733a8236832127e2a9ad281975b04a66320390
+    pristine_git_object: 360223bc696566afca9b7fcbb89c5c36403299fc
   src/models/apitypesystemsettingsconf.ts:
     id: a785b6fd2347
     last_write_checksum: sha1:145f3fbed27f59c9bd115d3df74344e3962eaf92
@@ -12182,8 +12194,8 @@ trackedFiles:
     pristine_git_object: 5b332328847e04f738a154ad7211ad2c68355cb1
   src/models/errors/healthserverstatuserror.ts:
     id: 171fa5b12b80
-    last_write_checksum: sha1:81b70a9e53884e4b8491dcf2d989447dfcc46a88
-    pristine_git_object: e66f690e9eea01f24b2c7d8b2d2db24596198c0c
+    last_write_checksum: sha1:6f759cb1a9725286138540706dbbf225b8760e70
+    pristine_git_object: 05c479cd6abd57c8834f5bbb58441d7d7e6039a4
   src/models/errors/httpclienterrors.ts:
     id: 6948de76af99
     last_write_checksum: sha1:994ced121c54fecd0af038ccfb7855fbfd3868ec
@@ -12722,8 +12734,8 @@ trackedFiles:
     pristine_git_object: e6323a338af762943a0b23a8bacb6acfd3e6659e
   src/models/healthserverstatus.ts:
     id: f7d644dc913a
-    last_write_checksum: sha1:bbb033e3a44722888880bf8734103a6cc8f730a6
-    pristine_git_object: 3b7bfcd7304b4f7992860271909a7e0a7ab4da55
+    last_write_checksum: sha1:9338aa3a63c96a9458d475ce8fbcf4c3b9ae9c9b
+    pristine_git_object: a1c25eef011d8134ea0cb2b67a01ba754f6ac0af
   src/models/healthstringtype.ts:
     id: 2e33bdbe0037
     last_write_checksum: sha1:2f6fffc6989c7f238ce508af6ef34efbe73afc5f
@@ -12742,8 +12754,8 @@ trackedFiles:
     pristine_git_object: c1bbef9bdace9960ec217f63372212041f1fc367
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:c5b6cced8fe3d839cb214f3f7c43157888db7f1d
-    pristine_git_object: fa3b9c0ab6229e899fdc198a196652d381cbf21e
+    last_write_checksum: sha1:4b029d7b733f01eee411c6995eccb870d1a89eb1
+    pristine_git_object: a5834541f8dab19d40c1502cdca7efbc5cbb6f4e
   src/models/input1.ts:
     id: ad08c98f2081
     last_write_checksum: sha1:c964d56b03ba591b5caeec971a92ce82f538fc35
@@ -13318,12 +13330,12 @@ trackedFiles:
     pristine_git_object: f906a5d7019716000bb3eafd95641f7e52b0236f
   src/models/operations/createroutesappendbyid.ts:
     id: 57529520a07e
-    last_write_checksum: sha1:889829b3fe98b4d85b296240df2fa14557306d95
-    pristine_git_object: 1be491cc012c36a9ab32019b3b594f46ece586f7
+    last_write_checksum: sha1:0d0d9e906d69f1123b0ff76787fee5d1aa568356
+    pristine_git_object: bb10890807545036818fbfd79157f19bb85b48ef
   src/models/operations/createroutesappendbypackandid.ts:
     id: d46e945d5018
-    last_write_checksum: sha1:a4e90d646afd56401a6075cac6eabfa246131a85
-    pristine_git_object: 9c382da22610636ad5089ba9bc4f11582c979222
+    last_write_checksum: sha1:cd6020b169419cce9dbb660057fdd66aaa990cdf
+    pristine_git_object: 750bd120d6beed2d82c1e22c7b88271d21e1cf7c
   src/models/operations/deleteconfiggroupbyproductandid.ts:
     id: 7d58d520238e
     last_write_checksum: sha1:8ccf1277439dd4c39595d4395279e6309de2ee41
@@ -13646,12 +13658,12 @@ trackedFiles:
     pristine_git_object: a4dee6eec9e2d8e4fc4b6618554fc5e22a3d60ee
   src/models/operations/updateroutesbyid.ts:
     id: 7f7fcac20851
-    last_write_checksum: sha1:9a6320cf6563a28f2129d3ca939a972215001b4b
-    pristine_git_object: c3692559d90d20c4633aa4fe3461ab9664b07523
+    last_write_checksum: sha1:5816656aa146ada1696a504b7d4ed93f9c0af2aa
+    pristine_git_object: d22688948c4dd93ac1096c51b13d9af8c0e2d428
   src/models/operations/updateroutesbypackandid.ts:
     id: fe189191bdcc
-    last_write_checksum: sha1:cd4993906759a723797d43eb0c969fa75e3ecf7b
-    pristine_git_object: 4de1f65f0b4b81cfe02bc91e07c48aef300fcd62
+    last_write_checksum: sha1:8bbe72ddd6ce83b959747ee6760b86a5571a06d8
+    pristine_git_object: 92c61047756cb14908882e4594e1ba2c9a3d3be4
   src/models/operations/updatesavedjobbyid.ts:
     id: 6eadfdb4717a
     last_write_checksum: sha1:5f4066c2c55ce01302da66d963dc26088ba38c7e
@@ -14414,12 +14426,20 @@ trackedFiles:
     pristine_git_object: ce3ee7941c650076321907a5c3ae01e008c09d0c
   src/models/routeconf.ts:
     id: 5aebd4b63319
-    last_write_checksum: sha1:9ec2f12dc93fe93172ef807368221bcd48f74a5a
-    pristine_git_object: 6f87e12ded2d58c446957092d29af24ea57f7dfa
+    last_write_checksum: sha1:bde3f4f5b7c6a4dd7fa73d70b8533c381ddec964
+    pristine_git_object: 8f1d79ba772872bedec67ff1616e2128778cc1a8
+  src/models/routeconfinput.ts:
+    id: f1cc105f946d
+    last_write_checksum: sha1:8d0bce6f23c320e35637a4e437b31f7e13c3733f
+    pristine_git_object: 6eb765ec3da2c8fe34ab86329f4c00cb5e20e51d
   src/models/routes.ts:
     id: 016c9cbd6eb4
-    last_write_checksum: sha1:84caae8e12be7177dac77a5adcb8ad631171c84d
-    pristine_git_object: d8e95c00ef71106087ca6809fac74e669741f411
+    last_write_checksum: sha1:21453a1959be89655c2d315be9f0b8534bdda310
+    pristine_git_object: ac7e5353500570de5e53432025e8bf6135c4fdbc
+  src/models/routesinput.ts:
+    id: a7a6b7ad6764
+    last_write_checksum: sha1:32ec1ee6f30c5a479d3c1f61b4c8c920d9157e10
+    pristine_git_object: baa7dd2f477718bb396676a05da64dc513aaadf1
   src/models/runnablejob.ts:
     id: fd84b6eb555d
     last_write_checksum: sha1:7e55caa16edd4706e17100f021329a24f855e670
@@ -14750,8 +14770,8 @@ trackedFiles:
     pristine_git_object: 2a039ee66e26825d931dc77677cfae1f184a14ae
   src/sdk/health.ts:
     id: d2e0a0845caf
-    last_write_checksum: sha1:99dd14b4fdd0b5613b4157aa0a714ed2d4a26e90
-    pristine_git_object: b3d513b5573a8e683431e87c4a15cdcae4901db2
+    last_write_checksum: sha1:eb5304b03f52ab340f6502a018155c1fe9f5bfa0
+    pristine_git_object: 54007d0f650a891e06c6816379dc13c99339a211
   src/sdk/hectokens.ts:
     id: 4efe1b89198b
     last_write_checksum: sha1:1ba316bd8a75fd50dbd0ea4eef355f2877b3f690
@@ -17700,7 +17720,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"description": "Route access logs to main pipeline", "filter": "source == \"access.log\"", "final": true, "id": "default", "name": "my-route", "pipeline": "main"}]}
+        application/json: {"id": "default", "routes": [{"description": "Route access logs to main pipeline", "filter": "source == \"access.log\"", "name": "my-route", "pipeline": "main", "final": true, "id": "default"}]}
       responses:
         "200":
           application/json: {}
@@ -17711,7 +17731,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"description": "Route speedtest logs", "filter": "source == \"speedtest.log\"", "final": false, "id": "route-speedtest", "name": "speedtest", "output": "default", "pipeline": "main"}, {"description": "Route mtr logs", "filter": "source == \"mtr.log\"", "final": false, "id": "route-mtr", "name": "mtr", "output": "default", "pipeline": "passthru"}, {"description": "Route statsd metrics", "filter": "source == \"statsd.log\"", "final": false, "id": "route-statsd", "name": "statsd", "output": "devnull", "pipeline": "prometheus_metrics"}, {"description": "Catch-all Route for all other events", "filter": "true", "final": true, "id": "route-default", "name": "default", "output": "default", "pipeline": "main"}]}
+        application/json: {"id": "default", "routes": [{"description": "Route speedtest logs", "filter": "source == \"speedtest.log\"", "name": "speedtest", "output": "default", "pipeline": "main", "final": false, "id": "route-speedtest"}, {"description": "Route mtr logs", "filter": "source == \"mtr.log\"", "name": "mtr", "output": "default", "pipeline": "passthru", "final": false, "id": "route-mtr"}, {"description": "Route statsd metrics", "filter": "source == \"statsd.log\"", "name": "statsd", "output": "devnull", "pipeline": "prometheus_metrics", "final": false, "id": "route-statsd"}, {"description": "Catch-all Route for all other events", "filter": "true", "name": "default", "output": "default", "pipeline": "main", "final": true, "id": "route-default"}]}
       responses:
         "200":
           application/json: {}
@@ -17722,7 +17742,18 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "id": "route-dynamic", "name": "dynamic-output", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main"}]}
+        application/json: {"id": "default", "routes": [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "name": "dynamic-output", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "final": true, "id": "route-dynamic"}]}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    RoutesUpdateExamplesRouteWithDefaults:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "default", "routes": [{"description": "Route access logs to main pipeline", "filter": "source == \"access.log\"", "name": "my-route", "pipeline": "main"}]}
       responses:
         "200":
           application/json: {}
@@ -17745,7 +17776,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"description": "Route new logs to main pipeline", "filter": "source == \"new.log\"", "final": true, "id": "route-new", "name": "new-route", "pipeline": "main"}]
+        application/json: [{"description": "Route new logs to main pipeline", "filter": "source == \"new.log\"", "name": "new-route", "pipeline": "main", "final": true, "id": "route-new"}]
       responses:
         "200":
           application/json: {}
@@ -17756,7 +17787,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"description": "Route audit logs", "filter": "source == \"audit.log\"", "final": false, "id": "route-audit", "name": "audit", "output": "default", "pipeline": "main"}, {"description": "Route security logs", "filter": "source == \"security.log\"", "final": false, "id": "route-security", "name": "security", "output": "devnull", "pipeline": "passthru"}]
+        application/json: [{"description": "Route audit logs", "filter": "source == \"audit.log\"", "name": "audit", "output": "default", "pipeline": "main", "final": false, "id": "route-audit"}, {"description": "Route security logs", "filter": "source == \"security.log\"", "name": "security", "output": "devnull", "pipeline": "passthru", "final": false, "id": "route-security"}]
       responses:
         "200":
           application/json: {}
@@ -17767,7 +17798,18 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "id": "route-dynamic-append", "name": "dynamic-append", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main"}]
+        application/json: [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "name": "dynamic-append", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "final": true, "id": "route-dynamic-append"}]
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    RoutesAppendExamplesRouteWithDefaults:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: [{"description": "Route with server-generated id and default final value", "filter": "source == \"new.log\"", "name": "new-route", "pipeline": "main"}]
       responses:
         "200":
           application/json: {}
@@ -24135,7 +24177,7 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"description": "Route access logs to main pipeline", "filter": "source == \"access.log\"", "final": true, "id": "default", "name": "my-route", "pipeline": "main"}]}
+        application/json: {"id": "default", "routes": [{"description": "Route access logs to main pipeline", "filter": "source == \"access.log\"", "name": "my-route", "pipeline": "main", "final": true, "id": "default"}]}
       responses:
         "200":
           application/json: {}
@@ -24147,7 +24189,7 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"description": "Route speedtest logs", "filter": "source == \"speedtest.log\"", "final": false, "id": "route-speedtest", "name": "speedtest", "output": "default", "pipeline": "main"}, {"description": "Route mtr logs", "filter": "source == \"mtr.log\"", "final": false, "id": "route-mtr", "name": "mtr", "output": "default", "pipeline": "passthru"}, {"description": "Route statsd metrics", "filter": "source == \"statsd.log\"", "final": false, "id": "route-statsd", "name": "statsd", "output": "devnull", "pipeline": "prometheus_metrics"}, {"description": "Catch-all Route for all other events", "filter": "true", "final": true, "id": "route-default", "name": "default", "output": "default", "pipeline": "main"}]}
+        application/json: {"id": "default", "routes": [{"description": "Route speedtest logs", "filter": "source == \"speedtest.log\"", "name": "speedtest", "output": "default", "pipeline": "main", "final": false, "id": "route-speedtest"}, {"description": "Route mtr logs", "filter": "source == \"mtr.log\"", "name": "mtr", "output": "default", "pipeline": "passthru", "final": false, "id": "route-mtr"}, {"description": "Route statsd metrics", "filter": "source == \"statsd.log\"", "name": "statsd", "output": "devnull", "pipeline": "prometheus_metrics", "final": false, "id": "route-statsd"}, {"description": "Catch-all Route for all other events", "filter": "true", "name": "default", "output": "default", "pipeline": "main", "final": true, "id": "route-default"}]}
       responses:
         "200":
           application/json: {}
@@ -24159,7 +24201,7 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "default", "routes": [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "id": "route-dynamic", "name": "dynamic-output", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main"}]}
+        application/json: {"id": "default", "routes": [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "name": "dynamic-output", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "final": true, "id": "route-dynamic"}]}
       responses:
         "200":
           application/json: {}
@@ -24171,7 +24213,19 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {}], "context": "<value>", "description": "woot joyfully along", "disabled": true, "enableOutputExpression": false, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "pack"}]}
+        application/json: {"id": "<id>", "routes": [{"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {}], "context": "<value>", "description": "woot joyfully along", "disabled": true, "enableOutputExpression": false, "filter": "<value>", "groupId": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "pack", "final": true, "id": "<id>"}]}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    RoutesUpdateExamplesRouteWithDefaults:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "default", "routes": [{"description": "Route access logs to main pipeline", "filter": "source == \"access.log\"", "name": "my-route", "pipeline": "main"}]}
       responses:
         "200":
           application/json: {}
@@ -24194,7 +24248,7 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: [{"description": "Route new logs to main pipeline", "filter": "source == \"new.log\"", "final": true, "id": "route-new", "name": "new-route", "pipeline": "main"}]
+        application/json: [{"description": "Route new logs to main pipeline", "filter": "source == \"new.log\"", "name": "new-route", "pipeline": "main", "final": true, "id": "route-new"}]
       responses:
         "200":
           application/json: {}
@@ -24206,7 +24260,7 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: [{"description": "Route audit logs", "filter": "source == \"audit.log\"", "final": false, "id": "route-audit", "name": "audit", "output": "default", "pipeline": "main"}, {"description": "Route security logs", "filter": "source == \"security.log\"", "final": false, "id": "route-security", "name": "security", "output": "devnull", "pipeline": "passthru"}]
+        application/json: [{"description": "Route audit logs", "filter": "source == \"audit.log\"", "name": "audit", "output": "default", "pipeline": "main", "final": false, "id": "route-audit"}, {"description": "Route security logs", "filter": "source == \"security.log\"", "name": "security", "output": "devnull", "pipeline": "passthru", "final": false, "id": "route-security"}]
       responses:
         "200":
           application/json: {}
@@ -24218,7 +24272,7 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "id": "route-dynamic-append", "name": "dynamic-append", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main"}]
+        application/json: [{"description": "Route with dynamic Destination based on environment", "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "name": "dynamic-append", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "final": true, "id": "route-dynamic-append"}]
       responses:
         "200":
           application/json: {}
@@ -24230,7 +24284,19 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "majestic frenetically lasting refer gloom char hm jell nougat", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]
+        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "majestic frenetically lasting refer gloom char hm jell nougat", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "groupId": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group", "final": true, "id": "<id>"}]
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+    RoutesAppendExamplesRouteWithDefaults:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: [{"description": "Route with server-generated id and default final value", "filter": "source == \"new.log\"", "name": "new-route", "pipeline": "main"}]
       responses:
         "200":
           application/json: {}
@@ -25590,7 +25656,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.list()`:  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.create()`: \n  *  `request.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.get()`:  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.union(microsoft_graph)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.delete()`:  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.health.get()`: \n  *  `response.startTime` **Changed** (Breaking ⚠️)\n  *  `error.startTime` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.get()`:  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.list()`:  `response.items[].union(microsoft_graph)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.functions.get()`:  `response.items[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.functions.list()`:  `response.items[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.packs.pipelines.list()`:  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.packs.pipelines.delete()`:  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.packs.pipelines.get()`:  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.packs.pipelines.update()`: \n  *  `request.pipeline.conf.functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.pipelines.list()`:  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.pipelines.delete()`:  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.pipelines.get()`:  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n* `criblcontrolplane.packs.pipelines.create()`: \n  *  `request.pipeline.conf.functions[].union(local_search_schema_mapper)` **Added**\n  *  `response.items[].conf.functions[].union(local_search_schema_mapper)` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.packs.routes.update()`:  `request` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.routes.update()`:  `request` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.health.get()`: \n  *  `response.startTime` **Changed** (Breaking ⚠️)\n  *  `error.startTime` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.routes.append()`: \n  *  `request.requestBody[]` **Changed**\n* `criblcontrolplane.routes.append()`: \n  *  `request.requestBody[]` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
