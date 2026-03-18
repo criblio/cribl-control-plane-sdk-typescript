@@ -86,6 +86,14 @@ export type Notification3 = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
+   * The worker group/fleet this notification belongs to
+   */
+  group?: string | undefined;
+  /**
+   * The pack this notification belongs to
+   */
+  pack?: string | undefined;
+  /**
    * Pairs of templates and targets for notification routing
    */
   templateTargetPairs?:
@@ -165,6 +173,14 @@ export type Notification2 = {
    * Fields to add to events from this input
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * The worker group/fleet this notification belongs to
+   */
+  group?: string | undefined;
+  /**
+   * The pack this notification belongs to
+   */
+  pack?: string | undefined;
 };
 
 /**
@@ -237,6 +253,14 @@ export type Notification1 = {
    * Fields to add to events from this input
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * The worker group/fleet this notification belongs to
+   */
+  group?: string | undefined;
+  /**
+   * The pack this notification belongs to
+   */
+  pack?: string | undefined;
 };
 
 export type NotificationUnion = Notification1 | Notification2 | Notification3;
@@ -362,6 +386,8 @@ export const Notification3$inboundSchema: z.ZodType<
   ),
   conf: types.optional(z.lazy(() => ConditionSpecificConfigs3$inboundSchema)),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  group: types.optional(types.string()),
+  pack: types.optional(types.string()),
   templateTargetPairs: types.optional(
     z.array(ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema),
   ),
@@ -501,6 +527,8 @@ export const Notification2$inboundSchema: z.ZodType<
   ),
   conf: types.optional(z.lazy(() => ConditionSpecificConfigs2$inboundSchema)),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  group: types.optional(types.string()),
+  pack: types.optional(types.string()),
 });
 
 export function notification2FromJSON(
@@ -637,6 +665,8 @@ export const Notification1$inboundSchema: z.ZodType<
   ),
   conf: types.optional(z.lazy(() => ConditionSpecificConfigs1$inboundSchema)),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  group: types.optional(types.string()),
+  pack: types.optional(types.string()),
 });
 
 export function notification1FromJSON(

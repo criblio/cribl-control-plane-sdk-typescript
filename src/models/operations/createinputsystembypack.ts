@@ -365,6 +365,41 @@ export type CreateInputSystemByPackInputZscalerHec = {
   __template_hecAPI?: string | undefined;
 };
 
+export type CreateInputSystemByPackInputServicenowTable = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  description?: string | undefined;
+};
+
 export type CreateInputSystemByPackInputSecurityLake = {
   /**
    * Unique ID for this input
@@ -6034,6 +6069,20 @@ export type CreateInputSystemByPackInputEventhub = {
   description?: string | undefined;
 };
 
+/**
+ * Select authentication method.
+ */
+export const CreateInputSystemByPackAuthenticationMethodMicrosoftGraph = {
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputSystemByPackAuthenticationMethodMicrosoftGraph =
+  OpenEnum<typeof CreateInputSystemByPackAuthenticationMethodMicrosoftGraph>;
+
 export type CreateInputSystemByPackInputMicrosoftGraph = {
   /**
    * Unique ID for this input
@@ -6093,7 +6142,9 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
   /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptionsManualOauth | undefined;
+  authType?:
+    | CreateInputSystemByPackAuthenticationMethodMicrosoftGraph
+    | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -6133,18 +6184,6 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
-   * Username to run Microsoft Graph API call.
-   */
-  username?: string | undefined;
-  /**
-   * Password to run Microsoft Graph API call.
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials.
-   */
-  credentialsSecret?: string | undefined;
-  /**
    * client_secret to pass in the OAuth request parameter.
    */
   clientSecret?: string | undefined;
@@ -6161,7 +6200,7 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
@@ -6186,6 +6225,22 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   __template_resource?: string | undefined;
 };
+
+/**
+ * Select authentication method.
+ */
+export const CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace =
+  OpenEnum<typeof CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace>;
 
 export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
@@ -6246,7 +6301,9 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptionsManualOauth | undefined;
+  authType?:
+    | CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace
+    | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -6314,7 +6371,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
@@ -6342,7 +6399,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
 
 export type CreateInputSystemByPackContentConfigOffice365Service = {
   /**
-   * Office 365 Services API Content Type
+   * Microsoft 365 Services API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -6390,15 +6447,15 @@ export type CreateInputSystemByPackInputOffice365Service = {
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
-   * Office 365 Azure Tenant ID
+   * Microsoft 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Office 365 Azure Application ID
+   * Microsoft 365 Azure Application ID
    */
   appId: string;
   /**
@@ -6430,7 +6487,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
-   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Service>
@@ -6442,7 +6499,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
-   * Office 365 Azure client secret
+   * Microsoft 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**
@@ -6465,7 +6522,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
 
 export type CreateInputSystemByPackContentConfigOffice365Mgmt = {
   /**
-   * Office 365 Management Activity API Content Type
+   * Microsoft 365 Management Activity API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -6513,15 +6570,15 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType: models.SubscriptionPlanOptions;
   /**
-   * Office 365 Azure Tenant ID
+   * Microsoft 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Office 365 Azure Application ID
+   * Microsoft 365 Azure Application ID
    */
   appId: string;
   /**
@@ -6557,13 +6614,13 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    */
   publisherIdentifier?: string | undefined;
   /**
-   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Mgmt>
     | undefined;
   /**
-   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
@@ -6573,7 +6630,7 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
-   * Office 365 Azure client secret
+   * Microsoft 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**
@@ -9337,6 +9394,7 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputWizWebhook
   | CreateInputSystemByPackInputNetflow
   | CreateInputSystemByPackInputSecurityLake
+  | CreateInputSystemByPackInputServicenowTable
   | CreateInputSystemByPackInputZscalerHec
   | CreateInputSystemByPackInputCloudflareHec;
 
@@ -9415,6 +9473,7 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputWizWebhook
     | CreateInputSystemByPackInputNetflow
     | CreateInputSystemByPackInputSecurityLake
+    | CreateInputSystemByPackInputServicenowTable
     | CreateInputSystemByPackInputZscalerHec
     | CreateInputSystemByPackInputCloudflareHec;
 };
@@ -9749,6 +9808,53 @@ export function createInputSystemByPackInputZscalerHecToJSON(
   return JSON.stringify(
     CreateInputSystemByPackInputZscalerHec$outboundSchema.parse(
       createInputSystemByPackInputZscalerHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackInputServicenowTable$Outbound = {
+  id: string;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackInputServicenowTable$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackInputServicenowTable
+  > = z.object({
+    id: z.string(),
+    type: z.literal("servicenow_table"),
+    disabled: z.boolean().optional(),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: models.PqType$outboundSchema.optional(),
+    description: z.string().optional(),
+  });
+
+export function createInputSystemByPackInputServicenowTableToJSON(
+  createInputSystemByPackInputServicenowTable:
+    CreateInputSystemByPackInputServicenowTable,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackInputServicenowTable$outboundSchema.parse(
+      createInputSystemByPackInputServicenowTable,
     ),
   );
 }
@@ -15069,6 +15175,16 @@ export function createInputSystemByPackInputEventhubToJSON(
 }
 
 /** @internal */
+export const CreateInputSystemByPackAuthenticationMethodMicrosoftGraph$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationMethodMicrosoftGraph
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthenticationMethodMicrosoftGraph,
+  );
+
+/** @internal */
 export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   id: string;
   type: "microsoft_graph";
@@ -15098,9 +15214,6 @@ export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   logLevel?: string | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
   clientId?: string | undefined;
@@ -15138,8 +15251,9 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     endDate: z.string().optional(),
     timeout: z.number().optional(),
     disableTimeFilter: z.boolean().optional(),
-    authType: models.AuthenticationMethodOptionsManualOauth$outboundSchema
-      .optional(),
+    authType:
+      CreateInputSystemByPackAuthenticationMethodMicrosoftGraph$outboundSchema
+        .optional(),
     keepAliveTime: z.number().optional(),
     jobTimeout: z.string().optional(),
     maxMissedKeepAlives: z.number().optional(),
@@ -15152,9 +15266,6 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
       .optional(),
     description: z.string().optional(),
-    username: z.string().optional(),
-    password: z.string().optional(),
-    credentialsSecret: z.string().optional(),
     clientSecret: z.string().optional(),
     tenantId: z.string().optional(),
     clientId: z.string().optional(),
@@ -15178,6 +15289,16 @@ export function createInputSystemByPackInputMicrosoftGraphToJSON(
     ),
   );
 }
+
+/** @internal */
+export const CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace,
+  );
 
 /** @internal */
 export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
@@ -15249,8 +15370,9 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     endDate: z.string().optional(),
     timeout: z.number().optional(),
     disableTimeFilter: z.boolean().optional(),
-    authType: models.AuthenticationMethodOptionsManualOauth$outboundSchema
-      .optional(),
+    authType:
+      CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace$outboundSchema
+        .optional(),
     keepAliveTime: z.number().optional(),
     jobTimeout: z.string().optional(),
     maxMissedKeepAlives: z.number().optional(),
@@ -17747,6 +17869,7 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputWizWebhook$Outbound
   | CreateInputSystemByPackInputNetflow$Outbound
   | CreateInputSystemByPackInputSecurityLake$Outbound
+  | CreateInputSystemByPackInputServicenowTable$Outbound
   | CreateInputSystemByPackInputZscalerHec$Outbound
   | CreateInputSystemByPackInputCloudflareHec$Outbound;
 
@@ -17822,6 +17945,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputWizWebhook$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputNetflow$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputSecurityLake$outboundSchema),
+  z.lazy(() => CreateInputSystemByPackInputServicenowTable$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputZscalerHec$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputCloudflareHec$outboundSchema),
 ]);
@@ -17908,6 +18032,7 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputWizWebhook$Outbound
     | CreateInputSystemByPackInputNetflow$Outbound
     | CreateInputSystemByPackInputSecurityLake$Outbound
+    | CreateInputSystemByPackInputServicenowTable$Outbound
     | CreateInputSystemByPackInputZscalerHec$Outbound
     | CreateInputSystemByPackInputCloudflareHec$Outbound;
 };
@@ -17988,6 +18113,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackInputWizWebhook$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputNetflow$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputSecurityLake$outboundSchema),
+    z.lazy(() => CreateInputSystemByPackInputServicenowTable$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputZscalerHec$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputCloudflareHec$outboundSchema),
   ]),

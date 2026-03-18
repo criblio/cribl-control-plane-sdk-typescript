@@ -49,7 +49,7 @@ import {
 
 export type InputOffice365ServiceContentConfig = {
   /**
-   * Office 365 Services API Content Type
+   * Microsoft 365 Services API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -97,15 +97,15 @@ export type InputOffice365Service = {
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: SubscriptionPlanOptions | undefined;
   /**
-   * Office 365 Azure Tenant ID
+   * Microsoft 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Office 365 Azure Application ID
+   * Microsoft 365 Azure Application ID
    */
   appId: string;
   /**
@@ -137,7 +137,7 @@ export type InputOffice365Service = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
-   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<InputOffice365ServiceContentConfig> | undefined;
   retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
@@ -147,7 +147,7 @@ export type InputOffice365Service = {
   authType?: AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
-   * Office 365 Azure client secret
+   * Microsoft 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**

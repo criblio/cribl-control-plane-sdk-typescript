@@ -621,6 +621,14 @@ const value: models.InputSecurityLake = {
 };
 ```
 
+### `models.InputServicenowTable`
+
+```typescript
+const value: models.InputServicenowTable = {
+  type: "servicenow_table",
+};
+```
+
 ### `models.InputZscalerHec`
 
 ```typescript

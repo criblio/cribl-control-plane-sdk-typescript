@@ -5,7 +5,7 @@
 ### Available Operations
 
 * [list](#list) - Get Cribl system settings
-* [update](#update) - Update Cribl system settings
+* [update](#update) - Update system settings
 
 ## list
 
@@ -88,7 +88,7 @@ Update Cribl system settings.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" -->
+<!-- UsageSnippet language="typescript" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" example="UpdateSystemSettingsExamplesUpdateApiSettings" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -103,52 +103,56 @@ async function run() {
   const result = await criblControlPlane.system.settings.cribl.update({
     api: {
       disabled: false,
-      host: "meaty-spring.biz",
-      port: 2424.38,
+      host: "0.0.0.0",
+      port: 9000,
+      ssl: {
+        certPath: "/opt/cribl/local/cribl/auth/cribl.crt",
+        disabled: false,
+        passphrase: "",
+        privKeyPath: "/opt/cribl/local/cribl/auth/cribl.key",
+      },
     },
     backups: {
-      backupPersistence: "<value>",
-      backupsDirectory: "<value>",
+      backupPersistence: "24h",
+      backupsDirectory: "$CRIBL_STATE_DIR/backups",
     },
     pii: {
       enablePiiDetection: false,
     },
     proxy: {
-      useEnvVars: true,
+      useEnvVars: false,
     },
     rollback: {
-      rollbackEnabled: false,
-      rollbackRetries: 3174.73,
-      rollbackTimeout: 1506.54,
+      rollbackEnabled: true,
     },
     shutdown: {
-      drainTimeout: 3723.75,
+      drainTimeout: 10000,
     },
     sni: {
       disableSNIRouting: false,
     },
     system: {
-      intercom: false,
+      intercom: true,
       upgrade: "api",
     },
     tls: {
-      defaultCipherList: "<value>",
-      defaultEcdhCurve: "<value>",
-      maxVersion: "<value>",
-      minVersion: "<value>",
+      defaultCipherList: "DEFAULT",
+      defaultEcdhCurve: "auto",
+      maxVersion: "TLSv1.3",
+      minVersion: "TLSv1.2",
       rejectUnauthorized: true,
     },
     upgradeGroupSettings: {
-      isRolling: false,
-      quantity: 7915.07,
-      retryCount: 4414.66,
-      retryDelay: 4374.4,
+      isRolling: true,
+      quantity: 100,
+      retryCount: 5,
+      retryDelay: 1000,
     },
     upgradeSettings: {},
     workers: {
-      count: 2124.14,
-      memory: 20.53,
-      minimum: 6157.83,
+      count: 0,
+      memory: 0,
+      minimum: 1,
     },
   });
 
@@ -179,52 +183,56 @@ async function run() {
   const res = await systemSettingsCriblUpdate(criblControlPlane, {
     api: {
       disabled: false,
-      host: "meaty-spring.biz",
-      port: 2424.38,
+      host: "0.0.0.0",
+      port: 9000,
+      ssl: {
+        certPath: "/opt/cribl/local/cribl/auth/cribl.crt",
+        disabled: false,
+        passphrase: "",
+        privKeyPath: "/opt/cribl/local/cribl/auth/cribl.key",
+      },
     },
     backups: {
-      backupPersistence: "<value>",
-      backupsDirectory: "<value>",
+      backupPersistence: "24h",
+      backupsDirectory: "$CRIBL_STATE_DIR/backups",
     },
     pii: {
       enablePiiDetection: false,
     },
     proxy: {
-      useEnvVars: true,
+      useEnvVars: false,
     },
     rollback: {
-      rollbackEnabled: false,
-      rollbackRetries: 3174.73,
-      rollbackTimeout: 1506.54,
+      rollbackEnabled: true,
     },
     shutdown: {
-      drainTimeout: 3723.75,
+      drainTimeout: 10000,
     },
     sni: {
       disableSNIRouting: false,
     },
     system: {
-      intercom: false,
+      intercom: true,
       upgrade: "api",
     },
     tls: {
-      defaultCipherList: "<value>",
-      defaultEcdhCurve: "<value>",
-      maxVersion: "<value>",
-      minVersion: "<value>",
+      defaultCipherList: "DEFAULT",
+      defaultEcdhCurve: "auto",
+      maxVersion: "TLSv1.3",
+      minVersion: "TLSv1.2",
       rejectUnauthorized: true,
     },
     upgradeGroupSettings: {
-      isRolling: false,
-      quantity: 7915.07,
-      retryCount: 4414.66,
-      retryDelay: 4374.4,
+      isRolling: true,
+      quantity: 100,
+      retryCount: 5,
+      retryDelay: 1000,
     },
     upgradeSettings: {},
     workers: {
-      count: 2124.14,
-      memory: 20.53,
-      minimum: 6157.83,
+      count: 0,
+      memory: 0,
+      minimum: 1,
     },
   });
   if (res.ok) {
