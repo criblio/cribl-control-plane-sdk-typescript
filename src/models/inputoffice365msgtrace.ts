@@ -4,13 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
 import {
   CertOptionsType,
   CertOptionsType$inboundSchema,
@@ -52,6 +49,23 @@ import {
   SubscriptionPlanOptions$inboundSchema,
   SubscriptionPlanOptions$outboundSchema,
 } from "./subscriptionplanoptions.js";
+
+/**
+ * Select authentication method.
+ */
+export const InputOffice365MsgTraceAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod
+>;
 
 export type InputOffice365MsgTrace = {
   /**
@@ -112,7 +126,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: InputOffice365MsgTraceAuthenticationMethod | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -180,7 +194,7 @@ export type InputOffice365MsgTrace = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: SubscriptionPlanOptions | undefined;
   /**
@@ -207,6 +221,15 @@ export type InputOffice365MsgTrace = {
 };
 
 /** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod$inboundSchema:
+  z.ZodType<InputOffice365MsgTraceAuthenticationMethod, z.ZodTypeDef, unknown> =
+    openEnums.inboundSchema(InputOffice365MsgTraceAuthenticationMethod);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, InputOffice365MsgTraceAuthenticationMethod> =
+    openEnums.outboundSchema(InputOffice365MsgTraceAuthenticationMethod);
+
+/** @internal */
 export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   InputOffice365MsgTrace,
   z.ZodTypeDef,
@@ -230,7 +253,9 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   endDate: types.optional(types.string()),
   timeout: types.optional(types.number()),
   disableTimeFilter: types.optional(types.boolean()),
-  authType: types.optional(AuthenticationMethodOptions2$inboundSchema),
+  authType: types.optional(
+    InputOffice365MsgTraceAuthenticationMethod$inboundSchema,
+  ),
   keepAliveTime: types.optional(types.number()),
   jobTimeout: types.optional(types.string()),
   maxMissedKeepAlives: types.optional(types.number()),
@@ -325,7 +350,8 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: InputOffice365MsgTraceAuthenticationMethod$outboundSchema
+    .optional(),
   keepAliveTime: z.number().optional(),
   jobTimeout: z.string().optional(),
   maxMissedKeepAlives: z.number().optional(),

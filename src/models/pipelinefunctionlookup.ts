@@ -105,7 +105,7 @@ export type PipelineFunctionLookupConf = {
    */
   addToEvent?: boolean | undefined;
   /**
-   * Whether to ignore case when performing lookups using Match Mode: Exact
+   * Whether to ignore case when performing lookups using Match Mode: Regex.
    */
   ignoreCase?: boolean | undefined;
 };
