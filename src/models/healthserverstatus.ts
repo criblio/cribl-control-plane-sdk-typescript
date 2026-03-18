@@ -10,48 +10,24 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-/**
- * Leader Node role: <code>primary</code> or <code>standby</code>.
- */
 export const Role = {
-  Primary: "primary",
   Standby: "standby",
+  Primary: "primary",
 } as const;
-/**
- * Leader Node role: <code>primary</code> or <code>standby</code>.
- */
 export type Role = OpenEnum<typeof Role>;
 
-/**
- * Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
- */
 export const HealthServerStatusStatus = {
-  Healthy: "healthy",
   ShuttingDown: "shutting down",
+  Healthy: "healthy",
   Standby: "standby",
 } as const;
-/**
- * Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
- */
 export type HealthServerStatusStatus = OpenEnum<
   typeof HealthServerStatusStatus
 >;
 
-/**
- * Health status of the Leader or Worker Node.
- */
 export type HealthServerStatus = {
-  /**
-   * Leader Node role: <code>primary</code> or <code>standby</code>.
-   */
   role?: Role | undefined;
-  /**
-   * Timestamp (in Unix time) when the Cribl process started.
-   */
   startTime: number;
-  /**
-   * Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
-   */
   status: HealthServerStatusStatus;
 };
 
