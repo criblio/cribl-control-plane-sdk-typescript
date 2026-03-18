@@ -234,6 +234,11 @@ import {
   InputSecurityLake$outboundSchema,
 } from "./inputsecuritylake.js";
 import {
+  InputServicenowTable,
+  InputServicenowTable$Outbound,
+  InputServicenowTable$outboundSchema,
+} from "./inputservicenowtable.js";
+import {
   InputSnmp,
   InputSnmp$Outbound,
   InputSnmp$outboundSchema,
@@ -375,6 +380,7 @@ export type Input2 =
   | InputWizWebhook
   | InputNetflow
   | InputSecurityLake
+  | InputServicenowTable
   | InputZscalerHec
   | InputCloudflareHec;
 
@@ -440,6 +446,7 @@ export type Input2$Outbound =
   | InputWizWebhook$Outbound
   | InputNetflow$Outbound
   | InputSecurityLake$Outbound
+  | InputServicenowTable$Outbound
   | InputZscalerHec$Outbound
   | InputCloudflareHec$Outbound;
 
@@ -511,6 +518,7 @@ export const Input2$outboundSchema: z.ZodType<
   InputWizWebhook$outboundSchema,
   InputNetflow$outboundSchema,
   InputSecurityLake$outboundSchema,
+  InputServicenowTable$outboundSchema,
   InputZscalerHec$outboundSchema,
   InputCloudflareHec$outboundSchema,
 ]);

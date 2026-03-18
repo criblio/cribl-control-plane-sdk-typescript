@@ -364,6 +364,41 @@ export type CreateInputInputZscalerHec = {
   __template_hecAPI?: string | undefined;
 };
 
+export type CreateInputInputServicenowTable = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  description?: string | undefined;
+};
+
 export type CreateInputInputSecurityLake = {
   /**
    * Unique ID for this input
@@ -6011,6 +6046,21 @@ export type CreateInputInputEventhub = {
   description?: string | undefined;
 };
 
+/**
+ * Select authentication method.
+ */
+export const CreateInputAuthenticationMethodMicrosoftGraph = {
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputAuthenticationMethodMicrosoftGraph = OpenEnum<
+  typeof CreateInputAuthenticationMethodMicrosoftGraph
+>;
+
 export type CreateInputInputMicrosoftGraph = {
   /**
    * Unique ID for this input
@@ -6070,7 +6120,7 @@ export type CreateInputInputMicrosoftGraph = {
   /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptionsManualOauth | undefined;
+  authType?: CreateInputAuthenticationMethodMicrosoftGraph | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -6110,18 +6160,6 @@ export type CreateInputInputMicrosoftGraph = {
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
-   * Username to run Microsoft Graph API call.
-   */
-  username?: string | undefined;
-  /**
-   * Password to run Microsoft Graph API call.
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials.
-   */
-  credentialsSecret?: string | undefined;
-  /**
    * client_secret to pass in the OAuth request parameter.
    */
   clientSecret?: string | undefined;
@@ -6138,7 +6176,7 @@ export type CreateInputInputMicrosoftGraph = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
@@ -6163,6 +6201,23 @@ export type CreateInputInputMicrosoftGraph = {
    */
   __template_resource?: string | undefined;
 };
+
+/**
+ * Select authentication method.
+ */
+export const CreateInputAuthenticationMethodOffice365MsgTrace = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputAuthenticationMethodOffice365MsgTrace = OpenEnum<
+  typeof CreateInputAuthenticationMethodOffice365MsgTrace
+>;
 
 export type CreateInputInputOffice365MsgTrace = {
   /**
@@ -6223,7 +6278,7 @@ export type CreateInputInputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptionsManualOauth | undefined;
+  authType?: CreateInputAuthenticationMethodOffice365MsgTrace | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -6291,7 +6346,7 @@ export type CreateInputInputOffice365MsgTrace = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
@@ -6319,7 +6374,7 @@ export type CreateInputInputOffice365MsgTrace = {
 
 export type CreateInputContentConfigOffice365Service = {
   /**
-   * Office 365 Services API Content Type
+   * Microsoft 365 Services API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -6367,15 +6422,15 @@ export type CreateInputInputOffice365Service = {
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
-   * Office 365 Azure Tenant ID
+   * Microsoft 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Office 365 Azure Application ID
+   * Microsoft 365 Azure Application ID
    */
   appId: string;
   /**
@@ -6407,7 +6462,7 @@ export type CreateInputInputOffice365Service = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
-   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<CreateInputContentConfigOffice365Service> | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
@@ -6417,7 +6472,7 @@ export type CreateInputInputOffice365Service = {
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
-   * Office 365 Azure client secret
+   * Microsoft 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**
@@ -6440,7 +6495,7 @@ export type CreateInputInputOffice365Service = {
 
 export type CreateInputContentConfigOffice365Mgmt = {
   /**
-   * Office 365 Management Activity API Content Type
+   * Microsoft 365 Management Activity API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -6488,15 +6543,15 @@ export type CreateInputInputOffice365Mgmt = {
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType: models.SubscriptionPlanOptions;
   /**
-   * Office 365 Azure Tenant ID
+   * Microsoft 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Office 365 Azure Application ID
+   * Microsoft 365 Azure Application ID
    */
   appId: string;
   /**
@@ -6532,11 +6587,11 @@ export type CreateInputInputOffice365Mgmt = {
    */
   publisherIdentifier?: string | undefined;
   /**
-   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<CreateInputContentConfigOffice365Mgmt> | undefined;
   /**
-   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
@@ -6546,7 +6601,7 @@ export type CreateInputInputOffice365Mgmt = {
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
-   * Office 365 Azure client secret
+   * Microsoft 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**
@@ -9305,6 +9360,7 @@ export type CreateInputRequest =
   | CreateInputInputWizWebhook
   | CreateInputInputNetflow
   | CreateInputInputSecurityLake
+  | CreateInputInputServicenowTable
   | CreateInputInputZscalerHec
   | CreateInputInputCloudflareHec;
 
@@ -9615,6 +9671,51 @@ export function createInputInputZscalerHecToJSON(
 ): string {
   return JSON.stringify(
     CreateInputInputZscalerHec$outboundSchema.parse(createInputInputZscalerHec),
+  );
+}
+
+/** @internal */
+export type CreateInputInputServicenowTable$Outbound = {
+  id: string;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputServicenowTable$outboundSchema: z.ZodType<
+  CreateInputInputServicenowTable$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputServicenowTable
+> = z.object({
+  id: z.string(),
+  type: z.literal("servicenow_table"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function createInputInputServicenowTableToJSON(
+  createInputInputServicenowTable: CreateInputInputServicenowTable,
+): string {
+  return JSON.stringify(
+    CreateInputInputServicenowTable$outboundSchema.parse(
+      createInputInputServicenowTable,
+    ),
   );
 }
 
@@ -14675,6 +14776,14 @@ export function createInputInputEventhubToJSON(
 }
 
 /** @internal */
+export const CreateInputAuthenticationMethodMicrosoftGraph$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationMethodMicrosoftGraph
+  > = openEnums.outboundSchema(CreateInputAuthenticationMethodMicrosoftGraph);
+
+/** @internal */
 export type CreateInputInputMicrosoftGraph$Outbound = {
   id: string;
   type: "microsoft_graph";
@@ -14704,9 +14813,6 @@ export type CreateInputInputMicrosoftGraph$Outbound = {
   logLevel?: string | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
   clientId?: string | undefined;
@@ -14743,7 +14849,7 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: models.AuthenticationMethodOptionsManualOauth$outboundSchema
+  authType: CreateInputAuthenticationMethodMicrosoftGraph$outboundSchema
     .optional(),
   keepAliveTime: z.number().optional(),
   jobTimeout: z.string().optional(),
@@ -14756,9 +14862,6 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   logLevel: models.LogLevelOptions$outboundSchema.optional(),
   retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
   description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
   clientSecret: z.string().optional(),
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
@@ -14781,6 +14884,16 @@ export function createInputInputMicrosoftGraphToJSON(
     ),
   );
 }
+
+/** @internal */
+export const CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationMethodOffice365MsgTrace
+  > = openEnums.outboundSchema(
+    CreateInputAuthenticationMethodOffice365MsgTrace,
+  );
 
 /** @internal */
 export type CreateInputInputOffice365MsgTrace$Outbound = {
@@ -14851,7 +14964,7 @@ export const CreateInputInputOffice365MsgTrace$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: models.AuthenticationMethodOptionsManualOauth$outboundSchema
+  authType: CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema
     .optional(),
   keepAliveTime: z.number().optional(),
   jobTimeout: z.string().optional(),
@@ -17234,6 +17347,7 @@ export type CreateInputRequest$Outbound =
   | CreateInputInputWizWebhook$Outbound
   | CreateInputInputNetflow$Outbound
   | CreateInputInputSecurityLake$Outbound
+  | CreateInputInputServicenowTable$Outbound
   | CreateInputInputZscalerHec$Outbound
   | CreateInputInputCloudflareHec$Outbound;
 
@@ -17309,6 +17423,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputInputWizWebhook$outboundSchema),
   z.lazy(() => CreateInputInputNetflow$outboundSchema),
   z.lazy(() => CreateInputInputSecurityLake$outboundSchema),
+  z.lazy(() => CreateInputInputServicenowTable$outboundSchema),
   z.lazy(() => CreateInputInputZscalerHec$outboundSchema),
   z.lazy(() => CreateInputInputCloudflareHec$outboundSchema),
 ]);

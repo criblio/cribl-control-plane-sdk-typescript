@@ -10,7 +10,6 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp,
@@ -167,35 +166,27 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader = {
   shouldMarkCriblBreaker?: boolean | undefined;
 };
 
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew =
-  {
-    /**
-     * Use Existing
-     */
-    Existing: "existing",
-    /**
-     * Create New
-     */
-    New: "new",
-  } as const;
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew =
-  OpenEnum<
-    typeof EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew
-  >;
-
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat =
-  {
-    type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
-    length?: number | undefined;
-    format?: string | undefined;
-  };
-
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse = {
+export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew = {
   /**
-   * Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
+   * Use Existing
    */
-  jsonExtractAll?: boolean | undefined;
-  ruleType?: string | undefined;
+  Existing: "existing",
+  /**
+   * Create New
+   */
+  New: "new",
+} as const;
+export type EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew =
+  OpenEnum<typeof EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew>;
+
+export type EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat = {
+  type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
+  length?: number | undefined;
+  format?: string | undefined;
+};
+
+export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
+  ruleType: "json_array";
   /**
    * The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
    */
@@ -205,87 +196,18 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse = {
    */
   parentFieldsToCopy?: Array<string> | undefined;
   /**
-   * List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-   */
-  fieldsToRemove?: Array<string> | undefined;
-  existingOrNew:
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew;
-  /**
-   * The maximum number of bytes that an event can be before being flushed to the Pipelines
-   */
-  maxEventBytes?: number | undefined;
-  /**
-   * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-   */
-  timestampAnchorRegex?: string | undefined;
-  timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat
-    | undefined;
-  /**
-   * Timezone to assign to timestamps without timezone info
-   */
-  timestampTimezone?: string | undefined;
-  /**
-   * The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
-   */
-  timestampEarliest?: string | undefined;
-  /**
-   * The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
-   */
-  timestampLatest?: string | undefined;
-  /**
-   * Add this Function name to the cribl_breaker field
-   */
-  shouldMarkCriblBreaker?: boolean | undefined;
-};
-
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew =
-  {
-    /**
-     * Use Existing
-     */
-    Existing: "existing",
-    /**
-     * Create New
-     */
-    New: "new",
-  } as const;
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew =
-  OpenEnum<
-    typeof EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew
-  >;
-
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat =
-  {
-    type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
-    length?: number | undefined;
-    format?: string | undefined;
-  };
-
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue = {
-  /**
    * Automatically extract fields from JSON events. When disabled, only _raw and _time are defined on extracted events.
    */
   jsonExtractAll?: boolean | undefined;
+  /**
+   * List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+   */
+  fieldsToRemove?: Array<string> | undefined;
   /**
    * Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
    */
   jsonTimeField?: string | undefined;
-  ruleType?: string | undefined;
-  /**
-   * The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
-   */
-  jsonArrayField?: string | undefined;
-  /**
-   * Top-level fields to copy to the output events. Nested fields are not supported. 'Array field' is always excluded. If 'Array field' points to a nested array, the entire top-level object will be excluded. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-   */
-  parentFieldsToCopy?: Array<string> | undefined;
-  /**
-   * List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
-   */
-  fieldsToRemove?: Array<string> | undefined;
-  existingOrNew:
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew;
+  existingOrNew: EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew;
   /**
    * The maximum number of bytes that an event can be before being flushed to the Pipelines
    */
@@ -295,7 +217,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue = {
    */
   timestampAnchorRegex?: string | undefined;
   timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat
+    | EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat
     | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
@@ -314,10 +236,6 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue = {
    */
   shouldMarkCriblBreaker?: boolean | undefined;
 };
-
-export type EventBreakerExistingOrNewNewRuleTypeJsonArray =
-  | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue
-  | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse;
 
 export const EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew = {
   /**
@@ -430,12 +348,7 @@ export type EventBreakerExistingOrNewNewRuleTypeRegex = {
 export type EventBreakerExistingOrNewNew =
   | EventBreakerExistingOrNewNewRuleTypeRegex
   | EventBreakerExistingOrNewNewRuleTypeJson
-  | (
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse & {
-      ruleType: "json_array";
-    }
-  )
+  | EventBreakerExistingOrNewNewRuleTypeJsonArray
   | EventBreakerExistingOrNewNewRuleTypeHeader
   | EventBreakerExistingOrNewNewRuleTypeCsv
   | discriminatedUnionTypes.Unknown<"ruleType">;
@@ -444,12 +357,7 @@ export type PipelineFunctionEventBreakerConf =
   | (
     | EventBreakerExistingOrNewNewRuleTypeRegex
     | EventBreakerExistingOrNewNewRuleTypeJson
-    | (
-      | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue
-      | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse & {
-        ruleType: "json_array";
-      }
-    )
+    | EventBreakerExistingOrNewNewRuleTypeJsonArray
     | EventBreakerExistingOrNewNewRuleTypeHeader
     | EventBreakerExistingOrNewNewRuleTypeCsv
     | discriminatedUnionTypes.Unknown<"ruleType"> & { existingOrNew: "new" }
@@ -482,12 +390,7 @@ export type PipelineFunctionEventBreaker = {
     | (
       | EventBreakerExistingOrNewNewRuleTypeRegex
       | EventBreakerExistingOrNewNewRuleTypeJson
-      | (
-        | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue
-        | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse & {
-          ruleType: "json_array";
-        }
-      )
+      | EventBreakerExistingOrNewNewRuleTypeJsonArray
       | EventBreakerExistingOrNewNewRuleTypeHeader
       | EventBreakerExistingOrNewNewRuleTypeCsv
       | discriminatedUnionTypes.Unknown<"ruleType"> & { existingOrNew: "new" }
@@ -890,28 +793,28 @@ export function eventBreakerExistingOrNewNewRuleTypeHeaderFromJSON(
 }
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew$inboundSchema:
+export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$inboundSchema:
   z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew,
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew,
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew,
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew,
   );
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew$outboundSchema:
+export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew
   > = openEnums.outboundSchema(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew,
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew,
   );
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$inboundSchema:
+export const EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$inboundSchema:
   z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat,
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat,
     z.ZodTypeDef,
     unknown
   > = z.object({
@@ -921,7 +824,7 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTim
     format: types.optional(types.string()),
   });
 /** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$Outbound =
+export type EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$Outbound =
   {
     type: string;
     length?: number | undefined;
@@ -929,11 +832,11 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTime
   };
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$outboundSchema:
+export const EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$outboundSchema:
   z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$Outbound,
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$Outbound,
     z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat
   > = z.object({
     type:
       TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
@@ -941,300 +844,27 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTim
     format: z.string().optional(),
   });
 
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormatToJSON(
-  eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat:
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat,
+export function eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormatToJSON(
+  eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat:
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat,
 ): string {
   return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$outboundSchema
-      .parse(
-        eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat,
-      ),
+    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$outboundSchema
+      .parse(eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat),
   );
 }
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormatFromJSON(
+export function eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormatFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat,
+  EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$inboundSchema
+      EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$inboundSchema
         .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat' from JSON`,
-  );
-}
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    jsonExtractAll: types.optional(types.boolean()),
-    ruleType: types.optional(types.string()),
-    jsonArrayField: types.optional(types.string()),
-    parentFieldsToCopy: types.optional(z.array(types.string())),
-    fieldsToRemove: types.optional(z.array(types.string())),
-    existingOrNew:
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew$inboundSchema,
-    maxEventBytes: types.optional(types.number()),
-    timestampAnchorRegex: types.optional(types.string()),
-    timestamp: types.optional(
-      z.lazy(() =>
-        EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$inboundSchema
-      ),
-    ),
-    timestampTimezone: types.optional(types.string()),
-    timestampEarliest: types.optional(types.string()),
-    timestampLatest: types.optional(types.string()),
-    shouldMarkCriblBreaker: types.optional(types.boolean()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$Outbound =
-  {
-    jsonExtractAll?: boolean | undefined;
-    ruleType?: string | undefined;
-    jsonArrayField?: string | undefined;
-    parentFieldsToCopy?: Array<string> | undefined;
-    fieldsToRemove?: Array<string> | undefined;
-    existingOrNew: string;
-    maxEventBytes?: number | undefined;
-    timestampAnchorRegex?: string | undefined;
-    timestamp?:
-      | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$Outbound
-      | undefined;
-    timestampTimezone?: string | undefined;
-    timestampEarliest?: string | undefined;
-    timestampLatest?: string | undefined;
-    shouldMarkCriblBreaker?: boolean | undefined;
-  };
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse
-  > = z.object({
-    jsonExtractAll: z.boolean().optional(),
-    ruleType: z.string().optional(),
-    jsonArrayField: z.string().optional(),
-    parentFieldsToCopy: z.array(z.string()).optional(),
-    fieldsToRemove: z.array(z.string()).optional(),
-    existingOrNew:
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseExistingOrNew$outboundSchema,
-    maxEventBytes: z.number().optional(),
-    timestampAnchorRegex: z.string().optional(),
-    timestamp: z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseTimestampFormat$outboundSchema
-    ).optional(),
-    timestampTimezone: z.string().optional(),
-    timestampEarliest: z.string().optional(),
-    timestampLatest: z.string().optional(),
-    shouldMarkCriblBreaker: z.boolean().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseToJSON(
-  eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse:
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$outboundSchema
-      .parse(eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse' from JSON`,
-  );
-}
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew,
-  );
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew
-  > = openEnums.outboundSchema(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew,
-  );
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$inboundSchema,
-    length: types.optional(types.number()),
-    format: types.optional(types.string()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$Outbound =
-  {
-    type: string;
-    length?: number | undefined;
-    format?: string | undefined;
-  };
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
-    length: z.number().optional(),
-    format: z.string().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormatToJSON(
-  eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat:
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$outboundSchema
-      .parse(
-        eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat,
-      ),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormatFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat' from JSON`,
-  );
-}
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    jsonExtractAll: types.optional(types.boolean()),
-    jsonTimeField: types.optional(types.string()),
-    ruleType: types.optional(types.string()),
-    jsonArrayField: types.optional(types.string()),
-    parentFieldsToCopy: types.optional(z.array(types.string())),
-    fieldsToRemove: types.optional(z.array(types.string())),
-    existingOrNew:
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew$inboundSchema,
-    maxEventBytes: types.optional(types.number()),
-    timestampAnchorRegex: types.optional(types.string()),
-    timestamp: types.optional(
-      z.lazy(() =>
-        EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$inboundSchema
-      ),
-    ),
-    timestampTimezone: types.optional(types.string()),
-    timestampEarliest: types.optional(types.string()),
-    timestampLatest: types.optional(types.string()),
-    shouldMarkCriblBreaker: types.optional(types.boolean()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$Outbound =
-  {
-    jsonExtractAll?: boolean | undefined;
-    jsonTimeField?: string | undefined;
-    ruleType?: string | undefined;
-    jsonArrayField?: string | undefined;
-    parentFieldsToCopy?: Array<string> | undefined;
-    fieldsToRemove?: Array<string> | undefined;
-    existingOrNew: string;
-    maxEventBytes?: number | undefined;
-    timestampAnchorRegex?: string | undefined;
-    timestamp?:
-      | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$Outbound
-      | undefined;
-    timestampTimezone?: string | undefined;
-    timestampEarliest?: string | undefined;
-    timestampLatest?: string | undefined;
-    shouldMarkCriblBreaker?: boolean | undefined;
-  };
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue
-  > = z.object({
-    jsonExtractAll: z.boolean().optional(),
-    jsonTimeField: z.string().optional(),
-    ruleType: z.string().optional(),
-    jsonArrayField: z.string().optional(),
-    parentFieldsToCopy: z.array(z.string()).optional(),
-    fieldsToRemove: z.array(z.string()).optional(),
-    existingOrNew:
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueExistingOrNew$outboundSchema,
-    maxEventBytes: z.number().optional(),
-    timestampAnchorRegex: z.string().optional(),
-    timestamp: z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueTimestampFormat$outboundSchema
-    ).optional(),
-    timestampTimezone: z.string().optional(),
-    timestampEarliest: z.string().optional(),
-    timestampLatest: z.string().optional(),
-    shouldMarkCriblBreaker: z.boolean().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueToJSON(
-  eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue:
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$outboundSchema
-      .parse(eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrueFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue' from JSON`,
+    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat' from JSON`,
   );
 }
 
@@ -1244,18 +874,46 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArray$inboundSchema:
     EventBreakerExistingOrNewNewRuleTypeJsonArray,
     z.ZodTypeDef,
     unknown
-  > = smartUnion([
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$inboundSchema
+  > = z.object({
+    ruleType: types.literal("json_array"),
+    jsonArrayField: types.optional(types.string()),
+    parentFieldsToCopy: types.optional(z.array(types.string())),
+    jsonExtractAll: types.optional(types.boolean()),
+    fieldsToRemove: types.optional(z.array(types.string())),
+    jsonTimeField: types.optional(types.string()),
+    existingOrNew:
+      EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$inboundSchema,
+    maxEventBytes: types.optional(types.number()),
+    timestampAnchorRegex: types.optional(types.string()),
+    timestamp: types.optional(
+      z.lazy(() =>
+        EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$inboundSchema
+      ),
     ),
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$inboundSchema
-    ),
-  ]);
+    timestampTimezone: types.optional(types.string()),
+    timestampEarliest: types.optional(types.string()),
+    timestampLatest: types.optional(types.string()),
+    shouldMarkCriblBreaker: types.optional(types.boolean()),
+  });
 /** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound =
-  | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$Outbound
-  | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$Outbound;
+export type EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound = {
+  ruleType: "json_array";
+  jsonArrayField?: string | undefined;
+  parentFieldsToCopy?: Array<string> | undefined;
+  jsonExtractAll?: boolean | undefined;
+  fieldsToRemove?: Array<string> | undefined;
+  jsonTimeField?: string | undefined;
+  existingOrNew: string;
+  maxEventBytes?: number | undefined;
+  timestampAnchorRegex?: string | undefined;
+  timestamp?:
+    | EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$Outbound
+    | undefined;
+  timestampTimezone?: string | undefined;
+  timestampEarliest?: string | undefined;
+  timestampLatest?: string | undefined;
+  shouldMarkCriblBreaker?: boolean | undefined;
+};
 
 /** @internal */
 export const EventBreakerExistingOrNewNewRuleTypeJsonArray$outboundSchema:
@@ -1263,14 +921,25 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArray$outboundSchema:
     EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound,
     z.ZodTypeDef,
     EventBreakerExistingOrNewNewRuleTypeJsonArray
-  > = smartUnion([
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$outboundSchema
-    ),
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$outboundSchema
-    ),
-  ]);
+  > = z.object({
+    ruleType: z.literal("json_array"),
+    jsonArrayField: z.string().optional(),
+    parentFieldsToCopy: z.array(z.string()).optional(),
+    jsonExtractAll: z.boolean().optional(),
+    fieldsToRemove: z.array(z.string()).optional(),
+    jsonTimeField: z.string().optional(),
+    existingOrNew:
+      EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$outboundSchema,
+    maxEventBytes: z.number().optional(),
+    timestampAnchorRegex: z.string().optional(),
+    timestamp: z.lazy(() =>
+      EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$outboundSchema
+    ).optional(),
+    timestampTimezone: z.string().optional(),
+    timestampEarliest: z.string().optional(),
+    timestampLatest: z.string().optional(),
+    shouldMarkCriblBreaker: z.boolean().optional(),
+  });
 
 export function eventBreakerExistingOrNewNewRuleTypeJsonArrayToJSON(
   eventBreakerExistingOrNewNewRuleTypeJsonArray:
@@ -1625,14 +1294,9 @@ export const EventBreakerExistingOrNewNew$inboundSchema: z.ZodType<
 > = discriminatedUnion("ruleType", {
   regex: z.lazy(() => EventBreakerExistingOrNewNewRuleTypeRegex$inboundSchema),
   json: z.lazy(() => EventBreakerExistingOrNewNewRuleTypeJson$inboundSchema),
-  json_array: smartUnion([
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$inboundSchema
-    ),
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$inboundSchema
-    ),
-  ]).and(z.object({ ruleType: z.literal("json_array") })),
+  json_array: z.lazy(() =>
+    EventBreakerExistingOrNewNewRuleTypeJsonArray$inboundSchema
+  ),
   header: z.lazy(() =>
     EventBreakerExistingOrNewNewRuleTypeHeader$inboundSchema
   ),
@@ -1642,11 +1306,7 @@ export const EventBreakerExistingOrNewNew$inboundSchema: z.ZodType<
 export type EventBreakerExistingOrNewNew$Outbound =
   | EventBreakerExistingOrNewNewRuleTypeRegex$Outbound
   | EventBreakerExistingOrNewNewRuleTypeJson$Outbound
-  | (
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$Outbound
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$Outbound
-      & { ruleType: "json_array" }
-  )
+  | EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound
   | EventBreakerExistingOrNewNewRuleTypeHeader$Outbound
   | EventBreakerExistingOrNewNewRuleTypeCsv$Outbound;
 
@@ -1658,14 +1318,7 @@ export const EventBreakerExistingOrNewNew$outboundSchema: z.ZodType<
 > = z.union([
   z.lazy(() => EventBreakerExistingOrNewNewRuleTypeRegex$outboundSchema),
   z.lazy(() => EventBreakerExistingOrNewNewRuleTypeJson$outboundSchema),
-  smartUnion([
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$outboundSchema
-    ),
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$outboundSchema
-    ),
-  ]).and(z.object({ ruleType: z.literal("json_array") })),
+  z.lazy(() => EventBreakerExistingOrNewNewRuleTypeJsonArray$outboundSchema),
   z.lazy(() => EventBreakerExistingOrNewNewRuleTypeHeader$outboundSchema),
   z.lazy(() => EventBreakerExistingOrNewNewRuleTypeCsv$outboundSchema),
 ]);
@@ -1700,14 +1353,9 @@ export const PipelineFunctionEventBreakerConf$inboundSchema: z.ZodType<
       EventBreakerExistingOrNewNewRuleTypeRegex$inboundSchema
     ),
     json: z.lazy(() => EventBreakerExistingOrNewNewRuleTypeJson$inboundSchema),
-    json_array: smartUnion([
-      z.lazy(() =>
-        EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$inboundSchema
-      ),
-      z.lazy(() =>
-        EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$inboundSchema
-      ),
-    ]).and(z.object({ ruleType: z.literal("json_array") })),
+    json_array: z.lazy(() =>
+      EventBreakerExistingOrNewNewRuleTypeJsonArray$inboundSchema
+    ),
     header: z.lazy(() =>
       EventBreakerExistingOrNewNewRuleTypeHeader$inboundSchema
     ),
@@ -1720,11 +1368,7 @@ export type PipelineFunctionEventBreakerConf$Outbound =
   | (
     | EventBreakerExistingOrNewNewRuleTypeRegex$Outbound
     | EventBreakerExistingOrNewNewRuleTypeJson$Outbound
-    | (
-      | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$Outbound
-      | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$Outbound
-        & { ruleType: "json_array" }
-    )
+    | EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound
     | EventBreakerExistingOrNewNewRuleTypeHeader$Outbound
     | EventBreakerExistingOrNewNewRuleTypeCsv$Outbound & {
       existingOrNew: "new";
@@ -1741,14 +1385,7 @@ export const PipelineFunctionEventBreakerConf$outboundSchema: z.ZodType<
   z.union([
     z.lazy(() => EventBreakerExistingOrNewNewRuleTypeRegex$outboundSchema),
     z.lazy(() => EventBreakerExistingOrNewNewRuleTypeJson$outboundSchema),
-    smartUnion([
-      z.lazy(() =>
-        EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$outboundSchema
-      ),
-      z.lazy(() =>
-        EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$outboundSchema
-      ),
-    ]).and(z.object({ ruleType: z.literal("json_array") })),
+    z.lazy(() => EventBreakerExistingOrNewNewRuleTypeJsonArray$outboundSchema),
     z.lazy(() => EventBreakerExistingOrNewNewRuleTypeHeader$outboundSchema),
     z.lazy(() => EventBreakerExistingOrNewNewRuleTypeCsv$outboundSchema),
   ]).and(z.object({ existingOrNew: z.literal("new") })),
@@ -1793,14 +1430,9 @@ export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
       json: z.lazy(() =>
         EventBreakerExistingOrNewNewRuleTypeJson$inboundSchema
       ),
-      json_array: smartUnion([
-        z.lazy(() =>
-          EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$inboundSchema
-        ),
-        z.lazy(() =>
-          EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$inboundSchema
-        ),
-      ]).and(z.object({ ruleType: z.literal("json_array") })),
+      json_array: z.lazy(() =>
+        EventBreakerExistingOrNewNewRuleTypeJsonArray$inboundSchema
+      ),
       header: z.lazy(() =>
         EventBreakerExistingOrNewNewRuleTypeHeader$inboundSchema
       ),
@@ -1821,11 +1453,7 @@ export type PipelineFunctionEventBreaker$Outbound = {
     | (
       | EventBreakerExistingOrNewNewRuleTypeRegex$Outbound
       | EventBreakerExistingOrNewNewRuleTypeJson$Outbound
-      | (
-        | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$Outbound
-        | EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$Outbound
-          & { ruleType: "json_array" }
-      )
+      | EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound
       | EventBreakerExistingOrNewNewRuleTypeHeader$Outbound
       | EventBreakerExistingOrNewNewRuleTypeCsv$Outbound & {
         existingOrNew: "new";
@@ -1850,14 +1478,9 @@ export const PipelineFunctionEventBreaker$outboundSchema: z.ZodType<
     z.union([
       z.lazy(() => EventBreakerExistingOrNewNewRuleTypeRegex$outboundSchema),
       z.lazy(() => EventBreakerExistingOrNewNewRuleTypeJson$outboundSchema),
-      smartUnion([
-        z.lazy(() =>
-          EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllTrue$outboundSchema
-        ),
-        z.lazy(() =>
-          EventBreakerExistingOrNewNewRuleTypeJsonArrayJsonExtractAllFalse$outboundSchema
-        ),
-      ]).and(z.object({ ruleType: z.literal("json_array") })),
+      z.lazy(() =>
+        EventBreakerExistingOrNewNewRuleTypeJsonArray$outboundSchema
+      ),
       z.lazy(() => EventBreakerExistingOrNewNewRuleTypeHeader$outboundSchema),
       z.lazy(() => EventBreakerExistingOrNewNewRuleTypeCsv$outboundSchema),
     ]).and(z.object({ existingOrNew: z.literal("new") })),

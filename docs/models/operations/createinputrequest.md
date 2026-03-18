@@ -689,6 +689,15 @@ const value: operations.CreateInputInputSecurityLake = {
 };
 ```
 
+### `operations.CreateInputInputServicenowTable`
+
+```typescript
+const value: operations.CreateInputInputServicenowTable = {
+  id: "<id>",
+  type: "servicenow_table",
+};
+```
+
 ### `operations.CreateInputInputZscalerHec`
 
 ```typescript

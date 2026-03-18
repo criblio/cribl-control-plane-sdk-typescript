@@ -704,6 +704,15 @@ const value: operations.CreateInputSystemByPackInputSecurityLake = {
 };
 ```
 
+### `operations.CreateInputSystemByPackInputServicenowTable`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputServicenowTable = {
+  id: "<id>",
+  type: "servicenow_table",
+};
+```
+
 ### `operations.CreateInputSystemByPackInputZscalerHec`
 
 ```typescript
