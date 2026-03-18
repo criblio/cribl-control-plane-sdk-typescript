@@ -314,6 +314,15 @@ const value: models.PipelineFunctionLocalSearchRulesetRunner = {
 };
 ```
 
+### `models.PipelineFunctionLocalSearchSchemaMapper`
+
+```typescript
+const value: models.PipelineFunctionLocalSearchSchemaMapper = {
+  id: "local_search_schema_mapper",
+  conf: {},
+};
+```
+
 ### `models.PipelineFunctionLocalSearchTransformer`
 
 ```typescript

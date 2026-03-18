@@ -833,7 +833,7 @@ export type RestAuthenticationLoginSecret = {
    */
   credentialsSecret: string;
   /**
-   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
    */
   loginBody: string;
   /**
@@ -1496,7 +1496,7 @@ export type RestAuthenticationLogin = {
   username: string;
   password: string;
   /**
-   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
    */
   loginBody: string;
   /**
