@@ -1,12 +1,12 @@
-# RoutesGroups
+# AdditionalPropertiesTypeRoutesGroups
 
 ## Example Usage
 
 ```typescript
-import { RoutesGroups } from "cribl-control-plane/models";
+import { AdditionalPropertiesTypeRoutesGroups } from "cribl-control-plane/models";
 
-let value: RoutesGroups = {
-  index: 7663.1,
+let value: AdditionalPropertiesTypeRoutesGroups = {
+  index: 6416.41,
   name: "<value>",
 };
 ```

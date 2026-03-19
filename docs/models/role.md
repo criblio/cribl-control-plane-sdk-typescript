@@ -1,11 +1,13 @@
 # Role
 
+Leader Node role: <code>primary</code> or <code>standby</code>.
+
 ## Example Usage
 
 ```typescript
 import { Role } from "cribl-control-plane/models";
 
-let value: Role = "standby";
+let value: Role = "primary";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +15,5 @@ let value: Role = "standby";
 ## Values
 
 ```typescript
-"standby" | "primary" | Unrecognized<string>
+"primary" | "standby" | Unrecognized<string>
 ```
