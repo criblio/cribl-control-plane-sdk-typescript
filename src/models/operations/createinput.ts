@@ -6019,6 +6019,21 @@ export type CreateInputInputEventhub = {
   description?: string | undefined;
 };
 
+/**
+ * Select authentication method.
+ */
+export const CreateInputAuthenticationMethodMicrosoftGraph = {
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputAuthenticationMethodMicrosoftGraph = OpenEnum<
+  typeof CreateInputAuthenticationMethodMicrosoftGraph
+>;
+
 export type CreateInputInputMicrosoftGraph = {
   /**
    * Unique ID for this input
@@ -6078,7 +6093,7 @@ export type CreateInputInputMicrosoftGraph = {
   /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: CreateInputAuthenticationMethodMicrosoftGraph | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -6117,18 +6132,6 @@ export type CreateInputInputMicrosoftGraph = {
   logLevel?: models.LogLevelOptions | undefined;
   retryRules?: models.RetryRulesType1 | undefined;
   description?: string | undefined;
-  /**
-   * Username to run Microsoft Graph API call.
-   */
-  username?: string | undefined;
-  /**
-   * Password to run Microsoft Graph API call.
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials.
-   */
-  credentialsSecret?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
    */
@@ -6171,6 +6174,23 @@ export type CreateInputInputMicrosoftGraph = {
    */
   __template_resource?: string | undefined;
 };
+
+/**
+ * Select authentication method.
+ */
+export const CreateInputAuthenticationMethodOffice365MsgTrace = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputAuthenticationMethodOffice365MsgTrace = OpenEnum<
+  typeof CreateInputAuthenticationMethodOffice365MsgTrace
+>;
 
 export type CreateInputInputOffice365MsgTrace = {
   /**
@@ -6231,7 +6251,7 @@ export type CreateInputInputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?: CreateInputAuthenticationMethodOffice365MsgTrace | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -14669,6 +14689,14 @@ export function createInputInputEventhubToJSON(
 }
 
 /** @internal */
+export const CreateInputAuthenticationMethodMicrosoftGraph$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationMethodMicrosoftGraph
+  > = openEnums.outboundSchema(CreateInputAuthenticationMethodMicrosoftGraph);
+
+/** @internal */
 export type CreateInputInputMicrosoftGraph$Outbound = {
   id: string;
   type: "microsoft_graph";
@@ -14698,9 +14726,6 @@ export type CreateInputInputMicrosoftGraph$Outbound = {
   logLevel?: string | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
   clientId?: string | undefined;
@@ -14737,7 +14762,8 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: CreateInputAuthenticationMethodMicrosoftGraph$outboundSchema
+    .optional(),
   keepAliveTime: z.number().optional(),
   jobTimeout: z.string().optional(),
   maxMissedKeepAlives: z.number().optional(),
@@ -14749,9 +14775,6 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   logLevel: models.LogLevelOptions$outboundSchema.optional(),
   retryRules: models.RetryRulesType1$outboundSchema.optional(),
   description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
   clientSecret: z.string().optional(),
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
@@ -14774,6 +14797,16 @@ export function createInputInputMicrosoftGraphToJSON(
     ),
   );
 }
+
+/** @internal */
+export const CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationMethodOffice365MsgTrace
+  > = openEnums.outboundSchema(
+    CreateInputAuthenticationMethodOffice365MsgTrace,
+  );
 
 /** @internal */
 export type CreateInputInputOffice365MsgTrace$Outbound = {
@@ -14844,7 +14877,8 @@ export const CreateInputInputOffice365MsgTrace$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema
+    .optional(),
   keepAliveTime: z.number().optional(),
   jobTimeout: z.string().optional(),
   maxMissedKeepAlives: z.number().optional(),
