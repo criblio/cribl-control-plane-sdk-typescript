@@ -541,6 +541,10 @@ export type OutputAzureDataExplorer = {
    */
   __template_table?: string | undefined;
   /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
   __template_tenantId?: string | undefined;
@@ -561,9 +565,25 @@ export type OutputAzureDataExplorer = {
    */
   __template_format?: string | undefined;
   /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
+   */
+  __template_mappingRef?: string | undefined;
+  /**
    * Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
    */
   __template_ingestUrl?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
 };
 
 /** @internal */
@@ -926,12 +946,17 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   __template_clusterUrl: types.optional(types.string()),
   __template_database: types.optional(types.string()),
   __template_table: types.optional(types.string()),
+  __template_oauthEndpoint: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
   __template_scope: types.optional(types.string()),
   __template_clientSecret: types.optional(types.string()),
   __template_format: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
+  __template_mappingRef: types.optional(types.string()),
   __template_ingestUrl: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
 });
 /** @internal */
 export type OutputAzureDataExplorer$Outbound = {
@@ -1025,12 +1050,17 @@ export type OutputAzureDataExplorer$Outbound = {
   __template_clusterUrl?: string | undefined;
   __template_database?: string | undefined;
   __template_table?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
   __template_scope?: string | undefined;
   __template_clientSecret?: string | undefined;
   __template_format?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_mappingRef?: string | undefined;
   __template_ingestUrl?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
 };
 
 /** @internal */
@@ -1133,12 +1163,17 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   __template_clusterUrl: z.string().optional(),
   __template_database: z.string().optional(),
   __template_table: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
   __template_scope: z.string().optional(),
   __template_clientSecret: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_compress: z.string().optional(),
+  __template_mappingRef: z.string().optional(),
   __template_ingestUrl: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
 });
 
 export function outputAzureDataExplorerToJSON(

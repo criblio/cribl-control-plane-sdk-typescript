@@ -224,6 +224,14 @@ export type OutputWizHec = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
    */
   __template_wiz_environment?: string | undefined;
@@ -331,6 +339,8 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   ),
   token: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_wiz_environment: types.optional(types.string()),
   __template_data_center: types.optional(types.string()),
   __template_wiz_sourcetype: types.optional(types.string()),
@@ -382,6 +392,8 @@ export type OutputWizHec$Outbound = {
   pqControls?: OutputWizHecPqControls$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_wiz_environment?: string | undefined;
   __template_data_center?: string | undefined;
   __template_wiz_sourcetype?: string | undefined;
@@ -441,6 +453,8 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputWizHecPqControls$outboundSchema).optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
   __template_data_center: z.string().optional(),
   __template_wiz_sourcetype: z.string().optional(),

@@ -203,6 +203,14 @@ export type OutputHoneycomb = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -290,6 +298,8 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
   ),
   team: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputHoneycomb$Outbound = {
@@ -333,6 +343,8 @@ export type OutputHoneycomb$Outbound = {
   pqControls?: OutputHoneycombPqControls$Outbound | undefined;
   team?: string | undefined;
   textSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -382,6 +394,8 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputHoneycombPqControls$outboundSchema).optional(),
   team: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputHoneycombToJSON(

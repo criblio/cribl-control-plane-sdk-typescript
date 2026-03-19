@@ -319,6 +319,14 @@ export type OutputGoogleChronicle = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
    */
   __template_customerId?: string | undefined;
@@ -513,6 +521,8 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   ),
   __template_apiVersion: types.optional(types.string()),
   __template_region: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_customerId: types.optional(types.string()),
 });
 /** @internal */
@@ -571,6 +581,8 @@ export type OutputGoogleChronicle$Outbound = {
   pqControls?: OutputGoogleChroniclePqControls$Outbound | undefined;
   __template_apiVersion?: string | undefined;
   __template_region?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_customerId?: string | undefined;
 };
 
@@ -637,6 +649,8 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
     .optional(),
   __template_apiVersion: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_customerId: z.string().optional(),
 });
 

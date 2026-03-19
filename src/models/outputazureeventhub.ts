@@ -193,6 +193,10 @@ export type OutputAzureEventhub = {
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -276,6 +280,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
     z.lazy(() => OutputAzureEventhubPqControls$inboundSchema),
   ),
   __template_topic: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputAzureEventhub$Outbound = {
@@ -317,6 +322,7 @@ export type OutputAzureEventhub$Outbound = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureEventhubPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -364,6 +370,7 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputAzureEventhubPqControls$outboundSchema)
     .optional(),
   __template_topic: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputAzureEventhubToJSON(

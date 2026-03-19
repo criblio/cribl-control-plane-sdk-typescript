@@ -167,6 +167,10 @@ export type OutputGooglePubsub = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -249,6 +253,7 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   ),
   __template_topicName: types.optional(types.string()),
   __template_region: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputGooglePubsub$Outbound = {
@@ -287,6 +292,7 @@ export type OutputGooglePubsub$Outbound = {
   pqControls?: OutputGooglePubsubPqControls$Outbound | undefined;
   __template_topicName?: string | undefined;
   __template_region?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -331,6 +337,7 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
     .optional(),
   __template_topicName: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputGooglePubsubToJSON(

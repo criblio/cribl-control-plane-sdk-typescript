@@ -224,6 +224,14 @@ export type OutputAzureLogs = {
    */
   keypairSecret?: string | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
    */
   __template_workspaceId?: string | undefined;
@@ -334,6 +342,8 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   workspaceId: types.optional(types.string()),
   workspaceKey: types.optional(types.string()),
   keypairSecret: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_workspaceId: types.optional(types.string()),
   __template_workspaceKey: types.optional(types.string()),
 });
@@ -382,6 +392,8 @@ export type OutputAzureLogs$Outbound = {
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_workspaceId?: string | undefined;
   __template_workspaceKey?: string | undefined;
 };
@@ -436,6 +448,8 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_workspaceId: z.string().optional(),
   __template_workspaceKey: z.string().optional(),
 });

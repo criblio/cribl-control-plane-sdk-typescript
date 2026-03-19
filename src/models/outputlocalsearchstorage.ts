@@ -323,6 +323,14 @@ export type OutputLocalSearchStorage = {
    * Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
    */
   __template_tableName?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -571,6 +579,8 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
   __template_url: types.optional(types.string()),
   __template_database: types.optional(types.string()),
   __template_tableName: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputLocalSearchStorage$Outbound = {
@@ -633,6 +643,8 @@ export type OutputLocalSearchStorage$Outbound = {
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -704,6 +716,8 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputLocalSearchStorageToJSON(

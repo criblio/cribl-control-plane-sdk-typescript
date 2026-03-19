@@ -211,6 +211,14 @@ export type OutputElasticCloud = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -303,6 +311,8 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputElasticCloudPqControls$inboundSchema),
   ),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputElasticCloud$Outbound = {
@@ -347,6 +357,8 @@ export type OutputElasticCloud$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -398,6 +410,8 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$outboundSchema)
     .optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputElasticCloudToJSON(

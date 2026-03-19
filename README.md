@@ -306,7 +306,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Health](docs/sdks/health/README.md)
 
-* [get](docs/sdks/health/README.md#get) - Retrieve health status of the server
+* [get](docs/sdks/health/README.md#get) - Get the health status of the server
 
 ### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 
@@ -526,7 +526,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
 - [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
-- [`healthGet`](docs/sdks/health/README.md#get) - Retrieve health status of the server
+- [`healthGet`](docs/sdks/health/README.md#get) - Get the health status of the server
 - [`lakeDatasetsCreate`](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
 - [`lakeDatasetsDelete`](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
 - [`lakeDatasetsGet`](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)

@@ -294,6 +294,14 @@ export type OutputSentinelOneAiSiem = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSentinelOneAiSiemPqControls | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -420,6 +428,8 @@ export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputSentinelOneAiSiemPqControls$inboundSchema),
   ),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSentinelOneAiSiem$Outbound = {
@@ -478,6 +488,8 @@ export type OutputSentinelOneAiSiem$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSentinelOneAiSiemPqControls$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -544,6 +556,8 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSentinelOneAiSiemPqControls$outboundSchema)
     .optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputSentinelOneAiSiemToJSON(
