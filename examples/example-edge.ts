@@ -143,7 +143,7 @@ async function main() {
     throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
+  await cribl.routes.update({ id: routes.id, routesInput: routes }, { serverURL: groupUrl });
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
