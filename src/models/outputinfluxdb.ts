@@ -305,6 +305,14 @@ export type OutputInfluxdb = {
    */
   __template_url?: string | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
    */
   __template_database?: string | undefined;
@@ -436,6 +444,8 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_url: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_database: types.optional(types.string()),
   __template_bucket: types.optional(types.string()),
 });
@@ -492,6 +502,8 @@ export type OutputInfluxdb$Outbound = {
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
   __template_url?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_database?: string | undefined;
   __template_bucket?: string | undefined;
 };
@@ -554,6 +566,8 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
   __template_url: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_database: z.string().optional(),
   __template_bucket: z.string().optional(),
 });

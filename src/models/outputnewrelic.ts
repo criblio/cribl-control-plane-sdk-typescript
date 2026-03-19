@@ -255,6 +255,14 @@ export type OutputNewrelic = {
    * Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.
    */
   __template_messageField?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -401,6 +409,8 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   __template_region: types.optional(types.string()),
   __template_logType: types.optional(types.string()),
   __template_messageField: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputNewrelic$Outbound = {
@@ -452,6 +462,8 @@ export type OutputNewrelic$Outbound = {
   __template_region?: string | undefined;
   __template_logType?: string | undefined;
   __template_messageField?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -509,6 +521,8 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   __template_region: z.string().optional(),
   __template_logType: z.string().optional(),
   __template_messageField: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {

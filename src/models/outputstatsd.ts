@@ -143,6 +143,10 @@ export type OutputStatsd = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputStatsdPqControls | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -215,6 +219,7 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputStatsdPqControls$inboundSchema),
   ),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputStatsd$Outbound = {
@@ -247,6 +252,7 @@ export type OutputStatsd$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputStatsdPqControls$Outbound | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -284,6 +290,7 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputStatsdPqControls$outboundSchema).optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputStatsdToJSON(outputStatsd: OutputStatsd): string {

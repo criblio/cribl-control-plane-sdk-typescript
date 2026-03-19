@@ -354,6 +354,10 @@ export type CreateOutputSystemByPackOutputKinesis = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -361,6 +365,10 @@ export type CreateOutputSystemByPackOutputKinesis = {
    * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
    */
   __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -539,6 +547,14 @@ export type CreateOutputSystemByPackOutputAzureLogs = {
    * Select or create a stored secret that references your access key and secret key
    */
   keypairSecret?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
    */
@@ -1015,6 +1031,10 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer = {
    */
   __template_table?: string | undefined;
   /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
   __template_tenantId?: string | undefined;
@@ -1035,9 +1055,25 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer = {
    */
   __template_format?: string | undefined;
   /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
+   */
+  __template_mappingRef?: string | undefined;
+  /**
    * Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
    */
   __template_ingestUrl?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
 };
 
 export const CreateOutputSystemByPackBlobAccessTier = {
@@ -1282,9 +1318,33 @@ export type CreateOutputSystemByPackOutputAzureBlob = {
    */
   __template_containerName?: string | undefined;
   /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
   /**
    * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
    */
@@ -1559,6 +1619,10 @@ export type CreateOutputSystemByPackOutputS3 = {
    */
   __template_awsSecretKey?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -1567,13 +1631,53 @@ export type CreateOutputSystemByPackOutputS3 = {
    */
   __template_assumeRoleExternalId?: string | undefined;
   /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+   */
+  __template_serverSideEncryption?: string | undefined;
+  /**
+   * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+   */
+  __template_kmsKeyId?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
   /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateOutputSystemByPackOutputFilesystem = {
@@ -1741,9 +1845,29 @@ export type CreateOutputSystemByPackOutputFilesystem = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsSignalfx = {};
@@ -1895,6 +2019,14 @@ export type CreateOutputSystemByPackOutputSignalfx = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSignalfx | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsWavefront = {};
@@ -2046,6 +2178,14 @@ export type CreateOutputSystemByPackOutputWavefront = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsWavefront | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsTcpjson = {};
@@ -2195,6 +2335,10 @@ export type CreateOutputSystemByPackOutputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -2368,6 +2512,14 @@ export type CreateOutputSystemByPackOutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
    */
@@ -2576,6 +2728,14 @@ export type CreateOutputSystemByPackOutputSplunkHec = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSplunkHec | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -2796,6 +2956,22 @@ export type CreateOutputSystemByPackOutputSplunkLb = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+   */
+  __template_nestedFields?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsSplunk = {};
@@ -2941,6 +3117,22 @@ export type CreateOutputSystemByPackOutputSplunk = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+   */
+  __template_nestedFields?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 /**
@@ -3252,6 +3444,10 @@ export type CreateOutputSystemByPackOutputSyslog = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type CreateOutputSystemByPackOutputDevnull = {
@@ -3526,6 +3722,14 @@ export type CreateOutputSystemByPackOutputSentinel = {
    * The name of the stream (Sentinel table) in which to store the events
    */
   streamName?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
@@ -3915,6 +4119,14 @@ export type CreateOutputSystemByPackOutputWebhook = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
   __template_loginUrl?: string | undefined;
@@ -4193,8 +4405,10 @@ export type CreateOutputSystemByPackOutputKinesis$Outbound = {
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_awsApiKey?: string | undefined;
 };
 
@@ -4251,8 +4465,10 @@ export const CreateOutputSystemByPackOutputKinesis$outboundSchema: z.ZodType<
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
 });
 
@@ -4345,6 +4561,8 @@ export type CreateOutputSystemByPackOutputAzureLogs$Outbound = {
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_workspaceId?: string | undefined;
   __template_workspaceKey?: string | undefined;
 };
@@ -4404,6 +4622,8 @@ export const CreateOutputSystemByPackOutputAzureLogs$outboundSchema: z.ZodType<
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_workspaceId: z.string().optional(),
   __template_workspaceKey: z.string().optional(),
 });
@@ -4682,12 +4902,17 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer$Outbound = {
   __template_clusterUrl?: string | undefined;
   __template_database?: string | undefined;
   __template_table?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
   __template_scope?: string | undefined;
   __template_clientSecret?: string | undefined;
   __template_format?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_mappingRef?: string | undefined;
   __template_ingestUrl?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
 };
 
 /** @internal */
@@ -4805,12 +5030,17 @@ export const CreateOutputSystemByPackOutputAzureDataExplorer$outboundSchema:
     __template_clusterUrl: z.string().optional(),
     __template_database: z.string().optional(),
     __template_table: z.string().optional(),
+    __template_oauthEndpoint: z.string().optional(),
     __template_tenantId: z.string().optional(),
     __template_clientId: z.string().optional(),
     __template_scope: z.string().optional(),
     __template_clientSecret: z.string().optional(),
     __template_format: z.string().optional(),
+    __template_compress: z.string().optional(),
+    __template_mappingRef: z.string().optional(),
     __template_ingestUrl: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_fileNameSuffix: z.string().optional(),
   });
 
 export function createOutputSystemByPackOutputAzureDataExplorerToJSON(
@@ -4895,7 +5125,13 @@ export type CreateOutputSystemByPackOutputAzureBlob$Outbound = {
     | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
     | undefined;
   __template_containerName?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
   __template_connectionString?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
@@ -4971,7 +5207,13 @@ export const CreateOutputSystemByPackOutputAzureBlob$outboundSchema: z.ZodType<
   certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_containerName: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
   __template_connectionString: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
@@ -5059,10 +5301,21 @@ export type CreateOutputSystemByPackOutputS3$Outbound = {
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
   __template_awsSecretKey?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_serverSideEncryption?: string | undefined;
+  __template_kmsKeyId?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_awsApiKey?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -5144,10 +5397,21 @@ export const CreateOutputSystemByPackOutputS3$outboundSchema: z.ZodType<
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_objectACL: z.string().optional(),
+  __template_storageClass: z.string().optional(),
+  __template_serverSideEncryption: z.string().optional(),
+  __template_kmsKeyId: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputS3ToJSON(
@@ -5207,7 +5471,12 @@ export type CreateOutputSystemByPackOutputFilesystem$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -5263,7 +5532,12 @@ export const CreateOutputSystemByPackOutputFilesystem$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputFilesystemToJSON(
@@ -5343,6 +5617,8 @@ export type CreateOutputSystemByPackOutputSignalfx$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSignalfx$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -5397,6 +5673,8 @@ export const CreateOutputSystemByPackOutputSignalfx$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsSignalfx$outboundSchema
   ).optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputSignalfxToJSON(
@@ -5476,6 +5754,8 @@ export type CreateOutputSystemByPackOutputWavefront$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsWavefront$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -5530,6 +5810,8 @@ export const CreateOutputSystemByPackOutputWavefront$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsWavefront$outboundSchema
   ).optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputWavefrontToJSON(
@@ -5606,6 +5888,7 @@ export type CreateOutputSystemByPackOutputTcpjson$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsTcpjson$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -5658,6 +5941,7 @@ export const CreateOutputSystemByPackOutputTcpjson$outboundSchema: z.ZodType<
   ).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -5744,6 +6028,8 @@ export type CreateOutputSystemByPackOutputWizHec$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsWizHec$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_wiz_environment?: string | undefined;
   __template_data_center?: string | undefined;
   __template_wiz_sourcetype?: string | undefined;
@@ -5807,6 +6093,8 @@ export const CreateOutputSystemByPackOutputWizHec$outboundSchema: z.ZodType<
   ).optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
   __template_data_center: z.string().optional(),
   __template_wiz_sourcetype: z.string().optional(),
@@ -5927,6 +6215,8 @@ export type CreateOutputSystemByPackOutputSplunkHec$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSplunkHec$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -5994,6 +6284,8 @@ export const CreateOutputSystemByPackOutputSplunkHec$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsSplunkHec$outboundSchema
   ).optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
@@ -6148,6 +6440,10 @@ export type CreateOutputSystemByPackOutputSplunkLb$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsSplunkLb$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_nestedFields?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -6204,6 +6500,10 @@ export const CreateOutputSystemByPackOutputSplunkLb$outboundSchema: z.ZodType<
   ).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_nestedFields: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputSplunkLbToJSON(
@@ -6278,6 +6578,10 @@ export type CreateOutputSystemByPackOutputSplunk$Outbound = {
   textSecret?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_nestedFields?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -6328,6 +6632,10 @@ export const CreateOutputSystemByPackOutputSplunk$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_nestedFields: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputSplunkToJSON(
@@ -6443,6 +6751,7 @@ export type CreateOutputSystemByPackOutputSyslog$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsSyslog$Outbound | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -6500,6 +6809,7 @@ export const CreateOutputSystemByPackOutputSyslog$outboundSchema: z.ZodType<
   ).optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputSyslogToJSON(
@@ -6651,6 +6961,8 @@ export type CreateOutputSystemByPackOutputSentinel$Outbound = {
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
   streamName?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
   __template_client_id?: string | undefined;
@@ -6730,6 +7042,8 @@ export const CreateOutputSystemByPackOutputSentinel$outboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
   __template_client_id: z.string().optional(),
@@ -6947,6 +7261,8 @@ export type CreateOutputSystemByPackOutputWebhook$Outbound = {
   urls?: Array<CreateOutputSystemByPackUrlWebhook$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
   __template_url?: string | undefined;
@@ -7039,6 +7355,8 @@ export const CreateOutputSystemByPackOutputWebhook$outboundSchema: z.ZodType<
     .optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
   __template_url: z.string().optional(),

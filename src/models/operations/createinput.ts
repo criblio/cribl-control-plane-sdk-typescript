@@ -574,6 +574,10 @@ export type CreateInputInputSecurityLake = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -2512,6 +2516,10 @@ export type CreateInputInputSqs = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -3042,6 +3050,10 @@ export type CreateInputInputS3Inventory = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -3232,6 +3244,10 @@ export type CreateInputInputS3 = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -3576,6 +3592,10 @@ export type CreateInputInputKinesis = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -4044,6 +4064,10 @@ export type CreateInputInputCrowdstrike = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -6881,6 +6905,10 @@ export type CreateInputInputEdgePrometheus = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -7135,6 +7163,10 @@ export type CreateInputInputPrometheus = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -8766,6 +8798,14 @@ export type CreateInputInputSplunk = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateInputInputHttp = {
@@ -9081,6 +9121,10 @@ export type CreateInputInputMsk = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -9771,6 +9815,7 @@ export type CreateInputInputSecurityLake$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -9835,6 +9880,7 @@ export const CreateInputInputSecurityLake$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -11407,6 +11453,7 @@ export type CreateInputInputSqs$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -11456,6 +11503,7 @@ export const CreateInputInputSqs$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -11821,6 +11869,7 @@ export type CreateInputInputS3Inventory$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -11887,6 +11936,7 @@ export const CreateInputInputS3Inventory$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -11954,6 +12004,7 @@ export type CreateInputInputS3$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -12017,6 +12068,7 @@ export const CreateInputInputS3$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -12209,6 +12261,7 @@ export type CreateInputInputKinesis$Outbound = {
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -12261,6 +12314,7 @@ export const CreateInputInputKinesis$outboundSchema: z.ZodType<
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -12595,6 +12649,7 @@ export type CreateInputInputCrowdstrike$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -12657,6 +12712,7 @@ export const CreateInputInputCrowdstrike$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -15364,6 +15420,7 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
 };
@@ -15427,6 +15484,7 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
 });
@@ -15516,6 +15574,7 @@ export type CreateInputInputPrometheus$Outbound = {
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_username?: string | undefined;
@@ -15582,6 +15641,7 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_username: z.string().optional(),
@@ -16861,6 +16921,8 @@ export type CreateInputInputSplunk$Outbound = {
   compress?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -16902,6 +16964,8 @@ export const CreateInputInputSplunk$outboundSchema: z.ZodType<
   compress: CreateInputCompression$outboundSchema.optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createInputInputSplunkToJSON(
@@ -17057,6 +17121,7 @@ export type CreateInputInputMsk$Outbound = {
   awsSecret?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -17119,6 +17184,7 @@ export const CreateInputInputMsk$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),

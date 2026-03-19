@@ -261,6 +261,14 @@ export type OutputMsk = {
    */
   __template_topic?: string | undefined;
   /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'compression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compression' at runtime.
+   */
+  __template_compression?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -269,6 +277,10 @@ export type OutputMsk = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -276,6 +288,10 @@ export type OutputMsk = {
    * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
    */
   __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -377,10 +393,14 @@ export const OutputMsk$inboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputMskPqControls$inboundSchema)),
   __template_topic: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
+  __template_compression: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
 });
 /** @internal */
@@ -441,10 +461,14 @@ export type OutputMsk$Outbound = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMskPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
+  __template_compression?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_awsApiKey?: string | undefined;
 };
 
@@ -510,10 +534,14 @@ export const OutputMsk$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputMskPqControls$outboundSchema).optional(),
   __template_topic: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_compression: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
 });
 

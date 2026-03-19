@@ -415,6 +415,14 @@ export type OutputWebhook = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
   __template_loginUrl?: string | undefined;
@@ -693,6 +701,8 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   urls: types.optional(z.array(z.lazy(() => OutputWebhookUrl$inboundSchema))),
   dnsResolvePeriodSec: types.optional(types.number()),
   loadBalanceStatsPeriodSec: types.optional(types.number()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
   __template_secret: types.optional(types.string()),
   __template_url: types.optional(types.string()),
@@ -768,6 +778,8 @@ export type OutputWebhook$Outbound = {
   urls?: Array<OutputWebhookUrl$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
   __template_url?: string | undefined;
@@ -850,6 +862,8 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputWebhookUrl$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
   __template_url: z.string().optional(),

@@ -341,6 +341,10 @@ export type OutputSyslog = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -494,6 +498,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   ),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSyslog$Outbound = {
@@ -542,6 +547,7 @@ export type OutputSyslog$Outbound = {
   pqControls?: OutputSyslogPqControls$Outbound | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -595,6 +601,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSyslogPqControls$outboundSchema).optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {

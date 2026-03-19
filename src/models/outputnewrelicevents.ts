@@ -230,6 +230,14 @@ export type OutputNewrelicEvents = {
    */
   __template_eventType?: string | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
    */
   __template_customUrl?: string | undefined;
@@ -328,6 +336,8 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   __template_region: types.optional(types.string()),
   __template_accountId: types.optional(types.string()),
   __template_eventType: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_customUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -378,6 +388,8 @@ export type OutputNewrelicEvents$Outbound = {
   __template_region?: string | undefined;
   __template_accountId?: string | undefined;
   __template_eventType?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_customUrl?: string | undefined;
 };
 
@@ -435,6 +447,8 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   __template_region: z.string().optional(),
   __template_accountId: z.string().optional(),
   __template_eventType: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_customUrl: z.string().optional(),
 });
 

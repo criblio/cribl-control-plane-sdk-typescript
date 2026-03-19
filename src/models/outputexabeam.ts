@@ -184,6 +184,10 @@ export type OutputExabeam = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -238,6 +242,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
   __template_region: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputExabeam$Outbound = {
@@ -279,6 +284,7 @@ export type OutputExabeam$Outbound = {
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
   __template_region?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -328,6 +334,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
   __template_region: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {

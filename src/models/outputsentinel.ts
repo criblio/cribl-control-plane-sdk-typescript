@@ -294,6 +294,14 @@ export type OutputSentinel = {
    */
   streamName?: string | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
   __template_loginUrl?: string | undefined;
@@ -468,6 +476,8 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   dcrID: types.optional(types.string()),
   dceEndpoint: types.optional(types.string()),
   streamName: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
   __template_secret: types.optional(types.string()),
   __template_client_id: types.optional(types.string()),
@@ -536,6 +546,8 @@ export type OutputSentinel$Outbound = {
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
   streamName?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
   __template_client_id?: string | undefined;
@@ -610,6 +622,8 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
   __template_client_id: z.string().optional(),

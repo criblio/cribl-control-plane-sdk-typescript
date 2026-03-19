@@ -309,9 +309,29 @@ export type OutputCloudflareR2 = {
    */
   __template_bucket?: string | undefined;
   /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -401,7 +421,12 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
   __template_bucket: types.optional(types.string()),
+  __template_partitionExpr: types.optional(types.string()),
   __template_format: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCloudflareR2$Outbound = {
@@ -461,7 +486,12 @@ export type OutputCloudflareR2$Outbound = {
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
   __template_bucket?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -530,7 +560,12 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
   __template_bucket: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function outputCloudflareR2ToJSON(

@@ -242,6 +242,14 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    * Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
    */
   __template_prometheusUrl?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export const OutputGrafanaCloudType1 = {
@@ -416,6 +424,14 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    * Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
    */
   __template_prometheusUrl?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type OutputGrafanaCloud =
@@ -526,6 +542,8 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   ),
   __template_lokiUrl: types.optional(types.string()),
   __template_prometheusUrl: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
@@ -575,6 +593,8 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -632,6 +652,8 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
     .optional(),
   __template_lokiUrl: z.string().optional(),
   __template_prometheusUrl: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputGrafanaCloudGrafanaCloud2ToJSON(
@@ -757,6 +779,8 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   ),
   __template_lokiUrl: types.optional(types.string()),
   __template_prometheusUrl: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
@@ -806,6 +830,8 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -863,6 +889,8 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
     .optional(),
   __template_lokiUrl: z.string().optional(),
   __template_prometheusUrl: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputGrafanaCloudGrafanaCloud1ToJSON(

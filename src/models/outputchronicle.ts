@@ -253,6 +253,14 @@ export type OutputChronicle = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -412,6 +420,8 @@ export const OutputChronicle$inboundSchema: z.ZodType<
     z.lazy(() => OutputChroniclePqControls$inboundSchema),
   ),
   __template_region: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
 });
 /** @internal */
@@ -467,6 +477,8 @@ export type OutputChronicle$Outbound = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputChroniclePqControls$Outbound | undefined;
   __template_region?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_endpoint?: string | undefined;
 };
 
@@ -529,6 +541,8 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputChroniclePqControls$outboundSchema).optional(),
   __template_region: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_endpoint: z.string().optional(),
 });
 

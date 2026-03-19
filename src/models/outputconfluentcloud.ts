@@ -219,6 +219,18 @@ export type OutputConfluentCloud = {
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'compression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compression' at runtime.
+   */
+  __template_compression?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -308,6 +320,9 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
     z.lazy(() => OutputConfluentCloudPqControls$inboundSchema),
   ),
   __template_topic: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
+  __template_compression: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputConfluentCloud$Outbound = {
@@ -355,6 +370,9 @@ export type OutputConfluentCloud$Outbound = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputConfluentCloudPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
+  __template_compression?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -408,6 +426,9 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputConfluentCloudPqControls$outboundSchema)
     .optional(),
   __template_topic: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_compression: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputConfluentCloudToJSON(
