@@ -3830,28 +3830,6 @@ export type CreateOutputSystemByPackAuthenticationTypeWebhook = OpenEnum<
 
 export type CreateOutputSystemByPackPqControlsWebhook = {};
 
-export type CreateOutputSystemByPackOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type CreateOutputSystemByPackOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
-
 export type CreateOutputSystemByPackUrlWebhook = {
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
@@ -4096,11 +4074,11 @@ export type CreateOutputSystemByPackOutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<CreateOutputSystemByPackOauthParam> | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<CreateOutputSystemByPackOauthHeader> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -7105,58 +7083,6 @@ export function createOutputSystemByPackPqControlsWebhookToJSON(
 }
 
 /** @internal */
-export type CreateOutputSystemByPackOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CreateOutputSystemByPackOauthParam$outboundSchema: z.ZodType<
-  CreateOutputSystemByPackOauthParam$Outbound,
-  z.ZodTypeDef,
-  CreateOutputSystemByPackOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function createOutputSystemByPackOauthParamToJSON(
-  createOutputSystemByPackOauthParam: CreateOutputSystemByPackOauthParam,
-): string {
-  return JSON.stringify(
-    CreateOutputSystemByPackOauthParam$outboundSchema.parse(
-      createOutputSystemByPackOauthParam,
-    ),
-  );
-}
-
-/** @internal */
-export type CreateOutputSystemByPackOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CreateOutputSystemByPackOauthHeader$outboundSchema: z.ZodType<
-  CreateOutputSystemByPackOauthHeader$Outbound,
-  z.ZodTypeDef,
-  CreateOutputSystemByPackOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function createOutputSystemByPackOauthHeaderToJSON(
-  createOutputSystemByPackOauthHeader: CreateOutputSystemByPackOauthHeader,
-): string {
-  return JSON.stringify(
-    CreateOutputSystemByPackOauthHeader$outboundSchema.parse(
-      createOutputSystemByPackOauthHeader,
-    ),
-  );
-}
-
-/** @internal */
 export type CreateOutputSystemByPackUrlWebhook$Outbound = {
   url: string;
   weight?: number | undefined;
@@ -7252,10 +7178,8 @@ export type CreateOutputSystemByPackOutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<CreateOutputSystemByPackOauthParam$Outbound> | undefined;
-  oauthHeaders?:
-    | Array<CreateOutputSystemByPackOauthHeader$Outbound>
-    | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
   urls?: Array<CreateOutputSystemByPackUrlWebhook$Outbound> | undefined;
@@ -7343,12 +7267,8 @@ export const CreateOutputSystemByPackOutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(
-    z.lazy(() => CreateOutputSystemByPackOauthParam$outboundSchema),
-  ).optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => CreateOutputSystemByPackOauthHeader$outboundSchema),
-  ).optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => CreateOutputSystemByPackUrlWebhook$outboundSchema))

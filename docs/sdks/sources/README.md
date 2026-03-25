@@ -3073,6 +3073,10 @@ async function run() {
     type: "servicenow_table",
     sendToRoutes: true,
     pqEnabled: false,
+    instance: "https://example.service-now.com",
+    cronSchedule: "0 * * * *",
+    earliest: "-1d",
+    latest: "now",
   });
 
   console.log(result);
@@ -3104,6 +3108,10 @@ async function run() {
     type: "servicenow_table",
     sendToRoutes: true,
     pqEnabled: false,
+    instance: "https://example.service-now.com",
+    cronSchedule: "0 * * * *",
+    earliest: "-1d",
+    latest: "now",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -7533,6 +7541,10 @@ async function run() {
       type: "servicenow_table",
       sendToRoutes: true,
       pqEnabled: false,
+      instance: "https://example.service-now.com",
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
     },
   });
 
@@ -7567,6 +7579,10 @@ async function run() {
       type: "servicenow_table",
       sendToRoutes: true,
       pqEnabled: false,
+      instance: "https://example.service-now.com",
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
     },
   });
   if (res.ok) {

@@ -28,10 +28,10 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  LogLevelOptions,
-  LogLevelOptions$inboundSchema,
-  LogLevelOptions$outboundSchema,
-} from "./logleveloptions.js";
+  LogLevelOptionsDebugError,
+  LogLevelOptionsDebugError$inboundSchema,
+  LogLevelOptionsDebugError$outboundSchema,
+} from "./logleveloptionsdebugerror.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -160,7 +160,7 @@ export type InputMicrosoftGraph = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: LogLevelOptions | undefined;
+  logLevel?: LogLevelOptionsDebugError | undefined;
   retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
@@ -254,7 +254,7 @@ export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   rescheduleDroppedTasks: types.optional(types.boolean()),
   maxTaskReschedule: types.optional(types.number()),
-  logLevel: types.optional(LogLevelOptions$inboundSchema),
+  logLevel: types.optional(LogLevelOptionsDebugError$inboundSchema),
   retryRules: types.optional(RetryRulesTypeCodesEnableHeader$inboundSchema),
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
@@ -343,7 +343,7 @@ export const InputMicrosoftGraph$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   rescheduleDroppedTasks: z.boolean().optional(),
   maxTaskReschedule: z.number().optional(),
-  logLevel: LogLevelOptions$outboundSchema.optional(),
+  logLevel: LogLevelOptionsDebugError$outboundSchema.optional(),
   retryRules: RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),

@@ -7,17 +7,16 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * Log Level (verbosity) for collection runtime behavior.
+ * Collector runtime log level
  */
 export const LogLevelOptions = {
   Error: "error",
   Warn: "warn",
   Info: "info",
   Debug: "debug",
-  Silly: "silly",
 } as const;
 /**
- * Log Level (verbosity) for collection runtime behavior.
+ * Collector runtime log level
  */
 export type LogLevelOptions = OpenEnum<typeof LogLevelOptions>;
 

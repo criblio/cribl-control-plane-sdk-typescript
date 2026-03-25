@@ -4973,6 +4973,10 @@ export type CreateOutputOutputPrometheus = {
    */
   sendMetadata?: boolean | undefined;
   /**
+   * Serialize histogram bucket series as `<metric>_bucket` to match Prometheus histogram naming convention
+   */
+  usePrometheusHistogramBucketSuffix?: boolean | undefined;
+  /**
    * Maximum number of ongoing requests before blocking
    */
   concurrency?: number | undefined;
@@ -14341,6 +14345,7 @@ export type CreateOutputOutputPrometheus$Outbound = {
   url: string;
   metricRenameExpr?: string | undefined;
   sendMetadata?: boolean | undefined;
+  usePrometheusHistogramBucketSuffix?: boolean | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -14399,6 +14404,7 @@ export const CreateOutputOutputPrometheus$outboundSchema: z.ZodType<
   url: z.string(),
   metricRenameExpr: z.string().optional(),
   sendMetadata: z.boolean().optional(),
+  usePrometheusHistogramBucketSuffix: z.boolean().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),

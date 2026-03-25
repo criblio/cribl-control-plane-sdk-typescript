@@ -695,6 +695,10 @@ const value: operations.CreateInputInputSecurityLake = {
 const value: operations.CreateInputInputServicenowTable = {
   id: "<id>",
   type: "servicenow_table",
+  instance: "<value>",
+  cronSchedule: "<value>",
+  earliest: "<value>",
+  latest: "<value>",
 };
 ```
 

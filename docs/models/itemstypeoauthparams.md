@@ -1,11 +1,11 @@
-# CreateOutputOauthParam
+# ItemsTypeOauthParams
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputOauthParam } from "cribl-control-plane/models/operations";
+import { ItemsTypeOauthParams } from "cribl-control-plane/models";
 
-let value: CreateOutputOauthParam = {
+let value: ItemsTypeOauthParams = {
   name: "<value>",
   value: "<value>",
 };

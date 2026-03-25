@@ -1,11 +1,11 @@
-# OauthHeader
+# ItemsTypeOauthHeaders
 
 ## Example Usage
 
 ```typescript
-import { OauthHeader } from "cribl-control-plane/models";
+import { ItemsTypeOauthHeaders } from "cribl-control-plane/models";
 
-let value: OauthHeader = {
+let value: ItemsTypeOauthHeaders = {
   name: "<value>",
   value: "<value>",
 };

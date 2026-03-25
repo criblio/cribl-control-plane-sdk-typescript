@@ -626,6 +626,10 @@ const value: models.InputSecurityLake = {
 ```typescript
 const value: models.InputServicenowTable = {
   type: "servicenow_table",
+  instance: "<value>",
+  cronSchedule: "<value>",
+  earliest: "<value>",
+  latest: "<value>",
 };
 ```
 
