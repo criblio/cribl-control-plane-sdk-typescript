@@ -3815,28 +3815,6 @@ export type CreateOutputAuthenticationTypeWebhook = OpenEnum<
 
 export type CreateOutputPqControlsWebhook = {};
 
-export type CreateOutputOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type CreateOutputOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
-
 export type CreateOutputUrlWebhook = {
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
@@ -4081,11 +4059,11 @@ export type CreateOutputOutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<CreateOutputOauthParam> | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<CreateOutputOauthHeader> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -6897,54 +6875,6 @@ export function createOutputPqControlsWebhookToJSON(
 }
 
 /** @internal */
-export type CreateOutputOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CreateOutputOauthParam$outboundSchema: z.ZodType<
-  CreateOutputOauthParam$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function createOutputOauthParamToJSON(
-  createOutputOauthParam: CreateOutputOauthParam,
-): string {
-  return JSON.stringify(
-    CreateOutputOauthParam$outboundSchema.parse(createOutputOauthParam),
-  );
-}
-
-/** @internal */
-export type CreateOutputOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CreateOutputOauthHeader$outboundSchema: z.ZodType<
-  CreateOutputOauthHeader$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function createOutputOauthHeaderToJSON(
-  createOutputOauthHeader: CreateOutputOauthHeader,
-): string {
-  return JSON.stringify(
-    CreateOutputOauthHeader$outboundSchema.parse(createOutputOauthHeader),
-  );
-}
-
-/** @internal */
 export type CreateOutputUrlWebhook$Outbound = {
   url: string;
   weight?: number | undefined;
@@ -7038,8 +6968,8 @@ export type CreateOutputOutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<CreateOutputOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<CreateOutputOauthHeader$Outbound> | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
   urls?: Array<CreateOutputUrlWebhook$Outbound> | undefined;
@@ -7125,10 +7055,8 @@ export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(z.lazy(() => CreateOutputOauthParam$outboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => CreateOutputOauthHeader$outboundSchema))
-    .optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => CreateOutputUrlWebhook$outboundSchema)).optional(),

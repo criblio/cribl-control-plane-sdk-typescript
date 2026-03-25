@@ -31,6 +31,18 @@ import {
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
+  ItemsTypeOauthHeaders,
+  ItemsTypeOauthHeaders$inboundSchema,
+  ItemsTypeOauthHeaders$Outbound,
+  ItemsTypeOauthHeaders$outboundSchema,
+} from "./itemstypeoauthheaders.js";
+import {
+  ItemsTypeOauthParams,
+  ItemsTypeOauthParams$inboundSchema,
+  ItemsTypeOauthParams$Outbound,
+  ItemsTypeOauthParams$outboundSchema,
+} from "./itemstypeoauthparams.js";
+import {
   ItemsTypeResponseRetrySettings,
   ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
@@ -127,28 +139,6 @@ export type OutputWebhookAuthenticationType = OpenEnum<
 >;
 
 export type OutputWebhookPqControls = {};
-
-export type OauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type OauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
 
 export type OutputWebhookUrl = {
   /**
@@ -392,11 +382,11 @@ export type OutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<OauthParam> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<OauthHeader> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -492,82 +482,6 @@ export function outputWebhookPqControlsFromJSON(
     jsonString,
     (x) => OutputWebhookPqControls$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputWebhookPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OauthParam$inboundSchema: z.ZodType<
-  OauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: types.string(),
-  value: types.string(),
-});
-/** @internal */
-export type OauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OauthParam$outboundSchema: z.ZodType<
-  OauthParam$Outbound,
-  z.ZodTypeDef,
-  OauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function oauthParamToJSON(oauthParam: OauthParam): string {
-  return JSON.stringify(OauthParam$outboundSchema.parse(oauthParam));
-}
-export function oauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<OauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const OauthHeader$inboundSchema: z.ZodType<
-  OauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: types.string(),
-  value: types.string(),
-});
-/** @internal */
-export type OauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OauthHeader$outboundSchema: z.ZodType<
-  OauthHeader$Outbound,
-  z.ZodTypeDef,
-  OauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function oauthHeaderToJSON(oauthHeader: OauthHeader): string {
-  return JSON.stringify(OauthHeader$outboundSchema.parse(oauthHeader));
-}
-export function oauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OauthHeader' from JSON`,
   );
 }
 
@@ -692,10 +606,8 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   tokenAttributeName: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(z.lazy(() => OauthParam$inboundSchema))),
-  oauthHeaders: types.optional(
-    z.array(z.lazy(() => OauthHeader$inboundSchema)),
-  ),
+  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
+  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
   url: types.optional(types.string()),
   excludeSelf: types.optional(types.boolean()),
   urls: types.optional(z.array(z.lazy(() => OutputWebhookUrl$inboundSchema))),
@@ -771,8 +683,8 @@ export type OutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<OauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<OauthHeader$Outbound> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
   urls?: Array<OutputWebhookUrl$Outbound> | undefined;
@@ -855,8 +767,8 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(z.lazy(() => OauthParam$outboundSchema)).optional(),
-  oauthHeaders: z.array(z.lazy(() => OauthHeader$outboundSchema)).optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputWebhookUrl$outboundSchema)).optional(),

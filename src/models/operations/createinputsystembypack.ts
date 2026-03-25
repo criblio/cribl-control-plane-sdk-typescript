@@ -365,6 +365,38 @@ export type CreateInputSystemByPackInputZscalerHec = {
   __template_hecAPI?: string | undefined;
 };
 
+/**
+ * ServiceNow Table API authentication method
+ */
+export const CreateInputSystemByPackAuthenticationTypeServicenowTable = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * OAuth
+   */
+  Oauth: "oauth",
+  /**
+   * OAuth (text secret)
+   */
+  OauthSecret: "oauthSecret",
+} as const;
+/**
+ * ServiceNow Table API authentication method
+ */
+export type CreateInputSystemByPackAuthenticationTypeServicenowTable = OpenEnum<
+  typeof CreateInputSystemByPackAuthenticationTypeServicenowTable
+>;
+
 export type CreateInputSystemByPackInputServicenowTable = {
   /**
    * Unique ID for this input
@@ -397,7 +429,136 @@ export type CreateInputSystemByPackInputServicenowTable = {
    */
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
+  /**
+   * ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
+   */
+  instance: string;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * ServiceNow Table API authentication method
+   */
+  authType?:
+    | CreateInputSystemByPackAuthenticationTypeServicenowTable
+    | undefined;
+  /**
+   * Cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  earliest: string;
+  /**
+   * Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  latest: string;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * Collector runtime log level
+   */
+  logLevel?: models.LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} cycles through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Select or create a stored text secret for the OAuth client secret parameter value
+   */
+  textSecret?: string | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+   */
+  stateMergeExpression?: string | undefined;
+  /**
+   * Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
+   */
+  __template_instance?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputSecurityLake = {
@@ -6204,7 +6365,7 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: models.LogLevelOptions | undefined;
+  logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
@@ -6363,7 +6524,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: models.LogLevelOptions | undefined;
+  logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
@@ -6973,22 +7134,6 @@ export type CreateInputSystemByPackDiscoveryTypePrometheus = OpenEnum<
 >;
 
 /**
- * Collector runtime log level
- */
-export const CreateInputSystemByPackLogLevelPrometheus = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-} as const;
-/**
- * Collector runtime log level
- */
-export type CreateInputSystemByPackLogLevelPrometheus = OpenEnum<
-  typeof CreateInputSystemByPackLogLevelPrometheus
->;
-
-/**
  * Protocol to use when collecting metrics
  */
 export const CreateInputSystemByPackMetricsProtocol = {
@@ -7049,7 +7194,7 @@ export type CreateInputSystemByPackInputPrometheus = {
   /**
    * Collector runtime log level
    */
-  logLevel: CreateInputSystemByPackLogLevelPrometheus;
+  logLevel: models.LogLevelOptions;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -9857,6 +10002,16 @@ export function createInputSystemByPackInputZscalerHecToJSON(
 }
 
 /** @internal */
+export const CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationTypeServicenowTable
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthenticationTypeServicenowTable,
+  );
+
+/** @internal */
 export type CreateInputSystemByPackInputServicenowTable$Outbound = {
   id: string;
   type: "servicenow_table";
@@ -9868,7 +10023,41 @@ export type CreateInputSystemByPackInputServicenowTable$Outbound = {
   streamtags?: Array<string> | undefined;
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
+  instance: string;
+  rejectUnauthorized?: boolean | undefined;
+  authType?: string | undefined;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  stateTracking?: boolean | undefined;
+  logLevel?: string | undefined;
+  requestTimeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
   description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  textSecret?: string | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  __template_instance?: string | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -9889,7 +10078,44 @@ export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
     connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
       .optional(),
     pq: models.PqType$outboundSchema.optional(),
+    instance: z.string(),
+    rejectUnauthorized: z.boolean().optional(),
+    authType:
+      CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema
+        .optional(),
+    cronSchedule: z.string(),
+    earliest: z.string(),
+    latest: z.string(),
+    stateTracking: z.boolean().optional(),
+    logLevel: models.LogLevelOptions$outboundSchema.optional(),
+    requestTimeout: z.number().optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+    retryRules: models.RetryRulesType$outboundSchema.optional(),
     description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
+    oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+    oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    stateUpdateExpression: z.string().optional(),
+    stateMergeExpression: z.string().optional(),
+    __template_instance: z.string().optional(),
+    __template_loginUrl: z.string().optional(),
+    __template_secret: z.string().optional(),
   });
 
 export function createInputSystemByPackInputServicenowTableToJSON(
@@ -15318,7 +15544,7 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     rescheduleDroppedTasks: z.boolean().optional(),
     maxTaskReschedule: z.number().optional(),
-    logLevel: models.LogLevelOptions$outboundSchema.optional(),
+    logLevel: models.LogLevelOptionsDebugError$outboundSchema.optional(),
     retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
       .optional(),
     description: z.string().optional(),
@@ -15437,7 +15663,7 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     rescheduleDroppedTasks: z.boolean().optional(),
     maxTaskReschedule: z.number().optional(),
-    logLevel: models.LogLevelOptions$outboundSchema.optional(),
+    logLevel: models.LogLevelOptionsDebugError$outboundSchema.optional(),
     retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
       .optional(),
     description: z.string().optional(),
@@ -15949,11 +16175,6 @@ export const CreateInputSystemByPackDiscoveryTypePrometheus$outboundSchema:
   > = openEnums.outboundSchema(CreateInputSystemByPackDiscoveryTypePrometheus);
 
 /** @internal */
-export const CreateInputSystemByPackLogLevelPrometheus$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateInputSystemByPackLogLevelPrometheus> =
-    openEnums.outboundSchema(CreateInputSystemByPackLogLevelPrometheus);
-
-/** @internal */
 export const CreateInputSystemByPackMetricsProtocol$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -16042,7 +16263,7 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   discoveryType: CreateInputSystemByPackDiscoveryTypePrometheus$outboundSchema
     .optional(),
   interval: z.number(),
-  logLevel: CreateInputSystemByPackLogLevelPrometheus$outboundSchema,
+  logLevel: models.LogLevelOptions$outboundSchema,
   rejectUnauthorized: z.boolean().optional(),
   timeout: z.number().optional(),
   keepAliveTime: z.number().optional(),

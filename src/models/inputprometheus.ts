@@ -33,6 +33,11 @@ import {
   ItemsTypeSearchFilter$outboundSchema,
 } from "./itemstypesearchfilter.js";
 import {
+  LogLevelOptions,
+  LogLevelOptions$inboundSchema,
+  LogLevelOptions$outboundSchema,
+} from "./logleveloptions.js";
+import {
   PqType,
   PqType$inboundSchema,
   PqType$Outbound,
@@ -72,20 +77,6 @@ export const InputPrometheusDiscoveryType = {
 export type InputPrometheusDiscoveryType = OpenEnum<
   typeof InputPrometheusDiscoveryType
 >;
-
-/**
- * Collector runtime log level
- */
-export const InputPrometheusLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-} as const;
-/**
- * Collector runtime log level
- */
-export type InputPrometheusLogLevel = OpenEnum<typeof InputPrometheusLogLevel>;
 
 /**
  * Protocol to use when collecting metrics
@@ -146,7 +137,7 @@ export type InputPrometheus = {
   /**
    * Collector runtime log level
    */
-  logLevel: InputPrometheusLogLevel;
+  logLevel: LogLevelOptions;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -326,19 +317,6 @@ export const InputPrometheusDiscoveryType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputPrometheusDiscoveryType);
 
 /** @internal */
-export const InputPrometheusLogLevel$inboundSchema: z.ZodType<
-  InputPrometheusLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputPrometheusLogLevel);
-/** @internal */
-export const InputPrometheusLogLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputPrometheusLogLevel
-> = openEnums.outboundSchema(InputPrometheusLogLevel);
-
-/** @internal */
 export const MetricsProtocol$inboundSchema: z.ZodType<
   MetricsProtocol,
   z.ZodTypeDef,
@@ -372,7 +350,7 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   dimensionList: types.optional(z.array(types.string())),
   discoveryType: types.optional(InputPrometheusDiscoveryType$inboundSchema),
   interval: types.number(),
-  logLevel: InputPrometheusLogLevel$inboundSchema,
+  logLevel: LogLevelOptions$inboundSchema,
   rejectUnauthorized: types.optional(types.boolean()),
   timeout: types.optional(types.number()),
   keepAliveTime: types.optional(types.number()),
@@ -497,7 +475,7 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   dimensionList: z.array(z.string()).optional(),
   discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
   interval: z.number(),
-  logLevel: InputPrometheusLogLevel$outboundSchema,
+  logLevel: LogLevelOptions$outboundSchema,
   rejectUnauthorized: z.boolean().optional(),
   timeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
