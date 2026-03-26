@@ -11,6 +11,8 @@ export const AuthenticationMethodOptions = {
   Secret: "secret",
   ClientSecret: "clientSecret",
   ClientCert: "clientCert",
+  ClientAssertion: "clientAssertion",
+  ClientAssertionRpc: "clientAssertion_rpc",
 } as const;
 export type AuthenticationMethodOptions = OpenEnum<
   typeof AuthenticationMethodOptions
