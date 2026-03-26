@@ -49,7 +49,7 @@ import {
 
 export type InputOffice365MgmtContentConfig = {
   /**
-   * Microsoft 365 Management Activity API Content Type
+   * Office 365 Management Activity API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -97,15 +97,15 @@ export type InputOffice365Mgmt = {
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
-   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
   planType: SubscriptionPlanOptions;
   /**
-   * Microsoft 365 Azure Tenant ID
+   * Office 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Microsoft 365 Azure Application ID
+   * Office 365 Azure Application ID
    */
   appId: string;
   /**
@@ -141,11 +141,11 @@ export type InputOffice365Mgmt = {
    */
   publisherIdentifier?: string | undefined;
   /**
-   * Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<InputOffice365MgmtContentConfig> | undefined;
   /**
-   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
   retryRules?: RetryRulesType1 | undefined;
@@ -155,7 +155,7 @@ export type InputOffice365Mgmt = {
   authType?: AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
-   * Microsoft 365 Azure client secret
+   * Office 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**

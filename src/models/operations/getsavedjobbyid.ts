@@ -9,11 +9,16 @@ export type GetSavedJobByIdRequest = {
    * The <code>id</code> of the Collector to get.
    */
   id: string;
+  /**
+   * The <code>id</code> of the Pack that includes the Collector to get.
+   */
+  criblPack?: string | undefined;
 };
 
 /** @internal */
 export type GetSavedJobByIdRequest$Outbound = {
   id: string;
+  criblPack?: string | undefined;
 };
 
 /** @internal */
@@ -23,6 +28,7 @@ export const GetSavedJobByIdRequest$outboundSchema: z.ZodType<
   GetSavedJobByIdRequest
 > = z.object({
   id: z.string(),
+  criblPack: z.string().optional(),
 });
 
 export function getSavedJobByIdRequestToJSON(

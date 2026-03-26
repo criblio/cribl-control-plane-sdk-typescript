@@ -88,7 +88,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RoutesInput, { explode: true });
+  const body = encodeJSON("body", payload.Routes, { explode: true });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -100,7 +100,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/p/{pack}/routes/{id}")(pathParams);
 
   const headers = new Headers(compactMap({

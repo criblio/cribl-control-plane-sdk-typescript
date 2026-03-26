@@ -7,14 +7,17 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * Enter API key directly, or select a stored secret
+ * Select authentication method.
  */
 export const AuthenticationMethodOptions2 = {
   Manual: "manual",
   Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
 } as const;
 /**
- * Enter API key directly, or select a stored secret
+ * Select authentication method.
  */
 export type AuthenticationMethodOptions2 = OpenEnum<
   typeof AuthenticationMethodOptions2

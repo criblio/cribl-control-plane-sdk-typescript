@@ -101,7 +101,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/products/lake/lakes/{lakeId}/datasets/{id}")(
     pathParams,
   );

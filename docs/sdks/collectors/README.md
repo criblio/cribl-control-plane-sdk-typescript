@@ -31,73 +31,11 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    executor: {
-      type: "<value>",
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    executor: {
-      type: "<value>",
-    },
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("collectorsCreate failed:", res.error);
-  }
-}
-
-run();
-```
-### Example Usage: CollectorExamplesCriblLake
-
-<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesCriblLake" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
       },
     },
   });
@@ -127,12 +65,86 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesCriblLake
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesCriblLake" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
       },
     },
   });
@@ -161,191 +173,11 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    executor: {
-      type: "<value>",
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    executor: {
-      type: "<value>",
-    },
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("collectorsCreate failed:", res.error);
-  }
-}
-
-run();
-```
-### Example Usage: CollectorExamplesFilesystem
-
-<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesFilesystem" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    savedQueryId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    savedQueryId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("collectorsCreate failed:", res.error);
-  }
-}
-
-run();
-```
-### Example Usage: CollectorExamplesGoogleCloudStorage
-
-<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesGoogleCloudStorage" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    executor: {
-      type: "<value>",
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    executor: {
-      type: "<value>",
-    },
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("collectorsCreate failed:", res.error);
-  }
-}
-
-run();
-```
-### Example Usage: CollectorExamplesRest
-
-<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesRest" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
       },
     },
   });
@@ -375,12 +207,216 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesFilesystem
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesFilesystem" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesGoogleCloudStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesRest
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesRest" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
       },
     },
   });
@@ -409,12 +445,15 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
       },
     },
   });
@@ -444,12 +483,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
       },
     },
   });
@@ -478,8 +520,11 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    savedQueryId: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      savedQueryId: "<id>",
+    },
   });
 
   console.log(result);
@@ -507,8 +552,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    savedQueryId: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      savedQueryId: "<id>",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -535,12 +583,15 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
       },
     },
   });
@@ -570,12 +621,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    type: "collection",
-    collector: {
-      type: "database",
-      conf: {
-        connectionId: "<id>",
-        query: "<value>",
+    criblPack: "<value>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+        },
       },
     },
   });
@@ -594,14 +648,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.SavedJob](../../models/savedjob.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateSavedJobRequest](../../models/operations/createsavedjobrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
 
 ### Errors
 
@@ -630,6 +684,8 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.list({
     collectorType: "<value>",
+    criblPack: "<value>",
+    groupId: "<id>",
   });
 
   console.log(result);
@@ -658,6 +714,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsList(criblControlPlane, {
     collectorType: "<value>",
+    criblPack: "<value>",
+    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -681,7 +739,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
 
 ### Errors
 
@@ -710,6 +768,8 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.delete({
     id: "<id>",
+    criblPack: "<value>",
+    groupId: "<id>",
   });
 
   console.log(result);
@@ -738,6 +798,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsDelete(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
+    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -761,7 +823,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
 
 ### Errors
 
@@ -790,6 +852,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.get({
     id: "<id>",
+    criblPack: "<value>",
   });
 
   console.log(result);
@@ -818,6 +881,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsGet(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -841,7 +905,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
 
 ### Errors
 
@@ -870,6 +934,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -902,6 +967,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -933,6 +999,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -965,6 +1032,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -996,6 +1064,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1034,6 +1103,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1071,6 +1141,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1103,6 +1174,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1134,6 +1206,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       executor: {
@@ -1168,6 +1241,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       executor: {
@@ -1201,6 +1275,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1239,6 +1314,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1276,6 +1352,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1308,6 +1385,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1339,6 +1417,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1371,6 +1450,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1402,6 +1482,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1440,6 +1521,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
+    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1473,7 +1555,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
 
 ### Errors
 

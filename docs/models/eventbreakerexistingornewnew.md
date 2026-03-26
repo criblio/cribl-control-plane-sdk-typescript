@@ -26,7 +26,6 @@ const value: models.EventBreakerExistingOrNewNewRuleTypeJson = {
 
 ```typescript
 const value: models.EventBreakerExistingOrNewNewRuleTypeJsonArray = {
-  ruleType: "json_array",
   existingOrNew: "existing",
 };
 ```

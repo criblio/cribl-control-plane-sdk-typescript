@@ -95,10 +95,6 @@ import {
   FunctionLocalSearchRulesetRunner$inboundSchema,
 } from "./functionlocalsearchrulesetrunner.js";
 import {
-  FunctionLocalSearchSchemaMapper,
-  FunctionLocalSearchSchemaMapper$inboundSchema,
-} from "./functionlocalsearchschemamapper.js";
-import {
   FunctionLocalSearchTransformer,
   FunctionLocalSearchTransformer$inboundSchema,
 } from "./functionlocalsearchtransformer.js";
@@ -247,7 +243,6 @@ export type FunctionResponse =
   | FunctionLimit
   | FunctionLocalSearchDatatypeParser
   | FunctionLocalSearchRulesetRunner
-  | FunctionLocalSearchSchemaMapper
   | FunctionLocalSearchTransformer
   | FunctionLookup
   | FunctionMask
@@ -322,7 +317,6 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   limit: FunctionLimit$inboundSchema,
   local_search_datatype_parser: FunctionLocalSearchDatatypeParser$inboundSchema,
   local_search_ruleset_runner: FunctionLocalSearchRulesetRunner$inboundSchema,
-  local_search_schema_mapper: FunctionLocalSearchSchemaMapper$inboundSchema,
   local_search_transformer: FunctionLocalSearchTransformer$inboundSchema,
   lookup: FunctionLookup$inboundSchema,
   mask: FunctionMask$inboundSchema,

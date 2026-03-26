@@ -104,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/system/inputs/{id}/hectoken/{token}")(pathParams);
 
   const headers = new Headers(compactMap({

@@ -49,7 +49,7 @@ import {
 
 export type InputOffice365ServiceContentConfig = {
   /**
-   * Microsoft 365 Services API Content Type
+   * Office 365 Services API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -97,15 +97,15 @@ export type InputOffice365Service = {
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
   pq?: PqType | undefined;
   /**
-   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
   planType?: SubscriptionPlanOptions | undefined;
   /**
-   * Microsoft 365 Azure Tenant ID
+   * Office 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Microsoft 365 Azure Application ID
+   * Office 365 Azure Application ID
    */
   appId: string;
   /**
@@ -137,7 +137,7 @@ export type InputOffice365Service = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
-   * Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?: Array<InputOffice365ServiceContentConfig> | undefined;
   retryRules?: RetryRulesType1 | undefined;
@@ -147,7 +147,7 @@ export type InputOffice365Service = {
   authType?: AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
-   * Microsoft 365 Azure client secret
+   * Office 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**

@@ -20,9 +20,9 @@ export class Collectors extends ClientSDK {
    * Create a new Collector.
    */
   async create(
-    request: models.SavedJob,
+    request: operations.CreateSavedJobRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedSavedJobResponse> {
+  ): Promise<models.CountedSavedJob> {
     return unwrapAsync(collectorsCreate(
       this,
       request,
@@ -39,7 +39,7 @@ export class Collectors extends ClientSDK {
   async list(
     request?: operations.GetSavedJobRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedSavedJobResponse> {
+  ): Promise<models.CountedSavedJob> {
     return unwrapAsync(collectorsList(
       this,
       request,
@@ -56,7 +56,7 @@ export class Collectors extends ClientSDK {
   async delete(
     request: operations.DeleteSavedJobByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedSavedJobResponse> {
+  ): Promise<models.CountedSavedJob> {
     return unwrapAsync(collectorsDelete(
       this,
       request,
@@ -73,7 +73,7 @@ export class Collectors extends ClientSDK {
   async get(
     request: operations.GetSavedJobByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedSavedJobResponse> {
+  ): Promise<models.CountedSavedJob> {
     return unwrapAsync(collectorsGet(
       this,
       request,
@@ -90,7 +90,7 @@ export class Collectors extends ClientSDK {
   async update(
     request: operations.UpdateSavedJobByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedSavedJobResponse> {
+  ): Promise<models.CountedSavedJob> {
     return unwrapAsync(collectorsUpdate(
       this,
       request,

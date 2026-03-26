@@ -101,7 +101,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/products/{product}/groups/{id}/acl/teams")(
     pathParams,
   );

@@ -9,11 +9,21 @@ export type GetSavedJobRequest = {
    * Filter by collector type
    */
   collectorType?: string | undefined;
+  /**
+   * Pack ID
+   */
+  criblPack?: string | undefined;
+  /**
+   * Worker group ID
+   */
+  groupId?: string | undefined;
 };
 
 /** @internal */
 export type GetSavedJobRequest$Outbound = {
   collectorType?: string | undefined;
+  criblPack?: string | undefined;
+  groupId?: string | undefined;
 };
 
 /** @internal */
@@ -23,6 +33,8 @@ export const GetSavedJobRequest$outboundSchema: z.ZodType<
   GetSavedJobRequest
 > = z.object({
   collectorType: z.string().optional(),
+  criblPack: z.string().optional(),
+  groupId: z.string().optional(),
 });
 
 export function getSavedJobRequestToJSON(

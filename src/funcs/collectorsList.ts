@@ -38,7 +38,7 @@ export function collectorsList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedSavedJobResponse,
+    models.CountedSavedJob,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -64,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedSavedJobResponse,
+      models.CountedSavedJob,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -94,6 +94,8 @@ async function $do(
 
   const query = encodeFormQuery({
     "collectorType": payload?.collectorType,
+    "criblPack": payload?.criblPack,
+    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({
@@ -160,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedSavedJobResponse,
+    models.CountedSavedJob,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -171,7 +173,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedSavedJobResponse$inboundSchema),
+    M.json(200, models.CountedSavedJob$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),
