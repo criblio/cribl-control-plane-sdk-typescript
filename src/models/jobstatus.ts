@@ -30,7 +30,13 @@ export const State = {
  */
 export type State = OpenEnum<typeof State>;
 
+/**
+ * Status of a job, including its current state and failure reason.
+ */
 export type JobStatus = {
+  /**
+   * Reason the job entered its current <code>state</code>, typically populated upon failure.
+   */
   reason?: { [k: string]: any } | undefined;
   /**
    * State of the Job

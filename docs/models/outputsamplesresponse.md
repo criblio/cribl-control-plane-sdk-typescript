@@ -1,6 +1,6 @@
 # OutputSamplesResponse
 
-Sample event data returned for a Destination.
+Sample events from a Destination.
 
 ## Example Usage
 
@@ -24,6 +24,6 @@ let value: OutputSamplesResponse = {
 
 ## Fields
 
-| Field                                       | Type                                        | Required                                    | Description                                 |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| `events`                                    | Record<string, *any*>[]                     | :heavy_check_mark:                          | Array of sample events for the Destination. |
+| Field                                                    | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `events`                                                 | Record<string, *any*>[]                                  | :heavy_check_mark:                                       | Array of sample events returned from a Destination test. |

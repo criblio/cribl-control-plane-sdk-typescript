@@ -52,6 +52,28 @@ import {
 } from "./retryrulestype.js";
 
 /**
+ * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ */
+export const DisplayValue = {
+  /**
+   * Raw
+   */
+  False: "false",
+  /**
+   * Display
+   */
+  True: "true",
+  /**
+   * All
+   */
+  All: "all",
+} as const;
+/**
+ * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ */
+export type DisplayValue = OpenEnum<typeof DisplayValue>;
+
+/**
  * ServiceNow Table API authentication method
  */
 export const InputServicenowTableAuthenticationType = {
@@ -119,6 +141,22 @@ export type InputServicenowTable = {
    * ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
    */
   instance: string;
+  /**
+   * ServiceNow table name to collect from.
+   */
+  tableName: string;
+  /**
+   * Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+   */
+  displayValue?: DisplayValue | undefined;
+  /**
+   * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+   */
+  pageSize?: number | undefined;
   /**
    * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
    */
@@ -246,6 +284,19 @@ export type InputServicenowTable = {
 };
 
 /** @internal */
+export const DisplayValue$inboundSchema: z.ZodType<
+  DisplayValue,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(DisplayValue);
+/** @internal */
+export const DisplayValue$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DisplayValue
+> = openEnums.outboundSchema(DisplayValue);
+
+/** @internal */
 export const InputServicenowTableAuthenticationType$inboundSchema: z.ZodType<
   InputServicenowTableAuthenticationType,
   z.ZodTypeDef,
@@ -277,6 +328,10 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   instance: types.string(),
+  tableName: types.string(),
+  fields: types.optional(z.array(types.string())),
+  displayValue: types.optional(DisplayValue$inboundSchema),
+  pageSize: types.optional(types.number()),
   rejectUnauthorized: types.optional(types.boolean()),
   authType: types.optional(
     InputServicenowTableAuthenticationType$inboundSchema,
@@ -327,6 +382,10 @@ export type InputServicenowTable$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   instance: string;
+  tableName: string;
+  fields?: Array<string> | undefined;
+  displayValue?: string | undefined;
+  pageSize?: number | undefined;
   rejectUnauthorized?: boolean | undefined;
   authType?: string | undefined;
   cronSchedule: string;
@@ -380,6 +439,10 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   instance: z.string(),
+  tableName: z.string(),
+  fields: z.array(z.string()).optional(),
+  displayValue: DisplayValue$outboundSchema.optional(),
+  pageSize: z.number().int().optional(),
   rejectUnauthorized: z.boolean().optional(),
   authType: InputServicenowTableAuthenticationType$outboundSchema.optional(),
   cronSchedule: z.string(),

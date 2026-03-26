@@ -711,6 +711,7 @@ const value: operations.CreateInputSystemByPackInputServicenowTable = {
   id: "<id>",
   type: "servicenow_table",
   instance: "<value>",
+  tableName: "<value>",
   cronSchedule: "<value>",
   earliest: "<value>",
   latest: "<value>",

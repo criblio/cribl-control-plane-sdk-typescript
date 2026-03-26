@@ -95,7 +95,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/pipelines/{id}")(pathParams);
 
   const headers = new Headers(compactMap({
