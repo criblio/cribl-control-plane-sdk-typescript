@@ -44,7 +44,7 @@ import {
   RouteConf,
 } from "../dist/esm/models";
 import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
-import { baseUrl, createCriblClient } from "./auth";
+import { createCriblClient } from "./auth";
 
 // Create Fleet
 const myFleet: ConfigGroup = {
@@ -107,8 +107,6 @@ const route: RouteConf = {
   filter: `__inputId=='${syslogSource.id}'`,
   description: "This is my new Route",
 };
-const groupUrl = `${baseUrl}/m/${myFleet.id}`;
-
 async function main() {
   // Initialize Cribl client
   const cribl = await createCriblClient();
@@ -125,31 +123,31 @@ async function main() {
   console.log(`✅ Fleet created: ${myFleet.id}`);
 
   // Create Syslog Source
-  await cribl.sources.create(syslogSource, { serverURL: groupUrl });
+  await cribl.sources.create(syslogSource, { group: myFleet.id });
   console.log(`✅ Syslog Source created: ${syslogSource.id}`);
 
   // Create Amazon S3 Destination
-  await cribl.destinations.create(s3Destination, { serverURL: groupUrl });
+  await cribl.destinations.create(s3Destination, { group: myFleet.id });
   console.log(`✅ Amazon S3 Destination created: ${s3Destination.id}`);
 
   // Create Pipeline
-  await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
+  await cribl.pipelines.create(pipeline, { group: myFleet.id });
   console.log(`✅ Pipeline created: ${pipeline.id}`);
 
   // Add Route to Routing table
-  const routesListResponse = await cribl.routes.list({ serverURL: groupUrl });
+  const routesListResponse = await cribl.routes.list({ group: myFleet.id });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
+  await cribl.routes.update({ id: routes.id, routes }, { group: myFleet.id });
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
   const commitResponse = await cribl.versions.commits.create({
     message: "Commit for Edge example", effective: true, files: ["."]
-  }, { serverURL: groupUrl });
+  }, { group: myFleet.id });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the fleet: ${myFleet.id}, commit ID: ${version}`);

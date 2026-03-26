@@ -32,7 +32,7 @@ import {
   RouteConf,
 } from "../dist/esm/models";
 import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
-import { baseUrl, createCriblClient } from "./auth";
+import { createCriblClient } from "./auth";
 
 const PORT = 9020;
 const AUTH_TOKEN = "4a4b3663-7a57-7369-7632-795553573668";
@@ -93,8 +93,6 @@ const route: RouteConf = {
   filter: "__inputId=='tcpjson:my-tcp-json'",
   description: "This is my new route",
 };
-const groupUrl = `${baseUrl}/m/${myWorkerGroup.id}`;
-
 async function main() {
   // Initialize Cribl client
   const cribl = await createCriblClient();
@@ -111,33 +109,33 @@ async function main() {
   console.log(`✅ Worker Group created: ${myWorkerGroup.id}`);
 
   // Create TCP JSON Source
-  await cribl.sources.create(tcpJsonSource, { serverURL: groupUrl });
+  await cribl.sources.create(tcpJsonSource, { group: myWorkerGroup.id });
   console.log(`✅ TCP JSON Source created: ${tcpJsonSource.id}`);
 
   // Create Filesystem Destination
   await cribl.destinations.create(fileSystemDestination, {
-    serverURL: groupUrl,
+    group: myWorkerGroup.id,
   });
   console.log(`✅ Filesystem Destination created: ${fileSystemDestination.id}`);
 
   // Create Pipeline
-  await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
+  await cribl.pipelines.create(pipeline, { group: myWorkerGroup.id });
   console.log(`✅ Pipeline created: ${pipeline.id}`);
 
   // Add Route to Routing table
-  const routesListResponse = await cribl.routes.list({ serverURL: groupUrl });
+  const routesListResponse = await cribl.routes.list({ group: myWorkerGroup.id });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
+  await cribl.routes.update({ id: routes.id, routes }, { group: myWorkerGroup.id });
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
   const commitResponse = await cribl.versions.commits.create({
     message: "Commit for Stream example", effective: true, files: ["."]
-  }, { serverURL: groupUrl });
+  }, { group: myWorkerGroup.id });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the group: ${myWorkerGroup.id}, commit ID: ${version}`);
