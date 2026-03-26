@@ -1,0 +1,17 @@
+# NodeSkippedUpgradeStatus
+
+## Example Usage
+
+```typescript
+import { NodeSkippedUpgradeStatus } from "cribl-control-plane/models";
+
+let value: NodeSkippedUpgradeStatus = 3;
+
+// Open enum: unrecognized values are captured as Unrecognized<number>
+```
+
+## Values
+
+```typescript
+0 | 1 | 2 | 3 | Unrecognized<number>
+```
