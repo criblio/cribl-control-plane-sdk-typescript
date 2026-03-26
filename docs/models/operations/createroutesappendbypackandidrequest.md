@@ -10,6 +10,8 @@ let value: CreateRoutesAppendByPackAndIdRequest = {
   pack: "<value>",
   requestBody: [
     {
+      final: false,
+      id: "<id>",
       name: "<value>",
       pipeline: "<value>",
     },
@@ -23,4 +25,4 @@ let value: CreateRoutesAppendByPackAndIdRequest = {
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `id`                                                                                                       | *string*                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>. |
 | `pack`                                                                                                     | *string*                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Pack to append.                                                                 |
-| `requestBody`                                                                                              | [models.RouteConfInput](../../models/routeconfinput.md)[]                                                  | :heavy_check_mark:                                                                                         | RouteDefinitions object                                                                                    |
+| `requestBody`                                                                                              | [models.RouteConf](../../models/routeconf.md)[]                                                            | :heavy_check_mark:                                                                                         | RouteDefinitions object                                                                                    |

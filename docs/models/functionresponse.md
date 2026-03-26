@@ -494,21 +494,6 @@ const value: models.FunctionLocalSearchRulesetRunner = {
 };
 ```
 
-### `models.FunctionLocalSearchSchemaMapper`
-
-```typescript
-const value: models.FunctionLocalSearchSchemaMapper = {
-  __filename: "example.file",
-  group: "<value>",
-  id: "local_search_schema_mapper",
-  loadTime: 2293.89,
-  modTime: 8367.16,
-  name: "<value>",
-  uischema: {},
-  version: "<value>",
-};
-```
-
 ### `models.FunctionLocalSearchTransformer`
 
 ```typescript

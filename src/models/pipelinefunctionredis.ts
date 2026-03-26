@@ -10,6 +10,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   MaximumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions,
@@ -22,11 +23,11 @@ import {
   MinimumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$outboundSchema,
 } from "./minimumtlsversionoptionsredisdeploymenttypestandalonetlsoptions.js";
 import {
-  TlsOptionsTypeRedisDeploymentTypeCluster,
-  TlsOptionsTypeRedisDeploymentTypeCluster$inboundSchema,
-  TlsOptionsTypeRedisDeploymentTypeCluster$Outbound,
-  TlsOptionsTypeRedisDeploymentTypeCluster$outboundSchema,
-} from "./tlsoptionstyperedisdeploymenttypecluster.js";
+  TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue,
+  TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$inboundSchema,
+  TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$Outbound,
+  TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$outboundSchema,
+} from "./tlsoptionstyperedisdeploymenttypeclustertlstrue.js";
 
 export type RedisAuthTypeTextSecretCommand = {
   /**
@@ -281,7 +282,7 @@ export type RedisAuthTypeNone = {
 /**
  * How the Redis server is configured. Defaults to Standalone
  */
-export const RedisDeploymentTypeSentinelDeploymentType = {
+export const RedisDeploymentTypeSentinelTlsFalseDeploymentType = {
   /**
    * Standalone
    */
@@ -298,11 +299,11 @@ export const RedisDeploymentTypeSentinelDeploymentType = {
 /**
  * How the Redis server is configured. Defaults to Standalone
  */
-export type RedisDeploymentTypeSentinelDeploymentType = OpenEnum<
-  typeof RedisDeploymentTypeSentinelDeploymentType
+export type RedisDeploymentTypeSentinelTlsFalseDeploymentType = OpenEnum<
+  typeof RedisDeploymentTypeSentinelTlsFalseDeploymentType
 >;
 
-export type RedisDeploymentTypeSentinelRootNode = {
+export type RedisDeploymentTypeSentinelTlsFalseRootNode = {
   /**
    * Hostname of sentinel node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
    */
@@ -313,7 +314,7 @@ export type RedisDeploymentTypeSentinelRootNode = {
   port: number;
 };
 
-export type RedisDeploymentTypeSentinelCommand = {
+export type RedisDeploymentTypeSentinelTlsFalseCommand = {
   /**
    * Name of the field in which to store the returned value. Leave blank to discard returned value.
    */
@@ -332,7 +333,7 @@ export type RedisDeploymentTypeSentinelCommand = {
   argsExpr?: string | undefined;
 };
 
-export const RedisDeploymentTypeSentinelAuthenticationMethod = {
+export const RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod = {
   /**
    * None
    */
@@ -350,27 +351,30 @@ export const RedisDeploymentTypeSentinelAuthenticationMethod = {
    */
   TextSecret: "textSecret",
 } as const;
-export type RedisDeploymentTypeSentinelAuthenticationMethod = OpenEnum<
-  typeof RedisDeploymentTypeSentinelAuthenticationMethod
+export type RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod = OpenEnum<
+  typeof RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod
 >;
 
-export type RedisDeploymentTypeSentinel = {
-  /**
-   * How the Redis server is configured. Defaults to Standalone
-   */
-  deploymentType?: RedisDeploymentTypeSentinelDeploymentType | undefined;
-  masterName: string;
-  /**
-   * List of sentinels to be used
-   */
-  rootNodes?: Array<RedisDeploymentTypeSentinelRootNode> | undefined;
+export type RedisDeploymentTypeSentinelTlsFalse = {
   /**
    * Use TLS for connections to this cluster
    */
   tls?: boolean | undefined;
-  tlsOptions?: TlsOptionsTypeRedisDeploymentTypeCluster | undefined;
-  commands: Array<RedisDeploymentTypeSentinelCommand>;
-  authType?: RedisDeploymentTypeSentinelAuthenticationMethod | undefined;
+  /**
+   * How the Redis server is configured. Defaults to Standalone
+   */
+  deploymentType?:
+    | RedisDeploymentTypeSentinelTlsFalseDeploymentType
+    | undefined;
+  masterName: string;
+  /**
+   * List of sentinels to be used
+   */
+  rootNodes?: Array<RedisDeploymentTypeSentinelTlsFalseRootNode> | undefined;
+  commands: Array<RedisDeploymentTypeSentinelTlsFalseCommand>;
+  authType?:
+    | RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod
+    | undefined;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
    */
@@ -384,7 +388,7 @@ export type RedisDeploymentTypeSentinel = {
 /**
  * How the Redis server is configured. Defaults to Standalone
  */
-export const RedisDeploymentTypeClusterDeploymentType = {
+export const RedisDeploymentTypeSentinelTlsTrueDeploymentType = {
   /**
    * Standalone
    */
@@ -401,11 +405,118 @@ export const RedisDeploymentTypeClusterDeploymentType = {
 /**
  * How the Redis server is configured. Defaults to Standalone
  */
-export type RedisDeploymentTypeClusterDeploymentType = OpenEnum<
-  typeof RedisDeploymentTypeClusterDeploymentType
+export type RedisDeploymentTypeSentinelTlsTrueDeploymentType = OpenEnum<
+  typeof RedisDeploymentTypeSentinelTlsTrueDeploymentType
 >;
 
-export type RedisDeploymentTypeClusterRootNode = {
+export type RedisDeploymentTypeSentinelTlsTrueRootNode = {
+  /**
+   * Hostname of sentinel node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  host: string;
+  /**
+   * Port of sentinel node
+   */
+  port: number;
+};
+
+export type RedisDeploymentTypeSentinelTlsTrueCommand = {
+  /**
+   * Name of the field in which to store the returned value. Leave blank to discard returned value.
+   */
+  outField?: string | undefined;
+  /**
+   * Redis command to perform. For a complete list visit: https://redis.io/commands
+   */
+  command: string;
+  /**
+   * A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
+   */
+  keyExpr: string;
+  /**
+   * A JavaScript expression to compute arguments to the operation. Can return an array.
+   */
+  argsExpr?: string | undefined;
+};
+
+export const RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * User Secret
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Admin Secret
+   */
+  TextSecret: "textSecret",
+} as const;
+export type RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod = OpenEnum<
+  typeof RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod
+>;
+
+export type RedisDeploymentTypeSentinelTlsTrue = {
+  /**
+   * Use TLS for connections to this cluster
+   */
+  tls?: boolean | undefined;
+  tlsOptions?: TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue | undefined;
+  /**
+   * How the Redis server is configured. Defaults to Standalone
+   */
+  deploymentType?: RedisDeploymentTypeSentinelTlsTrueDeploymentType | undefined;
+  masterName: string;
+  /**
+   * List of sentinels to be used
+   */
+  rootNodes?: Array<RedisDeploymentTypeSentinelTlsTrueRootNode> | undefined;
+  commands: Array<RedisDeploymentTypeSentinelTlsTrueCommand>;
+  authType?: RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod | undefined;
+  /**
+   * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
+   */
+  maxBlockSecs?: number | undefined;
+  /**
+   * Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
+   */
+  enableClientSideCaching?: boolean | undefined;
+};
+
+export type RedisDeploymentTypeSentinel =
+  | RedisDeploymentTypeSentinelTlsTrue
+  | RedisDeploymentTypeSentinelTlsFalse;
+
+/**
+ * How the Redis server is configured. Defaults to Standalone
+ */
+export const RedisDeploymentTypeClusterTlsFalseDeploymentType = {
+  /**
+   * Standalone
+   */
+  Standalone: "standalone",
+  /**
+   * Cluster
+   */
+  Cluster: "cluster",
+  /**
+   * Sentinel
+   */
+  Sentinel: "sentinel",
+} as const;
+/**
+ * How the Redis server is configured. Defaults to Standalone
+ */
+export type RedisDeploymentTypeClusterTlsFalseDeploymentType = OpenEnum<
+  typeof RedisDeploymentTypeClusterTlsFalseDeploymentType
+>;
+
+export type RedisDeploymentTypeClusterTlsFalseRootNode = {
   /**
    * Hostname of cluster node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
    */
@@ -419,7 +530,7 @@ export type RedisDeploymentTypeClusterRootNode = {
 /**
  * Which nodes read commands should be sent to
  */
-export const ScaleReads = {
+export const RedisDeploymentTypeClusterTlsFalseScaleReads = {
   /**
    * Masters
    */
@@ -436,9 +547,11 @@ export const ScaleReads = {
 /**
  * Which nodes read commands should be sent to
  */
-export type ScaleReads = OpenEnum<typeof ScaleReads>;
+export type RedisDeploymentTypeClusterTlsFalseScaleReads = OpenEnum<
+  typeof RedisDeploymentTypeClusterTlsFalseScaleReads
+>;
 
-export type RedisDeploymentTypeClusterCommand = {
+export type RedisDeploymentTypeClusterTlsFalseCommand = {
   /**
    * Name of the field in which to store the returned value. Leave blank to discard returned value.
    */
@@ -457,7 +570,7 @@ export type RedisDeploymentTypeClusterCommand = {
   argsExpr?: string | undefined;
 };
 
-export const RedisDeploymentTypeClusterAuthenticationMethod = {
+export const RedisDeploymentTypeClusterTlsFalseAuthenticationMethod = {
   /**
    * None
    */
@@ -475,30 +588,29 @@ export const RedisDeploymentTypeClusterAuthenticationMethod = {
    */
   TextSecret: "textSecret",
 } as const;
-export type RedisDeploymentTypeClusterAuthenticationMethod = OpenEnum<
-  typeof RedisDeploymentTypeClusterAuthenticationMethod
+export type RedisDeploymentTypeClusterTlsFalseAuthenticationMethod = OpenEnum<
+  typeof RedisDeploymentTypeClusterTlsFalseAuthenticationMethod
 >;
 
-export type RedisDeploymentTypeCluster = {
-  /**
-   * How the Redis server is configured. Defaults to Standalone
-   */
-  deploymentType?: RedisDeploymentTypeClusterDeploymentType | undefined;
-  /**
-   * Root nodes to which the cluster connection should be initiated
-   */
-  rootNodes?: Array<RedisDeploymentTypeClusterRootNode> | undefined;
+export type RedisDeploymentTypeClusterTlsFalse = {
   /**
    * Use TLS for connections to this cluster
    */
   tls?: boolean | undefined;
   /**
+   * How the Redis server is configured. Defaults to Standalone
+   */
+  deploymentType?: RedisDeploymentTypeClusterTlsFalseDeploymentType | undefined;
+  /**
+   * Root nodes to which the cluster connection should be initiated
+   */
+  rootNodes?: Array<RedisDeploymentTypeClusterTlsFalseRootNode> | undefined;
+  /**
    * Which nodes read commands should be sent to
    */
-  scaleReads?: ScaleReads | undefined;
-  tlsOptions?: TlsOptionsTypeRedisDeploymentTypeCluster | undefined;
-  commands: Array<RedisDeploymentTypeClusterCommand>;
-  authType?: RedisDeploymentTypeClusterAuthenticationMethod | undefined;
+  scaleReads?: RedisDeploymentTypeClusterTlsFalseScaleReads | undefined;
+  commands: Array<RedisDeploymentTypeClusterTlsFalseCommand>;
+  authType?: RedisDeploymentTypeClusterTlsFalseAuthenticationMethod | undefined;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
    */
@@ -508,6 +620,140 @@ export type RedisDeploymentTypeCluster = {
    */
   enableClientSideCaching?: boolean | undefined;
 };
+
+/**
+ * How the Redis server is configured. Defaults to Standalone
+ */
+export const RedisDeploymentTypeClusterTlsTrueDeploymentType = {
+  /**
+   * Standalone
+   */
+  Standalone: "standalone",
+  /**
+   * Cluster
+   */
+  Cluster: "cluster",
+  /**
+   * Sentinel
+   */
+  Sentinel: "sentinel",
+} as const;
+/**
+ * How the Redis server is configured. Defaults to Standalone
+ */
+export type RedisDeploymentTypeClusterTlsTrueDeploymentType = OpenEnum<
+  typeof RedisDeploymentTypeClusterTlsTrueDeploymentType
+>;
+
+export type RedisDeploymentTypeClusterTlsTrueRootNode = {
+  /**
+   * Hostname of cluster node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  host: string;
+  /**
+   * Port of cluster node
+   */
+  port: number;
+};
+
+/**
+ * Which nodes read commands should be sent to
+ */
+export const RedisDeploymentTypeClusterTlsTrueScaleReads = {
+  /**
+   * Masters
+   */
+  Master: "master",
+  /**
+   * Replicas
+   */
+  Replica: "replica",
+  /**
+   * Masters and Replicas
+   */
+  All: "all",
+} as const;
+/**
+ * Which nodes read commands should be sent to
+ */
+export type RedisDeploymentTypeClusterTlsTrueScaleReads = OpenEnum<
+  typeof RedisDeploymentTypeClusterTlsTrueScaleReads
+>;
+
+export type RedisDeploymentTypeClusterTlsTrueCommand = {
+  /**
+   * Name of the field in which to store the returned value. Leave blank to discard returned value.
+   */
+  outField?: string | undefined;
+  /**
+   * Redis command to perform. For a complete list visit: https://redis.io/commands
+   */
+  command: string;
+  /**
+   * A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
+   */
+  keyExpr: string;
+  /**
+   * A JavaScript expression to compute arguments to the operation. Can return an array.
+   */
+  argsExpr?: string | undefined;
+};
+
+export const RedisDeploymentTypeClusterTlsTrueAuthenticationMethod = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * User Secret
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Admin Secret
+   */
+  TextSecret: "textSecret",
+} as const;
+export type RedisDeploymentTypeClusterTlsTrueAuthenticationMethod = OpenEnum<
+  typeof RedisDeploymentTypeClusterTlsTrueAuthenticationMethod
+>;
+
+export type RedisDeploymentTypeClusterTlsTrue = {
+  /**
+   * Use TLS for connections to this cluster
+   */
+  tls?: boolean | undefined;
+  tlsOptions?: TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue | undefined;
+  /**
+   * How the Redis server is configured. Defaults to Standalone
+   */
+  deploymentType?: RedisDeploymentTypeClusterTlsTrueDeploymentType | undefined;
+  /**
+   * Root nodes to which the cluster connection should be initiated
+   */
+  rootNodes?: Array<RedisDeploymentTypeClusterTlsTrueRootNode> | undefined;
+  /**
+   * Which nodes read commands should be sent to
+   */
+  scaleReads?: RedisDeploymentTypeClusterTlsTrueScaleReads | undefined;
+  commands: Array<RedisDeploymentTypeClusterTlsTrueCommand>;
+  authType?: RedisDeploymentTypeClusterTlsTrueAuthenticationMethod | undefined;
+  /**
+   * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
+   */
+  maxBlockSecs?: number | undefined;
+  /**
+   * Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
+   */
+  enableClientSideCaching?: boolean | undefined;
+};
+
+export type RedisDeploymentTypeCluster =
+  | RedisDeploymentTypeClusterTlsTrue
+  | RedisDeploymentTypeClusterTlsFalse;
 
 /**
  * How the Redis server is configured. Defaults to Standalone
@@ -1163,64 +1409,304 @@ export function redisAuthTypeNoneFromJSON(
 }
 
 /** @internal */
-export const RedisDeploymentTypeSentinelDeploymentType$inboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinelDeploymentType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RedisDeploymentTypeSentinelDeploymentType);
+export const RedisDeploymentTypeSentinelTlsFalseDeploymentType$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsFalseDeploymentType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    RedisDeploymentTypeSentinelTlsFalseDeploymentType,
+  );
 /** @internal */
-export const RedisDeploymentTypeSentinelDeploymentType$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, RedisDeploymentTypeSentinelDeploymentType> =
-    openEnums.outboundSchema(RedisDeploymentTypeSentinelDeploymentType);
+export const RedisDeploymentTypeSentinelTlsFalseDeploymentType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RedisDeploymentTypeSentinelTlsFalseDeploymentType
+  > = openEnums.outboundSchema(
+    RedisDeploymentTypeSentinelTlsFalseDeploymentType,
+  );
 
 /** @internal */
-export const RedisDeploymentTypeSentinelRootNode$inboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinelRootNode,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: types.string(),
-  port: types.number(),
-});
+export const RedisDeploymentTypeSentinelTlsFalseRootNode$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsFalseRootNode,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    host: types.string(),
+    port: types.number(),
+  });
 /** @internal */
-export type RedisDeploymentTypeSentinelRootNode$Outbound = {
+export type RedisDeploymentTypeSentinelTlsFalseRootNode$Outbound = {
   host: string;
   port: number;
 };
 
 /** @internal */
-export const RedisDeploymentTypeSentinelRootNode$outboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinelRootNode$Outbound,
-  z.ZodTypeDef,
-  RedisDeploymentTypeSentinelRootNode
-> = z.object({
-  host: z.string(),
-  port: z.number(),
-});
+export const RedisDeploymentTypeSentinelTlsFalseRootNode$outboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsFalseRootNode$Outbound,
+    z.ZodTypeDef,
+    RedisDeploymentTypeSentinelTlsFalseRootNode
+  > = z.object({
+    host: z.string(),
+    port: z.number(),
+  });
 
-export function redisDeploymentTypeSentinelRootNodeToJSON(
-  redisDeploymentTypeSentinelRootNode: RedisDeploymentTypeSentinelRootNode,
+export function redisDeploymentTypeSentinelTlsFalseRootNodeToJSON(
+  redisDeploymentTypeSentinelTlsFalseRootNode:
+    RedisDeploymentTypeSentinelTlsFalseRootNode,
 ): string {
   return JSON.stringify(
-    RedisDeploymentTypeSentinelRootNode$outboundSchema.parse(
-      redisDeploymentTypeSentinelRootNode,
+    RedisDeploymentTypeSentinelTlsFalseRootNode$outboundSchema.parse(
+      redisDeploymentTypeSentinelTlsFalseRootNode,
     ),
   );
 }
-export function redisDeploymentTypeSentinelRootNodeFromJSON(
+export function redisDeploymentTypeSentinelTlsFalseRootNodeFromJSON(
   jsonString: string,
-): SafeParseResult<RedisDeploymentTypeSentinelRootNode, SDKValidationError> {
+): SafeParseResult<
+  RedisDeploymentTypeSentinelTlsFalseRootNode,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      RedisDeploymentTypeSentinelRootNode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisDeploymentTypeSentinelRootNode' from JSON`,
+      RedisDeploymentTypeSentinelTlsFalseRootNode$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeSentinelTlsFalseRootNode' from JSON`,
   );
 }
 
 /** @internal */
-export const RedisDeploymentTypeSentinelCommand$inboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinelCommand,
+export const RedisDeploymentTypeSentinelTlsFalseCommand$inboundSchema:
+  z.ZodType<RedisDeploymentTypeSentinelTlsFalseCommand, z.ZodTypeDef, unknown> =
+    z.object({
+      outField: types.optional(types.string()),
+      command: types.string(),
+      keyExpr: types.string(),
+      argsExpr: types.optional(types.string()),
+    });
+/** @internal */
+export type RedisDeploymentTypeSentinelTlsFalseCommand$Outbound = {
+  outField?: string | undefined;
+  command: string;
+  keyExpr: string;
+  argsExpr?: string | undefined;
+};
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsFalseCommand$outboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsFalseCommand$Outbound,
+    z.ZodTypeDef,
+    RedisDeploymentTypeSentinelTlsFalseCommand
+  > = z.object({
+    outField: z.string().optional(),
+    command: z.string(),
+    keyExpr: z.string(),
+    argsExpr: z.string().optional(),
+  });
+
+export function redisDeploymentTypeSentinelTlsFalseCommandToJSON(
+  redisDeploymentTypeSentinelTlsFalseCommand:
+    RedisDeploymentTypeSentinelTlsFalseCommand,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeSentinelTlsFalseCommand$outboundSchema.parse(
+      redisDeploymentTypeSentinelTlsFalseCommand,
+    ),
+  );
+}
+export function redisDeploymentTypeSentinelTlsFalseCommandFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RedisDeploymentTypeSentinelTlsFalseCommand,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisDeploymentTypeSentinelTlsFalseCommand$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeSentinelTlsFalseCommand' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod,
+  );
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod
+  > = openEnums.outboundSchema(
+    RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod,
+  );
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsFalse$inboundSchema: z.ZodType<
+  RedisDeploymentTypeSentinelTlsFalse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tls: types.optional(types.boolean()),
+  deploymentType: types.optional(
+    RedisDeploymentTypeSentinelTlsFalseDeploymentType$inboundSchema,
+  ),
+  masterName: types.string(),
+  rootNodes: types.optional(
+    z.array(z.lazy(() =>
+      RedisDeploymentTypeSentinelTlsFalseRootNode$inboundSchema
+    )),
+  ),
+  commands: z.array(
+    z.lazy(() => RedisDeploymentTypeSentinelTlsFalseCommand$inboundSchema),
+  ),
+  authType: types.optional(
+    RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod$inboundSchema,
+  ),
+  maxBlockSecs: types.optional(types.number()),
+  enableClientSideCaching: types.optional(types.boolean()),
+});
+/** @internal */
+export type RedisDeploymentTypeSentinelTlsFalse$Outbound = {
+  tls?: boolean | undefined;
+  deploymentType?: string | undefined;
+  masterName: string;
+  rootNodes?:
+    | Array<RedisDeploymentTypeSentinelTlsFalseRootNode$Outbound>
+    | undefined;
+  commands: Array<RedisDeploymentTypeSentinelTlsFalseCommand$Outbound>;
+  authType?: string | undefined;
+  maxBlockSecs?: number | undefined;
+  enableClientSideCaching?: boolean | undefined;
+};
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsFalse$outboundSchema: z.ZodType<
+  RedisDeploymentTypeSentinelTlsFalse$Outbound,
+  z.ZodTypeDef,
+  RedisDeploymentTypeSentinelTlsFalse
+> = z.object({
+  tls: z.boolean().optional(),
+  deploymentType:
+    RedisDeploymentTypeSentinelTlsFalseDeploymentType$outboundSchema.optional(),
+  masterName: z.string(),
+  rootNodes: z.array(
+    z.lazy(() => RedisDeploymentTypeSentinelTlsFalseRootNode$outboundSchema),
+  ).optional(),
+  commands: z.array(
+    z.lazy(() => RedisDeploymentTypeSentinelTlsFalseCommand$outboundSchema),
+  ),
+  authType:
+    RedisDeploymentTypeSentinelTlsFalseAuthenticationMethod$outboundSchema
+      .optional(),
+  maxBlockSecs: z.number().optional(),
+  enableClientSideCaching: z.boolean().optional(),
+});
+
+export function redisDeploymentTypeSentinelTlsFalseToJSON(
+  redisDeploymentTypeSentinelTlsFalse: RedisDeploymentTypeSentinelTlsFalse,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeSentinelTlsFalse$outboundSchema.parse(
+      redisDeploymentTypeSentinelTlsFalse,
+    ),
+  );
+}
+export function redisDeploymentTypeSentinelTlsFalseFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisDeploymentTypeSentinelTlsFalse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisDeploymentTypeSentinelTlsFalse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisDeploymentTypeSentinelTlsFalse' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsTrueDeploymentType$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsTrueDeploymentType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(RedisDeploymentTypeSentinelTlsTrueDeploymentType);
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsTrueDeploymentType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RedisDeploymentTypeSentinelTlsTrueDeploymentType
+  > = openEnums.outboundSchema(
+    RedisDeploymentTypeSentinelTlsTrueDeploymentType,
+  );
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsTrueRootNode$inboundSchema:
+  z.ZodType<RedisDeploymentTypeSentinelTlsTrueRootNode, z.ZodTypeDef, unknown> =
+    z.object({
+      host: types.string(),
+      port: types.number(),
+    });
+/** @internal */
+export type RedisDeploymentTypeSentinelTlsTrueRootNode$Outbound = {
+  host: string;
+  port: number;
+};
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsTrueRootNode$outboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsTrueRootNode$Outbound,
+    z.ZodTypeDef,
+    RedisDeploymentTypeSentinelTlsTrueRootNode
+  > = z.object({
+    host: z.string(),
+    port: z.number(),
+  });
+
+export function redisDeploymentTypeSentinelTlsTrueRootNodeToJSON(
+  redisDeploymentTypeSentinelTlsTrueRootNode:
+    RedisDeploymentTypeSentinelTlsTrueRootNode,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeSentinelTlsTrueRootNode$outboundSchema.parse(
+      redisDeploymentTypeSentinelTlsTrueRootNode,
+    ),
+  );
+}
+export function redisDeploymentTypeSentinelTlsTrueRootNodeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RedisDeploymentTypeSentinelTlsTrueRootNode,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisDeploymentTypeSentinelTlsTrueRootNode$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeSentinelTlsTrueRootNode' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeSentinelTlsTrueCommand$inboundSchema: z.ZodType<
+  RedisDeploymentTypeSentinelTlsTrueCommand,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1230,7 +1716,7 @@ export const RedisDeploymentTypeSentinelCommand$inboundSchema: z.ZodType<
   argsExpr: types.optional(types.string()),
 });
 /** @internal */
-export type RedisDeploymentTypeSentinelCommand$Outbound = {
+export type RedisDeploymentTypeSentinelTlsTrueCommand$Outbound = {
   outField?: string | undefined;
   command: string;
   keyExpr: string;
@@ -1238,114 +1724,176 @@ export type RedisDeploymentTypeSentinelCommand$Outbound = {
 };
 
 /** @internal */
-export const RedisDeploymentTypeSentinelCommand$outboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinelCommand$Outbound,
-  z.ZodTypeDef,
-  RedisDeploymentTypeSentinelCommand
-> = z.object({
-  outField: z.string().optional(),
-  command: z.string(),
-  keyExpr: z.string(),
-  argsExpr: z.string().optional(),
-});
+export const RedisDeploymentTypeSentinelTlsTrueCommand$outboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeSentinelTlsTrueCommand$Outbound,
+    z.ZodTypeDef,
+    RedisDeploymentTypeSentinelTlsTrueCommand
+  > = z.object({
+    outField: z.string().optional(),
+    command: z.string(),
+    keyExpr: z.string(),
+    argsExpr: z.string().optional(),
+  });
 
-export function redisDeploymentTypeSentinelCommandToJSON(
-  redisDeploymentTypeSentinelCommand: RedisDeploymentTypeSentinelCommand,
+export function redisDeploymentTypeSentinelTlsTrueCommandToJSON(
+  redisDeploymentTypeSentinelTlsTrueCommand:
+    RedisDeploymentTypeSentinelTlsTrueCommand,
 ): string {
   return JSON.stringify(
-    RedisDeploymentTypeSentinelCommand$outboundSchema.parse(
-      redisDeploymentTypeSentinelCommand,
+    RedisDeploymentTypeSentinelTlsTrueCommand$outboundSchema.parse(
+      redisDeploymentTypeSentinelTlsTrueCommand,
     ),
   );
 }
-export function redisDeploymentTypeSentinelCommandFromJSON(
+export function redisDeploymentTypeSentinelTlsTrueCommandFromJSON(
   jsonString: string,
-): SafeParseResult<RedisDeploymentTypeSentinelCommand, SDKValidationError> {
+): SafeParseResult<
+  RedisDeploymentTypeSentinelTlsTrueCommand,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      RedisDeploymentTypeSentinelCommand$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisDeploymentTypeSentinelCommand' from JSON`,
+      RedisDeploymentTypeSentinelTlsTrueCommand$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeSentinelTlsTrueCommand' from JSON`,
   );
 }
 
 /** @internal */
-export const RedisDeploymentTypeSentinelAuthenticationMethod$inboundSchema:
+export const RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod$inboundSchema:
   z.ZodType<
-    RedisDeploymentTypeSentinelAuthenticationMethod,
+    RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = openEnums.inboundSchema(RedisDeploymentTypeSentinelAuthenticationMethod);
+  > = openEnums.inboundSchema(
+    RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod,
+  );
 /** @internal */
-export const RedisDeploymentTypeSentinelAuthenticationMethod$outboundSchema:
+export const RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    RedisDeploymentTypeSentinelAuthenticationMethod
-  > = openEnums.outboundSchema(RedisDeploymentTypeSentinelAuthenticationMethod);
+    RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod
+  > = openEnums.outboundSchema(
+    RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod,
+  );
 
 /** @internal */
-export const RedisDeploymentTypeSentinel$inboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinel,
+export const RedisDeploymentTypeSentinelTlsTrue$inboundSchema: z.ZodType<
+  RedisDeploymentTypeSentinelTlsTrue,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  tls: types.optional(types.boolean()),
+  tlsOptions: types.optional(
+    TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$inboundSchema,
+  ),
   deploymentType: types.optional(
-    RedisDeploymentTypeSentinelDeploymentType$inboundSchema,
+    RedisDeploymentTypeSentinelTlsTrueDeploymentType$inboundSchema,
   ),
   masterName: types.string(),
   rootNodes: types.optional(
-    z.array(z.lazy(() => RedisDeploymentTypeSentinelRootNode$inboundSchema)),
-  ),
-  tls: types.optional(types.boolean()),
-  tlsOptions: types.optional(
-    TlsOptionsTypeRedisDeploymentTypeCluster$inboundSchema,
+    z.array(z.lazy(() =>
+      RedisDeploymentTypeSentinelTlsTrueRootNode$inboundSchema
+    )),
   ),
   commands: z.array(
-    z.lazy(() => RedisDeploymentTypeSentinelCommand$inboundSchema),
+    z.lazy(() => RedisDeploymentTypeSentinelTlsTrueCommand$inboundSchema),
   ),
   authType: types.optional(
-    RedisDeploymentTypeSentinelAuthenticationMethod$inboundSchema,
+    RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod$inboundSchema,
   ),
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
 });
 /** @internal */
-export type RedisDeploymentTypeSentinel$Outbound = {
+export type RedisDeploymentTypeSentinelTlsTrue$Outbound = {
+  tls?: boolean | undefined;
+  tlsOptions?:
+    | TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$Outbound
+    | undefined;
   deploymentType?: string | undefined;
   masterName: string;
-  rootNodes?: Array<RedisDeploymentTypeSentinelRootNode$Outbound> | undefined;
-  tls?: boolean | undefined;
-  tlsOptions?: TlsOptionsTypeRedisDeploymentTypeCluster$Outbound | undefined;
-  commands: Array<RedisDeploymentTypeSentinelCommand$Outbound>;
+  rootNodes?:
+    | Array<RedisDeploymentTypeSentinelTlsTrueRootNode$Outbound>
+    | undefined;
+  commands: Array<RedisDeploymentTypeSentinelTlsTrueCommand$Outbound>;
   authType?: string | undefined;
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
 };
 
 /** @internal */
+export const RedisDeploymentTypeSentinelTlsTrue$outboundSchema: z.ZodType<
+  RedisDeploymentTypeSentinelTlsTrue$Outbound,
+  z.ZodTypeDef,
+  RedisDeploymentTypeSentinelTlsTrue
+> = z.object({
+  tls: z.boolean().optional(),
+  tlsOptions: TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$outboundSchema
+    .optional(),
+  deploymentType:
+    RedisDeploymentTypeSentinelTlsTrueDeploymentType$outboundSchema.optional(),
+  masterName: z.string(),
+  rootNodes: z.array(
+    z.lazy(() => RedisDeploymentTypeSentinelTlsTrueRootNode$outboundSchema),
+  ).optional(),
+  commands: z.array(
+    z.lazy(() => RedisDeploymentTypeSentinelTlsTrueCommand$outboundSchema),
+  ),
+  authType:
+    RedisDeploymentTypeSentinelTlsTrueAuthenticationMethod$outboundSchema
+      .optional(),
+  maxBlockSecs: z.number().optional(),
+  enableClientSideCaching: z.boolean().optional(),
+});
+
+export function redisDeploymentTypeSentinelTlsTrueToJSON(
+  redisDeploymentTypeSentinelTlsTrue: RedisDeploymentTypeSentinelTlsTrue,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeSentinelTlsTrue$outboundSchema.parse(
+      redisDeploymentTypeSentinelTlsTrue,
+    ),
+  );
+}
+export function redisDeploymentTypeSentinelTlsTrueFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisDeploymentTypeSentinelTlsTrue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisDeploymentTypeSentinelTlsTrue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisDeploymentTypeSentinelTlsTrue' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeSentinel$inboundSchema: z.ZodType<
+  RedisDeploymentTypeSentinel,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  z.lazy(() => RedisDeploymentTypeSentinelTlsTrue$inboundSchema),
+  z.lazy(() => RedisDeploymentTypeSentinelTlsFalse$inboundSchema),
+]);
+/** @internal */
+export type RedisDeploymentTypeSentinel$Outbound =
+  | RedisDeploymentTypeSentinelTlsTrue$Outbound
+  | RedisDeploymentTypeSentinelTlsFalse$Outbound;
+
+/** @internal */
 export const RedisDeploymentTypeSentinel$outboundSchema: z.ZodType<
   RedisDeploymentTypeSentinel$Outbound,
   z.ZodTypeDef,
   RedisDeploymentTypeSentinel
-> = z.object({
-  deploymentType: RedisDeploymentTypeSentinelDeploymentType$outboundSchema
-    .optional(),
-  masterName: z.string(),
-  rootNodes: z.array(
-    z.lazy(() => RedisDeploymentTypeSentinelRootNode$outboundSchema),
-  ).optional(),
-  tls: z.boolean().optional(),
-  tlsOptions: TlsOptionsTypeRedisDeploymentTypeCluster$outboundSchema
-    .optional(),
-  commands: z.array(
-    z.lazy(() => RedisDeploymentTypeSentinelCommand$outboundSchema),
-  ),
-  authType: RedisDeploymentTypeSentinelAuthenticationMethod$outboundSchema
-    .optional(),
-  maxBlockSecs: z.number().optional(),
-  enableClientSideCaching: z.boolean().optional(),
-});
+> = smartUnion([
+  z.lazy(() => RedisDeploymentTypeSentinelTlsTrue$outboundSchema),
+  z.lazy(() => RedisDeploymentTypeSentinelTlsFalse$outboundSchema),
+]);
 
 export function redisDeploymentTypeSentinelToJSON(
   redisDeploymentTypeSentinel: RedisDeploymentTypeSentinel,
@@ -1367,79 +1915,90 @@ export function redisDeploymentTypeSentinelFromJSON(
 }
 
 /** @internal */
-export const RedisDeploymentTypeClusterDeploymentType$inboundSchema: z.ZodType<
-  RedisDeploymentTypeClusterDeploymentType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RedisDeploymentTypeClusterDeploymentType);
+export const RedisDeploymentTypeClusterTlsFalseDeploymentType$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsFalseDeploymentType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(RedisDeploymentTypeClusterTlsFalseDeploymentType);
 /** @internal */
-export const RedisDeploymentTypeClusterDeploymentType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RedisDeploymentTypeClusterDeploymentType
-> = openEnums.outboundSchema(RedisDeploymentTypeClusterDeploymentType);
+export const RedisDeploymentTypeClusterTlsFalseDeploymentType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RedisDeploymentTypeClusterTlsFalseDeploymentType
+  > = openEnums.outboundSchema(
+    RedisDeploymentTypeClusterTlsFalseDeploymentType,
+  );
 
 /** @internal */
-export const RedisDeploymentTypeClusterRootNode$inboundSchema: z.ZodType<
-  RedisDeploymentTypeClusterRootNode,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: types.string(),
-  port: types.number(),
-});
+export const RedisDeploymentTypeClusterTlsFalseRootNode$inboundSchema:
+  z.ZodType<RedisDeploymentTypeClusterTlsFalseRootNode, z.ZodTypeDef, unknown> =
+    z.object({
+      host: types.string(),
+      port: types.number(),
+    });
 /** @internal */
-export type RedisDeploymentTypeClusterRootNode$Outbound = {
+export type RedisDeploymentTypeClusterTlsFalseRootNode$Outbound = {
   host: string;
   port: number;
 };
 
 /** @internal */
-export const RedisDeploymentTypeClusterRootNode$outboundSchema: z.ZodType<
-  RedisDeploymentTypeClusterRootNode$Outbound,
-  z.ZodTypeDef,
-  RedisDeploymentTypeClusterRootNode
-> = z.object({
-  host: z.string(),
-  port: z.number(),
-});
+export const RedisDeploymentTypeClusterTlsFalseRootNode$outboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsFalseRootNode$Outbound,
+    z.ZodTypeDef,
+    RedisDeploymentTypeClusterTlsFalseRootNode
+  > = z.object({
+    host: z.string(),
+    port: z.number(),
+  });
 
-export function redisDeploymentTypeClusterRootNodeToJSON(
-  redisDeploymentTypeClusterRootNode: RedisDeploymentTypeClusterRootNode,
+export function redisDeploymentTypeClusterTlsFalseRootNodeToJSON(
+  redisDeploymentTypeClusterTlsFalseRootNode:
+    RedisDeploymentTypeClusterTlsFalseRootNode,
 ): string {
   return JSON.stringify(
-    RedisDeploymentTypeClusterRootNode$outboundSchema.parse(
-      redisDeploymentTypeClusterRootNode,
+    RedisDeploymentTypeClusterTlsFalseRootNode$outboundSchema.parse(
+      redisDeploymentTypeClusterTlsFalseRootNode,
     ),
   );
 }
-export function redisDeploymentTypeClusterRootNodeFromJSON(
+export function redisDeploymentTypeClusterTlsFalseRootNodeFromJSON(
   jsonString: string,
-): SafeParseResult<RedisDeploymentTypeClusterRootNode, SDKValidationError> {
+): SafeParseResult<
+  RedisDeploymentTypeClusterTlsFalseRootNode,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      RedisDeploymentTypeClusterRootNode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisDeploymentTypeClusterRootNode' from JSON`,
+      RedisDeploymentTypeClusterTlsFalseRootNode$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeClusterTlsFalseRootNode' from JSON`,
   );
 }
 
 /** @internal */
-export const ScaleReads$inboundSchema: z.ZodType<
-  ScaleReads,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ScaleReads);
+export const RedisDeploymentTypeClusterTlsFalseScaleReads$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsFalseScaleReads,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(RedisDeploymentTypeClusterTlsFalseScaleReads);
 /** @internal */
-export const ScaleReads$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ScaleReads
-> = openEnums.outboundSchema(ScaleReads);
+export const RedisDeploymentTypeClusterTlsFalseScaleReads$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RedisDeploymentTypeClusterTlsFalseScaleReads
+  > = openEnums.outboundSchema(RedisDeploymentTypeClusterTlsFalseScaleReads);
 
 /** @internal */
-export const RedisDeploymentTypeClusterCommand$inboundSchema: z.ZodType<
-  RedisDeploymentTypeClusterCommand,
+export const RedisDeploymentTypeClusterTlsFalseCommand$inboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsFalseCommand,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1449,7 +2008,7 @@ export const RedisDeploymentTypeClusterCommand$inboundSchema: z.ZodType<
   argsExpr: types.optional(types.string()),
 });
 /** @internal */
-export type RedisDeploymentTypeClusterCommand$Outbound = {
+export type RedisDeploymentTypeClusterTlsFalseCommand$Outbound = {
   outField?: string | undefined;
   command: string;
   keyExpr: string;
@@ -1457,10 +2016,251 @@ export type RedisDeploymentTypeClusterCommand$Outbound = {
 };
 
 /** @internal */
-export const RedisDeploymentTypeClusterCommand$outboundSchema: z.ZodType<
-  RedisDeploymentTypeClusterCommand$Outbound,
+export const RedisDeploymentTypeClusterTlsFalseCommand$outboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsFalseCommand$Outbound,
+    z.ZodTypeDef,
+    RedisDeploymentTypeClusterTlsFalseCommand
+  > = z.object({
+    outField: z.string().optional(),
+    command: z.string(),
+    keyExpr: z.string(),
+    argsExpr: z.string().optional(),
+  });
+
+export function redisDeploymentTypeClusterTlsFalseCommandToJSON(
+  redisDeploymentTypeClusterTlsFalseCommand:
+    RedisDeploymentTypeClusterTlsFalseCommand,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeClusterTlsFalseCommand$outboundSchema.parse(
+      redisDeploymentTypeClusterTlsFalseCommand,
+    ),
+  );
+}
+export function redisDeploymentTypeClusterTlsFalseCommandFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RedisDeploymentTypeClusterTlsFalseCommand,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisDeploymentTypeClusterTlsFalseCommand$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeClusterTlsFalseCommand' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsFalseAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsFalseAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    RedisDeploymentTypeClusterTlsFalseAuthenticationMethod,
+  );
+/** @internal */
+export const RedisDeploymentTypeClusterTlsFalseAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RedisDeploymentTypeClusterTlsFalseAuthenticationMethod
+  > = openEnums.outboundSchema(
+    RedisDeploymentTypeClusterTlsFalseAuthenticationMethod,
+  );
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsFalse$inboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsFalse,
   z.ZodTypeDef,
-  RedisDeploymentTypeClusterCommand
+  unknown
+> = z.object({
+  tls: types.optional(types.boolean()),
+  deploymentType: types.optional(
+    RedisDeploymentTypeClusterTlsFalseDeploymentType$inboundSchema,
+  ),
+  rootNodes: types.optional(
+    z.array(z.lazy(() =>
+      RedisDeploymentTypeClusterTlsFalseRootNode$inboundSchema
+    )),
+  ),
+  scaleReads: types.optional(
+    RedisDeploymentTypeClusterTlsFalseScaleReads$inboundSchema,
+  ),
+  commands: z.array(
+    z.lazy(() => RedisDeploymentTypeClusterTlsFalseCommand$inboundSchema),
+  ),
+  authType: types.optional(
+    RedisDeploymentTypeClusterTlsFalseAuthenticationMethod$inboundSchema,
+  ),
+  maxBlockSecs: types.optional(types.number()),
+  enableClientSideCaching: types.optional(types.boolean()),
+});
+/** @internal */
+export type RedisDeploymentTypeClusterTlsFalse$Outbound = {
+  tls?: boolean | undefined;
+  deploymentType?: string | undefined;
+  rootNodes?:
+    | Array<RedisDeploymentTypeClusterTlsFalseRootNode$Outbound>
+    | undefined;
+  scaleReads?: string | undefined;
+  commands: Array<RedisDeploymentTypeClusterTlsFalseCommand$Outbound>;
+  authType?: string | undefined;
+  maxBlockSecs?: number | undefined;
+  enableClientSideCaching?: boolean | undefined;
+};
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsFalse$outboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsFalse$Outbound,
+  z.ZodTypeDef,
+  RedisDeploymentTypeClusterTlsFalse
+> = z.object({
+  tls: z.boolean().optional(),
+  deploymentType:
+    RedisDeploymentTypeClusterTlsFalseDeploymentType$outboundSchema.optional(),
+  rootNodes: z.array(
+    z.lazy(() => RedisDeploymentTypeClusterTlsFalseRootNode$outboundSchema),
+  ).optional(),
+  scaleReads: RedisDeploymentTypeClusterTlsFalseScaleReads$outboundSchema
+    .optional(),
+  commands: z.array(
+    z.lazy(() => RedisDeploymentTypeClusterTlsFalseCommand$outboundSchema),
+  ),
+  authType:
+    RedisDeploymentTypeClusterTlsFalseAuthenticationMethod$outboundSchema
+      .optional(),
+  maxBlockSecs: z.number().optional(),
+  enableClientSideCaching: z.boolean().optional(),
+});
+
+export function redisDeploymentTypeClusterTlsFalseToJSON(
+  redisDeploymentTypeClusterTlsFalse: RedisDeploymentTypeClusterTlsFalse,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeClusterTlsFalse$outboundSchema.parse(
+      redisDeploymentTypeClusterTlsFalse,
+    ),
+  );
+}
+export function redisDeploymentTypeClusterTlsFalseFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisDeploymentTypeClusterTlsFalse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisDeploymentTypeClusterTlsFalse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisDeploymentTypeClusterTlsFalse' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueDeploymentType$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsTrueDeploymentType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(RedisDeploymentTypeClusterTlsTrueDeploymentType);
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueDeploymentType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RedisDeploymentTypeClusterTlsTrueDeploymentType
+  > = openEnums.outboundSchema(RedisDeploymentTypeClusterTlsTrueDeploymentType);
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueRootNode$inboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsTrueRootNode,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  host: types.string(),
+  port: types.number(),
+});
+/** @internal */
+export type RedisDeploymentTypeClusterTlsTrueRootNode$Outbound = {
+  host: string;
+  port: number;
+};
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueRootNode$outboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsTrueRootNode$Outbound,
+    z.ZodTypeDef,
+    RedisDeploymentTypeClusterTlsTrueRootNode
+  > = z.object({
+    host: z.string(),
+    port: z.number(),
+  });
+
+export function redisDeploymentTypeClusterTlsTrueRootNodeToJSON(
+  redisDeploymentTypeClusterTlsTrueRootNode:
+    RedisDeploymentTypeClusterTlsTrueRootNode,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeClusterTlsTrueRootNode$outboundSchema.parse(
+      redisDeploymentTypeClusterTlsTrueRootNode,
+    ),
+  );
+}
+export function redisDeploymentTypeClusterTlsTrueRootNodeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RedisDeploymentTypeClusterTlsTrueRootNode,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisDeploymentTypeClusterTlsTrueRootNode$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeClusterTlsTrueRootNode' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueScaleReads$inboundSchema:
+  z.ZodType<
+    RedisDeploymentTypeClusterTlsTrueScaleReads,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(RedisDeploymentTypeClusterTlsTrueScaleReads);
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueScaleReads$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, RedisDeploymentTypeClusterTlsTrueScaleReads> =
+    openEnums.outboundSchema(RedisDeploymentTypeClusterTlsTrueScaleReads);
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueCommand$inboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsTrueCommand,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  outField: types.optional(types.string()),
+  command: types.string(),
+  keyExpr: types.string(),
+  argsExpr: types.optional(types.string()),
+});
+/** @internal */
+export type RedisDeploymentTypeClusterTlsTrueCommand$Outbound = {
+  outField?: string | undefined;
+  command: string;
+  keyExpr: string;
+  argsExpr?: string | undefined;
+};
+
+/** @internal */
+export const RedisDeploymentTypeClusterTlsTrueCommand$outboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsTrueCommand$Outbound,
+  z.ZodTypeDef,
+  RedisDeploymentTypeClusterTlsTrueCommand
 > = z.object({
   outField: z.string().optional(),
   command: z.string(),
@@ -1468,102 +2268,165 @@ export const RedisDeploymentTypeClusterCommand$outboundSchema: z.ZodType<
   argsExpr: z.string().optional(),
 });
 
-export function redisDeploymentTypeClusterCommandToJSON(
-  redisDeploymentTypeClusterCommand: RedisDeploymentTypeClusterCommand,
+export function redisDeploymentTypeClusterTlsTrueCommandToJSON(
+  redisDeploymentTypeClusterTlsTrueCommand:
+    RedisDeploymentTypeClusterTlsTrueCommand,
 ): string {
   return JSON.stringify(
-    RedisDeploymentTypeClusterCommand$outboundSchema.parse(
-      redisDeploymentTypeClusterCommand,
+    RedisDeploymentTypeClusterTlsTrueCommand$outboundSchema.parse(
+      redisDeploymentTypeClusterTlsTrueCommand,
     ),
   );
 }
-export function redisDeploymentTypeClusterCommandFromJSON(
+export function redisDeploymentTypeClusterTlsTrueCommandFromJSON(
   jsonString: string,
-): SafeParseResult<RedisDeploymentTypeClusterCommand, SDKValidationError> {
+): SafeParseResult<
+  RedisDeploymentTypeClusterTlsTrueCommand,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => RedisDeploymentTypeClusterCommand$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisDeploymentTypeClusterCommand' from JSON`,
+    (x) =>
+      RedisDeploymentTypeClusterTlsTrueCommand$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisDeploymentTypeClusterTlsTrueCommand' from JSON`,
   );
 }
 
 /** @internal */
-export const RedisDeploymentTypeClusterAuthenticationMethod$inboundSchema:
+export const RedisDeploymentTypeClusterTlsTrueAuthenticationMethod$inboundSchema:
   z.ZodType<
-    RedisDeploymentTypeClusterAuthenticationMethod,
+    RedisDeploymentTypeClusterTlsTrueAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = openEnums.inboundSchema(RedisDeploymentTypeClusterAuthenticationMethod);
+  > = openEnums.inboundSchema(
+    RedisDeploymentTypeClusterTlsTrueAuthenticationMethod,
+  );
 /** @internal */
-export const RedisDeploymentTypeClusterAuthenticationMethod$outboundSchema:
+export const RedisDeploymentTypeClusterTlsTrueAuthenticationMethod$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    RedisDeploymentTypeClusterAuthenticationMethod
-  > = openEnums.outboundSchema(RedisDeploymentTypeClusterAuthenticationMethod);
+    RedisDeploymentTypeClusterTlsTrueAuthenticationMethod
+  > = openEnums.outboundSchema(
+    RedisDeploymentTypeClusterTlsTrueAuthenticationMethod,
+  );
 
 /** @internal */
-export const RedisDeploymentTypeCluster$inboundSchema: z.ZodType<
-  RedisDeploymentTypeCluster,
+export const RedisDeploymentTypeClusterTlsTrue$inboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsTrue,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  tls: types.optional(types.boolean()),
+  tlsOptions: types.optional(
+    TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$inboundSchema,
+  ),
   deploymentType: types.optional(
-    RedisDeploymentTypeClusterDeploymentType$inboundSchema,
+    RedisDeploymentTypeClusterTlsTrueDeploymentType$inboundSchema,
   ),
   rootNodes: types.optional(
-    z.array(z.lazy(() => RedisDeploymentTypeClusterRootNode$inboundSchema)),
+    z.array(
+      z.lazy(() => RedisDeploymentTypeClusterTlsTrueRootNode$inboundSchema),
+    ),
   ),
-  tls: types.optional(types.boolean()),
-  scaleReads: types.optional(ScaleReads$inboundSchema),
-  tlsOptions: types.optional(
-    TlsOptionsTypeRedisDeploymentTypeCluster$inboundSchema,
+  scaleReads: types.optional(
+    RedisDeploymentTypeClusterTlsTrueScaleReads$inboundSchema,
   ),
   commands: z.array(
-    z.lazy(() => RedisDeploymentTypeClusterCommand$inboundSchema),
+    z.lazy(() => RedisDeploymentTypeClusterTlsTrueCommand$inboundSchema),
   ),
   authType: types.optional(
-    RedisDeploymentTypeClusterAuthenticationMethod$inboundSchema,
+    RedisDeploymentTypeClusterTlsTrueAuthenticationMethod$inboundSchema,
   ),
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
 });
 /** @internal */
-export type RedisDeploymentTypeCluster$Outbound = {
-  deploymentType?: string | undefined;
-  rootNodes?: Array<RedisDeploymentTypeClusterRootNode$Outbound> | undefined;
+export type RedisDeploymentTypeClusterTlsTrue$Outbound = {
   tls?: boolean | undefined;
+  tlsOptions?:
+    | TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$Outbound
+    | undefined;
+  deploymentType?: string | undefined;
+  rootNodes?:
+    | Array<RedisDeploymentTypeClusterTlsTrueRootNode$Outbound>
+    | undefined;
   scaleReads?: string | undefined;
-  tlsOptions?: TlsOptionsTypeRedisDeploymentTypeCluster$Outbound | undefined;
-  commands: Array<RedisDeploymentTypeClusterCommand$Outbound>;
+  commands: Array<RedisDeploymentTypeClusterTlsTrueCommand$Outbound>;
   authType?: string | undefined;
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
 };
 
 /** @internal */
-export const RedisDeploymentTypeCluster$outboundSchema: z.ZodType<
-  RedisDeploymentTypeCluster$Outbound,
+export const RedisDeploymentTypeClusterTlsTrue$outboundSchema: z.ZodType<
+  RedisDeploymentTypeClusterTlsTrue$Outbound,
   z.ZodTypeDef,
-  RedisDeploymentTypeCluster
+  RedisDeploymentTypeClusterTlsTrue
 > = z.object({
-  deploymentType: RedisDeploymentTypeClusterDeploymentType$outboundSchema
+  tls: z.boolean().optional(),
+  tlsOptions: TlsOptionsTypeRedisDeploymentTypeClusterTlsTrue$outboundSchema
+    .optional(),
+  deploymentType: RedisDeploymentTypeClusterTlsTrueDeploymentType$outboundSchema
     .optional(),
   rootNodes: z.array(
-    z.lazy(() => RedisDeploymentTypeClusterRootNode$outboundSchema),
+    z.lazy(() => RedisDeploymentTypeClusterTlsTrueRootNode$outboundSchema),
   ).optional(),
-  tls: z.boolean().optional(),
-  scaleReads: ScaleReads$outboundSchema.optional(),
-  tlsOptions: TlsOptionsTypeRedisDeploymentTypeCluster$outboundSchema
+  scaleReads: RedisDeploymentTypeClusterTlsTrueScaleReads$outboundSchema
     .optional(),
   commands: z.array(
-    z.lazy(() => RedisDeploymentTypeClusterCommand$outboundSchema),
+    z.lazy(() => RedisDeploymentTypeClusterTlsTrueCommand$outboundSchema),
   ),
-  authType: RedisDeploymentTypeClusterAuthenticationMethod$outboundSchema
+  authType: RedisDeploymentTypeClusterTlsTrueAuthenticationMethod$outboundSchema
     .optional(),
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
 });
+
+export function redisDeploymentTypeClusterTlsTrueToJSON(
+  redisDeploymentTypeClusterTlsTrue: RedisDeploymentTypeClusterTlsTrue,
+): string {
+  return JSON.stringify(
+    RedisDeploymentTypeClusterTlsTrue$outboundSchema.parse(
+      redisDeploymentTypeClusterTlsTrue,
+    ),
+  );
+}
+export function redisDeploymentTypeClusterTlsTrueFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisDeploymentTypeClusterTlsTrue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisDeploymentTypeClusterTlsTrue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisDeploymentTypeClusterTlsTrue' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisDeploymentTypeCluster$inboundSchema: z.ZodType<
+  RedisDeploymentTypeCluster,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  z.lazy(() => RedisDeploymentTypeClusterTlsTrue$inboundSchema),
+  z.lazy(() => RedisDeploymentTypeClusterTlsFalse$inboundSchema),
+]);
+/** @internal */
+export type RedisDeploymentTypeCluster$Outbound =
+  | RedisDeploymentTypeClusterTlsTrue$Outbound
+  | RedisDeploymentTypeClusterTlsFalse$Outbound;
+
+/** @internal */
+export const RedisDeploymentTypeCluster$outboundSchema: z.ZodType<
+  RedisDeploymentTypeCluster$Outbound,
+  z.ZodTypeDef,
+  RedisDeploymentTypeCluster
+> = smartUnion([
+  z.lazy(() => RedisDeploymentTypeClusterTlsTrue$outboundSchema),
+  z.lazy(() => RedisDeploymentTypeClusterTlsFalse$outboundSchema),
+]);
 
 export function redisDeploymentTypeClusterToJSON(
   redisDeploymentTypeCluster: RedisDeploymentTypeCluster,

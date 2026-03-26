@@ -98,7 +98,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/lib/database-connections/{id}")(pathParams);
 
   const headers = new Headers(compactMap({

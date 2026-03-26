@@ -1,26 +1,28 @@
 # RedisDeploymentTypeSentinel
 
-## Example Usage
+
+## Supported Types
+
+### `models.RedisDeploymentTypeSentinelTlsTrue`
 
 ```typescript
-import { RedisDeploymentTypeSentinel } from "cribl-control-plane/models";
-
-let value: RedisDeploymentTypeSentinel = {
+const value: models.RedisDeploymentTypeSentinelTlsTrue = {
   masterName: "<value>",
   commands: [],
 };
 ```
 
-## Fields
+### `models.RedisDeploymentTypeSentinelTlsFalse`
 
-| Field                                                                                                                                 | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `deploymentType`                                                                                                                      | [models.RedisDeploymentTypeSentinelDeploymentType](../models/redisdeploymenttypesentineldeploymenttype.md)                            | :heavy_minus_sign:                                                                                                                    | How the Redis server is configured. Defaults to Standalone                                                                            |
-| `masterName`                                                                                                                          | *string*                                                                                                                              | :heavy_check_mark:                                                                                                                    | N/A                                                                                                                                   |
-| `rootNodes`                                                                                                                           | [models.RedisDeploymentTypeSentinelRootNode](../models/redisdeploymenttypesentinelrootnode.md)[]                                      | :heavy_minus_sign:                                                                                                                    | List of sentinels to be used                                                                                                          |
-| `tls`                                                                                                                                 | *boolean*                                                                                                                             | :heavy_minus_sign:                                                                                                                    | Use TLS for connections to this cluster                                                                                               |
-| `tlsOptions`                                                                                                                          | [models.TlsOptionsTypeRedisDeploymentTypeCluster](../models/tlsoptionstyperedisdeploymenttypecluster.md)                              | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
-| `commands`                                                                                                                            | [models.RedisDeploymentTypeSentinelCommand](../models/redisdeploymenttypesentinelcommand.md)[]                                        | :heavy_check_mark:                                                                                                                    | N/A                                                                                                                                   |
-| `authType`                                                                                                                            | [models.RedisDeploymentTypeSentinelAuthenticationMethod](../models/redisdeploymenttypesentinelauthenticationmethod.md)                | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
-| `maxBlockSecs`                                                                                                                        | *number*                                                                                                                              | :heavy_minus_sign:                                                                                                                    | Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.             |
-| `enableClientSideCaching`                                                                                                             | *boolean*                                                                                                                             | :heavy_minus_sign:                                                                                                                    | Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache. |
+```typescript
+const value: models.RedisDeploymentTypeSentinelTlsFalse = {
+  masterName: "<value>",
+  commands: [
+    {
+      command: "<value>",
+      keyExpr: "<value>",
+    },
+  ],
+};
+```
+

@@ -1,25 +1,26 @@
 # RedisDeploymentTypeCluster
 
-## Example Usage
+
+## Supported Types
+
+### `models.RedisDeploymentTypeClusterTlsTrue`
 
 ```typescript
-import { RedisDeploymentTypeCluster } from "cribl-control-plane/models";
+const value: models.RedisDeploymentTypeClusterTlsTrue = {
+  commands: [
+    {
+      command: "<value>",
+      keyExpr: "<value>",
+    },
+  ],
+};
+```
 
-let value: RedisDeploymentTypeCluster = {
+### `models.RedisDeploymentTypeClusterTlsFalse`
+
+```typescript
+const value: models.RedisDeploymentTypeClusterTlsFalse = {
   commands: [],
 };
 ```
 
-## Fields
-
-| Field                                                                                                                                 | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `deploymentType`                                                                                                                      | [models.RedisDeploymentTypeClusterDeploymentType](../models/redisdeploymenttypeclusterdeploymenttype.md)                              | :heavy_minus_sign:                                                                                                                    | How the Redis server is configured. Defaults to Standalone                                                                            |
-| `rootNodes`                                                                                                                           | [models.RedisDeploymentTypeClusterRootNode](../models/redisdeploymenttypeclusterrootnode.md)[]                                        | :heavy_minus_sign:                                                                                                                    | Root nodes to which the cluster connection should be initiated                                                                        |
-| `tls`                                                                                                                                 | *boolean*                                                                                                                             | :heavy_minus_sign:                                                                                                                    | Use TLS for connections to this cluster                                                                                               |
-| `scaleReads`                                                                                                                          | [models.ScaleReads](../models/scalereads.md)                                                                                          | :heavy_minus_sign:                                                                                                                    | Which nodes read commands should be sent to                                                                                           |
-| `tlsOptions`                                                                                                                          | [models.TlsOptionsTypeRedisDeploymentTypeCluster](../models/tlsoptionstyperedisdeploymenttypecluster.md)                              | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
-| `commands`                                                                                                                            | [models.RedisDeploymentTypeClusterCommand](../models/redisdeploymenttypeclustercommand.md)[]                                          | :heavy_check_mark:                                                                                                                    | N/A                                                                                                                                   |
-| `authType`                                                                                                                            | [models.RedisDeploymentTypeClusterAuthenticationMethod](../models/redisdeploymenttypeclusterauthenticationmethod.md)                  | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
-| `maxBlockSecs`                                                                                                                        | *number*                                                                                                                              | :heavy_minus_sign:                                                                                                                    | Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.             |
-| `enableClientSideCaching`                                                                                                             | *boolean*                                                                                                                             | :heavy_minus_sign:                                                                                                                    | Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache. |

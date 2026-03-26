@@ -8,10 +8,12 @@ import { UpdateRoutesByPackAndIdRequest } from "cribl-control-plane/models/opera
 let value: UpdateRoutesByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
-  routesInput: {
+  routes: {
     id: "<id>",
     routes: [
       {
+        final: true,
+        id: "<id>",
         name: "<value>",
         pipeline: "<value>",
       },
@@ -26,4 +28,4 @@ let value: UpdateRoutesByPackAndIdRequest = {
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `id`                                                                                                                     | *string*                                                                                                                 | :heavy_check_mark:                                                                                                       | The <code>id</code> of the Routing table that contains the Route to update. The supported value is <code>default</code>. |
 | `pack`                                                                                                                   | *string*                                                                                                                 | :heavy_check_mark:                                                                                                       | The <code>id</code> of the Pack to update.                                                                               |
-| `routesInput`                                                                                                            | [models.RoutesInput](../../models/routesinput.md)                                                                        | :heavy_check_mark:                                                                                                       | RoutesInput object                                                                                                       |
+| `routes`                                                                                                                 | [models.Routes](../../models/routes.md)                                                                                  | :heavy_check_mark:                                                                                                       | Routes object                                                                                                            |

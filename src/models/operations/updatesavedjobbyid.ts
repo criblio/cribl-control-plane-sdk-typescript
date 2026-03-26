@@ -12,6 +12,10 @@ export type UpdateSavedJobByIdRequest = {
    */
   id: string;
   /**
+   * The <code>id</code> of the Pack that includes the Collector to update.
+   */
+  criblPack?: string | undefined;
+  /**
    * SavedJob object
    */
   savedJob: models.SavedJob;
@@ -20,6 +24,7 @@ export type UpdateSavedJobByIdRequest = {
 /** @internal */
 export type UpdateSavedJobByIdRequest$Outbound = {
   id: string;
+  criblPack?: string | undefined;
   SavedJob: models.SavedJob$Outbound;
 };
 
@@ -30,6 +35,7 @@ export const UpdateSavedJobByIdRequest$outboundSchema: z.ZodType<
   UpdateSavedJobByIdRequest
 > = z.object({
   id: z.string(),
+  criblPack: z.string().optional(),
   savedJob: models.SavedJob$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

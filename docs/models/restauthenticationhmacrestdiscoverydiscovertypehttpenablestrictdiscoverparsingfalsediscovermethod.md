@@ -1,0 +1,21 @@
+# RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod
+
+## Example Usage
+
+```typescript
+import {
+  RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod,
+} from "cribl-control-plane/models";
+
+let value:
+  RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod =
+    "other";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
+```
+
+## Values
+
+```typescript
+"get" | "post" | "post_with_body" | "other" | Unrecognized<string>
+```

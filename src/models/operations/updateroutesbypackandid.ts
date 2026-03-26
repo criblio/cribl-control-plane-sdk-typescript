@@ -16,16 +16,16 @@ export type UpdateRoutesByPackAndIdRequest = {
    */
   pack: string;
   /**
-   * RoutesInput object
+   * Routes object
    */
-  routesInput: models.RoutesInput;
+  routes: models.Routes;
 };
 
 /** @internal */
 export type UpdateRoutesByPackAndIdRequest$Outbound = {
   id: string;
   pack: string;
-  RoutesInput: models.RoutesInput$Outbound;
+  Routes: models.Routes$Outbound;
 };
 
 /** @internal */
@@ -36,10 +36,10 @@ export const UpdateRoutesByPackAndIdRequest$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   pack: z.string(),
-  routesInput: models.RoutesInput$outboundSchema,
+  routes: models.Routes$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    routesInput: "RoutesInput",
+    routes: "Routes",
   });
 });
 

@@ -8,6 +8,8 @@ import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 import {
+  CreateOutputSystemByPackCompression,
+  CreateOutputSystemByPackCompression$outboundSchema,
   CreateOutputSystemByPackOutputAzureEventhub,
   CreateOutputSystemByPackOutputAzureEventhub$Outbound,
   CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
@@ -167,27 +169,7 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-} from "./createoutputsystembypackoutputhoneycomb.js";
-
-/**
- * Compression type to use for records
- */
-export const CreateOutputSystemByPackCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Compression type to use for records
- */
-export type CreateOutputSystemByPackCompression = OpenEnum<
-  typeof CreateOutputSystemByPackCompression
->;
+} from "./createoutputsystembypackcompression.js";
 
 export type CreateOutputSystemByPackPqControlsKinesis = {};
 
@@ -4065,13 +4047,6 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputMicrosoftFabric
     | CreateOutputSystemByPackOutputCloudflareR2;
 };
-
-/** @internal */
-export const CreateOutputSystemByPackCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputSystemByPackCompression
-> = openEnums.outboundSchema(CreateOutputSystemByPackCompression);
 
 /** @internal */
 export type CreateOutputSystemByPackPqControlsKinesis$Outbound = {};
