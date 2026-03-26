@@ -96,7 +96,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/routes/{id}/append")(pathParams);
 
   const headers = new Headers(compactMap({

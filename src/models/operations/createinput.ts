@@ -365,6 +365,28 @@ export type CreateInputInputZscalerHec = {
 };
 
 /**
+ * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ */
+export const CreateInputDisplayValue = {
+  /**
+   * Raw
+   */
+  False: "false",
+  /**
+   * Display
+   */
+  True: "true",
+  /**
+   * All
+   */
+  All: "all",
+} as const;
+/**
+ * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ */
+export type CreateInputDisplayValue = OpenEnum<typeof CreateInputDisplayValue>;
+
+/**
  * ServiceNow Table API authentication method
  */
 export const CreateInputAuthenticationTypeServicenowTable = {
@@ -432,6 +454,22 @@ export type CreateInputInputServicenowTable = {
    * ServiceNow instance base URL for Table API requests. Enter a literal URL (https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
    */
   instance: string;
+  /**
+   * ServiceNow table name to collect from.
+   */
+  tableName: string;
+  /**
+   * Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+   */
+  displayValue?: CreateInputDisplayValue | undefined;
+  /**
+   * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+   */
+  pageSize?: number | undefined;
   /**
    * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
    */
@@ -9862,6 +9900,13 @@ export function createInputInputZscalerHecToJSON(
 }
 
 /** @internal */
+export const CreateInputDisplayValue$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputDisplayValue
+> = openEnums.outboundSchema(CreateInputDisplayValue);
+
+/** @internal */
 export const CreateInputAuthenticationTypeServicenowTable$outboundSchema:
   z.ZodType<
     string,
@@ -9882,6 +9927,10 @@ export type CreateInputInputServicenowTable$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   instance: string;
+  tableName: string;
+  fields?: Array<string> | undefined;
+  displayValue?: string | undefined;
+  pageSize?: number | undefined;
   rejectUnauthorized?: boolean | undefined;
   authType?: string | undefined;
   cronSchedule: string;
@@ -9936,6 +9985,10 @@ export const CreateInputInputServicenowTable$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   instance: z.string(),
+  tableName: z.string(),
+  fields: z.array(z.string()).optional(),
+  displayValue: CreateInputDisplayValue$outboundSchema.optional(),
+  pageSize: z.number().int().optional(),
   rejectUnauthorized: z.boolean().optional(),
   authType: CreateInputAuthenticationTypeServicenowTable$outboundSchema
     .optional(),

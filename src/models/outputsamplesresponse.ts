@@ -8,11 +8,11 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * Sample event data returned for a Destination.
+ * Sample events from a Destination.
  */
 export type OutputSamplesResponse = {
   /**
-   * Array of sample events for the Destination.
+   * Array of sample events returned from a Destination test.
    */
   events: Array<{ [k: string]: any }>;
 };
