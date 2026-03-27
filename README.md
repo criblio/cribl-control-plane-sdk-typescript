@@ -20,6 +20,7 @@ Complementary API reference documentation is available at [https://docs.cribl.io
 * [cribl-control-plane-sdk-typescript](#cribl-control-plane-sdk-typescript)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
+  * [Base URL and scoped clients](#base-url-and-scoped-clients)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
@@ -73,6 +74,27 @@ yarn add cribl-control-plane
 For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 <!-- End Requirements [requirements] -->
 
+## Base URL and scoped clients
+
+Pass **`serverURL`** as the workspace or leader **origin** (for example `https://<workspace>-<org>.cribl.cloud` or `https://your-leader.example.com`). If the URL path does not already include `/api/v1`, the SDK appends it once when the client is constructed. The constant **`CRIBL_CONTROL_PLANE_API_PREFIX`** (`"/api/v1"`) is exported from `cribl-control-plane` if you need it for custom URL building.
+
+Operations that target a **worker group**, **Edge fleet**, or **worker node** live under `/api/v1/m/{groupId}` or `/api/v1/w/{nodeId}`. Instead of repeating `serverURL` on every call, use **`scoped()`**:
+
+```typescript
+const cribl = new CriblControlPlane({ serverURL, security });
+const wg = cribl.scoped({ group: "my-worker-group" });
+await wg.sources.create(/* … */);
+```
+
+`scoped()` returns a new **`CriblControlPlane`** with the same security, hooks, and HTTP client; only request URLs gain the extra path segments. The type **`ClientRequestScope`** is exported from `cribl-control-plane`:
+
+| Shape | Request path prefix (after `/api/v1`) |
+| ----- | -------------------------------------- |
+| `{ group: string }` | `/m/{group}/` |
+| `{ node: string }` | `/w/{node}/` |
+
+Use the **unscoped** client for leader-level APIs (for example `groups.create`, `groups.deploy`, `health.get`). For paths that include a **pack** segment (`/m/{group}/p/{packId}/`), pass a full base URL in **`serverURL`** on that call (or build it with **`CRIBL_CONTROL_PLANE_API_PREFIX`**). You can use **`serverURL`** in per-request options anytime you need to override the base for a single call.
+
 ## SDK Example Usage
 
 ### Example
@@ -80,7 +102,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
-const criblControlPlane = new CriblControlPlane({
+const cribl = new CriblControlPlane({
   serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
@@ -89,38 +111,34 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   // Check server health
-  const health = await criblControlPlane.health.get();
+  await cribl.health.get();
 
   const workerGroupId = "my-worker-group";
-  const groupUrl = `https://api.example.com/m/${workerGroupId}`;
-  
+  // Group-scoped client: requests go under /api/v1/m/{workerGroupId}/
+  const wg = cribl.scoped({ group: workerGroupId });
+
   // Create a TCP JSON Source
-  const source = await criblControlPlane.sources.create({
+  const source = await wg.sources.create({
     id: "my-tcp-json",
     type: "tcpjson",
     host: "0.0.0.0",
     port: 9020,
     authType: "manual",
     authToken: "your-auth-token",
-  }, {
-    serverURL: groupUrl,
   });
 
   // Create a Filesystem Destination
-  const destination = await criblControlPlane.destinations.create({
+  const destination = await wg.destinations.create({
     id: "my-fs-destination",
     type: "filesystem",
     destPath: "/tmp/my-output",
-  }, {
-    serverURL: groupUrl,
   });
 
   // Create a Pipeline
-  const pipeline = await criblControlPlane.pipelines.create({
+  const pipeline = await wg.pipelines.create({
     id: "my-pipeline",
     conf: {
       asyncFuncTimeout: 1000,
-      output: "default",
       functions: [{
         filter: "true",
         conf: {
@@ -131,14 +149,10 @@ async function run() {
         final: true,
       }],
     },
-  }, {
-    serverURL: groupUrl,
   });
 
   // Add Route to Routing table
-  const routesListResponse = await criblControlPlane.routes.list({
-    serverURL: groupUrl,
-  });
+  const routesListResponse = await wg.routes.list();
   const routes = routesListResponse.items?.[0];
   if (routes && routes.id) {
     routes.routes = [{
@@ -151,27 +165,22 @@ async function run() {
       description: "My new route",
       additionalProperties: {},
     }, ...routes.routes];
-    await criblControlPlane.routes.update({
+    await wg.routes.update({
       id: routes.id,
       routes,
-    }, {
-      serverURL: groupUrl,
     });
   }
 
   // Commit configuration changes
-  const commitResponse = await criblControlPlane.versions.commits.create({
-    groupId: workerGroupId,
-    gitCommitParams: {
-      message: "Initial configuration",
-      effective: true,
-      files: ["."],
-    },
+  const commitResponse = await wg.versions.commits.create({
+    message: "Initial configuration",
+    effective: true,
+    files: ["."],
   });
   const version = commitResponse.items?.[0]?.commit;
 
   // Deploy configuration changes
-  await criblControlPlane.groups.deploy({
+  await cribl.groups.deploy({
     product: "stream",
     id: workerGroupId,
     deployRequest: { version },
@@ -190,6 +199,8 @@ run();
 ## Authentication
 
 Except for the `health.get` and `auth.tokens.get` methods, all Cribl SDK requests require you to authenticate with a Bearer token. You must include a valid Bearer token in the configuration when initializing your SDK client. The Bearer token verifies your identity and ensures secure access to the requested resources. The SDK automatically manages the `Authorization` header for subsequent requests once properly authenticated.
+
+Initialize **`serverURL`** with your workspace or leader origin (you do not need to append `/api/v1` yourself). See [Base URL and scoped clients](#base-url-and-scoped-clients).
 
 For information about Bearer token expiration, see [Token Management](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-token-mgmt) in the Cribl as Code documentation.
 

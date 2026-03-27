@@ -44,7 +44,7 @@ import {
   RouteConf,
 } from "../dist/esm/models";
 import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
-import { baseUrl, createCriblClient } from "./auth";
+import { createCriblClient } from "./auth";
 
 // Create Fleet
 const myFleet: ConfigGroup = {
@@ -107,11 +107,10 @@ const route: RouteConf = {
   filter: `__inputId=='${syslogSource.id}'`,
   description: "This is my new Route",
 };
-const groupUrl = `${baseUrl}/m/${myFleet.id}`;
-
 async function main() {
   // Initialize Cribl client
   const cribl = await createCriblClient();
+  const fleet = cribl.scoped({ group: myFleet.id });
 
   // Verify that Fleet doesn't already exist
   const fleetResponse = await cribl.groups.get({ id: myFleet.id, product: "edge" });
@@ -125,31 +124,31 @@ async function main() {
   console.log(`✅ Fleet created: ${myFleet.id}`);
 
   // Create Syslog Source
-  await cribl.sources.create(syslogSource, { serverURL: groupUrl });
+  await fleet.sources.create(syslogSource);
   console.log(`✅ Syslog Source created: ${syslogSource.id}`);
 
   // Create Amazon S3 Destination
-  await cribl.destinations.create(s3Destination, { serverURL: groupUrl });
+  await fleet.destinations.create(s3Destination);
   console.log(`✅ Amazon S3 Destination created: ${s3Destination.id}`);
 
   // Create Pipeline
-  await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
+  await fleet.pipelines.create(pipeline);
   console.log(`✅ Pipeline created: ${pipeline.id}`);
 
   // Add Route to Routing table
-  const routesListResponse = await cribl.routes.list({ serverURL: groupUrl });
+  const routesListResponse = await fleet.routes.list();
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
+  await fleet.routes.update({ id: routes.id, routes });
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
-  const commitResponse = await cribl.versions.commits.create({
+  const commitResponse = await fleet.versions.commits.create({
     message: "Commit for Edge example", effective: true, files: ["."]
-  }, { serverURL: groupUrl });
+  });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the fleet: ${myFleet.id}, commit ID: ${version}`);

@@ -32,7 +32,7 @@ import {
   RouteConf,
 } from "../dist/esm/models";
 import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
-import { baseUrl, createCriblClient } from "./auth";
+import { createCriblClient } from "./auth";
 
 const PORT = 9020;
 const AUTH_TOKEN = "4a4b3663-7a57-7369-7632-795553573668";
@@ -93,11 +93,11 @@ const route: RouteConf = {
   filter: "__inputId=='tcpjson:my-tcp-json'",
   description: "This is my new route",
 };
-const groupUrl = `${baseUrl}/m/${myWorkerGroup.id}`;
-
 async function main() {
-  // Initialize Cribl client
+  // Authenticated control-plane client (leader APIs: groups, deploy, health, …).
   const cribl = await createCriblClient();
+  // Same credentials, but every request is sent under /api/v1/m/{workerGroupId}/ for group config.
+  const wg = cribl.scoped({ group: myWorkerGroup.id });
 
   // Verify that Worker Group doesn't already exist
   const workerGroupResponse = await cribl.groups.get({ id: myWorkerGroup.id, product: "stream" });
@@ -111,33 +111,31 @@ async function main() {
   console.log(`✅ Worker Group created: ${myWorkerGroup.id}`);
 
   // Create TCP JSON Source
-  await cribl.sources.create(tcpJsonSource, { serverURL: groupUrl });
+  await wg.sources.create(tcpJsonSource);
   console.log(`✅ TCP JSON Source created: ${tcpJsonSource.id}`);
 
   // Create Filesystem Destination
-  await cribl.destinations.create(fileSystemDestination, {
-    serverURL: groupUrl,
-  });
+  await wg.destinations.create(fileSystemDestination);
   console.log(`✅ Filesystem Destination created: ${fileSystemDestination.id}`);
 
   // Create Pipeline
-  await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
+  await wg.pipelines.create(pipeline);
   console.log(`✅ Pipeline created: ${pipeline.id}`);
 
   // Add Route to Routing table
-  const routesListResponse = await cribl.routes.list({ serverURL: groupUrl });
+  const routesListResponse = await wg.routes.list();
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
+  await wg.routes.update({ id: routes.id, routes });
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
-  const commitResponse = await cribl.versions.commits.create({
+  const commitResponse = await wg.versions.commits.create({
     message: "Commit for Stream example", effective: true, files: ["."]
-  }, { serverURL: groupUrl });
+  });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the group: ${myWorkerGroup.id}, commit ID: ${version}`);

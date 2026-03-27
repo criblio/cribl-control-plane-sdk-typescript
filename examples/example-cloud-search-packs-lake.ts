@@ -41,12 +41,11 @@ async function main() {
   });
   const cribl = await auth.getClient();
 
-  // Construct URLs for pack installation
-  const baseUrl = `https://${WORKSPACE_NAME}-${ORG_ID}.cribl.cloud/api/v1`;
-  const searchGroupUrl = `${baseUrl}/m/default_search`;
-
-  // Install AWS VPC Flow Logs Search Pack
-  await cribl.packs.install({ source: PACK_URL, id: PACK_ID }, { serverURL: searchGroupUrl });
+  // Install AWS VPC Flow Logs Search Pack (default_search worker group)
+  await cribl.scoped({ group: "default_search" }).packs.install({
+    source: PACK_URL,
+    id: PACK_ID,
+  });
   console.log(`✅ Installed Search Pack "${PACK_ID}" from Cribl Packs Dispensary`);
 
   // Create lake dataset

@@ -45,8 +45,8 @@ const isOnprem = process.env.DEPLOYMENT_ENV === 'onprem';
 const configuration = getConfiguration(isOnprem);
 
 export const baseUrl = isOnprem
-  ? `${(configuration as OnpremConfiguration).serverURL}/api/v1`
-  : `https://${(configuration as CloudConfiguration).workspaceName}-${(configuration as CloudConfiguration).orgId}.${domain}/api/v1`;
+  ? (configuration as OnpremConfiguration).serverURL.replace(/\/+$/, "")
+  : `https://${(configuration as CloudConfiguration).workspaceName}-${(configuration as CloudConfiguration).orgId}.${domain}`;
 
 /**
  * Factory function that creates an authenticated Cribl Control Plane client. 
@@ -111,7 +111,7 @@ export class AuthOnprem implements ICriblAuth {
   constructor({ serverURL, username, password }: OnpremConfiguration) {
     this.username = username;
     this.password = password;
-    this.baseUrl = `${serverURL}/api/v1`;
+    this.baseUrl = serverURL.replace(/\/+$/, "");
   }
 
   public async getClient(): Promise<CriblControlPlane> {
@@ -156,7 +156,7 @@ export class AuthCloud implements ICriblAuth {
   constructor({ orgId, clientID, clientSecret, workspaceName }: CloudConfiguration) {
     this.clientID = clientID;
     this.clientSecret = clientSecret;
-    this.baseUrl = `https://${workspaceName}-${orgId}.${domain}/api/v1`;
+    this.baseUrl = `https://${workspaceName}-${orgId}.${domain}`;
     this.tokenURL = `https://login.${domain}/oauth/token`;
     this.audience = `https://api.${domain}`;
   }
