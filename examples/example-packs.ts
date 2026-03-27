@@ -45,7 +45,8 @@ const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Ac
 const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket name
 const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
-const packServerURL = `${baseUrl.replace(/\/+$/, "")}/api/v1/m/${WORKER_GROUP_ID}/p/${PACK_ID}`;
+const groupUrl = `${baseUrl}/m/${WORKER_GROUP_ID}`;
+const packUrl = `${groupUrl}/p/${PACK_ID}`;
 
 // TCP JSON Source configuration
 const tcpJsonSource: CreateInputRequest = {
@@ -106,29 +107,29 @@ async function main() {
   const cribl = await createCriblClient();
 
   // Install Pack from URL
-  await cribl.packs.install({ source: PACK_URL, id: PACK_ID }, { group: WORKER_GROUP_ID });
+  await cribl.packs.install({ source: PACK_URL, id: PACK_ID }, { serverURL: groupUrl });
   console.log(`✅ Installed Pack "${PACK_ID}" from: ${PACK_URL}`);
 
   // Create TCP JSON Source in Pack
-  await cribl.sources.create(tcpJsonSource, { serverURL: packServerURL });
+  await cribl.sources.create(tcpJsonSource, { serverURL: packUrl });
   console.log(`✅ Created TCP JSON Source ${tcpJsonSource.id} in Pack: "${PACK_ID}"`);
 
   // Create Amazon S3 Destination in Pack
-  await cribl.destinations.create(s3Destination, { serverURL: packServerURL });
+  await cribl.destinations.create(s3Destination, { serverURL: packUrl });
   console.log(`✅ Created Amazon S3 Destination ${s3Destination.id} in Pack: "${PACK_ID}"`);
 
   // Create Pipeline in Pack
-  await cribl.pipelines.create(pipeline, { serverURL: packServerURL });
+  await cribl.pipelines.create(pipeline, { serverURL: packUrl });
   console.log(`✅ Created Pipeline ${pipeline.id} in Pack: "${PACK_ID}"`);
 
   // Add Route to Routing table in Pack
-  const routesListResponse = await cribl.routes.list({ serverURL: packServerURL });
+  const routesListResponse = await cribl.routes.list({ serverURL: packUrl });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: packServerURL });
+  await cribl.routes.update({ id: routes.id, routes }, { serverURL: packUrl });
   console.log(`✅ Added Route ${route.id} in Pack: ${PACK_ID}`);
   console.log(`ℹ️ This example does not commit or deploy the configuration to the Worker Group.`);
 }

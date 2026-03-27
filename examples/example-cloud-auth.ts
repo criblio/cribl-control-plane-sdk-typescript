@@ -27,12 +27,12 @@ const CLIENT_SECRET = "your-client-secret"; // Replace with your OAuth2 Client S
 const ORG_ID = "your-org-id"; // Replace with your Organization ID
 const WORKSPACE_NAME = "main"; // Replace with your Workspace name
 
-const workspaceURL = `https://${WORKSPACE_NAME}-${ORG_ID}.cribl.cloud`;
+const baseUrl = `https://${WORKSPACE_NAME}-${ORG_ID}.cribl.cloud/api/v1`;
 
 async function main() {
   // Create authenticated SDK client with OAuth2
   const client = new CriblControlPlane({
-    serverURL: workspaceURL,
+    serverURL: baseUrl,
     security: {
       clientOauth: {
         clientID: CLIENT_ID,

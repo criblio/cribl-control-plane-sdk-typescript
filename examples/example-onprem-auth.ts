@@ -24,6 +24,8 @@ const ONPREM_SERVER_URL: string = "http://localhost:9000";  // Replace with your
 const ONPREM_USERNAME: string = "admin"; // Replace with your username
 const ONPREM_PASSWORD: string = "admin"; // Replace with your password
 
+const BASE_URL: string = `${ONPREM_SERVER_URL}/api/v1`;
+
 // Token cache
 let _cachedToken: string | null = null;
 let _tokenExpiresAt: Date | null = null;
@@ -41,7 +43,7 @@ function _getJwtExp(token: string): Date {
 
 async function main() {
   // Create client for retrieving Bearer token
-  const client = new CriblControlPlane({ serverURL: ONPREM_SERVER_URL });
+  const client = new CriblControlPlane({ serverURL: BASE_URL });
 
   const callback = async () => {
     // Check cache
@@ -67,7 +69,7 @@ async function main() {
 
   // Create authenticated SDK client
   const authenticatedClient = new CriblControlPlane({
-    serverURL: ONPREM_SERVER_URL,
+    serverURL: BASE_URL,
     security: callback,
   });
   console.log(`✅ Authenticated SDK client created for on-prem server`);
