@@ -1,0 +1,15 @@
+# RestCollectMethodGetScheduling
+
+## Example Usage
+
+```typescript
+import { RestCollectMethodGetScheduling } from "cribl-control-plane/models";
+
+let value: RestCollectMethodGetScheduling = {};
+```
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `stateTracking`                                                                            | [models.RestCollectMethodGetStateTracking](../models/restcollectmethodgetstatetracking.md) | :heavy_minus_sign:                                                                         | N/A                                                                                        |
