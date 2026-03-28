@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 857c1954a86a4fe5ac0b3fd1b35170fe
-  docVersion: 4.18.0-alpha.1774566306015-cba67aae
-  speakeasyVersion: 1.759.2
-  generationVersion: 2.869.23
-  releaseVersion: 0.7.0-beta.11
-  configChecksum: b5abc695034f7343a2f54283343655b7
+  docChecksum: 10dd299b5db03ce13fc61998a316d5d4
+  docVersion: 4.18.0-alpha.1774652638806-4738dca1
+  speakeasyVersion: 1.759.3
+  generationVersion: 2.869.25
+  releaseVersion: 0.7.0-beta.12
+  configChecksum: 749f07491ead8e294698da4a51201f8e
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: eaf9a76a-c24f-46b3-b122-4711f0c9437f
-  pristine_commit_hash: c7428dfe5306abe38ea519950a600471810960fd
-  pristine_tree_hash: 31bebae18a6818023fe6a8a063efe5916e9e6a45
+  generation_id: 6a94b1a6-0237-4bd0-a73d-a5a6141335a9
+  pristine_commit_hash: fc4e727cd13e26b7e742446d35410aac19974686
+  pristine_tree_hash: 199c89a8f8836776c9559e63ffffcbb4b63bb313
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -142,8 +142,8 @@ trackedFiles:
     pristine_git_object: 27adef80707693b334d69561756986a7e62d25de
   docs/models/authenticationmethodoptions.md:
     id: bc281788d27c
-    last_write_checksum: sha1:fbbce6a0cb3e5fb32ee2f3bd7b25e98bbfe1576c
-    pristine_git_object: 1f6063917e28b75f94026adaf8cbc318b3e72a13
+    last_write_checksum: sha1:e7749173b4f6d6eed200bdaf1803aaae4f53c551
+    pristine_git_object: e3132d74966c31f0e883fc6df69a37248ea39089
   docs/models/authenticationmethodoptionsapi.md:
     id: 386168b362c5
     last_write_checksum: sha1:e0b4799e93b2e04e4f9511a6ba77b710db1fd95c
@@ -11130,12 +11130,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:d3c7d081732463861fb4fadd489d5a152c13ea19
-    pristine_git_object: fd8670f5114221e9e17a7b622fe782a2285b440c
+    last_write_checksum: sha1:63357aa6ef11021c48da5d3ebedbf2d893d54c7f
+    pristine_git_object: 265dd01c09999f8bf4e90b36cfdcb9d25e8f685c
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:6aa6995285bec3cc44a887f439d232e6613bc96d
-    pristine_git_object: 6c27f3952a0e7e329121306def73a48e00e07fa2
+    last_write_checksum: sha1:6c56ec78111ff9dc48f37c84de586bbe785f4901
+    pristine_git_object: 1220f0826429358454d33175439ab8a9c295aad6
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -11634,8 +11634,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:358551036825826ae81a7c27ef04f41dc92b4738
-    pristine_git_object: d8d9cef31ba0400f437afbcc1c4529779d4848de
+    last_write_checksum: sha1:41613d3cdb2893a2822c888021c02da094efa589
+    pristine_git_object: eda9f2291a9daf4384160b23c850a424a823b6a5
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -11734,8 +11734,8 @@ trackedFiles:
     pristine_git_object: 2d0d1d2ed34f43182bfce913115da6a90f5c4283
   src/models/authenticationmethodoptions.ts:
     id: 291ee5c66173
-    last_write_checksum: sha1:9a7c87960e72445226fe32d2588cfc25d349bb07
-    pristine_git_object: 93f946ed34ccdf76c77527150926de75289bcf22
+    last_write_checksum: sha1:a8b88d894f3b11d648209c730dda9e1645ba1cd8
+    pristine_git_object: 409bfa4ee7832d0f7ed28d7832aa3f0cd0cd40d6
   src/models/authenticationmethodoptionsapi.ts:
     id: 082ef89c5d05
     last_write_checksum: sha1:77b5fa346194941001a337fcf740d4781a3dcc0c
@@ -25539,6 +25539,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.list()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.sources.create()`: \n  *  `request.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.sources.list()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.sources.get()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.destinations.list()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.destinations.create()`: \n  *  `request.requestBody.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.destinations.get()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.destinations.update()`: \n  *  `request.output.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.packs.destinations.delete()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.union(azure_blob).authType` **Changed**\n  *  `response.items[].union(azure_blob).authType` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items[].union(azure_blob).authType` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
