@@ -14,9 +14,9 @@
 
 Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
 
-### Example Usage
+### Example Usage: LakeDatasetCreateExamplesJsonDataset
 
-<!-- UsageSnippet language="typescript" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" -->
+<!-- UsageSnippet language="typescript" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="LakeDatasetCreateExamplesJsonDataset" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -31,7 +31,15 @@ async function run() {
   const result = await criblControlPlane.lakeDatasets.create({
     lakeId: "<id>",
     criblLakeDataset: {
-      id: "<id>",
+      acceleratedFields: [
+        "host",
+        "status",
+      ],
+      description: "Web server access logs",
+      format: "json",
+      id: "web_access_logs",
+      retentionPeriodInDays: 90,
+      storageLocationId: "my-storage-location",
     },
   });
 
@@ -62,7 +70,157 @@ async function run() {
   const res = await lakeDatasetsCreate(criblControlPlane, {
     lakeId: "<id>",
     criblLakeDataset: {
-      id: "<id>",
+      acceleratedFields: [
+        "host",
+        "status",
+      ],
+      description: "Web server access logs",
+      format: "json",
+      id: "web_access_logs",
+      retentionPeriodInDays: 90,
+      storageLocationId: "my-storage-location",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("lakeDatasetsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: LakeDatasetCreateExamplesMinimalDataset
+
+<!-- UsageSnippet language="typescript" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="LakeDatasetCreateExamplesMinimalDataset" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.lakeDatasets.create({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "app_logs",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await lakeDatasetsCreate(criblControlPlane, {
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "app_logs",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("lakeDatasetsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: LakeDatasetCreateExamplesParquetDataset
+
+<!-- UsageSnippet language="typescript" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="LakeDatasetCreateExamplesParquetDataset" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.lakeDatasets.create({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      description: "Security event data in Parquet format",
+      format: "parquet",
+      id: "security_events",
+      retentionPeriodInDays: 365,
+      searchConfig: {
+        datatypes: [
+          "palo_alto_firewall",
+          "crowdstrike_fdr",
+        ],
+      },
+      storageLocationId: "my-storage-location",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await lakeDatasetsCreate(criblControlPlane, {
+    lakeId: "<id>",
+    criblLakeDataset: {
+      description: "Security event data in Parquet format",
+      format: "parquet",
+      id: "security_events",
+      retentionPeriodInDays: 365,
+      searchConfig: {
+        datatypes: [
+          "palo_alto_firewall",
+          "crowdstrike_fdr",
+        ],
+      },
+      storageLocationId: "my-storage-location",
     },
   });
   if (res.ok) {
@@ -356,9 +514,9 @@ run();
 
 Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 
-### Example Usage
+### Example Usage: LakeDatasetUpdateExamplesUpdateDescription
 
-<!-- UsageSnippet language="typescript" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" example="LakeDatasetUpdateExamplesUpdateDescription" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -373,7 +531,14 @@ async function run() {
   const result = await criblControlPlane.lakeDatasets.update({
     lakeId: "<id>",
     id: "<id>",
-    criblLakeDatasetUpdate: {},
+    criblLakeDatasetUpdate: {
+      acceleratedFields: [
+        "host",
+        "status",
+        "source",
+      ],
+      description: "Web server access logs with accelerated fields.",
+    },
   });
 
   console.log(result);
@@ -403,7 +568,77 @@ async function run() {
   const res = await lakeDatasetsUpdate(criblControlPlane, {
     lakeId: "<id>",
     id: "<id>",
-    criblLakeDatasetUpdate: {},
+    criblLakeDatasetUpdate: {
+      acceleratedFields: [
+        "host",
+        "status",
+        "source",
+      ],
+      description: "Web server access logs with accelerated fields.",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("lakeDatasetsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: LakeDatasetUpdateExamplesUpdateRetention
+
+<!-- UsageSnippet language="typescript" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" example="LakeDatasetUpdateExamplesUpdateRetention" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.lakeDatasets.update({
+    lakeId: "<id>",
+    id: "<id>",
+    criblLakeDatasetUpdate: {
+      retentionPeriodInDays: 180,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { lakeDatasetsUpdate } from "cribl-control-plane/funcs/lakeDatasetsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await lakeDatasetsUpdate(criblControlPlane, {
+    lakeId: "<id>",
+    id: "<id>",
+    criblLakeDatasetUpdate: {
+      retentionPeriodInDays: 180,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
