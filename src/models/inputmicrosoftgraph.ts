@@ -122,6 +122,10 @@ export type InputMicrosoftGraph = {
    */
   disableTimeFilter?: boolean | undefined;
   /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+  /**
    * Select authentication method.
    */
   authType?: InputMicrosoftGraphAuthenticationMethod | undefined;
@@ -243,6 +247,7 @@ export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   endDate: types.optional(types.string()),
   timeout: types.optional(types.number()),
   disableTimeFilter: types.optional(types.boolean()),
+  maxPages: types.optional(types.number()),
   authType: types.optional(
     InputMicrosoftGraphAuthenticationMethod$inboundSchema,
   ),
@@ -287,6 +292,7 @@ export type InputMicrosoftGraph$Outbound = {
   endDate?: string | undefined;
   timeout?: number | undefined;
   disableTimeFilter?: boolean | undefined;
+  maxPages?: number | undefined;
   authType?: string | undefined;
   keepAliveTime?: number | undefined;
   jobTimeout?: string | undefined;
@@ -334,6 +340,7 @@ export const InputMicrosoftGraph$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
+  maxPages: z.number().int().optional(),
   authType: InputMicrosoftGraphAuthenticationMethod$outboundSchema.optional(),
   keepAliveTime: z.number().optional(),
   jobTimeout: z.string().optional(),
