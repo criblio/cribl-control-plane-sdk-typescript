@@ -128,8 +128,10 @@ async function main() {
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
-  routes.routes = [route, ...routes.routes];
-  await wg.routes.update({ id: routes.id, routes });
+  await wg.routes.update({
+    id: routes.id,
+    routesInput: { ...routes, routes: [route, ...routes.routes] },
+  });
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
