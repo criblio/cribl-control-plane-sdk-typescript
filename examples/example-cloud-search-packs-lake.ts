@@ -11,8 +11,8 @@
  * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID, 
  * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and 
  * Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values, 
- * follow the steps at https://docs.cribl.io/cribl-as-code/authentication/#cloud-auth. 
- * Your Client ID and Secret are sensitive information and should be kept private.
+ * follow the steps at https://docs.cribl.io/api/#criblcloud. Your Client ID 
+ * and Secret are sensitive information and should be kept private.
  * 
  * NOTE: This example is for Cribl.Cloud deployments only. It does not require 
  * .env file configuration.
@@ -41,11 +41,12 @@ async function main() {
   });
   const cribl = await auth.getClient();
 
-  // Install AWS VPC Flow Logs Search Pack (default_search worker group)
-  await cribl.scoped({ group: "default_search" }).packs.install({
-    source: PACK_URL,
-    id: PACK_ID,
-  });
+  // Construct URLs for pack installation
+  const baseUrl = `https://${WORKSPACE_NAME}-${ORG_ID}.cribl.cloud/api/v1`;
+  const searchGroupUrl = `${baseUrl}/m/default_search`;
+
+  // Install AWS VPC Flow Logs Search Pack
+  await cribl.packs.install({ source: PACK_URL, id: PACK_ID }, { serverURL: searchGroupUrl });
   console.log(`✅ Installed Search Pack "${PACK_ID}" from Cribl Packs Dispensary`);
 
   // Create lake dataset

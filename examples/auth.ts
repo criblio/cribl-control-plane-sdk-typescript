@@ -45,8 +45,8 @@ const isOnprem = process.env.DEPLOYMENT_ENV === 'onprem';
 const configuration = getConfiguration(isOnprem);
 
 export const baseUrl = isOnprem
-  ? (configuration as OnpremConfiguration).serverURL.replace(/\/+$/, "")
-  : `https://${(configuration as CloudConfiguration).workspaceName}-${(configuration as CloudConfiguration).orgId}.${domain}`;
+  ? `${(configuration as OnpremConfiguration).serverURL}/api/v1`
+  : `https://${(configuration as CloudConfiguration).workspaceName}-${(configuration as CloudConfiguration).orgId}.${domain}/api/v1`;
 
 /**
  * Factory function that creates an authenticated Cribl Control Plane client. 
@@ -111,7 +111,7 @@ export class AuthOnprem implements ICriblAuth {
   constructor({ serverURL, username, password }: OnpremConfiguration) {
     this.username = username;
     this.password = password;
-    this.baseUrl = serverURL.replace(/\/+$/, "");
+    this.baseUrl = `${serverURL}/api/v1`;
   }
 
   public async getClient(): Promise<CriblControlPlane> {
@@ -119,11 +119,12 @@ export class AuthOnprem implements ICriblAuth {
 
     const tokenGetter = new CriblControlPlane({ serverURL: this.baseUrl });
     try {
-      const { result } = await tokenGetter.auth.tokens.get({
+      const response = await tokenGetter.auth.tokens.get({
         username: this.username,
         password: this.password,
       });
-      this.client = new CriblControlPlane({ serverURL: this.baseUrl, security: { bearerAuth: result.token } });
+      const token = response.result.token;
+      this.client = new CriblControlPlane({ serverURL: this.baseUrl, security: { bearerAuth: token } });
       return this.client;
     } catch (error: any) {
       if (error?.statusCode === 429 && this.attempts < 10) {
@@ -156,7 +157,7 @@ export class AuthCloud implements ICriblAuth {
   constructor({ orgId, clientID, clientSecret, workspaceName }: CloudConfiguration) {
     this.clientID = clientID;
     this.clientSecret = clientSecret;
-    this.baseUrl = `https://${workspaceName}-${orgId}.${domain}`;
+    this.baseUrl = `https://${workspaceName}-${orgId}.${domain}/api/v1`;
     this.tokenURL = `https://login.${domain}/oauth/token`;
     this.audience = `https://api.${domain}`;
   }
