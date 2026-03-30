@@ -45,7 +45,6 @@ const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket n
 const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
 const groupUrl = `${baseUrl}/m/${WORKER_GROUP_ID}`;
-const packUrl = `${groupUrl}/p/${PACK_ID}`;
 
 // TCP JSON Source configuration
 const tcpJsonSource = {
@@ -110,25 +109,34 @@ async function main() {
   console.log(`✅ Installed Pack "${PACK_ID}" from: ${PACK_URL}`);
 
   // Create TCP JSON Source in Pack
-  await cribl.sources.create(tcpJsonSource, { serverURL: packUrl });
+  await cribl.packs.sources.create(
+    { pack: PACK_ID, requestBody: tcpJsonSource },
+    { serverURL: groupUrl },
+  );
   console.log(`✅ Created TCP JSON Source ${tcpJsonSource.id} in Pack: "${PACK_ID}"`);
 
   // Create Amazon S3 Destination in Pack
-  await cribl.destinations.create(s3Destination, { serverURL: packUrl });
+  await cribl.packs.destinations.create(
+    { pack: PACK_ID, requestBody: s3Destination },
+    { serverURL: groupUrl },
+  );
   console.log(`✅ Created Amazon S3 Destination ${s3Destination.id} in Pack: "${PACK_ID}"`);
 
   // Create Pipeline in Pack
-  await cribl.pipelines.create(pipeline, { serverURL: packUrl });
+  await cribl.packs.pipelines.create({ pack: PACK_ID, pipeline }, { serverURL: groupUrl });
   console.log(`✅ Created Pipeline ${pipeline.id} in Pack: "${PACK_ID}"`);
 
   // Add Route to Routing table in Pack
-  const routesListResponse = await cribl.routes.list({ serverURL: packUrl });
+  const routesListResponse = await cribl.packs.routes.list({ pack: PACK_ID }, { serverURL: groupUrl });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: packUrl });
+  await cribl.packs.routes.update(
+    { id: routes.id, pack: PACK_ID, routes },
+    { serverURL: groupUrl },
+  );
   console.log(`✅ Added Route ${route.id} in Pack: ${PACK_ID}`);
   console.log(`ℹ️ This example does not commit or deploy the configuration to the Worker Group.`);
 }
