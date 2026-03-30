@@ -28,8 +28,6 @@ import {
   PipelineInput,
   RouteConf,
 } from "../dist/esm/models";
-import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
-import { CRIBL_CONTROL_PLANE_API_PREFIX } from "../dist/esm";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PACK_URL = "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.5/cribl-palo-alto-networks-d6bc6883-1.1.5.crbl";
@@ -42,34 +40,34 @@ const PORT = 9020;
 
 // Amazon S3 Destination configuration: Replace the placeholder values
 const AWS_API_KEY = "your-aws-api-key"; // Replace with your AWS Access Key ID
-const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Access Key
+const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Key
 const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket name
 const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
-const packServerURL = `${baseUrl.replace(/\/+$/, "")}${CRIBL_CONTROL_PLANE_API_PREFIX}/m/${WORKER_GROUP_ID}/p/${PACK_ID}`;
+const groupUrl = `${baseUrl}/m/${WORKER_GROUP_ID}`;
+const packUrl = `${groupUrl}/p/${PACK_ID}`;
 
 // TCP JSON Source configuration
-const tcpJsonSource: CreateInputRequest = {
+const tcpJsonSource = {
   id: "my-tcp-json",
-  type: "tcpjson",
+  type: "tcpjson" as const,
   host: "0.0.0.0",
   port: PORT,
-  sendToRoutes: true,
-  authType: "manual",
+  authType: "manual" as const,
   authToken: AUTH_TOKEN,
 };
 
 // Amazon S3 Destination configuration
-const s3Destination: CreateOutputRequest = {
+const s3Destination = {
   id: "my-s3-destination",
-  type: "s3",
+  type: "s3" as const,
   bucket: AWS_BUCKET_NAME,
   region: AWS_REGION,
   awsSecretKey: AWS_SECRET_KEY,
   awsApiKey: AWS_API_KEY,
-  stagePath: "/tmp/stage",
-  compress: "gzip",
-  compressionLevel: "best_speed",
+  stagePath: "/tmp/s3-staging",
+  compress: "gzip" as const,
+  compressionLevel: "best_speed" as const,
   emptyDirCleanupSec: 300,
 };
 
@@ -78,6 +76,7 @@ const pipeline: PipelineInput = {
   id: "my-pipeline",
   conf: {
     asyncFuncTimeout: 1000,
+    output: "default",
     functions: [
       {
         filter: "true",
@@ -105,37 +104,31 @@ const route: RouteConf = {
 
 async function main() {
   const cribl = await createCriblClient();
-  const wg = cribl.scoped({ group: WORKER_GROUP_ID });
 
   // Install Pack from URL
-  await wg.packs.install({ source: PACK_URL, id: PACK_ID });
+  await cribl.packs.install({ source: PACK_URL, id: PACK_ID }, { serverURL: groupUrl });
   console.log(`✅ Installed Pack "${PACK_ID}" from: ${PACK_URL}`);
 
   // Create TCP JSON Source in Pack
-  await cribl.sources.create(tcpJsonSource, { serverURL: packServerURL });
+  await cribl.sources.create(tcpJsonSource, { serverURL: packUrl });
   console.log(`✅ Created TCP JSON Source ${tcpJsonSource.id} in Pack: "${PACK_ID}"`);
 
   // Create Amazon S3 Destination in Pack
-  await cribl.destinations.create(s3Destination, { serverURL: packServerURL });
+  await cribl.destinations.create(s3Destination, { serverURL: packUrl });
   console.log(`✅ Created Amazon S3 Destination ${s3Destination.id} in Pack: "${PACK_ID}"`);
 
   // Create Pipeline in Pack
-  await cribl.pipelines.create(pipeline, { serverURL: packServerURL });
+  await cribl.pipelines.create(pipeline, { serverURL: packUrl });
   console.log(`✅ Created Pipeline ${pipeline.id} in Pack: "${PACK_ID}"`);
 
   // Add Route to Routing table in Pack
-  const routesListResponse = await cribl.routes.list({ serverURL: packServerURL });
+  const routesListResponse = await cribl.routes.list({ serverURL: packUrl });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
-  await cribl.routes.update(
-    {
-      id: routes.id,
-      routesInput: { ...routes, routes: [route, ...routes.routes] },
-    },
-    { serverURL: packServerURL },
-  );
+  routes.routes = [route, ...routes.routes];
+  await cribl.routes.update({ id: routes.id, routesInput: routes }, { serverURL: packUrl });
   console.log(`✅ Added Route ${route.id} in Pack: ${PACK_ID}`);
   console.log(`ℹ️ This example does not commit or deploy the configuration to the Worker Group.`);
 }
@@ -143,4 +136,3 @@ async function main() {
 main().catch(error => {
   console.error("❌ Something went wrong: ", error);
 });
-  

@@ -19,14 +19,14 @@
  * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID, 
  * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and 
  * Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values, 
- * follow the steps at https://docs.cribl.io/cribl-as-code/authentication/#cloud-auth. 
- * Your Client ID and Secret are sensitive information and should be kept private.
+ * follow the steps at https://docs.cribl.io/api/#criblcloud. Your Client ID 
+ * and Secret are sensitive information and should be kept private.
  * 
  * NOTE: This example is for Cribl.Cloud deployments only. It does not require 
  * .env file configuration.
  */
 
-import { ConfigGroup, GroupCreateRequest } from "../dist/esm/models";
+import { ConfigGroup, EstimatedIngestRateOptionsConfigGroup } from "../dist/esm/models";
 import { AuthCloud } from "./auth";
 
 const ORG_ID = 'your-org-id';
@@ -46,7 +46,7 @@ const group: ConfigGroup = {
   provisioned: false,
   isFleet: false,
   isSearch: false,
-  estimatedIngestRate: 2048, // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
+  estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup.Rate24MBPerSec, // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
   id: WORKER_GROUP_ID,
   name: "my-aws-worker-group",
 };
@@ -68,11 +68,11 @@ async function main() {
   }
 
   // Create the Worker Group
-  await cribl.groups.create({ product: "stream", groupCreateRequest: group as GroupCreateRequest });
+  await cribl.groups.create({ product: "stream", groupCreateRequest: group });
   console.log(`✅ Worker Group created: ${group.id}`);
 
   // Scale and provision the Worker Group
-  group.estimatedIngestRate = 4096; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+  group.estimatedIngestRate = EstimatedIngestRateOptionsConfigGroup.Rate48MBPerSec; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
   group.provisioned = true;
   await cribl.groups.update({ product: "stream", id: group.id, configGroup: group });
   console.log(`✅ Worker Group scaled and provisioned: ${group.id}`);

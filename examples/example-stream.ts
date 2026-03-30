@@ -13,9 +13,10 @@
  * 4. A Pipeline that filters events and keeps only data in the "name" 
  * field.
  * 5. A Route that connects the Source to the Pipeline and Destination.
+ * 6. Captures live events from the Pipeline using the capture API.
  * 
  * This example also deploys the configuration to the Worker Group to make it 
- * active.
+ * active and demonstrates capturing events from the configured Pipeline.
  * 
  * Data flow: TCP JSON Source → Route → Pipeline → Filesystem Destination
  *
@@ -30,9 +31,10 @@ import {
   ConfigGroup,
   PipelineInput,
   RouteConf,
+  CaptureParams,
+  CaptureLevel,
 } from "../dist/esm/models";
-import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
-import { createCriblClient } from "./auth";
+import { baseUrl, createCriblClient } from "./auth";
 
 const PORT = 9020;
 const AUTH_TOKEN = "4a4b3663-7a57-7369-7632-795553573668";
@@ -45,20 +47,19 @@ const myWorkerGroup: ConfigGroup = {
 };
 
 // TCP JSON Source configuration
-const tcpJsonSource: CreateInputRequest = {
+const tcpJsonSource = {
   id: "my-tcp-json",
-  type: "tcpjson",
+  type: "tcpjson" as const,
   host: "0.0.0.0",
   port: PORT,
-  sendToRoutes: true,
-  authType: "manual",
+  authType: "manual" as const,
   authToken: AUTH_TOKEN,
 };
 
 // Filesystem Destination configuration
-const fileSystemDestination: CreateOutputRequest = {
+const fileSystemDestination = {
   id: "my-fs-destination",
-  type: "filesystem",
+  type: "filesystem" as const,
   destPath: "/tmp/my-output",
 };
 
@@ -67,6 +68,7 @@ const pipeline: PipelineInput = {
   id: "my-pipeline",
   conf: {
     asyncFuncTimeout: 1000,
+    output: "default",
       functions: [{
         filter: "true",
         conf: {
@@ -93,11 +95,11 @@ const route: RouteConf = {
   filter: "__inputId=='tcpjson:my-tcp-json'",
   description: "This is my new route",
 };
+const groupUrl = `${baseUrl}/m/${myWorkerGroup.id}`;
+
 async function main() {
-  // Authenticated control-plane client (leader APIs: groups, deploy, health, …).
+  // Initialize Cribl client
   const cribl = await createCriblClient();
-  // Same credentials, but every request is sent under /api/v1/m/{workerGroupId}/ for group config.
-  const wg = cribl.scoped({ group: myWorkerGroup.id });
 
   // Verify that Worker Group doesn't already exist
   const workerGroupResponse = await cribl.groups.get({ id: myWorkerGroup.id, product: "stream" });
@@ -111,33 +113,33 @@ async function main() {
   console.log(`✅ Worker Group created: ${myWorkerGroup.id}`);
 
   // Create TCP JSON Source
-  await wg.sources.create(tcpJsonSource);
+  await cribl.sources.create(tcpJsonSource, { serverURL: groupUrl });
   console.log(`✅ TCP JSON Source created: ${tcpJsonSource.id}`);
 
   // Create Filesystem Destination
-  await wg.destinations.create(fileSystemDestination);
+  await cribl.destinations.create(fileSystemDestination, {
+    serverURL: groupUrl,
+  });
   console.log(`✅ Filesystem Destination created: ${fileSystemDestination.id}`);
 
   // Create Pipeline
-  await wg.pipelines.create(pipeline);
+  await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
   console.log(`✅ Pipeline created: ${pipeline.id}`);
 
   // Add Route to Routing table
-  const routesListResponse = await wg.routes.list();
+  const routesListResponse = await cribl.routes.list({ serverURL: groupUrl });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
-  await wg.routes.update({
-    id: routes.id,
-    routesInput: { ...routes, routes: [route, ...routes.routes] },
-  });
+  routes.routes = [route, ...routes.routes];
+  await cribl.routes.update({ id: routes.id, routesInput: routes }, { serverURL: groupUrl });
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
-  const commitResponse = await wg.versions.commits.create({
+  const commitResponse = await cribl.versions.commits.create({
     message: "Commit for Stream example", effective: true, files: ["."]
-  });
+  }, { serverURL: groupUrl });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the group: ${myWorkerGroup.id}, commit ID: ${version}`);
@@ -149,6 +151,27 @@ async function main() {
     deployRequest: { version },
   });
   console.log(`✅ Worker Group changes deployed: ${myWorkerGroup.id}`);
+
+  // Capture live events from the Pipeline
+  console.log("\n📡 Starting event capture...");
+  const captureParams: CaptureParams = {
+    duration: 30,
+    filter: "__inputId=='tcpjson:my-tcp-json'",
+    level: CaptureLevel.BeforeRoutes,
+    maxEvents: 100,
+  };
+  const captureStream = await cribl.system.captures.create(captureParams);
+  console.log(`✅ Capture started. Capturing events for ${captureParams.duration} seconds...`);
+  
+  let eventCount = 0;
+  for await (const event of captureStream) {
+    eventCount++;
+    console.log(`   Event ${eventCount}:`, JSON.stringify(event, null, 2));
+    if (eventCount >= captureParams.maxEvents) {
+      break;
+    }
+  }
+  console.log(`\n✅ Capture completed. Total events captured: ${eventCount}`);
 }
 
 main().catch(error => {

@@ -15,13 +15,12 @@ const value: operations.CreateOutputSystemByPackOutputDefault = {
 };
 ```
 
-### `operations.CreateOutputSystemByPackOutputWebhookUnion`
+### `operations.CreateOutputSystemByPackOutputWebhook`
 
 ```typescript
-const value: operations.CreateOutputSystemByPackOutputWebhookUnion = {
+const value: operations.CreateOutputSystemByPackOutputWebhook = {
   id: "<id>",
   type: "webhook",
-  url: "https://woeful-futon.info/",
 };
 ```
 

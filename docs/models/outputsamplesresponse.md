@@ -1,7 +1,5 @@
 # OutputSamplesResponse
 
-Sample events from a Destination.
-
 ## Example Usage
 
 ```typescript
@@ -24,6 +22,6 @@ let value: OutputSamplesResponse = {
 
 ## Fields
 
-| Field                                                    | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `events`                                                 | Record<string, *any*>[]                                  | :heavy_check_mark:                                       | Array of sample events returned from a Destination test. |
+| Field                   | Type                    | Required                | Description             |
+| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
+| `events`                | Record<string, *any*>[] | :heavy_check_mark:      | N/A                     |
