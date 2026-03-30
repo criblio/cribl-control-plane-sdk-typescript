@@ -10,6 +10,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { StatusType, StatusType$inboundSchema } from "./statustype.js";
 
+/**
+ * Status of a Destination, aggregated across all Worker Processes.
+ */
 export type OutputStatus = {
   /**
    * Unique identifier of the Source or Destination.

@@ -8,15 +8,39 @@ import * as types from "../../types/primitives.js";
 import * as models from "../index.js";
 import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
 
+/**
+ * Health status of the Leader or Worker Node.
+ */
 export type HealthServerStatusErrorData = {
+  /**
+   * Leader Node role: <code>primary</code> or <code>standby</code>.
+   */
   role?: models.Role | undefined;
+  /**
+   * Timestamp (in Unix time) when the Cribl process started.
+   */
   startTime: number;
+  /**
+   * Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
+   */
   status: models.HealthServerStatusStatus;
 };
 
+/**
+ * Health status of the Leader or Worker Node.
+ */
 export class HealthServerStatusError extends CriblControlPlaneError {
+  /**
+   * Leader Node role: <code>primary</code> or <code>standby</code>.
+   */
   role?: models.Role | undefined;
+  /**
+   * Timestamp (in Unix time) when the Cribl process started.
+   */
   startTime: number;
+  /**
+   * Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
+   */
   status: models.HealthServerStatusStatus;
 
   /** The original data that was passed to this error instance. */

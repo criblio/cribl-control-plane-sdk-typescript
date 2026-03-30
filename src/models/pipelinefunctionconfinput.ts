@@ -150,6 +150,11 @@ import {
   PipelineFunctionLocalSearchRulesetRunner$outboundSchema,
 } from "./pipelinefunctionlocalsearchrulesetrunner.js";
 import {
+  PipelineFunctionLocalSearchSchemaMapper,
+  PipelineFunctionLocalSearchSchemaMapper$Outbound,
+  PipelineFunctionLocalSearchSchemaMapper$outboundSchema,
+} from "./pipelinefunctionlocalsearchschemamapper.js";
+import {
   PipelineFunctionLocalSearchTransformer,
   PipelineFunctionLocalSearchTransformer$Outbound,
   PipelineFunctionLocalSearchTransformer$outboundSchema,
@@ -365,6 +370,7 @@ export type PipelineFunctionConfInput =
   | PipelineFunctionLimit
   | PipelineFunctionLocalSearchDatatypeParser
   | PipelineFunctionLocalSearchRulesetRunner
+  | PipelineFunctionLocalSearchSchemaMapper
   | PipelineFunctionLocalSearchTransformer
   | PipelineFunctionLookup
   | PipelineFunctionMask
@@ -434,6 +440,7 @@ export type PipelineFunctionConfInput$Outbound =
   | PipelineFunctionLimit$Outbound
   | PipelineFunctionLocalSearchDatatypeParser$Outbound
   | PipelineFunctionLocalSearchRulesetRunner$Outbound
+  | PipelineFunctionLocalSearchSchemaMapper$Outbound
   | PipelineFunctionLocalSearchTransformer$Outbound
   | PipelineFunctionLookup$Outbound
   | PipelineFunctionMask$Outbound
@@ -507,6 +514,7 @@ export const PipelineFunctionConfInput$outboundSchema: z.ZodType<
   PipelineFunctionLimit$outboundSchema,
   PipelineFunctionLocalSearchDatatypeParser$outboundSchema,
   PipelineFunctionLocalSearchRulesetRunner$outboundSchema,
+  PipelineFunctionLocalSearchSchemaMapper$outboundSchema,
   PipelineFunctionLocalSearchTransformer$outboundSchema,
   PipelineFunctionLookup$outboundSchema,
   PipelineFunctionMask$outboundSchema,

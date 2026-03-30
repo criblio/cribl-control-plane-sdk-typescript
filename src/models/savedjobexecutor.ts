@@ -4,27 +4,20 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ExecutorTypeRunnableJobExecutor,
-  ExecutorTypeRunnableJobExecutor$inboundSchema,
   ExecutorTypeRunnableJobExecutor$Outbound,
   ExecutorTypeRunnableJobExecutor$outboundSchema,
 } from "./executortyperunnablejobexecutor.js";
 import {
   JobTypeOptionsRunnableJobCollection,
-  JobTypeOptionsRunnableJobCollection$inboundSchema,
   JobTypeOptionsRunnableJobCollection$outboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
 import {
-  ScheduleTypeSavedJobCollection,
-  ScheduleTypeSavedJobCollection$inboundSchema,
-  ScheduleTypeSavedJobCollection$Outbound,
-  ScheduleTypeSavedJobCollection$outboundSchema,
-} from "./scheduletypesavedjobcollection.js";
+  ScheduleTypeSavedJobResponseCollection,
+  ScheduleTypeSavedJobResponseCollection$Outbound,
+  ScheduleTypeSavedJobResponseCollection$outboundSchema,
+} from "./scheduletypesavedjobresponsecollection.js";
 
 export type SavedJobExecutor = {
   /**
@@ -56,7 +49,7 @@ export type SavedJobExecutor = {
   /**
    * Configuration for a scheduled job
    */
-  schedule?: ScheduleTypeSavedJobCollection | undefined;
+  schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -64,24 +57,6 @@ export type SavedJobExecutor = {
   executor: ExecutorTypeRunnableJobExecutor;
 };
 
-/** @internal */
-export const SavedJobExecutor$inboundSchema: z.ZodType<
-  SavedJobExecutor,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  description: types.optional(types.string()),
-  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  removeFields: types.optional(z.array(types.string())),
-  resumeOnBoot: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  schedule: types.optional(ScheduleTypeSavedJobCollection$inboundSchema),
-  streamtags: types.optional(z.array(types.string())),
-  executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
-});
 /** @internal */
 export type SavedJobExecutor$Outbound = {
   id?: string | undefined;
@@ -92,7 +67,7 @@ export type SavedJobExecutor$Outbound = {
   removeFields?: Array<string> | undefined;
   resumeOnBoot?: boolean | undefined;
   environment?: string | undefined;
-  schedule?: ScheduleTypeSavedJobCollection$Outbound | undefined;
+  schedule?: ScheduleTypeSavedJobResponseCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor$Outbound;
 };
@@ -111,7 +86,7 @@ export const SavedJobExecutor$outboundSchema: z.ZodType<
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
-  schedule: ScheduleTypeSavedJobCollection$outboundSchema.optional(),
+  schedule: ScheduleTypeSavedJobResponseCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   executor: ExecutorTypeRunnableJobExecutor$outboundSchema,
 });
@@ -121,14 +96,5 @@ export function savedJobExecutorToJSON(
 ): string {
   return JSON.stringify(
     SavedJobExecutor$outboundSchema.parse(savedJobExecutor),
-  );
-}
-export function savedJobExecutorFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJobExecutor, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJobExecutor$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJobExecutor' from JSON`,
   );
 }

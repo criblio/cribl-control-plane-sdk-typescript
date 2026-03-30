@@ -15,6 +15,7 @@ export const RbacResource = {
   Dashboards: "dashboards",
   Macros: "macros",
   Notebooks: "notebooks",
+  NotebookTemplates: "notebook-templates",
 } as const;
 export type RbacResource = OpenEnum<typeof RbacResource>;
 

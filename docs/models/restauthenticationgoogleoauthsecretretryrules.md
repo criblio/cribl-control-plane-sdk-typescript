@@ -17,7 +17,7 @@ const value: models.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone =
 ```typescript
 const value:
   models.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic = {
-    type: "<value>",
+    type: "static",
   };
 ```
 
@@ -26,7 +26,7 @@ const value:
 ```typescript
 const value:
   models.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff = {
-    type: "<value>",
+    type: "backoff",
   };
 ```
 

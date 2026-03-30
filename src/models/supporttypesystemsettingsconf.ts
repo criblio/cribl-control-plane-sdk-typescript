@@ -19,6 +19,8 @@ export type SupportTypeSystemSettingsConf = {
   featureFlagOverrides?:
     | Array<ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides>
     | undefined;
+  logFileMaxFiles?: number | undefined;
+  logFileMaxSize?: string | undefined;
 };
 
 /** @internal */
@@ -32,12 +34,16 @@ export const SupportTypeSystemSettingsConf$inboundSchema: z.ZodType<
       ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$inboundSchema,
     ),
   ),
+  logFileMaxFiles: types.optional(types.number()),
+  logFileMaxSize: types.optional(types.string()),
 });
 /** @internal */
 export type SupportTypeSystemSettingsConf$Outbound = {
   featureFlagOverrides?:
     | Array<ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$Outbound>
     | undefined;
+  logFileMaxFiles?: number | undefined;
+  logFileMaxSize?: string | undefined;
 };
 
 /** @internal */
@@ -49,6 +55,8 @@ export const SupportTypeSystemSettingsConf$outboundSchema: z.ZodType<
   featureFlagOverrides: z.array(
     ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$outboundSchema,
   ).optional(),
+  logFileMaxFiles: z.number().optional(),
+  logFileMaxSize: z.string().optional(),
 });
 
 export function supportTypeSystemSettingsConfToJSON(
