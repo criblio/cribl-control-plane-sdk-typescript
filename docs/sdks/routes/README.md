@@ -111,16 +111,16 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
-          description: "Route access logs to main pipeline",
+          description: "Route access logs to main Pipeline",
           filter: "source == \"access.log\"",
-          final: true,
-          id: "default",
           name: "my-route",
           pipeline: "main",
+          final: true,
+          id: "default",
         },
       ],
     },
@@ -152,16 +152,16 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
-          description: "Route access logs to main pipeline",
+          description: "Route access logs to main Pipeline",
           filter: "source == \"access.log\"",
-          final: true,
-          id: "default",
           name: "my-route",
           pipeline: "main",
+          final: true,
+          id: "default",
         },
       ],
     },
@@ -192,44 +192,44 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
           description: "Route speedtest logs",
           filter: "source == \"speedtest.log\"",
-          final: false,
-          id: "route-speedtest",
           name: "speedtest",
           output: "default",
           pipeline: "main",
+          final: false,
+          id: "route-speedtest",
         },
         {
           description: "Route mtr logs",
           filter: "source == \"mtr.log\"",
-          final: false,
-          id: "route-mtr",
           name: "mtr",
           output: "default",
           pipeline: "passthru",
+          final: false,
+          id: "route-mtr",
         },
         {
           description: "Route statsd metrics",
           filter: "source == \"statsd.log\"",
-          final: false,
-          id: "route-statsd",
           name: "statsd",
           output: "devnull",
           pipeline: "prometheus_metrics",
+          final: false,
+          id: "route-statsd",
         },
         {
           description: "Catch-all Route for all other events",
           filter: "true",
-          final: true,
-          id: "route-default",
           name: "default",
           output: "default",
           pipeline: "main",
+          final: true,
+          id: "route-default",
         },
       ],
     },
@@ -261,44 +261,44 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
           description: "Route speedtest logs",
           filter: "source == \"speedtest.log\"",
-          final: false,
-          id: "route-speedtest",
           name: "speedtest",
           output: "default",
           pipeline: "main",
+          final: false,
+          id: "route-speedtest",
         },
         {
           description: "Route mtr logs",
           filter: "source == \"mtr.log\"",
-          final: false,
-          id: "route-mtr",
           name: "mtr",
           output: "default",
           pipeline: "passthru",
+          final: false,
+          id: "route-mtr",
         },
         {
           description: "Route statsd metrics",
           filter: "source == \"statsd.log\"",
-          final: false,
-          id: "route-statsd",
           name: "statsd",
           output: "devnull",
           pipeline: "prometheus_metrics",
+          final: false,
+          id: "route-statsd",
         },
         {
           description: "Catch-all Route for all other events",
           filter: "true",
-          final: true,
-          id: "route-default",
           name: "default",
           output: "default",
           pipeline: "main",
+          final: true,
+          id: "route-default",
         },
       ],
     },
@@ -329,14 +329,12 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
-          description: "Route access logs to main pipeline",
+          description: "Route access logs to main Pipeline",
           filter: "source == \"access.log\"",
-          final: true,
-          id: "<id>",
           name: "my-route",
           pipeline: "main",
         },
@@ -370,14 +368,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
-          description: "Route access logs to main pipeline",
+          description: "Route access logs to main Pipeline",
           filter: "source == \"access.log\"",
-          final: true,
-          id: "<id>",
           name: "my-route",
           pipeline: "main",
         },
@@ -410,18 +406,18 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
           description: "Route with dynamic Destination based on environment",
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
-          final: true,
-          id: "route-dynamic",
           name: "dynamic-output",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
+          final: true,
+          id: "route-dynamic",
         },
       ],
     },
@@ -453,18 +449,18 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
           description: "Route with dynamic Destination based on environment",
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
-          final: true,
-          id: "route-dynamic",
           name: "dynamic-output",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
+          final: true,
+          id: "route-dynamic",
         },
       ],
     },
@@ -599,20 +595,20 @@ async function run() {
       {
         description: "Route audit logs",
         filter: "source == \"audit.log\"",
-        final: false,
-        id: "route-audit",
         name: "audit",
         output: "default",
         pipeline: "main",
+        final: false,
+        id: "route-audit",
       },
       {
         description: "Route security logs",
         filter: "source == \"security.log\"",
-        final: false,
-        id: "route-security",
         name: "security",
         output: "devnull",
         pipeline: "passthru",
+        final: false,
+        id: "route-security",
       },
     ],
   });
@@ -647,20 +643,20 @@ async function run() {
       {
         description: "Route audit logs",
         filter: "source == \"audit.log\"",
-        final: false,
-        id: "route-audit",
         name: "audit",
         output: "default",
         pipeline: "main",
+        final: false,
+        id: "route-audit",
       },
       {
         description: "Route security logs",
         filter: "source == \"security.log\"",
-        final: false,
-        id: "route-security",
         name: "security",
         output: "devnull",
         pipeline: "passthru",
+        final: false,
+        id: "route-security",
       },
     ],
   });
@@ -694,8 +690,6 @@ async function run() {
       {
         description: "Route with server-generated id and default final value",
         filter: "source == \"new.log\"",
-        final: true,
-        id: "<id>",
         name: "new-route",
         pipeline: "main",
       },
@@ -732,8 +726,6 @@ async function run() {
       {
         description: "Route with server-generated id and default final value",
         filter: "source == \"new.log\"",
-        final: true,
-        id: "<id>",
         name: "new-route",
         pipeline: "main",
       },
@@ -770,11 +762,11 @@ async function run() {
         description: "Route with dynamic Destination based on environment",
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
-        final: true,
-        id: "route-dynamic-append",
         name: "dynamic-append",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
+        final: true,
+        id: "route-dynamic-append",
       },
     ],
   });
@@ -810,11 +802,11 @@ async function run() {
         description: "Route with dynamic Destination based on environment",
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
-        final: true,
-        id: "route-dynamic-append",
         name: "dynamic-append",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
+        final: true,
+        id: "route-dynamic-append",
       },
     ],
   });
@@ -848,10 +840,10 @@ async function run() {
       {
         description: "Route new logs to main pipeline",
         filter: "source == \"new.log\"",
-        final: true,
-        id: "route-new",
         name: "new-route",
         pipeline: "main",
+        final: true,
+        id: "route-new",
       },
     ],
   });
@@ -886,10 +878,10 @@ async function run() {
       {
         description: "Route new logs to main pipeline",
         filter: "source == \"new.log\"",
-        final: true,
-        id: "route-new",
         name: "new-route",
         pipeline: "main",
+        final: true,
+        id: "route-new",
       },
     ],
   });

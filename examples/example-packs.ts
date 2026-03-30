@@ -129,8 +129,13 @@ async function main() {
   if (!routes || !routes.id) {
     throw new Error("No Routes found");
   }
-  routes.routes = [route, ...routes.routes];
-  await cribl.routes.update({ id: routes.id, routes }, { serverURL: packServerURL });
+  await cribl.routes.update(
+    {
+      id: routes.id,
+      routesInput: { ...routes, routes: [route, ...routes.routes] },
+    },
+    { serverURL: packServerURL },
+  );
   console.log(`✅ Added Route ${route.id} in Pack: ${PACK_ID}`);
   console.log(`ℹ️ This example does not commit or deploy the configuration to the Worker Group.`);
 }

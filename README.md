@@ -305,7 +305,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Health](docs/sdks/health/README.md)
 
-* [get](docs/sdks/health/README.md#get) - Retrieve health status of the server
+* [get](docs/sdks/health/README.md#get) - Get the health status of the server
 
 ### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 
@@ -445,7 +445,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 #### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
 * [list](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-* [update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+* [update](docs/sdks/cribl/README.md#update) - Update system settings
 
 ### [Versions.Branches](docs/sdks/branches/README.md)
 
@@ -525,7 +525,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
 - [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
-- [`healthGet`](docs/sdks/health/README.md#get) - Retrieve health status of the server
+- [`healthGet`](docs/sdks/health/README.md#get) - Get the health status of the server
 - [`lakeDatasetsCreate`](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
 - [`lakeDatasetsDelete`](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
 - [`lakeDatasetsGet`](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)
@@ -595,7 +595,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
 - [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
 - [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-- [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+- [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update system settings
 - [`systemSettingsRestart`](docs/sdks/settings/README.md#restart) - Restart the Cribl server
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 - [`versionsBranchesList`](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
@@ -677,14 +677,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.nodes.list({
-    product: "stream",
-    filterExp: "<value>",
-    sortExp: "<value>",
-    filter: "<value>",
-    sort: "<value>",
-    limit: 881129,
-    offset: 990978,
+  const result = await criblControlPlane.sources.statuses.list({
+    metrics: true,
+    type: false,
   });
 
   for await (const page of result) {

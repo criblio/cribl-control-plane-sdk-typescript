@@ -4,25 +4,19 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import { smartUnion } from "../types/smartUnion.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SavedJobCollection,
-  SavedJobCollection$inboundSchema,
   SavedJobCollection$Outbound,
   SavedJobCollection$outboundSchema,
 } from "./savedjobcollection.js";
 import {
   SavedJobExecutor,
-  SavedJobExecutor$inboundSchema,
   SavedJobExecutor$Outbound,
   SavedJobExecutor$outboundSchema,
 } from "./savedjobexecutor.js";
 import {
   SavedJobScheduledSearch,
-  SavedJobScheduledSearch$inboundSchema,
   SavedJobScheduledSearch$Outbound,
   SavedJobScheduledSearch$outboundSchema,
 } from "./savedjobscheduledsearch.js";
@@ -32,16 +26,6 @@ export type SavedJob =
   | SavedJobExecutor
   | SavedJobScheduledSearch;
 
-/** @internal */
-export const SavedJob$inboundSchema: z.ZodType<
-  SavedJob,
-  z.ZodTypeDef,
-  unknown
-> = smartUnion([
-  SavedJobCollection$inboundSchema,
-  SavedJobExecutor$inboundSchema,
-  SavedJobScheduledSearch$inboundSchema,
-]);
 /** @internal */
 export type SavedJob$Outbound =
   | SavedJobCollection$Outbound
@@ -61,13 +45,4 @@ export const SavedJob$outboundSchema: z.ZodType<
 
 export function savedJobToJSON(savedJob: SavedJob): string {
   return JSON.stringify(SavedJob$outboundSchema.parse(savedJob));
-}
-export function savedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<SavedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SavedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SavedJob' from JSON`,
-  );
 }

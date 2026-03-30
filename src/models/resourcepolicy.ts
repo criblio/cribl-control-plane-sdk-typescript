@@ -11,8 +11,17 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { RbacResource, RbacResource$inboundSchema } from "./rbacresource.js";
 
 export type ResourcePolicy = {
+  /**
+   * Unique identifier for the group that owns the resource.
+   */
   gid: string;
+  /**
+   * Unique identifier for the resource. Omitted for resource type <code>groups</code>.
+   */
   id?: string | undefined;
+  /**
+   * String that defines the access control policy for the resource.
+   */
   policy: string;
   type: RbacResource;
 };

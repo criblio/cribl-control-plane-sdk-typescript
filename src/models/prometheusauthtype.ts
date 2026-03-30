@@ -8,14 +8,16 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationTypeOptionsPrometheusAuth1,
-  AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
-  AuthenticationTypeOptionsPrometheusAuth1$outboundSchema,
-} from "./authenticationtypeoptionsprometheusauth1.js";
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret,
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema,
+} from "./authenticationtypeoptionsprometheusauthbasiccredentialssecret.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PrometheusAuthType = {
-  authType?: AuthenticationTypeOptionsPrometheusAuth1 | undefined;
+  authType?:
+    | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
+    | undefined;
   /**
    * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
    */
@@ -45,7 +47,7 @@ export const PrometheusAuthType$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   authType: types.optional(
-    AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
+    AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
   ),
   token: types.optional(types.string()),
   textSecret: types.optional(types.string()),
@@ -69,7 +71,9 @@ export const PrometheusAuthType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PrometheusAuthType
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth1$outboundSchema.optional(),
+  authType:
+    AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
+      .optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   username: z.string().optional(),

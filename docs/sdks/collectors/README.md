@@ -31,12 +31,9 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      executor: {
-        type: "<value>",
-      },
+    type: "collection",
+    executor: {
+      type: "<value>",
     },
   });
 
@@ -65,12 +62,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      executor: {
-        type: "<value>",
-      },
+    type: "collection",
+    executor: {
+      type: "<value>",
     },
   });
   if (res.ok) {
@@ -98,15 +92,12 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -136,15 +127,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -173,12 +161,9 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      executor: {
-        type: "<value>",
-      },
+    type: "collection",
+    executor: {
+      type: "<value>",
     },
   });
 
@@ -207,12 +192,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      executor: {
-        type: "<value>",
-      },
+    type: "collection",
+    executor: {
+      type: "<value>",
     },
   });
   if (res.ok) {
@@ -240,11 +222,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      savedQueryId: "<id>",
-    },
+    type: "collection",
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -272,11 +251,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      savedQueryId: "<id>",
-    },
+    type: "collection",
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -303,12 +279,9 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      executor: {
-        type: "<value>",
-      },
+    type: "collection",
+    executor: {
+      type: "<value>",
     },
   });
 
@@ -337,12 +310,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      executor: {
-        type: "<value>",
-      },
+    type: "collection",
+    executor: {
+      type: "<value>",
     },
   });
   if (res.ok) {
@@ -370,15 +340,12 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -408,15 +375,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -445,15 +409,12 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -483,15 +444,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -520,11 +478,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      savedQueryId: "<id>",
-    },
+    type: "collection",
+    savedQueryId: "<id>",
   });
 
   console.log(result);
@@ -552,11 +507,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      savedQueryId: "<id>",
-    },
+    type: "collection",
+    savedQueryId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -583,15 +535,12 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.collectors.create({
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -621,15 +570,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await collectorsCreate(criblControlPlane, {
-    criblPack: "<value>",
-    savedJob: {
-      type: "collection",
-      collector: {
-        type: "database",
-        conf: {
-          connectionId: "<id>",
-          query: "<value>",
-        },
+    type: "collection",
+    collector: {
+      type: "database",
+      conf: {
+        connectionId: "<id>",
+        query: "<value>",
       },
     },
   });
@@ -648,14 +594,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateSavedJobRequest](../../models/operations/createsavedjobrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.SavedJob](../../models/savedjob.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -684,8 +630,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.list({
     collectorType: "<value>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
 
   console.log(result);
@@ -714,8 +658,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsList(criblControlPlane, {
     collectorType: "<value>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -739,7 +681,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -768,8 +710,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.delete({
     id: "<id>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
 
   console.log(result);
@@ -798,8 +738,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsDelete(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
-    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -823,7 +761,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -852,7 +790,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.get({
     id: "<id>",
-    criblPack: "<value>",
   });
 
   console.log(result);
@@ -881,7 +818,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsGet(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -905,7 +841,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 
@@ -934,7 +870,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -967,7 +902,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -999,7 +933,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1032,7 +965,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1064,7 +996,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1103,7 +1034,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1141,7 +1071,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1174,7 +1103,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1206,7 +1134,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       executor: {
@@ -1241,7 +1168,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       executor: {
@@ -1275,7 +1201,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1314,7 +1239,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1352,7 +1276,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1385,7 +1308,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1417,7 +1339,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1450,7 +1371,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       savedQueryId: "<id>",
@@ -1482,7 +1402,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.update({
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1521,7 +1440,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await collectorsUpdate(criblControlPlane, {
     id: "<id>",
-    criblPack: "<value>",
     savedJob: {
       type: "collection",
       collector: {
@@ -1555,7 +1473,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJob](../../models/countedsavedjob.md)\>**
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
 
 ### Errors
 

@@ -71,6 +71,18 @@ export type GoogleCloudStorageAuthTypeSecret = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
 };
 
 export type GoogleCloudStorageAuthTypeManualExtractor = {
@@ -133,6 +145,18 @@ export type GoogleCloudStorageAuthTypeManual = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
 };
 
 export type GoogleCloudStorageAuthTypeAutoExtractor = {
@@ -191,6 +215,18 @@ export type GoogleCloudStorageAuthTypeAuto = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
 };
 
 export type GoogleCloudStorageCollectorConf =
@@ -273,6 +309,9 @@ export const GoogleCloudStorageAuthTypeSecret$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  __template_bucket: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeSecret$Outbound = {
@@ -290,6 +329,9 @@ export type GoogleCloudStorageAuthTypeSecret$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  __template_bucket?: string | undefined;
+  __template_path?: string | undefined;
+  __template_endpoint?: string | undefined;
 };
 
 /** @internal */
@@ -312,6 +354,9 @@ export const GoogleCloudStorageAuthTypeSecret$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  __template_bucket: z.string().optional(),
+  __template_path: z.string().optional(),
+  __template_endpoint: z.string().optional(),
 });
 
 export function googleCloudStorageAuthTypeSecretToJSON(
@@ -407,6 +452,9 @@ export const GoogleCloudStorageAuthTypeManual$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  __template_bucket: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeManual$Outbound = {
@@ -424,6 +472,9 @@ export type GoogleCloudStorageAuthTypeManual$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  __template_bucket?: string | undefined;
+  __template_path?: string | undefined;
+  __template_endpoint?: string | undefined;
 };
 
 /** @internal */
@@ -446,6 +497,9 @@ export const GoogleCloudStorageAuthTypeManual$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  __template_bucket: z.string().optional(),
+  __template_path: z.string().optional(),
+  __template_endpoint: z.string().optional(),
 });
 
 export function googleCloudStorageAuthTypeManualToJSON(
@@ -539,6 +593,9 @@ export const GoogleCloudStorageAuthTypeAuto$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  __template_bucket: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeAuto$Outbound = {
@@ -555,6 +612,9 @@ export type GoogleCloudStorageAuthTypeAuto$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  __template_bucket?: string | undefined;
+  __template_path?: string | undefined;
+  __template_endpoint?: string | undefined;
 };
 
 /** @internal */
@@ -576,6 +636,9 @@ export const GoogleCloudStorageAuthTypeAuto$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  __template_bucket: z.string().optional(),
+  __template_path: z.string().optional(),
+  __template_endpoint: z.string().optional(),
 });
 
 export function googleCloudStorageAuthTypeAutoToJSON(

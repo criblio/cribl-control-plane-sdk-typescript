@@ -37,7 +37,7 @@ export class SourcesPq extends ClientSDK {
   async get(
     request: operations.GetInputPqByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedObject> {
+  ): Promise<models.CountedJobInfo> {
     return unwrapAsync(sourcesPqGet(
       this,
       request,

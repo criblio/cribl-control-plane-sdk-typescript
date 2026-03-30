@@ -5,7 +5,7 @@
 ```typescript
 import { AuthenticationMethodOptions } from "cribl-control-plane/models";
 
-let value: AuthenticationMethodOptions = "clientCert";
+let value: AuthenticationMethodOptions = "clientAssertion_rpc";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: AuthenticationMethodOptions = "clientCert";
 ## Values
 
 ```typescript
-"manual" | "secret" | "clientSecret" | "clientCert" | Unrecognized<string>
+"manual" | "secret" | "clientSecret" | "clientCert" | "clientAssertion" | "clientAssertion_rpc" | Unrecognized<string>
 ```
