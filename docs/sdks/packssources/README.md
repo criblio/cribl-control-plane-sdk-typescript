@@ -3337,22 +3337,10 @@ async function run() {
   const result = await criblControlPlane.packs.sources.create({
     pack: "<value>",
     requestBody: {
-      id: "servicenow-table-source",
-      type: "servicenow_table",
-      sendToRoutes: true,
-      pqEnabled: false,
-      instance: "https://example.service-now.com",
-      tableName: "incident",
-      fields: [
-        "sys_id",
-        "number",
-        "short_description",
-      ],
-      displayValue: "false",
-      pageSize: 10000,
-      cronSchedule: "0 * * * *",
-      earliest: "-1d",
-      latest: "now",
+      id: "<id>",
+      type: "sqs",
+      queueName: "<value>",
+      queueType: "fifo",
     },
   });
 
@@ -3383,22 +3371,8 @@ async function run() {
   const res = await packsSourcesCreate(criblControlPlane, {
     pack: "<value>",
     requestBody: {
-      id: "servicenow-table-source",
-      type: "servicenow_table",
-      sendToRoutes: true,
-      pqEnabled: false,
-      instance: "https://example.service-now.com",
-      tableName: "incident",
-      fields: [
-        "sys_id",
-        "number",
-        "short_description",
-      ],
-      displayValue: "false",
-      pageSize: 10000,
-      cronSchedule: "0 * * * *",
-      earliest: "-1d",
-      latest: "now",
+      id: "<id>",
+      type: "kube_events",
     },
   });
   if (res.ok) {
@@ -4678,7 +4652,7 @@ run();
 
 ## update
 
-Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
 
 ### Example Usage: InputCreateExamplesAppscope
 
@@ -8012,22 +7986,9 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     input: {
-      id: "servicenow-table-source",
-      type: "servicenow_table",
-      sendToRoutes: true,
-      pqEnabled: false,
-      instance: "https://example.service-now.com",
-      tableName: "incident",
-      fields: [
-        "sys_id",
-        "number",
-        "short_description",
-      ],
-      displayValue: "false",
-      pageSize: 10000,
-      cronSchedule: "0 * * * *",
-      earliest: "-1d",
-      latest: "now",
+      type: "edge_prometheus",
+      discoveryType: "k8s-pods",
+      interval: 2688.55,
     },
   });
 
@@ -8059,22 +8020,7 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     input: {
-      id: "servicenow-table-source",
-      type: "servicenow_table",
-      sendToRoutes: true,
-      pqEnabled: false,
-      instance: "https://example.service-now.com",
-      tableName: "incident",
-      fields: [
-        "sys_id",
-        "number",
-        "short_description",
-      ],
-      displayValue: "false",
-      pageSize: 10000,
-      cronSchedule: "0 * * * *",
-      earliest: "-1d",
-      latest: "now",
+      type: "cribl",
     },
   });
   if (res.ok) {

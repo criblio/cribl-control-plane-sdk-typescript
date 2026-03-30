@@ -72,7 +72,6 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ListInputRequest](../../models/operations/listinputrequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -3069,22 +3068,9 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.sources.create({
-    id: "servicenow-table-source",
-    type: "servicenow_table",
-    sendToRoutes: true,
-    pqEnabled: false,
-    instance: "https://example.service-now.com",
-    tableName: "incident",
-    fields: [
-      "sys_id",
-      "number",
-      "short_description",
-    ],
-    displayValue: "false",
-    pageSize: 10000,
-    cronSchedule: "0 * * * *",
-    earliest: "-1d",
-    latest: "now",
+    id: "<id>",
+    type: "win_event_logs",
+    logNames: [],
   });
 
   console.log(result);
@@ -3112,22 +3098,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await sourcesCreate(criblControlPlane, {
-    id: "servicenow-table-source",
-    type: "servicenow_table",
-    sendToRoutes: true,
-    pqEnabled: false,
-    instance: "https://example.service-now.com",
-    tableName: "incident",
-    fields: [
-      "sys_id",
-      "number",
-      "short_description",
-    ],
-    displayValue: "false",
-    pageSize: 10000,
-    cronSchedule: "0 * * * *",
-    earliest: "-1d",
-    latest: "now",
+    id: "<id>",
+    type: "prometheus_rw",
+    host: "squeaky-giant.net",
+    port: 4887.41,
+    prometheusAPI: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -4308,7 +4283,7 @@ run();
 
 ## update
 
-Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
+Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
 ### Example Usage: InputCreateExamplesAppscope
 
@@ -7553,22 +7528,7 @@ async function run() {
   const result = await criblControlPlane.sources.update({
     id: "<id>",
     input: {
-      id: "servicenow-table-source",
-      type: "servicenow_table",
-      sendToRoutes: true,
-      pqEnabled: false,
-      instance: "https://example.service-now.com",
-      tableName: "incident",
-      fields: [
-        "sys_id",
-        "number",
-        "short_description",
-      ],
-      displayValue: "false",
-      pageSize: 10000,
-      cronSchedule: "0 * * * *",
-      earliest: "-1d",
-      latest: "now",
+      type: "windows_metrics",
     },
   });
 
@@ -7599,22 +7559,9 @@ async function run() {
   const res = await sourcesUpdate(criblControlPlane, {
     id: "<id>",
     input: {
-      id: "servicenow-table-source",
-      type: "servicenow_table",
-      sendToRoutes: true,
-      pqEnabled: false,
-      instance: "https://example.service-now.com",
-      tableName: "incident",
-      fields: [
-        "sys_id",
-        "number",
-        "short_description",
-      ],
-      displayValue: "false",
-      pageSize: 10000,
-      cronSchedule: "0 * * * *",
-      earliest: "-1d",
-      latest: "now",
+      type: "firehose",
+      host: "lone-gazebo.info",
+      port: 3552.74,
     },
   });
   if (res.ok) {

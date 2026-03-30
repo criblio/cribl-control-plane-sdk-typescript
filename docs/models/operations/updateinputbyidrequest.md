@@ -8,9 +8,11 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "openai",
+    type: "wiz",
+    endpoint: "<value>",
+    authUrl: "https://scientific-knickers.net/",
+    clientId: "<id>",
     contentConfig: [],
-    textSecret: "<value>",
   },
 };
 ```

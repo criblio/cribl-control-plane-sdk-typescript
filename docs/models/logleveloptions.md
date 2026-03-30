@@ -1,6 +1,6 @@
 # LogLevelOptions
 
-Collector runtime log level
+Log Level (verbosity) for collection runtime behavior.
 
 ## Example Usage
 
@@ -15,5 +15,5 @@ let value: LogLevelOptions = "warn";
 ## Values
 
 ```typescript
-"error" | "warn" | "info" | "debug" | Unrecognized<string>
+"error" | "warn" | "info" | "debug" | "silly" | Unrecognized<string>
 ```

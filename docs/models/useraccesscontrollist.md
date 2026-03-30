@@ -10,7 +10,7 @@ let value: UserAccessControlList = {
     {
       gid: "<id>",
       policy: "<value>",
-      type: "datasets",
+      type: "groups",
     },
   ],
   user: "Adolphus_Hayes",

@@ -93,7 +93,7 @@ run();
 
 ## list
 
-List status information and optional metrics for all configured Destinations in the Worker Group or Edge Fleet.
+List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet.
 
 ### Example Usage
 
@@ -114,9 +114,7 @@ async function run() {
     type: true,
   });
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -146,9 +144,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    for await (const page of result) {
-    console.log(page);
-  }
+    console.log(result);
   } else {
     console.log("destinationsStatusesList failed:", res.error);
   }
@@ -168,7 +164,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOutputStatusResponse](../../models/operations/getoutputstatusresponse.md)\>**
+**Promise\<[models.CountedOutputStatus](../../models/countedoutputstatus.md)\>**
 
 ### Errors
 

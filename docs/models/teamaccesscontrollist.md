@@ -10,7 +10,7 @@ let value: TeamAccessControlList = {
     {
       gid: "<id>",
       policy: "<value>",
-      type: "datasets",
+      type: "groups",
     },
   ],
   team: "<value>",
