@@ -10,7 +10,12 @@ const value: models.PipelineFunctionAggregateMetrics = {
   id: "aggregate_metrics",
   conf: {
     timeWindow: "<value>",
-    aggregations: [],
+    aggregations: [
+      {
+        metricType: "automatic",
+        agg: "<value>",
+      },
+    ],
   },
 };
 ```
@@ -25,7 +30,6 @@ const value: models.PipelineFunctionAggregation = {
     aggregations: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
 };
@@ -306,6 +310,15 @@ const value: models.PipelineFunctionLocalSearchDatatypeParser = {
 ```typescript
 const value: models.PipelineFunctionLocalSearchRulesetRunner = {
   id: "local_search_ruleset_runner",
+  conf: {},
+};
+```
+
+### `models.PipelineFunctionLocalSearchSchemaMapper`
+
+```typescript
+const value: models.PipelineFunctionLocalSearchSchemaMapper = {
+  id: "local_search_schema_mapper",
   conf: {},
 };
 ```

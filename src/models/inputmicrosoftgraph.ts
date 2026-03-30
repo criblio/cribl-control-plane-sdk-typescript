@@ -5,13 +5,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
 import {
   CertOptionsType,
   CertOptionsType$inboundSchema,
@@ -32,10 +29,10 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  LogLevelOptions,
-  LogLevelOptions$inboundSchema,
-  LogLevelOptions$outboundSchema,
-} from "./logleveloptions.js";
+  LogLevelOptionsDebugError,
+  LogLevelOptionsDebugError$inboundSchema,
+  LogLevelOptionsDebugError$outboundSchema,
+} from "./logleveloptionsdebugerror.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -43,16 +40,31 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  RetryRulesType1,
-  RetryRulesType1$inboundSchema,
-  RetryRulesType1$Outbound,
-  RetryRulesType1$outboundSchema,
-} from "./retryrulestype1.js";
+  RetryRulesTypeCodesEnableHeader,
+  RetryRulesTypeCodesEnableHeader$inboundSchema,
+  RetryRulesTypeCodesEnableHeader$Outbound,
+  RetryRulesTypeCodesEnableHeader$outboundSchema,
+} from "./retryrulestypecodesenableheader.js";
 import {
   SubscriptionPlanOptions,
   SubscriptionPlanOptions$inboundSchema,
   SubscriptionPlanOptions$outboundSchema,
 } from "./subscriptionplanoptions.js";
+
+/**
+ * Select authentication method.
+ */
+export const InputMicrosoftGraphAuthenticationMethod = {
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputMicrosoftGraphAuthenticationMethod = OpenEnum<
+  typeof InputMicrosoftGraphAuthenticationMethod
+>;
 
 export type InputMicrosoftGraph = {
   /**
@@ -113,7 +125,7 @@ export type InputMicrosoftGraph = {
   /**
    * Select authentication method.
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: InputMicrosoftGraphAuthenticationMethod | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -149,21 +161,9 @@ export type InputMicrosoftGraph = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: LogLevelOptions | undefined;
-  retryRules?: RetryRulesType1 | undefined;
+  logLevel?: LogLevelOptionsDebugError | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
-  /**
-   * Username to run Microsoft Graph API call.
-   */
-  username?: string | undefined;
-  /**
-   * Password to run Microsoft Graph API call.
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials.
-   */
-  credentialsSecret?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
    */
@@ -181,7 +181,7 @@ export type InputMicrosoftGraph = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: SubscriptionPlanOptions | undefined;
   /**
@@ -208,6 +208,19 @@ export type InputMicrosoftGraph = {
 };
 
 /** @internal */
+export const InputMicrosoftGraphAuthenticationMethod$inboundSchema: z.ZodType<
+  InputMicrosoftGraphAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputMicrosoftGraphAuthenticationMethod);
+/** @internal */
+export const InputMicrosoftGraphAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputMicrosoftGraphAuthenticationMethod
+> = openEnums.outboundSchema(InputMicrosoftGraphAuthenticationMethod);
+
+/** @internal */
 export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   InputMicrosoftGraph,
   z.ZodTypeDef,
@@ -231,7 +244,9 @@ export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   endDate: types.optional(types.string()),
   timeout: types.optional(types.number()),
   disableTimeFilter: types.optional(types.boolean()),
-  authType: types.optional(AuthenticationMethodOptions2$inboundSchema),
+  authType: types.optional(
+    InputMicrosoftGraphAuthenticationMethod$inboundSchema,
+  ),
   keepAliveTime: types.optional(types.number()),
   jobTimeout: types.optional(types.string()),
   maxMissedKeepAlives: types.optional(types.number()),
@@ -240,12 +255,9 @@ export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   rescheduleDroppedTasks: types.optional(types.boolean()),
   maxTaskReschedule: types.optional(types.number()),
-  logLevel: types.optional(LogLevelOptions$inboundSchema),
-  retryRules: types.optional(RetryRulesType1$inboundSchema),
+  logLevel: types.optional(LogLevelOptionsDebugError$inboundSchema),
+  retryRules: types.optional(RetryRulesTypeCodesEnableHeader$inboundSchema),
   description: types.optional(types.string()),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   tenantId: types.optional(types.string()),
   clientId: types.optional(types.string()),
@@ -286,11 +298,8 @@ export type InputMicrosoftGraph$Outbound = {
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
-  retryRules?: RetryRulesType1$Outbound | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
   clientId?: string | undefined;
@@ -326,7 +335,7 @@ export const InputMicrosoftGraph$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: AuthenticationMethodOptions2$outboundSchema.optional(),
+  authType: InputMicrosoftGraphAuthenticationMethod$outboundSchema.optional(),
   keepAliveTime: z.number().optional(),
   jobTimeout: z.string().optional(),
   maxMissedKeepAlives: z.number().optional(),
@@ -335,12 +344,9 @@ export const InputMicrosoftGraph$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   rescheduleDroppedTasks: z.boolean().optional(),
   maxTaskReschedule: z.number().optional(),
-  logLevel: LogLevelOptions$outboundSchema.optional(),
-  retryRules: RetryRulesType1$outboundSchema.optional(),
+  logLevel: LogLevelOptionsDebugError$outboundSchema.optional(),
+  retryRules: RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
   description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
   clientSecret: z.string().optional(),
   tenantId: z.string().optional(),
   clientId: z.string().optional(),

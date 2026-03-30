@@ -5,18 +5,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AwsAuthenticationMethodOptions,
-  AwsAuthenticationMethodOptions$inboundSchema,
-  AwsAuthenticationMethodOptions$outboundSchema,
-} from "./awsauthenticationmethodoptions.js";
-import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   DiskSpaceProtectionOptions,
   DiskSpaceProtectionOptions$inboundSchema,
@@ -54,6 +51,13 @@ import {
   StorageClassOptions$inboundSchema,
   StorageClassOptions$outboundSchema,
 } from "./storageclassoptions.js";
+
+export const AwsAuthenticationMethod = {
+  Auto: "auto",
+  AutoRpc: "auto_rpc",
+  Manual: "manual",
+} as const;
+export type AwsAuthenticationMethod = OpenEnum<typeof AwsAuthenticationMethod>;
 
 export type OutputCriblLake = {
   /**
@@ -179,7 +183,7 @@ export type OutputCriblLake = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -209,7 +213,7 @@ export type OutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethod | undefined;
   format?: FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
@@ -245,6 +249,10 @@ export type OutputCriblLake = {
    */
   __template_awsSecretKey?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -256,7 +264,48 @@ export type OutputCriblLake = {
    * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
    */
   __template_destPath?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+   */
+  __template_serverSideEncryption?: string | undefined;
+  /**
+   * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+   */
+  __template_kmsKeyId?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
+
+/** @internal */
+export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
+  AwsAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AwsAuthenticationMethod);
+/** @internal */
+export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AwsAuthenticationMethod
+> = openEnums.outboundSchema(AwsAuthenticationMethod);
 
 /** @internal */
 export const OutputCriblLake$inboundSchema: z.ZodType<
@@ -299,7 +348,9 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
@@ -311,7 +362,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   maxClosingFilesToBackpressure: types.optional(types.number()),
   awsAuthenticationMethod: types.optional(
-    AwsAuthenticationMethodOptions$inboundSchema,
+    AwsAuthenticationMethod$inboundSchema,
   ),
   format: types.optional(FormatOptions$inboundSchema),
   maxConcurrentFileParts: types.optional(types.number()),
@@ -323,9 +374,17 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
   __template_destPath: types.optional(types.string()),
+  __template_objectACL: types.optional(types.string()),
+  __template_storageClass: types.optional(types.string()),
+  __template_serverSideEncryption: types.optional(types.string()),
+  __template_kmsKeyId: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCriblLake$Outbound = {
@@ -380,9 +439,17 @@ export type OutputCriblLake$Outbound = {
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
   __template_awsSecretKey?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_destPath?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_serverSideEncryption?: string | undefined;
+  __template_kmsKeyId?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -424,7 +491,8 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
@@ -433,8 +501,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
   maxClosingFilesToBackpressure: z.number().optional(),
-  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
-    .optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethod$outboundSchema.optional(),
   format: FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
@@ -445,9 +512,17 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_destPath: z.string().optional(),
+  __template_objectACL: z.string().optional(),
+  __template_storageClass: z.string().optional(),
+  __template_serverSideEncryption: z.string().optional(),
+  __template_kmsKeyId: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputCriblLakeToJSON(

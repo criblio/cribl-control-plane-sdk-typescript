@@ -8,28 +8,28 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
  */
 export const SubscriptionPlanOptions = {
   /**
-   * Office 365 Enterprise
+   * Microsoft 365 Enterprise
    */
   EnterpriseGcc: "enterprise_gcc",
   /**
-   * Office 365 GCC
+   * Microsoft 365 GCC
    */
   Gcc: "gcc",
   /**
-   * Office 365 GCC High
+   * Microsoft 365 GCC High
    */
   GccHigh: "gcc_high",
   /**
-   * Office 365 DoD
+   * Microsoft 365 DoD
    */
   Dod: "dod",
 } as const;
 /**
- * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
  */
 export type SubscriptionPlanOptions = OpenEnum<typeof SubscriptionPlanOptions>;
 

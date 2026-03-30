@@ -1,5 +1,7 @@
 # HealthServerStatusStatus
 
+Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
+
 ## Example Usage
 
 ```typescript
@@ -13,5 +15,5 @@ let value: HealthServerStatusStatus = "standby";
 ## Values
 
 ```typescript
-"shutting down" | "healthy" | "standby" | Unrecognized<string>
+"healthy" | "shutting down" | "standby" | Unrecognized<string>
 ```

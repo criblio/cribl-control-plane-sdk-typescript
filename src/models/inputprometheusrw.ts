@@ -162,6 +162,10 @@ export type InputPrometheusRw = {
    * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
    */
   __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
 };
 
 /** @internal */
@@ -210,6 +214,7 @@ export const InputPrometheusRw$inboundSchema: z.ZodType<
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_prometheusAPI: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
 });
 /** @internal */
 export type InputPrometheusRw$Outbound = {
@@ -249,6 +254,7 @@ export type InputPrometheusRw$Outbound = {
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
+  __template_username?: string | undefined;
 };
 
 /** @internal */
@@ -293,6 +299,7 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),
+  __template_username: z.string().optional(),
 });
 
 export function inputPrometheusRwToJSON(

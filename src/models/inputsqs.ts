@@ -29,10 +29,10 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  SignatureVersionOptions3,
-  SignatureVersionOptions3$inboundSchema,
-  SignatureVersionOptions3$outboundSchema,
-} from "./signatureversionoptions3.js";
+  SignatureVersionOptionsSqs,
+  SignatureVersionOptionsSqs$inboundSchema,
+  SignatureVersionOptionsSqs$outboundSchema,
+} from "./signatureversionoptionssqs.js";
 
 /**
  * The queue type used (or created)
@@ -116,7 +116,7 @@ export type InputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: SignatureVersionOptions3 | undefined;
+  signatureVersion?: SignatureVersionOptionsSqs | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -184,6 +184,10 @@ export type InputSqs = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -236,7 +240,7 @@ export const InputSqs$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions3$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptionsSqs$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -255,6 +259,7 @@ export const InputSqs$inboundSchema: z.ZodType<
   __template_awsAccountId: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
@@ -298,6 +303,7 @@ export type InputSqs$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -327,7 +333,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions3$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsSqs$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -346,6 +352,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),

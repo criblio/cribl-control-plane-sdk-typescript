@@ -8,10 +8,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationTypeOptionsPrometheusAuth1,
-  AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
-  AuthenticationTypeOptionsPrometheusAuth1$outboundSchema,
-} from "./authenticationtypeoptionsprometheusauth1.js";
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret,
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
+  AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema,
+} from "./authenticationtypeoptionsprometheusauthbasiccredentialssecret.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -108,7 +108,9 @@ export type OutputLoki = {
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
   labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
-  authType?: AuthenticationTypeOptionsPrometheusAuth1 | undefined;
+  authType?:
+    | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
+    | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
    */
@@ -212,7 +214,7 @@ export type OutputLoki = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -239,7 +241,19 @@ export type OutputLoki = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLokiPqControls | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -294,7 +308,7 @@ export const OutputLoki$inboundSchema: z.ZodType<
     z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
   ),
   authType: types.optional(
-    AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
+    AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
   ),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
@@ -335,7 +349,10 @@ export const OutputLoki$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputLokiPqControls$inboundSchema)),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputLoki$Outbound = {
@@ -385,7 +402,10 @@ export type OutputLoki$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLokiPqControls$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -405,7 +425,9 @@ export const OutputLoki$outboundSchema: z.ZodType<
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
   labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
     .optional(),
-  authType: AuthenticationTypeOptionsPrometheusAuth1$outboundSchema.optional(),
+  authType:
+    AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
+      .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -442,7 +464,10 @@ export const OutputLoki$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputLokiPqControls$outboundSchema).optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputLokiToJSON(outputLoki: OutputLoki): string {

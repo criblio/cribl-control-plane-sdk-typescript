@@ -3320,6 +3320,97 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesServiceNowTable" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      displayValue: "false",
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      displayValue: "false",
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesSnmp
 
 <!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesSnmp" -->
@@ -4587,7 +4678,7 @@ run();
 
 ## update
 
-Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
 
 ### Example Usage: InputCreateExamplesAppscope
 
@@ -7891,6 +7982,99 @@ async function run() {
       pqEnabled: false,
       queueName: "security-lake-queue",
       region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesServiceNowTable" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      displayValue: "false",
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      displayValue: "false",
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
     },
   });
   if (res.ok) {

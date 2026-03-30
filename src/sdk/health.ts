@@ -10,10 +10,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Health extends ClientSDK {
   /**
-   * Retrieve health status of the server
+   * Get the health status of the server
    *
    * @remarks
-   * Get the current health status of the server.
+   * Get the current health status of the server (Leader or Worker Node).
    */
   async get(
     options?: RequestOptions,

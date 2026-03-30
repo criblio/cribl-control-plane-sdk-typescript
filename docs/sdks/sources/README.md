@@ -72,6 +72,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ListInputRequest](../../models/operations/listinputrequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -3053,6 +3054,91 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesServiceNowTable" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.create({
+    id: "servicenow-table-source",
+    type: "servicenow_table",
+    sendToRoutes: true,
+    pqEnabled: false,
+    instance: "https://example.service-now.com",
+    tableName: "incident",
+    fields: [
+      "sys_id",
+      "number",
+      "short_description",
+    ],
+    displayValue: "false",
+    pageSize: 10000,
+    cronSchedule: "0 * * * *",
+    earliest: "-1d",
+    latest: "now",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesCreate } from "cribl-control-plane/funcs/sourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesCreate(criblControlPlane, {
+    id: "servicenow-table-source",
+    type: "servicenow_table",
+    sendToRoutes: true,
+    pqEnabled: false,
+    instance: "https://example.service-now.com",
+    tableName: "incident",
+    fields: [
+      "sys_id",
+      "number",
+      "short_description",
+    ],
+    displayValue: "false",
+    pageSize: 10000,
+    cronSchedule: "0 * * * *",
+    earliest: "-1d",
+    latest: "now",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesSnmp
 
 <!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesSnmp" -->
@@ -4222,7 +4308,7 @@ run();
 
 ## update
 
-Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
 ### Example Usage: InputCreateExamplesAppscope
 
@@ -7438,6 +7524,97 @@ async function run() {
       pqEnabled: false,
       queueName: "security-lake-queue",
       region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesServiceNowTable" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.update({
+    id: "<id>",
+    input: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      displayValue: "false",
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesUpdate } from "cribl-control-plane/funcs/sourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    input: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      displayValue: "false",
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
     },
   });
   if (res.ok) {

@@ -7,34 +7,13 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import {
+  AdditionalPropertiesTypeRoutesGroups,
+  AdditionalPropertiesTypeRoutesGroups$inboundSchema,
+} from "./additionalpropertiestyperoutesgroups.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  RouteComment,
-  RouteComment$inboundSchema,
-  RouteComment$Outbound,
-  RouteComment$outboundSchema,
-} from "./routecomment.js";
-import {
-  RouteConf,
-  RouteConf$inboundSchema,
-  RouteConf$Outbound,
-  RouteConf$outboundSchema,
-} from "./routeconf.js";
-
-export type RoutesGroups = {
-  /**
-   * Brief description of the Route Group.
-   */
-  description?: string | undefined;
-  /**
-   * Relative position of the Route Group among all Route Groups. Routes are evaluated in ascending order according to the index value of their Route Group.
-   */
-  index: number;
-  /**
-   * Name of the Route Group.
-   */
-  name: string;
-};
+import { RouteComment, RouteComment$inboundSchema } from "./routecomment.js";
+import { RouteConf, RouteConf$inboundSchema } from "./routeconf.js";
 
 export type Routes = {
   /**
@@ -44,7 +23,7 @@ export type Routes = {
   /**
    * Information about the Route Groups that the Route is associated with.
    */
-  groups?: { [k: string]: RoutesGroups } | undefined;
+  groups?: { [k: string]: AdditionalPropertiesTypeRoutesGroups } | undefined;
   /**
    * Unique identifier for the Routing table. The supported value is <code>default</code>.
    */
@@ -56,77 +35,16 @@ export type Routes = {
 };
 
 /** @internal */
-export const RoutesGroups$inboundSchema: z.ZodType<
-  RoutesGroups,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: types.optional(types.string()),
-  index: types.number(),
-  name: types.string(),
-});
-/** @internal */
-export type RoutesGroups$Outbound = {
-  description?: string | undefined;
-  index: number;
-  name: string;
-};
-
-/** @internal */
-export const RoutesGroups$outboundSchema: z.ZodType<
-  RoutesGroups$Outbound,
-  z.ZodTypeDef,
-  RoutesGroups
-> = z.object({
-  description: z.string().optional(),
-  index: z.number(),
-  name: z.string(),
-});
-
-export function routesGroupsToJSON(routesGroups: RoutesGroups): string {
-  return JSON.stringify(RoutesGroups$outboundSchema.parse(routesGroups));
-}
-export function routesGroupsFromJSON(
-  jsonString: string,
-): SafeParseResult<RoutesGroups, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RoutesGroups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RoutesGroups' from JSON`,
-  );
-}
-
-/** @internal */
 export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
   .object({
     comments: types.optional(z.array(RouteComment$inboundSchema)),
-    groups: types.optional(z.record(z.lazy(() => RoutesGroups$inboundSchema))),
+    groups: types.optional(
+      z.record(AdditionalPropertiesTypeRoutesGroups$inboundSchema),
+    ),
     id: types.string(),
     routes: z.array(RouteConf$inboundSchema),
   });
-/** @internal */
-export type Routes$Outbound = {
-  comments?: Array<RouteComment$Outbound> | undefined;
-  groups?: { [k: string]: RoutesGroups$Outbound } | undefined;
-  id: string;
-  routes: Array<RouteConf$Outbound>;
-};
 
-/** @internal */
-export const Routes$outboundSchema: z.ZodType<
-  Routes$Outbound,
-  z.ZodTypeDef,
-  Routes
-> = z.object({
-  comments: z.array(RouteComment$outboundSchema).optional(),
-  groups: z.record(z.lazy(() => RoutesGroups$outboundSchema)).optional(),
-  id: z.string(),
-  routes: z.array(RouteConf$outboundSchema),
-});
-
-export function routesToJSON(routes: Routes): string {
-  return JSON.stringify(Routes$outboundSchema.parse(routes));
-}
 export function routesFromJSON(
   jsonString: string,
 ): SafeParseResult<Routes, SDKValidationError> {

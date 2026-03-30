@@ -8,10 +8,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   DiskSpaceProtectionOptions,
   DiskSpaceProtectionOptions$inboundSchema,
@@ -19,10 +19,10 @@ import {
 } from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ObjectAclOptions1,
-  ObjectAclOptions1$inboundSchema,
-  ObjectAclOptions1$outboundSchema,
-} from "./objectacloptions1.js";
+  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol,
+  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
+  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema,
+} from "./objectacloptionsauthenticatedreadbucketownerfullcontrol.js";
 import {
   RetrySettingsType,
   RetrySettingsType$inboundSchema,
@@ -30,15 +30,15 @@ import {
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
-  SignatureVersionOptions4,
-  SignatureVersionOptions4$inboundSchema,
-  SignatureVersionOptions4$outboundSchema,
-} from "./signatureversionoptions4.js";
+  SignatureVersionOptionsGoogle,
+  SignatureVersionOptionsGoogle$inboundSchema,
+  SignatureVersionOptionsGoogle$outboundSchema,
+} from "./signatureversionoptionsgoogle.js";
 import {
-  StorageClassOptions1,
-  StorageClassOptions1$inboundSchema,
-  StorageClassOptions1$outboundSchema,
-} from "./storageclassoptions1.js";
+  StorageClassOptionsArchiveColdline,
+  StorageClassOptionsArchiveColdline$inboundSchema,
+  StorageClassOptionsArchiveColdline$outboundSchema,
+} from "./storageclassoptionsarchivecoldline.js";
 
 export type OutputExabeam = {
   /**
@@ -81,15 +81,17 @@ export type OutputExabeam = {
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
-  signatureVersion?: SignatureVersionOptions4 | undefined;
+  signatureVersion?: SignatureVersionOptionsGoogle | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: ObjectAclOptions1 | undefined;
+  objectACL?:
+    | ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
+    | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: StorageClassOptions1 | undefined;
+  storageClass?: StorageClassOptionsArchiveColdline | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -121,7 +123,7 @@ export type OutputExabeam = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -183,6 +185,10 @@ export type OutputExabeam = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -201,9 +207,13 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   region: types.string(),
   stagePath: types.string(),
   endpoint: types.string(),
-  signatureVersion: types.optional(SignatureVersionOptions4$inboundSchema),
-  objectACL: types.optional(ObjectAclOptions1$inboundSchema),
-  storageClass: types.optional(StorageClassOptions1$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptionsGoogle$inboundSchema),
+  objectACL: types.optional(
+    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
+  ),
+  storageClass: types.optional(
+    StorageClassOptionsArchiveColdline$inboundSchema,
+  ),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   addIdToStagePath: types.optional(types.boolean()),
@@ -211,7 +221,9 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   maxFileOpenTimeSec: types.optional(types.number()),
   maxFileIdleTimeSec: types.optional(types.number()),
   maxOpenFiles: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
@@ -231,6 +243,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
   __template_region: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputExabeam$Outbound = {
@@ -272,6 +285,7 @@ export type OutputExabeam$Outbound = {
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
   __template_region?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -290,9 +304,11 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   region: z.string(),
   stagePath: z.string(),
   endpoint: z.string(),
-  signatureVersion: SignatureVersionOptions4$outboundSchema.optional(),
-  objectACL: ObjectAclOptions1$outboundSchema.optional(),
-  storageClass: StorageClassOptions1$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsGoogle$outboundSchema.optional(),
+  objectACL:
+    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
+      .optional(),
+  storageClass: StorageClassOptionsArchiveColdline$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   addIdToStagePath: z.boolean().optional(),
@@ -300,7 +316,8 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
@@ -318,6 +335,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
   __template_region: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {

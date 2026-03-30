@@ -476,6 +476,10 @@ export type HealthCheckAuthenticationOauthSecret = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone =
@@ -909,6 +913,10 @@ export type HealthCheckAuthenticationOauth = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone =
@@ -1339,6 +1347,10 @@ export type HealthCheckAuthenticationLoginSecret = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone =
@@ -1770,6 +1782,10 @@ export type HealthCheckAuthenticationLogin = {
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone =
@@ -2178,6 +2194,10 @@ export type HealthCheckAuthenticationBasicSecret = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone =
@@ -2587,6 +2607,10 @@ export type HealthCheckAuthenticationBasic = {
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone =
@@ -2988,6 +3012,10 @@ export type HealthCheckAuthenticationNone = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -3415,6 +3443,10 @@ export type HealthCheckCollectMethodPostWithBody = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -3838,6 +3870,10 @@ export type HealthCheckCollectMethodPost = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -4272,6 +4308,10 @@ export type HealthCheckCollectMethodGet = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckCollectorConf =
@@ -5305,6 +5345,7 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecret$Outbound = {
@@ -5346,6 +5387,7 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -5413,6 +5455,7 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationOauthSecretToJSON(
@@ -6444,6 +6487,7 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauth$Outbound = {
@@ -6485,6 +6529,7 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -6551,6 +6596,7 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationOauthToJSON(
@@ -7588,6 +7634,7 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecret$Outbound = {
@@ -7626,6 +7673,7 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -7690,6 +7738,7 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationLoginSecretToJSON(
@@ -8717,6 +8766,7 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationLogin$Outbound = {
@@ -8756,6 +8806,7 @@ export type HealthCheckAuthenticationLogin$Outbound = {
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -8820,6 +8871,7 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationLoginToJSON(
@@ -9848,6 +9900,7 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecret$Outbound = {
@@ -9879,6 +9932,7 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -9936,6 +9990,7 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationBasicSecretToJSON(
@@ -10954,6 +11009,7 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasic$Outbound = {
@@ -10986,6 +11042,7 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -11043,6 +11100,7 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationBasicToJSON(
@@ -12045,6 +12103,7 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationNone$Outbound = {
@@ -12075,6 +12134,7 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -12130,6 +12190,7 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationNoneToJSON(
@@ -13178,6 +13239,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBody$Outbound = {
@@ -13209,6 +13271,7 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -13267,6 +13330,7 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckCollectMethodPostWithBodyToJSON(
@@ -14278,6 +14342,7 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodPost$Outbound = {
@@ -14311,6 +14376,7 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -14369,6 +14435,7 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckCollectMethodPostToJSON(
@@ -15433,6 +15500,7 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodGet$Outbound = {
@@ -15466,6 +15534,7 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -15524,6 +15593,7 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckCollectMethodGetToJSON(

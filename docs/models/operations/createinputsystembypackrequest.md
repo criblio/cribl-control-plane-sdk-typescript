@@ -9,9 +9,7 @@ let value: CreateInputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "kinesis",
-    streamName: "<value>",
-    region: "<value>",
+    type: "criblmetrics",
   },
 };
 ```

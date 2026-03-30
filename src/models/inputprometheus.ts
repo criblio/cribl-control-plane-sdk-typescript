@@ -34,6 +34,11 @@ import {
   ItemsTypeSearchFilter$outboundSchema,
 } from "./itemstypesearchfilter.js";
 import {
+  LogLevelOptions,
+  LogLevelOptions$inboundSchema,
+  LogLevelOptions$outboundSchema,
+} from "./logleveloptions.js";
+import {
   PqType,
   PqType$inboundSchema,
   PqType$Outbound,
@@ -45,10 +50,10 @@ import {
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
 import {
-  SignatureVersionOptions1,
-  SignatureVersionOptions1$inboundSchema,
-  SignatureVersionOptions1$outboundSchema,
-} from "./signatureversionoptions1.js";
+  SignatureVersionOptionsV2V4,
+  SignatureVersionOptionsV2V4$inboundSchema,
+  SignatureVersionOptionsV2V4$outboundSchema,
+} from "./signatureversionoptionsv2v4.js";
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -73,20 +78,6 @@ export const InputPrometheusDiscoveryType = {
 export type InputPrometheusDiscoveryType = OpenEnum<
   typeof InputPrometheusDiscoveryType
 >;
-
-/**
- * Collector runtime log level
- */
-export const InputPrometheusLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-} as const;
-/**
- * Collector runtime log level
- */
-export type InputPrometheusLogLevel = OpenEnum<typeof InputPrometheusLogLevel>;
 
 /**
  * Protocol to use when collecting metrics
@@ -147,7 +138,7 @@ export type InputPrometheus = {
   /**
    * Collector runtime log level
    */
-  logLevel: InputPrometheusLogLevel;
+  logLevel: LogLevelOptions;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -238,7 +229,7 @@ export type InputPrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: SignatureVersionOptions1 | undefined;
+  signatureVersion?: SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -272,6 +263,10 @@ export type InputPrometheus = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
+   */
+  __template_discoveryType?: string | undefined;
+  /**
    * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
    */
   __template_logLevel?: string | undefined;
@@ -288,6 +283,10 @@ export type InputPrometheus = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -295,6 +294,14 @@ export type InputPrometheus = {
    * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
    */
   __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
 };
 
 /** @internal */
@@ -309,19 +316,6 @@ export const InputPrometheusDiscoveryType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputPrometheusDiscoveryType
 > = openEnums.outboundSchema(InputPrometheusDiscoveryType);
-
-/** @internal */
-export const InputPrometheusLogLevel$inboundSchema: z.ZodType<
-  InputPrometheusLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputPrometheusLogLevel);
-/** @internal */
-export const InputPrometheusLogLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputPrometheusLogLevel
-> = openEnums.outboundSchema(InputPrometheusLogLevel);
 
 /** @internal */
 export const MetricsProtocol$inboundSchema: z.ZodType<
@@ -357,7 +351,7 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   dimensionList: types.optional(z.array(types.string())),
   discoveryType: types.optional(InputPrometheusDiscoveryType$inboundSchema),
   interval: types.number(),
-  logLevel: InputPrometheusLogLevel$inboundSchema,
+  logLevel: LogLevelOptions$inboundSchema,
   rejectUnauthorized: types.optional(types.boolean()),
   timeout: types.optional(types.number()),
   keepAliveTime: types.optional(types.number()),
@@ -382,7 +376,7 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions1$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptionsV2V4$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
   assumeRoleArn: types.optional(types.string()),
@@ -391,12 +385,16 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   username: types.optional(types.string()),
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
+  __template_discoveryType: types.optional(types.string()),
   __template_logLevel: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
 });
 /** @internal */
 export type InputPrometheus$Outbound = {
@@ -447,12 +445,16 @@ export type InputPrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_discoveryType?: string | undefined;
   __template_logLevel?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_username?: string | undefined;
+  __template_password?: string | undefined;
 };
 
 /** @internal */
@@ -474,7 +476,7 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   dimensionList: z.array(z.string()).optional(),
   discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
   interval: z.number(),
-  logLevel: InputPrometheusLogLevel$outboundSchema,
+  logLevel: LogLevelOptions$outboundSchema,
   rejectUnauthorized: z.boolean().optional(),
   timeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
@@ -499,7 +501,7 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsV2V4$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
@@ -508,12 +510,16 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_discoveryType: z.string().optional(),
   __template_logLevel: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_username: z.string().optional(),
+  __template_password: z.string().optional(),
 });
 
 export function inputPrometheusToJSON(

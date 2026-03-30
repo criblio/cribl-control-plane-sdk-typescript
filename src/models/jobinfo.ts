@@ -15,11 +15,26 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { JobStatus, JobStatus$inboundSchema } from "./jobstatus.js";
 import { RunnableJob, RunnableJob$inboundSchema } from "./runnablejob.js";
 
+/**
+ * Detailed information about a job, including its configuration, status, and statistics.
+ */
 export type JobInfo = {
   args: RunnableJob;
+  /**
+   * Unique identifier for the job.
+   */
   id: string;
+  /**
+   * If <code>true</code>, retain the job and its artifacts instead of deleting according to the time-to-live or retention policy. The job persists until it is manually deleted.
+   */
   keep?: boolean | undefined;
+  /**
+   * Counters and metrics collected during job execution.
+   */
   stats: { [k: string]: AdditionalPropertiesTypeJobInfoStats };
+  /**
+   * Status of a job, including its current state and failure reason.
+   */
   status: JobStatus;
 };
 

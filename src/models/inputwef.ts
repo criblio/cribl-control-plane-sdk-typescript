@@ -23,15 +23,15 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
+  MaximumTlsVersionOptionsTls,
+  MaximumTlsVersionOptionsTls$inboundSchema,
+  MaximumTlsVersionOptionsTls$outboundSchema,
+} from "./maximumtlsversionoptionstls.js";
 import {
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./minimumtlsversionoptionskafkaschemaregistrytls.js";
+  MinimumTlsVersionOptionsTls,
+  MinimumTlsVersionOptionsTls$inboundSchema,
+  MinimumTlsVersionOptionsTls$outboundSchema,
+} from "./minimumtlsversionoptionstls.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -96,8 +96,8 @@ export type MTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?: MinimumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
-  maxVersion?: MaximumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
+  minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: MaximumTlsVersionOptionsTls | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -335,12 +335,8 @@ export const MTLSSettings$inboundSchema: z.ZodType<
   certPath: types.string(),
   caPath: types.string(),
   commonNameRegex: types.optional(types.string()),
-  minVersion: types.optional(
-    MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
-  maxVersion: types.optional(
-    MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
+  minVersion: types.optional(MinimumTlsVersionOptionsTls$inboundSchema),
+  maxVersion: types.optional(MaximumTlsVersionOptionsTls$inboundSchema),
   ocspCheck: types.optional(types.boolean()),
   ocspCheckFailClose: types.optional(types.boolean()),
 });
@@ -376,10 +372,8 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().optional(),
-  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
-  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
+  minVersion: MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: MaximumTlsVersionOptionsTls$outboundSchema.optional(),
   ocspCheck: z.boolean().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });

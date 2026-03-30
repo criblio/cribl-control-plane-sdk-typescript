@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  ItemsTypePackInstallInfoNavItems,
+  ItemsTypePackInstallInfoNavItems$inboundSchema,
+} from "./itemstypepackinstallinfonavitems.js";
+import {
   TagsTypePackInstallInfo,
   TagsTypePackInstallInfo$inboundSchema,
 } from "./tagstypepackinstallinfo.js";
@@ -24,6 +28,7 @@ export type PackInfo = {
   inputs?: number | undefined;
   isDisabled?: boolean | undefined;
   minLogStreamVersion?: string | undefined;
+  navItems?: Array<ItemsTypePackInstallInfoNavItems> | undefined;
   outputs?: number | undefined;
   settings?: { [k: string]: any } | undefined;
   source: string;
@@ -48,6 +53,9 @@ export const PackInfo$inboundSchema: z.ZodType<
   inputs: types.optional(types.number()),
   isDisabled: types.optional(types.boolean()),
   minLogStreamVersion: types.optional(types.string()),
+  navItems: types.optional(
+    z.array(ItemsTypePackInstallInfoNavItems$inboundSchema),
+  ),
   outputs: types.optional(types.number()),
   settings: types.optional(z.record(z.any())),
   source: types.string(),

@@ -15,12 +15,17 @@ const value: operations.CreateOutputOutputDefault = {
 };
 ```
 
-### `operations.CreateOutputOutputWebhook`
+### `operations.CreateOutputOutputWebhookUnion`
 
 ```typescript
-const value: operations.CreateOutputOutputWebhook = {
+const value: operations.CreateOutputOutputWebhookUnion = {
   id: "<id>",
   type: "webhook",
+  urls: [
+    {
+      url: "https://thick-grandson.info/",
+    },
+  ],
 };
 ```
 

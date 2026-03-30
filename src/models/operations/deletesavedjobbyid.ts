@@ -10,21 +10,11 @@ export type DeleteSavedJobByIdRequest = {
    * The <code>id</code> of the Collector to delete.
    */
   id: string;
-  /**
-   * The <code>id</code> of the Pack that includes the Collector to delete.
-   */
-  criblPack?: string | undefined;
-  /**
-   * The <code>id</code> of the Worker Group that includes the Collector to delete.
-   */
-  groupId?: string | undefined;
 };
 
 /** @internal */
 export type DeleteSavedJobByIdRequest$Outbound = {
   id: string;
-  criblPack?: string | undefined;
-  groupId?: string | undefined;
 };
 
 /** @internal */
@@ -34,8 +24,6 @@ export const DeleteSavedJobByIdRequest$outboundSchema: z.ZodType<
   DeleteSavedJobByIdRequest
 > = z.object({
   id: z.string(),
-  criblPack: z.string().optional(),
-  groupId: z.string().optional(),
 });
 
 export function deleteSavedJobByIdRequestToJSON(

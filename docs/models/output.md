@@ -17,6 +17,11 @@ const value: models.OutputDefault = {
 ```typescript
 const value: models.OutputWebhook = {
   type: "webhook",
+  urls: [
+    {
+      url: "https://parched-relative.name/",
+    },
+  ],
 };
 ```
 
