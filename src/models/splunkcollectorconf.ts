@@ -181,6 +181,7 @@ export type SplunkAuthenticationTokenSecret = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
 };
 
 export type SplunkAuthenticationTokenCollectRequestParam = {
@@ -346,6 +347,10 @@ export type SplunkAuthenticationToken = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
 };
 
 export type SplunkAuthenticationBasicSecretCollectRequestParam = {
@@ -514,6 +519,11 @@ export type SplunkAuthenticationBasicSecret = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
 };
 
 export type SplunkAuthenticationBasicCollectRequestParam = {
@@ -686,6 +696,11 @@ export type SplunkAuthenticationBasic = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
 };
 
 export type SplunkAuthenticationNoneCollectRequestParam = {
@@ -850,6 +865,11 @@ export type SplunkAuthenticationNone = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
 };
 
 export type SplunkCollectorConf =
@@ -1257,6 +1277,7 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationTokenSecret$Outbound = {
@@ -1284,6 +1305,7 @@ export type SplunkAuthenticationTokenSecret$Outbound = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
 };
 
 /** @internal */
@@ -1326,6 +1348,7 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
 });
 
 export function splunkAuthenticationTokenSecretToJSON(
@@ -1741,6 +1764,7 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  tokenSecret: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationToken$Outbound = {
@@ -1768,6 +1792,7 @@ export type SplunkAuthenticationToken$Outbound = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  tokenSecret?: string | undefined;
 };
 
 /** @internal */
@@ -1806,6 +1831,7 @@ export const SplunkAuthenticationToken$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  tokenSecret: z.string().optional(),
 });
 
 export function splunkAuthenticationTokenToJSON(
@@ -2222,6 +2248,8 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
+  tokenSecret: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationBasicSecret$Outbound = {
@@ -2249,6 +2277,8 @@ export type SplunkAuthenticationBasicSecret$Outbound = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
 };
 
 /** @internal */
@@ -2291,6 +2321,8 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
 });
 
 export function splunkAuthenticationBasicSecretToJSON(
@@ -2707,6 +2739,8 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
+  tokenSecret: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationBasic$Outbound = {
@@ -2735,6 +2769,8 @@ export type SplunkAuthenticationBasic$Outbound = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
 };
 
 /** @internal */
@@ -2774,6 +2810,8 @@ export const SplunkAuthenticationBasic$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
 });
 
 export function splunkAuthenticationBasicToJSON(
@@ -3184,6 +3222,8 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
+  tokenSecret: types.optional(types.string()),
 });
 /** @internal */
 export type SplunkAuthenticationNone$Outbound = {
@@ -3210,6 +3250,8 @@ export type SplunkAuthenticationNone$Outbound = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
 };
 
 /** @internal */
@@ -3247,6 +3289,8 @@ export const SplunkAuthenticationNone$outboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
 });
 
 export function splunkAuthenticationNoneToJSON(

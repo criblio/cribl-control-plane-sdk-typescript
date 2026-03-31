@@ -475,6 +475,10 @@ export type HealthCheckAuthenticationOauthSecret = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
 };
 
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone =
@@ -908,6 +912,10 @@ export type HealthCheckAuthenticationOauth = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone =
@@ -1338,6 +1346,14 @@ export type HealthCheckAuthenticationLoginSecret = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone =
@@ -1769,6 +1785,14 @@ export type HealthCheckAuthenticationLogin = {
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone =
@@ -2177,6 +2201,14 @@ export type HealthCheckAuthenticationBasicSecret = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone =
@@ -2586,6 +2618,14 @@ export type HealthCheckAuthenticationBasic = {
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone =
@@ -2987,6 +3027,14 @@ export type HealthCheckAuthenticationNone = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 /**
@@ -3414,6 +3462,14 @@ export type HealthCheckCollectMethodPostWithBody = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 /**
@@ -3837,6 +3893,14 @@ export type HealthCheckCollectMethodPost = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 /**
@@ -4271,6 +4335,14 @@ export type HealthCheckCollectMethodGet = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
 };
 
 export type HealthCheckCollectorConf =
@@ -5304,6 +5376,7 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecret$Outbound = {
@@ -5345,6 +5418,7 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
 };
 
 /** @internal */
@@ -5412,6 +5486,7 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
 });
 
 export function healthCheckAuthenticationOauthSecretToJSON(
@@ -6443,6 +6518,7 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauth$Outbound = {
@@ -6484,6 +6560,7 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -6550,6 +6627,7 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckAuthenticationOauthToJSON(
@@ -7587,6 +7665,8 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecret$Outbound = {
@@ -7625,6 +7705,8 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -7689,6 +7771,8 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckAuthenticationLoginSecretToJSON(
@@ -8716,6 +8800,8 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationLogin$Outbound = {
@@ -8755,6 +8841,8 @@ export type HealthCheckAuthenticationLogin$Outbound = {
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -8819,6 +8907,8 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckAuthenticationLoginToJSON(
@@ -9847,6 +9937,8 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecret$Outbound = {
@@ -9878,6 +9970,8 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -9935,6 +10029,8 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckAuthenticationBasicSecretToJSON(
@@ -10953,6 +11049,8 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasic$Outbound = {
@@ -10985,6 +11083,8 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -11042,6 +11142,8 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckAuthenticationBasicToJSON(
@@ -12044,6 +12146,8 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationNone$Outbound = {
@@ -12074,6 +12178,8 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -12129,6 +12235,8 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckAuthenticationNoneToJSON(
@@ -13177,6 +13285,8 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBody$Outbound = {
@@ -13208,6 +13318,8 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -13266,6 +13378,8 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckCollectMethodPostWithBodyToJSON(
@@ -14277,6 +14391,8 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodPost$Outbound = {
@@ -14310,6 +14426,8 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -14368,6 +14486,8 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckCollectMethodPostToJSON(
@@ -15432,6 +15552,8 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodGet$Outbound = {
@@ -15465,6 +15587,8 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -15523,6 +15647,8 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function healthCheckCollectMethodGetToJSON(
