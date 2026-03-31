@@ -76,6 +76,10 @@ export type PipelineFunctionAggregationConf = {
    */
   flushOnInputClose?: boolean | undefined;
   /**
+   * When enabled (e.g. for Cribl Search), convert undefined expression results to null so requested-but-missing fields appear in JSON output. When disabled (default), undefined is preserved.
+   */
+  printUndefineds?: boolean | undefined;
+  /**
    * The tumbling window tolerance to late events. Must be a valid time string (such as 10s).
    */
   lagTolerance?: string | undefined;
@@ -134,6 +138,7 @@ export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   add: types.optional(z.array(ItemsTypeAdd$inboundSchema)),
   shouldTreatDotsAsLiterals: types.optional(types.boolean()),
   flushOnInputClose: types.optional(types.boolean()),
+  printUndefineds: types.optional(types.boolean()),
   lagTolerance: types.optional(types.string()),
   idleTimeLimit: types.optional(types.string()),
 });
@@ -154,6 +159,7 @@ export type PipelineFunctionAggregationConf$Outbound = {
   add?: Array<ItemsTypeAdd$Outbound> | undefined;
   shouldTreatDotsAsLiterals?: boolean | undefined;
   flushOnInputClose?: boolean | undefined;
+  printUndefineds?: boolean | undefined;
   lagTolerance?: string | undefined;
   idleTimeLimit?: string | undefined;
 };
@@ -179,6 +185,7 @@ export const PipelineFunctionAggregationConf$outboundSchema: z.ZodType<
   add: z.array(ItemsTypeAdd$outboundSchema).optional(),
   shouldTreatDotsAsLiterals: z.boolean().optional(),
   flushOnInputClose: z.boolean().optional(),
+  printUndefineds: z.boolean().optional(),
   lagTolerance: z.string().optional(),
   idleTimeLimit: z.string().optional(),
 });
