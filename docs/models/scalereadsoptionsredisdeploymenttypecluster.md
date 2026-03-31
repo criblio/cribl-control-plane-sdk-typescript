@@ -1,13 +1,13 @@
-# ScaleReads
+# ScaleReadsOptionsRedisDeploymentTypeCluster
 
 Which nodes read commands should be sent to
 
 ## Example Usage
 
 ```typescript
-import { ScaleReads } from "cribl-control-plane/models";
+import { ScaleReadsOptionsRedisDeploymentTypeCluster } from "cribl-control-plane/models";
 
-let value: ScaleReads = "master";
+let value: ScaleReadsOptionsRedisDeploymentTypeCluster = "replica";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

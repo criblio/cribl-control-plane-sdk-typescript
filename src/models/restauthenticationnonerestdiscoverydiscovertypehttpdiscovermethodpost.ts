@@ -260,6 +260,14 @@ export type RestAuthenticationOauth = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationOauthScheduling | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
 };
 
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone = {
@@ -926,6 +934,18 @@ export type RestAuthenticationLoginSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationLoginSecretScheduling | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
 };
 
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeNone = {
@@ -1589,6 +1609,18 @@ export type RestAuthenticationLogin = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationLoginScheduling | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
 };
 
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone = {
@@ -2228,6 +2260,18 @@ export type RestAuthenticationBasicSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
 };
 
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone = {
@@ -2864,6 +2908,18 @@ export type RestAuthenticationBasic = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationBasicScheduling | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
 };
 
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeNone = {
@@ -3673,6 +3729,8 @@ export const RestAuthenticationOauth$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationOauthScheduling$inboundSchema),
   ),
+  serviceAccountCredentials: types.optional(types.string()),
+  hmacFunctionId: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationOauth$Outbound = {
@@ -3717,6 +3775,8 @@ export type RestAuthenticationOauth$Outbound = {
     | RestAuthenticationOauthRestRetryRulesTypeBackoff$Outbound
     | undefined;
   __scheduling?: RestAuthenticationOauthScheduling$Outbound | undefined;
+  serviceAccountCredentials?: string | undefined;
+  hmacFunctionId?: string | undefined;
 };
 
 /** @internal */
@@ -3773,6 +3833,8 @@ export const RestAuthenticationOauth$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestAuthenticationOauthScheduling$outboundSchema)
     .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
 });
 
 export function restAuthenticationOauthToJSON(
@@ -5720,6 +5782,9 @@ export const RestAuthenticationLoginSecret$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationLoginSecretScheduling$inboundSchema),
   ),
+  clientSecretParamValue: types.optional(types.string()),
+  serviceAccountCredentials: types.optional(types.string()),
+  hmacFunctionId: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationLoginSecret$Outbound = {
@@ -5773,6 +5838,9 @@ export type RestAuthenticationLoginSecret$Outbound = {
     | RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$Outbound
     | undefined;
   __scheduling?: RestAuthenticationLoginSecretScheduling$Outbound | undefined;
+  clientSecretParamValue?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  hmacFunctionId?: string | undefined;
 };
 
 /** @internal */
@@ -5864,6 +5932,9 @@ export const RestAuthenticationLoginSecret$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestAuthenticationLoginSecretScheduling$outboundSchema
   ).optional(),
+  clientSecretParamValue: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
 });
 
 export function restAuthenticationLoginSecretToJSON(
@@ -7787,6 +7858,9 @@ export const RestAuthenticationLogin$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationLoginScheduling$inboundSchema),
   ),
+  clientSecretParamValue: types.optional(types.string()),
+  serviceAccountCredentials: types.optional(types.string()),
+  hmacFunctionId: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationLogin$Outbound = {
@@ -7841,6 +7915,9 @@ export type RestAuthenticationLogin$Outbound = {
     | RestAuthenticationLoginRestRetryRulesTypeBackoff$Outbound
     | undefined;
   __scheduling?: RestAuthenticationLoginScheduling$Outbound | undefined;
+  clientSecretParamValue?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  hmacFunctionId?: string | undefined;
 };
 
 /** @internal */
@@ -7928,6 +8005,9 @@ export const RestAuthenticationLogin$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestAuthenticationLoginScheduling$outboundSchema)
     .optional(),
+  clientSecretParamValue: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
 });
 
 export function restAuthenticationLoginToJSON(
@@ -9866,6 +9946,9 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationBasicSecretScheduling$inboundSchema),
   ),
+  clientSecretParamValue: types.optional(types.string()),
+  serviceAccountCredentials: types.optional(types.string()),
+  hmacFunctionId: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationBasicSecret$Outbound = {
@@ -9910,6 +9993,9 @@ export type RestAuthenticationBasicSecret$Outbound = {
     | RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$Outbound
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling$Outbound | undefined;
+  clientSecretParamValue?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  hmacFunctionId?: string | undefined;
 };
 
 /** @internal */
@@ -9992,6 +10078,9 @@ export const RestAuthenticationBasicSecret$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestAuthenticationBasicSecretScheduling$outboundSchema
   ).optional(),
+  clientSecretParamValue: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
 });
 
 export function restAuthenticationBasicSecretToJSON(
@@ -11906,6 +11995,9 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationBasicScheduling$inboundSchema),
   ),
+  clientSecretParamValue: types.optional(types.string()),
+  serviceAccountCredentials: types.optional(types.string()),
+  hmacFunctionId: types.optional(types.string()),
 });
 /** @internal */
 export type RestAuthenticationBasic$Outbound = {
@@ -11951,6 +12043,9 @@ export type RestAuthenticationBasic$Outbound = {
     | RestAuthenticationBasicRestRetryRulesTypeBackoff$Outbound
     | undefined;
   __scheduling?: RestAuthenticationBasicScheduling$Outbound | undefined;
+  clientSecretParamValue?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  hmacFunctionId?: string | undefined;
 };
 
 /** @internal */
@@ -12029,6 +12124,9 @@ export const RestAuthenticationBasic$outboundSchema: z.ZodType<
   ]).optional(),
   __scheduling: z.lazy(() => RestAuthenticationBasicScheduling$outboundSchema)
     .optional(),
+  clientSecretParamValue: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
 });
 
 export function restAuthenticationBasicToJSON(

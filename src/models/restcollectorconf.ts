@@ -140,6 +140,18 @@ export type RestCollectMethodGet = {
   safeHeaders?: Array<string> | undefined;
   retryRules?: RestCollectMethodGetRetryRules | undefined;
   __scheduling?: RestCollectMethodGetScheduling | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
 };
 
 export type RestCollectorConf =
@@ -227,6 +239,9 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodGetScheduling$inboundSchema),
   ),
+  clientSecretParamValue: types.optional(types.string()),
+  serviceAccountCredentials: types.optional(types.string()),
+  hmacFunctionId: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodGet$Outbound = {
@@ -251,6 +266,9 @@ export type RestCollectMethodGet$Outbound = {
   safeHeaders?: Array<string> | undefined;
   retryRules?: RestCollectMethodGetRetryRules$Outbound | undefined;
   __scheduling?: RestCollectMethodGetScheduling$Outbound | undefined;
+  clientSecretParamValue?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  hmacFunctionId?: string | undefined;
 };
 
 /** @internal */
@@ -281,6 +299,9 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   retryRules: RestCollectMethodGetRetryRules$outboundSchema.optional(),
   __scheduling: z.lazy(() => RestCollectMethodGetScheduling$outboundSchema)
     .optional(),
+  clientSecretParamValue: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
 });
 
 export function restCollectMethodGetToJSON(

@@ -1,11 +1,11 @@
-# TlsOptions
+# TlsOptionsTypeRedisDeploymentTypeStandalone
 
 ## Example Usage
 
 ```typescript
-import { TlsOptions } from "cribl-control-plane/models";
+import { TlsOptionsTypeRedisDeploymentTypeStandalone } from "cribl-control-plane/models";
 
-let value: TlsOptions = {};
+let value: TlsOptionsTypeRedisDeploymentTypeStandalone = {};
 ```
 
 ## Fields
