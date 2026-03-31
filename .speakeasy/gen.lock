@@ -1,32 +1,32 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 28902226513d5a31c274740a252cd2c9
-  docVersion: 4.17.1-alpha.1774739006047-c0158cf2
-  speakeasyVersion: 1.759.3
-  generationVersion: 2.869.25
-  releaseVersion: 0.7.0-alpha.12
-  configChecksum: 4a3650bbf4987b0da68736e782951708
+  docChecksum: 98aaba6242d1489b8babf50ae1116cb7
+  docVersion: 4.17.1-alpha.1774911827737-0e72a5bd
+  speakeasyVersion: 1.760.0
+  generationVersion: 2.873.1
+  releaseVersion: 0.7.0-alpha.13
+  configChecksum: 31e8bb2b8b39c8fe7a093291e3d23805
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: fef8b3e8-7ed4-4ae1-a67b-b705d4411530
-  pristine_commit_hash: 9da825c7fbac875555acc18d307f51122a69ccff
-  pristine_tree_hash: 98b098558b43525080ec53f9485aa35dff4588cc
+  generation_id: a629ed63-528e-4053-906a-c524c62b4947
+  pristine_commit_hash: 469525ed36b0db7ffc8a779c02dbe455fbdf11e1
+  pristine_tree_hash: 96b50bf34bb1c74c0a74926a17ab4056198a5f17
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.14
-    core: 3.26.44
+    core: 3.26.45
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
     enumUnions: 0.1.0
     enums: 2.83.0
     envVarSecurityUsage: 0.1.2
-    globalSecurity: 2.82.15
+    globalSecurity: 2.82.16
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.83.1
     groups: 2.81.3
@@ -1082,8 +1082,8 @@ trackedFiles:
     pristine_git_object: 77bf74b6c6fe547b62cfdc57b8bff0a351ca850d
   docs/models/functionconfschemaeval.md:
     id: a26814db46a6
-    last_write_checksum: sha1:638a6542d1c6dbfb7e027addb9c8cd99c3ec165c
-    pristine_git_object: 219fbbb5481920909005773a77faef4c219ee551
+    last_write_checksum: sha1:68f97687ffff0ca3a67f4f58e2d404ad8220033d
+    pristine_git_object: 32c7ddd74f575b6533a1829143cc3939ee96f35b
   docs/models/functionconfschemaevaladd.md:
     id: 3738f5c72150
     last_write_checksum: sha1:3854ad1772cc7a7e0d0a4a673f15a8693ca79590
@@ -7630,8 +7630,8 @@ trackedFiles:
     pristine_git_object: 5eac18e25c76504a281e4d89c05d742638319b3f
   docs/models/pipelinefunctionaggregationconf.md:
     id: 980cba9c6ee0
-    last_write_checksum: sha1:5532531bdebc0ec5f13b82819334ff3f1954d8f9
-    pristine_git_object: b053cf2e7dda87b63f8b3b9926d27654f3a68135
+    last_write_checksum: sha1:a2ee6da25f666474c7649a86447e6709a6561fc1
+    pristine_git_object: 69b0b79a1b6a2d2a155da7ca9438e0ab421fb79f
   docs/models/pipelinefunctionautotimestamp.md:
     id: 6657b113970f
     last_write_checksum: sha1:afae2aa6d20019e65088c34715ade148ddc1aa3b
@@ -11094,12 +11094,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:6d5db89ae870f899603705d596f1b8b27f3639c7
-    pristine_git_object: 1f65abcbe306a7779974d6e23c39e3ae88d0424c
+    last_write_checksum: sha1:850e8565a64841f879e77e265775082bfc13a696
+    pristine_git_object: f123bc27bdf624e3908678e2f14edf28a7962304
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:603619d84d1f7ccd49589a7408eddb64dbc7f128
-    pristine_git_object: 33a9e37ab8e3c3411290f00abbecd125c214d26b
+    last_write_checksum: sha1:102110798da25e78238d932a2a771950a88f941b
+    pristine_git_object: 390099453e7e850bd628352d6984cf43965a3372
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -11598,8 +11598,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:b987400f4c6e24bea90d32fe5c1717eab93c786d
-    pristine_git_object: e92ef3d68ec2a306b41fa8f119eba7d26899dac6
+    last_write_checksum: sha1:ac4f021d07752dc47f830dad4678b9b152d1ed14
+    pristine_git_object: 720d6c586a738d49890c5371f11b548ecf12d0a2
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -11658,8 +11658,8 @@ trackedFiles:
     pristine_git_object: c24b45972c5a159370b84599ea208463e35fcc18
   src/lib/security.ts:
     id: 0502afa7922e
-    last_write_checksum: sha1:7b90d91f1592090fc85155659d26be3ac0afaa5a
-    pristine_git_object: 4d23e7f6ec0a8c750704da4ce222772bb4095371
+    last_write_checksum: sha1:ff424c7c411474fb3fe237a6a5934d08adc74033
+    pristine_git_object: a873fee487822ae2e14384b04ab31fad8296954c
   src/lib/url.ts:
     id: b0057e24ed76
     last_write_checksum: sha1:3bceadd74bf0b31adf13eb06b7531077c3e07d65
@@ -12314,8 +12314,8 @@ trackedFiles:
     pristine_git_object: 581323a3304db827bd5c3a3a8f7364c157897d0f
   src/models/functionconfschemaeval.ts:
     id: 7dc3650b2817
-    last_write_checksum: sha1:c61e2304789ea0aa274b4355554357a2f52a38c3
-    pristine_git_object: d3828b203532503050de6f077d598ea8ed0d745f
+    last_write_checksum: sha1:e9aa80ef4257bdda08888bd7b2b47a9d7efb8c58
+    pristine_git_object: f85ebfb8cd63384f6f9ed8d34e6db9a55515ccf6
   src/models/functionconfschemaexternaldata.ts:
     id: 0de4bdd40f94
     last_write_checksum: sha1:ec1031b82e655302ed5e032e71d16a9d4e9304c2
@@ -14030,8 +14030,8 @@ trackedFiles:
     pristine_git_object: 22802e96d9647ae557e1df82dfb88f5fe0d73fab
   src/models/pipelinefunctionaggregation.ts:
     id: 4e55555d2bdb
-    last_write_checksum: sha1:95cc7ea366dbb9652cc7590ba319b3ea6944cb5d
-    pristine_git_object: ee5632cd59cee21c87660e4a4e524fb9dc17cabf
+    last_write_checksum: sha1:9feb97428b5d2d77818e51ef4c0aac241f9459ac
+    pristine_git_object: 9cbdd4ce096ccf00fba172f4123b7e8a4bfdabb0
   src/models/pipelinefunctionautotimestamp.ts:
     id: 718b194043bc
     last_write_checksum: sha1:5242d816cf6462299a5adc6cb695e33f39ec4161
@@ -25460,7 +25460,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.list()`:  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.union(microsoft_graph).maxPages` **Added**\n  *  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.union(microsoft_graph).maxPages` **Added**\n  *  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.sources.delete()`:  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.packs.sources.list()`:  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody.union(microsoft_graph).maxPages` **Added**\n  *  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.packs.sources.get()`:  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input.union(microsoft_graph).maxPages` **Added**\n  *  `response.items[].union(microsoft_graph).maxPages` **Added**\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[].union(microsoft_graph).maxPages` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.packs.pipelines.create()`: \n  *  `request.pipeline.conf.functions[]` **Changed**\n  *  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.packs.pipelines.list()`:  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.packs.pipelines.delete()`:  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.packs.pipelines.get()`:  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.packs.pipelines.update()`: \n  *  `request.pipeline.conf.functions[]` **Changed**\n  *  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions[]` **Changed**\n  *  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.pipelines.list()`:  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.pipelines.delete()`:  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.pipelines.get()`:  `response.items[].conf.functions[]` **Changed**\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions[]` **Changed**\n  *  `response.items[].conf.functions[]` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
