@@ -1,12 +1,12 @@
-# CreateOutputSystemByPackUrlWebhook
+# CreateOutputOutputWebhookUrl1
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputSystemByPackUrlWebhook } from "cribl-control-plane/models/operations";
+import { CreateOutputOutputWebhookUrl1 } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputSystemByPackUrlWebhook = {
-  url: "https://wealthy-strategy.com/",
+let value: CreateOutputOutputWebhookUrl1 = {
+  url: "https://muffled-finding.com/",
 };
 ```
 

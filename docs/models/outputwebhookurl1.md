@@ -1,12 +1,12 @@
-# OutputWebhookUrl
+# OutputWebhookUrl1
 
 ## Example Usage
 
 ```typescript
-import { OutputWebhookUrl } from "cribl-control-plane/models";
+import { OutputWebhookUrl1 } from "cribl-control-plane/models";
 
-let value: OutputWebhookUrl = {
-  url: "https://different-cheese.net",
+let value: OutputWebhookUrl1 = {
+  url: "https://chilly-fellow.name",
 };
 ```
 

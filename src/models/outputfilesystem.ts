@@ -82,7 +82,7 @@ export type OutputFilesystem = {
    */
   destPath: string;
   /**
-   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath?: string | undefined;
   /**

@@ -1,13 +1,13 @@
-# OutputWebhookFormat
+# OutputWebhookFormat2
 
 How to format events before sending out
 
 ## Example Usage
 
 ```typescript
-import { OutputWebhookFormat } from "cribl-control-plane/models";
+import { OutputWebhookFormat2 } from "cribl-control-plane/models";
 
-let value: OutputWebhookFormat = "custom";
+let value: OutputWebhookFormat2 = "custom";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

@@ -614,7 +614,7 @@ export * from "./schemeclientoauth.js";
 export * from "./scriptcollectorconf.js";
 export * from "./security.js";
 export * from "./serversideencryptionforuploadedobjectsoptions.js";
-export * from "./serversideencryptionoptions.js";
+export * from "./serversideencryptionforuploadedobjectsoptionsaes256.js";
 export * from "./shutdowntypesystemsettingsconf.js";
 export * from "./signatureversionoptions.js";
 export * from "./signatureversionoptionsgoogle.js";

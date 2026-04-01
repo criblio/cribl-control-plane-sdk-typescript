@@ -509,9 +509,9 @@ async function run() {
   const result = await criblControlPlane.destinations.create({
     id: "cloudflare-r2-output",
     type: "cloudflare_r2",
-    endpoint: "https://account-id.r2.cloudflarestorage.com",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "https://account-id.r2.cloudflarestorage.com",
   });
 
   console.log(result);
@@ -541,9 +541,9 @@ async function run() {
   const res = await destinationsCreate(criblControlPlane, {
     id: "cloudflare-r2-output",
     type: "cloudflare_r2",
-    endpoint: "https://account-id.r2.cloudflarestorage.com",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "https://account-id.r2.cloudflarestorage.com",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -2724,9 +2724,9 @@ async function run() {
   const result = await criblControlPlane.destinations.create({
     id: "minio-output",
     type: "minio",
-    endpoint: "http://localhost:9000",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "http://localhost:9000",
   });
 
   console.log(result);
@@ -2756,9 +2756,9 @@ async function run() {
   const res = await destinationsCreate(criblControlPlane, {
     id: "minio-output",
     type: "minio",
-    endpoint: "http://localhost:9000",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "http://localhost:9000",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -3354,9 +3354,9 @@ async function run() {
   const result = await criblControlPlane.destinations.create({
     id: "security-lake-output",
     type: "security_lake",
+    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     bucket: "my-bucket",
     region: "us-east-1",
-    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     stagePath: "/tmp/staging",
     accountId: "123456789012",
     customSource: "my-custom-source",
@@ -3389,9 +3389,9 @@ async function run() {
   const res = await destinationsCreate(criblControlPlane, {
     id: "security-lake-output",
     type: "security_lake",
+    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     bucket: "my-bucket",
     region: "us-east-1",
-    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     stagePath: "/tmp/staging",
     accountId: "123456789012",
     customSource: "my-custom-source",
@@ -5153,9 +5153,9 @@ async function run() {
     output: {
       id: "cloudflare-r2-output",
       type: "cloudflare_r2",
-      endpoint: "https://account-id.r2.cloudflarestorage.com",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "https://account-id.r2.cloudflarestorage.com",
     },
   });
 
@@ -5188,9 +5188,9 @@ async function run() {
     output: {
       id: "cloudflare-r2-output",
       type: "cloudflare_r2",
-      endpoint: "https://account-id.r2.cloudflarestorage.com",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "https://account-id.r2.cloudflarestorage.com",
     },
   });
   if (res.ok) {
@@ -7566,9 +7566,9 @@ async function run() {
     output: {
       id: "minio-output",
       type: "minio",
-      endpoint: "http://localhost:9000",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "http://localhost:9000",
     },
   });
 
@@ -7601,9 +7601,9 @@ async function run() {
     output: {
       id: "minio-output",
       type: "minio",
-      endpoint: "http://localhost:9000",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "http://localhost:9000",
     },
   });
   if (res.ok) {
@@ -8256,9 +8256,9 @@ async function run() {
     output: {
       id: "security-lake-output",
       type: "security_lake",
+      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       bucket: "my-bucket",
       region: "us-east-1",
-      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       stagePath: "/tmp/staging",
       accountId: "123456789012",
       customSource: "my-custom-source",
@@ -8294,9 +8294,9 @@ async function run() {
     output: {
       id: "security-lake-output",
       type: "security_lake",
+      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       bucket: "my-bucket",
       region: "us-east-1",
-      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       stagePath: "/tmp/staging",
       accountId: "123456789012",
       customSource: "my-custom-source",

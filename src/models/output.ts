@@ -437,7 +437,7 @@ import {
 
 export type Output =
   | OutputDefault
-  | OutputWebhook
+  | (OutputWebhook & { type: "webhook" })
   | OutputSentinel
   | OutputDevnull
   | OutputSyslog
@@ -513,7 +513,9 @@ export type Output =
 export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
   discriminatedUnion("type", {
     default: OutputDefault$inboundSchema,
-    webhook: OutputWebhook$inboundSchema,
+    webhook: OutputWebhook$inboundSchema.and(
+      z.object({ type: z.literal("webhook") }),
+    ),
     sentinel: OutputSentinel$inboundSchema,
     devnull: OutputDevnull$inboundSchema,
     syslog: OutputSyslog$inboundSchema,
@@ -589,7 +591,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
 /** @internal */
 export type Output$Outbound =
   | OutputDefault$Outbound
-  | OutputWebhook$Outbound
+  | (OutputWebhook$Outbound & { type: "webhook" })
   | OutputSentinel$Outbound
   | OutputDevnull$Outbound
   | OutputSyslog$Outbound
@@ -667,7 +669,7 @@ export const Output$outboundSchema: z.ZodType<
   Output
 > = z.union([
   OutputDefault$outboundSchema,
-  OutputWebhook$outboundSchema,
+  OutputWebhook$outboundSchema.and(z.object({ type: z.literal("webhook") })),
   OutputSentinel$outboundSchema,
   OutputDevnull$outboundSchema,
   OutputSyslog$outboundSchema,
