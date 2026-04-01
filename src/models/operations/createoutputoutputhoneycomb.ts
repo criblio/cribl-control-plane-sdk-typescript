@@ -51,61 +51,55 @@ export type CreateOutputOutputCloudflareR2 = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
-   */
-  endpoint: string;
-  /**
-   * Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-   */
-  bucket: string;
-  /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?:
     | CreateOutputAuthenticationMethodCloudflareR2
     | undefined;
   /**
-   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   * Signature version to use for signing MinIO requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsMinIo | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
    */
   awsSecretKey?: string | undefined;
   /**
-   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   * Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
-   */
-  destPath?: string | undefined;
-  /**
-   * Signature version to use for signing MinIO requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsMinIo | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?:
-    | models.StorageClassOptionsReducedredundancyStandard
-    | undefined;
-  /**
-   * Server-side encryption for uploaded objects
-   */
-  serverSideEncryption?: models.ServerSideEncryptionOptions | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Disable if you can access files within the bucket but not the bucket itself
-   */
-  verifyPermissions?: boolean | undefined;
   /**
    * Remove empty staging directories after moving files
    */
@@ -130,6 +124,14 @@ export type CreateOutputOutputCloudflareR2 = {
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
   maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
   /**
    * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
    */
@@ -160,17 +162,21 @@ export type CreateOutputOutputCloudflareR2 = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
    */
-  maxFileOpenTimeSec?: number | undefined;
+  endpoint: string;
   /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   * Storage class to select for uploaded objects
    */
-  maxFileIdleTimeSec?: number | undefined;
+  storageClass?:
+    | models.StorageClassOptionsReducedredundancyStandard
+    | undefined;
   /**
-   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   * Server-side encryption to use for uploaded objects
    */
-  maxConcurrentFileParts?: number | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptionsAes256
+    | undefined;
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -245,9 +251,17 @@ export type CreateOutputOutputCloudflareR2 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
   /**
    * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
    */
@@ -268,6 +282,14 @@ export type CreateOutputOutputCloudflareR2 = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+   */
+  __template_serverSideEncryption?: string | undefined;
   /**
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
@@ -2527,33 +2549,9 @@ export type CreateOutputOutputCriblLake = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-   */
-  bucket?: string | undefined;
-  /**
-   * Region where the S3 bucket is located
-   */
-  region?: string | undefined;
-  /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-   */
-  awsSecretKey?: string | undefined;
-  /**
    * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
   /**
    * Use Assume Role credentials to access S3
    */
@@ -2571,6 +2569,42 @@ export type CreateOutputOutputCriblLake = {
    */
   durationSeconds?: number | undefined;
   /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket?: string | undefined;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Lake dataset to send the data to.
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath?: string | undefined;
@@ -2578,25 +2612,6 @@ export type CreateOutputOutputCriblLake = {
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Lake dataset to send the data to.
-   */
-  destPath?: string | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?: models.ObjectAclOptions | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: models.StorageClassOptions | undefined;
-  serverSideEncryption?:
-    | models.ServerSideEncryptionForUploadedObjectsOptions
-    | undefined;
-  /**
-   * ID or ARN of the KMS customer-managed key to use for encryption
-   */
-  kmsKeyId?: string | undefined;
   /**
    * Remove empty staging directories after moving files
    */
@@ -2613,6 +2628,14 @@ export type CreateOutputOutputCriblLake = {
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
   maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
   /**
    * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
    */
@@ -2643,21 +2666,23 @@ export type CreateOutputOutputCriblLake = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   * Object ACL to assign to uploaded objects
    */
-  maxFileOpenTimeSec?: number | undefined;
+  objectACL?: models.ObjectAclOptions | undefined;
   /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   * Storage class to select for uploaded objects
    */
-  maxFileIdleTimeSec?: number | undefined;
+  storageClass?: models.StorageClassOptions | undefined;
   /**
-   * Disable if you can access files within the bucket but not the bucket itself
+   * Server-side encryption to use for uploaded objects
    */
-  verifyPermissions?: boolean | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
   /**
-   * Maximum number of files that can be waiting for upload before backpressure is applied
+   * ID or ARN of the KMS customer-managed key to use for encryption
    */
-  maxClosingFilesToBackpressure?: number | undefined;
+  kmsKeyId?: string | undefined;
   awsAuthenticationMethod?: CreateOutputAwsAuthenticationMethod | undefined;
   format?: models.FormatOptions | undefined;
   /**
@@ -2682,18 +2707,6 @@ export type CreateOutputOutputCriblLake = {
    */
   maxRetryNum?: number | undefined;
   /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -2706,9 +2719,33 @@ export type CreateOutputOutputCriblLake = {
    */
   __template_assumeRoleExternalId?: string | undefined;
   /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
    * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
    */
   __template_destPath?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
    */
@@ -2725,18 +2762,6 @@ export type CreateOutputOutputCriblLake = {
    * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
    */
   __template_kmsKeyId?: string | undefined;
-  /**
-   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
-   */
-  __template_baseFileName?: string | undefined;
-  /**
-   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
-   */
-  __template_fileNameSuffix?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
 };
 
 /**
@@ -2776,34 +2801,9 @@ export type CreateOutputOutputSecurityLake = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-   */
-  bucket: string;
-  /**
-   * Region where the Amazon Security Lake is located.
-   */
-  region: string;
-  awsSecretKey?: string | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: string | undefined;
-  /**
    * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing Amazon Security Lake requests
-   */
-  signatureVersion?: CreateOutputSignatureVersionSecurityLake | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
   /**
    * Use Assume Role credentials to access S3
    */
@@ -2821,6 +2821,43 @@ export type CreateOutputOutputSecurityLake = {
    */
   durationSeconds?: number | undefined;
   /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  /**
+   * Signature version to use for signing Amazon Security Lake requests
+   */
+  signatureVersion?: CreateOutputSignatureVersionSecurityLake | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath: string;
@@ -2828,21 +2865,6 @@ export type CreateOutputOutputSecurityLake = {
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?: models.ObjectAclOptions | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: models.StorageClassOptions | undefined;
-  serverSideEncryption?:
-    | models.ServerSideEncryptionForUploadedObjectsOptions
-    | undefined;
-  /**
-   * ID or ARN of the KMS customer-managed key to use for encryption
-   */
-  kmsKeyId?: string | undefined;
   /**
    * Remove empty staging directories after moving files
    */
@@ -2855,6 +2877,14 @@ export type CreateOutputOutputSecurityLake = {
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
   maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
   /**
    * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
    */
@@ -2885,25 +2915,23 @@ export type CreateOutputOutputSecurityLake = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   * Object ACL to assign to uploaded objects
    */
-  maxFileOpenTimeSec?: number | undefined;
+  objectACL?: models.ObjectAclOptions | undefined;
   /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   * Storage class to select for uploaded objects
    */
-  maxFileIdleTimeSec?: number | undefined;
+  storageClass?: models.StorageClassOptions | undefined;
   /**
-   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   * Server-side encryption to use for uploaded objects
    */
-  maxConcurrentFileParts?: number | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
   /**
-   * Disable if you can access files within the bucket but not the bucket itself
+   * ID or ARN of the KMS customer-managed key to use for encryption
    */
-  verifyPermissions?: boolean | undefined;
-  /**
-   * Maximum number of files that can be waiting for upload before backpressure is applied
-   */
-  maxClosingFilesToBackpressure?: number | undefined;
+  kmsKeyId?: string | undefined;
   /**
    * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
    */
@@ -2982,18 +3010,6 @@ export type CreateOutputOutputSecurityLake = {
    */
   maxRetryNum?: number | undefined;
   /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -3005,6 +3021,26 @@ export type CreateOutputOutputSecurityLake = {
    * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
    */
   __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
    */
@@ -3021,14 +3057,6 @@ export type CreateOutputOutputSecurityLake = {
    * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
    */
   __template_kmsKeyId?: string | undefined;
-  /**
-   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
-   */
-  __template_baseFileName?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -3058,37 +3086,9 @@ export type CreateOutputOutputDlS3 = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-   */
-  bucket: string;
-  /**
-   * Region where the S3 bucket is located
-   */
-  region?: string | undefined;
-  /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-   */
-  awsSecretKey?: string | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: string | undefined;
-  /**
    * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
   /**
    * Use Assume Role credentials to access S3
    */
@@ -3106,6 +3106,50 @@ export type CreateOutputOutputDlS3 = {
    */
   durationSeconds?: number | undefined;
   /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath: string;
@@ -3113,25 +3157,6 @@ export type CreateOutputOutputDlS3 = {
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-   */
-  destPath?: string | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?: models.ObjectAclOptions | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: models.StorageClassOptions | undefined;
-  serverSideEncryption?:
-    | models.ServerSideEncryptionForUploadedObjectsOptions
-    | undefined;
-  /**
-   * ID or ARN of the KMS customer-managed key to use for encryption
-   */
-  kmsKeyId?: string | undefined;
   /**
    * Remove empty staging directories after moving files
    */
@@ -3152,6 +3177,14 @@ export type CreateOutputOutputDlS3 = {
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
   maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
   /**
    * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
    */
@@ -3182,25 +3215,23 @@ export type CreateOutputOutputDlS3 = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   * Object ACL to assign to uploaded objects
    */
-  maxFileOpenTimeSec?: number | undefined;
+  objectACL?: models.ObjectAclOptions | undefined;
   /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   * Storage class to select for uploaded objects
    */
-  maxFileIdleTimeSec?: number | undefined;
+  storageClass?: models.StorageClassOptions | undefined;
   /**
-   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   * Server-side encryption to use for uploaded objects
    */
-  maxConcurrentFileParts?: number | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
   /**
-   * Disable if you can access files within the bucket but not the bucket itself
+   * ID or ARN of the KMS customer-managed key to use for encryption
    */
-  verifyPermissions?: boolean | undefined;
-  /**
-   * Maximum number of files that can be waiting for upload before backpressure is applied
-   */
-  maxClosingFilesToBackpressure?: number | undefined;
+  kmsKeyId?: string | undefined;
   /**
    * List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
    */
@@ -3283,18 +3314,6 @@ export type CreateOutputOutputDlS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -3307,25 +3326,21 @@ export type CreateOutputOutputDlS3 = {
    */
   __template_assumeRoleExternalId?: string | undefined;
   /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
    * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
    */
   __template_destPath?: string | undefined;
-  /**
-   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-   */
-  __template_objectACL?: string | undefined;
-  /**
-   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-   */
-  __template_storageClass?: string | undefined;
-  /**
-   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
-   */
-  __template_serverSideEncryption?: string | undefined;
-  /**
-   * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
-   */
-  __template_kmsKeyId?: string | undefined;
   /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
@@ -3342,6 +3357,22 @@ export type CreateOutputOutputDlS3 = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+   */
+  __template_serverSideEncryption?: string | undefined;
+  /**
+   * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+   */
+  __template_kmsKeyId?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -7045,67 +7076,57 @@ export type CreateOutputOutputMinio = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * MinIO service url (e.g. http://minioHost:9000)
-   */
-  endpoint: string;
-  /**
-   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-   */
-  bucket: string;
-  /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?: string | undefined;
   /**
-   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   * Signature version to use for signing MinIO requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsMinIo | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
    */
   awsSecretKey?: string | undefined;
   /**
-   * Region where the MinIO service/cluster is located
+   * Name of the destination MinIO bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the MinIO bucket is located
    */
   region?: string | undefined;
   /**
-   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
-   */
-  destPath?: string | undefined;
-  /**
-   * Signature version to use for signing MinIO requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsMinIo | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?: models.ObjectAclOptions | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?:
-    | models.StorageClassOptionsReducedredundancyStandard
-    | undefined;
-  /**
-   * Server-side encryption for uploaded objects
-   */
-  serverSideEncryption?: models.ServerSideEncryptionOptions | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Disable if you can access files within the bucket but not the bucket itself
-   */
-  verifyPermissions?: boolean | undefined;
   /**
    * Remove empty staging directories after moving files
    */
@@ -7130,6 +7151,14 @@ export type CreateOutputOutputMinio = {
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
   maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
   /**
    * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
    */
@@ -7160,17 +7189,25 @@ export type CreateOutputOutputMinio = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   * MinIO service url (e.g. http://minioHost:9000)
    */
-  maxFileOpenTimeSec?: number | undefined;
+  endpoint: string;
   /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   * Object ACL to assign to uploaded objects
    */
-  maxFileIdleTimeSec?: number | undefined;
+  objectACL?: models.ObjectAclOptions | undefined;
   /**
-   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   * Storage class to select for uploaded objects
    */
-  maxConcurrentFileParts?: number | undefined;
+  storageClass?:
+    | models.StorageClassOptionsReducedredundancyStandard
+    | undefined;
+  /**
+   * Server-side encryption to use for uploaded objects
+   */
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptionsAes256
+    | undefined;
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -7249,6 +7286,10 @@ export type CreateOutputOutputMinio = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
@@ -7256,6 +7297,10 @@ export type CreateOutputOutputMinio = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
   /**
    * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
    */
@@ -7276,6 +7321,18 @@ export type CreateOutputOutputMinio = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+   */
+  __template_serverSideEncryption?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -10599,25 +10656,26 @@ export type CreateOutputOutputCloudflareR2$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  endpoint: string;
-  bucket: string;
   awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  stagePath: string;
-  addIdToStagePath?: boolean | undefined;
-  destPath?: string | undefined;
   signatureVersion?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket: string;
+  destPath?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
   verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
   removeEmptyDirs?: boolean | undefined;
   partitionExpr?: string | undefined;
   format?: string | undefined;
   baseFileName?: string | undefined;
   fileNameSuffix?: string | undefined;
   maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
   maxOpenFiles?: number | undefined;
   headerLine?: string | undefined;
   writeHighWaterMark?: number | undefined;
@@ -10626,9 +10684,9 @@ export type CreateOutputOutputCloudflareR2$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxConcurrentFileParts?: number | undefined;
+  endpoint: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
   description?: string | undefined;
   awsSecret?: string | undefined;
   compress?: string | undefined;
@@ -10650,12 +10708,16 @@ export type CreateOutputOutputCloudflareR2$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
+  __template_destPath?: string | undefined;
   __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_serverSideEncryption?: string | undefined;
   __template_compress?: string | undefined;
 };
 
@@ -10671,29 +10733,28 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  endpoint: z.string(),
-  bucket: z.string(),
   awsAuthenticationMethod:
     CreateOutputAuthenticationMethodCloudflareR2$outboundSchema.optional(),
-  awsSecretKey: z.string().optional(),
-  stagePath: z.string(),
-  addIdToStagePath: z.boolean().optional(),
-  destPath: z.string().optional(),
   signatureVersion: models.SignatureVersionOptionsMinIo$outboundSchema
-    .optional(),
-  storageClass: models
-    .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
-  serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
     .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string(),
+  destPath: z.string().optional(),
+  maxConcurrentFileParts: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
   removeEmptyDirs: z.boolean().optional(),
   partitionExpr: z.string().optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
   baseFileName: z.string().optional(),
   fileNameSuffix: z.string().optional(),
   maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
@@ -10704,9 +10765,12 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxConcurrentFileParts: z.number().optional(),
+  endpoint: z.string(),
+  storageClass: models
+    .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptionsAes256$outboundSchema
+    .optional(),
   description: z.string().optional(),
   awsSecret: z.string().optional(),
   compress: models.CompressionOptionsHttp$outboundSchema.optional(),
@@ -10728,12 +10792,16 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
+  __template_destPath: z.string().optional(),
   __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_storageClass: z.string().optional(),
+  __template_serverSideEncryption: z.string().optional(),
   __template_compress: z.string().optional(),
 });
 
@@ -12560,28 +12628,28 @@ export type CreateOutputOutputCriblLake$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  bucket?: string | undefined;
-  region?: string | undefined;
-  awsSecretKey?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket?: string | undefined;
+  region?: string | undefined;
+  destPath?: string | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   stagePath?: string | undefined;
   addIdToStagePath?: boolean | undefined;
-  destPath?: string | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
-  kmsKeyId?: string | undefined;
   removeEmptyDirs?: boolean | undefined;
   baseFileName?: string | undefined;
   fileNameSuffix?: string | undefined;
   maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
   maxOpenFiles?: number | undefined;
   headerLine?: string | undefined;
   writeHighWaterMark?: number | undefined;
@@ -12590,10 +12658,10 @@ export type CreateOutputOutputCriblLake$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  verifyPermissions?: boolean | undefined;
-  maxClosingFilesToBackpressure?: number | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
   awsAuthenticationMethod?: string | undefined;
   format?: string | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -12602,20 +12670,20 @@ export type CreateOutputOutputCriblLake$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
   __template_destPath?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_objectACL?: string | undefined;
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
   __template_kmsKeyId?: string | undefined;
-  __template_baseFileName?: string | undefined;
-  __template_fileNameSuffix?: string | undefined;
-  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -12630,30 +12698,29 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  bucket: z.string().optional(),
-  region: z.string().optional(),
-  awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  destPath: z.string().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   stagePath: z.string().optional(),
   addIdToStagePath: z.boolean().optional(),
-  destPath: z.string().optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions$outboundSchema.optional(),
-  serverSideEncryption: models
-    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
-  kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().optional(),
   baseFileName: z.string().optional(),
   fileNameSuffix: z.string().optional(),
   maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
@@ -12664,10 +12731,11 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
   awsAuthenticationMethod: CreateOutputAwsAuthenticationMethod$outboundSchema
     .optional(),
   format: models.FormatOptions$outboundSchema.optional(),
@@ -12677,20 +12745,20 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
   __template_destPath: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_objectACL: z.string().optional(),
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
   __template_kmsKeyId: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_fileNameSuffix: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputOutputCriblLakeToJSON(
@@ -12718,27 +12786,28 @@ export type CreateOutputOutputSecurityLake$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  bucket: string;
-  region: string;
-  awsSecretKey?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn: string;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket: string;
+  region: string;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   stagePath: string;
   addIdToStagePath?: boolean | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
-  kmsKeyId?: string | undefined;
   removeEmptyDirs?: boolean | undefined;
   baseFileName?: string | undefined;
   maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
   maxOpenFiles?: number | undefined;
   headerLine?: string | undefined;
   writeHighWaterMark?: number | undefined;
@@ -12747,11 +12816,10 @@ export type CreateOutputOutputSecurityLake$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxConcurrentFileParts?: number | undefined;
-  verifyPermissions?: boolean | undefined;
-  maxClosingFilesToBackpressure?: number | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
   accountId: string;
   customSource: string;
   automaticSchema?: boolean | undefined;
@@ -12774,18 +12842,18 @@ export type CreateOutputOutputSecurityLake$Outbound = {
   parquetSchema?: string | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_objectACL?: string | undefined;
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
   __template_kmsKeyId?: string | undefined;
-  __template_baseFileName?: string | undefined;
-  __template_onBackpressure?: string | undefined;
   __template_awsApiKey?: string | undefined;
 };
 
@@ -12801,29 +12869,29 @@ export const CreateOutputOutputSecurityLake$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string(),
-  awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: CreateOutputSignatureVersionSecurityLake$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  signatureVersion: CreateOutputSignatureVersionSecurityLake$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string(),
+  region: z.string(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions$outboundSchema.optional(),
-  serverSideEncryption: models
-    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
-  kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().optional(),
   baseFileName: z.string().optional(),
   maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
@@ -12834,11 +12902,11 @@ export const CreateOutputOutputSecurityLake$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxConcurrentFileParts: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
   accountId: z.string(),
   customSource: z.string(),
   automaticSchema: z.boolean().optional(),
@@ -12861,18 +12929,18 @@ export const CreateOutputOutputSecurityLake$outboundSchema: z.ZodType<
   parquetSchema: z.string().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_objectACL: z.string().optional(),
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
   __template_kmsKeyId: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
 });
 
@@ -12894,30 +12962,31 @@ export type CreateOutputOutputDlS3$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  bucket: string;
-  region?: string | undefined;
-  awsSecretKey?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket: string;
+  region?: string | undefined;
+  destPath?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   stagePath: string;
   addIdToStagePath?: boolean | undefined;
-  destPath?: string | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
-  kmsKeyId?: string | undefined;
   removeEmptyDirs?: boolean | undefined;
   format?: string | undefined;
   baseFileName?: string | undefined;
   fileNameSuffix?: string | undefined;
   maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
   maxOpenFiles?: number | undefined;
   headerLine?: string | undefined;
   writeHighWaterMark?: number | undefined;
@@ -12926,11 +12995,10 @@ export type CreateOutputOutputDlS3$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxConcurrentFileParts?: number | undefined;
-  verifyPermissions?: boolean | undefined;
-  maxClosingFilesToBackpressure?: number | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
   partitioningFields?: Array<string> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -12954,21 +13022,21 @@ export type CreateOutputOutputDlS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
   __template_destPath?: string | undefined;
-  __template_objectACL?: string | undefined;
-  __template_storageClass?: string | undefined;
-  __template_serverSideEncryption?: string | undefined;
-  __template_kmsKeyId?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_serverSideEncryption?: string | undefined;
+  __template_kmsKeyId?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
 };
@@ -12985,32 +13053,32 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string(),
+  region: z.string().optional(),
+  destPath: z.string().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
-  destPath: z.string().optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions$outboundSchema.optional(),
-  serverSideEncryption: models
-    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
-  kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
   baseFileName: z.string().optional(),
   fileNameSuffix: z.string().optional(),
   maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
@@ -13021,11 +13089,11 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxConcurrentFileParts: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
   partitioningFields: z.array(z.string()).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
@@ -13049,21 +13117,21 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
   __template_destPath: z.string().optional(),
-  __template_objectACL: z.string().optional(),
-  __template_storageClass: z.string().optional(),
-  __template_serverSideEncryption: z.string().optional(),
-  __template_kmsKeyId: z.string().optional(),
   __template_format: z.string().optional(),
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_objectACL: z.string().optional(),
+  __template_storageClass: z.string().optional(),
+  __template_serverSideEncryption: z.string().optional(),
+  __template_kmsKeyId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
 });
@@ -16003,27 +16071,27 @@ export type CreateOutputOutputMinio$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  endpoint: string;
-  bucket: string;
   awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  region?: string | undefined;
-  stagePath: string;
-  addIdToStagePath?: boolean | undefined;
-  destPath?: string | undefined;
   signatureVersion?: string | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket: string;
+  region?: string | undefined;
+  destPath?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
   verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
   removeEmptyDirs?: boolean | undefined;
   partitionExpr?: string | undefined;
   format?: string | undefined;
   baseFileName?: string | undefined;
   fileNameSuffix?: string | undefined;
   maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
   maxOpenFiles?: number | undefined;
   headerLine?: string | undefined;
   writeHighWaterMark?: number | undefined;
@@ -16032,9 +16100,10 @@ export type CreateOutputOutputMinio$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxConcurrentFileParts?: number | undefined;
+  endpoint: string;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -16057,13 +16126,18 @@ export type CreateOutputOutputMinio$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
+  __template_destPath?: string | undefined;
   __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_serverSideEncryption?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
 };
@@ -16080,30 +16154,28 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  endpoint: z.string(),
-  bucket: z.string(),
   awsAuthenticationMethod: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string().optional(),
-  stagePath: z.string(),
-  addIdToStagePath: z.boolean().optional(),
-  destPath: z.string().optional(),
   signatureVersion: models.SignatureVersionOptionsMinIo$outboundSchema
-    .optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  storageClass: models
-    .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
-  serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
     .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string(),
+  region: z.string().optional(),
+  destPath: z.string().optional(),
+  maxConcurrentFileParts: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
   removeEmptyDirs: z.boolean().optional(),
   partitionExpr: z.string().optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
   baseFileName: z.string().optional(),
   fileNameSuffix: z.string().optional(),
   maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
@@ -16114,9 +16186,13 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxConcurrentFileParts: z.number().optional(),
+  endpoint: z.string(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models
+    .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptionsAes256$outboundSchema
+    .optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -16139,13 +16215,18 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_destPath: z.string().optional(),
   __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_objectACL: z.string().optional(),
+  __template_storageClass: z.string().optional(),
+  __template_serverSideEncryption: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
 });

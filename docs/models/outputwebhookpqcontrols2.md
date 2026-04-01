@@ -1,11 +1,11 @@
-# OutputWebhookPqControls
+# OutputWebhookPqControls2
 
 ## Example Usage
 
 ```typescript
-import { OutputWebhookPqControls } from "cribl-control-plane/models";
+import { OutputWebhookPqControls2 } from "cribl-control-plane/models";
 
-let value: OutputWebhookPqControls = {};
+let value: OutputWebhookPqControls2 = {};
 ```
 
 ## Fields

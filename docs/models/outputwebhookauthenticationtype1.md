@@ -1,13 +1,13 @@
-# CreateOutputSystemByPackAuthenticationTypeWebhook
+# OutputWebhookAuthenticationType1
 
 Authentication method to use for the HTTP request
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputSystemByPackAuthenticationTypeWebhook } from "cribl-control-plane/models/operations";
+import { OutputWebhookAuthenticationType1 } from "cribl-control-plane/models";
 
-let value: CreateOutputSystemByPackAuthenticationTypeWebhook = "oauth";
+let value: OutputWebhookAuthenticationType1 = "oauth";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

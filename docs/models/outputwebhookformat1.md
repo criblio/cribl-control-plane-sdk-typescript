@@ -1,13 +1,13 @@
-# CreateOutputSystemByPackFormatWebhook
+# OutputWebhookFormat1
 
 How to format events before sending out
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputSystemByPackFormatWebhook } from "cribl-control-plane/models/operations";
+import { OutputWebhookFormat1 } from "cribl-control-plane/models";
 
-let value: CreateOutputSystemByPackFormatWebhook = "ndjson";
+let value: OutputWebhookFormat1 = "custom";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
