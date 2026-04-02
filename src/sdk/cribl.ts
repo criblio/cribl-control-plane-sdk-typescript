@@ -10,10 +10,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Cribl extends ClientSDK {
   /**
-   * List all Pipelines
+   * Get Cribl system settings
    *
    * @remarks
-   * Get a list of all Pipelines.
+   * Get Cribl system settings.
    */
   async list(
     options?: RequestOptions,

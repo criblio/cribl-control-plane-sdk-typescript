@@ -1,12 +1,12 @@
-# EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat
+# TimestampFormatTypeEventBreakerExistingOrNewNew
 
 ## Example Usage
 
 ```typescript
-import { EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat } from "cribl-control-plane/models";
+import { TimestampFormatTypeEventBreakerExistingOrNewNew } from "cribl-control-plane/models";
 
-let value: EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat = {
-  type: "current",
+let value: TimestampFormatTypeEventBreakerExistingOrNewNew = {
+  type: "auto",
 };
 ```
 
