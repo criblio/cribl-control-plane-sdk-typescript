@@ -476,6 +476,10 @@ export type HealthCheckAuthenticationOauthSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
   __template_collectUrl?: string | undefined;
@@ -913,6 +917,10 @@ export type HealthCheckAuthenticationOauth = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
+  /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
   __template_collectUrl?: string | undefined;
@@ -1346,6 +1354,14 @@ export type HealthCheckAuthenticationLoginSecret = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
   /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
@@ -1782,6 +1798,14 @@ export type HealthCheckAuthenticationLogin = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
+  /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
   __template_collectUrl?: string | undefined;
@@ -2193,6 +2217,14 @@ export type HealthCheckAuthenticationBasicSecret = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
   /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
@@ -2607,6 +2639,14 @@ export type HealthCheckAuthenticationBasic = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
+  /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
   __template_collectUrl?: string | undefined;
@@ -3011,6 +3051,14 @@ export type HealthCheckAuthenticationNone = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
   /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
@@ -3443,6 +3491,14 @@ export type HealthCheckCollectMethodPostWithBody = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
+  /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
   __template_collectUrl?: string | undefined;
@@ -3869,6 +3925,14 @@ export type HealthCheckCollectMethodPost = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
   /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
@@ -4307,6 +4371,14 @@ export type HealthCheckCollectMethodGet = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
   /**
    * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
    */
@@ -5344,6 +5416,7 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -5386,6 +5459,7 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -5454,6 +5528,7 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -6486,6 +6561,7 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -6528,6 +6604,7 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -6595,6 +6672,7 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -7633,6 +7711,8 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -7672,6 +7752,8 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -7737,6 +7819,8 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -8765,6 +8849,8 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -8805,6 +8891,8 @@ export type HealthCheckAuthenticationLogin$Outbound = {
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -8870,6 +8958,8 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -9899,6 +9989,8 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -9931,6 +10023,8 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -9989,6 +10083,8 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -11008,6 +11104,8 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -11041,6 +11139,8 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -11099,6 +11199,8 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -12102,6 +12204,8 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -12133,6 +12237,8 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -12189,6 +12295,8 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -13238,6 +13346,8 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -13270,6 +13380,8 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -13329,6 +13441,8 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -14341,6 +14455,8 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -14375,6 +14491,8 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -14434,6 +14552,8 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 
@@ -15499,6 +15619,8 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  clientSecretParamValue: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
@@ -15533,6 +15655,8 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  clientSecretParamValue?: string | undefined;
+  textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
 
@@ -15592,6 +15716,8 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  clientSecretParamValue: z.string().optional(),
+  textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
 

@@ -18,9 +18,9 @@ import {
   MinimumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$outboundSchema,
 } from "./minimumtlsversionoptionsredisdeploymenttypestandalonetlsoptions.js";
 
-export type TlsOptionsTypeRedisDeploymentTypeCluster = {
+export type TlsOptionsTypeRedisDeploymentTypeStandalone = {
   /**
-   * Reject certs that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's CA)
+   * Reject certificates that are not authorized by a CA in the 'CA certificate path', or by another trusted CA (such as the system's CA)
    */
   rejectUnauthorized?: boolean | undefined;
   /**
@@ -62,27 +62,28 @@ export type TlsOptionsTypeRedisDeploymentTypeCluster = {
 };
 
 /** @internal */
-export const TlsOptionsTypeRedisDeploymentTypeCluster$inboundSchema: z.ZodType<
-  TlsOptionsTypeRedisDeploymentTypeCluster,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rejectUnauthorized: types.optional(types.boolean()),
-  servername: types.optional(types.string()),
-  certificateName: types.optional(types.string()),
-  caPath: types.optional(types.string()),
-  privKeyPath: types.optional(types.string()),
-  certPath: types.optional(types.string()),
-  passphrase: types.optional(types.string()),
-  minVersion: types.optional(
-    MinimumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$inboundSchema,
-  ),
-  maxVersion: types.optional(
-    MaximumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$inboundSchema,
-  ),
-});
+export const TlsOptionsTypeRedisDeploymentTypeStandalone$inboundSchema:
+  z.ZodType<
+    TlsOptionsTypeRedisDeploymentTypeStandalone,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    rejectUnauthorized: types.optional(types.boolean()),
+    servername: types.optional(types.string()),
+    certificateName: types.optional(types.string()),
+    caPath: types.optional(types.string()),
+    privKeyPath: types.optional(types.string()),
+    certPath: types.optional(types.string()),
+    passphrase: types.optional(types.string()),
+    minVersion: types.optional(
+      MinimumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$inboundSchema,
+    ),
+    maxVersion: types.optional(
+      MaximumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$inboundSchema,
+    ),
+  });
 /** @internal */
-export type TlsOptionsTypeRedisDeploymentTypeCluster$Outbound = {
+export type TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   servername?: string | undefined;
   certificateName?: string | undefined;
@@ -95,48 +96,49 @@ export type TlsOptionsTypeRedisDeploymentTypeCluster$Outbound = {
 };
 
 /** @internal */
-export const TlsOptionsTypeRedisDeploymentTypeCluster$outboundSchema: z.ZodType<
-  TlsOptionsTypeRedisDeploymentTypeCluster$Outbound,
-  z.ZodTypeDef,
-  TlsOptionsTypeRedisDeploymentTypeCluster
-> = z.object({
-  rejectUnauthorized: z.boolean().optional(),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion:
-    MinimumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$outboundSchema
-      .optional(),
-  maxVersion:
-    MaximumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$outboundSchema
-      .optional(),
-});
+export const TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema:
+  z.ZodType<
+    TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound,
+    z.ZodTypeDef,
+    TlsOptionsTypeRedisDeploymentTypeStandalone
+  > = z.object({
+    rejectUnauthorized: z.boolean().optional(),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion:
+      MinimumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$outboundSchema
+        .optional(),
+    maxVersion:
+      MaximumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$outboundSchema
+        .optional(),
+  });
 
-export function tlsOptionsTypeRedisDeploymentTypeClusterToJSON(
-  tlsOptionsTypeRedisDeploymentTypeCluster:
-    TlsOptionsTypeRedisDeploymentTypeCluster,
+export function tlsOptionsTypeRedisDeploymentTypeStandaloneToJSON(
+  tlsOptionsTypeRedisDeploymentTypeStandalone:
+    TlsOptionsTypeRedisDeploymentTypeStandalone,
 ): string {
   return JSON.stringify(
-    TlsOptionsTypeRedisDeploymentTypeCluster$outboundSchema.parse(
-      tlsOptionsTypeRedisDeploymentTypeCluster,
+    TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema.parse(
+      tlsOptionsTypeRedisDeploymentTypeStandalone,
     ),
   );
 }
-export function tlsOptionsTypeRedisDeploymentTypeClusterFromJSON(
+export function tlsOptionsTypeRedisDeploymentTypeStandaloneFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  TlsOptionsTypeRedisDeploymentTypeCluster,
+  TlsOptionsTypeRedisDeploymentTypeStandalone,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      TlsOptionsTypeRedisDeploymentTypeCluster$inboundSchema.parse(
+      TlsOptionsTypeRedisDeploymentTypeStandalone$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'TlsOptionsTypeRedisDeploymentTypeCluster' from JSON`,
+    `Failed to parse 'TlsOptionsTypeRedisDeploymentTypeStandalone' from JSON`,
   );
 }

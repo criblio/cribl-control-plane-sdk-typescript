@@ -12,10 +12,11 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp,
-  TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$inboundSchema,
-  TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
-} from "./timestamptypeoptionseventbreakerexistingornewnewtimestamp.js";
+  TimestampFormatTypeEventBreakerExistingOrNewNew,
+  TimestampFormatTypeEventBreakerExistingOrNewNew$inboundSchema,
+  TimestampFormatTypeEventBreakerExistingOrNewNew$Outbound,
+  TimestampFormatTypeEventBreakerExistingOrNewNew$outboundSchema,
+} from "./timestampformattypeeventbreakerexistingornewnew.js";
 
 export type EventBreakerExistingOrNewExisting = {
   existingOrNew: "existing";
@@ -24,6 +25,28 @@ export type EventBreakerExistingOrNewExisting = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  ruleType?: string | undefined;
+  /**
+   * The maximum number of bytes that an event can be before being flushed to the Pipelines
+   */
+  maxEventBytes?: number | undefined;
+  /**
+   * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
+   */
+  timestampAnchorRegex?: string | undefined;
+  timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
+  /**
+   * Timezone to assign to timestamps without timezone info
+   */
+  timestampTimezone?: string | undefined;
+  /**
+   * The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
+   */
+  timestampEarliest?: string | undefined;
+  /**
+   * The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
+   */
+  timestampLatest?: string | undefined;
 };
 
 export const EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew = {
@@ -39,12 +62,6 @@ export const EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew = {
 export type EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew
 >;
-
-export type EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat = {
-  type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
-  length?: number | undefined;
-  format?: string | undefined;
-};
 
 export type EventBreakerExistingOrNewNewRuleTypeCsv = {
   ruleType: "csv";
@@ -73,9 +90,7 @@ export type EventBreakerExistingOrNewNewRuleTypeCsv = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
-  timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat
-    | undefined;
+  timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
    */
@@ -92,6 +107,7 @@ export type EventBreakerExistingOrNewNewRuleTypeCsv = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 export const EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew = {
@@ -107,12 +123,6 @@ export const EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew = {
 export type EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew
 >;
-
-export type EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat = {
-  type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
-  length?: number | undefined;
-  format?: string | undefined;
-};
 
 export type EventBreakerExistingOrNewNewRuleTypeHeader = {
   ruleType: "header";
@@ -145,9 +155,7 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
-  timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat
-    | undefined;
+  timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
    */
@@ -164,6 +172,7 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew = {
@@ -178,12 +187,6 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew = {
 } as const;
 export type EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew =
   OpenEnum<typeof EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew>;
-
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat = {
-  type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
-  length?: number | undefined;
-  format?: string | undefined;
-};
 
 export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
   ruleType: "json_array";
@@ -216,9 +219,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
-  timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat
-    | undefined;
+  timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
    */
@@ -235,6 +236,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 export const EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew = {
@@ -251,12 +253,6 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew
 >;
 
-export type EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat = {
-  type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
-  length?: number | undefined;
-  format?: string | undefined;
-};
-
 export type EventBreakerExistingOrNewNewRuleTypeJson = {
   ruleType: "json";
   existingOrNew: EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew;
@@ -268,9 +264,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJson = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
-  timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat
-    | undefined;
+  timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
    */
@@ -287,6 +281,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJson = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 export const EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew = {
@@ -303,12 +298,6 @@ export type EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew
 >;
 
-export type EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat = {
-  type: TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp;
-  length?: number | undefined;
-  format?: string | undefined;
-};
-
 export type EventBreakerExistingOrNewNewRuleTypeRegex = {
   ruleType: "regex";
   /**
@@ -324,9 +313,7 @@ export type EventBreakerExistingOrNewNewRuleTypeRegex = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
-  timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat
-    | undefined;
+  timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
    */
@@ -343,6 +330,7 @@ export type EventBreakerExistingOrNewNewRuleTypeRegex = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 export type EventBreakerExistingOrNewNew =
@@ -412,12 +400,30 @@ export const EventBreakerExistingOrNewExisting$inboundSchema: z.ZodType<
   existingOrNew: types.literal("existing"),
   existingRule: types.optional(types.string()),
   shouldMarkCriblBreaker: types.optional(types.boolean()),
+  ruleType: types.optional(types.string()),
+  maxEventBytes: types.optional(types.number()),
+  timestampAnchorRegex: types.optional(types.string()),
+  timestamp: types.optional(
+    TimestampFormatTypeEventBreakerExistingOrNewNew$inboundSchema,
+  ),
+  timestampTimezone: types.optional(types.string()),
+  timestampEarliest: types.optional(types.string()),
+  timestampLatest: types.optional(types.string()),
 });
 /** @internal */
 export type EventBreakerExistingOrNewExisting$Outbound = {
   existingOrNew: "existing";
   existingRule?: string | undefined;
   shouldMarkCriblBreaker?: boolean | undefined;
+  ruleType?: string | undefined;
+  maxEventBytes?: number | undefined;
+  timestampAnchorRegex?: string | undefined;
+  timestamp?:
+    | TimestampFormatTypeEventBreakerExistingOrNewNew$Outbound
+    | undefined;
+  timestampTimezone?: string | undefined;
+  timestampEarliest?: string | undefined;
+  timestampLatest?: string | undefined;
 };
 
 /** @internal */
@@ -429,6 +435,14 @@ export const EventBreakerExistingOrNewExisting$outboundSchema: z.ZodType<
   existingOrNew: z.literal("existing"),
   existingRule: z.string().optional(),
   shouldMarkCriblBreaker: z.boolean().optional(),
+  ruleType: z.string().optional(),
+  maxEventBytes: z.number().optional(),
+  timestampAnchorRegex: z.string().optional(),
+  timestamp: TimestampFormatTypeEventBreakerExistingOrNewNew$outboundSchema
+    .optional(),
+  timestampTimezone: z.string().optional(),
+  timestampEarliest: z.string().optional(),
+  timestampLatest: z.string().optional(),
 });
 
 export function eventBreakerExistingOrNewExistingToJSON(
@@ -470,63 +484,6 @@ export const EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew$outboundSchema
   );
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$inboundSchema,
-    length: types.optional(types.number()),
-    format: types.optional(types.string()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$Outbound = {
-  type: string;
-  length?: number | undefined;
-  format?: string | undefined;
-};
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
-    length: z.number().optional(),
-    format: z.string().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeCsvTimestampFormatToJSON(
-  eventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat:
-    EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$outboundSchema.parse(
-      eventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat,
-    ),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeCsvTimestampFormatFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat' from JSON`,
-  );
-}
-
-/** @internal */
 export const EventBreakerExistingOrNewNewRuleTypeCsv$inboundSchema: z.ZodType<
   EventBreakerExistingOrNewNewRuleTypeCsv,
   z.ZodTypeDef,
@@ -542,14 +499,13 @@ export const EventBreakerExistingOrNewNewRuleTypeCsv$inboundSchema: z.ZodType<
   maxEventBytes: types.optional(types.number()),
   timestampAnchorRegex: types.optional(types.string()),
   timestamp: types.optional(
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$inboundSchema
-    ),
+    TimestampFormatTypeEventBreakerExistingOrNewNew$inboundSchema,
   ),
   timestampTimezone: types.optional(types.string()),
   timestampEarliest: types.optional(types.string()),
   timestampLatest: types.optional(types.string()),
   shouldMarkCriblBreaker: types.optional(types.boolean()),
+  existingRule: types.optional(types.string()),
 });
 /** @internal */
 export type EventBreakerExistingOrNewNewRuleTypeCsv$Outbound = {
@@ -562,12 +518,13 @@ export type EventBreakerExistingOrNewNewRuleTypeCsv$Outbound = {
   maxEventBytes?: number | undefined;
   timestampAnchorRegex?: string | undefined;
   timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$Outbound
+    | TimestampFormatTypeEventBreakerExistingOrNewNew$Outbound
     | undefined;
   timestampTimezone?: string | undefined;
   timestampEarliest?: string | undefined;
   timestampLatest?: string | undefined;
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 /** @internal */
@@ -585,13 +542,13 @@ export const EventBreakerExistingOrNewNewRuleTypeCsv$outboundSchema: z.ZodType<
     EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew$outboundSchema,
   maxEventBytes: z.number().optional(),
   timestampAnchorRegex: z.string().optional(),
-  timestamp: z.lazy(() =>
-    EventBreakerExistingOrNewNewRuleTypeCsvTimestampFormat$outboundSchema
-  ).optional(),
+  timestamp: TimestampFormatTypeEventBreakerExistingOrNewNew$outboundSchema
+    .optional(),
   timestampTimezone: z.string().optional(),
   timestampEarliest: z.string().optional(),
   timestampLatest: z.string().optional(),
   shouldMarkCriblBreaker: z.boolean().optional(),
+  existingRule: z.string().optional(),
 });
 
 export function eventBreakerExistingOrNewNewRuleTypeCsvToJSON(
@@ -640,63 +597,6 @@ export const EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew$outboundSch
   );
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$inboundSchema,
-    length: types.optional(types.number()),
-    format: types.optional(types.string()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$Outbound =
-  {
-    type: string;
-    length?: number | undefined;
-    format?: string | undefined;
-  };
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
-    length: z.number().optional(),
-    format: z.string().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormatToJSON(
-  eventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat:
-    EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$outboundSchema
-      .parse(eventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormatFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat' from JSON`,
-  );
-}
-
-/** @internal */
 export const EventBreakerExistingOrNewNewRuleTypeHeader$inboundSchema:
   z.ZodType<EventBreakerExistingOrNewNewRuleTypeHeader, z.ZodTypeDef, unknown> =
     z.object({
@@ -711,14 +611,13 @@ export const EventBreakerExistingOrNewNewRuleTypeHeader$inboundSchema:
       maxEventBytes: types.optional(types.number()),
       timestampAnchorRegex: types.optional(types.string()),
       timestamp: types.optional(
-        z.lazy(() =>
-          EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$inboundSchema
-        ),
+        TimestampFormatTypeEventBreakerExistingOrNewNew$inboundSchema,
       ),
       timestampTimezone: types.optional(types.string()),
       timestampEarliest: types.optional(types.string()),
       timestampLatest: types.optional(types.string()),
       shouldMarkCriblBreaker: types.optional(types.boolean()),
+      existingRule: types.optional(types.string()),
     });
 /** @internal */
 export type EventBreakerExistingOrNewNewRuleTypeHeader$Outbound = {
@@ -732,12 +631,13 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader$Outbound = {
   maxEventBytes?: number | undefined;
   timestampAnchorRegex?: string | undefined;
   timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$Outbound
+    | TimestampFormatTypeEventBreakerExistingOrNewNew$Outbound
     | undefined;
   timestampTimezone?: string | undefined;
   timestampEarliest?: string | undefined;
   timestampLatest?: string | undefined;
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 /** @internal */
@@ -757,13 +657,13 @@ export const EventBreakerExistingOrNewNewRuleTypeHeader$outboundSchema:
       EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew$outboundSchema,
     maxEventBytes: z.number().optional(),
     timestampAnchorRegex: z.string().optional(),
-    timestamp: z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeHeaderTimestampFormat$outboundSchema
-    ).optional(),
+    timestamp: TimestampFormatTypeEventBreakerExistingOrNewNew$outboundSchema
+      .optional(),
     timestampTimezone: z.string().optional(),
     timestampEarliest: z.string().optional(),
     timestampLatest: z.string().optional(),
     shouldMarkCriblBreaker: z.boolean().optional(),
+    existingRule: z.string().optional(),
   });
 
 export function eventBreakerExistingOrNewNewRuleTypeHeaderToJSON(
@@ -812,63 +712,6 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$outbound
   );
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$inboundSchema,
-    length: types.optional(types.number()),
-    format: types.optional(types.string()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$Outbound =
-  {
-    type: string;
-    length?: number | undefined;
-    format?: string | undefined;
-  };
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
-    length: z.number().optional(),
-    format: z.string().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormatToJSON(
-  eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat:
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$outboundSchema
-      .parse(eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormatFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat' from JSON`,
-  );
-}
-
-/** @internal */
 export const EventBreakerExistingOrNewNewRuleTypeJsonArray$inboundSchema:
   z.ZodType<
     EventBreakerExistingOrNewNewRuleTypeJsonArray,
@@ -886,14 +729,13 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArray$inboundSchema:
     maxEventBytes: types.optional(types.number()),
     timestampAnchorRegex: types.optional(types.string()),
     timestamp: types.optional(
-      z.lazy(() =>
-        EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$inboundSchema
-      ),
+      TimestampFormatTypeEventBreakerExistingOrNewNew$inboundSchema,
     ),
     timestampTimezone: types.optional(types.string()),
     timestampEarliest: types.optional(types.string()),
     timestampLatest: types.optional(types.string()),
     shouldMarkCriblBreaker: types.optional(types.boolean()),
+    existingRule: types.optional(types.string()),
   });
 /** @internal */
 export type EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound = {
@@ -907,12 +749,13 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound = {
   maxEventBytes?: number | undefined;
   timestampAnchorRegex?: string | undefined;
   timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$Outbound
+    | TimestampFormatTypeEventBreakerExistingOrNewNew$Outbound
     | undefined;
   timestampTimezone?: string | undefined;
   timestampEarliest?: string | undefined;
   timestampLatest?: string | undefined;
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 /** @internal */
@@ -932,13 +775,13 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArray$outboundSchema:
       EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$outboundSchema,
     maxEventBytes: z.number().optional(),
     timestampAnchorRegex: z.string().optional(),
-    timestamp: z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonArrayTimestampFormat$outboundSchema
-    ).optional(),
+    timestamp: TimestampFormatTypeEventBreakerExistingOrNewNew$outboundSchema
+      .optional(),
     timestampTimezone: z.string().optional(),
     timestampEarliest: z.string().optional(),
     timestampLatest: z.string().optional(),
     shouldMarkCriblBreaker: z.boolean().optional(),
+    existingRule: z.string().optional(),
   });
 
 export function eventBreakerExistingOrNewNewRuleTypeJsonArrayToJSON(
@@ -987,62 +830,6 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew$outboundSchem
   );
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$inboundSchema,
-    length: types.optional(types.number()),
-    format: types.optional(types.string()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$Outbound = {
-  type: string;
-  length?: number | undefined;
-  format?: string | undefined;
-};
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
-    length: z.number().optional(),
-    format: z.string().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeJsonTimestampFormatToJSON(
-  eventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat:
-    EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$outboundSchema
-      .parse(eventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeJsonTimestampFormatFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat' from JSON`,
-  );
-}
-
-/** @internal */
 export const EventBreakerExistingOrNewNewRuleTypeJson$inboundSchema: z.ZodType<
   EventBreakerExistingOrNewNewRuleTypeJson,
   z.ZodTypeDef,
@@ -1054,14 +841,13 @@ export const EventBreakerExistingOrNewNewRuleTypeJson$inboundSchema: z.ZodType<
   maxEventBytes: types.optional(types.number()),
   timestampAnchorRegex: types.optional(types.string()),
   timestamp: types.optional(
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$inboundSchema
-    ),
+    TimestampFormatTypeEventBreakerExistingOrNewNew$inboundSchema,
   ),
   timestampTimezone: types.optional(types.string()),
   timestampEarliest: types.optional(types.string()),
   timestampLatest: types.optional(types.string()),
   shouldMarkCriblBreaker: types.optional(types.boolean()),
+  existingRule: types.optional(types.string()),
 });
 /** @internal */
 export type EventBreakerExistingOrNewNewRuleTypeJson$Outbound = {
@@ -1070,12 +856,13 @@ export type EventBreakerExistingOrNewNewRuleTypeJson$Outbound = {
   maxEventBytes?: number | undefined;
   timestampAnchorRegex?: string | undefined;
   timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$Outbound
+    | TimestampFormatTypeEventBreakerExistingOrNewNew$Outbound
     | undefined;
   timestampTimezone?: string | undefined;
   timestampEarliest?: string | undefined;
   timestampLatest?: string | undefined;
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 /** @internal */
@@ -1089,13 +876,13 @@ export const EventBreakerExistingOrNewNewRuleTypeJson$outboundSchema: z.ZodType<
     EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew$outboundSchema,
   maxEventBytes: z.number().optional(),
   timestampAnchorRegex: z.string().optional(),
-  timestamp: z.lazy(() =>
-    EventBreakerExistingOrNewNewRuleTypeJsonTimestampFormat$outboundSchema
-  ).optional(),
+  timestamp: TimestampFormatTypeEventBreakerExistingOrNewNew$outboundSchema
+    .optional(),
   timestampTimezone: z.string().optional(),
   timestampEarliest: z.string().optional(),
   timestampLatest: z.string().optional(),
   shouldMarkCriblBreaker: z.boolean().optional(),
+  existingRule: z.string().optional(),
 });
 
 export function eventBreakerExistingOrNewNewRuleTypeJsonToJSON(
@@ -1144,63 +931,6 @@ export const EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew$outboundSche
   );
 
 /** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$inboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$inboundSchema,
-    length: types.optional(types.number()),
-    format: types.optional(types.string()),
-  });
-/** @internal */
-export type EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$Outbound =
-  {
-    type: string;
-    length?: number | undefined;
-    format?: string | undefined;
-  };
-
-/** @internal */
-export const EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$outboundSchema:
-  z.ZodType<
-    EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$Outbound,
-    z.ZodTypeDef,
-    EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat
-  > = z.object({
-    type:
-      TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp$outboundSchema,
-    length: z.number().optional(),
-    format: z.string().optional(),
-  });
-
-export function eventBreakerExistingOrNewNewRuleTypeRegexTimestampFormatToJSON(
-  eventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat:
-    EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat,
-): string {
-  return JSON.stringify(
-    EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$outboundSchema
-      .parse(eventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat),
-  );
-}
-export function eventBreakerExistingOrNewNewRuleTypeRegexTimestampFormatFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat' from JSON`,
-  );
-}
-
-/** @internal */
 export const EventBreakerExistingOrNewNewRuleTypeRegex$inboundSchema: z.ZodType<
   EventBreakerExistingOrNewNewRuleTypeRegex,
   z.ZodTypeDef,
@@ -1213,14 +943,13 @@ export const EventBreakerExistingOrNewNewRuleTypeRegex$inboundSchema: z.ZodType<
   maxEventBytes: types.optional(types.number()),
   timestampAnchorRegex: types.optional(types.string()),
   timestamp: types.optional(
-    z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$inboundSchema
-    ),
+    TimestampFormatTypeEventBreakerExistingOrNewNew$inboundSchema,
   ),
   timestampTimezone: types.optional(types.string()),
   timestampEarliest: types.optional(types.string()),
   timestampLatest: types.optional(types.string()),
   shouldMarkCriblBreaker: types.optional(types.boolean()),
+  existingRule: types.optional(types.string()),
 });
 /** @internal */
 export type EventBreakerExistingOrNewNewRuleTypeRegex$Outbound = {
@@ -1230,12 +959,13 @@ export type EventBreakerExistingOrNewNewRuleTypeRegex$Outbound = {
   maxEventBytes?: number | undefined;
   timestampAnchorRegex?: string | undefined;
   timestamp?:
-    | EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$Outbound
+    | TimestampFormatTypeEventBreakerExistingOrNewNew$Outbound
     | undefined;
   timestampTimezone?: string | undefined;
   timestampEarliest?: string | undefined;
   timestampLatest?: string | undefined;
   shouldMarkCriblBreaker?: boolean | undefined;
+  existingRule?: string | undefined;
 };
 
 /** @internal */
@@ -1251,13 +981,13 @@ export const EventBreakerExistingOrNewNewRuleTypeRegex$outboundSchema:
       EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew$outboundSchema,
     maxEventBytes: z.number().optional(),
     timestampAnchorRegex: z.string().optional(),
-    timestamp: z.lazy(() =>
-      EventBreakerExistingOrNewNewRuleTypeRegexTimestampFormat$outboundSchema
-    ).optional(),
+    timestamp: TimestampFormatTypeEventBreakerExistingOrNewNew$outboundSchema
+      .optional(),
     timestampTimezone: z.string().optional(),
     timestampEarliest: z.string().optional(),
     timestampLatest: z.string().optional(),
     shouldMarkCriblBreaker: z.boolean().optional(),
+    existingRule: z.string().optional(),
   });
 
 export function eventBreakerExistingOrNewNewRuleTypeRegexToJSON(

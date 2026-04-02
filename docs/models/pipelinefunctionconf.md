@@ -165,6 +165,7 @@ const value: models.PipelineFunctionEventBreaker = {
   id: "event_breaker",
   conf: {
     existingOrNew: "existing",
+    ruleType: "header",
   },
 };
 ```

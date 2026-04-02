@@ -6365,6 +6365,10 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   disableTimeFilter?: boolean | undefined;
   /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+  /**
    * Select authentication method.
    */
   authType?:
@@ -15539,6 +15543,7 @@ export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   endDate?: string | undefined;
   timeout?: number | undefined;
   disableTimeFilter?: boolean | undefined;
+  maxPages?: number | undefined;
   authType?: string | undefined;
   keepAliveTime?: number | undefined;
   jobTimeout?: string | undefined;
@@ -15588,6 +15593,7 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     endDate: z.string().optional(),
     timeout: z.number().optional(),
     disableTimeFilter: z.boolean().optional(),
+    maxPages: z.number().int().optional(),
     authType:
       CreateInputSystemByPackAuthenticationMethodMicrosoftGraph$outboundSchema
         .optional(),

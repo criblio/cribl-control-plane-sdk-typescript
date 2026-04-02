@@ -181,6 +181,7 @@ export type SplunkAuthenticationTokenSecret = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -370,6 +371,10 @@ export type SplunkAuthenticationToken = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -562,6 +567,11 @@ export type SplunkAuthenticationBasicSecret = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -758,6 +768,11 @@ export type SplunkAuthenticationBasic = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -946,6 +961,11 @@ export type SplunkAuthenticationNone = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -1377,6 +1397,7 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -1410,6 +1431,7 @@ export type SplunkAuthenticationTokenSecret$Outbound = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -1458,6 +1480,7 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -1879,6 +1902,7 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  tokenSecret: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -1912,6 +1936,7 @@ export type SplunkAuthenticationToken$Outbound = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  tokenSecret?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -1956,6 +1981,7 @@ export const SplunkAuthenticationToken$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  tokenSecret: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -2378,6 +2404,8 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
+  tokenSecret: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -2411,6 +2439,8 @@ export type SplunkAuthenticationBasicSecret$Outbound = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -2459,6 +2489,8 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -2881,6 +2913,8 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
+  tokenSecret: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -2915,6 +2949,8 @@ export type SplunkAuthenticationBasic$Outbound = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -2960,6 +2996,8 @@ export const SplunkAuthenticationBasic$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -3376,6 +3414,8 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  token: types.optional(types.string()),
+  tokenSecret: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -3408,6 +3448,8 @@ export type SplunkAuthenticationNone$Outbound = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -3451,6 +3493,8 @@ export const SplunkAuthenticationNone$outboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
