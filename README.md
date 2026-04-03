@@ -325,7 +325,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment for a specific product
+* [get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -536,7 +536,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nodesGet`](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
 - [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
 - [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
-- [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment for a specific product
+- [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
 - [`packsDestinationsDelete`](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
