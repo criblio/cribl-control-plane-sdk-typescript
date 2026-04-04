@@ -155,6 +155,10 @@ export type OutputDatabricks = {
    */
   workspaceId: string;
   /**
+   * Hostname for the Databricks workspace. Override this to connect to government or secure cloud environments (e.g. cloud.databricks.us, cloud.databricks.mil, azuredatabricks.net).
+   */
+  workspaceHost?: string | undefined;
+  /**
    * OAuth scope for Unity Catalog authentication
    */
   scope: string;
@@ -313,6 +317,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
   workspaceId: types.string(),
+  workspaceHost: types.optional(types.string()),
   scope: types.string(),
   clientId: types.string(),
   catalog: types.string(),
@@ -375,6 +380,7 @@ export type OutputDatabricks$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
   workspaceId: string;
+  workspaceHost?: string | undefined;
   scope: string;
   clientId: string;
   catalog: string;
@@ -441,6 +447,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   workspaceId: z.string(),
+  workspaceHost: z.string().optional(),
   scope: z.string(),
   clientId: z.string(),
   catalog: z.string(),

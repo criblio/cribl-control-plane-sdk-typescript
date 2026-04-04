@@ -6282,6 +6282,38 @@ export type CreateInputAuthenticationMethodMicrosoftGraph = OpenEnum<
   typeof CreateInputAuthenticationMethodMicrosoftGraph
 >;
 
+/**
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+ */
+export const CreateInputSubscriptionPlan = {
+  /**
+   * Microsoft 365 Enterprise
+   */
+  EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Microsoft 365 GCC
+   */
+  Gcc: "gcc",
+  /**
+   * Microsoft 365 GCC High
+   */
+  GccHigh: "gcc_high",
+  /**
+   * Microsoft 365 DoD
+   */
+  Dod: "dod",
+  /**
+   * Microsoft 365 China (21Vianet)
+   */
+  China: "china",
+} as const;
+/**
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+ */
+export type CreateInputSubscriptionPlan = OpenEnum<
+  typeof CreateInputSubscriptionPlan
+>;
+
 export type CreateInputInputMicrosoftGraph = {
   /**
    * Unique ID for this input
@@ -6403,7 +6435,7 @@ export type CreateInputInputMicrosoftGraph = {
   /**
    * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
-  planType?: models.SubscriptionPlanOptions | undefined;
+  planType?: CreateInputSubscriptionPlan | undefined;
   /**
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
@@ -15117,6 +15149,13 @@ export const CreateInputAuthenticationMethodMicrosoftGraph$outboundSchema:
   > = openEnums.outboundSchema(CreateInputAuthenticationMethodMicrosoftGraph);
 
 /** @internal */
+export const CreateInputSubscriptionPlan$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSubscriptionPlan
+> = openEnums.outboundSchema(CreateInputSubscriptionPlan);
+
+/** @internal */
 export type CreateInputInputMicrosoftGraph$Outbound = {
   id: string;
   type: "microsoft_graph";
@@ -15201,7 +15240,7 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
   resource: z.string().optional(),
-  planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
+  planType: CreateInputSubscriptionPlan$outboundSchema.optional(),
   textSecret: z.string().optional(),
   certOptions: models.CertOptionsType$outboundSchema.optional(),
   __template_url: z.string().optional(),

@@ -607,6 +607,10 @@ export type CreateOutputSystemByPackOutputDatabricks = {
    */
   workspaceId: string;
   /**
+   * Hostname for the Databricks workspace. Override this to connect to government or secure cloud environments (e.g. cloud.databricks.us, cloud.databricks.mil, azuredatabricks.net).
+   */
+  workspaceHost?: string | undefined;
+  /**
    * OAuth scope for Unity Catalog authentication
    */
   scope: string;
@@ -11088,6 +11092,7 @@ export type CreateOutputSystemByPackOutputDatabricks$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
   workspaceId: string;
+  workspaceHost?: string | undefined;
   scope: string;
   clientId: string;
   catalog: string;
@@ -11157,6 +11162,7 @@ export const CreateOutputSystemByPackOutputDatabricks$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   workspaceId: z.string(),
+  workspaceHost: z.string().optional(),
   scope: z.string(),
   clientId: z.string(),
   catalog: z.string(),
