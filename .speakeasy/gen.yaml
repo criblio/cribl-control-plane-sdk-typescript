@@ -33,7 +33,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.7.0-alpha.14
+  version: 0.7.0-alpha.15
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -53,6 +53,7 @@ typescript:
   enumFormat: union
   envVarPrefix: CRIBLCONTROLPLANE
   exportZodModelNamespace: false
+  fixEnumNameSanitization: false
   flatAdditionalProperties: true
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first

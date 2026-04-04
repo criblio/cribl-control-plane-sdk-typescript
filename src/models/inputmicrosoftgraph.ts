@@ -44,11 +44,6 @@ import {
   RetryRulesType1$Outbound,
   RetryRulesType1$outboundSchema,
 } from "./retryrulestype1.js";
-import {
-  SubscriptionPlanOptions,
-  SubscriptionPlanOptions$inboundSchema,
-  SubscriptionPlanOptions$outboundSchema,
-} from "./subscriptionplanoptions.js";
 
 /**
  * Select authentication method.
@@ -64,6 +59,36 @@ export const InputMicrosoftGraphAuthenticationMethod = {
 export type InputMicrosoftGraphAuthenticationMethod = OpenEnum<
   typeof InputMicrosoftGraphAuthenticationMethod
 >;
+
+/**
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+ */
+export const SubscriptionPlan = {
+  /**
+   * Microsoft 365 Enterprise
+   */
+  EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Microsoft 365 GCC
+   */
+  Gcc: "gcc",
+  /**
+   * Microsoft 365 GCC High
+   */
+  GccHigh: "gcc_high",
+  /**
+   * Microsoft 365 DoD
+   */
+  Dod: "dod",
+  /**
+   * Microsoft 365 China (21Vianet)
+   */
+  China: "china",
+} as const;
+/**
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+ */
+export type SubscriptionPlan = OpenEnum<typeof SubscriptionPlan>;
 
 export type InputMicrosoftGraph = {
   /**
@@ -186,7 +211,7 @@ export type InputMicrosoftGraph = {
   /**
    * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
-  planType?: SubscriptionPlanOptions | undefined;
+  planType?: SubscriptionPlan | undefined;
   /**
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
@@ -222,6 +247,19 @@ export const InputMicrosoftGraphAuthenticationMethod$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputMicrosoftGraphAuthenticationMethod
 > = openEnums.outboundSchema(InputMicrosoftGraphAuthenticationMethod);
+
+/** @internal */
+export const SubscriptionPlan$inboundSchema: z.ZodType<
+  SubscriptionPlan,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SubscriptionPlan);
+/** @internal */
+export const SubscriptionPlan$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SubscriptionPlan
+> = openEnums.outboundSchema(SubscriptionPlan);
 
 /** @internal */
 export const InputMicrosoftGraph$inboundSchema: z.ZodType<
@@ -266,7 +304,7 @@ export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   tenantId: types.optional(types.string()),
   clientId: types.optional(types.string()),
   resource: types.optional(types.string()),
-  planType: types.optional(SubscriptionPlanOptions$inboundSchema),
+  planType: types.optional(SubscriptionPlan$inboundSchema),
   textSecret: types.optional(types.string()),
   certOptions: types.optional(CertOptionsType$inboundSchema),
   __template_url: types.optional(types.string()),
@@ -357,7 +395,7 @@ export const InputMicrosoftGraph$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
   resource: z.string().optional(),
-  planType: SubscriptionPlanOptions$outboundSchema.optional(),
+  planType: SubscriptionPlan$outboundSchema.optional(),
   textSecret: z.string().optional(),
   certOptions: CertOptionsType$outboundSchema.optional(),
   __template_url: z.string().optional(),
