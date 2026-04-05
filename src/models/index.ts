@@ -253,7 +253,6 @@ export * from "./gitrevertparams.js";
 export * from "./gitrevertresult.js";
 export * from "./gitshowresult.js";
 export * from "./gitstatusresult.js";
-export * from "./gittypeconfiggroup.js";
 export * from "./googleauthenticationmethodoptions.js";
 export * from "./googlecloudstoragecollectorconf.js";
 export * from "./groupcreaterequest.js";

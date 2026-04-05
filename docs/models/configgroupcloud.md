@@ -16,4 +16,4 @@ let value: ConfigGroupCloud = {
 | Field                                              | Type                                               | Required                                           | Description                                        |
 | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
 | `provider`                                         | [models.CloudProvider](../models/cloudprovider.md) | :heavy_check_mark:                                 | N/A                                                |
-| `region`                                           | *string*                                           | :heavy_check_mark:                                 | N/A                                                |
+| `region`                                           | *string*                                           | :heavy_check_mark:                                 | Cloud region where the Worker Group is deployed.   |
