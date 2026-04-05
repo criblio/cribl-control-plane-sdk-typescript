@@ -502,9 +502,9 @@ run();
 
 ## update
 
-Update the specified Worker Group, Outpost Group, or Edge Fleet.
+Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provide a complete representation of the Group or Fleet that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Group or Fleet.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Group or Fleet might not function as expected.**Warning**: Do not change the values for the following parameters in the body of PATCH requests. The request body must include the values as they appear in the <code>GET /products/{product}/groups/{id}</code> response.<br/>- <code>configVersion</code><br/>- <code>deployingWorkerCount</code><br/>- <code>incompatibleWorkerCount</code><br/>- <code>workerCount</code><br/>- <code>lookupDeployments</code>.
 
-### Example Usage
+### Example Usage: UpdateGroupExamplesScaleCloudWorkerGroup
 
 <!-- UsageSnippet language="typescript" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesScaleCloudWorkerGroup" -->
 ```typescript
@@ -526,13 +526,18 @@ async function run() {
         provider: "aws",
         region: "us-west-2",
       },
+      configVersion: "abc1234",
+      deployingWorkerCount: 0,
       description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
       estimatedIngestRate: 4096,
       id: "goatCloudIanWg",
+      incompatibleWorkerCount: 0,
+      lookupDeployments: [],
       name: "goatcloudianwg",
       onPrem: false,
       provisioned: true,
       type: "stream",
+      workerCount: 3,
       workerRemoteAccess: true,
     },
   });
@@ -569,13 +574,101 @@ async function run() {
         provider: "aws",
         region: "us-west-2",
       },
+      configVersion: "abc1234",
+      deployingWorkerCount: 0,
       description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
       estimatedIngestRate: 4096,
       id: "goatCloudIanWg",
+      incompatibleWorkerCount: 0,
+      lookupDeployments: [],
       name: "goatcloudianwg",
       onPrem: false,
       provisioned: true,
       type: "stream",
+      workerCount: 3,
+      workerRemoteAccess: true,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateGroupExamplesUpdateOnPremWorkerGroup
+
+<!-- UsageSnippet language="typescript" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesUpdateOnPremWorkerGroup" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.update({
+    product: "outpost",
+    id: "<id>",
+    configGroup: {
+      configVersion: "abc1234",
+      deployingWorkerCount: 0,
+      description: "Updated customer-managed Worker Group with remote access enabled",
+      id: "goatOnPremIanWg",
+      incompatibleWorkerCount: 0,
+      lookupDeployments: [],
+      name: "goatonpremianwg",
+      onPrem: true,
+      type: "stream",
+      workerCount: 5,
+      workerRemoteAccess: true,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsUpdate } from "cribl-control-plane/funcs/groupsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsUpdate(criblControlPlane, {
+    product: "outpost",
+    id: "<id>",
+    configGroup: {
+      configVersion: "abc1234",
+      deployingWorkerCount: 0,
+      description: "Updated customer-managed Worker Group with remote access enabled",
+      id: "goatOnPremIanWg",
+      incompatibleWorkerCount: 0,
+      lookupDeployments: [],
+      name: "goatonpremianwg",
+      onPrem: true,
+      type: "stream",
+      workerCount: 5,
       workerRemoteAccess: true,
     },
   });

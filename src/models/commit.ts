@@ -9,11 +9,29 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Commit = {
+  /**
+   * Email address of the commit author.
+   */
   author_email?: string | undefined;
+  /**
+   * Name of the commit author.
+   */
   author_name?: string | undefined;
+  /**
+   * Date and time of the commit.
+   */
   date: string;
+  /**
+   * Full commit hash.
+   */
   hash: string;
+  /**
+   * Commit message.
+   */
   message: string;
+  /**
+   * Abbreviated commit hash.
+   */
   short: string;
 };
 
