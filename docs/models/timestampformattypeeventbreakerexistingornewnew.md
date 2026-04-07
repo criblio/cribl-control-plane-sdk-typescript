@@ -1,31 +1,19 @@
 # TimestampFormatTypeEventBreakerExistingOrNewNew
 
-
-## Supported Types
-
-### `models.EventBreakerExistingOrNewNewTimestampTypeAuto`
+## Example Usage
 
 ```typescript
-const value: models.EventBreakerExistingOrNewNewTimestampTypeAuto = {
+import { TimestampFormatTypeEventBreakerExistingOrNewNew } from "cribl-control-plane/models";
+
+let value: TimestampFormatTypeEventBreakerExistingOrNewNew = {
   type: "auto",
-  length: 9269.53,
 };
 ```
 
-### `models.EventBreakerExistingOrNewNewTimestampTypeFormat`
+## Fields
 
-```typescript
-const value: models.EventBreakerExistingOrNewNewTimestampTypeFormat = {
-  type: "format",
-  format: "<value>",
-};
-```
-
-### `models.EventBreakerExistingOrNewNewTimestampTypeCurrent`
-
-```typescript
-const value: models.EventBreakerExistingOrNewNewTimestampTypeCurrent = {
-  type: "current",
-};
-```
-
+| Field                                                                                                                                      | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                                                     | [models.TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp](../models/timestamptypeoptionseventbreakerexistingornewnewtimestamp.md) | :heavy_check_mark:                                                                                                                         | N/A                                                                                                                                        |
+| `length`                                                                                                                                   | *number*                                                                                                                                   | :heavy_minus_sign:                                                                                                                         | N/A                                                                                                                                        |
+| `format`                                                                                                                                   | *string*                                                                                                                                   | :heavy_minus_sign:                                                                                                                         | N/A                                                                                                                                        |

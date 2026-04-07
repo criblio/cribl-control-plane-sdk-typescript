@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AcknowledgmentsOptions1,
-  AcknowledgmentsOptions1$inboundSchema,
-  AcknowledgmentsOptions1$outboundSchema,
-} from "./acknowledgmentsoptions1.js";
+  AcknowledgmentsOptionsAllLeader,
+  AcknowledgmentsOptionsAllLeader$inboundSchema,
+  AcknowledgmentsOptionsAllLeader$outboundSchema,
+} from "./acknowledgmentsoptionsallleader.js";
 import {
   AuthenticationType,
   AuthenticationType$inboundSchema,
@@ -23,10 +23,10 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions3,
-  CompressionOptions3$inboundSchema,
-  CompressionOptions3$outboundSchema,
-} from "./compressionoptions3.js";
+  CompressionOptionsGzipLz4,
+  CompressionOptionsGzipLz4$inboundSchema,
+  CompressionOptionsGzipLz4$outboundSchema,
+} from "./compressionoptionsgziplz4.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -34,11 +34,11 @@ import {
 } from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  KafkaSchemaRegistryAuthenticationType1,
-  KafkaSchemaRegistryAuthenticationType1$inboundSchema,
-  KafkaSchemaRegistryAuthenticationType1$Outbound,
-  KafkaSchemaRegistryAuthenticationType1$outboundSchema,
-} from "./kafkaschemaregistryauthenticationtype1.js";
+  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout,
+  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$inboundSchema,
+  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound,
+  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema,
+} from "./kafkaschemaregistryauthenticationtypeauthconnectiontimeout.js";
 import {
   ModeOptions,
   ModeOptions$inboundSchema,
@@ -50,16 +50,16 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  RecordDataFormatOptions1,
-  RecordDataFormatOptions1$inboundSchema,
-  RecordDataFormatOptions1$outboundSchema,
-} from "./recorddataformatoptions1.js";
+  RecordDataFormatOptionsJsonProtobuf,
+  RecordDataFormatOptionsJsonProtobuf$inboundSchema,
+  RecordDataFormatOptionsJsonProtobuf$outboundSchema,
+} from "./recorddataformatoptionsjsonprotobuf.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type OutputConfluentCloudPqControls = {};
 
@@ -89,7 +89,7 @@ export type OutputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
    */
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The topic to publish events to. Can be overridden using the __topicOut field.
    */
@@ -97,15 +97,15 @@ export type OutputConfluentCloud = {
   /**
    * Control the number of required acknowledgments.
    */
-  ack?: AcknowledgmentsOptions1 | undefined;
+  ack?: AcknowledgmentsOptionsAllLeader | undefined;
   /**
    * Format to use to serialize events before writing to Kafka.
    */
-  format?: RecordDataFormatOptions1 | undefined;
+  format?: RecordDataFormatOptionsJsonProtobuf | undefined;
   /**
    * Codec to use to compress the data before sending to Kafka
    */
-  compression?: CompressionOptions3 | undefined;
+  compression?: CompressionOptionsGzipLz4 | undefined;
   /**
    * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
    */
@@ -118,7 +118,9 @@ export type OutputConfluentCloud = {
    * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
    */
   flushPeriodSec?: number | undefined;
-  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType1 | undefined;
+  kafkaSchemaRegistry?:
+    | KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
+    | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
    */
@@ -181,7 +183,7 @@ export type OutputConfluentCloud = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -208,11 +210,27 @@ export type OutputConfluentCloud = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputConfluentCloudPqControls | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'compression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compression' at runtime.
+   */
+  __template_compression?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -263,18 +281,16 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   brokers: z.array(types.string()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptions1$inboundSchema),
-  format: types.optional(RecordDataFormatOptions1$inboundSchema),
-  compression: types.optional(CompressionOptions3$inboundSchema),
+  ack: types.optional(AcknowledgmentsOptionsAllLeader$inboundSchema),
+  format: types.optional(RecordDataFormatOptionsJsonProtobuf$inboundSchema),
+  compression: types.optional(CompressionOptionsGzipLz4$inboundSchema),
   maxRecordSizeKB: types.optional(types.number()),
   flushEventCount: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   kafkaSchemaRegistry: types.optional(
-    KafkaSchemaRegistryAuthenticationType1$inboundSchema,
+    KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$inboundSchema,
   ),
   connectionTimeout: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
@@ -299,10 +315,14 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputConfluentCloudPqControls$inboundSchema),
   ),
   __template_topic: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
+  __template_compression: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputConfluentCloud$Outbound = {
@@ -313,7 +333,7 @@ export type OutputConfluentCloud$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   topic: string;
   ack?: number | undefined;
   format?: string | undefined;
@@ -322,7 +342,7 @@ export type OutputConfluentCloud$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType1$Outbound
+    | KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -347,8 +367,12 @@ export type OutputConfluentCloud$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputConfluentCloudPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
+  __template_compression?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -364,16 +388,17 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   topic: z.string(),
-  ack: AcknowledgmentsOptions1$outboundSchema.optional(),
-  format: RecordDataFormatOptions1$outboundSchema.optional(),
-  compression: CompressionOptions3$outboundSchema.optional(),
+  ack: AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
+  format: RecordDataFormatOptionsJsonProtobuf$outboundSchema.optional(),
+  compression: CompressionOptionsGzipLz4$outboundSchema.optional(),
   maxRecordSizeKB: z.number().optional(),
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType1$outboundSchema
-    .optional(),
+  kafkaSchemaRegistry:
+    KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+      .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
   maxRetries: z.number().optional(),
@@ -397,9 +422,13 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputConfluentCloudPqControls$outboundSchema)
     .optional(),
   __template_topic: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_compression: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputConfluentCloudToJSON(

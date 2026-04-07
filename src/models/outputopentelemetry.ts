@@ -19,15 +19,15 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions4,
-  CompressionOptions4$inboundSchema,
-  CompressionOptions4$outboundSchema,
-} from "./compressionoptions4.js";
+  CompressionOptionsDeflateGzip,
+  CompressionOptionsDeflateGzip$inboundSchema,
+  CompressionOptionsDeflateGzip$outboundSchema,
+} from "./compressionoptionsdeflategzip.js";
 import {
-  CompressionOptions5,
-  CompressionOptions5$inboundSchema,
-  CompressionOptions5$outboundSchema,
-} from "./compressionoptions5.js";
+  CompressionOptionsMessages,
+  CompressionOptionsMessages$inboundSchema,
+  CompressionOptionsMessages$outboundSchema,
+} from "./compressionoptionsmessages.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -79,11 +79,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideType2,
-  TlsSettingsClientSideType2$inboundSchema,
-  TlsSettingsClientSideType2$Outbound,
-  TlsSettingsClientSideType2$outboundSchema,
-} from "./tlssettingsclientsidetype2.js";
+  TlsSettingsClientSideTypeExtended,
+  TlsSettingsClientSideTypeExtended$inboundSchema,
+  TlsSettingsClientSideTypeExtended$Outbound,
+  TlsSettingsClientSideTypeExtended$outboundSchema,
+} from "./tlssettingsclientsidetypeextended.js";
 
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
@@ -144,11 +144,11 @@ export type OutputOpenTelemetry = {
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: CompressionOptions4 | undefined;
+  compress?: CompressionOptionsDeflateGzip | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: CompressionOptions5 | undefined;
+  httpCompress?: CompressionOptionsMessages | undefined;
   /**
    * OpenTelemetry authentication type
    */
@@ -249,7 +249,7 @@ export type OutputOpenTelemetry = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: TlsSettingsClientSideType2 | undefined;
+  tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -263,7 +263,7 @@ export type OutputOpenTelemetry = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -290,7 +290,19 @@ export type OutputOpenTelemetry = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputOpenTelemetryPqControls | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -356,8 +368,8 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   protocol: types.optional(ProtocolOptions$inboundSchema),
   endpoint: types.string(),
   otlpVersion: types.optional(OutputOpenTelemetryOTLPVersion$inboundSchema),
-  compress: types.optional(CompressionOptions4$inboundSchema),
-  httpCompress: types.optional(CompressionOptions5$inboundSchema),
+  compress: types.optional(CompressionOptionsDeflateGzip$inboundSchema),
+  httpCompress: types.optional(CompressionOptionsMessages$inboundSchema),
   authType: types.optional(AuthenticationTypeOptions$inboundSchema),
   httpTracesEndpointOverride: types.optional(types.string()),
   httpMetricsEndpointOverride: types.optional(types.string()),
@@ -391,7 +403,7 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  tls: types.optional(TlsSettingsClientSideType2$inboundSchema),
+  tls: types.optional(TlsSettingsClientSideTypeExtended$inboundSchema),
   pqStrictOrdering: types.optional(types.boolean()),
   pqRatePerSec: types.optional(types.number()),
   pqMode: types.optional(ModeOptions$inboundSchema),
@@ -402,9 +414,12 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputOpenTelemetryPqControls$inboundSchema),
   ),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputOpenTelemetry$Outbound = {
@@ -448,7 +463,7 @@ export type OutputOpenTelemetry$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: TlsSettingsClientSideType2$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeExtended$Outbound | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -459,7 +474,10 @@ export type OutputOpenTelemetry$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputOpenTelemetryPqControls$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -477,8 +495,8 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   protocol: ProtocolOptions$outboundSchema.optional(),
   endpoint: z.string(),
   otlpVersion: OutputOpenTelemetryOTLPVersion$outboundSchema.optional(),
-  compress: CompressionOptions4$outboundSchema.optional(),
-  httpCompress: CompressionOptions5$outboundSchema.optional(),
+  compress: CompressionOptionsDeflateGzip$outboundSchema.optional(),
+  httpCompress: CompressionOptionsMessages$outboundSchema.optional(),
   authType: AuthenticationTypeOptions$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
@@ -509,7 +527,7 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  tls: TlsSettingsClientSideType2$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: ModeOptions$outboundSchema.optional(),
@@ -520,8 +538,11 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputOpenTelemetryPqControls$outboundSchema)
     .optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputOpenTelemetryToJSON(

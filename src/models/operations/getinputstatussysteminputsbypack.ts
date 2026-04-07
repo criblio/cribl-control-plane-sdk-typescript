@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetInputStatusSystemInputsByPackRequest = {
   /**
@@ -14,15 +19,29 @@ export type GetInputStatusSystemInputsByPackRequest = {
    */
   type?: boolean | undefined;
   /**
+   * Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
+   */
+  limit?: number | undefined;
+  /**
    * The <code>id</code> of the Pack to list.
    */
   pack: string;
+};
+
+export type GetInputStatusSystemInputsByPackResponse = {
+  result: models.CountedInputStatus;
 };
 
 /** @internal */
 export type GetInputStatusSystemInputsByPackRequest$Outbound = {
   metrics?: boolean | undefined;
   type?: boolean | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
   pack: string;
 };
 
@@ -34,6 +53,8 @@ export const GetInputStatusSystemInputsByPackRequest$outboundSchema: z.ZodType<
 > = z.object({
   metrics: z.boolean().optional(),
   type: z.boolean().optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
   pack: z.string(),
 });
 
@@ -45,5 +66,34 @@ export function getInputStatusSystemInputsByPackRequestToJSON(
     GetInputStatusSystemInputsByPackRequest$outboundSchema.parse(
       getInputStatusSystemInputsByPackRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetInputStatusSystemInputsByPackResponse$inboundSchema: z.ZodType<
+  GetInputStatusSystemInputsByPackResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.CountedInputStatus$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getInputStatusSystemInputsByPackResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetInputStatusSystemInputsByPackResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetInputStatusSystemInputsByPackResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetInputStatusSystemInputsByPackResponse' from JSON`,
   );
 }

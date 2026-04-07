@@ -126,6 +126,10 @@ import {
   InputSecurityLake,
   InputSecurityLake$inboundSchema,
 } from "./inputsecuritylake.js";
+import {
+  InputServicenowTable,
+  InputServicenowTable$inboundSchema,
+} from "./inputservicenowtable.js";
 import { InputSnmp, InputSnmp$inboundSchema } from "./inputsnmp.js";
 import { InputSplunk, InputSplunk$inboundSchema } from "./inputsplunk.js";
 import {
@@ -228,6 +232,7 @@ export type Input1 =
   | InputWizWebhook
   | InputNetflow
   | InputSecurityLake
+  | InputServicenowTable
   | InputZscalerHec
   | InputCloudflareHec
   | discriminatedUnionTypes.Unknown<"type">;
@@ -301,6 +306,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     wiz_webhook: InputWizWebhook$inboundSchema,
     netflow: InputNetflow$inboundSchema,
     security_lake: InputSecurityLake$inboundSchema,
+    servicenow_table: InputServicenowTable$inboundSchema,
     zscaler_hec: InputZscalerHec$inboundSchema,
     cloudflare_hec: InputCloudflareHec$inboundSchema,
   });

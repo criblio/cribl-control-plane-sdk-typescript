@@ -4,7 +4,8 @@
 
 import * as z from "zod/v3";
 import * as openEnums from "../../types/enums.js";
-import { OpenEnum } from "../../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
   CreateOutputOutputAzureEventhub,
@@ -230,7 +231,7 @@ export type CreateOutputOutputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsKinesis | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -306,7 +307,7 @@ export type CreateOutputOutputKinesis = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -333,6 +334,10 @@ export type CreateOutputOutputKinesis = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsKinesis | undefined;
   /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
@@ -347,6 +352,10 @@ export type CreateOutputOutputKinesis = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -354,6 +363,10 @@ export type CreateOutputOutputKinesis = {
    * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
    */
   __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -488,7 +501,7 @@ export type CreateOutputOutputAzureLogs = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -515,6 +528,10 @@ export type CreateOutputOutputAzureLogs = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureLogs | undefined;
   /**
    * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
@@ -528,6 +545,14 @@ export type CreateOutputOutputAzureLogs = {
    * Select or create a stored secret that references your access key and secret key
    */
   keypairSecret?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
    */
@@ -735,7 +760,7 @@ export type CreateOutputOutputAzureDataExplorer = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress: models.CompressionOptions2;
+  compress: models.CompressionOptionsHttp;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -953,7 +978,7 @@ export type CreateOutputOutputAzureDataExplorer = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -980,6 +1005,10 @@ export type CreateOutputOutputAzureDataExplorer = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureDataExplorer | undefined;
   /**
    * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
@@ -993,6 +1022,10 @@ export type CreateOutputOutputAzureDataExplorer = {
    * Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
    */
   __template_table?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
   /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
@@ -1014,9 +1047,25 @@ export type CreateOutputOutputAzureDataExplorer = {
    */
   __template_format?: string | undefined;
   /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
+   */
+  __template_mappingRef?: string | undefined;
+  /**
    * Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
    */
   __template_ingestUrl?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
 };
 
 export const CreateOutputBlobAccessTier = {
@@ -1138,7 +1187,7 @@ export type CreateOutputOutputAzureBlob = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -1158,7 +1207,7 @@ export type CreateOutputOutputAzureBlob = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -1261,9 +1310,33 @@ export type CreateOutputOutputAzureBlob = {
    */
   __template_containerName?: string | undefined;
   /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
   /**
    * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
    */
@@ -1301,37 +1374,9 @@ export type CreateOutputOutputS3 = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-   */
-  bucket: string;
-  /**
-   * Region where the S3 bucket is located
-   */
-  region?: string | undefined;
-  /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-   */
-  awsSecretKey?: string | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: string | undefined;
-  /**
    * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
   /**
    * Use Assume Role credentials to access S3
    */
@@ -1349,6 +1394,50 @@ export type CreateOutputOutputS3 = {
    */
   durationSeconds?: number | undefined;
   /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath: string;
@@ -1356,25 +1445,6 @@ export type CreateOutputOutputS3 = {
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-   */
-  destPath?: string | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?: models.ObjectAclOptions | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: models.StorageClassOptions | undefined;
-  serverSideEncryption?:
-    | models.ServerSideEncryptionForUploadedObjectsOptions
-    | undefined;
-  /**
-   * ID or ARN of the KMS customer-managed key to use for encryption
-   */
-  kmsKeyId?: string | undefined;
   /**
    * Remove empty staging directories after moving files
    */
@@ -1400,6 +1470,14 @@ export type CreateOutputOutputS3 = {
    */
   maxFileSizeMB?: number | undefined;
   /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
    * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
    */
   maxOpenFiles?: number | undefined;
@@ -1414,7 +1492,7 @@ export type CreateOutputOutputS3 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -1429,25 +1507,23 @@ export type CreateOutputOutputS3 = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   * Object ACL to assign to uploaded objects
    */
-  maxFileOpenTimeSec?: number | undefined;
+  objectACL?: models.ObjectAclOptions | undefined;
   /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   * Storage class to select for uploaded objects
    */
-  maxFileIdleTimeSec?: number | undefined;
+  storageClass?: models.StorageClassOptions | undefined;
   /**
-   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   * Server-side encryption to use for uploaded objects
    */
-  maxConcurrentFileParts?: number | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
   /**
-   * Disable if you can access files within the bucket but not the bucket itself
+   * ID or ARN of the KMS customer-managed key to use for encryption
    */
-  verifyPermissions?: boolean | undefined;
-  /**
-   * Maximum number of files that can be waiting for upload before backpressure is applied
-   */
-  maxClosingFilesToBackpressure?: number | undefined;
+  kmsKeyId?: string | undefined;
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -1460,7 +1536,7 @@ export type CreateOutputOutputS3 = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -1526,17 +1602,9 @@ export type CreateOutputOutputS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -1546,13 +1614,65 @@ export type CreateOutputOutputS3 = {
    */
   __template_assumeRoleExternalId?: string | undefined;
   /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
   /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+   */
+  __template_serverSideEncryption?: string | undefined;
+  /**
+   * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+   */
+  __template_kmsKeyId?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateOutputOutputFilesystem = {
@@ -1582,7 +1702,7 @@ export type CreateOutputOutputFilesystem = {
    */
   destPath: string;
   /**
-   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath?: string | undefined;
   /**
@@ -1636,7 +1756,7 @@ export type CreateOutputOutputFilesystem = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -1654,7 +1774,7 @@ export type CreateOutputOutputFilesystem = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress?: models.CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -1720,9 +1840,29 @@ export type CreateOutputOutputFilesystem = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateOutputPqControlsSignalfx = {};
@@ -1842,7 +1982,7 @@ export type CreateOutputOutputSignalfx = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -1869,7 +2009,19 @@ export type CreateOutputOutputSignalfx = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSignalfx | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type CreateOutputPqControlsWavefront = {};
@@ -1989,7 +2141,7 @@ export type CreateOutputOutputWavefront = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2016,7 +2168,19 @@ export type CreateOutputOutputWavefront = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWavefront | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type CreateOutputPqControlsTcpjson = {};
@@ -2050,7 +2214,7 @@ export type CreateOutputOutputTcpjson = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: models.CompressionOptions1 | undefined;
+  compression?: models.CompressionOptionsGzipNone | undefined;
   /**
    * Use to troubleshoot issues with sending data
    */
@@ -2059,7 +2223,7 @@ export type CreateOutputOutputTcpjson = {
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
   throttleRatePerSec?: string | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -2126,7 +2290,7 @@ export type CreateOutputOutputTcpjson = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2153,6 +2317,10 @@ export type CreateOutputOutputTcpjson = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsTcpjson | undefined;
   /**
    * Optional authentication token to include as part of the connection header
@@ -2162,6 +2330,10 @@ export type CreateOutputOutputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -2204,7 +2376,7 @@ export type CreateOutputOutputWizHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2295,7 +2467,7 @@ export type CreateOutputOutputWizHec = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2322,6 +2494,10 @@ export type CreateOutputOutputWizHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWizHec | undefined;
   /**
    * Wiz Defend Auth token
@@ -2331,6 +2507,14 @@ export type CreateOutputOutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
    */
@@ -2396,7 +2580,7 @@ export type CreateOutputOutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2507,7 +2691,7 @@ export type CreateOutputOutputSplunkHec = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2534,7 +2718,19 @@ export type CreateOutputOutputSplunkHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkHec | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -2646,7 +2842,7 @@ export type CreateOutputOutputSplunkLb = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -2713,7 +2909,7 @@ export type CreateOutputOutputSplunkLb = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2740,6 +2936,10 @@ export type CreateOutputOutputSplunkLb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkLb | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -2749,6 +2949,22 @@ export type CreateOutputOutputSplunkLb = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+   */
+  __template_nestedFields?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateOutputPqControlsSplunk = {};
@@ -2799,7 +3015,7 @@ export type CreateOutputOutputSplunk = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -2846,7 +3062,7 @@ export type CreateOutputOutputSplunk = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -2873,6 +3089,10 @@ export type CreateOutputOutputSplunk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunk | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -2890,6 +3110,22 @@ export type CreateOutputOutputSplunk = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+   */
+  __template_nestedFields?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 /**
@@ -3129,7 +3365,7 @@ export type CreateOutputOutputSyslog = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -3159,7 +3395,7 @@ export type CreateOutputOutputSyslog = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -3186,6 +3422,10 @@ export type CreateOutputOutputSyslog = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSyslog | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -3195,6 +3435,10 @@ export type CreateOutputOutputSyslog = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type CreateOutputOutputDevnull = {
@@ -3419,7 +3663,7 @@ export type CreateOutputOutputSentinel = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -3446,6 +3690,10 @@ export type CreateOutputOutputSentinel = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSentinel | undefined;
   /**
    * URL to send events to. Can be overwritten by an event's __url field.
@@ -3463,6 +3711,14 @@ export type CreateOutputOutputSentinel = {
    * The name of the stream (Sentinel table) in which to store the events
    */
   streamName?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
@@ -3497,10 +3753,17 @@ export type CreateOutputOutputSentinel = {
   __template_streamName?: string | undefined;
 };
 
+export const CreateOutputOutputWebhookType2 = {
+  Webhook: "webhook",
+} as const;
+export type CreateOutputOutputWebhookType2 = ClosedEnum<
+  typeof CreateOutputOutputWebhookType2
+>;
+
 /**
  * How to format events before sending out
  */
-export const CreateOutputFormatWebhook = {
+export const CreateOutputOutputWebhookFormat2 = {
   /**
    * NDJSON (Newline Delimited JSON)
    */
@@ -3521,14 +3784,14 @@ export const CreateOutputFormatWebhook = {
 /**
  * How to format events before sending out
  */
-export type CreateOutputFormatWebhook = OpenEnum<
-  typeof CreateOutputFormatWebhook
+export type CreateOutputOutputWebhookFormat2 = OpenEnum<
+  typeof CreateOutputOutputWebhookFormat2
 >;
 
 /**
  * Authentication method to use for the HTTP request
  */
-export const CreateOutputAuthenticationTypeWebhook = {
+export const CreateOutputOutputWebhookAuthenticationType2 = {
   /**
    * None
    */
@@ -3557,35 +3820,13 @@ export const CreateOutputAuthenticationTypeWebhook = {
 /**
  * Authentication method to use for the HTTP request
  */
-export type CreateOutputAuthenticationTypeWebhook = OpenEnum<
-  typeof CreateOutputAuthenticationTypeWebhook
+export type CreateOutputOutputWebhookAuthenticationType2 = OpenEnum<
+  typeof CreateOutputOutputWebhookAuthenticationType2
 >;
 
-export type CreateOutputPqControlsWebhook = {};
+export type CreateOutputOutputWebhookPqControls2 = {};
 
-export type CreateOutputOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type CreateOutputOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
-
-export type CreateOutputUrlWebhook = {
+export type CreateOutputOutputWebhookUrl2 = {
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -3600,12 +3841,12 @@ export type CreateOutputUrlWebhook = {
   __template_url?: string | undefined;
 };
 
-export type CreateOutputOutputWebhook = {
+export type CreateOutputOutputWebhookWebhook2 = {
   /**
    * Unique ID for this output
    */
   id: string;
-  type: "webhook";
+  type: CreateOutputOutputWebhookType2;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -3629,7 +3870,7 @@ export type CreateOutputOutputWebhook = {
   /**
    * How to format events before sending out
    */
-  format?: CreateOutputFormatWebhook | undefined;
+  format?: CreateOutputOutputWebhookFormat2 | undefined;
   /**
    * Disable to close the connection immediately after sending the outgoing request
    */
@@ -3700,8 +3941,8 @@ export type CreateOutputOutputWebhook = {
   /**
    * Authentication method to use for the HTTP request
    */
-  authType?: CreateOutputAuthenticationTypeWebhook | undefined;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  authType?: CreateOutputOutputWebhookAuthenticationType2 | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -3756,7 +3997,7 @@ export type CreateOutputOutputWebhook = {
    */
   pqMode?: models.ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -3783,7 +4024,11 @@ export type CreateOutputOutputWebhook = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: CreateOutputPqControlsWebhook | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputOutputWebhookPqControls2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -3825,11 +4070,11 @@ export type CreateOutputOutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<CreateOutputOauthParam> | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<CreateOutputOauthHeader> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -3838,7 +4083,7 @@ export type CreateOutputOutputWebhook = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<CreateOutputUrlWebhook> | undefined;
+  urls: Array<CreateOutputOutputWebhookUrl2>;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -3847,6 +4092,14 @@ export type CreateOutputOutputWebhook = {
    * How far back in time to keep traffic stats for load balancing purposes
    */
   loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
@@ -3860,6 +4113,371 @@ export type CreateOutputOutputWebhook = {
    */
   __template_url?: string | undefined;
 };
+
+export const CreateOutputOutputWebhookType1 = {
+  Webhook: "webhook",
+} as const;
+export type CreateOutputOutputWebhookType1 = ClosedEnum<
+  typeof CreateOutputOutputWebhookType1
+>;
+
+/**
+ * How to format events before sending out
+ */
+export const CreateOutputOutputWebhookFormat1 = {
+  /**
+   * NDJSON (Newline Delimited JSON)
+   */
+  Ndjson: "ndjson",
+  /**
+   * JSON Array
+   */
+  JsonArray: "json_array",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Advanced
+   */
+  Advanced: "advanced",
+} as const;
+/**
+ * How to format events before sending out
+ */
+export type CreateOutputOutputWebhookFormat1 = OpenEnum<
+  typeof CreateOutputOutputWebhookFormat1
+>;
+
+/**
+ * Authentication method to use for the HTTP request
+ */
+export const CreateOutputOutputWebhookAuthenticationType1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * OAuth
+   */
+  Oauth: "oauth",
+} as const;
+/**
+ * Authentication method to use for the HTTP request
+ */
+export type CreateOutputOutputWebhookAuthenticationType1 = OpenEnum<
+  typeof CreateOutputOutputWebhookAuthenticationType1
+>;
+
+export type CreateOutputOutputWebhookPqControls1 = {};
+
+export type CreateOutputOutputWebhookUrl1 = {
+  /**
+   * URL of a webhook endpoint to send events to, such as http://localhost:10200
+   */
+  url: string;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+};
+
+export type CreateOutputOutputWebhookWebhook1 = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: CreateOutputOutputWebhookType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The method to use when sending events
+   */
+  method?: models.MethodOptions | undefined;
+  /**
+   * How to format events before sending out
+   */
+  format?: CreateOutputOutputWebhookFormat1 | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Authentication method to use for the HTTP request
+   */
+  authType?: CreateOutputOutputWebhookAuthenticationType1 | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputOutputWebhookPqControls1 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  /**
+   * URL of a webhook endpoint to send events to, such as http://localhost:10200
+   */
+  url: string;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<CreateOutputOutputWebhookUrl1> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+};
+
+export type CreateOutputOutputWebhookUnion =
+  | CreateOutputOutputWebhookWebhook1
+  | CreateOutputOutputWebhookWebhook2;
 
 export type CreateOutputOutputDefault = {
   /**
@@ -3894,7 +4512,10 @@ export type CreateOutputOutputDefault = {
  */
 export type CreateOutputRequest =
   | CreateOutputOutputDefault
-  | CreateOutputOutputWebhook
+  | (
+    | CreateOutputOutputWebhookWebhook1
+    | CreateOutputOutputWebhookWebhook2 & { type: "webhook" }
+  )
   | CreateOutputOutputSentinel
   | CreateOutputOutputDevnull
   | CreateOutputOutputSyslog
@@ -4033,12 +4654,15 @@ export type CreateOutputOutputKinesis$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsKinesis$Outbound | undefined;
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_awsApiKey?: string | undefined;
 };
 
@@ -4059,7 +4683,8 @@ export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsKinesis$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -4087,13 +4712,16 @@ export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsKinesis$outboundSchema)
     .optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
 });
 
@@ -4172,10 +4800,13 @@ export type CreateOutputOutputAzureLogs$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureLogs$Outbound | undefined;
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_workspaceId?: string | undefined;
   __template_workspaceKey?: string | undefined;
 };
@@ -4227,11 +4858,14 @@ export const CreateOutputOutputAzureLogs$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsAzureLogs$outboundSchema)
     .optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_workspaceId: z.string().optional(),
   __template_workspaceKey: z.string().optional(),
 });
@@ -4487,16 +5121,22 @@ export type CreateOutputOutputAzureDataExplorer$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureDataExplorer$Outbound | undefined;
   __template_clusterUrl?: string | undefined;
   __template_database?: string | undefined;
   __template_table?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
   __template_scope?: string | undefined;
   __template_clientSecret?: string | undefined;
   __template_format?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_mappingRef?: string | undefined;
   __template_ingestUrl?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
 };
 
 /** @internal */
@@ -4527,7 +5167,7 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   certificate: z.lazy(() => CreateOutputCertificate$outboundSchema).optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
-  compress: models.CompressionOptions2$outboundSchema,
+  compress: models.CompressionOptionsHttp$outboundSchema,
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -4600,18 +5240,24 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() =>
     CreateOutputPqControlsAzureDataExplorer$outboundSchema
   ).optional(),
   __template_clusterUrl: z.string().optional(),
   __template_database: z.string().optional(),
   __template_table: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
   __template_scope: z.string().optional(),
   __template_clientSecret: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_compress: z.string().optional(),
+  __template_mappingRef: z.string().optional(),
   __template_ingestUrl: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
 });
 
 export function createOutputOutputAzureDataExplorerToJSON(
@@ -4695,7 +5341,13 @@ export type CreateOutputOutputAzureBlob$Outbound = {
     | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
     | undefined;
   __template_containerName?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
   __template_connectionString?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
@@ -4730,7 +5382,8 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
@@ -4739,7 +5392,7 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
   authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: CreateOutputBlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -4769,7 +5422,13 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
   certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_containerName: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
   __template_connectionString: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
@@ -4793,31 +5452,32 @@ export type CreateOutputOutputS3$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  bucket: string;
-  region?: string | undefined;
-  awsSecretKey?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket: string;
+  region?: string | undefined;
+  destPath?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   stagePath: string;
   addIdToStagePath?: boolean | undefined;
-  destPath?: string | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
-  kmsKeyId?: string | undefined;
   removeEmptyDirs?: boolean | undefined;
   partitionExpr?: string | undefined;
   format?: string | undefined;
   baseFileName?: string | undefined;
   fileNameSuffix?: string | undefined;
   maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
   maxOpenFiles?: number | undefined;
   headerLine?: string | undefined;
   writeHighWaterMark?: number | undefined;
@@ -4826,11 +5486,10 @@ export type CreateOutputOutputS3$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxConcurrentFileParts?: number | undefined;
-  verifyPermissions?: boolean | undefined;
-  maxClosingFilesToBackpressure?: number | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -4853,13 +5512,24 @@ export type CreateOutputOutputS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_serverSideEncryption?: string | undefined;
+  __template_kmsKeyId?: string | undefined;
   __template_awsApiKey?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -4874,51 +5544,52 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string(),
+  region: z.string().optional(),
+  destPath: z.string().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
-  destPath: z.string().optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions$outboundSchema.optional(),
-  serverSideEncryption: models
-    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
-  kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().optional(),
   partitionExpr: z.string().optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
   baseFileName: z.string().optional(),
   fileNameSuffix: z.string().optional(),
   maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxConcurrentFileParts: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -4937,13 +5608,24 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_objectACL: z.string().optional(),
+  __template_storageClass: z.string().optional(),
+  __template_serverSideEncryption: z.string().optional(),
+  __template_kmsKeyId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputOutputS3ToJSON(
@@ -5001,7 +5683,12 @@ export type CreateOutputOutputFilesystem$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -5030,14 +5717,15 @@ export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -5056,7 +5744,12 @@ export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputOutputFilesystemToJSON(
@@ -5131,7 +5824,10 @@ export type CreateOutputOutputSignalfx$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSignalfx$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -5182,8 +5878,11 @@ export const CreateOutputOutputSignalfx$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSignalfx$outboundSchema)
     .optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputOutputSignalfxToJSON(
@@ -5256,7 +5955,10 @@ export type CreateOutputOutputWavefront$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWavefront$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -5307,8 +6009,11 @@ export const CreateOutputOutputWavefront$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsWavefront$outboundSchema)
     .optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputOutputWavefrontToJSON(
@@ -5353,9 +6058,7 @@ export type CreateOutputOutputTcpjson$Outbound = {
   compression?: string | undefined;
   logFailedRequests?: boolean | undefined;
   throttleRatePerSec?: string | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
@@ -5380,9 +6083,11 @@ export type CreateOutputOutputTcpjson$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsTcpjson$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -5400,11 +6105,10 @@ export const CreateOutputOutputTcpjson$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  compression: models.CompressionOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptionsGzipNone$outboundSchema.optional(),
   logFailedRequests: z.boolean().optional(),
   throttleRatePerSec: z.string().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
@@ -5430,10 +6134,12 @@ export const CreateOutputOutputTcpjson$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsTcpjson$outboundSchema)
     .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -5476,7 +6182,9 @@ export type CreateOutputOutputWizHec$Outbound = {
   streamtags?: Array<string> | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
+    | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -5511,9 +6219,12 @@ export type CreateOutputOutputWizHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWizHec$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_wiz_environment?: string | undefined;
   __template_data_center?: string | undefined;
   __template_wiz_sourcetype?: string | undefined;
@@ -5533,7 +6244,8 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -5570,10 +6282,13 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsWizHec$outboundSchema)
     .optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
   __template_data_center: z.string().optional(),
   __template_wiz_sourcetype: z.string().optional(),
@@ -5644,7 +6359,9 @@ export type CreateOutputOutputSplunkHec$Outbound = {
   loadBalanced?: boolean | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
+    | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -5684,7 +6401,10 @@ export type CreateOutputOutputSplunkHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkHec$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -5703,7 +6423,8 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanced: z.boolean().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -5746,8 +6467,11 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSplunkHec$outboundSchema)
     .optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
@@ -5863,9 +6587,7 @@ export type CreateOutputOutputSplunkLb$Outbound = {
   throttleRatePerSec?: string | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   enableMultiMetrics?: boolean | undefined;
   enableACK?: boolean | undefined;
   logFailedRequests?: boolean | undefined;
@@ -5892,9 +6614,14 @@ export type CreateOutputOutputSplunkLb$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunkLb$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_nestedFields?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -5917,8 +6644,7 @@ export const CreateOutputOutputSplunkLb$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   enableMultiMetrics: z.boolean().optional(),
   enableACK: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -5946,10 +6672,15 @@ export const CreateOutputOutputSplunkLb$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSplunkLb$outboundSchema)
     .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_nestedFields: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputOutputSplunkLbToJSON(
@@ -5994,9 +6725,7 @@ export type CreateOutputOutputSplunk$Outbound = {
   throttleRatePerSec?: string | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   enableMultiMetrics?: boolean | undefined;
   enableACK?: boolean | undefined;
   logFailedRequests?: boolean | undefined;
@@ -6016,11 +6745,16 @@ export type CreateOutputOutputSplunk$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSplunk$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_nestedFields?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -6042,8 +6776,7 @@ export const CreateOutputOutputSplunk$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   enableMultiMetrics: z.boolean().optional(),
   enableACK: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -6064,12 +6797,17 @@ export const CreateOutputOutputSplunk$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSplunk$outboundSchema)
     .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_nestedFields: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createOutputOutputSplunkToJSON(
@@ -6163,9 +6901,7 @@ export type CreateOutputOutputSyslog$Outbound = {
   maxConcurrentSenders?: number | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   onBackpressure?: string | undefined;
   maxRecordSize?: number | undefined;
   udpDnsResolvePeriodSec?: number | undefined;
@@ -6180,9 +6916,11 @@ export type CreateOutputOutputSyslog$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSyslog$Outbound | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -6217,8 +6955,7 @@ export const CreateOutputOutputSyslog$outboundSchema: z.ZodType<
   maxConcurrentSenders: z.number().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   maxRecordSize: z.number().optional(),
   udpDnsResolvePeriodSec: z.number().optional(),
@@ -6233,10 +6970,12 @@ export const CreateOutputOutputSyslog$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSyslog$outboundSchema)
     .optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputOutputSyslogToJSON(
@@ -6375,11 +7114,14 @@ export type CreateOutputOutputSentinel$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSentinel$Outbound | undefined;
   url?: string | undefined;
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
   streamName?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
   __template_client_id?: string | undefined;
@@ -6450,12 +7192,15 @@ export const CreateOutputOutputSentinel$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSentinel$outboundSchema)
     .optional(),
   url: z.string().optional(),
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
   __template_client_id: z.string().optional(),
@@ -6475,117 +7220,77 @@ export function createOutputOutputSentinelToJSON(
 }
 
 /** @internal */
-export const CreateOutputFormatWebhook$outboundSchema: z.ZodType<
+export const CreateOutputOutputWebhookType2$outboundSchema: z.ZodNativeEnum<
+  typeof CreateOutputOutputWebhookType2
+> = z.nativeEnum(CreateOutputOutputWebhookType2);
+
+/** @internal */
+export const CreateOutputOutputWebhookFormat2$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputFormatWebhook
-> = openEnums.outboundSchema(CreateOutputFormatWebhook);
+  CreateOutputOutputWebhookFormat2
+> = openEnums.outboundSchema(CreateOutputOutputWebhookFormat2);
 
 /** @internal */
-export const CreateOutputAuthenticationTypeWebhook$outboundSchema: z.ZodType<
-  string,
+export const CreateOutputOutputWebhookAuthenticationType2$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputOutputWebhookAuthenticationType2
+  > = openEnums.outboundSchema(CreateOutputOutputWebhookAuthenticationType2);
+
+/** @internal */
+export type CreateOutputOutputWebhookPqControls2$Outbound = {};
+
+/** @internal */
+export const CreateOutputOutputWebhookPqControls2$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhookPqControls2$Outbound,
   z.ZodTypeDef,
-  CreateOutputAuthenticationTypeWebhook
-> = openEnums.outboundSchema(CreateOutputAuthenticationTypeWebhook);
-
-/** @internal */
-export type CreateOutputPqControlsWebhook$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsWebhook$outboundSchema: z.ZodType<
-  CreateOutputPqControlsWebhook$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsWebhook
+  CreateOutputOutputWebhookPqControls2
 > = z.object({});
 
-export function createOutputPqControlsWebhookToJSON(
-  createOutputPqControlsWebhook: CreateOutputPqControlsWebhook,
+export function createOutputOutputWebhookPqControls2ToJSON(
+  createOutputOutputWebhookPqControls2: CreateOutputOutputWebhookPqControls2,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsWebhook$outboundSchema.parse(
-      createOutputPqControlsWebhook,
+    CreateOutputOutputWebhookPqControls2$outboundSchema.parse(
+      createOutputOutputWebhookPqControls2,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CreateOutputOauthParam$outboundSchema: z.ZodType<
-  CreateOutputOauthParam$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function createOutputOauthParamToJSON(
-  createOutputOauthParam: CreateOutputOauthParam,
-): string {
-  return JSON.stringify(
-    CreateOutputOauthParam$outboundSchema.parse(createOutputOauthParam),
-  );
-}
-
-/** @internal */
-export type CreateOutputOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CreateOutputOauthHeader$outboundSchema: z.ZodType<
-  CreateOutputOauthHeader$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function createOutputOauthHeaderToJSON(
-  createOutputOauthHeader: CreateOutputOauthHeader,
-): string {
-  return JSON.stringify(
-    CreateOutputOauthHeader$outboundSchema.parse(createOutputOauthHeader),
-  );
-}
-
-/** @internal */
-export type CreateOutputUrlWebhook$Outbound = {
+export type CreateOutputOutputWebhookUrl2$Outbound = {
   url: string;
   weight?: number | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputUrlWebhook$outboundSchema: z.ZodType<
-  CreateOutputUrlWebhook$Outbound,
+export const CreateOutputOutputWebhookUrl2$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhookUrl2$Outbound,
   z.ZodTypeDef,
-  CreateOutputUrlWebhook
+  CreateOutputOutputWebhookUrl2
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
   __template_url: z.string().optional(),
 });
 
-export function createOutputUrlWebhookToJSON(
-  createOutputUrlWebhook: CreateOutputUrlWebhook,
+export function createOutputOutputWebhookUrl2ToJSON(
+  createOutputOutputWebhookUrl2: CreateOutputOutputWebhookUrl2,
 ): string {
   return JSON.stringify(
-    CreateOutputUrlWebhook$outboundSchema.parse(createOutputUrlWebhook),
+    CreateOutputOutputWebhookUrl2$outboundSchema.parse(
+      createOutputOutputWebhookUrl2,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputWebhook$Outbound = {
+export type CreateOutputOutputWebhookWebhook2$Outbound = {
   id: string;
-  type: "webhook";
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -6613,7 +7318,9 @@ export type CreateOutputOutputWebhook$Outbound = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   onBackpressure?: string | undefined;
   authType?: string | undefined;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
+    | undefined;
   totalMemoryLimitKB?: number | undefined;
   loadBalanced?: boolean | undefined;
   description?: string | undefined;
@@ -6635,7 +7342,8 @@ export type CreateOutputOutputWebhook$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: CreateOutputPqControlsWebhook$Outbound | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputOutputWebhookPqControls2$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
@@ -6647,32 +7355,34 @@ export type CreateOutputOutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<CreateOutputOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<CreateOutputOauthHeader$Outbound> | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<CreateOutputUrlWebhook$Outbound> | undefined;
+  urls: Array<CreateOutputOutputWebhookUrl2$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
-  CreateOutputOutputWebhook$Outbound,
+export const CreateOutputOutputWebhookWebhook2$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhookWebhook2$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputWebhook
+  CreateOutputOutputWebhookWebhook2
 > = z.object({
   id: z.string(),
-  type: z.literal("webhook"),
+  type: CreateOutputOutputWebhookType2$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   method: models.MethodOptions$outboundSchema.optional(),
-  format: CreateOutputFormatWebhook$outboundSchema.optional(),
+  format: CreateOutputOutputWebhookFormat2$outboundSchema.optional(),
   keepAlive: z.boolean().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -6694,8 +7404,10 @@ export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: CreateOutputAuthenticationTypeWebhook$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  authType: CreateOutputOutputWebhookAuthenticationType2$outboundSchema
+    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().optional(),
   description: z.string().optional(),
@@ -6717,7 +7429,8 @@ export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsWebhook$outboundSchema)
+  pqMaxBufferSizeBytes: z.string().optional(),
+  pqControls: z.lazy(() => CreateOutputOutputWebhookPqControls2$outboundSchema)
     .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -6730,25 +7443,301 @@ export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(z.lazy(() => CreateOutputOauthParam$outboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => CreateOutputOauthHeader$outboundSchema))
-    .optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => CreateOutputUrlWebhook$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputOutputWebhookUrl2$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
-export function createOutputOutputWebhookToJSON(
-  createOutputOutputWebhook: CreateOutputOutputWebhook,
+export function createOutputOutputWebhookWebhook2ToJSON(
+  createOutputOutputWebhookWebhook2: CreateOutputOutputWebhookWebhook2,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputWebhook$outboundSchema.parse(createOutputOutputWebhook),
+    CreateOutputOutputWebhookWebhook2$outboundSchema.parse(
+      createOutputOutputWebhookWebhook2,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputOutputWebhookType1$outboundSchema: z.ZodNativeEnum<
+  typeof CreateOutputOutputWebhookType1
+> = z.nativeEnum(CreateOutputOutputWebhookType1);
+
+/** @internal */
+export const CreateOutputOutputWebhookFormat1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputOutputWebhookFormat1
+> = openEnums.outboundSchema(CreateOutputOutputWebhookFormat1);
+
+/** @internal */
+export const CreateOutputOutputWebhookAuthenticationType1$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputOutputWebhookAuthenticationType1
+  > = openEnums.outboundSchema(CreateOutputOutputWebhookAuthenticationType1);
+
+/** @internal */
+export type CreateOutputOutputWebhookPqControls1$Outbound = {};
+
+/** @internal */
+export const CreateOutputOutputWebhookPqControls1$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhookPqControls1$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputWebhookPqControls1
+> = z.object({});
+
+export function createOutputOutputWebhookPqControls1ToJSON(
+  createOutputOutputWebhookPqControls1: CreateOutputOutputWebhookPqControls1,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputWebhookPqControls1$outboundSchema.parse(
+      createOutputOutputWebhookPqControls1,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWebhookUrl1$Outbound = {
+  url: string;
+  weight?: number | undefined;
+  __template_url?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputOutputWebhookUrl1$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhookUrl1$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputWebhookUrl1
+> = z.object({
+  url: z.string(),
+  weight: z.number().optional(),
+  __template_url: z.string().optional(),
+});
+
+export function createOutputOutputWebhookUrl1ToJSON(
+  createOutputOutputWebhookUrl1: CreateOutputOutputWebhookUrl1,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputWebhookUrl1$outboundSchema.parse(
+      createOutputOutputWebhookUrl1,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWebhookWebhook1$Outbound = {
+  id: string;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  method?: string | undefined;
+  format?: string | undefined;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
+    | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  loadBalanced?: boolean | undefined;
+  description?: string | undefined;
+  customSourceExpression?: string | undefined;
+  customDropWhenNull?: boolean | undefined;
+  customEventDelimiter?: string | undefined;
+  customContentType?: string | undefined;
+  customPayloadExpression?: string | undefined;
+  advancedContentType?: string | undefined;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputOutputWebhookPqControls1$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  url: string;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<CreateOutputOutputWebhookUrl1$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
+  __template_url?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputOutputWebhookWebhook1$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhookWebhook1$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputWebhookWebhook1
+> = z.object({
+  id: z.string(),
+  type: CreateOutputOutputWebhookType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  method: models.MethodOptions$outboundSchema.optional(),
+  format: CreateOutputOutputWebhookFormat1$outboundSchema.optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: CreateOutputOutputWebhookAuthenticationType1$outboundSchema
+    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  loadBalanced: z.boolean().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().optional(),
+  customDropWhenNull: z.boolean().optional(),
+  customEventDelimiter: z.string().optional(),
+  customContentType: z.string().optional(),
+  customPayloadExpression: z.string().optional(),
+  advancedContentType: z.string().optional(),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
+  pqControls: z.lazy(() => CreateOutputOutputWebhookPqControls1$outboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  url: z.string(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(z.lazy(() => CreateOutputOutputWebhookUrl1$outboundSchema))
+    .optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
+  __template_url: z.string().optional(),
+});
+
+export function createOutputOutputWebhookWebhook1ToJSON(
+  createOutputOutputWebhookWebhook1: CreateOutputOutputWebhookWebhook1,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputWebhookWebhook1$outboundSchema.parse(
+      createOutputOutputWebhookWebhook1,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWebhookUnion$Outbound =
+  | CreateOutputOutputWebhookWebhook1$Outbound
+  | CreateOutputOutputWebhookWebhook2$Outbound;
+
+/** @internal */
+export const CreateOutputOutputWebhookUnion$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhookUnion$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputWebhookUnion
+> = smartUnion([
+  z.lazy(() => CreateOutputOutputWebhookWebhook1$outboundSchema),
+  z.lazy(() => CreateOutputOutputWebhookWebhook2$outboundSchema),
+]);
+
+export function createOutputOutputWebhookUnionToJSON(
+  createOutputOutputWebhookUnion: CreateOutputOutputWebhookUnion,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputWebhookUnion$outboundSchema.parse(
+      createOutputOutputWebhookUnion,
+    ),
   );
 }
 
@@ -6789,7 +7778,10 @@ export function createOutputOutputDefaultToJSON(
 /** @internal */
 export type CreateOutputRequest$Outbound =
   | CreateOutputOutputDefault$Outbound
-  | CreateOutputOutputWebhook$Outbound
+  | (
+    | CreateOutputOutputWebhookWebhook1$Outbound
+    | CreateOutputOutputWebhookWebhook2$Outbound & { type: "webhook" }
+  )
   | CreateOutputOutputSentinel$Outbound
   | CreateOutputOutputDevnull$Outbound
   | CreateOutputOutputSyslog$Outbound
@@ -6867,7 +7859,10 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   CreateOutputRequest
 > = z.union([
   z.lazy(() => CreateOutputOutputDefault$outboundSchema),
-  z.lazy(() => CreateOutputOutputWebhook$outboundSchema),
+  smartUnion([
+    z.lazy(() => CreateOutputOutputWebhookWebhook1$outboundSchema),
+    z.lazy(() => CreateOutputOutputWebhookWebhook2$outboundSchema),
+  ]).and(z.object({ type: z.literal("webhook") })),
   z.lazy(() => CreateOutputOutputSentinel$outboundSchema),
   z.lazy(() => CreateOutputOutputDevnull$outboundSchema),
   z.lazy(() => CreateOutputOutputSyslog$outboundSchema),

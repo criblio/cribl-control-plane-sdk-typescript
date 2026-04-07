@@ -80,12 +80,8 @@ export type CreateInputSystemByPackTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  minVersion?:
-    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
-  maxVersion?:
-    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
+  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
 };
 
 export type CreateInputSystemByPackInputCloudflareHec = {
@@ -369,6 +365,242 @@ export type CreateInputSystemByPackInputZscalerHec = {
   __template_hecAPI?: string | undefined;
 };
 
+/**
+ * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ */
+export const CreateInputSystemByPackDisplayValue = {
+  /**
+   * Raw
+   */
+  False: "false",
+  /**
+   * Display
+   */
+  True: "true",
+  /**
+   * All
+   */
+  All: "all",
+} as const;
+/**
+ * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ */
+export type CreateInputSystemByPackDisplayValue = OpenEnum<
+  typeof CreateInputSystemByPackDisplayValue
+>;
+
+/**
+ * ServiceNow Table API authentication method
+ */
+export const CreateInputSystemByPackAuthenticationTypeServicenowTable = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * OAuth
+   */
+  Oauth: "oauth",
+  /**
+   * OAuth (text secret)
+   */
+  OauthSecret: "oauthSecret",
+} as const;
+/**
+ * ServiceNow Table API authentication method
+ */
+export type CreateInputSystemByPackAuthenticationTypeServicenowTable = OpenEnum<
+  typeof CreateInputSystemByPackAuthenticationTypeServicenowTable
+>;
+
+export type CreateInputSystemByPackInputServicenowTable = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
+   */
+  instance: string;
+  /**
+   * ServiceNow table name to collect from.
+   */
+  tableName: string;
+  /**
+   * Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+   */
+  displayValue?: CreateInputSystemByPackDisplayValue | undefined;
+  /**
+   * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+   */
+  pageSize?: number | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * ServiceNow Table API authentication method
+   */
+  authType?:
+    | CreateInputSystemByPackAuthenticationTypeServicenowTable
+    | undefined;
+  /**
+   * Cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  earliest: string;
+  /**
+   * Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  latest: string;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * Collector runtime log level
+   */
+  logLevel?: models.LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} cycles through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Select or create a stored text secret for the OAuth client secret parameter value
+   */
+  textSecret?: string | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+   */
+  stateMergeExpression?: string | undefined;
+  /**
+   * Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
+   */
+  __template_instance?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
+};
+
 export type CreateInputSystemByPackInputSecurityLake = {
   /**
    * Unique ID for this input
@@ -543,6 +775,10 @@ export type CreateInputSystemByPackInputSecurityLake = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -1097,7 +1333,7 @@ export type CreateInputSystemByPackInputWiz = {
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -1442,12 +1678,8 @@ export type CreateInputSystemByPackMTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?:
-    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
-  maxVersion?:
-    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
-    | undefined;
+  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -1713,6 +1945,11 @@ export type CreateInputSystemByPackPersistenceAppscope = {
   destPath?: string | undefined;
 };
 
+/**
+ * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+ */
+export type CreateInputSystemByPackUNIXSocketPermissions = string | number;
+
 export type CreateInputSystemByPackInputAppscope = {
   /**
    * Unique ID for this input
@@ -1808,7 +2045,7 @@ export type CreateInputSystemByPackInputAppscope = {
   /**
    * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
    */
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
    */
@@ -2430,7 +2667,7 @@ export type CreateInputSystemByPackInputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: models.SignatureVersionOptions3 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsSqs | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -2497,6 +2734,10 @@ export type CreateInputSystemByPackInputSqs = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -3032,6 +3273,10 @@ export type CreateInputSystemByPackInputS3Inventory = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -3222,6 +3467,10 @@ export type CreateInputSystemByPackInputS3 = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -3513,7 +3762,7 @@ export type CreateInputSystemByPackInputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsKinesis | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -3568,6 +3817,10 @@ export type CreateInputSystemByPackInputKinesis = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -4036,6 +4289,10 @@ export type CreateInputSystemByPackInputCrowdstrike = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -5984,7 +6241,7 @@ export type CreateInputSystemByPackInputEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: models.AuthenticationType1 | undefined;
+  sasl?: models.AuthenticationTypeUse | undefined;
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
    *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
@@ -6189,8 +6446,8 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: models.LogLevelOptions | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  logLevel?: models.LogLevelOptionsDebugError | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
@@ -6348,8 +6605,8 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: models.LogLevelOptions | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  logLevel?: models.LogLevelOptionsDebugError | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -6501,11 +6758,11 @@ export type CreateInputSystemByPackInputOffice365Service = {
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Service>
     | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -6632,11 +6889,11 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
-  retryRules?: models.RetryRulesType1 | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: models.AuthenticationMethodOptions1 | undefined;
+  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -6850,7 +7107,7 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptions1 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -6920,6 +7177,10 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -6951,22 +7212,6 @@ export const CreateInputSystemByPackDiscoveryTypePrometheus = {
  */
 export type CreateInputSystemByPackDiscoveryTypePrometheus = OpenEnum<
   typeof CreateInputSystemByPackDiscoveryTypePrometheus
->;
-
-/**
- * Collector runtime log level
- */
-export const CreateInputSystemByPackLogLevelPrometheus = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-} as const;
-/**
- * Collector runtime log level
- */
-export type CreateInputSystemByPackLogLevelPrometheus = OpenEnum<
-  typeof CreateInputSystemByPackLogLevelPrometheus
 >;
 
 /**
@@ -7030,7 +7275,7 @@ export type CreateInputSystemByPackInputPrometheus = {
   /**
    * Collector runtime log level
    */
-  logLevel: CreateInputSystemByPackLogLevelPrometheus;
+  logLevel: models.LogLevelOptions;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -7121,7 +7366,7 @@ export type CreateInputSystemByPackInputPrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: models.SignatureVersionOptions1 | undefined;
+  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -7155,6 +7400,10 @@ export type CreateInputSystemByPackInputPrometheus = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
+   */
+  __template_discoveryType?: string | undefined;
+  /**
    * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
    */
   __template_logLevel?: string | undefined;
@@ -7171,6 +7420,10 @@ export type CreateInputSystemByPackInputPrometheus = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
   __template_assumeRoleArn?: string | undefined;
@@ -7178,6 +7431,14 @@ export type CreateInputSystemByPackInputPrometheus = {
    * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
    */
   __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputPrometheusRw = {
@@ -7304,6 +7565,10 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
    */
   __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputLoki = {
@@ -7786,7 +8051,7 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
    */
@@ -8793,6 +9058,14 @@ export type CreateInputSystemByPackInputSplunk = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputHttp = {
@@ -9073,7 +9346,7 @@ export type CreateInputSystemByPackInputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
    */
@@ -9108,6 +9381,10 @@ export type CreateInputSystemByPackInputMsk = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -9209,7 +9486,7 @@ export type CreateInputSystemByPackInputKafka = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: models.AuthenticationType | undefined;
-  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -9387,6 +9664,7 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputWizWebhook
   | CreateInputSystemByPackInputNetflow
   | CreateInputSystemByPackInputSecurityLake
+  | CreateInputSystemByPackInputServicenowTable
   | CreateInputSystemByPackInputZscalerHec
   | CreateInputSystemByPackInputCloudflareHec;
 
@@ -9465,6 +9743,7 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputWizWebhook
     | CreateInputSystemByPackInputNetflow
     | CreateInputSystemByPackInputSecurityLake
+    | CreateInputSystemByPackInputServicenowTable
     | CreateInputSystemByPackInputZscalerHec
     | CreateInputSystemByPackInputCloudflareHec;
 };
@@ -9548,10 +9827,8 @@ export const CreateInputSystemByPackTLSSettingsServerSide$outboundSchema:
     passphrase: z.string().optional(),
     certPath: z.string().optional(),
     caPath: z.string().optional(),
-    minVersion: models
-      .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
-    maxVersion: models
-      .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+    minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+    maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
   });
 
 export function createInputSystemByPackTLSSettingsServerSideToJSON(
@@ -9806,6 +10083,149 @@ export function createInputSystemByPackInputZscalerHecToJSON(
 }
 
 /** @internal */
+export const CreateInputSystemByPackDisplayValue$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackDisplayValue
+> = openEnums.outboundSchema(CreateInputSystemByPackDisplayValue);
+
+/** @internal */
+export const CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationTypeServicenowTable
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthenticationTypeServicenowTable,
+  );
+
+/** @internal */
+export type CreateInputSystemByPackInputServicenowTable$Outbound = {
+  id: string;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  instance: string;
+  tableName: string;
+  fields?: Array<string> | undefined;
+  displayValue?: string | undefined;
+  pageSize?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  authType?: string | undefined;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  stateTracking?: boolean | undefined;
+  logLevel?: string | undefined;
+  requestTimeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  textSecret?: string | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  __template_instance?: string | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackInputServicenowTable$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackInputServicenowTable
+  > = z.object({
+    id: z.string(),
+    type: z.literal("servicenow_table"),
+    disabled: z.boolean().optional(),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: models.PqType$outboundSchema.optional(),
+    instance: z.string(),
+    tableName: z.string(),
+    fields: z.array(z.string()).optional(),
+    displayValue: CreateInputSystemByPackDisplayValue$outboundSchema.optional(),
+    pageSize: z.number().int().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    authType:
+      CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema
+        .optional(),
+    cronSchedule: z.string(),
+    earliest: z.string(),
+    latest: z.string(),
+    stateTracking: z.boolean().optional(),
+    logLevel: models.LogLevelOptions$outboundSchema.optional(),
+    requestTimeout: z.number().optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    keepAliveTime: z.number().optional(),
+    jobTimeout: z.string().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+    retryRules: models.RetryRulesType$outboundSchema.optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    secret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
+    oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+    oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    stateUpdateExpression: z.string().optional(),
+    stateMergeExpression: z.string().optional(),
+    __template_instance: z.string().optional(),
+    __template_loginUrl: z.string().optional(),
+    __template_secret: z.string().optional(),
+  });
+
+export function createInputSystemByPackInputServicenowTableToJSON(
+  createInputSystemByPackInputServicenowTable:
+    CreateInputSystemByPackInputServicenowTable,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackInputServicenowTable$outboundSchema.parse(
+      createInputSystemByPackInputServicenowTable,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputSystemByPackInputSecurityLake$Outbound = {
   id: string;
   type: "security_lake";
@@ -9857,6 +10277,7 @@ export type CreateInputSystemByPackInputSecurityLake$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -9921,6 +10342,7 @@ export const CreateInputSystemByPackInputSecurityLake$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -10422,7 +10844,8 @@ export const CreateInputSystemByPackInputWiz$outboundSchema: z.ZodType<
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
+    .optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -10720,10 +11143,8 @@ export const CreateInputSystemByPackMTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().optional(),
-  minVersion: models
-    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
-  maxVersion: models
-    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
   ocspCheck: z.boolean().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
@@ -11017,6 +11438,30 @@ export function createInputSystemByPackPersistenceAppscopeToJSON(
 }
 
 /** @internal */
+export type CreateInputSystemByPackUNIXSocketPermissions$Outbound =
+  | string
+  | number;
+
+/** @internal */
+export const CreateInputSystemByPackUNIXSocketPermissions$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackUNIXSocketPermissions$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackUNIXSocketPermissions
+  > = smartUnion([z.string(), z.number()]);
+
+export function createInputSystemByPackUNIXSocketPermissionsToJSON(
+  createInputSystemByPackUNIXSocketPermissions:
+    CreateInputSystemByPackUNIXSocketPermissions,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackUNIXSocketPermissions$outboundSchema.parse(
+      createInputSystemByPackUNIXSocketPermissions,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputSystemByPackInputAppscope$Outbound = {
   id: string;
   type: "appscope";
@@ -11046,7 +11491,7 @@ export type CreateInputSystemByPackInputAppscope$Outbound = {
   port?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   unixSocketPath?: string | undefined;
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
   __template_host?: string | undefined;
@@ -11092,7 +11537,7 @@ export const CreateInputSystemByPackInputAppscope$outboundSchema: z.ZodType<
   port: z.number().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
   unixSocketPath: z.string().optional(),
-  unixSocketPerms: z.string().optional(),
+  unixSocketPerms: smartUnion([z.string(), z.number()]).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),
@@ -11561,6 +12006,7 @@ export type CreateInputSystemByPackInputSqs$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -11591,7 +12037,7 @@ export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions3$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsSqs$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -11610,6 +12056,7 @@ export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -11989,6 +12436,7 @@ export type CreateInputSystemByPackInputS3Inventory$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -12055,6 +12503,7 @@ export const CreateInputSystemByPackInputS3Inventory$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -12123,6 +12572,7 @@ export type CreateInputSystemByPackInputS3$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -12186,6 +12636,7 @@ export const CreateInputSystemByPackInputS3$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -12379,6 +12830,7 @@ export type CreateInputSystemByPackInputKinesis$Outbound = {
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -12416,7 +12868,8 @@ export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsKinesis$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -12432,6 +12885,7 @@ export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -12778,6 +13232,7 @@ export type CreateInputSystemByPackInputCrowdstrike$Outbound = {
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -12840,6 +13295,7 @@ export const CreateInputSystemByPackInputCrowdstrike$outboundSchema: z.ZodType<
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -15051,7 +15507,7 @@ export type CreateInputSystemByPackInputEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: models.AuthenticationType1$Outbound | undefined;
+  sasl?: models.AuthenticationTypeUse$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
@@ -15095,7 +15551,7 @@ export const CreateInputSystemByPackInputEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: models.AuthenticationType1$outboundSchema.optional(),
+  sasl: models.AuthenticationTypeUse$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
@@ -15166,7 +15622,7 @@ export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
@@ -15217,8 +15673,9 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     rescheduleDroppedTasks: z.boolean().optional(),
     maxTaskReschedule: z.number().optional(),
-    logLevel: models.LogLevelOptions$outboundSchema.optional(),
-    retryRules: models.RetryRulesType1$outboundSchema.optional(),
+    logLevel: models.LogLevelOptionsDebugError$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     tenantId: z.string().optional(),
@@ -15282,7 +15739,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -15335,8 +15792,9 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     rescheduleDroppedTasks: z.boolean().optional(),
     maxTaskReschedule: z.number().optional(),
-    logLevel: models.LogLevelOptions$outboundSchema.optional(),
-    retryRules: models.RetryRulesType1$outboundSchema.optional(),
+    logLevel: models.LogLevelOptionsDebugError$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
     description: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
@@ -15425,7 +15883,7 @@ export type CreateInputSystemByPackInputOffice365Service$Outbound = {
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Service$Outbound>
     | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -15468,8 +15926,10 @@ export const CreateInputSystemByPackInputOffice365Service$outboundSchema:
         CreateInputSystemByPackContentConfigOffice365Service$outboundSchema
       ),
     ).optional(),
-    retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
+    authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
+      .optional(),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -15551,7 +16011,7 @@ export type CreateInputSystemByPackInputOffice365Mgmt$Outbound = {
     | Array<CreateInputSystemByPackContentConfigOffice365Mgmt$Outbound>
     | undefined;
   ingestionLag?: number | undefined;
-  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -15597,8 +16057,10 @@ export const CreateInputSystemByPackInputOffice365Mgmt$outboundSchema:
       ),
     ).optional(),
     ingestionLag: z.number().optional(),
-    retryRules: models.RetryRulesType1$outboundSchema.optional(),
-    authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+    retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema
+      .optional(),
+    authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
+      .optional(),
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
@@ -15746,6 +16208,7 @@ export type CreateInputSystemByPackInputEdgePrometheus$Outbound = {
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
 };
@@ -15796,7 +16259,8 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
+    signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
+      .optional(),
     reuseConnections: z.boolean().optional(),
     rejectUnauthorized: z.boolean().optional(),
     enableAssumeRole: z.boolean().optional(),
@@ -15815,6 +16279,7 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     __template_awsApiKey: z.string().optional(),
     __template_awsSecretKey: z.string().optional(),
     __template_region: z.string().optional(),
+    __template_endpoint: z.string().optional(),
     __template_assumeRoleArn: z.string().optional(),
     __template_assumeRoleExternalId: z.string().optional(),
   });
@@ -15837,11 +16302,6 @@ export const CreateInputSystemByPackDiscoveryTypePrometheus$outboundSchema:
     z.ZodTypeDef,
     CreateInputSystemByPackDiscoveryTypePrometheus
   > = openEnums.outboundSchema(CreateInputSystemByPackDiscoveryTypePrometheus);
-
-/** @internal */
-export const CreateInputSystemByPackLogLevelPrometheus$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateInputSystemByPackLogLevelPrometheus> =
-    openEnums.outboundSchema(CreateInputSystemByPackLogLevelPrometheus);
 
 /** @internal */
 export const CreateInputSystemByPackMetricsProtocol$outboundSchema: z.ZodType<
@@ -15899,12 +16359,16 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_discoveryType?: string | undefined;
   __template_logLevel?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
+  __template_username?: string | undefined;
+  __template_password?: string | undefined;
 };
 
 /** @internal */
@@ -15928,7 +16392,7 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   discoveryType: CreateInputSystemByPackDiscoveryTypePrometheus$outboundSchema
     .optional(),
   interval: z.number(),
-  logLevel: CreateInputSystemByPackLogLevelPrometheus$outboundSchema,
+  logLevel: models.LogLevelOptions$outboundSchema,
   rejectUnauthorized: z.boolean().optional(),
   timeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
@@ -15954,7 +16418,8 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
+  signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
@@ -15963,12 +16428,16 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_discoveryType: z.string().optional(),
   __template_logLevel: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
+  __template_username: z.string().optional(),
+  __template_password: z.string().optional(),
 });
 
 export function createInputSystemByPackInputPrometheusToJSON(
@@ -16020,6 +16489,7 @@ export type CreateInputSystemByPackInputPrometheusRw$Outbound = {
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
+  __template_username?: string | undefined;
 };
 
 /** @internal */
@@ -16066,6 +16536,7 @@ export const CreateInputSystemByPackInputPrometheusRw$outboundSchema: z.ZodType<
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),
+  __template_username: z.string().optional(),
 });
 
 export function createInputSystemByPackInputPrometheusRwToJSON(
@@ -16545,9 +17016,7 @@ export type CreateInputSystemByPackInputConfluentCloud$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   brokers: Array<string>;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   topics: Array<string>;
   groupId?: string | undefined;
   fromBeginning?: boolean | undefined;
@@ -16594,7 +17063,7 @@ export const CreateInputSystemByPackInputConfluentCloud$outboundSchema:
       .optional(),
     pq: models.PqType$outboundSchema.optional(),
     brokers: z.array(z.string()),
-    tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema
       .optional(),
     topics: z.array(z.string()),
     groupId: z.string().optional(),
@@ -17312,6 +17781,8 @@ export type CreateInputSystemByPackInputSplunk$Outbound = {
   compress?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -17354,6 +17825,8 @@ export const CreateInputSystemByPackInputSplunk$outboundSchema: z.ZodType<
   compress: CreateInputSystemByPackCompression$outboundSchema.optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function createInputSystemByPackInputSplunkToJSON(
@@ -17502,9 +17975,7 @@ export type CreateInputSystemByPackInputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   autoCommitInterval?: number | undefined;
   autoCommitThreshold?: number | undefined;
   maxBytesPerPartition?: number | undefined;
@@ -17515,6 +17986,7 @@ export type CreateInputSystemByPackInputMsk$Outbound = {
   awsSecret?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -17566,8 +18038,7 @@ export const CreateInputSystemByPackInputMsk$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   autoCommitInterval: z.number().optional(),
   autoCommitThreshold: z.number().optional(),
   maxBytesPerPartition: z.number().optional(),
@@ -17578,6 +18049,7 @@ export const CreateInputSystemByPackInputMsk$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -17621,9 +18093,7 @@ export type CreateInputSystemByPackInputKafka$Outbound = {
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
   sasl?: models.AuthenticationType$Outbound | undefined;
-  tls?:
-    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
-    | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
@@ -17668,8 +18138,7 @@ export const CreateInputSystemByPackInputKafka$outboundSchema: z.ZodType<
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
   sasl: models.AuthenticationType$outboundSchema.optional(),
-  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
-    .optional(),
+  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
@@ -17816,6 +18285,7 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputWizWebhook$Outbound
   | CreateInputSystemByPackInputNetflow$Outbound
   | CreateInputSystemByPackInputSecurityLake$Outbound
+  | CreateInputSystemByPackInputServicenowTable$Outbound
   | CreateInputSystemByPackInputZscalerHec$Outbound
   | CreateInputSystemByPackInputCloudflareHec$Outbound;
 
@@ -17891,6 +18361,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputWizWebhook$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputNetflow$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputSecurityLake$outboundSchema),
+  z.lazy(() => CreateInputSystemByPackInputServicenowTable$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputZscalerHec$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputCloudflareHec$outboundSchema),
 ]);
@@ -17977,6 +18448,7 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputWizWebhook$Outbound
     | CreateInputSystemByPackInputNetflow$Outbound
     | CreateInputSystemByPackInputSecurityLake$Outbound
+    | CreateInputSystemByPackInputServicenowTable$Outbound
     | CreateInputSystemByPackInputZscalerHec$Outbound
     | CreateInputSystemByPackInputCloudflareHec$Outbound;
 };
@@ -18057,6 +18529,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackInputWizWebhook$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputNetflow$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputSecurityLake$outboundSchema),
+    z.lazy(() => CreateInputSystemByPackInputServicenowTable$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputZscalerHec$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputCloudflareHec$outboundSchema),
   ]),

@@ -25,7 +25,7 @@ export class Cribl extends ClientSDK {
   }
 
   /**
-   * Update Cribl system settings
+   * Update system settings
    *
    * @remarks
    * Update Cribl system settings.

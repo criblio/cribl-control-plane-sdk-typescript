@@ -15,6 +15,9 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ConfigGroupCloud = {
   provider: CloudProvider | null;
+  /**
+   * Cloud region where the Worker Group is deployed.
+   */
   region: string;
 };
 

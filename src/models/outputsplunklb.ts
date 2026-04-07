@@ -54,11 +54,11 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type OutputSplunkLbAuthToken = {
   /**
@@ -165,7 +165,7 @@ export type OutputSplunkLb = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -232,7 +232,7 @@ export type OutputSplunkLb = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -259,6 +259,10 @@ export type OutputSplunkLb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSplunkLbPqControls | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -268,6 +272,22 @@ export type OutputSplunkLb = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
+   */
+  __template_nestedFields?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -436,9 +456,7 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
   throttleRatePerSec: types.optional(types.string()),
   connectionTimeout: types.optional(types.number()),
   writeTimeout: types.optional(types.number()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   enableMultiMetrics: types.optional(types.boolean()),
   enableACK: types.optional(types.boolean()),
   logFailedRequests: types.optional(types.boolean()),
@@ -467,11 +485,16 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputSplunkLbPqControls$inboundSchema),
   ),
   authToken: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_nestedFields: types.optional(types.string()),
+  __template_maxS2Sversion: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSplunkLb$Outbound = {
@@ -488,7 +511,7 @@ export type OutputSplunkLb$Outbound = {
   throttleRatePerSec?: string | undefined;
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   enableMultiMetrics?: boolean | undefined;
   enableACK?: boolean | undefined;
   logFailedRequests?: boolean | undefined;
@@ -513,9 +536,14 @@ export type OutputSplunkLb$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSplunkLbPqControls$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_nestedFields?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -537,7 +565,7 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   enableMultiMetrics: z.boolean().optional(),
   enableACK: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -564,9 +592,14 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSplunkLbPqControls$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_nestedFields: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function outputSplunkLbToJSON(outputSplunkLb: OutputSplunkLb): string {

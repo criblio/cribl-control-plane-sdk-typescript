@@ -45,10 +45,10 @@ import {
   RecordDataFormatOptions$outboundSchema,
 } from "./recorddataformatoptions.js";
 import {
-  SaslMechanismOptionsSasl1,
-  SaslMechanismOptionsSasl1$inboundSchema,
-  SaslMechanismOptionsSasl1$outboundSchema,
-} from "./saslmechanismoptionssasl1.js";
+  SaslMechanismOptionsSaslOauthbearerPlain,
+  SaslMechanismOptionsSaslOauthbearerPlain$inboundSchema,
+  SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema,
+} from "./saslmechanismoptionssasloauthbearerplain.js";
 import {
   TlsSettingsClientSideType,
   TlsSettingsClientSideType$inboundSchema,
@@ -69,7 +69,7 @@ export type OutputMicrosoftFabricAuthenticationMethod = OpenEnum<
  */
 export type OutputMicrosoftFabricAuthentication = {
   disabled: boolean;
-  mechanism?: SaslMechanismOptionsSasl1 | undefined;
+  mechanism?: SaslMechanismOptionsSaslOauthbearerPlain | undefined;
   /**
    * The username for authentication. This should always be $ConnectionString.
    */
@@ -215,7 +215,7 @@ export type OutputMicrosoftFabric = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -242,11 +242,19 @@ export type OutputMicrosoftFabric = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
    */
@@ -271,7 +279,9 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: types.boolean(),
-  mechanism: types.optional(SaslMechanismOptionsSasl1$inboundSchema),
+  mechanism: types.optional(
+    SaslMechanismOptionsSaslOauthbearerPlain$inboundSchema,
+  ),
   username: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   clientSecretAuthType: types.optional(
@@ -314,7 +324,7 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   OutputMicrosoftFabricAuthentication
 > = z.object({
   disabled: z.boolean(),
-  mechanism: SaslMechanismOptionsSasl1$outboundSchema.optional(),
+  mechanism: SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema.optional(),
   username: z.string().optional(),
   textSecret: z.string().optional(),
   clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$outboundSchema
@@ -429,10 +439,12 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema),
   ),
   __template_topic: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_bootstrap_server: types.optional(types.string()),
 });
 /** @internal */
@@ -472,8 +484,10 @@ export type OutputMicrosoftFabric$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_bootstrap_server?: string | undefined;
 };
 
@@ -519,9 +533,11 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
   __template_topic: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_bootstrap_server: z.string().optional(),
 });
 

@@ -28,10 +28,10 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  LogLevelOptions,
-  LogLevelOptions$inboundSchema,
-  LogLevelOptions$outboundSchema,
-} from "./logleveloptions.js";
+  LogLevelOptionsDebugError,
+  LogLevelOptionsDebugError$inboundSchema,
+  LogLevelOptionsDebugError$outboundSchema,
+} from "./logleveloptionsdebugerror.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -39,11 +39,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  RetryRulesType1,
-  RetryRulesType1$inboundSchema,
-  RetryRulesType1$Outbound,
-  RetryRulesType1$outboundSchema,
-} from "./retryrulestype1.js";
+  RetryRulesTypeCodesEnableHeader,
+  RetryRulesTypeCodesEnableHeader$inboundSchema,
+  RetryRulesTypeCodesEnableHeader$Outbound,
+  RetryRulesTypeCodesEnableHeader$outboundSchema,
+} from "./retryrulestypecodesenableheader.js";
 
 /**
  * Select authentication method.
@@ -189,8 +189,8 @@ export type InputMicrosoftGraph = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: LogLevelOptions | undefined;
-  retryRules?: RetryRulesType1 | undefined;
+  logLevel?: LogLevelOptionsDebugError | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
@@ -297,8 +297,8 @@ export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   rescheduleDroppedTasks: types.optional(types.boolean()),
   maxTaskReschedule: types.optional(types.number()),
-  logLevel: types.optional(LogLevelOptions$inboundSchema),
-  retryRules: types.optional(RetryRulesType1$inboundSchema),
+  logLevel: types.optional(LogLevelOptionsDebugError$inboundSchema),
+  retryRules: types.optional(RetryRulesTypeCodesEnableHeader$inboundSchema),
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   tenantId: types.optional(types.string()),
@@ -341,7 +341,7 @@ export type InputMicrosoftGraph$Outbound = {
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
-  retryRules?: RetryRulesType1$Outbound | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
@@ -388,8 +388,8 @@ export const InputMicrosoftGraph$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   rescheduleDroppedTasks: z.boolean().optional(),
   maxTaskReschedule: z.number().optional(),
-  logLevel: LogLevelOptions$outboundSchema.optional(),
-  retryRules: RetryRulesType1$outboundSchema.optional(),
+  logLevel: LogLevelOptionsDebugError$outboundSchema.optional(),
+  retryRules: RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   tenantId: z.string().optional(),

@@ -192,6 +192,14 @@ export type InputSplunk = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -303,6 +311,8 @@ export const InputSplunk$inboundSchema: z.ZodType<
   compress: types.optional(InputSplunkCompression$inboundSchema),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_maxS2Sversion: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
 });
 /** @internal */
 export type InputSplunk$Outbound = {
@@ -337,6 +347,8 @@ export type InputSplunk$Outbound = {
   compress?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_maxS2Sversion?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -377,6 +389,8 @@ export const InputSplunk$outboundSchema: z.ZodType<
   compress: InputSplunkCompression$outboundSchema.optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_maxS2Sversion: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function inputSplunkToJSON(inputSplunk: InputSplunk): string {
