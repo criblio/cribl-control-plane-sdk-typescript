@@ -8,6 +8,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -48,6 +49,16 @@ export const TimeRange = {
   Relative: "relative",
 } as const;
 export type TimeRange = OpenEnum<typeof TimeRange>;
+
+/**
+ * Earliest time to collect data for the selected timezone
+ */
+export type RunnableJobCollectionEarliest = number | string;
+
+/**
+ * Latest time to collect data for the selected timezone
+ */
+export type RunnableJobCollectionLatest = number | string;
 
 export const WhereToCapture = {
   /**
@@ -106,11 +117,11 @@ export type RunnableJobCollectionRun = {
   /**
    * Earliest time to collect data for the selected timezone
    */
-  earliest?: number | undefined;
+  earliest?: number | string | undefined;
   /**
    * Latest time to collect data for the selected timezone
    */
-  latest?: number | undefined;
+  latest?: number | string | undefined;
   /**
    * Timezone to use for Earliest and Latest times
    */
@@ -207,6 +218,40 @@ export const TimeRange$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(TimeRange);
 
 /** @internal */
+export const RunnableJobCollectionEarliest$inboundSchema: z.ZodType<
+  RunnableJobCollectionEarliest,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([types.number(), types.string()]);
+
+export function runnableJobCollectionEarliestFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobCollectionEarliest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RunnableJobCollectionEarliest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobCollectionEarliest' from JSON`,
+  );
+}
+
+/** @internal */
+export const RunnableJobCollectionLatest$inboundSchema: z.ZodType<
+  RunnableJobCollectionLatest,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([types.number(), types.string()]);
+
+export function runnableJobCollectionLatestFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobCollectionLatest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RunnableJobCollectionLatest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobCollectionLatest' from JSON`,
+  );
+}
+
+/** @internal */
 export const WhereToCapture$inboundSchema: z.ZodType<
   WhereToCapture,
   z.ZodTypeDef,
@@ -248,8 +293,8 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   jobTimeout: types.optional(types.string()),
   mode: RunnableJobCollectionMode$inboundSchema,
   timeRangeType: types.optional(TimeRange$inboundSchema),
-  earliest: types.optional(types.number()),
-  latest: types.optional(types.number()),
+  earliest: types.optional(smartUnion([types.number(), types.string()])),
+  latest: types.optional(smartUnion([types.number(), types.string()])),
   timestampTimezone: types.optional(types.string()),
   timeWarning: types.optional(MetricsStore$inboundSchema),
   expression: types.optional(types.string()),
