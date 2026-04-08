@@ -262,6 +262,10 @@ export type RestCollectMethodOther = {
    */
   timeout?: number | undefined;
   /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
   useRoundRobinDns?: boolean | undefined;
@@ -1237,6 +1241,10 @@ export type RestCollectMethodPostWithBody = {
    */
   timeout?: number | undefined;
   /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
   useRoundRobinDns?: boolean | undefined;
@@ -2209,6 +2217,10 @@ export type RestCollectMethodPost = {
    * HTTP request inactivity timeout. Use 0 to disable.
    */
   timeout?: number | undefined;
+  /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
@@ -3183,6 +3195,10 @@ export type RestCollectMethodGet = {
    */
   timeout?: number | undefined;
   /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
   useRoundRobinDns?: boolean | undefined;
@@ -3686,6 +3702,7 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   })),
   authentication: RestCollectMethodOtherAuthentication$inboundSchema,
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -3734,6 +3751,7 @@ export type RestCollectMethodOther$Outbound = {
     | undefined;
   authentication: string;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -3779,6 +3797,7 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   ]).optional(),
   authentication: RestCollectMethodOtherAuthentication$outboundSchema,
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
@@ -5812,6 +5831,7 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   })),
   authentication: RestCollectMethodPostWithBodyAuthentication$inboundSchema,
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -5867,6 +5887,7 @@ export type RestCollectMethodPostWithBody$Outbound = {
     | undefined;
   authentication: string;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -5944,6 +5965,7 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
   ]).optional(),
   authentication: RestCollectMethodPostWithBodyAuthentication$outboundSchema,
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
@@ -7952,6 +7974,7 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   })),
   authentication: RestCollectMethodPostAuthentication$inboundSchema,
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -8009,6 +8032,7 @@ export type RestCollectMethodPost$Outbound = {
     | undefined;
   authentication: string;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -8086,6 +8110,7 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   ]).optional(),
   authentication: RestCollectMethodPostAuthentication$outboundSchema,
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
@@ -10078,6 +10103,7 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   })),
   authentication: RestCollectMethodGetAuthentication$inboundSchema,
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -10135,6 +10161,7 @@ export type RestCollectMethodGet$Outbound = {
     | undefined;
   authentication: string;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -10212,6 +10239,7 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   ]).optional(),
   authentication: RestCollectMethodGetAuthentication$outboundSchema,
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),

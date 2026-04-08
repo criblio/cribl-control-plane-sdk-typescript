@@ -675,6 +675,10 @@ export type RestAuthenticationLoginSecret = {
    */
   timeout?: number | undefined;
   /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
   useRoundRobinDns?: boolean | undefined;
@@ -1652,6 +1656,10 @@ export type RestAuthenticationLogin = {
    */
   timeout?: number | undefined;
   /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
   useRoundRobinDns?: boolean | undefined;
@@ -2605,6 +2613,10 @@ export type RestAuthenticationBasicSecret = {
    */
   timeout?: number | undefined;
   /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
   useRoundRobinDns?: boolean | undefined;
@@ -3555,6 +3567,10 @@ export type RestAuthenticationBasic = {
    */
   timeout?: number | undefined;
   /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
   useRoundRobinDns?: boolean | undefined;
@@ -4502,6 +4518,10 @@ export type RestAuthenticationNone = {
    * HTTP request inactivity timeout. Use 0 to disable.
    */
   timeout?: number | undefined;
+  /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
    */
@@ -6617,6 +6637,7 @@ export const RestAuthenticationLoginSecret$inboundSchema: z.ZodType<
     ),
   })),
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -6681,6 +6702,7 @@ export type RestAuthenticationLoginSecret$Outbound = {
     | RestAuthenticationLoginSecretRestPaginationTypeRequestPage$Outbound
     | undefined;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -6755,6 +6777,7 @@ export const RestAuthenticationLoginSecret$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
@@ -8760,6 +8783,7 @@ export const RestAuthenticationLogin$inboundSchema: z.ZodType<
     ),
   })),
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -8825,6 +8849,7 @@ export type RestAuthenticationLogin$Outbound = {
     | RestAuthenticationLoginRestPaginationTypeRequestPage$Outbound
     | undefined;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -8910,6 +8935,7 @@ export const RestAuthenticationLogin$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
@@ -10933,6 +10959,7 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
     ),
   })),
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -10988,6 +11015,7 @@ export type RestAuthenticationBasicSecret$Outbound = {
     | RestAuthenticationBasicSecretRestPaginationTypeRequestPage$Outbound
     | undefined;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -11065,6 +11093,7 @@ export const RestAuthenticationBasicSecret$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
@@ -13061,6 +13090,7 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
     ),
   })),
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -13117,6 +13147,7 @@ export type RestAuthenticationBasic$Outbound = {
     | RestAuthenticationBasicRestPaginationTypeRequestPage$Outbound
     | undefined;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -13193,6 +13224,7 @@ export const RestAuthenticationBasic$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
@@ -15184,6 +15216,7 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
     ),
   })),
   timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   decodeUrl: types.optional(types.boolean()),
@@ -15238,6 +15271,7 @@ export type RestAuthenticationNone$Outbound = {
     | RestAuthenticationNoneRestPaginationTypeRequestPage$Outbound
     | undefined;
   timeout?: number | undefined;
+  maxResponseBodySize?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   decodeUrl?: boolean | undefined;
@@ -15312,6 +15346,7 @@ export const RestAuthenticationNone$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   decodeUrl: z.boolean().optional(),
