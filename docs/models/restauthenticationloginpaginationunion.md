@@ -16,10 +16,7 @@ const value: models.RestAuthenticationLoginRestPaginationTypeNone = {
 ```typescript
 const value: models.RestAuthenticationLoginRestPaginationTypeResponseBody = {
   type: "response_body",
-  attribute: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  attribute: "<value>",
   maxPages: 5573.43,
 };
 ```
@@ -31,8 +28,9 @@ const value: models.RestAuthenticationLoginRestPaginationTypeResponseHeader = {
   type: "response_header",
   attribute: [
     "<value 1>",
+    "<value 2>",
   ],
-  maxPages: 6007.06,
+  maxPages: 3338.32,
 };
 ```
 

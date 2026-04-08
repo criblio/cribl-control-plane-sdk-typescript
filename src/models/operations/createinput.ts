@@ -1930,6 +1930,11 @@ export type CreateInputPersistenceAppscope = {
   destPath?: string | undefined;
 };
 
+/**
+ * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+ */
+export type CreateInputUNIXSocketPermissions = string | number;
+
 export type CreateInputInputAppscope = {
   /**
    * Unique ID for this input
@@ -2025,7 +2030,7 @@ export type CreateInputInputAppscope = {
   /**
    * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
    */
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
    */
@@ -11231,6 +11236,26 @@ export function createInputPersistenceAppscopeToJSON(
 }
 
 /** @internal */
+export type CreateInputUNIXSocketPermissions$Outbound = string | number;
+
+/** @internal */
+export const CreateInputUNIXSocketPermissions$outboundSchema: z.ZodType<
+  CreateInputUNIXSocketPermissions$Outbound,
+  z.ZodTypeDef,
+  CreateInputUNIXSocketPermissions
+> = smartUnion([z.string(), z.number()]);
+
+export function createInputUNIXSocketPermissionsToJSON(
+  createInputUNIXSocketPermissions: CreateInputUNIXSocketPermissions,
+): string {
+  return JSON.stringify(
+    CreateInputUNIXSocketPermissions$outboundSchema.parse(
+      createInputUNIXSocketPermissions,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputInputAppscope$Outbound = {
   id: string;
   type: "appscope";
@@ -11260,7 +11285,7 @@ export type CreateInputInputAppscope$Outbound = {
   port?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   unixSocketPath?: string | undefined;
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
   __template_host?: string | undefined;
@@ -11304,7 +11329,7 @@ export const CreateInputInputAppscope$outboundSchema: z.ZodType<
   port: z.number().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
   unixSocketPath: z.string().optional(),
-  unixSocketPerms: z.string().optional(),
+  unixSocketPerms: smartUnion([z.string(), z.number()]).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),

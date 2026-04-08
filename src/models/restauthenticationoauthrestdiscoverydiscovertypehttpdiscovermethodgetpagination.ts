@@ -10,6 +10,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeRestCollectMethodGetCollectRequestParams,
@@ -440,24 +441,38 @@ export type RestAuthenticationHmacRestPaginationTypeResponseHeaderLink = {
   maxPages: number;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestAuthenticationHmacRestPaginationTypeResponseHeader = {
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
   maxPages: number;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestAuthenticationHmacRestPaginationTypeResponseBody = {
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -1092,18 +1107,32 @@ export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderL
     maxPages: number;
   };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader =
   {
     type: "response_header";
     /**
      * Names of attributes within the response that contain next-page information
      */
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     /**
      * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
      */
     maxPages: number;
   };
+
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
 
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody =
   {
@@ -1111,7 +1140,7 @@ export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody =
     /**
      * Names of attributes within the response that contain next-page information
      */
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     /**
      * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
      */
@@ -1757,24 +1786,38 @@ export type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink =
     maxPages: number;
   };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader = {
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
   maxPages: number;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestAuthenticationGoogleOauthRestPaginationTypeResponseBody = {
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -2416,24 +2459,38 @@ export type RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink =
     maxPages: number;
   };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestAuthenticationOauthSecretRestPaginationTypeResponseHeader = {
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
   maxPages: number;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestAuthenticationOauthSecretRestPaginationTypeResponseBody = {
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -2930,186 +2987,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
   {
     type: string;
   };
-
-export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
-  {
-    discoverMethod: "get";
-    discoverRequestParams?:
-      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
-      | undefined;
-    /**
-     * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-     */
-    discoverType:
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType;
-    /**
-     * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-     */
-    discoverUrl: string;
-    discoverRequestHeaders?:
-      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
-      | undefined;
-    pagination?:
-      | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination
-      | undefined;
-    /**
-     * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-     */
-    discoverDataField?: string | undefined;
-    /**
-     * Explicitly set the discover response format. When disabled, best effort parsing is used.
-     */
-    enableStrictDiscoverParsing?: boolean | undefined;
-    /**
-     * If 'Strict discover response parsing' parsing is enabled, provide the response format
-     */
-    discoverResponseFormat?: string | undefined;
-    enableDiscoverCode?: boolean | undefined;
-    /**
-     * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-     */
-    formatResultCode?: string | undefined;
-  };
-
-export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp =
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-  | discriminatedUnionTypes.Unknown<"discoverMethod">;
-
-export type RestAuthenticationOauthDiscovery =
-  | (
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
-      discoverType: "http";
-    }
-  )
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeJson
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeList
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeNone
-  | discriminatedUnionTypes.Unknown<"discoverType">;
-
-export const RestAuthenticationOauthCollectMethod = {
-  /**
-   * GET
-   */
-  Get: "get",
-  /**
-   * POST
-   */
-  Post: "post",
-  /**
-   * POST with Body
-   */
-  PostWithBody: "post_with_body",
-  /**
-   * Other
-   */
-  Other: "other",
-} as const;
-export type RestAuthenticationOauthCollectMethod = OpenEnum<
-  typeof RestAuthenticationOauthCollectMethod
->;
-
-export type RestAuthenticationOauthRestPaginationTypeRequestPage = {
-  type: "request_page";
-  /**
-   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-   */
-  pageField: string;
-  /**
-   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-   */
-  page?: number | undefined;
-  /**
-   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-   */
-  sizeField: string;
-  /**
-   * Maximum number of records to collect per page
-   */
-  size: number;
-  /**
-   * Name of the attribute in the response that contains the total number of pages for the query
-   */
-  totalPageField?: string | undefined;
-  /**
-   * Name of the attribute in the response that contains the total number of records for the query
-   */
-  totalRecordField?: string | undefined;
-  /**
-   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-   */
-  maxPages: number;
-  /**
-   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-   */
-  zeroIndexed: boolean;
-};
-
-export type RestAuthenticationOauthRestPaginationTypeRequestOffset = {
-  type: "request_offset";
-  /**
-   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-   */
-  offsetField: string;
-  /**
-   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-   */
-  offset?: number | undefined;
-  /**
-   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-   */
-  limitField: string;
-  /**
-   * Maximum number of records to collect per request
-   */
-  limit: number;
-  /**
-   * Name of the attribute in the response that contains the total number of records for the query
-   */
-  totalRecordField?: string | undefined;
-  /**
-   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-   */
-  maxPages: number;
-  /**
-   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
-   */
-  zeroIndexed: boolean;
-};
-
-export type RestAuthenticationOauthRestPaginationTypeResponseHeaderLink = {
-  type: "response_header_link";
-  /**
-   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-   */
-  nextRelationAttribute: string;
-  /**
-   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-   */
-  curRelationAttribute?: string | undefined;
-  /**
-   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-   */
-  maxPages: number;
-};
-
-export type RestAuthenticationOauthRestPaginationTypeResponseHeader = {
-  type: "response_header";
-  /**
-   * Names of attributes within the response that contain next-page information
-   */
-  attribute: Array<string>;
-  /**
-   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-   */
-  maxPages: number;
-};
 
 /** @internal */
 export const RestAuthenticationHmacRestDiscoveryDiscoverTypeNone$inboundSchema:
@@ -4346,6 +4223,52 @@ export function restAuthenticationHmacRestPaginationTypeResponseHeaderLinkFromJS
 }
 
 /** @internal */
+export const RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes:
+    RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationHmacRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationHmacRestPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestAuthenticationHmacRestPaginationTypeResponseHeader,
@@ -4353,13 +4276,13 @@ export const RestAuthenticationHmacRestPaginationTypeResponseHeader$inboundSchem
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeResponseHeader$Outbound = {
   type: "response_header";
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   maxPages: number;
 };
 
@@ -4371,7 +4294,7 @@ export const RestAuthenticationHmacRestPaginationTypeResponseHeader$outboundSche
     RestAuthenticationHmacRestPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
   });
 
@@ -4401,6 +4324,52 @@ export function restAuthenticationHmacRestPaginationTypeResponseHeaderFromJSON(
 }
 
 /** @internal */
+export const RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes:
+    RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationHmacRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationHmacRestPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestAuthenticationHmacRestPaginationTypeResponseBody,
@@ -4408,14 +4377,14 @@ export const RestAuthenticationHmacRestPaginationTypeResponseBody$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeResponseBody$Outbound = {
   type: "response_body";
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   maxPages: number;
   lastPageExpr?: string | undefined;
 };
@@ -4428,7 +4397,7 @@ export const RestAuthenticationHmacRestPaginationTypeResponseBody$outboundSchema
     RestAuthenticationHmacRestPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
   });
@@ -6396,6 +6365,52 @@ export function restAuthenticationGoogleOauthSecretRestPaginationTypeResponseHea
 }
 
 /** @internal */
+export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes:
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader,
@@ -6403,14 +6418,14 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader$Outbound =
   {
     type: "response_header";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
   };
 
@@ -6422,7 +6437,7 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader
     RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
   });
 
@@ -6453,6 +6468,52 @@ export function restAuthenticationGoogleOauthSecretRestPaginationTypeResponseHea
 }
 
 /** @internal */
+export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes:
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody,
@@ -6460,7 +6521,7 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$i
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
   });
@@ -6468,7 +6529,7 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$i
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$Outbound =
   {
     type: "response_body";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
     lastPageExpr?: string | undefined;
   };
@@ -6481,7 +6542,7 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$o
     RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
   });
@@ -8492,6 +8553,52 @@ export function restAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLin
 }
 
 /** @internal */
+export const RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes:
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader,
@@ -8499,14 +8606,14 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$inbou
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$Outbound =
   {
     type: "response_header";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
   };
 
@@ -8518,7 +8625,7 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$outbo
     RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
   });
 
@@ -8547,6 +8654,52 @@ export function restAuthenticationGoogleOauthRestPaginationTypeResponseHeaderFro
 }
 
 /** @internal */
+export const RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes:
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationGoogleOauthRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestAuthenticationGoogleOauthRestPaginationTypeResponseBody,
@@ -8554,7 +8707,7 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$inbound
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
   });
@@ -8562,7 +8715,7 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$inbound
 export type RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$Outbound =
   {
     type: "response_body";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
     lastPageExpr?: string | undefined;
   };
@@ -8575,7 +8728,7 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$outboun
     RestAuthenticationGoogleOauthRestPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
   });
@@ -10573,6 +10726,52 @@ export function restAuthenticationOauthSecretRestPaginationTypeResponseHeaderLin
 }
 
 /** @internal */
+export const RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes:
+    RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestAuthenticationOauthSecretRestPaginationTypeResponseHeader,
@@ -10580,14 +10779,14 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$inbou
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$Outbound =
   {
     type: "response_header";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
   };
 
@@ -10599,7 +10798,7 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$outbo
     RestAuthenticationOauthSecretRestPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
   });
 
@@ -10628,6 +10827,52 @@ export function restAuthenticationOauthSecretRestPaginationTypeResponseHeaderFro
 }
 
 /** @internal */
+export const RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes:
+    RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationOauthSecretRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationOauthSecretRestPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestAuthenticationOauthSecretRestPaginationTypeResponseBody,
@@ -10635,7 +10880,7 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseBody$inbound
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
   });
@@ -10643,7 +10888,7 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseBody$inbound
 export type RestAuthenticationOauthSecretRestPaginationTypeResponseBody$Outbound =
   {
     type: "response_body";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
     lastPageExpr?: string | undefined;
   };
@@ -10656,7 +10901,7 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseBody$outboun
     RestAuthenticationOauthSecretRestPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
   });
@@ -12203,544 +12448,5 @@ export function restAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMeth
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
         .parse(JSON.parse(x)),
     `Failed to parse 'RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(
-      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
-    ),
-    discoverType:
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: types.string(),
-    discoverRequestHeaders: types.optional(
-      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
-    ),
-    pagination: types.optional(
-      z.lazy(() =>
-        RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-      ),
-    ),
-    discoverDataField: types.optional(types.string()),
-    enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(types.string()),
-    enableDiscoverCode: types.optional(types.boolean()),
-    formatResultCode: types.optional(types.string()),
-  });
-/** @internal */
-export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
-  {
-    discoverMethod: "get";
-    discoverRequestParams?:
-      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-      | undefined;
-    discoverType: string;
-    discoverUrl: string;
-    discoverRequestHeaders?:
-      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-      | undefined;
-    pagination?:
-      | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound
-      | undefined;
-    discoverDataField?: string | undefined;
-    enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: string | undefined;
-    enableDiscoverCode?: boolean | undefined;
-    formatResultCode?: string | undefined;
-  };
-
-/** @internal */
-export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
-  > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    discoverType:
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$outboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.string().optional(),
-    enableDiscoverCode: z.boolean().optional(),
-    formatResultCode: z.string().optional(),
-  });
-
-export function restAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
-  restAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet:
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
-      .parse(
-        restAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
-      ),
-  );
-}
-export function restAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp,
-    z.ZodTypeDef,
-    unknown
-  > = discriminatedUnion("discoverMethod", {
-    get: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
-    ),
-    post: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
-    ),
-    post_with_body: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
-    ),
-    other: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
-    ),
-  });
-/** @internal */
-export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$Outbound =
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound;
-
-/** @internal */
-export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp
-  > = z.union([
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
-    ),
-  ]);
-
-export function restAuthenticationOauthRestDiscoveryDiscoverTypeHttpToJSON(
-  restAuthenticationOauthRestDiscoveryDiscoverTypeHttp:
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$outboundSchema.parse(
-      restAuthenticationOauthRestDiscoveryDiscoverTypeHttp,
-    ),
-  );
-}
-export function restAuthenticationOauthRestDiscoveryDiscoverTypeHttpFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthDiscovery$inboundSchema: z.ZodType<
-  RestAuthenticationOauthDiscovery,
-  z.ZodTypeDef,
-  unknown
-> = discriminatedUnion("discoverType", {
-  http: discriminatedUnion("discoverMethod", {
-    get: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
-    ),
-    post: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
-    ),
-    post_with_body: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
-    ),
-    other: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
-    ),
-  }).and(z.object({ discoverType: z.literal("http") })),
-  json: z.lazy(() =>
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeJson$inboundSchema
-  ),
-  list: z.lazy(() =>
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeList$inboundSchema
-  ),
-  none: z.lazy(() =>
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeNone$inboundSchema
-  ),
-});
-/** @internal */
-export type RestAuthenticationOauthDiscovery$Outbound =
-  | (
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
-    | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
-      & { discoverType: "http" }
-  )
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeJson$Outbound
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeList$Outbound
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeNone$Outbound;
-
-/** @internal */
-export const RestAuthenticationOauthDiscovery$outboundSchema: z.ZodType<
-  RestAuthenticationOauthDiscovery$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationOauthDiscovery
-> = z.union([
-  z.union([
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
-    ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeJson$outboundSchema
-  ),
-  z.lazy(() =>
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeList$outboundSchema
-  ),
-  z.lazy(() =>
-    RestAuthenticationOauthRestDiscoveryDiscoverTypeNone$outboundSchema
-  ),
-]);
-
-export function restAuthenticationOauthDiscoveryToJSON(
-  restAuthenticationOauthDiscovery: RestAuthenticationOauthDiscovery,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthDiscovery$outboundSchema.parse(
-      restAuthenticationOauthDiscovery,
-    ),
-  );
-}
-export function restAuthenticationOauthDiscoveryFromJSON(
-  jsonString: string,
-): SafeParseResult<RestAuthenticationOauthDiscovery, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RestAuthenticationOauthDiscovery$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationOauthDiscovery' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthCollectMethod$inboundSchema: z.ZodType<
-  RestAuthenticationOauthCollectMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RestAuthenticationOauthCollectMethod);
-/** @internal */
-export const RestAuthenticationOauthCollectMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  RestAuthenticationOauthCollectMethod
-> = openEnums.outboundSchema(RestAuthenticationOauthCollectMethod);
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeRequestPage$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeRequestPage,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("request_page"),
-    pageField: types.string(),
-    page: types.optional(types.number()),
-    sizeField: types.string(),
-    size: types.number(),
-    totalPageField: types.optional(types.string()),
-    totalRecordField: types.optional(types.string()),
-    maxPages: types.number(),
-    zeroIndexed: types.boolean(),
-  });
-/** @internal */
-export type RestAuthenticationOauthRestPaginationTypeRequestPage$Outbound = {
-  type: "request_page";
-  pageField: string;
-  page?: number | undefined;
-  sizeField: string;
-  size: number;
-  totalPageField?: string | undefined;
-  totalRecordField?: string | undefined;
-  maxPages: number;
-  zeroIndexed: boolean;
-};
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeRequestPage$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeRequestPage$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthRestPaginationTypeRequestPage
-  > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
-  });
-
-export function restAuthenticationOauthRestPaginationTypeRequestPageToJSON(
-  restAuthenticationOauthRestPaginationTypeRequestPage:
-    RestAuthenticationOauthRestPaginationTypeRequestPage,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthRestPaginationTypeRequestPage$outboundSchema.parse(
-      restAuthenticationOauthRestPaginationTypeRequestPage,
-    ),
-  );
-}
-export function restAuthenticationOauthRestPaginationTypeRequestPageFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthRestPaginationTypeRequestPage,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthRestPaginationTypeRequestPage$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationOauthRestPaginationTypeRequestPage' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeRequestOffset$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeRequestOffset,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("request_offset"),
-    offsetField: types.string(),
-    offset: types.optional(types.number()),
-    limitField: types.string(),
-    limit: types.number(),
-    totalRecordField: types.optional(types.string()),
-    maxPages: types.number(),
-    zeroIndexed: types.boolean(),
-  });
-/** @internal */
-export type RestAuthenticationOauthRestPaginationTypeRequestOffset$Outbound = {
-  type: "request_offset";
-  offsetField: string;
-  offset?: number | undefined;
-  limitField: string;
-  limit: number;
-  totalRecordField?: string | undefined;
-  maxPages: number;
-  zeroIndexed: boolean;
-};
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeRequestOffset$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeRequestOffset$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthRestPaginationTypeRequestOffset
-  > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
-  });
-
-export function restAuthenticationOauthRestPaginationTypeRequestOffsetToJSON(
-  restAuthenticationOauthRestPaginationTypeRequestOffset:
-    RestAuthenticationOauthRestPaginationTypeRequestOffset,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthRestPaginationTypeRequestOffset$outboundSchema.parse(
-      restAuthenticationOauthRestPaginationTypeRequestOffset,
-    ),
-  );
-}
-export function restAuthenticationOauthRestPaginationTypeRequestOffsetFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthRestPaginationTypeRequestOffset,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthRestPaginationTypeRequestOffset$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationOauthRestPaginationTypeRequestOffset' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeResponseHeaderLink,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("response_header_link"),
-    nextRelationAttribute: types.string(),
-    curRelationAttribute: types.optional(types.string()),
-    maxPages: types.number(),
-  });
-/** @internal */
-export type RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$Outbound =
-  {
-    type: "response_header_link";
-    nextRelationAttribute: string;
-    curRelationAttribute?: string | undefined;
-    maxPages: number;
-  };
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthRestPaginationTypeResponseHeaderLink
-  > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
-  });
-
-export function restAuthenticationOauthRestPaginationTypeResponseHeaderLinkToJSON(
-  restAuthenticationOauthRestPaginationTypeResponseHeaderLink:
-    RestAuthenticationOauthRestPaginationTypeResponseHeaderLink,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$outboundSchema
-      .parse(restAuthenticationOauthRestPaginationTypeResponseHeaderLink),
-  );
-}
-export function restAuthenticationOauthRestPaginationTypeResponseHeaderLinkFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthRestPaginationTypeResponseHeaderLink,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationOauthRestPaginationTypeResponseHeaderLink' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeResponseHeader$inboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeResponseHeader,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("response_header"),
-    attribute: z.array(types.string()),
-    maxPages: types.number(),
-  });
-/** @internal */
-export type RestAuthenticationOauthRestPaginationTypeResponseHeader$Outbound = {
-  type: "response_header";
-  attribute: Array<string>;
-  maxPages: number;
-};
-
-/** @internal */
-export const RestAuthenticationOauthRestPaginationTypeResponseHeader$outboundSchema:
-  z.ZodType<
-    RestAuthenticationOauthRestPaginationTypeResponseHeader$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationOauthRestPaginationTypeResponseHeader
-  > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-  });
-
-export function restAuthenticationOauthRestPaginationTypeResponseHeaderToJSON(
-  restAuthenticationOauthRestPaginationTypeResponseHeader:
-    RestAuthenticationOauthRestPaginationTypeResponseHeader,
-): string {
-  return JSON.stringify(
-    RestAuthenticationOauthRestPaginationTypeResponseHeader$outboundSchema
-      .parse(restAuthenticationOauthRestPaginationTypeResponseHeader),
-  );
-}
-export function restAuthenticationOauthRestPaginationTypeResponseHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationOauthRestPaginationTypeResponseHeader,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationOauthRestPaginationTypeResponseHeader$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationOauthRestPaginationTypeResponseHeader' from JSON`,
   );
 }

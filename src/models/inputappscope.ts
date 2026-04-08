@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
   AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
@@ -91,6 +92,11 @@ export type InputAppscopePersistence = {
    */
   destPath?: string | undefined;
 };
+
+/**
+ * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+ */
+export type UNIXSocketPermissions = string | number;
 
 export type InputAppscope = {
   /**
@@ -187,7 +193,7 @@ export type InputAppscope = {
   /**
    * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
    */
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
    */
@@ -343,6 +349,39 @@ export function inputAppscopePersistenceFromJSON(
 }
 
 /** @internal */
+export const UNIXSocketPermissions$inboundSchema: z.ZodType<
+  UNIXSocketPermissions,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([types.string(), types.number()]);
+/** @internal */
+export type UNIXSocketPermissions$Outbound = string | number;
+
+/** @internal */
+export const UNIXSocketPermissions$outboundSchema: z.ZodType<
+  UNIXSocketPermissions$Outbound,
+  z.ZodTypeDef,
+  UNIXSocketPermissions
+> = smartUnion([z.string(), z.number()]);
+
+export function unixSocketPermissionsToJSON(
+  unixSocketPermissions: UNIXSocketPermissions,
+): string {
+  return JSON.stringify(
+    UNIXSocketPermissions$outboundSchema.parse(unixSocketPermissions),
+  );
+}
+export function unixSocketPermissionsFromJSON(
+  jsonString: string,
+): SafeParseResult<UNIXSocketPermissions, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UNIXSocketPermissions$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UNIXSocketPermissions' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputAppscope$inboundSchema: z.ZodType<
   InputAppscope,
   z.ZodTypeDef,
@@ -382,7 +421,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
   port: types.optional(types.number()),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
   unixSocketPath: types.optional(types.string()),
-  unixSocketPerms: types.optional(types.string()),
+  unixSocketPerms: types.optional(smartUnion([types.string(), types.number()])),
   authToken: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_host: types.optional(types.string()),
@@ -418,7 +457,7 @@ export type InputAppscope$Outbound = {
   port?: number | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
   unixSocketPath?: string | undefined;
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
   __template_host?: string | undefined;
@@ -460,7 +499,7 @@ export const InputAppscope$outboundSchema: z.ZodType<
   port: z.number().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
   unixSocketPath: z.string().optional(),
-  unixSocketPerms: z.string().optional(),
+  unixSocketPerms: smartUnion([z.string(), z.number()]).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),

@@ -1945,6 +1945,11 @@ export type CreateInputSystemByPackPersistenceAppscope = {
   destPath?: string | undefined;
 };
 
+/**
+ * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+ */
+export type CreateInputSystemByPackUNIXSocketPermissions = string | number;
+
 export type CreateInputSystemByPackInputAppscope = {
   /**
    * Unique ID for this input
@@ -2040,7 +2045,7 @@ export type CreateInputSystemByPackInputAppscope = {
   /**
    * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
    */
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
    */
@@ -11433,6 +11438,30 @@ export function createInputSystemByPackPersistenceAppscopeToJSON(
 }
 
 /** @internal */
+export type CreateInputSystemByPackUNIXSocketPermissions$Outbound =
+  | string
+  | number;
+
+/** @internal */
+export const CreateInputSystemByPackUNIXSocketPermissions$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackUNIXSocketPermissions$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackUNIXSocketPermissions
+  > = smartUnion([z.string(), z.number()]);
+
+export function createInputSystemByPackUNIXSocketPermissionsToJSON(
+  createInputSystemByPackUNIXSocketPermissions:
+    CreateInputSystemByPackUNIXSocketPermissions,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackUNIXSocketPermissions$outboundSchema.parse(
+      createInputSystemByPackUNIXSocketPermissions,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputSystemByPackInputAppscope$Outbound = {
   id: string;
   type: "appscope";
@@ -11462,7 +11491,7 @@ export type CreateInputSystemByPackInputAppscope$Outbound = {
   port?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   unixSocketPath?: string | undefined;
-  unixSocketPerms?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
   __template_host?: string | undefined;
@@ -11508,7 +11537,7 @@ export const CreateInputSystemByPackInputAppscope$outboundSchema: z.ZodType<
   port: z.number().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
   unixSocketPath: z.string().optional(),
-  unixSocketPerms: z.string().optional(),
+  unixSocketPerms: smartUnion([z.string(), z.number()]).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),
