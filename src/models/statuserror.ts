@@ -8,23 +8,20 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-/**
- * Error information for the persistent queue, if applicable.
- */
-export type ErrorTypeStatusPq = {
+export type StatusError = {
   /**
-   * Additional details for the persistent queue error.
+   * Additional error details.
    */
   details?: { [k: string]: any } | undefined;
   /**
-   * Human-readable message that describes the persistent queue error.
+   * Human-readable message that describes the error.
    */
   message: string;
 };
 
 /** @internal */
-export const ErrorTypeStatusPq$inboundSchema: z.ZodType<
-  ErrorTypeStatusPq,
+export const StatusError$inboundSchema: z.ZodType<
+  StatusError,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -32,12 +29,12 @@ export const ErrorTypeStatusPq$inboundSchema: z.ZodType<
   message: types.string(),
 });
 
-export function errorTypeStatusPqFromJSON(
+export function statusErrorFromJSON(
   jsonString: string,
-): SafeParseResult<ErrorTypeStatusPq, SDKValidationError> {
+): SafeParseResult<StatusError, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ErrorTypeStatusPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ErrorTypeStatusPq' from JSON`,
+    (x) => StatusError$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StatusError' from JSON`,
   );
 }

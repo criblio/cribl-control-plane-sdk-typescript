@@ -8,10 +8,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ErrorTypeStatusPq,
-  ErrorTypeStatusPq$inboundSchema,
-} from "./errortypestatuspq.js";
-import {
   HealthCountType,
   HealthCountType$inboundSchema,
 } from "./healthcounttype.js";
@@ -19,15 +15,10 @@ import {
   HealthStringType,
   HealthStringType$inboundSchema,
 } from "./healthstringtype.js";
+import { StatusError, StatusError$inboundSchema } from "./statuserror.js";
 
-/**
- * Persistent queue status information (if persistent queue is enabled).
- */
-export type PqTypeStatus = {
-  /**
-   * Error information for the persistent queue, if applicable.
-   */
-  error?: ErrorTypeStatusPq | undefined;
+export type AggregatedPQStatus = {
+  error?: StatusError | undefined;
   health: HealthStringType;
   healthCounts: HealthCountType;
   /**
@@ -37,23 +28,23 @@ export type PqTypeStatus = {
 };
 
 /** @internal */
-export const PqTypeStatus$inboundSchema: z.ZodType<
-  PqTypeStatus,
+export const AggregatedPQStatus$inboundSchema: z.ZodType<
+  AggregatedPQStatus,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  error: types.optional(ErrorTypeStatusPq$inboundSchema),
+  error: types.optional(StatusError$inboundSchema),
   health: HealthStringType$inboundSchema,
   healthCounts: HealthCountType$inboundSchema,
   timestamp: types.number(),
 });
 
-export function pqTypeStatusFromJSON(
+export function aggregatedPQStatusFromJSON(
   jsonString: string,
-): SafeParseResult<PqTypeStatus, SDKValidationError> {
+): SafeParseResult<AggregatedPQStatus, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PqTypeStatus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PqTypeStatus' from JSON`,
+    (x) => AggregatedPQStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AggregatedPQStatus' from JSON`,
   );
 }

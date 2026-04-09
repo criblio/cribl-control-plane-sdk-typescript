@@ -6,11 +6,11 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ErrorTypeStatus,
-  ErrorTypeStatus$inboundSchema,
-} from "./errortypestatus.js";
+  AggregatedPQStatus,
+  AggregatedPQStatus$inboundSchema,
+} from "./aggregatedpqstatus.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HealthCountType,
   HealthCountType$inboundSchema,
@@ -19,26 +19,17 @@ import {
   HealthStringType,
   HealthStringType$inboundSchema,
 } from "./healthstringtype.js";
-import { PqTypeStatus, PqTypeStatus$inboundSchema } from "./pqtypestatus.js";
+import { StatusError, StatusError$inboundSchema } from "./statuserror.js";
 
-/**
- * Status information for the Source or Destination, aggregated across all Worker Processes.
- */
-export type StatusType = {
-  /**
-   * Error information, if applicable.
-   */
-  error?: ErrorTypeStatus | undefined;
+export type AggregatedInputOutputStatusBody = {
+  error?: StatusError | undefined;
   health: HealthStringType;
   healthCounts: HealthCountType;
   /**
    * Metrics data for the Source or Destination, including base metrics, aggregated across all Worker Processes. For load-balanced Destinations, includes item-level metrics.
    */
   metrics?: { [k: string]: any } | undefined;
-  /**
-   * Persistent queue status information (if persistent queue is enabled).
-   */
-  pq?: PqTypeStatus | undefined;
+  pq?: AggregatedPQStatus | undefined;
   /**
    * Timestamp (in Unix time) when the status was last updated.
    */
@@ -46,25 +37,25 @@ export type StatusType = {
 };
 
 /** @internal */
-export const StatusType$inboundSchema: z.ZodType<
-  StatusType,
+export const AggregatedInputOutputStatusBody$inboundSchema: z.ZodType<
+  AggregatedInputOutputStatusBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  error: types.optional(ErrorTypeStatus$inboundSchema),
+  error: types.optional(StatusError$inboundSchema),
   health: HealthStringType$inboundSchema,
   healthCounts: HealthCountType$inboundSchema,
   metrics: types.optional(z.record(z.any())),
-  pq: types.optional(PqTypeStatus$inboundSchema),
+  pq: types.optional(AggregatedPQStatus$inboundSchema),
   timestamp: types.number(),
 });
 
-export function statusTypeFromJSON(
+export function aggregatedInputOutputStatusBodyFromJSON(
   jsonString: string,
-): SafeParseResult<StatusType, SDKValidationError> {
+): SafeParseResult<AggregatedInputOutputStatusBody, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => StatusType$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'StatusType' from JSON`,
+    (x) => AggregatedInputOutputStatusBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AggregatedInputOutputStatusBody' from JSON`,
   );
 }
