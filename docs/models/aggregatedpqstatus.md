@@ -1,16 +1,14 @@
-# PqTypeStatus
-
-Persistent queue status information (if persistent queue is enabled).
+# AggregatedPQStatus
 
 ## Example Usage
 
 ```typescript
-import { PqTypeStatus } from "cribl-control-plane/models";
+import { AggregatedPQStatus } from "cribl-control-plane/models";
 
-let value: PqTypeStatus = {
+let value: AggregatedPQStatus = {
   health: "Red",
   healthCounts: {},
-  timestamp: 7374.06,
+  timestamp: 5840.47,
 };
 ```
 
@@ -18,7 +16,7 @@ let value: PqTypeStatus = {
 
 | Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `error`                                                                     | [models.ErrorTypeStatusPq](../models/errortypestatuspq.md)                  | :heavy_minus_sign:                                                          | Error information for the persistent queue, if applicable.                  |
+| `error`                                                                     | [models.StatusError](../models/statuserror.md)                              | :heavy_minus_sign:                                                          | N/A                                                                         |
 | `health`                                                                    | [models.HealthStringType](../models/healthstringtype.md)                    | :heavy_check_mark:                                                          | N/A                                                                         |
 | `healthCounts`                                                              | [models.HealthCountType](../models/healthcounttype.md)                      | :heavy_check_mark:                                                          | N/A                                                                         |
 | `timestamp`                                                                 | *number*                                                                    | :heavy_check_mark:                                                          | Timestamp (in Unix time) when the persistent queue status was last updated. |
