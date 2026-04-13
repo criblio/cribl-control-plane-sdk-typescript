@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create a Lake Dataset (Cribl.Cloud only)
+ * Delete a Lake Dataset (Cribl.Cloud only)
  *
  * @remarks
- * Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
+ * Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
  */
-export function lakeDatasetsCreate(
+export function lakesDatasetsDelete(
   client: CriblControlPlaneCore,
-  request: operations.CreateCriblLakeDatasetByLakeIdRequest,
+  request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function lakeDatasetsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.CreateCriblLakeDatasetByLakeIdRequest,
+  request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,27 +81,31 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.CreateCriblLakeDatasetByLakeIdRequest$outboundSchema.parse(
-        value,
-      ),
+      operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.CriblLakeDataset, { explode: true });
+  const body = null;
 
   const pathParams = {
+    id: encodeSimple("id", payload.id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
     lakeId: encodeSimple("lakeId", payload.lakeId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/products/lake/lakes/{lakeId}/datasets")(pathParams);
+  const path = pathToFunc("/products/lake/lakes/{lakeId}/datasets/{id}")(
+    pathParams,
+  );
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -111,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createCriblLakeDatasetByLakeId",
+    operationID: "deleteCriblLakeDatasetByLakeIdAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -135,7 +139,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "DELETE",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
