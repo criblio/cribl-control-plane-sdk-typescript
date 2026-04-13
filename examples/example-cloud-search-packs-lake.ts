@@ -18,7 +18,6 @@
  * .env file configuration.
  */
 
-import { CriblLakeDataset } from "../dist/esm/models";
 import { AuthCloud } from "./auth";
 
 const ORG_ID = 'your-org-id';
@@ -50,16 +49,16 @@ async function main() {
   console.log(`✅ Installed Search Pack "${PACK_ID}" from Cribl Packs Dispensary`);
 
   // Create lake dataset
-  const dataset: CriblLakeDataset = {
+  const dataset = {
     id: DATASET_ID,
     retentionPeriodInDays: 30,
     httpDAUsed: false,
     storageLocationId: "cribl_lake",
   };
 
-  await cribl.lakeDatasets.create({
+  await cribl.lakes.datasets.create({
     lakeId: LAKE_ID,
-    criblLakeDataset: dataset
+    criblLakeDataset: dataset,
   });
 
   console.log(`✅ Created Lake Dataset: ${DATASET_ID}`);
