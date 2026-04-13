@@ -1,4 +1,4 @@
-# LakeDatasets
+# Lakes.Datasets
 
 ## Overview
 
@@ -28,7 +28,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
+  const result = await criblControlPlane.lakes.datasets.create({
     lakeId: "<id>",
     criblLakeDataset: {
       acceleratedFields: [
@@ -55,7 +55,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate.js";
+import { lakesDatasetsCreate } from "cribl-control-plane/funcs/lakesDatasetsCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -67,7 +67,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsCreate(criblControlPlane, {
+  const res = await lakesDatasetsCreate(criblControlPlane, {
     lakeId: "<id>",
     criblLakeDataset: {
       acceleratedFields: [
@@ -85,7 +85,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsCreate failed:", res.error);
+    console.log("lakesDatasetsCreate failed:", res.error);
   }
 }
 
@@ -105,7 +105,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
+  const result = await criblControlPlane.lakes.datasets.create({
     lakeId: "<id>",
     criblLakeDataset: {
       id: "app_logs",
@@ -124,7 +124,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate.js";
+import { lakesDatasetsCreate } from "cribl-control-plane/funcs/lakesDatasetsCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -136,7 +136,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsCreate(criblControlPlane, {
+  const res = await lakesDatasetsCreate(criblControlPlane, {
     lakeId: "<id>",
     criblLakeDataset: {
       id: "app_logs",
@@ -146,7 +146,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsCreate failed:", res.error);
+    console.log("lakesDatasetsCreate failed:", res.error);
   }
 }
 
@@ -166,7 +166,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
+  const result = await criblControlPlane.lakes.datasets.create({
     lakeId: "<id>",
     criblLakeDataset: {
       description: "Security event data in Parquet format",
@@ -195,7 +195,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate.js";
+import { lakesDatasetsCreate } from "cribl-control-plane/funcs/lakesDatasetsCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -207,7 +207,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsCreate(criblControlPlane, {
+  const res = await lakesDatasetsCreate(criblControlPlane, {
     lakeId: "<id>",
     criblLakeDataset: {
       description: "Security event data in Parquet format",
@@ -227,7 +227,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsCreate failed:", res.error);
+    console.log("lakesDatasetsCreate failed:", res.error);
   }
 }
 
@@ -272,7 +272,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.list({
+  const result = await criblControlPlane.lakes.datasets.list({
     lakeId: "<id>",
     storageLocationId: "<id>",
     format: "<value>",
@@ -294,7 +294,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsList } from "cribl-control-plane/funcs/lakeDatasetsList.js";
+import { lakesDatasetsList } from "cribl-control-plane/funcs/lakesDatasetsList.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -306,7 +306,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsList(criblControlPlane, {
+  const res = await lakesDatasetsList(criblControlPlane, {
     lakeId: "<id>",
     storageLocationId: "<id>",
     format: "<value>",
@@ -319,7 +319,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsList failed:", res.error);
+    console.log("lakesDatasetsList failed:", res.error);
   }
 }
 
@@ -364,7 +364,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.delete({
+  const result = await criblControlPlane.lakes.datasets.delete({
     lakeId: "<id>",
     id: "<id>",
   });
@@ -381,7 +381,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsDelete } from "cribl-control-plane/funcs/lakeDatasetsDelete.js";
+import { lakesDatasetsDelete } from "cribl-control-plane/funcs/lakesDatasetsDelete.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -393,7 +393,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsDelete(criblControlPlane, {
+  const res = await lakesDatasetsDelete(criblControlPlane, {
     lakeId: "<id>",
     id: "<id>",
   });
@@ -401,7 +401,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsDelete failed:", res.error);
+    console.log("lakesDatasetsDelete failed:", res.error);
   }
 }
 
@@ -446,7 +446,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.get({
+  const result = await criblControlPlane.lakes.datasets.get({
     lakeId: "<id>",
     id: "<id>",
   });
@@ -463,7 +463,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsGet } from "cribl-control-plane/funcs/lakeDatasetsGet.js";
+import { lakesDatasetsGet } from "cribl-control-plane/funcs/lakesDatasetsGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -475,7 +475,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsGet(criblControlPlane, {
+  const res = await lakesDatasetsGet(criblControlPlane, {
     lakeId: "<id>",
     id: "<id>",
   });
@@ -483,7 +483,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsGet failed:", res.error);
+    console.log("lakesDatasetsGet failed:", res.error);
   }
 }
 
@@ -528,7 +528,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.update({
+  const result = await criblControlPlane.lakes.datasets.update({
     lakeId: "<id>",
     id: "<id>",
     criblLakeDatasetUpdate: {
@@ -553,7 +553,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsUpdate } from "cribl-control-plane/funcs/lakeDatasetsUpdate.js";
+import { lakesDatasetsUpdate } from "cribl-control-plane/funcs/lakesDatasetsUpdate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -565,7 +565,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsUpdate(criblControlPlane, {
+  const res = await lakesDatasetsUpdate(criblControlPlane, {
     lakeId: "<id>",
     id: "<id>",
     criblLakeDatasetUpdate: {
@@ -581,7 +581,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsUpdate failed:", res.error);
+    console.log("lakesDatasetsUpdate failed:", res.error);
   }
 }
 
@@ -601,7 +601,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.update({
+  const result = await criblControlPlane.lakes.datasets.update({
     lakeId: "<id>",
     id: "<id>",
     criblLakeDatasetUpdate: {
@@ -621,7 +621,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsUpdate } from "cribl-control-plane/funcs/lakeDatasetsUpdate.js";
+import { lakesDatasetsUpdate } from "cribl-control-plane/funcs/lakesDatasetsUpdate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -633,7 +633,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsUpdate(criblControlPlane, {
+  const res = await lakesDatasetsUpdate(criblControlPlane, {
     lakeId: "<id>",
     id: "<id>",
     criblLakeDatasetUpdate: {
@@ -644,7 +644,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsUpdate failed:", res.error);
+    console.log("lakesDatasetsUpdate failed:", res.error);
   }
 }
 

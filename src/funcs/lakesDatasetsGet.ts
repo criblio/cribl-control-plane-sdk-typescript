@@ -32,7 +32,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
  */
-export function lakeDatasetsGet(
+export function lakesDatasetsGet(
   client: CriblControlPlaneCore,
   request: operations.GetCriblLakeDatasetByLakeIdAndIdRequest,
   options?: RequestOptions,

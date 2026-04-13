@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List all Lake Datasets (Cribl.Cloud only)
+ * Update a Lake Dataset (Cribl.Cloud only)
  *
  * @remarks
- * Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
+ * Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
  */
-export function lakeDatasetsList(
+export function lakesDatasetsUpdate(
   client: CriblControlPlaneCore,
-  request: operations.GetCriblLakeDatasetByLakeIdRequest,
+  request: operations.UpdateCriblLakeDatasetByLakeIdAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function lakeDatasetsList(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetCriblLakeDatasetByLakeIdRequest,
+  request: operations.UpdateCriblLakeDatasetByLakeIdAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,33 +81,34 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetCriblLakeDatasetByLakeIdRequest$outboundSchema.parse(value),
+      operations.UpdateCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.CriblLakeDatasetUpdate, {
+    explode: true,
+  });
 
   const pathParams = {
+    id: encodeSimple("id", payload.id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
     lakeId: encodeSimple("lakeId", payload.lakeId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/products/lake/lakes/{lakeId}/datasets")(pathParams);
-
-  const query = encodeFormQuery({
-    "excludeBYOS": payload.excludeBYOS,
-    "excludeDDSS": payload.excludeDDSS,
-    "excludeDeleted": payload.excludeDeleted,
-    "excludeInternal": payload.excludeInternal,
-    "format": payload.format,
-    "storageLocationId": payload.storageLocationId,
-  });
+  const path = pathToFunc("/products/lake/lakes/{lakeId}/datasets/{id}")(
+    pathParams,
+  );
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -117,7 +118,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getCriblLakeDatasetByLakeId",
+    operationID: "updateCriblLakeDatasetByLakeIdAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -141,11 +142,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "PATCH",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
