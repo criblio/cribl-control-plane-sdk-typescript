@@ -15,6 +15,12 @@ import {
 } from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  GpuType,
+  GpuType$inboundSchema,
+  GpuType$Outbound,
+  GpuType$outboundSchema,
+} from "./gputype.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -345,6 +351,7 @@ export type InputWindowsMetrics = {
   interval?: number | undefined;
   host?: InputWindowsMetricsHost | undefined;
   process?: ProcessType | undefined;
+  gpu?: GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -355,6 +362,10 @@ export type InputWindowsMetrics = {
    */
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -827,12 +838,14 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
   interval: types.optional(types.number()),
   host: types.optional(z.lazy(() => InputWindowsMetricsHost$inboundSchema)),
   process: types.optional(ProcessType$inboundSchema),
+  gpu: types.optional(GpuType$inboundSchema),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => InputWindowsMetricsPersistence$inboundSchema),
   ),
   disableNativeModule: types.optional(types.boolean()),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputWindowsMetrics$Outbound = {
@@ -849,10 +862,12 @@ export type InputWindowsMetrics$Outbound = {
   interval?: number | undefined;
   host?: InputWindowsMetricsHost$Outbound | undefined;
   process?: ProcessType$Outbound | undefined;
+  gpu?: GpuType$Outbound | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   persistence?: InputWindowsMetricsPersistence$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -874,11 +889,13 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   host: z.lazy(() => InputWindowsMetricsHost$outboundSchema).optional(),
   process: ProcessType$outboundSchema.optional(),
+  gpu: GpuType$outboundSchema.optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputWindowsMetricsPersistence$outboundSchema)
     .optional(),
   disableNativeModule: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputWindowsMetricsToJSON(

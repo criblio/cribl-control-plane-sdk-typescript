@@ -15,5 +15,5 @@ let value: CreateInputAuthenticationTypeServicenowTable = "oauthSecret";
 ## Values
 
 ```typescript
-"none" | "basic" | "basicSecret" | "oauth" | "oauthSecret" | Unrecognized<string>
+"none" | "basicSecret" | "oauthSecret" | Unrecognized<string>
 ```

@@ -52,26 +52,22 @@ import {
 } from "./retryrulestype.js";
 
 /**
- * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ * Used only when Sort by field is set.
  */
-export const DisplayValue = {
+export const SortDirection = {
   /**
-   * Raw
+   * Ascending
    */
-  False: "false",
+  Asc: "asc",
   /**
-   * Display
+   * Descending
    */
-  True: "true",
-  /**
-   * All
-   */
-  All: "all",
+  Desc: "desc",
 } as const;
 /**
- * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ * Used only when Sort by field is set.
  */
-export type DisplayValue = OpenEnum<typeof DisplayValue>;
+export type SortDirection = OpenEnum<typeof SortDirection>;
 
 /**
  * ServiceNow Table API authentication method
@@ -84,17 +80,9 @@ export const InputServicenowTableAuthenticationType = {
   /**
    * Basic
    */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
   BasicSecret: "basicSecret",
   /**
    * OAuth
-   */
-  Oauth: "oauth",
-  /**
-   * OAuth (text secret)
    */
   OauthSecret: "oauthSecret",
 } as const;
@@ -104,6 +92,8 @@ export const InputServicenowTableAuthenticationType = {
 export type InputServicenowTableAuthenticationType = OpenEnum<
   typeof InputServicenowTableAuthenticationType
 >;
+
+export type InputServicenowTableManageState = {};
 
 export type InputServicenowTable = {
   /**
@@ -150,13 +140,29 @@ export type InputServicenowTable = {
    */
   fields?: Array<string> | undefined;
   /**
-   * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+   * Optional. Sort results by this field (for example sys_created_on or parent.name). Leave empty to use the server default order.
    */
-  displayValue?: DisplayValue | undefined;
+  orderByField?: string | undefined;
+  /**
+   * Used only when Sort by field is set.
+   */
+  orderByDirection?: SortDirection | undefined;
+  /**
+   * Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
+   */
+  query?: string | undefined;
+  /**
+   * When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
+   */
+  useRawValues?: boolean | undefined;
   /**
    * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
    */
   pageSize?: number | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
   /**
    * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
    */
@@ -219,8 +225,6 @@ export type InputServicenowTable = {
   metadata?: Array<ItemsTypeMetadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
    */
@@ -234,9 +238,9 @@ export type InputServicenowTable = {
    */
   secretParamName?: string | undefined;
   /**
-   * Secret parameter value to pass in request body
+   * Select or create a stored text secret for the OAuth client secret parameter value
    */
-  secret?: string | undefined;
+  textSecret?: string | undefined;
   /**
    * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
    */
@@ -258,43 +262,48 @@ export type InputServicenowTable = {
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
   /**
-   * Select or create a stored text secret for the OAuth client secret parameter value
-   */
-  textSecret?: string | undefined;
-  /**
-   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   * JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
    */
   stateUpdateExpression?: string | undefined;
   /**
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
+  manageState?: InputServicenowTableManageState | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
    */
   __template_instance?: string | undefined;
   /**
+   * Binds 'orderByField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'orderByField' at runtime.
+   */
+  __template_orderByField?: string | undefined;
+  /**
+   * Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
+   */
+  __template_query?: string | undefined;
+  /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
   __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
-export const DisplayValue$inboundSchema: z.ZodType<
-  DisplayValue,
+export const SortDirection$inboundSchema: z.ZodType<
+  SortDirection,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(DisplayValue);
+> = openEnums.inboundSchema(SortDirection);
 /** @internal */
-export const DisplayValue$outboundSchema: z.ZodType<
+export const SortDirection$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DisplayValue
-> = openEnums.outboundSchema(DisplayValue);
+  SortDirection
+> = openEnums.outboundSchema(SortDirection);
 
 /** @internal */
 export const InputServicenowTableAuthenticationType$inboundSchema: z.ZodType<
@@ -308,6 +317,41 @@ export const InputServicenowTableAuthenticationType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputServicenowTableAuthenticationType
 > = openEnums.outboundSchema(InputServicenowTableAuthenticationType);
+
+/** @internal */
+export const InputServicenowTableManageState$inboundSchema: z.ZodType<
+  InputServicenowTableManageState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputServicenowTableManageState$Outbound = {};
+
+/** @internal */
+export const InputServicenowTableManageState$outboundSchema: z.ZodType<
+  InputServicenowTableManageState$Outbound,
+  z.ZodTypeDef,
+  InputServicenowTableManageState
+> = z.object({});
+
+export function inputServicenowTableManageStateToJSON(
+  inputServicenowTableManageState: InputServicenowTableManageState,
+): string {
+  return JSON.stringify(
+    InputServicenowTableManageState$outboundSchema.parse(
+      inputServicenowTableManageState,
+    ),
+  );
+}
+export function inputServicenowTableManageStateFromJSON(
+  jsonString: string,
+): SafeParseResult<InputServicenowTableManageState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputServicenowTableManageState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputServicenowTableManageState' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputServicenowTable$inboundSchema: z.ZodType<
@@ -330,8 +374,12 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
   instance: types.string(),
   tableName: types.string(),
   fields: types.optional(z.array(types.string())),
-  displayValue: types.optional(DisplayValue$inboundSchema),
+  orderByField: types.optional(types.string()),
+  orderByDirection: types.optional(SortDirection$inboundSchema),
+  query: types.optional(types.string()),
+  useRawValues: types.optional(types.boolean()),
   pageSize: types.optional(types.number()),
+  maxPages: types.optional(types.number()),
   rejectUnauthorized: types.optional(types.boolean()),
   authType: types.optional(
     InputServicenowTableAuthenticationType$inboundSchema,
@@ -351,23 +399,25 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
   secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   tokenAttributeName: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   tokenTimeoutSecs: types.optional(types.number()),
   oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
   oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
-  textSecret: types.optional(types.string()),
   stateUpdateExpression: types.optional(types.string()),
   stateMergeExpression: types.optional(types.string()),
+  manageState: types.optional(
+    z.lazy(() => InputServicenowTableManageState$inboundSchema),
+  ),
+  __template_environment: types.optional(types.string()),
   __template_instance: types.optional(types.string()),
+  __template_orderByField: types.optional(types.string()),
+  __template_query: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
-  __template_secret: types.optional(types.string()),
 });
 /** @internal */
 export type InputServicenowTable$Outbound = {
@@ -384,8 +434,12 @@ export type InputServicenowTable$Outbound = {
   instance: string;
   tableName: string;
   fields?: Array<string> | undefined;
-  displayValue?: string | undefined;
+  orderByField?: string | undefined;
+  orderByDirection?: string | undefined;
+  query?: string | undefined;
+  useRawValues?: boolean | undefined;
   pageSize?: number | undefined;
+  maxPages?: number | undefined;
   rejectUnauthorized?: boolean | undefined;
   authType?: string | undefined;
   cronSchedule: string;
@@ -403,23 +457,23 @@ export type InputServicenowTable$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
   secretParamName?: string | undefined;
-  secret?: string | undefined;
+  textSecret?: string | undefined;
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-  textSecret?: string | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
+  manageState?: InputServicenowTableManageState$Outbound | undefined;
+  __template_environment?: string | undefined;
   __template_instance?: string | undefined;
+  __template_orderByField?: string | undefined;
+  __template_query?: string | undefined;
   __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -441,8 +495,12 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   instance: z.string(),
   tableName: z.string(),
   fields: z.array(z.string()).optional(),
-  displayValue: DisplayValue$outboundSchema.optional(),
+  orderByField: z.string().optional(),
+  orderByDirection: SortDirection$outboundSchema.optional(),
+  query: z.string().optional(),
+  useRawValues: z.boolean().optional(),
   pageSize: z.number().int().optional(),
+  maxPages: z.number().int().optional(),
   rejectUnauthorized: z.boolean().optional(),
   authType: InputServicenowTableAuthenticationType$outboundSchema.optional(),
   cronSchedule: z.string(),
@@ -460,23 +518,24 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
   secretParamName: z.string().optional(),
-  secret: z.string().optional(),
+  textSecret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-  textSecret: z.string().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() => InputServicenowTableManageState$outboundSchema)
+    .optional(),
+  __template_environment: z.string().optional(),
   __template_instance: z.string().optional(),
+  __template_orderByField: z.string().optional(),
+  __template_query: z.string().optional(),
   __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function inputServicenowTableToJSON(

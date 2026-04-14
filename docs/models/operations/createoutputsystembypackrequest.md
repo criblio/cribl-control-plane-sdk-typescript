@@ -9,8 +9,8 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "grafana_cloud",
-    prometheusUrl: "https://shameless-honesty.net",
+    type: "loki",
+    url: "https://scary-reach.info",
   },
 };
 ```

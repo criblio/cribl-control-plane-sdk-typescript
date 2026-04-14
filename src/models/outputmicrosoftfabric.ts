@@ -106,6 +106,10 @@ export type OutputMicrosoftFabricAuthentication = {
    * Scope to pass in the OAuth request parameter
    */
   scope?: string | undefined;
+  /**
+   * Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
+   */
+  __template_mechanism?: string | undefined;
 };
 
 export type OutputMicrosoftFabricPqControls = {};
@@ -298,6 +302,7 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   clientId: types.optional(types.string()),
   tenantId: types.optional(types.string()),
   scope: types.optional(types.string()),
+  __template_mechanism: types.optional(types.string()),
 });
 /** @internal */
 export type OutputMicrosoftFabricAuthentication$Outbound = {
@@ -315,6 +320,7 @@ export type OutputMicrosoftFabricAuthentication$Outbound = {
   clientId?: string | undefined;
   tenantId?: string | undefined;
   scope?: string | undefined;
+  __template_mechanism?: string | undefined;
 };
 
 /** @internal */
@@ -339,6 +345,7 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
+  __template_mechanism: z.string().optional(),
 });
 
 export function outputMicrosoftFabricAuthenticationToJSON(

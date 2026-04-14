@@ -298,6 +298,10 @@ export type InputEdgePrometheus = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
@@ -484,6 +488,7 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   username: types.optional(types.string()),
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -539,6 +544,7 @@ export type InputEdgePrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -599,6 +605,7 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),

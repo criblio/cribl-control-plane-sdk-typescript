@@ -255,6 +255,16 @@ const value: operations.CreateInputSystemByPackInputEventhub = {
 };
 ```
 
+### `operations.CreateInputSystemByPackInputEventhubAmqp`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputEventhubAmqp = {
+  id: "<id>",
+  type: "eventhub_amqp",
+  consumerGroup: "<value>",
+};
+```
+
 ### `operations.CreateInputSystemByPackInputExec`
 
 ```typescript
@@ -739,6 +749,18 @@ const value: operations.CreateInputSystemByPackInputCloudflareHec = {
   host: "back-marimba.com",
   port: 3576.72,
   hecAPI: "<value>",
+};
+```
+
+### `operations.CreateInputSystemByPackInputOpenaiComplianceLogs`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputOpenaiComplianceLogs = {
+  id: "<id>",
+  type: "openai_compliance_logs",
+  textSecret: "<value>",
+  accountType: "workspace",
+  cronSchedule: "<value>",
 };
 ```
 

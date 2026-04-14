@@ -222,6 +222,14 @@ export type InputMsk = {
    */
   awsSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -304,6 +312,8 @@ export const InputMsk$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_groupId: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
@@ -362,6 +372,8 @@ export type InputMsk$Outbound = {
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
@@ -424,6 +436,8 @@ export const InputMsk$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_groupId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),

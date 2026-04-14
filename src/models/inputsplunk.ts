@@ -185,6 +185,10 @@ export type InputSplunk = {
    */
   compress?: InputSplunkCompression | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -309,6 +313,7 @@ export const InputSplunk$inboundSchema: z.ZodType<
   dropControlFields: types.optional(types.boolean()),
   extractMetrics: types.optional(types.boolean()),
   compress: types.optional(InputSplunkCompression$inboundSchema),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_maxS2Sversion: types.optional(types.string()),
@@ -345,6 +350,7 @@ export type InputSplunk$Outbound = {
   dropControlFields?: boolean | undefined;
   extractMetrics?: boolean | undefined;
   compress?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_maxS2Sversion?: string | undefined;
@@ -387,6 +393,7 @@ export const InputSplunk$outboundSchema: z.ZodType<
   dropControlFields: z.boolean().optional(),
   extractMetrics: z.boolean().optional(),
   compress: InputSplunkCompression$outboundSchema.optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_maxS2Sversion: z.string().optional(),

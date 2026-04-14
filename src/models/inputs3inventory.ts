@@ -215,6 +215,10 @@ export type InputS3Inventory = {
    */
   processedTagValue?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -306,6 +310,7 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   tagAfterProcessing: types.optional(TagAfterProcessingOptions$inboundSchema),
   processedTagKey: types.optional(types.string()),
   processedTagValue: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
   __template_awsAccountId: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
@@ -365,6 +370,7 @@ export type InputS3Inventory$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -430,6 +436,7 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),

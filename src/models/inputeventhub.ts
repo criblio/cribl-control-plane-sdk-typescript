@@ -177,6 +177,14 @@ export type InputEventhub = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -222,6 +230,8 @@ export const InputEventhub$inboundSchema: z.ZodType<
   minimizeDuplicates: types.optional(types.boolean()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_groupId: types.optional(types.string()),
 });
 /** @internal */
 export type InputEventhub$Outbound = {
@@ -260,6 +270,8 @@ export type InputEventhub$Outbound = {
   minimizeDuplicates?: boolean | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -303,6 +315,8 @@ export const InputEventhub$outboundSchema: z.ZodType<
   minimizeDuplicates: z.boolean().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_groupId: z.string().optional(),
 });
 
 export function inputEventhubToJSON(inputEventhub: InputEventhub): string {

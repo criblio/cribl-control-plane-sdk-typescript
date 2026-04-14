@@ -84,6 +84,14 @@ export type AuthenticationTypeUse = {
    * Scope to pass in the OAuth request parameter
    */
   scope?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
+  /**
+   * Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
+   */
+  __template_mechanism?: string | undefined;
 };
 
 /** @internal */
@@ -117,6 +125,8 @@ export const AuthenticationTypeUse$inboundSchema: z.ZodType<
   clientId: types.optional(types.string()),
   tenantId: types.optional(types.string()),
   scope: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
+  __template_mechanism: types.optional(types.string()),
 });
 /** @internal */
 export type AuthenticationTypeUse$Outbound = {
@@ -137,6 +147,8 @@ export type AuthenticationTypeUse$Outbound = {
   clientId?: string | undefined;
   tenantId?: string | undefined;
   scope?: string | undefined;
+  __template_password?: string | undefined;
+  __template_mechanism?: string | undefined;
 };
 
 /** @internal */
@@ -165,6 +177,8 @@ export const AuthenticationTypeUse$outboundSchema: z.ZodType<
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
+  __template_password: z.string().optional(),
+  __template_mechanism: z.string().optional(),
 });
 
 export function authenticationTypeUseToJSON(

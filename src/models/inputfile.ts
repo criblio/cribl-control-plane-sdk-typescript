@@ -153,9 +153,17 @@ export type InputFile = {
    */
   saltHash?: boolean | undefined;
   /**
+   * Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
+   */
+  optimizeLeafDirectories?: boolean | undefined;
+  /**
    * Stream binary files as Base64-encoded chunks.
    */
   includeUnidentifiableBinary?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -209,7 +217,9 @@ export const InputFile$inboundSchema: z.ZodType<
   suppressMissingPathErrors: types.optional(types.boolean()),
   deleteFiles: types.optional(types.boolean()),
   saltHash: types.optional(types.boolean()),
+  optimizeLeafDirectories: types.optional(types.boolean()),
   includeUnidentifiableBinary: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputFile$Outbound = {
@@ -243,7 +253,9 @@ export type InputFile$Outbound = {
   suppressMissingPathErrors?: boolean | undefined;
   deleteFiles?: boolean | undefined;
   saltHash?: boolean | undefined;
+  optimizeLeafDirectories?: boolean | undefined;
   includeUnidentifiableBinary?: boolean | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -282,7 +294,9 @@ export const InputFile$outboundSchema: z.ZodType<
   suppressMissingPathErrors: z.boolean().optional(),
   deleteFiles: z.boolean().optional(),
   saltHash: z.boolean().optional(),
+  optimizeLeafDirectories: z.boolean().optional(),
   includeUnidentifiableBinary: z.boolean().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputFileToJSON(inputFile: InputFile): string {

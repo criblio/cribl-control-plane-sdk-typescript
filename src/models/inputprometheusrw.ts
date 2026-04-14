@@ -150,6 +150,10 @@ export type InputPrometheusRw = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -210,6 +214,7 @@ export const InputPrometheusRw$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_prometheusAPI: types.optional(types.string()),
@@ -250,6 +255,7 @@ export type InputPrometheusRw$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
@@ -295,6 +301,7 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),

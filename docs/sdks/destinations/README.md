@@ -3030,6 +3030,69 @@ async function run() {
 
 run();
 ```
+### Example Usage: OutputCreateExamplesNutanixObjects
+
+<!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesNutanixObjects" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.create({
+    id: "nutanix-objects-output",
+    type: "nutanix_objects",
+    bucket: "my-bucket",
+    stagePath: "/tmp/staging",
+    endpoint: "https://nutanix-objects.example.com",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsCreate } from "cribl-control-plane/funcs/destinationsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsCreate(criblControlPlane, {
+    id: "nutanix-objects-output",
+    type: "nutanix_objects",
+    bucket: "my-bucket",
+    stagePath: "/tmp/staging",
+    endpoint: "https://nutanix-objects.example.com",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: OutputCreateExamplesOpenTelemetry
 
 <!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesOpenTelemetry" -->
@@ -7888,6 +7951,75 @@ async function run() {
       accountId: "123456",
       eventType: "CriblEvent",
       apiKey: "your-api-key",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputCreateExamplesNutanixObjects
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesNutanixObjects" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.update({
+    id: "<id>",
+    output: {
+      id: "nutanix-objects-output",
+      type: "nutanix_objects",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://nutanix-objects.example.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsUpdate } from "cribl-control-plane/funcs/destinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    output: {
+      id: "nutanix-objects-output",
+      type: "nutanix_objects",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://nutanix-objects.example.com",
     },
   });
   if (res.ok) {
