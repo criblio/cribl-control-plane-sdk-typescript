@@ -98,6 +98,10 @@ export type InputJournalFiles = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -170,6 +174,7 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   maxAgeDur: types.optional(types.string()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputJournalFiles$Outbound = {
@@ -191,6 +196,7 @@ export type InputJournalFiles$Outbound = {
   maxAgeDur?: string | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -217,6 +223,7 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   maxAgeDur: z.string().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputJournalFilesToJSON(

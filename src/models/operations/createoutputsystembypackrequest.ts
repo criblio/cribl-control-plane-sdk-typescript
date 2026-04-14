@@ -9,9 +9,6 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputSystemByPackOutputAzureEventhub,
-  CreateOutputSystemByPackOutputAzureEventhub$Outbound,
-  CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
   CreateOutputSystemByPackOutputChronicle,
   CreateOutputSystemByPackOutputChronicle$Outbound,
   CreateOutputSystemByPackOutputChronicle$outboundSchema,
@@ -90,9 +87,6 @@ import {
   CreateOutputSystemByPackOutputGraphite,
   CreateOutputSystemByPackOutputGraphite$Outbound,
   CreateOutputSystemByPackOutputGraphite$outboundSchema,
-  CreateOutputSystemByPackOutputHoneycomb,
-  CreateOutputSystemByPackOutputHoneycomb$Outbound,
-  CreateOutputSystemByPackOutputHoneycomb$outboundSchema,
   CreateOutputSystemByPackOutputHumioHec,
   CreateOutputSystemByPackOutputHumioHec$Outbound,
   CreateOutputSystemByPackOutputHumioHec$outboundSchema,
@@ -126,6 +120,9 @@ import {
   CreateOutputSystemByPackOutputNewrelicEvents,
   CreateOutputSystemByPackOutputNewrelicEvents$Outbound,
   CreateOutputSystemByPackOutputNewrelicEvents$outboundSchema,
+  CreateOutputSystemByPackOutputNutanixObjects,
+  CreateOutputSystemByPackOutputNutanixObjects$Outbound,
+  CreateOutputSystemByPackOutputNutanixObjects$outboundSchema,
   CreateOutputSystemByPackOutputOpenTelemetry,
   CreateOutputSystemByPackOutputOpenTelemetry$Outbound,
   CreateOutputSystemByPackOutputOpenTelemetry$outboundSchema,
@@ -168,7 +165,316 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-} from "./createoutputsystembypackoutputhoneycomb.js";
+  CreateOutputSystemByPackPqControlsAzureEventhub,
+  CreateOutputSystemByPackPqControlsAzureEventhub$Outbound,
+  CreateOutputSystemByPackPqControlsAzureEventhub$outboundSchema,
+} from "./createoutputsystembypackpqcontrolsazureeventhub.js";
+
+export type CreateOutputSystemByPackOutputAzureEventhub = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "azure_eventhub";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * List of Event Hubs Kafka brokers to connect to, eg. yourdomain.servicebus.windows.net:9093. The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+   */
+  brokers: Array<string>;
+  /**
+   * The name of the Event Hub (Kafka Topic) to publish events. Can be overwritten using field __topicOut.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: models.AcknowledgmentsOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to the Event Hubs Kafka brokers
+   */
+  format?: models.RecordDataFormatOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum number of events in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: models.AuthenticationTypeUse | undefined;
+  tls?: models.TlsSettingsClientSideType | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsAzureEventhub | undefined;
+  /**
+   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
+   */
+  __template_topic?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+};
+
+export type CreateOutputSystemByPackPqControlsHoneycomb = {};
+
+export type CreateOutputSystemByPackOutputHoneycomb = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "honeycomb";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the dataset to send events to – e.g., observability
+   */
+  dataset: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enter API key directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptionsApi | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsHoneycomb | undefined;
+  /**
+   * Team API key where the dataset belongs
+   */
+  team?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+};
 
 /**
  * Compression type to use for records
@@ -1351,6 +1657,10 @@ export type CreateOutputSystemByPackOutputAzureBlob = {
    */
   __template_connectionString?: string | undefined;
   /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
   __template_tenantId?: string | undefined;
@@ -1358,6 +1668,10 @@ export type CreateOutputSystemByPackOutputAzureBlob = {
    * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
    */
   __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
 };
 
 export type CreateOutputSystemByPackOutputS3 = {
@@ -4605,7 +4919,8 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputChronicle
   | CreateOutputSystemByPackOutputDatabricks
   | CreateOutputSystemByPackOutputMicrosoftFabric
-  | CreateOutputSystemByPackOutputCloudflareR2;
+  | CreateOutputSystemByPackOutputCloudflareR2
+  | CreateOutputSystemByPackOutputNutanixObjects;
 
 export type CreateOutputSystemByPackRequest = {
   /**
@@ -4691,8 +5006,251 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputChronicle
     | CreateOutputSystemByPackOutputDatabricks
     | CreateOutputSystemByPackOutputMicrosoftFabric
-    | CreateOutputSystemByPackOutputCloudflareR2;
+    | CreateOutputSystemByPackOutputCloudflareR2
+    | CreateOutputSystemByPackOutputNutanixObjects;
 };
+
+/** @internal */
+export type CreateOutputSystemByPackOutputAzureEventhub$Outbound = {
+  id: string;
+  type: "azure_eventhub";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack?: number | undefined;
+  format?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: models.AuthenticationTypeUse$Outbound | undefined;
+  tls?: models.TlsSettingsClientSideType$Outbound | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsAzureEventhub$Outbound
+    | undefined;
+  __template_topic?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackOutputAzureEventhub$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputAzureEventhub$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputAzureEventhub
+  > = z.object({
+    id: z.string(),
+    type: z.literal("azure_eventhub"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    brokers: z.array(z.string()),
+    topic: z.string(),
+    ack: models.AcknowledgmentsOptions$outboundSchema.optional(),
+    format: models.RecordDataFormatOptions$outboundSchema.optional(),
+    maxRecordSizeKB: z.number().optional(),
+    flushEventCount: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    connectionTimeout: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    maxRetries: z.number().optional(),
+    maxBackOff: z.number().optional(),
+    initialBackoff: z.number().optional(),
+    backoffRate: z.number().optional(),
+    authenticationTimeout: z.number().optional(),
+    reauthenticationThreshold: z.number().optional(),
+    sasl: models.AuthenticationTypeUse$outboundSchema.optional(),
+    tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: CreateOutputSystemByPackPqControlsAzureEventhub$outboundSchema
+      .optional(),
+    __template_topic: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
+
+export function createOutputSystemByPackOutputAzureEventhubToJSON(
+  createOutputSystemByPackOutputAzureEventhub:
+    CreateOutputSystemByPackOutputAzureEventhub,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputAzureEventhub$outboundSchema.parse(
+      createOutputSystemByPackOutputAzureEventhub,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsHoneycomb$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsHoneycomb$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsHoneycomb$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsHoneycomb
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsHoneycombToJSON(
+  createOutputSystemByPackPqControlsHoneycomb:
+    CreateOutputSystemByPackPqControlsHoneycomb,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsHoneycomb$outboundSchema.parse(
+      createOutputSystemByPackPqControlsHoneycomb,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputHoneycomb$Outbound = {
+  id: string;
+  type: "honeycomb";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dataset: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsHoneycomb$Outbound | undefined;
+  team?: string | undefined;
+  textSecret?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackOutputHoneycomb$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputHoneycomb$Outbound,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackOutputHoneycomb
+> = z.object({
+  id: z.string(),
+  type: z.literal("honeycomb"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsHoneycomb$outboundSchema
+  ).optional(),
+  team: z.string().optional(),
+  textSecret: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+});
+
+export function createOutputSystemByPackOutputHoneycombToJSON(
+  createOutputSystemByPackOutputHoneycomb:
+    CreateOutputSystemByPackOutputHoneycomb,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputHoneycomb$outboundSchema.parse(
+      createOutputSystemByPackOutputHoneycomb,
+    ),
+  );
+}
 
 /** @internal */
 export const CreateOutputSystemByPackCompression$outboundSchema: z.ZodType<
@@ -5497,8 +6055,10 @@ export type CreateOutputSystemByPackOutputAzureBlob$Outbound = {
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
   __template_connectionString?: string | undefined;
+  __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
@@ -5579,8 +6139,10 @@ export const CreateOutputSystemByPackOutputAzureBlob$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
   __template_connectionString: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputAzureBlobToJSON(
@@ -8103,7 +8665,8 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputChronicle$Outbound
   | CreateOutputSystemByPackOutputDatabricks$Outbound
   | CreateOutputSystemByPackOutputMicrosoftFabric$Outbound
-  | CreateOutputSystemByPackOutputCloudflareR2$Outbound;
+  | CreateOutputSystemByPackOutputCloudflareR2$Outbound
+  | CreateOutputSystemByPackOutputNutanixObjects$Outbound;
 
 /** @internal */
 export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
@@ -8132,8 +8695,8 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputSystemByPackOutputAzureDataExplorer$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputAzureLogs$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputKinesis$outboundSchema),
-  CreateOutputSystemByPackOutputHoneycomb$outboundSchema,
-  CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
+  z.lazy(() => CreateOutputSystemByPackOutputHoneycomb$outboundSchema),
+  z.lazy(() => CreateOutputSystemByPackOutputAzureEventhub$outboundSchema),
   CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema,
   CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
   CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
@@ -8187,6 +8750,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputDatabricks$outboundSchema,
   CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema,
   CreateOutputSystemByPackOutputCloudflareR2$outboundSchema,
+  CreateOutputSystemByPackOutputNutanixObjects$outboundSchema,
 ]);
 
 export function createOutputSystemByPackRequestBodyToJSON(
@@ -8280,7 +8844,8 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputChronicle$Outbound
     | CreateOutputSystemByPackOutputDatabricks$Outbound
     | CreateOutputSystemByPackOutputMicrosoftFabric$Outbound
-    | CreateOutputSystemByPackOutputCloudflareR2$Outbound;
+    | CreateOutputSystemByPackOutputCloudflareR2$Outbound
+    | CreateOutputSystemByPackOutputNutanixObjects$Outbound;
 };
 
 /** @internal */
@@ -8318,8 +8883,8 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     ),
     z.lazy(() => CreateOutputSystemByPackOutputAzureLogs$outboundSchema),
     z.lazy(() => CreateOutputSystemByPackOutputKinesis$outboundSchema),
-    CreateOutputSystemByPackOutputHoneycomb$outboundSchema,
-    CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
+    z.lazy(() => CreateOutputSystemByPackOutputHoneycomb$outboundSchema),
+    z.lazy(() => CreateOutputSystemByPackOutputAzureEventhub$outboundSchema),
     CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema,
     CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
     CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
@@ -8373,6 +8938,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputDatabricks$outboundSchema,
     CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema,
     CreateOutputSystemByPackOutputCloudflareR2$outboundSchema,
+    CreateOutputSystemByPackOutputNutanixObjects$outboundSchema,
   ]),
 }).transform((v) => {
   return remap$(v, {

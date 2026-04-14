@@ -167,9 +167,17 @@ export type InputSqs = {
    */
   numReceivers?: number | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
+  /**
+   * Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
+   */
+  __template_queueType?: string | undefined;
   /**
    * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
    */
@@ -254,7 +262,9 @@ export const InputSqs$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
   numReceivers: types.optional(types.number()),
+  __template_environment: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
+  __template_queueType: types.optional(types.string()),
   __template_awsAccountId: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -298,7 +308,9 @@ export type InputSqs$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   numReceivers?: number | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
+  __template_queueType?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -347,7 +359,9 @@ export const InputSqs$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   numReceivers: z.number().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
+  __template_queueType: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),

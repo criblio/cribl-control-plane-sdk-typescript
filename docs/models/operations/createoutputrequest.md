@@ -798,3 +798,15 @@ const value: operations.CreateOutputOutputCloudflareR2 = {
 };
 ```
 
+### `operations.CreateOutputOutputNutanixObjects`
+
+```typescript
+const value: operations.CreateOutputOutputNutanixObjects = {
+  id: "<id>",
+  type: "nutanix_objects",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+

@@ -6,7 +6,7 @@
 import { AdditionalPropertiesTypeRoutesGroups } from "cribl-control-plane/models";
 
 let value: AdditionalPropertiesTypeRoutesGroups = {
-  index: 6416.41,
+  index: 641641,
   name: "<value>",
 };
 ```

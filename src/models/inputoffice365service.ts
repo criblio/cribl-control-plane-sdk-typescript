@@ -155,6 +155,14 @@ export type InputOffice365Service = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
+  /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
   __template_tenantId?: string | undefined;
@@ -260,6 +268,8 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_planType: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_appId: types.optional(types.string()),
   __template_clientSecret: types.optional(types.string()),
@@ -294,6 +304,8 @@ export type InputOffice365Service$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_planType?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_appId?: string | undefined;
   __template_clientSecret?: string | undefined;
@@ -333,6 +345,8 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_planType: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_appId: z.string().optional(),
   __template_clientSecret: z.string().optional(),

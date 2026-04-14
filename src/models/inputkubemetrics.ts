@@ -107,6 +107,10 @@ export type InputKubeMetrics = {
   metadata?: Array<ItemsTypeMetadata> | undefined;
   persistence?: InputKubeMetricsPersistence | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -192,6 +196,7 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
     z.lazy(() => InputKubeMetricsPersistence$inboundSchema),
   ),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputKubeMetrics$Outbound = {
@@ -210,6 +215,7 @@ export type InputKubeMetrics$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -234,6 +240,7 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
   persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputKubeMetricsToJSON(

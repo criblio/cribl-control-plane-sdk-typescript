@@ -54,6 +54,10 @@ import {
 } from "./inputedgeprometheus.js";
 import { InputElastic, InputElastic$inboundSchema } from "./inputelastic.js";
 import { InputEventhub, InputEventhub$inboundSchema } from "./inputeventhub.js";
+import {
+  InputEventhubAmqp,
+  InputEventhubAmqp$inboundSchema,
+} from "./inputeventhubamqp.js";
 import { InputExec, InputExec$inboundSchema } from "./inputexec.js";
 import { InputFile, InputFile$inboundSchema } from "./inputfile.js";
 import { InputFirehose, InputFirehose$inboundSchema } from "./inputfirehose.js";
@@ -104,6 +108,10 @@ import {
   InputOffice365Service$inboundSchema,
 } from "./inputoffice365service.js";
 import { InputOpenai, InputOpenai$inboundSchema } from "./inputopenai.js";
+import {
+  InputOpenaiComplianceLogs,
+  InputOpenaiComplianceLogs$inboundSchema,
+} from "./inputopenaicompliancelogs.js";
 import {
   InputOpenTelemetry,
   InputOpenTelemetry$inboundSchema,
@@ -192,6 +200,7 @@ export type Input1 =
   | InputOffice365MsgTrace
   | InputMicrosoftGraph
   | InputEventhub
+  | InputEventhubAmqp
   | InputExec
   | InputFirehose
   | InputGooglePubsub
@@ -235,6 +244,7 @@ export type Input1 =
   | InputServicenowTable
   | InputZscalerHec
   | InputCloudflareHec
+  | InputOpenaiComplianceLogs
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
@@ -264,6 +274,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     office365_msg_trace: InputOffice365MsgTrace$inboundSchema,
     microsoft_graph: InputMicrosoftGraph$inboundSchema,
     eventhub: InputEventhub$inboundSchema,
+    eventhub_amqp: InputEventhubAmqp$inboundSchema,
     exec: InputExec$inboundSchema,
     firehose: InputFirehose$inboundSchema,
     google_pubsub: InputGooglePubsub$inboundSchema,
@@ -309,6 +320,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     servicenow_table: InputServicenowTable$inboundSchema,
     zscaler_hec: InputZscalerHec$inboundSchema,
     cloudflare_hec: InputCloudflareHec$inboundSchema,
+    openai_compliance_logs: InputOpenaiComplianceLogs$inboundSchema,
   });
 
 export function input1FromJSON(

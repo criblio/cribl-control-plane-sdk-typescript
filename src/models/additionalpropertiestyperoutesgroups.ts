@@ -47,7 +47,7 @@ export const AdditionalPropertiesTypeRoutesGroups$outboundSchema: z.ZodType<
   AdditionalPropertiesTypeRoutesGroups
 > = z.object({
   description: z.string().optional(),
-  index: z.number(),
+  index: z.number().int(),
   name: z.string(),
 });
 

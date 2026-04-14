@@ -85,6 +85,10 @@ export type InputCollection = {
    * Destination to send results to
    */
   output?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -111,6 +115,7 @@ export const InputCollection$inboundSchema: z.ZodType<
   throttleRatePerSec: types.optional(types.string()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   output: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputCollection$Outbound = {
@@ -130,6 +135,7 @@ export type InputCollection$Outbound = {
   throttleRatePerSec?: string | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   output?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -154,6 +160,7 @@ export const InputCollection$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   output: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputCollectionToJSON(

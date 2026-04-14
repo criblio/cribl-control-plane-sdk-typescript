@@ -217,6 +217,10 @@ export type InputOpenai = {
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
    */
   __template_openaiOrganization?: string | undefined;
@@ -358,6 +362,10 @@ export type InputOpenaiInput = {
   metadata?: Array<ItemsTypeMetadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
    */
@@ -502,6 +510,7 @@ export const InputOpenai$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_openaiOrganization: types.optional(types.string()),
   __template_openaiProject: types.optional(types.string()),
 });
@@ -599,6 +608,7 @@ export type InputOpenaiInput$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_openaiOrganization?: string | undefined;
   __template_openaiProject?: string | undefined;
 };
@@ -632,6 +642,7 @@ export const InputOpenaiInput$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_openaiOrganization: z.string().optional(),
   __template_openaiProject: z.string().optional(),
 });

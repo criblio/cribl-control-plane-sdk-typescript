@@ -109,6 +109,10 @@ export type InputExec = {
    * Cron schedule to execute the command on.
    */
   cronSchedule?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -152,6 +156,7 @@ export const InputExec$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   interval: types.optional(types.number()),
   cronSchedule: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputExec$Outbound = {
@@ -175,6 +180,7 @@ export type InputExec$Outbound = {
   description?: string | undefined;
   interval?: number | undefined;
   cronSchedule?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -203,6 +209,7 @@ export const InputExec$outboundSchema: z.ZodType<
   description: z.string().optional(),
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputExecToJSON(inputExec: InputExec): string {

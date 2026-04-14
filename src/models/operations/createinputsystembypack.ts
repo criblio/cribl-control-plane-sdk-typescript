@@ -9,6 +9,160 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 
+export const CreateInputSystemByPackAccountType = {
+  /**
+   * Workspace
+   */
+  Workspace: "workspace",
+  /**
+   * Organization
+   */
+  Organization: "organization",
+} as const;
+export type CreateInputSystemByPackAccountType = OpenEnum<
+  typeof CreateInputSystemByPackAccountType
+>;
+
+export type CreateInputSystemByPackManageStateOpenaiComplianceLogs = {};
+
+export type CreateInputSystemByPackInputOpenaiComplianceLogs = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "openai_compliance_logs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  accountType: CreateInputSystemByPackAccountType;
+  cronSchedule: string;
+  /**
+   * Relative to the current time. Format: [+|-]<time_integer><time_unit>
+   */
+  earliest?: string | undefined;
+  /**
+   * Relative to the current time. Format: [+|-]<time_integer><time_unit>
+   */
+  latest?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Collector runtime log level
+   */
+  logLevel?: models.LogLevelOptionsContentConfigItemsDebugError | undefined;
+  /**
+   * Maximum number of log file listing pages to retrieve per run. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  retryRules?: models.RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * The ID of the ChatGPT workspace to collect logs from (UUID format)
+   */
+  workspaceId?: string | undefined;
+  /**
+   * One or more compliance log categories to collect
+   */
+  workspaceEventTypes?: Array<string> | undefined;
+  /**
+   * The ID of the OpenAI API Platform Organization (example: org-XXXXXXXXXXXXXXXXXXXXXXXX)
+   */
+  organizationId?: string | undefined;
+  /**
+   * One or more compliance log categories to collect
+   */
+  organizationEventTypes?: Array<string> | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?:
+    | CreateInputSystemByPackManageStateOpenaiComplianceLogs
+    | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
+   */
+  __template_workspaceId?: string | undefined;
+  /**
+   * Binds 'organizationId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'organizationId' at runtime.
+   */
+  __template_organizationId?: string | undefined;
+};
+
 /**
  * Select Secret to use a text secret to authenticate
  */
@@ -203,6 +357,10 @@ export type CreateInputSystemByPackInputCloudflareHec = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -352,6 +510,10 @@ export type CreateInputSystemByPackInputZscalerHec = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -366,27 +528,23 @@ export type CreateInputSystemByPackInputZscalerHec = {
 };
 
 /**
- * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ * Used only when Sort by field is set.
  */
-export const CreateInputSystemByPackDisplayValue = {
+export const CreateInputSystemByPackSortDirection = {
   /**
-   * Raw
+   * Ascending
    */
-  False: "false",
+  Asc: "asc",
   /**
-   * Display
+   * Descending
    */
-  True: "true",
-  /**
-   * All
-   */
-  All: "all",
+  Desc: "desc",
 } as const;
 /**
- * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+ * Used only when Sort by field is set.
  */
-export type CreateInputSystemByPackDisplayValue = OpenEnum<
-  typeof CreateInputSystemByPackDisplayValue
+export type CreateInputSystemByPackSortDirection = OpenEnum<
+  typeof CreateInputSystemByPackSortDirection
 >;
 
 /**
@@ -400,17 +558,9 @@ export const CreateInputSystemByPackAuthenticationTypeServicenowTable = {
   /**
    * Basic
    */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
   BasicSecret: "basicSecret",
   /**
    * OAuth
-   */
-  Oauth: "oauth",
-  /**
-   * OAuth (text secret)
    */
   OauthSecret: "oauthSecret",
 } as const;
@@ -420,6 +570,8 @@ export const CreateInputSystemByPackAuthenticationTypeServicenowTable = {
 export type CreateInputSystemByPackAuthenticationTypeServicenowTable = OpenEnum<
   typeof CreateInputSystemByPackAuthenticationTypeServicenowTable
 >;
+
+export type CreateInputSystemByPackManageStateServicenowTable = {};
 
 export type CreateInputSystemByPackInputServicenowTable = {
   /**
@@ -466,13 +618,29 @@ export type CreateInputSystemByPackInputServicenowTable = {
    */
   fields?: Array<string> | undefined;
   /**
-   * ServiceNow reference field display mode. Allows raw values, display values, or both (sysparm_display_value).
+   * Optional. Sort results by this field (for example sys_created_on or parent.name). Leave empty to use the server default order.
    */
-  displayValue?: CreateInputSystemByPackDisplayValue | undefined;
+  orderByField?: string | undefined;
+  /**
+   * Used only when Sort by field is set.
+   */
+  orderByDirection?: CreateInputSystemByPackSortDirection | undefined;
+  /**
+   * Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
+   */
+  query?: string | undefined;
+  /**
+   * When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
+   */
+  useRawValues?: boolean | undefined;
   /**
    * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
    */
   pageSize?: number | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
   /**
    * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
    */
@@ -537,8 +705,6 @@ export type CreateInputSystemByPackInputServicenowTable = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
    */
@@ -552,9 +718,9 @@ export type CreateInputSystemByPackInputServicenowTable = {
    */
   secretParamName?: string | undefined;
   /**
-   * Secret parameter value to pass in request body
+   * Select or create a stored text secret for the OAuth client secret parameter value
    */
-  secret?: string | undefined;
+  textSecret?: string | undefined;
   /**
    * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
    */
@@ -576,29 +742,34 @@ export type CreateInputSystemByPackInputServicenowTable = {
    */
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
   /**
-   * Select or create a stored text secret for the OAuth client secret parameter value
-   */
-  textSecret?: string | undefined;
-  /**
-   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   * JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
    */
   stateUpdateExpression?: string | undefined;
   /**
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
+  manageState?: CreateInputSystemByPackManageStateServicenowTable | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
    */
   __template_instance?: string | undefined;
   /**
+   * Binds 'orderByField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'orderByField' at runtime.
+   */
+  __template_orderByField?: string | undefined;
+  /**
+   * Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
+   */
+  __template_query?: string | undefined;
+  /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
   __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputSecurityLake = {
@@ -760,6 +931,10 @@ export type CreateInputSystemByPackInputSecurityLake = {
    */
   processedTagValue?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -870,6 +1045,10 @@ export type CreateInputSystemByPackInputNetflow = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -995,6 +1174,10 @@ export type CreateInputSystemByPackInputWizWebhook = {
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -1031,7 +1214,7 @@ export type CreateInputSystemByPackPaginationType = OpenEnum<
 /**
  * Collector runtime log level.
  */
-export const CreateInputSystemByPackLogLevelOpenai = {
+export const CreateInputSystemByPackContentConfigLogLevel = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -1041,8 +1224,8 @@ export const CreateInputSystemByPackLogLevelOpenai = {
 /**
  * Collector runtime log level.
  */
-export type CreateInputSystemByPackLogLevelOpenai = OpenEnum<
-  typeof CreateInputSystemByPackLogLevelOpenai
+export type CreateInputSystemByPackContentConfigLogLevel = OpenEnum<
+  typeof CreateInputSystemByPackContentConfigLogLevel
 >;
 
 export type CreateInputSystemByPackContentConfigInput = {
@@ -1098,7 +1281,7 @@ export type CreateInputSystemByPackContentConfigInput = {
   /**
    * Collector runtime log level.
    */
-  logLevel?: CreateInputSystemByPackLogLevelOpenai | undefined;
+  logLevel?: CreateInputSystemByPackContentConfigLogLevel | undefined;
   /**
    * Fields automatically added to events from this Content Type
    */
@@ -1178,6 +1361,10 @@ export type CreateInputSystemByPackInputOpenai = {
   retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
    */
   __template_openaiOrganization?: string | undefined;
@@ -1188,23 +1375,6 @@ export type CreateInputSystemByPackInputOpenai = {
 };
 
 export type CreateInputSystemByPackManageStateWiz = {};
-
-/**
- * Collector runtime log level
- */
-export const CreateInputSystemByPackLogLevelWiz = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Collector runtime log level
- */
-export type CreateInputSystemByPackLogLevelWiz = OpenEnum<
-  typeof CreateInputSystemByPackLogLevelWiz
->;
 
 export type CreateInputSystemByPackContentConfigWiz = {
   /**
@@ -1249,7 +1419,7 @@ export type CreateInputSystemByPackContentConfigWiz = {
   /**
    * Collector runtime log level
    */
-  logLevel?: CreateInputSystemByPackLogLevelWiz | undefined;
+  logLevel?: models.LogLevelOptionsContentConfigItemsDebugError | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
    */
@@ -1329,6 +1499,14 @@ export type CreateInputSystemByPackInputWiz = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
@@ -1343,6 +1521,10 @@ export type CreateInputSystemByPackInputWiz = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
@@ -1429,6 +1611,10 @@ export type CreateInputSystemByPackInputJournalFiles = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputRawUdp = {
@@ -1496,6 +1682,10 @@ export type CreateInputSystemByPackInputRawUdp = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -1619,6 +1809,10 @@ export type CreateInputSystemByPackInputWinEventLogs = {
    * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
    */
   disableXmlRendering?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /**
@@ -1886,6 +2080,10 @@ export type CreateInputSystemByPackInputWef = {
    */
   logFingerprintMismatch?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -2055,6 +2253,10 @@ export type CreateInputSystemByPackInputAppscope = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -2159,6 +2361,10 @@ export type CreateInputSystemByPackInputTcp = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -2296,9 +2502,17 @@ export type CreateInputSystemByPackInputFile = {
    */
   saltHash?: boolean | undefined;
   /**
+   * Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
+   */
+  optimizeLeafDirectories?: boolean | undefined;
+  /**
    * Stream binary files as Base64-encoded chunks.
    */
   includeUnidentifiableBinary?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export const CreateInputSystemByPackInputSyslogType2 = {
@@ -2427,6 +2641,10 @@ export type CreateInputSystemByPackInputSyslogSyslog2 = {
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -2438,6 +2656,10 @@ export type CreateInputSystemByPackInputSyslogSyslog2 = {
    * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
    */
   __template_tcpPort?: string | undefined;
+  /**
+   * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+   */
+  __template_timestampTimezone?: string | undefined;
 };
 
 export const CreateInputSystemByPackInputSyslogType1 = {
@@ -2566,6 +2788,10 @@ export type CreateInputSystemByPackInputSyslogSyslog1 = {
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -2577,6 +2803,10 @@ export type CreateInputSystemByPackInputSyslogSyslog1 = {
    * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
    */
   __template_tcpPort?: string | undefined;
+  /**
+   * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+   */
+  __template_timestampTimezone?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputSyslogUnion =
@@ -2719,9 +2949,17 @@ export type CreateInputSystemByPackInputSqs = {
    */
   numReceivers?: number | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
+  /**
+   * Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
+   */
+  __template_queueType?: string | undefined;
   /**
    * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
    */
@@ -2806,6 +3044,10 @@ export type CreateInputSystemByPackInputModelDrivenTelemetry = {
    */
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -2977,6 +3219,10 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
    */
   extractLogs?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -3080,6 +3326,10 @@ export type CreateInputSystemByPackInputSnmp = {
    */
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -3256,6 +3506,10 @@ export type CreateInputSystemByPackInputS3Inventory = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
@@ -3452,6 +3706,10 @@ export type CreateInputSystemByPackInputS3 = {
    */
   processedTagValue?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -3552,6 +3810,10 @@ export type CreateInputSystemByPackInputMetrics = {
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -3610,6 +3872,10 @@ export type CreateInputSystemByPackInputCriblmetrics = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /**
@@ -3806,9 +4072,21 @@ export type CreateInputSystemByPackInputKinesis = {
    */
   awsSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
    */
   __template_streamName?: string | undefined;
+  /**
+   * Binds 'shardIteratorType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'shardIteratorType' at runtime.
+   */
+  __template_shardIteratorType?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
   /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
@@ -3950,6 +4228,10 @@ export type CreateInputSystemByPackInputHttpRaw = {
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -4005,6 +4287,10 @@ export type CreateInputSystemByPackInputDatagen = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackProxyModeDatadogAgent = {
@@ -4113,6 +4399,10 @@ export type CreateInputSystemByPackInputDatadogAgent = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeDatadogAgent | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -4273,6 +4563,10 @@ export type CreateInputSystemByPackInputCrowdstrike = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
@@ -4608,6 +4902,7 @@ export type CreateInputSystemByPackInputWindowsMetrics = {
   interval?: number | undefined;
   host?: CreateInputSystemByPackHostWindowsMetrics | undefined;
   process?: models.ProcessType | undefined;
+  gpu?: models.GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -4618,6 +4913,10 @@ export type CreateInputSystemByPackInputWindowsMetrics = {
    */
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputKubeEvents = {
@@ -4661,6 +4960,10 @@ export type CreateInputSystemByPackInputKubeEvents = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackRuleKubeLogs = {
@@ -4736,6 +5039,10 @@ export type CreateInputSystemByPackInputKubeLogs = {
    */
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackPersistenceKubeMetrics = {
@@ -4808,6 +5115,10 @@ export type CreateInputSystemByPackInputKubeMetrics = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: CreateInputSystemByPackPersistenceKubeMetrics | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /**
@@ -5009,6 +5320,10 @@ export type CreateInputSystemByPackInputSystemState = {
    */
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /**
@@ -5388,12 +5703,17 @@ export type CreateInputSystemByPackInputSystemMetrics = {
   host?: CreateInputSystemByPackHostSystemMetrics | undefined;
   process?: models.ProcessType | undefined;
   container?: CreateInputSystemByPackContainer | undefined;
+  gpu?: models.GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: CreateInputSystemByPackPersistenceSystemMetrics | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputTcpjson = {
@@ -5482,6 +5802,10 @@ export type CreateInputSystemByPackInputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -5625,6 +5949,10 @@ export type CreateInputSystemByPackInputCriblLakeHttp = {
   authTokensExt?: Array<CreateInputSystemByPackAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -5632,6 +5960,14 @@ export type CreateInputSystemByPackInputCriblLakeHttp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+   */
+  __template_criblAPI?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
   /**
    * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
    */
@@ -5733,6 +6069,10 @@ export type CreateInputSystemByPackInputCriblHttp = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -5817,6 +6157,10 @@ export type CreateInputSystemByPackInputCriblTcp = {
   authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -5864,6 +6208,10 @@ export type CreateInputSystemByPackInputCribl = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputGooglePubsub = {
@@ -5955,6 +6303,10 @@ export type CreateInputSystemByPackInputGooglePubsub = {
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
    */
   orderedDelivery?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
    */
@@ -6064,6 +6416,10 @@ export type CreateInputSystemByPackInputFirehose = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -6156,6 +6512,236 @@ export type CreateInputSystemByPackInputExec = {
    * Cron schedule to execute the command on.
    */
   cronSchedule?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+};
+
+export const CreateInputSystemByPackAuthenticationMechanism = {
+  /**
+   * Connection String
+   */
+  ConnectionString: "connection-string",
+} as const;
+export type CreateInputSystemByPackAuthenticationMechanism = OpenEnum<
+  typeof CreateInputSystemByPackAuthenticationMechanism
+>;
+
+/**
+ * Enter connection string directly, or select a stored secret
+ */
+export const CreateInputSystemByPackAuthAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter connection string directly, or select a stored secret
+ */
+export type CreateInputSystemByPackAuthAuthenticationMethod = OpenEnum<
+  typeof CreateInputSystemByPackAuthAuthenticationMethod
+>;
+
+export type CreateInputSystemByPackAuth = {
+  mechanism?: CreateInputSystemByPackAuthenticationMechanism | undefined;
+  /**
+   * Enter connection string directly, or select a stored secret
+   */
+  authType: CreateInputSystemByPackAuthAuthenticationMethod;
+  /**
+   * Event Hubs namespace or Event Hub-level connection string
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
+ */
+export const CreateInputSystemByPackCheckpointStore = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Azure Blob Storage
+   */
+  AzureBlob: "azureBlob",
+} as const;
+/**
+ * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
+ */
+export type CreateInputSystemByPackCheckpointStore = OpenEnum<
+  typeof CreateInputSystemByPackCheckpointStore
+>;
+
+export type CreateInputSystemByPackAzureBlobStorage = {
+  /**
+   * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
+   */
+  containerName: string;
+  authType?: models.AuthenticationMethodOptions | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
+};
+
+export type CreateInputSystemByPackCheckpointing = {
+  /**
+   * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
+   */
+  checkpointStoreType?: CreateInputSystemByPackCheckpointStore | undefined;
+  blobStore?: CreateInputSystemByPackAzureBlobStorage | undefined;
+};
+
+export type CreateInputSystemByPackInputEventhubAmqp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "eventhub_amqp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name of the Event Hub to consume from
+   */
+  eventHubName?: string | undefined;
+  /**
+   * The consumer group this instance belongs to. Default is '$Default'.
+   */
+  consumerGroup: string;
+  auth?: CreateInputSystemByPackAuth | undefined;
+  checkpointing?: CreateInputSystemByPackCheckpointing | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum number of events in each batch delivered to the consumer
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum time to wait for a batch of events before delivering a partial batch
+   */
+  maxWaitTimeInSeconds?: number | undefined;
+  /**
+   * Number of events to prefetch from the service for processing
+   */
+  prefetchCount?: number | undefined;
+  /**
+   * Maximum number of retries per operation
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Initial delay before the first retry, in milliseconds
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Maximum delay between retries, in milliseconds
+   */
+  maxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a request to complete
+   */
+  timeoutInMs?: number | undefined;
+  /**
+   * Initial delay before the first reconnection attempt, in milliseconds
+   */
+  connectionInitialBackoff?: number | undefined;
+  /**
+   * Maximum delay between reconnection attempts, in milliseconds
+   */
+  connectionMaxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete
+   */
+  connectionTimeoutInMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputEventhub = {
@@ -6297,6 +6883,14 @@ export type CreateInputSystemByPackInputEventhub = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
 };
 
 /**
@@ -6475,6 +7069,10 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
   textSecret?: string | undefined;
   certOptions?: models.CertOptionsType | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -6490,6 +7088,10 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
    */
   __template_resource?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
 };
 
 /**
@@ -6646,6 +7248,10 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
   textSecret?: string | undefined;
   certOptions?: models.CertOptionsType | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -6661,6 +7267,10 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
    */
   __template_resource?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
 };
 
 export type CreateInputSystemByPackContentConfigOffice365Service = {
@@ -6772,6 +7382,14 @@ export type CreateInputSystemByPackInputOffice365Service = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
   /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
@@ -6903,6 +7521,14 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
   /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
@@ -7165,6 +7791,10 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
@@ -7400,6 +8030,10 @@ export type CreateInputSystemByPackInputPrometheus = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
    */
   __template_discoveryType?: string | undefined;
@@ -7554,6 +8188,10 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -7684,6 +8322,10 @@ export type CreateInputSystemByPackInputLoki = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -7691,6 +8333,10 @@ export type CreateInputSystemByPackInputLoki = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+   */
+  __template_lokiAPI?: string | undefined;
 };
 
 export const CreateInputSystemByPackInputGrafanaType2 = {
@@ -7843,6 +8489,10 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -7850,6 +8500,14 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+   */
+  __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+   */
+  __template_lokiAPI?: string | undefined;
 };
 
 export const CreateInputSystemByPackInputGrafanaType1 = {
@@ -8002,6 +8660,10 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -8009,6 +8671,14 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+   */
+  __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+   */
+  __template_lokiAPI?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputGrafanaUnion =
@@ -8153,6 +8823,14 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
 };
 
 export const CreateInputSystemByPackAuthenticationTypeElastic = {
@@ -8372,6 +9050,10 @@ export type CreateInputSystemByPackInputElastic = {
    */
   customAPIVersion?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -8497,6 +9179,10 @@ export type CreateInputSystemByPackInputAzureBlob = {
   clientTextSecret?: string | undefined;
   certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -8505,6 +9191,10 @@ export type CreateInputSystemByPackInputAzureBlob = {
    */
   __template_connectionString?: string | undefined;
   /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
   __template_tenantId?: string | undefined;
@@ -8512,6 +9202,10 @@ export type CreateInputSystemByPackInputAzureBlob = {
    * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
    */
   __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
 };
 
 export type CreateInputSystemByPackAuthTokenSplunkHec = {
@@ -8676,6 +9370,10 @@ export type CreateInputSystemByPackInputSplunkHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -8894,6 +9592,34 @@ export type CreateInputSystemByPackInputSplunkSearch = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+   */
+  __template_logLevel?: string | undefined;
 };
 
 export type CreateInputSystemByPackAuthTokenSplunk = {
@@ -9051,6 +9777,10 @@ export type CreateInputSystemByPackInputSplunk = {
    */
   compress?: CreateInputSystemByPackCompression | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -9180,6 +9910,10 @@ export type CreateInputSystemByPackInputHttp = {
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -9187,6 +9921,14 @@ export type CreateInputSystemByPackInputHttp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+   */
+  __template_criblAPI?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
   /**
    * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
    */
@@ -9374,6 +10116,14 @@ export type CreateInputSystemByPackInputMsk = {
    */
   awsSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -9537,6 +10287,14 @@ export type CreateInputSystemByPackInputKafka = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputCollection = {
@@ -9592,6 +10350,10 @@ export type CreateInputSystemByPackInputCollection = {
    * Destination to send results to
    */
   output?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /**
@@ -9621,6 +10383,7 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputOffice365MsgTrace
   | CreateInputSystemByPackInputMicrosoftGraph
   | CreateInputSystemByPackInputEventhub
+  | CreateInputSystemByPackInputEventhubAmqp
   | CreateInputSystemByPackInputExec
   | CreateInputSystemByPackInputFirehose
   | CreateInputSystemByPackInputGooglePubsub
@@ -9666,7 +10429,8 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputSecurityLake
   | CreateInputSystemByPackInputServicenowTable
   | CreateInputSystemByPackInputZscalerHec
-  | CreateInputSystemByPackInputCloudflareHec;
+  | CreateInputSystemByPackInputCloudflareHec
+  | CreateInputSystemByPackInputOpenaiComplianceLogs;
 
 export type CreateInputSystemByPackRequest = {
   /**
@@ -9700,6 +10464,7 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputOffice365MsgTrace
     | CreateInputSystemByPackInputMicrosoftGraph
     | CreateInputSystemByPackInputEventhub
+    | CreateInputSystemByPackInputEventhubAmqp
     | CreateInputSystemByPackInputExec
     | CreateInputSystemByPackInputFirehose
     | CreateInputSystemByPackInputGooglePubsub
@@ -9745,8 +10510,149 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputSecurityLake
     | CreateInputSystemByPackInputServicenowTable
     | CreateInputSystemByPackInputZscalerHec
-    | CreateInputSystemByPackInputCloudflareHec;
+    | CreateInputSystemByPackInputCloudflareHec
+    | CreateInputSystemByPackInputOpenaiComplianceLogs;
 };
+
+/** @internal */
+export const CreateInputSystemByPackAccountType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackAccountType
+> = openEnums.outboundSchema(CreateInputSystemByPackAccountType);
+
+/** @internal */
+export type CreateInputSystemByPackManageStateOpenaiComplianceLogs$Outbound =
+  {};
+
+/** @internal */
+export const CreateInputSystemByPackManageStateOpenaiComplianceLogs$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackManageStateOpenaiComplianceLogs$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackManageStateOpenaiComplianceLogs
+  > = z.object({});
+
+export function createInputSystemByPackManageStateOpenaiComplianceLogsToJSON(
+  createInputSystemByPackManageStateOpenaiComplianceLogs:
+    CreateInputSystemByPackManageStateOpenaiComplianceLogs,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackManageStateOpenaiComplianceLogs$outboundSchema.parse(
+      createInputSystemByPackManageStateOpenaiComplianceLogs,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound = {
+  id: string;
+  type: "openai_compliance_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret: string;
+  accountType: string;
+  cronSchedule: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  logLevel?: string | undefined;
+  maxPages?: number | undefined;
+  stateTracking?: boolean | undefined;
+  requestTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  workspaceId?: string | undefined;
+  workspaceEventTypes?: Array<string> | undefined;
+  organizationId?: string | undefined;
+  organizationEventTypes?: Array<string> | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?:
+    | CreateInputSystemByPackManageStateOpenaiComplianceLogs$Outbound
+    | undefined;
+  __template_environment?: string | undefined;
+  __template_workspaceId?: string | undefined;
+  __template_organizationId?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackInputOpenaiComplianceLogs
+  > = z.object({
+    id: z.string(),
+    type: z.literal("openai_compliance_logs"),
+    disabled: z.boolean().optional(),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+      .optional(),
+    pq: models.PqType$outboundSchema.optional(),
+    apiKey: z.string().optional(),
+    textSecret: z.string(),
+    accountType: CreateInputSystemByPackAccountType$outboundSchema,
+    cronSchedule: z.string(),
+    earliest: z.string().optional(),
+    latest: z.string().optional(),
+    jobTimeout: z.string().optional(),
+    logLevel: models.LogLevelOptionsContentConfigItemsDebugError$outboundSchema
+      .optional(),
+    maxPages: z.number().optional(),
+    stateTracking: z.boolean().optional(),
+    requestTimeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    maxMissedKeepAlives: z.number().optional(),
+    ttl: z.string().optional(),
+    ignoreGroupJobsLimit: z.boolean().optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().optional(),
+    retryRules: models.RetryRulesType$outboundSchema.optional(),
+    description: z.string().optional(),
+    workspaceId: z.string().optional(),
+    workspaceEventTypes: z.array(z.string()).optional(),
+    organizationId: z.string().optional(),
+    organizationEventTypes: z.array(z.string()).optional(),
+    stateUpdateExpression: z.string().optional(),
+    stateMergeExpression: z.string().optional(),
+    manageState: z.lazy(() =>
+      CreateInputSystemByPackManageStateOpenaiComplianceLogs$outboundSchema
+    ).optional(),
+    __template_environment: z.string().optional(),
+    __template_workspaceId: z.string().optional(),
+    __template_organizationId: z.string().optional(),
+  });
+
+export function createInputSystemByPackInputOpenaiComplianceLogsToJSON(
+  createInputSystemByPackInputOpenaiComplianceLogs:
+    CreateInputSystemByPackInputOpenaiComplianceLogs,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema.parse(
+      createInputSystemByPackInputOpenaiComplianceLogs,
+    ),
+  );
+}
 
 /** @internal */
 export const CreateInputSystemByPackAuthTokenAuthenticationMethod$outboundSchema:
@@ -9879,6 +10785,7 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -9930,6 +10837,7 @@ export const CreateInputSystemByPackInputCloudflareHec$outboundSchema:
     accessControlAllowHeaders: z.array(z.string()).optional(),
     emitTokenMetrics: z.boolean().optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
   });
@@ -10020,6 +10928,7 @@ export type CreateInputSystemByPackInputZscalerHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_hecAPI?: string | undefined;
@@ -10066,6 +10975,7 @@ export const CreateInputSystemByPackInputZscalerHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_hecAPI: z.string().optional(),
@@ -10083,11 +10993,11 @@ export function createInputSystemByPackInputZscalerHecToJSON(
 }
 
 /** @internal */
-export const CreateInputSystemByPackDisplayValue$outboundSchema: z.ZodType<
+export const CreateInputSystemByPackSortDirection$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackDisplayValue
-> = openEnums.outboundSchema(CreateInputSystemByPackDisplayValue);
+  CreateInputSystemByPackSortDirection
+> = openEnums.outboundSchema(CreateInputSystemByPackSortDirection);
 
 /** @internal */
 export const CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema:
@@ -10098,6 +11008,28 @@ export const CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSc
   > = openEnums.outboundSchema(
     CreateInputSystemByPackAuthenticationTypeServicenowTable,
   );
+
+/** @internal */
+export type CreateInputSystemByPackManageStateServicenowTable$Outbound = {};
+
+/** @internal */
+export const CreateInputSystemByPackManageStateServicenowTable$outboundSchema:
+  z.ZodType<
+    CreateInputSystemByPackManageStateServicenowTable$Outbound,
+    z.ZodTypeDef,
+    CreateInputSystemByPackManageStateServicenowTable
+  > = z.object({});
+
+export function createInputSystemByPackManageStateServicenowTableToJSON(
+  createInputSystemByPackManageStateServicenowTable:
+    CreateInputSystemByPackManageStateServicenowTable,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackManageStateServicenowTable$outboundSchema.parse(
+      createInputSystemByPackManageStateServicenowTable,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateInputSystemByPackInputServicenowTable$Outbound = {
@@ -10114,8 +11046,12 @@ export type CreateInputSystemByPackInputServicenowTable$Outbound = {
   instance: string;
   tableName: string;
   fields?: Array<string> | undefined;
-  displayValue?: string | undefined;
+  orderByField?: string | undefined;
+  orderByDirection?: string | undefined;
+  query?: string | undefined;
+  useRawValues?: boolean | undefined;
   pageSize?: number | undefined;
+  maxPages?: number | undefined;
   rejectUnauthorized?: boolean | undefined;
   authType?: string | undefined;
   cronSchedule: string;
@@ -10133,23 +11069,25 @@ export type CreateInputSystemByPackInputServicenowTable$Outbound = {
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
   secretParamName?: string | undefined;
-  secret?: string | undefined;
+  textSecret?: string | undefined;
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
-  textSecret?: string | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
+  manageState?:
+    | CreateInputSystemByPackManageStateServicenowTable$Outbound
+    | undefined;
+  __template_environment?: string | undefined;
   __template_instance?: string | undefined;
+  __template_orderByField?: string | undefined;
+  __template_query?: string | undefined;
   __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -10173,8 +11111,13 @@ export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
     instance: z.string(),
     tableName: z.string(),
     fields: z.array(z.string()).optional(),
-    displayValue: CreateInputSystemByPackDisplayValue$outboundSchema.optional(),
+    orderByField: z.string().optional(),
+    orderByDirection: CreateInputSystemByPackSortDirection$outboundSchema
+      .optional(),
+    query: z.string().optional(),
+    useRawValues: z.boolean().optional(),
     pageSize: z.number().int().optional(),
+    maxPages: z.number().int().optional(),
     rejectUnauthorized: z.boolean().optional(),
     authType:
       CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema
@@ -10194,24 +11137,26 @@ export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     retryRules: models.RetryRulesType$outboundSchema.optional(),
     description: z.string().optional(),
-    username: z.string().optional(),
-    password: z.string().optional(),
     credentialsSecret: z.string().optional(),
     loginUrl: z.string().optional(),
     secretParamName: z.string().optional(),
-    secret: z.string().optional(),
+    textSecret: z.string().optional(),
     tokenAttributeName: z.string().optional(),
     authHeaderExpr: z.string().optional(),
     tokenTimeoutSecs: z.number().optional(),
     oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
     oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema)
       .optional(),
-    textSecret: z.string().optional(),
     stateUpdateExpression: z.string().optional(),
     stateMergeExpression: z.string().optional(),
+    manageState: z.lazy(() =>
+      CreateInputSystemByPackManageStateServicenowTable$outboundSchema
+    ).optional(),
+    __template_environment: z.string().optional(),
     __template_instance: z.string().optional(),
+    __template_orderByField: z.string().optional(),
+    __template_query: z.string().optional(),
     __template_loginUrl: z.string().optional(),
-    __template_secret: z.string().optional(),
   });
 
 export function createInputSystemByPackInputServicenowTableToJSON(
@@ -10273,6 +11218,7 @@ export type CreateInputSystemByPackInputSecurityLake$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -10338,6 +11284,7 @@ export const CreateInputSystemByPackInputSecurityLake$outboundSchema: z.ZodType<
     .optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -10383,6 +11330,7 @@ export type CreateInputSystemByPackInputNetflow$Outbound = {
   ipfixEnabled?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -10416,6 +11364,7 @@ export const CreateInputSystemByPackInputNetflow$outboundSchema: z.ZodType<
   ipfixEnabled: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -10464,6 +11413,7 @@ export type CreateInputSystemByPackInputWizWebhook$Outbound = {
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -10508,6 +11458,7 @@ export const CreateInputSystemByPackInputWizWebhook$outboundSchema: z.ZodType<
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -10552,11 +11503,12 @@ export const CreateInputSystemByPackPaginationType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputSystemByPackPaginationType);
 
 /** @internal */
-export const CreateInputSystemByPackLogLevelOpenai$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateInputSystemByPackLogLevelOpenai
-> = openEnums.outboundSchema(CreateInputSystemByPackLogLevelOpenai);
+export const CreateInputSystemByPackContentConfigLogLevel$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackContentConfigLogLevel
+  > = openEnums.outboundSchema(CreateInputSystemByPackContentConfigLogLevel);
 
 /** @internal */
 export type CreateInputSystemByPackContentConfigInput$Outbound = {
@@ -10609,7 +11561,8 @@ export const CreateInputSystemByPackContentConfigInput$outboundSchema:
     earliest: z.string(),
     latest: z.string(),
     jobTimeout: z.string().optional(),
-    logLevel: CreateInputSystemByPackLogLevelOpenai$outboundSchema.optional(),
+    logLevel: CreateInputSystemByPackContentConfigLogLevel$outboundSchema
+      .optional(),
     endpointMetadata: z.array(models.ItemsTypeMetadata$outboundSchema)
       .optional(),
   });
@@ -10650,6 +11603,7 @@ export type CreateInputSystemByPackInputOpenai$Outbound = {
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_openaiOrganization?: string | undefined;
   __template_openaiProject?: string | undefined;
 };
@@ -10686,6 +11640,7 @@ export const CreateInputSystemByPackInputOpenai$outboundSchema: z.ZodType<
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_openaiOrganization: z.string().optional(),
   __template_openaiProject: z.string().optional(),
 });
@@ -10719,13 +11674,6 @@ export function createInputSystemByPackManageStateWizToJSON(
     ),
   );
 }
-
-/** @internal */
-export const CreateInputSystemByPackLogLevelWiz$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateInputSystemByPackLogLevelWiz
-> = openEnums.outboundSchema(CreateInputSystemByPackLogLevelWiz);
 
 /** @internal */
 export type CreateInputSystemByPackContentConfigWiz$Outbound = {
@@ -10765,7 +11713,8 @@ export const CreateInputSystemByPackContentConfigWiz$outboundSchema: z.ZodType<
   earliest: z.string(),
   latest: z.string(),
   jobTimeout: z.string().optional(),
-  logLevel: CreateInputSystemByPackLogLevelWiz$outboundSchema.optional(),
+  logLevel: models.LogLevelOptionsContentConfigItemsDebugError$outboundSchema
+    .optional(),
   maxPages: z.number().optional(),
 });
 
@@ -10803,11 +11752,14 @@ export type CreateInputSystemByPackInputWiz$Outbound = {
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_authUrl?: string | undefined;
   __template_clientId?: string | undefined;
@@ -10843,12 +11795,15 @@ export const CreateInputSystemByPackInputWiz$outboundSchema: z.ZodType<
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
     .optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_authUrl: z.string().optional(),
   __template_clientId: z.string().optional(),
@@ -10914,6 +11869,7 @@ export type CreateInputSystemByPackInputJournalFiles$Outbound = {
   maxAgeDur?: string | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -10943,6 +11899,7 @@ export const CreateInputSystemByPackInputJournalFiles$outboundSchema: z.ZodType<
   maxAgeDur: z.string().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputJournalFilesToJSON(
@@ -10977,6 +11934,7 @@ export type CreateInputSystemByPackInputRawUdp$Outbound = {
   udpSocketRxBufSize?: number | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -11007,6 +11965,7 @@ export const CreateInputSystemByPackInputRawUdp$outboundSchema: z.ZodType<
   udpSocketRxBufSize: z.number().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -11058,6 +12017,7 @@ export type CreateInputSystemByPackInputWinEventLogs$Outbound = {
   description?: string | undefined;
   disableJsonRendering?: boolean | undefined;
   disableXmlRendering?: boolean | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -11088,6 +12048,7 @@ export const CreateInputSystemByPackInputWinEventLogs$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
   disableXmlRendering: z.boolean().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputWinEventLogsToJSON(
@@ -11284,6 +12245,7 @@ export type CreateInputSystemByPackInputWef$Outbound = {
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -11331,6 +12293,7 @@ export const CreateInputSystemByPackInputWef$outboundSchema: z.ZodType<
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -11494,6 +12457,7 @@ export type CreateInputSystemByPackInputAppscope$Outbound = {
   unixSocketPerms?: string | number | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -11540,6 +12504,7 @@ export const CreateInputSystemByPackInputAppscope$outboundSchema: z.ZodType<
   unixSocketPerms: smartUnion([z.string(), z.number()]).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -11584,6 +12549,7 @@ export type CreateInputSystemByPackInputTcp$Outbound = {
   authToken?: string | undefined;
   authType?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -11624,6 +12590,7 @@ export const CreateInputSystemByPackInputTcp$outboundSchema: z.ZodType<
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -11677,7 +12644,9 @@ export type CreateInputSystemByPackInputFile$Outbound = {
   suppressMissingPathErrors?: boolean | undefined;
   deleteFiles?: boolean | undefined;
   saltHash?: boolean | undefined;
+  optimizeLeafDirectories?: boolean | undefined;
   includeUnidentifiableBinary?: boolean | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -11717,7 +12686,9 @@ export const CreateInputSystemByPackInputFile$outboundSchema: z.ZodType<
   suppressMissingPathErrors: z.boolean().optional(),
   deleteFiles: z.boolean().optional(),
   saltHash: z.boolean().optional(),
+  optimizeLeafDirectories: z.boolean().optional(),
   includeUnidentifiableBinary: z.boolean().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputFileToJSON(
@@ -11770,9 +12741,11 @@ export type CreateInputSystemByPackInputSyslogSyslog2$Outbound = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_udpPort?: string | undefined;
   __template_tcpPort?: string | undefined;
+  __template_timestampTimezone?: string | undefined;
 };
 
 /** @internal */
@@ -11816,9 +12789,11 @@ export const CreateInputSystemByPackInputSyslogSyslog2$outboundSchema:
     enableLoadBalancing: z.boolean().optional(),
     description: z.string().optional(),
     enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_udpPort: z.string().optional(),
     __template_tcpPort: z.string().optional(),
+    __template_timestampTimezone: z.string().optional(),
   });
 
 export function createInputSystemByPackInputSyslogSyslog2ToJSON(
@@ -11872,9 +12847,11 @@ export type CreateInputSystemByPackInputSyslogSyslog1$Outbound = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_udpPort?: string | undefined;
   __template_tcpPort?: string | undefined;
+  __template_timestampTimezone?: string | undefined;
 };
 
 /** @internal */
@@ -11918,9 +12895,11 @@ export const CreateInputSystemByPackInputSyslogSyslog1$outboundSchema:
     enableLoadBalancing: z.boolean().optional(),
     description: z.string().optional(),
     enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_udpPort: z.string().optional(),
     __template_tcpPort: z.string().optional(),
+    __template_timestampTimezone: z.string().optional(),
   });
 
 export function createInputSystemByPackInputSyslogSyslog1ToJSON(
@@ -12002,7 +12981,9 @@ export type CreateInputSystemByPackInputSqs$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   numReceivers?: number | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
+  __template_queueType?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -12052,7 +13033,9 @@ export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   numReceivers: z.number().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
+  __template_queueType: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
@@ -12091,6 +13074,7 @@ export type CreateInputSystemByPackInputModelDrivenTelemetry$Outbound = {
   maxActiveCxn?: number | undefined;
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -12120,6 +13104,7 @@ export const CreateInputSystemByPackInputModelDrivenTelemetry$outboundSchema:
     maxActiveCxn: z.number().optional(),
     shutdownTimeoutMs: z.number().optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
   });
@@ -12186,6 +13171,7 @@ export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
   extractLogs?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -12233,6 +13219,7 @@ export const CreateInputSystemByPackInputOpenTelemetry$outboundSchema:
     credentialsSecret: z.string().optional(),
     textSecret: z.string().optional(),
     extractLogs: z.boolean().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
   });
@@ -12335,6 +13322,7 @@ export type CreateInputSystemByPackInputSnmp$Outbound = {
   varbindsWithTypes?: boolean | undefined;
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -12368,6 +13356,7 @@ export const CreateInputSystemByPackInputSnmp$outboundSchema: z.ZodType<
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -12432,6 +13421,7 @@ export type CreateInputSystemByPackInputS3Inventory$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -12499,6 +13489,7 @@ export const CreateInputSystemByPackInputS3Inventory$outboundSchema: z.ZodType<
     .optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -12568,6 +13559,7 @@ export type CreateInputSystemByPackInputS3$Outbound = {
   awsSecret?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -12632,6 +13624,7 @@ export const CreateInputSystemByPackInputS3$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -12674,6 +13667,7 @@ export type CreateInputSystemByPackInputMetrics$Outbound = {
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_udpPort?: string | undefined;
   __template_tcpPort?: string | undefined;
@@ -12706,6 +13700,7 @@ export const CreateInputSystemByPackInputMetrics$outboundSchema: z.ZodType<
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_udpPort: z.string().optional(),
   __template_tcpPort: z.string().optional(),
@@ -12737,6 +13732,7 @@ export type CreateInputSystemByPackInputCriblmetrics$Outbound = {
   fullFidelity?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -12760,6 +13756,7 @@ export const CreateInputSystemByPackInputCriblmetrics$outboundSchema: z.ZodType<
   fullFidelity: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputCriblmetricsToJSON(
@@ -12827,7 +13824,10 @@ export type CreateInputSystemByPackInputKinesis$Outbound = {
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_streamName?: string | undefined;
+  __template_shardIteratorType?: string | undefined;
+  __template_payloadFormat?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
@@ -12882,7 +13882,10 @@ export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_streamName: z.string().optional(),
+  __template_shardIteratorType: z.string().optional(),
+  __template_payloadFormat: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),
@@ -12935,6 +13938,7 @@ export type CreateInputSystemByPackInputHttpRaw$Outbound = {
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -12979,6 +13983,7 @@ export const CreateInputSystemByPackInputHttpRaw$outboundSchema: z.ZodType<
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -13034,6 +14039,7 @@ export type CreateInputSystemByPackInputDatagen$Outbound = {
   samples: Array<CreateInputSystemByPackSample$Outbound>;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -13056,6 +14062,7 @@ export const CreateInputSystemByPackInputDatagen$outboundSchema: z.ZodType<
   samples: z.array(z.lazy(() => CreateInputSystemByPackSample$outboundSchema)),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputDatagenToJSON(
@@ -13126,6 +14133,7 @@ export type CreateInputSystemByPackInputDatadogAgent$Outbound = {
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeDatadogAgent$Outbound | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -13167,6 +14175,7 @@ export const CreateInputSystemByPackInputDatadogAgent$outboundSchema: z.ZodType<
     CreateInputSystemByPackProxyModeDatadogAgent$outboundSchema
   ).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -13228,6 +14237,7 @@ export type CreateInputSystemByPackInputCrowdstrike$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -13291,6 +14301,7 @@ export const CreateInputSystemByPackInputCrowdstrike$outboundSchema: z.ZodType<
     .optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -13635,12 +14646,14 @@ export type CreateInputSystemByPackInputWindowsMetrics$Outbound = {
   interval?: number | undefined;
   host?: CreateInputSystemByPackHostWindowsMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
+  gpu?: models.GpuType$Outbound | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?:
     | CreateInputSystemByPackPersistenceWindowsMetrics$Outbound
     | undefined;
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -13665,12 +14678,14 @@ export const CreateInputSystemByPackInputWindowsMetrics$outboundSchema:
     host: z.lazy(() => CreateInputSystemByPackHostWindowsMetrics$outboundSchema)
       .optional(),
     process: models.ProcessType$outboundSchema.optional(),
+    gpu: models.GpuType$outboundSchema.optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     persistence: z.lazy(() =>
       CreateInputSystemByPackPersistenceWindowsMetrics$outboundSchema
     ).optional(),
     disableNativeModule: z.boolean().optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
   });
 
 export function createInputSystemByPackInputWindowsMetricsToJSON(
@@ -13699,6 +14714,7 @@ export type CreateInputSystemByPackInputKubeEvents$Outbound = {
   rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -13721,6 +14737,7 @@ export const CreateInputSystemByPackInputKubeEvents$outboundSchema: z.ZodType<
   rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputKubeEventsToJSON(
@@ -13781,6 +14798,7 @@ export type CreateInputSystemByPackInputKubeLogs$Outbound = {
   staleChannelFlushMs?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -13811,6 +14829,7 @@ export const CreateInputSystemByPackInputKubeLogs$outboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().optional(),
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputKubeLogsToJSON(
@@ -13879,6 +14898,7 @@ export type CreateInputSystemByPackInputKubeMetrics$Outbound = {
     | CreateInputSystemByPackPersistenceKubeMetrics$Outbound
     | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -13905,6 +14925,7 @@ export const CreateInputSystemByPackInputKubeMetrics$outboundSchema: z.ZodType<
     CreateInputSystemByPackPersistenceKubeMetrics$outboundSchema
   ).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputKubeMetricsToJSON(
@@ -14293,6 +15314,7 @@ export type CreateInputSystemByPackInputSystemState$Outbound = {
   disableNativeModule?: boolean | undefined;
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -14322,6 +15344,7 @@ export const CreateInputSystemByPackInputSystemState$outboundSchema: z.ZodType<
   disableNativeModule: z.boolean().optional(),
   disableNativeLastLogModule: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputSystemStateToJSON(
@@ -14727,11 +15750,13 @@ export type CreateInputSystemByPackInputSystemMetrics$Outbound = {
   host?: CreateInputSystemByPackHostSystemMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
   container?: CreateInputSystemByPackContainer$Outbound | undefined;
+  gpu?: models.GpuType$Outbound | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?:
     | CreateInputSystemByPackPersistenceSystemMetrics$Outbound
     | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -14758,11 +15783,13 @@ export const CreateInputSystemByPackInputSystemMetrics$outboundSchema:
     process: models.ProcessType$outboundSchema.optional(),
     container: z.lazy(() => CreateInputSystemByPackContainer$outboundSchema)
       .optional(),
+    gpu: models.GpuType$outboundSchema.optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     persistence: z.lazy(() =>
       CreateInputSystemByPackPersistenceSystemMetrics$outboundSchema
     ).optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
   });
 
 export function createInputSystemByPackInputSystemMetricsToJSON(
@@ -14803,6 +15830,7 @@ export type CreateInputSystemByPackInputTcpjson$Outbound = {
   description?: string | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -14840,6 +15868,7 @@ export const CreateInputSystemByPackInputTcpjson$outboundSchema: z.ZodType<
   description: z.string().optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -14987,8 +16016,11 @@ export type CreateInputSystemByPackInputCriblLakeHttp$Outbound = {
     | Array<CreateInputSystemByPackAuthTokensExt$Outbound>
     | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_criblAPI?: string | undefined;
+  __template_elasticAPI?: string | undefined;
   __template_splunkHecAPI?: string | undefined;
 };
 
@@ -15034,8 +16066,11 @@ export const CreateInputSystemByPackInputCriblLakeHttp$outboundSchema:
       z.lazy(() => CreateInputSystemByPackAuthTokensExt$outboundSchema),
     ).optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
+    __template_criblAPI: z.string().optional(),
+    __template_elasticAPI: z.string().optional(),
     __template_splunkHecAPI: z.string().optional(),
   });
 
@@ -15079,6 +16114,7 @@ export type CreateInputSystemByPackInputCriblHttp$Outbound = {
   ipDenylistRegex?: string | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -15117,6 +16153,7 @@ export const CreateInputSystemByPackInputCriblHttp$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -15155,6 +16192,7 @@ export type CreateInputSystemByPackInputCriblTcp$Outbound = {
   enableLoadBalancing?: boolean | undefined;
   authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -15188,6 +16226,7 @@ export const CreateInputSystemByPackInputCriblTcp$outboundSchema: z.ZodType<
   enableLoadBalancing: z.boolean().optional(),
   authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -15217,6 +16256,7 @@ export type CreateInputSystemByPackInputCribl$Outbound = {
   filter?: string | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -15239,6 +16279,7 @@ export const CreateInputSystemByPackInputCribl$outboundSchema: z.ZodType<
   filter: z.string().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputCriblToJSON(
@@ -15278,6 +16319,7 @@ export type CreateInputSystemByPackInputGooglePubsub$Outbound = {
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_topicName?: string | undefined;
   __template_subscriptionName?: string | undefined;
   __template_region?: string | undefined;
@@ -15316,6 +16358,7 @@ export const CreateInputSystemByPackInputGooglePubsub$outboundSchema: z.ZodType<
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
+  __template_environment: z.string().optional(),
   __template_topicName: z.string().optional(),
   __template_subscriptionName: z.string().optional(),
   __template_region: z.string().optional(),
@@ -15361,6 +16404,7 @@ export type CreateInputSystemByPackInputFirehose$Outbound = {
   ipDenylistRegex?: string | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -15399,6 +16443,7 @@ export const CreateInputSystemByPackInputFirehose$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -15442,6 +16487,7 @@ export type CreateInputSystemByPackInputExec$Outbound = {
   description?: string | undefined;
   interval?: number | undefined;
   cronSchedule?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -15471,6 +16517,7 @@ export const CreateInputSystemByPackInputExec$outboundSchema: z.ZodType<
   description: z.string().optional(),
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputExecToJSON(
@@ -15479,6 +16526,229 @@ export function createInputSystemByPackInputExecToJSON(
   return JSON.stringify(
     CreateInputSystemByPackInputExec$outboundSchema.parse(
       createInputSystemByPackInputExec,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputSystemByPackAuthenticationMechanism$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationMechanism
+  > = openEnums.outboundSchema(CreateInputSystemByPackAuthenticationMechanism);
+
+/** @internal */
+export const CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthAuthenticationMethod
+  > = openEnums.outboundSchema(CreateInputSystemByPackAuthAuthenticationMethod);
+
+/** @internal */
+export type CreateInputSystemByPackAuth$Outbound = {
+  mechanism?: string | undefined;
+  authType: string;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackAuth$outboundSchema: z.ZodType<
+  CreateInputSystemByPackAuth$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackAuth
+> = z.object({
+  mechanism: CreateInputSystemByPackAuthenticationMechanism$outboundSchema
+    .optional(),
+  authType: CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema,
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function createInputSystemByPackAuthToJSON(
+  createInputSystemByPackAuth: CreateInputSystemByPackAuth,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackAuth$outboundSchema.parse(
+      createInputSystemByPackAuth,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputSystemByPackCheckpointStore$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackCheckpointStore
+> = openEnums.outboundSchema(CreateInputSystemByPackCheckpointStore);
+
+/** @internal */
+export type CreateInputSystemByPackAzureBlobStorage$Outbound = {
+  containerName: string;
+  authType?: string | undefined;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?:
+    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+    | undefined;
+  __template_connectionString?: string | undefined;
+  __template_storageAccountName?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackAzureBlobStorage$outboundSchema: z.ZodType<
+  CreateInputSystemByPackAzureBlobStorage$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackAzureBlobStorage
+> = z.object({
+  containerName: z.string(),
+  authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+    .optional(),
+  __template_connectionString: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
+});
+
+export function createInputSystemByPackAzureBlobStorageToJSON(
+  createInputSystemByPackAzureBlobStorage:
+    CreateInputSystemByPackAzureBlobStorage,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackAzureBlobStorage$outboundSchema.parse(
+      createInputSystemByPackAzureBlobStorage,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackCheckpointing$Outbound = {
+  checkpointStoreType?: string | undefined;
+  blobStore?: CreateInputSystemByPackAzureBlobStorage$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackCheckpointing$outboundSchema: z.ZodType<
+  CreateInputSystemByPackCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackCheckpointing
+> = z.object({
+  checkpointStoreType: CreateInputSystemByPackCheckpointStore$outboundSchema
+    .optional(),
+  blobStore: z.lazy(() =>
+    CreateInputSystemByPackAzureBlobStorage$outboundSchema
+  ).optional(),
+});
+
+export function createInputSystemByPackCheckpointingToJSON(
+  createInputSystemByPackCheckpointing: CreateInputSystemByPackCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackCheckpointing$outboundSchema.parse(
+      createInputSystemByPackCheckpointing,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackInputEventhubAmqp$Outbound = {
+  id: string;
+  type: "eventhub_amqp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  eventHubName?: string | undefined;
+  consumerGroup: string;
+  auth?: CreateInputSystemByPackAuth$Outbound | undefined;
+  checkpointing?: CreateInputSystemByPackCheckpointing$Outbound | undefined;
+  fromBeginning?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  maxWaitTimeInSeconds?: number | undefined;
+  prefetchCount?: number | undefined;
+  maxRetries?: number | undefined;
+  initialBackoff?: number | undefined;
+  maxBackoff?: number | undefined;
+  timeoutInMs?: number | undefined;
+  connectionInitialBackoff?: number | undefined;
+  connectionMaxBackoff?: number | undefined;
+  connectionTimeoutInMs?: number | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackInputEventhubAmqp$outboundSchema: z.ZodType<
+  CreateInputSystemByPackInputEventhubAmqp$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackInputEventhubAmqp
+> = z.object({
+  id: z.string(),
+  type: z.literal("eventhub_amqp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  eventHubName: z.string().optional(),
+  consumerGroup: z.string(),
+  auth: z.lazy(() => CreateInputSystemByPackAuth$outboundSchema).optional(),
+  checkpointing: z.lazy(() =>
+    CreateInputSystemByPackCheckpointing$outboundSchema
+  ).optional(),
+  fromBeginning: z.boolean().optional(),
+  maxBatchSize: z.number().int().optional(),
+  maxWaitTimeInSeconds: z.number().int().optional(),
+  prefetchCount: z.number().int().optional(),
+  maxRetries: z.number().int().optional(),
+  initialBackoff: z.number().int().optional(),
+  maxBackoff: z.number().int().optional(),
+  timeoutInMs: z.number().int().optional(),
+  connectionInitialBackoff: z.number().int().optional(),
+  connectionMaxBackoff: z.number().int().optional(),
+  connectionTimeoutInMs: z.number().int().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+});
+
+export function createInputSystemByPackInputEventhubAmqpToJSON(
+  createInputSystemByPackInputEventhubAmqp:
+    CreateInputSystemByPackInputEventhubAmqp,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackInputEventhubAmqp$outboundSchema.parse(
+      createInputSystemByPackInputEventhubAmqp,
     ),
   );
 }
@@ -15520,6 +16790,8 @@ export type CreateInputSystemByPackInputEventhub$Outbound = {
   minimizeDuplicates?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -15564,6 +16836,8 @@ export const CreateInputSystemByPackInputEventhub$outboundSchema: z.ZodType<
   minimizeDuplicates: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_groupId: z.string().optional(),
 });
 
 export function createInputSystemByPackInputEventhubToJSON(
@@ -15631,10 +16905,12 @@ export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   planType?: string | undefined;
   textSecret?: string | undefined;
   certOptions?: models.CertOptionsType$Outbound | undefined;
+  __template_environment?: string | undefined;
   __template_url?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
   __template_resource?: string | undefined;
+  __template_planType?: string | undefined;
 };
 
 /** @internal */
@@ -15684,10 +16960,12 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     planType: CreateInputSystemByPackSubscriptionPlan$outboundSchema.optional(),
     textSecret: z.string().optional(),
     certOptions: models.CertOptionsType$outboundSchema.optional(),
+    __template_environment: z.string().optional(),
     __template_url: z.string().optional(),
     __template_tenantId: z.string().optional(),
     __template_clientId: z.string().optional(),
     __template_resource: z.string().optional(),
+    __template_planType: z.string().optional(),
   });
 
 export function createInputSystemByPackInputMicrosoftGraphToJSON(
@@ -15751,10 +17029,12 @@ export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
   planType?: string | undefined;
   textSecret?: string | undefined;
   certOptions?: models.CertOptionsType$Outbound | undefined;
+  __template_environment?: string | undefined;
   __template_url?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
   __template_resource?: string | undefined;
+  __template_planType?: string | undefined;
 };
 
 /** @internal */
@@ -15806,10 +17086,12 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
     textSecret: z.string().optional(),
     certOptions: models.CertOptionsType$outboundSchema.optional(),
+    __template_environment: z.string().optional(),
     __template_url: z.string().optional(),
     __template_tenantId: z.string().optional(),
     __template_clientId: z.string().optional(),
     __template_resource: z.string().optional(),
+    __template_planType: z.string().optional(),
   });
 
 export function createInputSystemByPackInputOffice365MsgTraceToJSON(
@@ -15888,6 +17170,8 @@ export type CreateInputSystemByPackInputOffice365Service$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_planType?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_appId?: string | undefined;
   __template_clientSecret?: string | undefined;
@@ -15933,6 +17217,8 @@ export const CreateInputSystemByPackInputOffice365Service$outboundSchema:
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
+    __template_environment: z.string().optional(),
+    __template_planType: z.string().optional(),
     __template_tenantId: z.string().optional(),
     __template_appId: z.string().optional(),
     __template_clientSecret: z.string().optional(),
@@ -16016,6 +17302,8 @@ export type CreateInputSystemByPackInputOffice365Mgmt$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_planType?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_appId?: string | undefined;
   __template_publisherIdentifier?: string | undefined;
@@ -16064,6 +17352,8 @@ export const CreateInputSystemByPackInputOffice365Mgmt$outboundSchema:
     description: z.string().optional(),
     clientSecret: z.string().optional(),
     textSecret: z.string().optional(),
+    __template_environment: z.string().optional(),
+    __template_planType: z.string().optional(),
     __template_tenantId: z.string().optional(),
     __template_appId: z.string().optional(),
     __template_publisherIdentifier: z.string().optional(),
@@ -16205,6 +17495,7 @@ export type CreateInputSystemByPackInputEdgePrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -16276,6 +17567,7 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
+    __template_environment: z.string().optional(),
     __template_awsApiKey: z.string().optional(),
     __template_awsSecretKey: z.string().optional(),
     __template_region: z.string().optional(),
@@ -16359,6 +17651,7 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_discoveryType?: string | undefined;
   __template_logLevel?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -16428,6 +17721,7 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_discoveryType: z.string().optional(),
   __template_logLevel: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
@@ -16486,6 +17780,7 @@ export type CreateInputSystemByPackInputPrometheusRw$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
@@ -16533,6 +17828,7 @@ export const CreateInputSystemByPackInputPrometheusRw$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),
@@ -16585,8 +17881,10 @@ export type CreateInputSystemByPackInputLoki$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_lokiAPI?: string | undefined;
 };
 
 /** @internal */
@@ -16629,8 +17927,10 @@ export const CreateInputSystemByPackInputLoki$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_lokiAPI: z.string().optional(),
 });
 
 export function createInputSystemByPackInputLokiToJSON(
@@ -16750,8 +18050,11 @@ export type CreateInputSystemByPackInputGrafanaGrafana2$Outbound = {
   lokiAuth?: CreateInputSystemByPackLokiAuth2$Outbound | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_prometheusAPI?: string | undefined;
+  __template_lokiAPI?: string | undefined;
 };
 
 /** @internal */
@@ -16795,8 +18098,11 @@ export const CreateInputSystemByPackInputGrafanaGrafana2$outboundSchema:
       .optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
+    __template_prometheusAPI: z.string().optional(),
+    __template_lokiAPI: z.string().optional(),
   });
 
 export function createInputSystemByPackInputGrafanaGrafana2ToJSON(
@@ -16917,8 +18223,11 @@ export type CreateInputSystemByPackInputGrafanaGrafana1$Outbound = {
   lokiAuth?: CreateInputSystemByPackLokiAuth1$Outbound | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_prometheusAPI?: string | undefined;
+  __template_lokiAPI?: string | undefined;
 };
 
 /** @internal */
@@ -16962,8 +18271,11 @@ export const CreateInputSystemByPackInputGrafanaGrafana1$outboundSchema:
       .optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
+    __template_prometheusAPI: z.string().optional(),
+    __template_lokiAPI: z.string().optional(),
   });
 
 export function createInputSystemByPackInputGrafanaGrafana1ToJSON(
@@ -17042,6 +18354,8 @@ export type CreateInputSystemByPackInputConfluentCloud$Outbound = {
   maxSocketErrors?: number | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -17089,6 +18403,8 @@ export const CreateInputSystemByPackInputConfluentCloud$outboundSchema:
     maxSocketErrors: z.number().optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     description: z.string().optional(),
+    __template_environment: z.string().optional(),
+    __template_groupId: z.string().optional(),
   });
 
 export function createInputSystemByPackInputConfluentCloudToJSON(
@@ -17213,6 +18529,7 @@ export type CreateInputSystemByPackInputElastic$Outbound = {
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
   customAPIVersion?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -17264,6 +18581,7 @@ export const CreateInputSystemByPackInputElastic$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
@@ -17315,10 +18633,13 @@ export type CreateInputSystemByPackInputAzureBlob$Outbound = {
   certificate?:
     | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
     | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
   __template_connectionString?: string | undefined;
+  __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
@@ -17362,10 +18683,13 @@ export const CreateInputSystemByPackInputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_connectionString: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
 });
 
 export function createInputSystemByPackInputAzureBlobToJSON(
@@ -17458,6 +18782,7 @@ export type CreateInputSystemByPackInputSplunkHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_splunkHecAPI?: string | undefined;
@@ -17509,6 +18834,7 @@ export const CreateInputSystemByPackInputSplunkHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_splunkHecAPI: z.string().optional(),
@@ -17637,6 +18963,13 @@ export type CreateInputSystemByPackInputSplunkSearch$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_searchHead?: string | undefined;
+  __template_search?: string | undefined;
+  __template_earliest?: string | undefined;
+  __template_latest?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_logLevel?: string | undefined;
 };
 
 /** @internal */
@@ -17692,6 +19025,13 @@ export const CreateInputSystemByPackInputSplunkSearch$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_searchHead: z.string().optional(),
+  __template_search: z.string().optional(),
+  __template_earliest: z.string().optional(),
+  __template_latest: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_logLevel: z.string().optional(),
 });
 
 export function createInputSystemByPackInputSplunkSearchToJSON(
@@ -17779,6 +19119,7 @@ export type CreateInputSystemByPackInputSplunk$Outbound = {
   dropControlFields?: boolean | undefined;
   extractMetrics?: boolean | undefined;
   compress?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_maxS2Sversion?: string | undefined;
@@ -17823,6 +19164,7 @@ export const CreateInputSystemByPackInputSplunk$outboundSchema: z.ZodType<
   dropControlFields: z.boolean().optional(),
   extractMetrics: z.boolean().optional(),
   compress: CreateInputSystemByPackCompression$outboundSchema.optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_maxS2Sversion: z.string().optional(),
@@ -17873,8 +19215,11 @@ export type CreateInputSystemByPackInputHttp$Outbound = {
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_criblAPI?: string | undefined;
+  __template_elasticAPI?: string | undefined;
   __template_splunkHecAPI?: string | undefined;
 };
 
@@ -17918,8 +19263,11 @@ export const CreateInputSystemByPackInputHttp$outboundSchema: z.ZodType<
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_criblAPI: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
   __template_splunkHecAPI: z.string().optional(),
 });
 
@@ -17984,6 +19332,8 @@ export type CreateInputSystemByPackInputMsk$Outbound = {
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
@@ -18047,6 +19397,8 @@ export const CreateInputSystemByPackInputMsk$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_groupId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),
@@ -18104,6 +19456,8 @@ export type CreateInputSystemByPackInputKafka$Outbound = {
   maxSocketErrors?: number | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -18149,6 +19503,8 @@ export const CreateInputSystemByPackInputKafka$outboundSchema: z.ZodType<
   maxSocketErrors: z.number().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_groupId: z.string().optional(),
 });
 
 export function createInputSystemByPackInputKafkaToJSON(
@@ -18179,6 +19535,7 @@ export type CreateInputSystemByPackInputCollection$Outbound = {
   throttleRatePerSec?: string | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   output?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -18204,6 +19561,7 @@ export const CreateInputSystemByPackInputCollection$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   output: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function createInputSystemByPackInputCollectionToJSON(
@@ -18242,6 +19600,7 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputOffice365MsgTrace$Outbound
   | CreateInputSystemByPackInputMicrosoftGraph$Outbound
   | CreateInputSystemByPackInputEventhub$Outbound
+  | CreateInputSystemByPackInputEventhubAmqp$Outbound
   | CreateInputSystemByPackInputExec$Outbound
   | CreateInputSystemByPackInputFirehose$Outbound
   | CreateInputSystemByPackInputGooglePubsub$Outbound
@@ -18287,7 +19646,8 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputSecurityLake$Outbound
   | CreateInputSystemByPackInputServicenowTable$Outbound
   | CreateInputSystemByPackInputZscalerHec$Outbound
-  | CreateInputSystemByPackInputCloudflareHec$Outbound;
+  | CreateInputSystemByPackInputCloudflareHec$Outbound
+  | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound;
 
 /** @internal */
 export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
@@ -18318,6 +19678,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputMicrosoftGraph$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputEventhub$outboundSchema),
+  z.lazy(() => CreateInputSystemByPackInputEventhubAmqp$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputExec$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputFirehose$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputGooglePubsub$outboundSchema),
@@ -18364,6 +19725,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputServicenowTable$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputZscalerHec$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputCloudflareHec$outboundSchema),
+  z.lazy(() => CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema),
 ]);
 
 export function createInputSystemByPackRequestBodyToJSON(
@@ -18405,6 +19767,7 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputOffice365MsgTrace$Outbound
     | CreateInputSystemByPackInputMicrosoftGraph$Outbound
     | CreateInputSystemByPackInputEventhub$Outbound
+    | CreateInputSystemByPackInputEventhubAmqp$Outbound
     | CreateInputSystemByPackInputExec$Outbound
     | CreateInputSystemByPackInputFirehose$Outbound
     | CreateInputSystemByPackInputGooglePubsub$Outbound
@@ -18450,7 +19813,8 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputSecurityLake$Outbound
     | CreateInputSystemByPackInputServicenowTable$Outbound
     | CreateInputSystemByPackInputZscalerHec$Outbound
-    | CreateInputSystemByPackInputCloudflareHec$Outbound;
+    | CreateInputSystemByPackInputCloudflareHec$Outbound
+    | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound;
 };
 
 /** @internal */
@@ -18484,6 +19848,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputMicrosoftGraph$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputEventhub$outboundSchema),
+    z.lazy(() => CreateInputSystemByPackInputEventhubAmqp$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputExec$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputFirehose$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputGooglePubsub$outboundSchema),
@@ -18532,6 +19897,9 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackInputServicenowTable$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputZscalerHec$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputCloudflareHec$outboundSchema),
+    z.lazy(() =>
+      CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema
+    ),
   ]),
 }).transform((v) => {
   return remap$(v, {

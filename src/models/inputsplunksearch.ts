@@ -243,6 +243,34 @@ export type InputSplunkSearch = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+   */
+  __template_logLevel?: string | undefined;
 };
 
 /** @internal */
@@ -399,6 +427,13 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_searchHead: types.optional(types.string()),
+  __template_search: types.optional(types.string()),
+  __template_earliest: types.optional(types.string()),
+  __template_latest: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_logLevel: types.optional(types.string()),
 });
 /** @internal */
 export type InputSplunkSearch$Outbound = {
@@ -442,6 +477,13 @@ export type InputSplunkSearch$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_searchHead?: string | undefined;
+  __template_search?: string | undefined;
+  __template_earliest?: string | undefined;
+  __template_latest?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_logLevel?: string | undefined;
 };
 
 /** @internal */
@@ -492,6 +534,13 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_searchHead: z.string().optional(),
+  __template_search: z.string().optional(),
+  __template_earliest: z.string().optional(),
+  __template_latest: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_logLevel: z.string().optional(),
 });
 
 export function inputSplunkSearchToJSON(

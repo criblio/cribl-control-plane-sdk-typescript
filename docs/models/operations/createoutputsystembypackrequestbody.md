@@ -799,3 +799,15 @@ const value: operations.CreateOutputSystemByPackOutputCloudflareR2 = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputNutanixObjects`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputNutanixObjects = {
+  id: "<id>",
+  type: "nutanix_objects",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+

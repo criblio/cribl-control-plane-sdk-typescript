@@ -7,7 +7,7 @@ ServiceNow Table API authentication method
 ```typescript
 import { CreateInputSystemByPackAuthenticationTypeServicenowTable } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackAuthenticationTypeServicenowTable = "basic";
+let value: CreateInputSystemByPackAuthenticationTypeServicenowTable = "none";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: CreateInputSystemByPackAuthenticationTypeServicenowTable = "basic";
 ## Values
 
 ```typescript
-"none" | "basic" | "basicSecret" | "oauth" | "oauthSecret" | Unrecognized<string>
+"none" | "basicSecret" | "oauthSecret" | Unrecognized<string>
 ```

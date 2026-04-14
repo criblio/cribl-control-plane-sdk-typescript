@@ -733,3 +733,14 @@ const value: models.OutputCloudflareR2 = {
 };
 ```
 
+### `models.OutputNutanixObjects`
+
+```typescript
+const value: models.OutputNutanixObjects = {
+  type: "nutanix_objects",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+

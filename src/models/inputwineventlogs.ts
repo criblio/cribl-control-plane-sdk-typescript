@@ -137,6 +137,10 @@ export type InputWinEventLogs = {
    * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
    */
   disableXmlRendering?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -194,6 +198,7 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   disableJsonRendering: types.optional(types.boolean()),
   disableXmlRendering: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputWinEventLogs$Outbound = {
@@ -218,6 +223,7 @@ export type InputWinEventLogs$Outbound = {
   description?: string | undefined;
   disableJsonRendering?: boolean | undefined;
   disableXmlRendering?: boolean | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -247,6 +253,7 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
   disableXmlRendering: z.boolean().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputWinEventLogsToJSON(

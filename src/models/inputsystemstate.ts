@@ -230,6 +230,10 @@ export type InputSystemState = {
    */
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -769,6 +773,7 @@ export const InputSystemState$inboundSchema: z.ZodType<
   disableNativeModule: types.optional(types.boolean()),
   disableNativeLastLogModule: types.optional(types.boolean()),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputSystemState$Outbound = {
@@ -789,6 +794,7 @@ export type InputSystemState$Outbound = {
   disableNativeModule?: boolean | undefined;
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -815,6 +821,7 @@ export const InputSystemState$outboundSchema: z.ZodType<
   disableNativeModule: z.boolean().optional(),
   disableNativeLastLogModule: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputSystemStateToJSON(

@@ -9,9 +9,8 @@ let value: UpdateInputSystemByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   input: {
-    type: "edge_prometheus",
-    discoveryType: "k8s-pods",
-    interval: 5911.86,
+    type: "exec",
+    command: "<value>",
   },
 };
 ```

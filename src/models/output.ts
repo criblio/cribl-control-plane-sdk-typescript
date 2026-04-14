@@ -285,6 +285,12 @@ import {
   OutputNewrelicEvents$outboundSchema,
 } from "./outputnewrelicevents.js";
 import {
+  OutputNutanixObjects,
+  OutputNutanixObjects$inboundSchema,
+  OutputNutanixObjects$Outbound,
+  OutputNutanixObjects$outboundSchema,
+} from "./outputnutanixobjects.js";
+import {
   OutputOpenTelemetry,
   OutputOpenTelemetry$inboundSchema,
   OutputOpenTelemetry$Outbound,
@@ -507,6 +513,7 @@ export type Output =
   | OutputDatabricks
   | OutputMicrosoftFabric
   | OutputCloudflareR2
+  | OutputNutanixObjects
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
@@ -587,6 +594,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
     databricks: OutputDatabricks$inboundSchema,
     microsoft_fabric: OutputMicrosoftFabric$inboundSchema,
     cloudflare_r2: OutputCloudflareR2$inboundSchema,
+    nutanix_objects: OutputNutanixObjects$inboundSchema,
   });
 /** @internal */
 export type Output$Outbound =
@@ -660,7 +668,8 @@ export type Output$Outbound =
   | OutputChronicle$Outbound
   | OutputDatabricks$Outbound
   | OutputMicrosoftFabric$Outbound
-  | OutputCloudflareR2$Outbound;
+  | OutputCloudflareR2$Outbound
+  | OutputNutanixObjects$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -741,6 +750,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputDatabricks$outboundSchema,
   OutputMicrosoftFabric$outboundSchema,
   OutputCloudflareR2$outboundSchema,
+  OutputNutanixObjects$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {

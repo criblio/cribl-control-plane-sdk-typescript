@@ -228,6 +228,15 @@ const value: models.InputEventhub = {
 };
 ```
 
+### `models.InputEventhubAmqp`
+
+```typescript
+const value: models.InputEventhubAmqp = {
+  type: "eventhub_amqp",
+  consumerGroup: "<value>",
+};
+```
+
 ### `models.InputExec`
 
 ```typescript
@@ -653,6 +662,17 @@ const value: models.InputCloudflareHec = {
   host: "grizzled-receptor.com",
   port: 5918.65,
   hecAPI: "<value>",
+};
+```
+
+### `models.InputOpenaiComplianceLogs`
+
+```typescript
+const value: models.InputOpenaiComplianceLogs = {
+  type: "openai_compliance_logs",
+  textSecret: "<value>",
+  accountType: "workspace",
+  cronSchedule: "<value>",
 };
 ```
 
