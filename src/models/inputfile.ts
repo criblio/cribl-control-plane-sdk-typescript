@@ -153,6 +153,10 @@ export type InputFile = {
    */
   saltHash?: boolean | undefined;
   /**
+   * Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
+   */
+  optimizeLeafDirectories?: boolean | undefined;
+  /**
    * Stream binary files as Base64-encoded chunks.
    */
   includeUnidentifiableBinary?: boolean | undefined;
@@ -209,6 +213,7 @@ export const InputFile$inboundSchema: z.ZodType<
   suppressMissingPathErrors: types.optional(types.boolean()),
   deleteFiles: types.optional(types.boolean()),
   saltHash: types.optional(types.boolean()),
+  optimizeLeafDirectories: types.optional(types.boolean()),
   includeUnidentifiableBinary: types.optional(types.boolean()),
 });
 /** @internal */
@@ -243,6 +248,7 @@ export type InputFile$Outbound = {
   suppressMissingPathErrors?: boolean | undefined;
   deleteFiles?: boolean | undefined;
   saltHash?: boolean | undefined;
+  optimizeLeafDirectories?: boolean | undefined;
   includeUnidentifiableBinary?: boolean | undefined;
 };
 
@@ -282,6 +288,7 @@ export const InputFile$outboundSchema: z.ZodType<
   suppressMissingPathErrors: z.boolean().optional(),
   deleteFiles: z.boolean().optional(),
   saltHash: z.boolean().optional(),
+  optimizeLeafDirectories: z.boolean().optional(),
   includeUnidentifiableBinary: z.boolean().optional(),
 });
 
