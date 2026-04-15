@@ -395,6 +395,7 @@ export * from "./nodeupgradestatus.js";
 export * from "./notificationunion.js";
 export * from "./objectacloptions.js";
 export * from "./objectacloptions1.js";
+export * from "./orphanfilerecoverytype.js";
 export * from "./otlpversionoptions.js";
 export * from "./otlpversionoptions1.js";
 export * from "./outpostnodeinfo.js";

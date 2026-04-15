@@ -67,6 +67,12 @@ import {
   ModeOptions$outboundSchema,
 } from "./modeoptions.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -410,6 +416,7 @@ export type OutputAzureDataExplorer = {
    */
   addIdToStagePath?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Amount of time, in seconds, to wait for a request to complete before canceling it
    */
@@ -881,6 +888,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   ),
   addIdToStagePath: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   timeoutSec: types.optional(types.number()),
   flushImmediately: types.optional(types.boolean()),
   retainBlobOnSuccess: types.optional(types.boolean()),
@@ -985,6 +993,7 @@ export type OutputAzureDataExplorer$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   addIdToStagePath?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
@@ -1090,6 +1099,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   addIdToStagePath: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),
