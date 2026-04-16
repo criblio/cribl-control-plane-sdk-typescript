@@ -15,6 +15,12 @@ import {
 } from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  GpuType,
+  GpuType$inboundSchema,
+  GpuType$Outbound,
+  GpuType$outboundSchema,
+} from "./gputype.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -419,12 +425,17 @@ export type InputSystemMetrics = {
   host?: InputSystemMetricsHost | undefined;
   process?: ProcessType | undefined;
   container?: Container | undefined;
+  gpu?: GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   persistence?: InputSystemMetricsPersistence | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -1015,11 +1026,13 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   host: types.optional(z.lazy(() => InputSystemMetricsHost$inboundSchema)),
   process: types.optional(ProcessType$inboundSchema),
   container: types.optional(z.lazy(() => Container$inboundSchema)),
+  gpu: types.optional(GpuType$inboundSchema),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => InputSystemMetricsPersistence$inboundSchema),
   ),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputSystemMetrics$Outbound = {
@@ -1037,9 +1050,11 @@ export type InputSystemMetrics$Outbound = {
   host?: InputSystemMetricsHost$Outbound | undefined;
   process?: ProcessType$Outbound | undefined;
   container?: Container$Outbound | undefined;
+  gpu?: GpuType$Outbound | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   persistence?: InputSystemMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -1062,10 +1077,12 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
   host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
   process: ProcessType$outboundSchema.optional(),
   container: z.lazy(() => Container$outboundSchema).optional(),
+  gpu: GpuType$outboundSchema.optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputSystemMetricsToJSON(

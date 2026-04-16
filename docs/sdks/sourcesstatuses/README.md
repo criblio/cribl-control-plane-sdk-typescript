@@ -114,7 +114,9 @@ async function run() {
     type: false,
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -144,7 +146,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("sourcesStatusesList failed:", res.error);
   }
@@ -164,7 +168,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInputStatus](../../models/countedinputstatus.md)\>**
+**Promise\<[operations.GetInputStatusResponse](../../models/operations/getinputstatusresponse.md)\>**
 
 ### Errors
 

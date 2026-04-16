@@ -6,18 +6,21 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import {
+  AggregatedInputOutputStatusBody,
+  AggregatedInputOutputStatusBody$inboundSchema,
+} from "./aggregatedinputoutputstatusbody.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { StatusType, StatusType$inboundSchema } from "./statustype.js";
 
+/**
+ * Status of the Source, aggregated across all Worker Processes.
+ */
 export type InputStatus = {
   /**
    * Unique identifier of the Source or Destination.
    */
   id: string;
-  /**
-   * Status information for the Source or Destination, aggregated across all Worker Processes.
-   */
-  status: StatusType;
+  status: AggregatedInputOutputStatusBody;
   /**
    * Type of the Source or Destination.
    */
@@ -31,7 +34,7 @@ export const InputStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: types.string(),
-  status: StatusType$inboundSchema,
+  status: AggregatedInputOutputStatusBody$inboundSchema,
   type: types.optional(types.string()),
 });
 

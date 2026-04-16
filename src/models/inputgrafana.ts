@@ -192,6 +192,10 @@ export type InputGrafanaGrafana2 = {
   metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -199,6 +203,14 @@ export type InputGrafanaGrafana2 = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+   */
+  __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+   */
+  __template_lokiAPI?: string | undefined;
 };
 
 export const InputGrafanaType1 = {
@@ -349,6 +361,10 @@ export type InputGrafanaGrafana1 = {
   metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -356,6 +372,14 @@ export type InputGrafanaGrafana1 = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+   */
+  __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+   */
+  __template_lokiAPI?: string | undefined;
 };
 
 export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
@@ -511,8 +535,11 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   lokiAuth: types.optional(z.lazy(() => LokiAuth2$inboundSchema)),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_prometheusAPI: types.optional(types.string()),
+  __template_lokiAPI: types.optional(types.string()),
 });
 /** @internal */
 export type InputGrafanaGrafana2$Outbound = {
@@ -546,8 +573,11 @@ export type InputGrafanaGrafana2$Outbound = {
   lokiAuth?: LokiAuth2$Outbound | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_prometheusAPI?: string | undefined;
+  __template_lokiAPI?: string | undefined;
 };
 
 /** @internal */
@@ -586,8 +616,11 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_prometheusAPI: z.string().optional(),
+  __template_lokiAPI: z.string().optional(),
 });
 
 export function inputGrafanaGrafana2ToJSON(
@@ -758,8 +791,11 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   lokiAuth: types.optional(z.lazy(() => LokiAuth1$inboundSchema)),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_prometheusAPI: types.optional(types.string()),
+  __template_lokiAPI: types.optional(types.string()),
 });
 /** @internal */
 export type InputGrafanaGrafana1$Outbound = {
@@ -793,8 +829,11 @@ export type InputGrafanaGrafana1$Outbound = {
   lokiAuth?: LokiAuth1$Outbound | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_prometheusAPI?: string | undefined;
+  __template_lokiAPI?: string | undefined;
 };
 
 /** @internal */
@@ -833,8 +872,11 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_prometheusAPI: z.string().optional(),
+  __template_lokiAPI: z.string().optional(),
 });
 
 export function inputGrafanaGrafana1ToJSON(

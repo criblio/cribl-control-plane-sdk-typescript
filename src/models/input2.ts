@@ -84,6 +84,11 @@ import {
   InputEventhub$outboundSchema,
 } from "./inputeventhub.js";
 import {
+  InputEventhubAmqp,
+  InputEventhubAmqp$Outbound,
+  InputEventhubAmqp$outboundSchema,
+} from "./inputeventhubamqp.js";
+import {
   InputExec,
   InputExec$Outbound,
   InputExec$outboundSchema,
@@ -199,6 +204,11 @@ import {
   InputOpenaiInput$outboundSchema,
 } from "./inputopenai.js";
 import {
+  InputOpenaiComplianceLogs,
+  InputOpenaiComplianceLogs$Outbound,
+  InputOpenaiComplianceLogs$outboundSchema,
+} from "./inputopenaicompliancelogs.js";
+import {
   InputOpenTelemetry,
   InputOpenTelemetry$Outbound,
   InputOpenTelemetry$outboundSchema,
@@ -233,6 +243,11 @@ import {
   InputSecurityLake$Outbound,
   InputSecurityLake$outboundSchema,
 } from "./inputsecuritylake.js";
+import {
+  InputServicenowTable,
+  InputServicenowTable$Outbound,
+  InputServicenowTable$outboundSchema,
+} from "./inputservicenowtable.js";
 import {
   InputSnmp,
   InputSnmp$Outbound,
@@ -335,6 +350,7 @@ export type Input2 =
   | InputOffice365MsgTrace
   | InputMicrosoftGraph
   | InputEventhub
+  | InputEventhubAmqp
   | InputExec
   | InputFirehose
   | InputGooglePubsub
@@ -375,8 +391,10 @@ export type Input2 =
   | InputWizWebhook
   | InputNetflow
   | InputSecurityLake
+  | InputServicenowTable
   | InputZscalerHec
-  | InputCloudflareHec;
+  | InputCloudflareHec
+  | InputOpenaiComplianceLogs;
 
 /** @internal */
 export type Input2$Outbound =
@@ -400,6 +418,7 @@ export type Input2$Outbound =
   | InputOffice365MsgTrace$Outbound
   | InputMicrosoftGraph$Outbound
   | InputEventhub$Outbound
+  | InputEventhubAmqp$Outbound
   | InputExec$Outbound
   | InputFirehose$Outbound
   | InputGooglePubsub$Outbound
@@ -440,8 +459,10 @@ export type Input2$Outbound =
   | InputWizWebhook$Outbound
   | InputNetflow$Outbound
   | InputSecurityLake$Outbound
+  | InputServicenowTable$Outbound
   | InputZscalerHec$Outbound
-  | InputCloudflareHec$Outbound;
+  | InputCloudflareHec$Outbound
+  | InputOpenaiComplianceLogs$Outbound;
 
 /** @internal */
 export const Input2$outboundSchema: z.ZodType<
@@ -471,6 +492,7 @@ export const Input2$outboundSchema: z.ZodType<
   InputOffice365MsgTrace$outboundSchema,
   InputMicrosoftGraph$outboundSchema,
   InputEventhub$outboundSchema,
+  InputEventhubAmqp$outboundSchema,
   InputExec$outboundSchema,
   InputFirehose$outboundSchema,
   InputGooglePubsub$outboundSchema,
@@ -511,8 +533,10 @@ export const Input2$outboundSchema: z.ZodType<
   InputWizWebhook$outboundSchema,
   InputNetflow$outboundSchema,
   InputSecurityLake$outboundSchema,
+  InputServicenowTable$outboundSchema,
   InputZscalerHec$outboundSchema,
   InputCloudflareHec$outboundSchema,
+  InputOpenaiComplianceLogs$outboundSchema,
 ]);
 
 export function input2ToJSON(input2: Input2): string {

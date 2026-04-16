@@ -26,13 +26,13 @@ import {
   NotificationUnion$inboundSchema,
 } from "./notificationunion.js";
 import {
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
+import {
   ScheduleTypeSavedJobResponseCollection,
   ScheduleTypeSavedJobResponseCollection$inboundSchema,
 } from "./scheduletypesavedjobresponsecollection.js";
-import {
-  TypeCollectionWithBreakerRulesetsConstraint,
-  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 export type SavedJobResponseScheduledSearch = {
   /**
@@ -176,7 +176,9 @@ export type SavedJobResponseCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
+    | undefined;
   /**
    * Runtime collection state.
    */
@@ -285,7 +287,7 @@ export const SavedJobResponseCollection$inboundSchema: z.ZodType<
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
   input: types.optional(
-    TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),

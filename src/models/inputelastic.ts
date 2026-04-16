@@ -255,6 +255,10 @@ export type InputElastic = {
    */
   customAPIVersion?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -415,6 +419,7 @@ export const InputElastic$inboundSchema: z.ZodType<
   credentialsSecret: types.optional(types.string()),
   authTokens: types.optional(z.array(types.string())),
   customAPIVersion: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
 });
@@ -456,6 +461,7 @@ export type InputElastic$Outbound = {
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
   customAPIVersion?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -503,6 +509,7 @@ export const InputElastic$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });

@@ -7,20 +7,20 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CompressionLevelOptions,
   CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$inboundSchema,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
   DataFormatOptions$inboundSchema,
@@ -43,6 +43,12 @@ import {
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
+import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
@@ -136,7 +142,7 @@ export type OutputDatabricks = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -150,6 +156,7 @@ export type OutputDatabricks = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
    */
@@ -190,7 +197,7 @@ export type OutputDatabricks = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -256,9 +263,29 @@ export type OutputDatabricks = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -287,13 +314,16 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   workspaceId: types.string(),
   workspaceHost: types.optional(types.string()),
   scope: types.string(),
@@ -304,7 +334,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   clientTextSecret: types.string(),
   timeoutSec: types.optional(types.number()),
   description: types.optional(types.string()),
-  compress: types.optional(CompressionOptions2$inboundSchema),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
   automaticSchema: types.optional(types.boolean()),
   parquetSchema: types.optional(types.string()),
@@ -323,7 +353,12 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_partitionExpr: types.optional(types.string()),
   __template_format: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDatabricks$Outbound = {
@@ -352,6 +387,7 @@ export type OutputDatabricks$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   workspaceId: string;
   workspaceHost?: string | undefined;
   scope: string;
@@ -379,7 +415,12 @@ export type OutputDatabricks$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -408,11 +449,13 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   workspaceId: z.string(),
   workspaceHost: z.string().optional(),
   scope: z.string(),
@@ -423,7 +466,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   clientTextSecret: z.string(),
   timeoutSec: z.number().int().optional(),
   description: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.optional(),
+  compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -441,7 +484,12 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function outputDatabricksToJSON(

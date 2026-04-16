@@ -15,11 +15,11 @@ let value: Commit = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `authorEmail`      | *string*           | :heavy_minus_sign: | N/A                |
-| `authorName`       | *string*           | :heavy_minus_sign: | N/A                |
-| `date`             | *string*           | :heavy_check_mark: | N/A                |
-| `hash`             | *string*           | :heavy_check_mark: | N/A                |
-| `message`          | *string*           | :heavy_check_mark: | N/A                |
-| `short`            | *string*           | :heavy_check_mark: | N/A                |
+| Field                               | Type                                | Required                            | Description                         |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| `authorEmail`                       | *string*                            | :heavy_minus_sign:                  | Email address of the commit author. |
+| `authorName`                        | *string*                            | :heavy_minus_sign:                  | Name of the commit author.          |
+| `date`                              | *string*                            | :heavy_check_mark:                  | Date and time of the commit.        |
+| `hash`                              | *string*                            | :heavy_check_mark:                  | Full commit hash.                   |
+| `message`                           | *string*                            | :heavy_check_mark:                  | Commit message.                     |
+| `short`                             | *string*                            | :heavy_check_mark:                  | Abbreviated commit hash.            |

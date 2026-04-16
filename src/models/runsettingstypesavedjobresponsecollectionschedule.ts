@@ -8,6 +8,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LogLevelOptionsRunnableJobCollectionScheduleRun,
@@ -27,6 +28,20 @@ export const RunSettingsTypeSavedJobResponseCollectionScheduleType = {
 export type RunSettingsTypeSavedJobResponseCollectionScheduleType = OpenEnum<
   typeof RunSettingsTypeSavedJobResponseCollectionScheduleType
 >;
+
+/**
+ * Earliest time to collect data for the selected timezone
+ */
+export type RunSettingsTypeSavedJobResponseCollectionScheduleEarliest =
+  | number
+  | string;
+
+/**
+ * Latest time to collect data for the selected timezone
+ */
+export type RunSettingsTypeSavedJobResponseCollectionScheduleLatest =
+  | number
+  | string;
 
 export type RunSettingsTypeSavedJobResponseCollectionSchedule = {
   type?: RunSettingsTypeSavedJobResponseCollectionScheduleType | undefined;
@@ -54,11 +69,11 @@ export type RunSettingsTypeSavedJobResponseCollectionSchedule = {
   /**
    * Earliest time to collect data for the selected timezone
    */
-  earliest?: number | undefined;
+  earliest?: number | string | undefined;
   /**
    * Latest time to collect data for the selected timezone
    */
-  latest?: number | undefined;
+  latest?: number | string | undefined;
   timestampTimezone?: any | undefined;
   timeWarning?: MetricsStore | undefined;
   /**
@@ -103,6 +118,94 @@ export const RunSettingsTypeSavedJobResponseCollectionScheduleType$outboundSchem
   );
 
 /** @internal */
+export const RunSettingsTypeSavedJobResponseCollectionScheduleEarliest$inboundSchema:
+  z.ZodType<
+    RunSettingsTypeSavedJobResponseCollectionScheduleEarliest,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([types.number(), types.string()]);
+/** @internal */
+export type RunSettingsTypeSavedJobResponseCollectionScheduleEarliest$Outbound =
+  | number
+  | string;
+
+/** @internal */
+export const RunSettingsTypeSavedJobResponseCollectionScheduleEarliest$outboundSchema:
+  z.ZodType<
+    RunSettingsTypeSavedJobResponseCollectionScheduleEarliest$Outbound,
+    z.ZodTypeDef,
+    RunSettingsTypeSavedJobResponseCollectionScheduleEarliest
+  > = smartUnion([z.number(), z.string()]);
+
+export function runSettingsTypeSavedJobResponseCollectionScheduleEarliestToJSON(
+  runSettingsTypeSavedJobResponseCollectionScheduleEarliest:
+    RunSettingsTypeSavedJobResponseCollectionScheduleEarliest,
+): string {
+  return JSON.stringify(
+    RunSettingsTypeSavedJobResponseCollectionScheduleEarliest$outboundSchema
+      .parse(runSettingsTypeSavedJobResponseCollectionScheduleEarliest),
+  );
+}
+export function runSettingsTypeSavedJobResponseCollectionScheduleEarliestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RunSettingsTypeSavedJobResponseCollectionScheduleEarliest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RunSettingsTypeSavedJobResponseCollectionScheduleEarliest$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RunSettingsTypeSavedJobResponseCollectionScheduleEarliest' from JSON`,
+  );
+}
+
+/** @internal */
+export const RunSettingsTypeSavedJobResponseCollectionScheduleLatest$inboundSchema:
+  z.ZodType<
+    RunSettingsTypeSavedJobResponseCollectionScheduleLatest,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([types.number(), types.string()]);
+/** @internal */
+export type RunSettingsTypeSavedJobResponseCollectionScheduleLatest$Outbound =
+  | number
+  | string;
+
+/** @internal */
+export const RunSettingsTypeSavedJobResponseCollectionScheduleLatest$outboundSchema:
+  z.ZodType<
+    RunSettingsTypeSavedJobResponseCollectionScheduleLatest$Outbound,
+    z.ZodTypeDef,
+    RunSettingsTypeSavedJobResponseCollectionScheduleLatest
+  > = smartUnion([z.number(), z.string()]);
+
+export function runSettingsTypeSavedJobResponseCollectionScheduleLatestToJSON(
+  runSettingsTypeSavedJobResponseCollectionScheduleLatest:
+    RunSettingsTypeSavedJobResponseCollectionScheduleLatest,
+): string {
+  return JSON.stringify(
+    RunSettingsTypeSavedJobResponseCollectionScheduleLatest$outboundSchema
+      .parse(runSettingsTypeSavedJobResponseCollectionScheduleLatest),
+  );
+}
+export function runSettingsTypeSavedJobResponseCollectionScheduleLatestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RunSettingsTypeSavedJobResponseCollectionScheduleLatest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RunSettingsTypeSavedJobResponseCollectionScheduleLatest$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RunSettingsTypeSavedJobResponseCollectionScheduleLatest' from JSON`,
+  );
+}
+
+/** @internal */
 export const RunSettingsTypeSavedJobResponseCollectionSchedule$inboundSchema:
   z.ZodType<
     RunSettingsTypeSavedJobResponseCollectionSchedule,
@@ -120,8 +223,8 @@ export const RunSettingsTypeSavedJobResponseCollectionSchedule$inboundSchema:
     jobTimeout: types.optional(types.string()),
     mode: types.string(),
     timeRangeType: types.optional(types.string()),
-    earliest: types.optional(types.number()),
-    latest: types.optional(types.number()),
+    earliest: types.optional(smartUnion([types.number(), types.string()])),
+    latest: types.optional(smartUnion([types.number(), types.string()])),
     timestampTimezone: types.optional(z.any()),
     timeWarning: types.optional(MetricsStore$inboundSchema),
     expression: types.optional(types.string()),
@@ -137,8 +240,8 @@ export type RunSettingsTypeSavedJobResponseCollectionSchedule$Outbound = {
   jobTimeout?: string | undefined;
   mode: string;
   timeRangeType?: string | undefined;
-  earliest?: number | undefined;
-  latest?: number | undefined;
+  earliest?: number | string | undefined;
+  latest?: number | string | undefined;
   timestampTimezone?: any | undefined;
   timeWarning?: MetricsStore$Outbound | undefined;
   expression?: string | undefined;
@@ -162,8 +265,8 @@ export const RunSettingsTypeSavedJobResponseCollectionSchedule$outboundSchema:
     jobTimeout: z.string().optional(),
     mode: z.string(),
     timeRangeType: z.string().optional(),
-    earliest: z.number().optional(),
-    latest: z.number().optional(),
+    earliest: smartUnion([z.number(), z.string()]).optional(),
+    latest: smartUnion([z.number(), z.string()]).optional(),
     timestampTimezone: z.any().optional(),
     timeWarning: MetricsStore$outboundSchema.optional(),
     expression: z.string().optional(),

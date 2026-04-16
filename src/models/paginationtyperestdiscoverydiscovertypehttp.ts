@@ -8,6 +8,7 @@ import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
 import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeRequestPage = {
@@ -194,12 +195,19 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderLink = {
   totalPageField?: string | undefined;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader = {
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -254,12 +262,19 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader = {
   totalPageField?: string | undefined;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody = {
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -652,6 +667,52 @@ export function restDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderLinkFro
 }
 
 /** @internal */
+export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes:
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader,
@@ -659,7 +720,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$inboundSc
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -678,7 +739,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$inboundSc
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$Outbound =
   {
     type: "response_header";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
     lastPageExpr?: string | undefined;
     nextRelationAttribute?: string | undefined;
@@ -702,7 +763,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$outboundS
     RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
@@ -743,6 +804,52 @@ export function restDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderFromJSO
 }
 
 /** @internal */
+export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributesToJSON(
+  restDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes:
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody,
@@ -750,7 +857,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$inboundSche
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -768,7 +875,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$inboundSche
 /** @internal */
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$Outbound = {
   type: "response_body";
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   maxPages: number;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
@@ -792,7 +899,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$outboundSch
     RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),

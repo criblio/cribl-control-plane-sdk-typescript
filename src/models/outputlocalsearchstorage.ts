@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationTypeOptions1,
-  AuthenticationTypeOptions1$inboundSchema,
-  AuthenticationTypeOptions1$outboundSchema,
-} from "./authenticationtypeoptions1.js";
+  AuthenticationTypeOptionsBasicCredentialsSecret,
+  AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
+  AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema,
+} from "./authenticationtypeoptionsbasiccredentialssecret.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -58,11 +58,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideType1,
-  TlsSettingsClientSideType1$inboundSchema,
-  TlsSettingsClientSideType1$Outbound,
-  TlsSettingsClientSideType1$outboundSchema,
-} from "./tlssettingsclientsidetype1.js";
+  TlsSettingsClientSideTypeCaPathCertPathExtended,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpathextended.js";
 
 /**
  * Data format to use when sending data. Defaults to JSON Compact.
@@ -157,7 +157,7 @@ export type OutputLocalSearchStorage = {
    * URL of the database instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: AuthenticationTypeOptions1 | undefined;
+  authType?: AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
   database: string;
   /**
    * Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -175,7 +175,7 @@ export type OutputLocalSearchStorage = {
    * Collect data into batches for later processing. Disable to write to a table immediately.
    */
   asyncInserts?: boolean | undefined;
-  tls?: TlsSettingsClientSideType1 | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -279,7 +279,7 @@ export type OutputLocalSearchStorage = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -306,6 +306,10 @@ export type OutputLocalSearchStorage = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLocalSearchStoragePqControls | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -319,6 +323,14 @@ export type OutputLocalSearchStorage = {
    * Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
    */
   __template_tableName?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -501,7 +513,9 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   url: types.string(),
-  authType: types.optional(AuthenticationTypeOptions1$inboundSchema),
+  authType: types.optional(
+    AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
+  ),
   database: types.string(),
   tableName: types.string(),
   format: types.optional(OutputLocalSearchStorageFormat$inboundSchema),
@@ -509,7 +523,9 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
     OutputLocalSearchStorageMappingType$inboundSchema,
   ),
   asyncInserts: types.optional(types.boolean()),
-  tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+  ),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
@@ -556,12 +572,15 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputLocalSearchStoragePqControls$inboundSchema),
   ),
   __template_url: types.optional(types.string()),
   __template_database: types.optional(types.string()),
   __template_tableName: types.optional(types.string()),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
 export type OutputLocalSearchStorage$Outbound = {
@@ -578,7 +597,7 @@ export type OutputLocalSearchStorage$Outbound = {
   format?: string | undefined;
   mappingType?: string | undefined;
   asyncInserts?: boolean | undefined;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -619,10 +638,13 @@ export type OutputLocalSearchStorage$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLocalSearchStoragePqControls$Outbound | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -638,13 +660,15 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: AuthenticationTypeOptions1$outboundSchema.optional(),
+  authType: AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema
+    .optional(),
   database: z.string(),
   tableName: z.string(),
   format: OutputLocalSearchStorageFormat$outboundSchema.optional(),
   mappingType: OutputLocalSearchStorageMappingType$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
-  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -686,11 +710,14 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputLocalSearchStoragePqControls$outboundSchema)
     .optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputLocalSearchStorageToJSON(

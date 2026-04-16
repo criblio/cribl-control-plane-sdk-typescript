@@ -105,6 +105,14 @@ export type AzureBlobAuthTypeClientCert = {
    * Text secret containing the client secret
    */
   clientTextSecret?: string | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobAuthTypeClientSecretExtractor = {
@@ -196,6 +204,14 @@ export type AzureBlobAuthTypeClientSecret = {
    */
   textSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobAuthTypeSecretExtractor = {
@@ -267,6 +283,14 @@ export type AzureBlobAuthTypeSecret = {
    */
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobAuthTypeManualExtractor = {
@@ -338,6 +362,14 @@ export type AzureBlobAuthTypeManual = {
    */
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+   */
+  __template_path?: string | undefined;
 };
 
 export type AzureBlobCollectorConf =
@@ -420,6 +452,8 @@ export const AzureBlobAuthTypeClientCert$inboundSchema: z.ZodType<
   connectionString: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   clientTextSecret: types.optional(types.string()),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeClientCert$Outbound = {
@@ -443,6 +477,8 @@ export type AzureBlobAuthTypeClientCert$Outbound = {
   connectionString?: string | undefined;
   textSecret?: string | undefined;
   clientTextSecret?: string | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -473,6 +509,8 @@ export const AzureBlobAuthTypeClientCert$outboundSchema: z.ZodType<
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
   clientTextSecret: z.string().optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeClientCertToJSON(
@@ -570,6 +608,8 @@ export const AzureBlobAuthTypeClientSecret$inboundSchema: z.ZodType<
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeClientSecret$Outbound = {
@@ -595,6 +635,8 @@ export type AzureBlobAuthTypeClientSecret$Outbound = {
   connectionString?: string | undefined;
   textSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -626,6 +668,8 @@ export const AzureBlobAuthTypeClientSecret$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeClientSecretToJSON(
@@ -716,6 +760,8 @@ export const AzureBlobAuthTypeSecret$inboundSchema: z.ZodType<
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeSecret$Outbound = {
@@ -734,6 +780,8 @@ export type AzureBlobAuthTypeSecret$Outbound = {
   connectionString?: string | undefined;
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -760,6 +808,8 @@ export const AzureBlobAuthTypeSecret$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeSecretToJSON(
@@ -848,6 +898,8 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
+  __template_containerName: types.optional(types.string()),
+  __template_path: types.optional(types.string()),
 });
 /** @internal */
 export type AzureBlobAuthTypeManual$Outbound = {
@@ -866,6 +918,8 @@ export type AzureBlobAuthTypeManual$Outbound = {
   textSecret?: string | undefined;
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  __template_containerName?: string | undefined;
+  __template_path?: string | undefined;
 };
 
 /** @internal */
@@ -892,6 +946,8 @@ export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_containerName: z.string().optional(),
+  __template_path: z.string().optional(),
 });
 
 export function azureBlobAuthTypeManualToJSON(

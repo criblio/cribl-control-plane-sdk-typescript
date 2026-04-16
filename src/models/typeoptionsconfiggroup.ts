@@ -6,14 +6,20 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Explicit type of the Worker Group, Outpost Group, or Edge Fleet.
+ */
 export const TypeOptionsConfigGroup = {
   Edge: "edge",
-  Outpost: "outpost",
-  Stream: "stream",
-  Search: "search",
   LakeAccess: "lake_access",
   LocalSearch: "local_search",
+  Outpost: "outpost",
+  Search: "search",
+  Stream: "stream",
 } as const;
+/**
+ * Explicit type of the Worker Group, Outpost Group, or Edge Fleet.
+ */
 export type TypeOptionsConfigGroup = OpenEnum<typeof TypeOptionsConfigGroup>;
 
 /** @internal */

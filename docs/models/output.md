@@ -17,6 +17,11 @@ const value: models.OutputDefault = {
 ```typescript
 const value: models.OutputWebhook = {
   type: "webhook",
+  urls: [
+    {
+      url: "https://parched-relative.name/",
+    },
+  ],
 };
 ```
 
@@ -355,9 +360,9 @@ const value: models.OutputCloudwatch = {
 ```typescript
 const value: models.OutputMinio = {
   type: "minio",
-  endpoint: "<value>",
   bucket: "<value>",
   stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 
@@ -577,9 +582,9 @@ const value: models.OutputDlS3 = {
 ```typescript
 const value: models.OutputSecurityLake = {
   type: "security_lake",
+  assumeRoleArn: "<value>",
   bucket: "<value>",
   region: "<value>",
-  assumeRoleArn: "<value>",
   stagePath: "<value>",
   accountId: "<id>",
   customSource: "<value>",
@@ -722,9 +727,20 @@ const value: models.OutputMicrosoftFabric = {
 ```typescript
 const value: models.OutputCloudflareR2 = {
   type: "cloudflare_r2",
-  endpoint: "<value>",
   bucket: "<value>",
   stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `models.OutputNutanixObjects`
+
+```typescript
+const value: models.OutputNutanixObjects = {
+  type: "nutanix_objects",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 

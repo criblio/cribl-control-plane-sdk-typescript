@@ -28,10 +28,10 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  LogLevelOptions,
-  LogLevelOptions$inboundSchema,
-  LogLevelOptions$outboundSchema,
-} from "./logleveloptions.js";
+  LogLevelOptionsDebugError,
+  LogLevelOptionsDebugError$inboundSchema,
+  LogLevelOptionsDebugError$outboundSchema,
+} from "./logleveloptionsdebugerror.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -39,11 +39,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  RetryRulesType1,
-  RetryRulesType1$inboundSchema,
-  RetryRulesType1$Outbound,
-  RetryRulesType1$outboundSchema,
-} from "./retryrulestype1.js";
+  RetryRulesTypeCodesEnableHeader,
+  RetryRulesTypeCodesEnableHeader$inboundSchema,
+  RetryRulesTypeCodesEnableHeader$Outbound,
+  RetryRulesTypeCodesEnableHeader$outboundSchema,
+} from "./retryrulestypecodesenableheader.js";
 import {
   SubscriptionPlanOptions,
   SubscriptionPlanOptions$inboundSchema,
@@ -162,8 +162,8 @@ export type InputOffice365MsgTrace = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: LogLevelOptions | undefined;
-  retryRules?: RetryRulesType1 | undefined;
+  logLevel?: LogLevelOptionsDebugError | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -203,6 +203,10 @@ export type InputOffice365MsgTrace = {
   textSecret?: string | undefined;
   certOptions?: CertOptionsType | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -218,6 +222,10 @@ export type InputOffice365MsgTrace = {
    * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
    */
   __template_resource?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
 };
 
 /** @internal */
@@ -264,8 +272,8 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   rescheduleDroppedTasks: types.optional(types.boolean()),
   maxTaskReschedule: types.optional(types.number()),
-  logLevel: types.optional(LogLevelOptions$inboundSchema),
-  retryRules: types.optional(RetryRulesType1$inboundSchema),
+  logLevel: types.optional(LogLevelOptionsDebugError$inboundSchema),
+  retryRules: types.optional(RetryRulesTypeCodesEnableHeader$inboundSchema),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
   password: types.optional(types.string()),
@@ -277,10 +285,12 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   planType: types.optional(SubscriptionPlanOptions$inboundSchema),
   textSecret: types.optional(types.string()),
   certOptions: types.optional(CertOptionsType$inboundSchema),
+  __template_environment: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
   __template_resource: types.optional(types.string()),
+  __template_planType: types.optional(types.string()),
 });
 /** @internal */
 export type InputOffice365MsgTrace$Outbound = {
@@ -310,7 +320,7 @@ export type InputOffice365MsgTrace$Outbound = {
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
-  retryRules?: RetryRulesType1$Outbound | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -322,10 +332,12 @@ export type InputOffice365MsgTrace$Outbound = {
   planType?: string | undefined;
   textSecret?: string | undefined;
   certOptions?: CertOptionsType$Outbound | undefined;
+  __template_environment?: string | undefined;
   __template_url?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
   __template_resource?: string | undefined;
+  __template_planType?: string | undefined;
 };
 
 /** @internal */
@@ -360,8 +372,8 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   rescheduleDroppedTasks: z.boolean().optional(),
   maxTaskReschedule: z.number().optional(),
-  logLevel: LogLevelOptions$outboundSchema.optional(),
-  retryRules: RetryRulesType1$outboundSchema.optional(),
+  logLevel: LogLevelOptionsDebugError$outboundSchema.optional(),
+  retryRules: RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -373,10 +385,12 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   planType: SubscriptionPlanOptions$outboundSchema.optional(),
   textSecret: z.string().optional(),
   certOptions: CertOptionsType$outboundSchema.optional(),
+  __template_environment: z.string().optional(),
   __template_url: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
   __template_resource: z.string().optional(),
+  __template_planType: z.string().optional(),
 });
 
 export function inputOffice365MsgTraceToJSON(

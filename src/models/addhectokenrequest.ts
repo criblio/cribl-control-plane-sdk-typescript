@@ -10,10 +10,25 @@ import {
 } from "./eventbreakerrulefields.js";
 
 export type AddHecTokenRequest = {
+  /**
+   * List of index names that the HEC token is allowed to write to.
+   */
   allowedIndexesAtToken?: Array<string> | undefined;
+  /**
+   * Brief description for the HEC token.
+   */
   description?: string | undefined;
+  /**
+   * If <code>true</code>, the HEC token is enabled. Otherwise, <code>false</code>.
+   */
   enabled?: boolean | undefined;
+  /**
+   * Array of key-value pairs to associate with the HEC token for tagging, categorization, or providing additional context. Each item in the array is an object with a <code>name</code> and a <code>value</code>.
+   */
   metadata?: Array<EventBreakerRuleFields> | undefined;
+  /**
+   * The HEC token value to add to the Splunk HEC Source.
+   */
   token: string;
 };
 

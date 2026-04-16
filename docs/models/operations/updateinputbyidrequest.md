@@ -8,11 +8,9 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "wiz",
-    endpoint: "<value>",
-    authUrl: "https://scientific-knickers.net/",
-    clientId: "<id>",
-    contentConfig: [],
+    type: "wiz_webhook",
+    host: "fake-promise.name",
+    port: 8170.81,
   },
 };
 ```

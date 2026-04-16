@@ -10,6 +10,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeRestCollectMethodGetCollectRequestParams,
@@ -23,28 +24,6 @@ import {
   PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound,
   PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema,
 } from "./paginationtyperestdiscoverydiscovertypehttp.js";
-import {
-  RestAuthenticationGoogleOauth,
-  RestAuthenticationGoogleOauth$inboundSchema,
-  RestAuthenticationGoogleOauth$Outbound,
-  RestAuthenticationGoogleOauth$outboundSchema,
-  RestAuthenticationGoogleOauthSecret,
-  RestAuthenticationGoogleOauthSecret$inboundSchema,
-  RestAuthenticationGoogleOauthSecret$Outbound,
-  RestAuthenticationGoogleOauthSecret$outboundSchema,
-  RestAuthenticationHmac,
-  RestAuthenticationHmac$inboundSchema,
-  RestAuthenticationHmac$Outbound,
-  RestAuthenticationHmac$outboundSchema,
-  RestAuthenticationOauth,
-  RestAuthenticationOauth$inboundSchema,
-  RestAuthenticationOauth$Outbound,
-  RestAuthenticationOauth$outboundSchema,
-  RestAuthenticationOauthSecret,
-  RestAuthenticationOauthSecret$inboundSchema,
-  RestAuthenticationOauthSecret$Outbound,
-  RestAuthenticationOauthSecret$outboundSchema,
-} from "./restauthenticationloginsecretrestdiscoverydiscovertypehttpdiscovermethodgetdiscovertype.js";
 import {
   RestAuthenticationBasic,
   RestAuthenticationBasic$inboundSchema,
@@ -66,38 +45,799 @@ import {
   RestAuthenticationNone$inboundSchema,
   RestAuthenticationNone$Outbound,
   RestAuthenticationNone$outboundSchema,
-  RestCollectMethodOtherCollectMethod,
-  RestCollectMethodOtherCollectMethod$inboundSchema,
-  RestCollectMethodOtherCollectMethod$outboundSchema,
-  RestCollectMethodOtherDiscovery,
-  RestCollectMethodOtherDiscovery$inboundSchema,
-  RestCollectMethodOtherDiscovery$Outbound,
-  RestCollectMethodOtherDiscovery$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeNone,
-  RestCollectMethodOtherRestPaginationTypeNone$inboundSchema,
-  RestCollectMethodOtherRestPaginationTypeNone$Outbound,
-  RestCollectMethodOtherRestPaginationTypeNone$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeRequestOffset,
-  RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema,
-  RestCollectMethodOtherRestPaginationTypeRequestOffset$Outbound,
-  RestCollectMethodOtherRestPaginationTypeRequestOffset$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeRequestPage,
-  RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema,
-  RestCollectMethodOtherRestPaginationTypeRequestPage$Outbound,
-  RestCollectMethodOtherRestPaginationTypeRequestPage$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseBody,
-  RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseBody$Outbound,
-  RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseHeader,
-  RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseHeader$Outbound,
-  RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseHeaderLink,
-  RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$Outbound,
-  RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outboundSchema,
-} from "./restcollectmethodotherrestpaginationtypenone.js";
+} from "./restauthenticationnone.js";
+import {
+  RestAuthenticationGoogleOauth,
+  RestAuthenticationGoogleOauth$inboundSchema,
+  RestAuthenticationGoogleOauth$Outbound,
+  RestAuthenticationGoogleOauth$outboundSchema,
+  RestAuthenticationGoogleOauthSecret,
+  RestAuthenticationGoogleOauthSecret$inboundSchema,
+  RestAuthenticationGoogleOauthSecret$Outbound,
+  RestAuthenticationGoogleOauthSecret$outboundSchema,
+  RestAuthenticationHmac,
+  RestAuthenticationHmac$inboundSchema,
+  RestAuthenticationHmac$Outbound,
+  RestAuthenticationHmac$outboundSchema,
+  RestAuthenticationOauth,
+  RestAuthenticationOauth$inboundSchema,
+  RestAuthenticationOauth$Outbound,
+  RestAuthenticationOauth$outboundSchema,
+  RestAuthenticationOauthSecret,
+  RestAuthenticationOauthSecret$inboundSchema,
+  RestAuthenticationOauthSecret$Outbound,
+  RestAuthenticationOauthSecret$outboundSchema,
+} from "./restauthenticationoauth.js";
+
+export const RestCollectMethodOtherCollectMethod = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+  /**
+   * Other
+   */
+  Other: "other",
+} as const;
+export type RestCollectMethodOtherCollectMethod = OpenEnum<
+  typeof RestCollectMethodOtherCollectMethod
+>;
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType: "none";
+  /**
+   * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+   */
+  discoverUrl?: string | undefined;
+  discoverMethod?: string | undefined;
+  discoverRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+    | undefined;
+  pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
+  /**
+   * Explicitly set the discover response format. When disabled, best effort parsing is used.
+   */
+  enableStrictDiscoverParsing?: boolean | undefined;
+  enableDiscoverCode?: boolean | undefined;
+  /**
+   * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+   */
+  manualDiscoverResult?: string | undefined;
+  /**
+   * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+   */
+  itemList?: Array<string> | undefined;
+};
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeList = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType: "list";
+  /**
+   * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+   */
+  itemList: Array<string>;
+  /**
+   * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+   */
+  discoverUrl?: string | undefined;
+  discoverMethod?: string | undefined;
+  discoverRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+    | undefined;
+  pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
+  /**
+   * Explicitly set the discover response format. When disabled, best effort parsing is used.
+   */
+  enableStrictDiscoverParsing?: boolean | undefined;
+  enableDiscoverCode?: boolean | undefined;
+  /**
+   * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+   */
+  manualDiscoverResult?: string | undefined;
+};
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeJson = {
+  /**
+   * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+   */
+  discoverType: "json";
+  /**
+   * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+   */
+  manualDiscoverResult: string;
+  /**
+   * Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+   */
+  discoverDataField?: string | undefined;
+  /**
+   * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+   */
+  discoverUrl?: string | undefined;
+  discoverMethod?: string | undefined;
+  discoverRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+    | undefined;
+  pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
+  /**
+   * Explicitly set the discover response format. When disabled, best effort parsing is used.
+   */
+  enableStrictDiscoverParsing?: boolean | undefined;
+  enableDiscoverCode?: boolean | undefined;
+  /**
+   * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+   */
+  itemList?: Array<string> | undefined;
+};
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType =
+  {
+    Http: "http",
+    Json: "json",
+    List: "list",
+    None: "none",
+  } as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType =
+  OpenEnum<
+    typeof RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType
+  >;
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
+  {
+    discoverMethod: "other";
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
+    /**
+     * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+     */
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType;
+    /**
+     * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+     */
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
+    pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
+    /**
+     * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
+     * Explicitly set the discover response format. When disabled, best effort parsing is used.
+     */
+    enableStrictDiscoverParsing?: boolean | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    /**
+     * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+     */
+    formatResultCode?: string | undefined;
+    /**
+     * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+     */
+    manualDiscoverResult?: string | undefined;
+    /**
+     * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+     */
+    itemList?: Array<string> | undefined;
+  };
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType =
+  {
+    Http: "http",
+    Json: "json",
+    List: "list",
+    None: "none",
+  } as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType =
+  OpenEnum<
+    typeof RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  >;
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
+  {
+    discoverMethod: "post_with_body";
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
+    /**
+     * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+     */
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType;
+    /**
+     * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+     */
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
+    pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
+    /**
+     * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
+     * Explicitly set the discover response format. When disabled, best effort parsing is used.
+     */
+    enableStrictDiscoverParsing?: boolean | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    /**
+     * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+     */
+    formatResultCode?: string | undefined;
+    /**
+     * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+     */
+    manualDiscoverResult?: string | undefined;
+    /**
+     * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+     */
+    itemList?: Array<string> | undefined;
+  };
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType =
+  {
+    Http: "http",
+    Json: "json",
+    List: "list",
+    None: "none",
+  } as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType =
+  OpenEnum<
+    typeof RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  >;
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
+    /**
+     * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+     */
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType;
+    /**
+     * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+     */
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
+    pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
+    /**
+     * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
+     * Explicitly set the discover response format. When disabled, best effort parsing is used.
+     */
+    enableStrictDiscoverParsing?: boolean | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    /**
+     * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+     */
+    formatResultCode?: string | undefined;
+    /**
+     * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+     */
+    manualDiscoverResult?: string | undefined;
+    /**
+     * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+     */
+    itemList?: Array<string> | undefined;
+  };
+
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType =
+  {
+    Http: "http",
+    Json: "json",
+    List: "list",
+    None: "none",
+  } as const;
+/**
+ * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+ */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType =
+  OpenEnum<
+    typeof RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  >;
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
+    /**
+     * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+     */
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType;
+    /**
+     * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+     */
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
+    pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
+    /**
+     * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
+     * Explicitly set the discover response format. When disabled, best effort parsing is used.
+     */
+    enableStrictDiscoverParsing?: boolean | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    /**
+     * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+     */
+    formatResultCode?: string | undefined;
+    /**
+     * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+     */
+    manualDiscoverResult?: string | undefined;
+    /**
+     * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+     */
+    itemList?: Array<string> | undefined;
+  };
+
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp =
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
+
+export type RestCollectMethodOtherDiscovery =
+  | (
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
+  )
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeJson
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeList
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
+
+export type RestCollectMethodOtherRestPaginationTypeRequestPage = {
+  type: "request_page";
+  /**
+   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  pageField: string;
+  /**
+   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
+   */
+  page?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  sizeField: string;
+  /**
+   * Maximum number of records to collect per page
+   */
+  size: number;
+  /**
+   * Name of the attribute in the response that contains the total number of pages for the query
+   */
+  totalPageField?: string | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages: number;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed: boolean;
+  /**
+   * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
+   */
+  lastPageExpr?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
+   */
+  nextRelationAttribute?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
+   */
+  curRelationAttribute?: string | undefined;
+  /**
+   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  offsetField?: string | undefined;
+  /**
+   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
+   */
+  offset?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  limitField?: string | undefined;
+  /**
+   * Maximum number of records to collect per request
+   */
+  limit?: number | undefined;
+};
+
+export type RestCollectMethodOtherRestPaginationTypeRequestOffset = {
+  type: "request_offset";
+  /**
+   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  offsetField: string;
+  /**
+   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
+   */
+  offset?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  limitField: string;
+  /**
+   * Maximum number of records to collect per request
+   */
+  limit: number;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages: number;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed: boolean;
+  /**
+   * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
+   */
+  lastPageExpr?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
+   */
+  nextRelationAttribute?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
+   */
+  curRelationAttribute?: string | undefined;
+  /**
+   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  pageField?: string | undefined;
+  /**
+   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
+   */
+  page?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  sizeField?: string | undefined;
+  /**
+   * Maximum number of records to collect per page
+   */
+  size?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of pages for the query
+   */
+  totalPageField?: string | undefined;
+};
+
+export type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink = {
+  type: "response_header_link";
+  /**
+   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
+   */
+  nextRelationAttribute: string;
+  /**
+   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
+   */
+  curRelationAttribute?: string | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages: number;
+  /**
+   * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
+   */
+  lastPageExpr?: string | undefined;
+  /**
+   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  offsetField?: string | undefined;
+  /**
+   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
+   */
+  offset?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  limitField?: string | undefined;
+  /**
+   * Maximum number of records to collect per request
+   */
+  limit?: number | undefined;
+  /**
+   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  pageField?: string | undefined;
+  /**
+   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
+   */
+  page?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  sizeField?: string | undefined;
+  /**
+   * Maximum number of records to collect per page
+   */
+  size?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of pages for the query
+   */
+  totalPageField?: string | undefined;
+};
+
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
+export type RestCollectMethodOtherRestPaginationTypeResponseHeader = {
+  type: "response_header";
+  /**
+   * Names of attributes within the response that contain next-page information
+   */
+  attribute: Array<any> | string;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages: number;
+  /**
+   * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
+   */
+  lastPageExpr?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
+   */
+  nextRelationAttribute?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
+   */
+  curRelationAttribute?: string | undefined;
+  /**
+   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  offsetField?: string | undefined;
+  /**
+   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
+   */
+  offset?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  limitField?: string | undefined;
+  /**
+   * Maximum number of records to collect per request
+   */
+  limit?: number | undefined;
+  /**
+   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  pageField?: string | undefined;
+  /**
+   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
+   */
+  page?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  sizeField?: string | undefined;
+  /**
+   * Maximum number of records to collect per page
+   */
+  size?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of pages for the query
+   */
+  totalPageField?: string | undefined;
+};
+
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
+export type RestCollectMethodOtherRestPaginationTypeResponseBody = {
+  type: "response_body";
+  /**
+   * Names of attributes within the response that contain next-page information
+   */
+  attribute: Array<any> | string;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages: number;
+  /**
+   * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
+   */
+  lastPageExpr?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
+   */
+  nextRelationAttribute?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
+   */
+  curRelationAttribute?: string | undefined;
+  /**
+   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  offsetField?: string | undefined;
+  /**
+   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
+   */
+  offset?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  limitField?: string | undefined;
+  /**
+   * Maximum number of records to collect per request
+   */
+  limit?: number | undefined;
+  /**
+   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  pageField?: string | undefined;
+  /**
+   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
+   */
+  page?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  sizeField?: string | undefined;
+  /**
+   * Maximum number of records to collect per page
+   */
+  size?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of pages for the query
+   */
+  totalPageField?: string | undefined;
+};
+
+export type RestCollectMethodOtherRestPaginationTypeNone = {
+  type: "none";
+  /**
+   * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
+   */
+  lastPageExpr?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
+   */
+  nextRelationAttribute?: string | undefined;
+  /**
+   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
+   */
+  curRelationAttribute?: string | undefined;
+  /**
+   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  offsetField?: string | undefined;
+  /**
+   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
+   */
+  offset?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
+   */
+  limitField?: string | undefined;
+  /**
+   * Maximum number of records to collect per request
+   */
+  limit?: number | undefined;
+  /**
+   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  pageField?: string | undefined;
+  /**
+   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
+   */
+  page?: number | undefined;
+  /**
+   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
+   */
+  sizeField?: string | undefined;
+  /**
+   * Maximum number of records to collect per page
+   */
+  size?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of pages for the query
+   */
+  totalPageField?: string | undefined;
+};
 
 export type RestCollectMethodOtherPagination =
   | RestCollectMethodOtherRestPaginationTypeNone
@@ -236,7 +976,21 @@ export type RestCollectMethodOther = {
   collectRequestParams?:
     | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
     | undefined;
-  discovery?: RestCollectMethodOtherDiscovery | undefined;
+  discovery?:
+    | (
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
+    )
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeJson
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeList
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
+    | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
@@ -286,6 +1040,10 @@ export type RestCollectMethodOther = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -312,6 +1070,10 @@ export type RestCollectMethodOther = {
    * Select or create an HMAC Function to use with authentication
    */
   hmacFunctionId?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export const RestCollectMethodPostWithBodyCollectMethod = {
@@ -899,12 +1661,19 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink =
     totalPageField?: string | undefined;
   };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader = {
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -959,12 +1728,19 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader = {
   totalPageField?: string | undefined;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody = {
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -1265,6 +2041,10 @@ export type RestCollectMethodPostWithBody = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -1291,6 +2071,10 @@ export type RestCollectMethodPostWithBody = {
    * Select or create an HMAC Function to use with authentication
    */
   hmacFunctionId?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export const RestCollectMethodPostCollectMethod = {
@@ -1877,12 +2661,19 @@ export type RestCollectMethodPostRestPaginationTypeResponseHeaderLink = {
   totalPageField?: string | undefined;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestCollectMethodPostRestPaginationTypeResponseHeader = {
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -1937,12 +2728,19 @@ export type RestCollectMethodPostRestPaginationTypeResponseHeader = {
   totalPageField?: string | undefined;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestCollectMethodPostRestPaginationTypeResponseBody = {
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -2242,6 +3040,10 @@ export type RestCollectMethodPost = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -2268,6 +3070,10 @@ export type RestCollectMethodPost = {
    * Select or create an HMAC Function to use with authentication
    */
   hmacFunctionId?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export const RestCollectMethodGetCollectMethod = {
@@ -2854,12 +3660,19 @@ export type RestCollectMethodGetRestPaginationTypeResponseHeaderLink = {
   totalPageField?: string | undefined;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestCollectMethodGetRestPaginationTypeResponseHeader = {
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -2914,12 +3727,19 @@ export type RestCollectMethodGetRestPaginationTypeResponseHeader = {
   totalPageField?: string | undefined;
 };
 
+/**
+ * Names of attributes within the response that contain next-page information
+ */
+export type RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes =
+  | Array<any>
+  | string;
+
 export type RestCollectMethodGetRestPaginationTypeResponseBody = {
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
    */
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
    */
@@ -3219,6 +4039,10 @@ export type RestCollectMethodGet = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -3245,6 +4069,10 @@ export type RestCollectMethodGet = {
    * Select or create an HMAC Function to use with authentication
    */
   hmacFunctionId?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type RestCollectorConf =
@@ -3261,22 +4089,1600 @@ export type RestCollectorConf =
   | discriminatedUnionTypes.Unknown<"authentication">;
 
 /** @internal */
+export const RestCollectMethodOtherCollectMethod$inboundSchema: z.ZodType<
+  RestCollectMethodOtherCollectMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RestCollectMethodOtherCollectMethod);
+/** @internal */
+export const RestCollectMethodOtherCollectMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RestCollectMethodOtherCollectMethod
+> = openEnums.outboundSchema(RestCollectMethodOtherCollectMethod);
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeNone,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    discoverType: types.literal("none"),
+    discoverUrl: types.optional(types.string()),
+    discoverMethod: types.optional(types.string()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
+    ),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    enableDiscoverCode: types.optional(types.boolean()),
+    manualDiscoverResult: types.optional(types.string()),
+    itemList: types.optional(z.array(types.string())),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$Outbound = {
+  discoverType: "none";
+  discoverUrl?: string | undefined;
+  discoverMethod?: string | undefined;
+  discoverRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  enableStrictDiscoverParsing?: boolean | undefined;
+  enableDiscoverCode?: boolean | undefined;
+  manualDiscoverResult?: string | undefined;
+  itemList?: Array<string> | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeNone
+  > = z.object({
+    discoverType: z.literal("none"),
+    discoverUrl: z.string().optional(),
+    discoverMethod: z.string().optional(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
+      .optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+    manualDiscoverResult: z.string().optional(),
+    itemList: z.array(z.string()).optional(),
+  });
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeNoneToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeNone:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeNone,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$outboundSchema.parse(
+      restCollectMethodOtherRestDiscoveryDiscoverTypeNone,
+    ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeNoneFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeNone,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeNone' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeList,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
+    discoverUrl: types.optional(types.string()),
+    discoverMethod: types.optional(types.string()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
+    ),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    enableDiscoverCode: types.optional(types.boolean()),
+    manualDiscoverResult: types.optional(types.string()),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeList$Outbound = {
+  discoverType: "list";
+  itemList: Array<string>;
+  discoverUrl?: string | undefined;
+  discoverMethod?: string | undefined;
+  discoverRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  enableStrictDiscoverParsing?: boolean | undefined;
+  enableDiscoverCode?: boolean | undefined;
+  manualDiscoverResult?: string | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeList$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeList$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeList
+  > = z.object({
+    discoverType: z.literal("list"),
+    itemList: z.array(z.string()),
+    discoverUrl: z.string().optional(),
+    discoverMethod: z.string().optional(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
+      .optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+    manualDiscoverResult: z.string().optional(),
+  });
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeListToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeList:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeList,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeList$outboundSchema.parse(
+      restCollectMethodOtherRestDiscoveryDiscoverTypeList,
+    ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeListFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeList,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeList' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeJson,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
+    discoverUrl: types.optional(types.string()),
+    discoverMethod: types.optional(types.string()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
+    ),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    enableDiscoverCode: types.optional(types.boolean()),
+    itemList: types.optional(z.array(types.string())),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$Outbound = {
+  discoverType: "json";
+  manualDiscoverResult: string;
+  discoverDataField?: string | undefined;
+  discoverUrl?: string | undefined;
+  discoverMethod?: string | undefined;
+  discoverRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  enableStrictDiscoverParsing?: boolean | undefined;
+  enableDiscoverCode?: boolean | undefined;
+  itemList?: Array<string> | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeJson
+  > = z.object({
+    discoverType: z.literal("json"),
+    manualDiscoverResult: z.string(),
+    discoverDataField: z.string().optional(),
+    discoverUrl: z.string().optional(),
+    discoverMethod: z.string().optional(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
+      .optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+    itemList: z.array(z.string()).optional(),
+  });
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeJsonToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeJson:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeJson,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$outboundSchema.parse(
+      restCollectMethodOtherRestDiscoveryDiscoverTypeJson,
+    ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeJsonFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeJson,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeJson' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType,
+  );
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType,
+  );
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(types.string()),
+    enableDiscoverCode: types.optional(types.boolean()),
+    formatResultCode: types.optional(types.string()),
+    manualDiscoverResult: types.optional(types.string()),
+    itemList: types.optional(z.array(types.string())),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
+  {
+    discoverMethod: "other";
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    formatResultCode?: string | undefined;
+    manualDiscoverResult?: string | undefined;
+    itemList?: Array<string> | undefined;
+  };
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  > = z.object({
+    discoverMethod: z.literal("other"),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
+      .optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverResponseFormat: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+    formatResultCode: z.string().optional(),
+    manualDiscoverResult: z.string().optional(),
+    itemList: z.array(z.string()).optional(),
+  });
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+      .parse(
+        restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther,
+      ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType,
+  );
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.string(),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(types.string()),
+    enableDiscoverCode: types.optional(types.boolean()),
+    formatResultCode: types.optional(types.string()),
+    manualDiscoverResult: types.optional(types.string()),
+    itemList: types.optional(z.array(types.string())),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
+  {
+    discoverMethod: "post_with_body";
+    discoverBody: string;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    formatResultCode?: string | undefined;
+    manualDiscoverResult?: string | undefined;
+    itemList?: Array<string> | undefined;
+  };
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  > = z.object({
+    discoverMethod: z.literal("post_with_body"),
+    discoverBody: z.string(),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
+      .optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverResponseFormat: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+    formatResultCode: z.string().optional(),
+    manualDiscoverResult: z.string().optional(),
+    itemList: z.array(z.string()).optional(),
+  });
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      .parse(
+        restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+      ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType,
+  );
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(types.string()),
+    enableDiscoverCode: types.optional(types.boolean()),
+    formatResultCode: types.optional(types.string()),
+    manualDiscoverResult: types.optional(types.string()),
+    itemList: types.optional(z.array(types.string())),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
+  {
+    discoverMethod: "post";
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    formatResultCode?: string | undefined;
+    manualDiscoverResult?: string | undefined;
+    itemList?: Array<string> | undefined;
+  };
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
+  > = z.object({
+    discoverMethod: z.literal("post"),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
+      .optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverResponseFormat: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+    formatResultCode: z.string().optional(),
+    manualDiscoverResult: z.string().optional(),
+    itemList: z.array(z.string()).optional(),
+  });
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      .parse(
+        restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+      ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType
+  > = openEnums.outboundSchema(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType,
+  );
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(types.string()),
+    enableDiscoverCode: types.optional(types.boolean()),
+    formatResultCode: types.optional(types.string()),
+    manualDiscoverResult: types.optional(types.string()),
+    itemList: types.optional(z.array(types.string())),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
+  {
+    discoverMethod: "get";
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    discoverType: string;
+    discoverUrl: string;
+    discoverRequestHeaders?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
+    pagination?:
+      | PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound
+      | undefined;
+    discoverDataField?: string | undefined;
+    enableStrictDiscoverParsing?: boolean | undefined;
+    discoverResponseFormat?: string | undefined;
+    enableDiscoverCode?: boolean | undefined;
+    formatResultCode?: string | undefined;
+    manualDiscoverResult?: string | undefined;
+    itemList?: Array<string> | undefined;
+  };
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
+  > = z.object({
+    discoverMethod: z.literal("get"),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    discoverType:
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
+    discoverUrl: z.string(),
+    discoverRequestHeaders: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
+    pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
+      .optional(),
+    discoverDataField: z.string().optional(),
+    enableStrictDiscoverParsing: z.boolean().optional(),
+    discoverResponseFormat: z.string().optional(),
+    enableDiscoverCode: z.boolean().optional(),
+    formatResultCode: z.string().optional(),
+    manualDiscoverResult: z.string().optional(),
+    itemList: z.array(z.string()).optional(),
+  });
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      .parse(
+        restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+      ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp,
+    z.ZodTypeDef,
+    unknown
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
+    ),
+    post: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
+    ),
+    post_with_body: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
+    ),
+    other: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
+    ),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$Outbound =
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound;
+
+/** @internal */
+export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp
+  > = z.union([
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+    ),
+  ]);
+
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpToJSON(
+  restCollectMethodOtherRestDiscoveryDiscoverTypeHttp:
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$outboundSchema.parse(
+      restCollectMethodOtherRestDiscoveryDiscoverTypeHttp,
+    ),
+  );
+}
+export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherDiscovery$inboundSchema: z.ZodType<
+  RestCollectMethodOtherDiscovery,
+  z.ZodTypeDef,
+  unknown
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
+    ),
+    post: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
+    ),
+    post_with_body: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
+    ),
+    other: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
+    ),
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema
+  ),
+  list: z.lazy(() =>
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema
+  ),
+  none: z.lazy(() =>
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema
+  ),
+});
+/** @internal */
+export type RestCollectMethodOtherDiscovery$Outbound =
+  | (
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
+      & { discoverType: "http" }
+  )
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$Outbound
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeList$Outbound
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$Outbound;
+
+/** @internal */
+export const RestCollectMethodOtherDiscovery$outboundSchema: z.ZodType<
+  RestCollectMethodOtherDiscovery$Outbound,
+  z.ZodTypeDef,
+  RestCollectMethodOtherDiscovery
+> = z.union([
+  z.union([
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+    ),
+  ]).and(z.object({ discoverType: z.literal("http") })),
+  z.lazy(() =>
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeList$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$outboundSchema
+  ),
+]);
+
+export function restCollectMethodOtherDiscoveryToJSON(
+  restCollectMethodOtherDiscovery: RestCollectMethodOtherDiscovery,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherDiscovery$outboundSchema.parse(
+      restCollectMethodOtherDiscovery,
+    ),
+  );
+}
+export function restCollectMethodOtherDiscoveryFromJSON(
+  jsonString: string,
+): SafeParseResult<RestCollectMethodOtherDiscovery, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RestCollectMethodOtherDiscovery$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherDiscovery' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeRequestPage,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
+    lastPageExpr: types.optional(types.string()),
+    nextRelationAttribute: types.optional(types.string()),
+    curRelationAttribute: types.optional(types.string()),
+    offsetField: types.optional(types.string()),
+    offset: types.optional(types.number()),
+    limitField: types.optional(types.string()),
+    limit: types.optional(types.number()),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeRequestPage$Outbound = {
+  type: "request_page";
+  pageField: string;
+  page?: number | undefined;
+  sizeField: string;
+  size: number;
+  totalPageField?: string | undefined;
+  totalRecordField?: string | undefined;
+  maxPages: number;
+  zeroIndexed: boolean;
+  lastPageExpr?: string | undefined;
+  nextRelationAttribute?: string | undefined;
+  curRelationAttribute?: string | undefined;
+  offsetField?: string | undefined;
+  offset?: number | undefined;
+  limitField?: string | undefined;
+  limit?: number | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeRequestPage$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeRequestPage$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeRequestPage
+  > = z.object({
+    type: z.literal("request_page"),
+    pageField: z.string(),
+    page: z.number().optional(),
+    sizeField: z.string(),
+    size: z.number(),
+    totalPageField: z.string().optional(),
+    totalRecordField: z.string().optional(),
+    maxPages: z.number(),
+    zeroIndexed: z.boolean(),
+    lastPageExpr: z.string().optional(),
+    nextRelationAttribute: z.string().optional(),
+    curRelationAttribute: z.string().optional(),
+    offsetField: z.string().optional(),
+    offset: z.number().optional(),
+    limitField: z.string().optional(),
+    limit: z.number().optional(),
+  });
+
+export function restCollectMethodOtherRestPaginationTypeRequestPageToJSON(
+  restCollectMethodOtherRestPaginationTypeRequestPage:
+    RestCollectMethodOtherRestPaginationTypeRequestPage,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeRequestPage$outboundSchema.parse(
+      restCollectMethodOtherRestPaginationTypeRequestPage,
+    ),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeRequestPageFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeRequestPage,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeRequestPage' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeRequestOffset,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
+    lastPageExpr: types.optional(types.string()),
+    nextRelationAttribute: types.optional(types.string()),
+    curRelationAttribute: types.optional(types.string()),
+    pageField: types.optional(types.string()),
+    page: types.optional(types.number()),
+    sizeField: types.optional(types.string()),
+    size: types.optional(types.number()),
+    totalPageField: types.optional(types.string()),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeRequestOffset$Outbound = {
+  type: "request_offset";
+  offsetField: string;
+  offset?: number | undefined;
+  limitField: string;
+  limit: number;
+  totalRecordField?: string | undefined;
+  maxPages: number;
+  zeroIndexed: boolean;
+  lastPageExpr?: string | undefined;
+  nextRelationAttribute?: string | undefined;
+  curRelationAttribute?: string | undefined;
+  pageField?: string | undefined;
+  page?: number | undefined;
+  sizeField?: string | undefined;
+  size?: number | undefined;
+  totalPageField?: string | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeRequestOffset$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeRequestOffset$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeRequestOffset
+  > = z.object({
+    type: z.literal("request_offset"),
+    offsetField: z.string(),
+    offset: z.number().optional(),
+    limitField: z.string(),
+    limit: z.number(),
+    totalRecordField: z.string().optional(),
+    maxPages: z.number(),
+    zeroIndexed: z.boolean(),
+    lastPageExpr: z.string().optional(),
+    nextRelationAttribute: z.string().optional(),
+    curRelationAttribute: z.string().optional(),
+    pageField: z.string().optional(),
+    page: z.number().optional(),
+    sizeField: z.string().optional(),
+    size: z.number().optional(),
+    totalPageField: z.string().optional(),
+  });
+
+export function restCollectMethodOtherRestPaginationTypeRequestOffsetToJSON(
+  restCollectMethodOtherRestPaginationTypeRequestOffset:
+    RestCollectMethodOtherRestPaginationTypeRequestOffset,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeRequestOffset$outboundSchema.parse(
+      restCollectMethodOtherRestPaginationTypeRequestOffset,
+    ),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeRequestOffsetFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeRequestOffset,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeRequestOffset' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
+    offsetField: types.optional(types.string()),
+    offset: types.optional(types.number()),
+    limitField: types.optional(types.string()),
+    limit: types.optional(types.number()),
+    pageField: types.optional(types.string()),
+    page: types.optional(types.number()),
+    sizeField: types.optional(types.string()),
+    size: types.optional(types.number()),
+    totalPageField: types.optional(types.string()),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$Outbound =
+  {
+    type: "response_header_link";
+    nextRelationAttribute: string;
+    curRelationAttribute?: string | undefined;
+    maxPages: number;
+    lastPageExpr?: string | undefined;
+    offsetField?: string | undefined;
+    offset?: number | undefined;
+    limitField?: string | undefined;
+    limit?: number | undefined;
+    pageField?: string | undefined;
+    page?: number | undefined;
+    sizeField?: string | undefined;
+    size?: number | undefined;
+    totalPageField?: string | undefined;
+  };
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink
+  > = z.object({
+    type: z.literal("response_header_link"),
+    nextRelationAttribute: z.string(),
+    curRelationAttribute: z.string().optional(),
+    maxPages: z.number(),
+    lastPageExpr: z.string().optional(),
+    offsetField: z.string().optional(),
+    offset: z.number().optional(),
+    limitField: z.string().optional(),
+    limit: z.number().optional(),
+    pageField: z.string().optional(),
+    page: z.number().optional(),
+    sizeField: z.string().optional(),
+    size: z.number().optional(),
+    totalPageField: z.string().optional(),
+  });
+
+export function restCollectMethodOtherRestPaginationTypeResponseHeaderLinkToJSON(
+  restCollectMethodOtherRestPaginationTypeResponseHeaderLink:
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outboundSchema
+      .parse(restCollectMethodOtherRestPaginationTypeResponseHeaderLink),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeResponseHeaderLinkFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeResponseHeaderLink,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeResponseHeaderLink' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes:
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseHeader,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    type: types.literal("response_header"),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
+    nextRelationAttribute: types.optional(types.string()),
+    curRelationAttribute: types.optional(types.string()),
+    offsetField: types.optional(types.string()),
+    offset: types.optional(types.number()),
+    limitField: types.optional(types.string()),
+    limit: types.optional(types.number()),
+    pageField: types.optional(types.string()),
+    page: types.optional(types.number()),
+    sizeField: types.optional(types.string()),
+    size: types.optional(types.number()),
+    totalPageField: types.optional(types.string()),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeResponseHeader$Outbound = {
+  type: "response_header";
+  attribute: Array<any> | string;
+  maxPages: number;
+  lastPageExpr?: string | undefined;
+  nextRelationAttribute?: string | undefined;
+  curRelationAttribute?: string | undefined;
+  offsetField?: string | undefined;
+  offset?: number | undefined;
+  limitField?: string | undefined;
+  limit?: number | undefined;
+  pageField?: string | undefined;
+  page?: number | undefined;
+  sizeField?: string | undefined;
+  size?: number | undefined;
+  totalPageField?: string | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseHeader$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeResponseHeader
+  > = z.object({
+    type: z.literal("response_header"),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
+    maxPages: z.number(),
+    lastPageExpr: z.string().optional(),
+    nextRelationAttribute: z.string().optional(),
+    curRelationAttribute: z.string().optional(),
+    offsetField: z.string().optional(),
+    offset: z.number().optional(),
+    limitField: z.string().optional(),
+    limit: z.number().optional(),
+    pageField: z.string().optional(),
+    page: z.number().optional(),
+    sizeField: z.string().optional(),
+    size: z.number().optional(),
+    totalPageField: z.string().optional(),
+  });
+
+export function restCollectMethodOtherRestPaginationTypeResponseHeaderToJSON(
+  restCollectMethodOtherRestPaginationTypeResponseHeader:
+    RestCollectMethodOtherRestPaginationTypeResponseHeader,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSchema.parse(
+      restCollectMethodOtherRestPaginationTypeResponseHeader,
+    ),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeResponseHeaderFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeResponseHeader,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeResponseHeader' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes:
+    RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseBody,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    type: types.literal("response_body"),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
+    nextRelationAttribute: types.optional(types.string()),
+    curRelationAttribute: types.optional(types.string()),
+    offsetField: types.optional(types.string()),
+    offset: types.optional(types.number()),
+    limitField: types.optional(types.string()),
+    limit: types.optional(types.number()),
+    pageField: types.optional(types.string()),
+    page: types.optional(types.number()),
+    sizeField: types.optional(types.string()),
+    size: types.optional(types.number()),
+    totalPageField: types.optional(types.string()),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeResponseBody$Outbound = {
+  type: "response_body";
+  attribute: Array<any> | string;
+  maxPages: number;
+  lastPageExpr?: string | undefined;
+  nextRelationAttribute?: string | undefined;
+  curRelationAttribute?: string | undefined;
+  offsetField?: string | undefined;
+  offset?: number | undefined;
+  limitField?: string | undefined;
+  limit?: number | undefined;
+  pageField?: string | undefined;
+  page?: number | undefined;
+  sizeField?: string | undefined;
+  size?: number | undefined;
+  totalPageField?: string | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeResponseBody$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeResponseBody
+  > = z.object({
+    type: z.literal("response_body"),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
+    maxPages: z.number(),
+    lastPageExpr: z.string().optional(),
+    nextRelationAttribute: z.string().optional(),
+    curRelationAttribute: z.string().optional(),
+    offsetField: z.string().optional(),
+    offset: z.number().optional(),
+    limitField: z.string().optional(),
+    limit: z.number().optional(),
+    pageField: z.string().optional(),
+    page: z.number().optional(),
+    sizeField: z.string().optional(),
+    size: z.number().optional(),
+    totalPageField: z.string().optional(),
+  });
+
+export function restCollectMethodOtherRestPaginationTypeResponseBodyToJSON(
+  restCollectMethodOtherRestPaginationTypeResponseBody:
+    RestCollectMethodOtherRestPaginationTypeResponseBody,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema.parse(
+      restCollectMethodOtherRestPaginationTypeResponseBody,
+    ),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeNone$inboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeNone,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    type: types.literal("none"),
+    lastPageExpr: types.optional(types.string()),
+    nextRelationAttribute: types.optional(types.string()),
+    curRelationAttribute: types.optional(types.string()),
+    offsetField: types.optional(types.string()),
+    offset: types.optional(types.number()),
+    limitField: types.optional(types.string()),
+    limit: types.optional(types.number()),
+    pageField: types.optional(types.string()),
+    page: types.optional(types.number()),
+    sizeField: types.optional(types.string()),
+    size: types.optional(types.number()),
+    totalPageField: types.optional(types.string()),
+  });
+/** @internal */
+export type RestCollectMethodOtherRestPaginationTypeNone$Outbound = {
+  type: "none";
+  lastPageExpr?: string | undefined;
+  nextRelationAttribute?: string | undefined;
+  curRelationAttribute?: string | undefined;
+  offsetField?: string | undefined;
+  offset?: number | undefined;
+  limitField?: string | undefined;
+  limit?: number | undefined;
+  pageField?: string | undefined;
+  page?: number | undefined;
+  sizeField?: string | undefined;
+  size?: number | undefined;
+  totalPageField?: string | undefined;
+};
+
+/** @internal */
+export const RestCollectMethodOtherRestPaginationTypeNone$outboundSchema:
+  z.ZodType<
+    RestCollectMethodOtherRestPaginationTypeNone$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodOtherRestPaginationTypeNone
+  > = z.object({
+    type: z.literal("none"),
+    lastPageExpr: z.string().optional(),
+    nextRelationAttribute: z.string().optional(),
+    curRelationAttribute: z.string().optional(),
+    offsetField: z.string().optional(),
+    offset: z.number().optional(),
+    limitField: z.string().optional(),
+    limit: z.number().optional(),
+    pageField: z.string().optional(),
+    page: z.number().optional(),
+    sizeField: z.string().optional(),
+    size: z.number().optional(),
+    totalPageField: z.string().optional(),
+  });
+
+export function restCollectMethodOtherRestPaginationTypeNoneToJSON(
+  restCollectMethodOtherRestPaginationTypeNone:
+    RestCollectMethodOtherRestPaginationTypeNone,
+): string {
+  return JSON.stringify(
+    RestCollectMethodOtherRestPaginationTypeNone$outboundSchema.parse(
+      restCollectMethodOtherRestPaginationTypeNone,
+    ),
+  );
+}
+export function restCollectMethodOtherRestPaginationTypeNoneFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodOtherRestPaginationTypeNone,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodOtherRestPaginationTypeNone$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestCollectMethodOtherRestPaginationTypeNone' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestCollectMethodOtherPagination$inboundSchema: z.ZodType<
   RestCollectMethodOtherPagination,
   z.ZodTypeDef,
   unknown
 > = discriminatedUnion("type", {
-  none: RestCollectMethodOtherRestPaginationTypeNone$inboundSchema,
-  response_body:
-    RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema,
-  response_header:
-    RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema,
-  response_header_link:
-    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema,
-  request_offset:
-    RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema,
-  request_page:
-    RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema,
+  none: z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeNone$inboundSchema
+  ),
+  response_body: z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema
+  ),
+  response_header: z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema
+  ),
+  response_header_link: z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema
+  ),
+  request_offset: z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema
+  ),
+  request_page: z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema
+  ),
 });
 /** @internal */
 export type RestCollectMethodOtherPagination$Outbound =
@@ -3293,12 +5699,22 @@ export const RestCollectMethodOtherPagination$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestCollectMethodOtherPagination
 > = z.union([
-  RestCollectMethodOtherRestPaginationTypeNone$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeRequestOffset$outboundSchema,
-  RestCollectMethodOtherRestPaginationTypeRequestPage$outboundSchema,
+  z.lazy(() => RestCollectMethodOtherRestPaginationTypeNone$outboundSchema),
+  z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeRequestOffset$outboundSchema
+  ),
+  z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeRequestPage$outboundSchema
+  ),
 ]);
 
 export function restCollectMethodOtherPaginationToJSON(
@@ -3682,23 +6098,54 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   collectRequestParams: types.optional(
     z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
   ),
-  discovery: types.optional(RestCollectMethodOtherDiscovery$inboundSchema),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
+      ),
+      post: z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
+      ),
+      post_with_body: z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
+      ),
+      other: z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
+      ),
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema
+    ),
+    list: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema
+    ),
+    none: z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema
+    ),
+  })),
   collectUrl: types.string(),
   collectRequestHeaders: types.optional(
     z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
   ),
   pagination: types.optional(discriminatedUnion("type", {
-    none: RestCollectMethodOtherRestPaginationTypeNone$inboundSchema,
-    response_body:
-      RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema,
-    response_header:
-      RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema,
-    response_header_link:
-      RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema,
-    request_offset:
-      RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema,
-    request_page:
-      RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema,
+    none: z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema
+    ),
+    response_header: z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema
+    ),
+    response_header_link: z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema
+    ),
+    request_offset: z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema
+    ),
+    request_page: z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema
+    ),
   })),
   authentication: RestCollectMethodOtherAuthentication$inboundSchema,
   timeout: types.optional(types.number()),
@@ -3708,6 +6155,7 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -3727,6 +6175,7 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   clientSecretParamValue: types.optional(types.string()),
   serviceAccountCredentials: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodOther$Outbound = {
@@ -3736,7 +6185,18 @@ export type RestCollectMethodOther$Outbound = {
   collectRequestParams?:
     | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
-  discovery?: RestCollectMethodOtherDiscovery$Outbound | undefined;
+  discovery?:
+    | (
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
+      | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
+        & { discoverType: "http" }
+    )
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$Outbound
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeList$Outbound
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$Outbound
+    | undefined;
   collectUrl: string;
   collectRequestHeaders?:
     | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
@@ -3757,6 +6217,7 @@ export type RestCollectMethodOther$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -3768,6 +6229,7 @@ export type RestCollectMethodOther$Outbound = {
   clientSecretParamValue?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   hmacFunctionId?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -3782,18 +6244,52 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   collectRequestParams: z.array(
     ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
-  discovery: RestCollectMethodOtherDiscovery$outboundSchema.optional(),
+  discovery: z.union([
+    z.union([
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
+      ),
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
+      ),
+    ]).and(z.object({ discoverType: z.literal("http") })),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeList$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$outboundSchema
+    ),
+  ]).optional(),
   collectUrl: z.string(),
   collectRequestHeaders: z.array(
     ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
   ).optional(),
   pagination: z.union([
-    RestCollectMethodOtherRestPaginationTypeNone$outboundSchema,
-    RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema,
-    RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSchema,
-    RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outboundSchema,
-    RestCollectMethodOtherRestPaginationTypeRequestOffset$outboundSchema,
-    RestCollectMethodOtherRestPaginationTypeRequestPage$outboundSchema,
+    z.lazy(() => RestCollectMethodOtherRestPaginationTypeNone$outboundSchema),
+    z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeRequestOffset$outboundSchema
+    ),
+    z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeRequestPage$outboundSchema
+    ),
   ]).optional(),
   authentication: RestCollectMethodOtherAuthentication$outboundSchema,
   timeout: z.number().optional(),
@@ -3803,6 +6299,7 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -3817,6 +6314,7 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   hmacFunctionId: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodOtherToJSON(
@@ -5044,6 +7542,52 @@ export function restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLin
 }
 
 /** @internal */
+export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes:
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader,
@@ -5051,7 +7595,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$inbou
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -5070,7 +7614,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$inbou
 export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$Outbound =
   {
     type: "response_header";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
     lastPageExpr?: string | undefined;
     nextRelationAttribute?: string | undefined;
@@ -5094,7 +7638,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$outbo
     RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
@@ -5135,6 +7679,52 @@ export function restCollectMethodPostWithBodyRestPaginationTypeResponseHeaderFro
 }
 
 /** @internal */
+export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes:
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestCollectMethodPostWithBodyRestPaginationTypeResponseBody,
@@ -5142,7 +7732,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$inbound
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -5161,7 +7751,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$inbound
 export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$Outbound =
   {
     type: "response_body";
-    attribute: Array<string>;
+    attribute: Array<any> | string;
     maxPages: number;
     lastPageExpr?: string | undefined;
     nextRelationAttribute?: string | undefined;
@@ -5185,7 +7775,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$outboun
     RestCollectMethodPostWithBodyRestPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
@@ -5837,6 +8427,7 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -5856,6 +8447,7 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   clientSecretParamValue: types.optional(types.string()),
   serviceAccountCredentials: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodPostWithBody$Outbound = {
@@ -5893,6 +8485,7 @@ export type RestCollectMethodPostWithBody$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -5904,6 +8497,7 @@ export type RestCollectMethodPostWithBody$Outbound = {
   clientSecretParamValue?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   hmacFunctionId?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -5971,6 +8565,7 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -5990,6 +8585,7 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   hmacFunctionId: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodPostWithBodyToJSON(
@@ -7222,6 +9818,52 @@ export function restCollectMethodPostRestPaginationTypeResponseHeaderLinkFromJSO
 }
 
 /** @internal */
+export const RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes:
+    RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestCollectMethodPostRestPaginationTypeResponseHeader,
@@ -7229,7 +9871,7 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -7247,7 +9889,7 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeResponseHeader$Outbound = {
   type: "response_header";
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   maxPages: number;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
@@ -7271,7 +9913,7 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeader$outboundSchem
     RestCollectMethodPostRestPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
@@ -7314,6 +9956,52 @@ export function restCollectMethodPostRestPaginationTypeResponseHeaderFromJSON(
 }
 
 /** @internal */
+export const RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes:
+    RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodPostRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestCollectMethodPostRestPaginationTypeResponseBody,
@@ -7321,7 +10009,7 @@ export const RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -7339,7 +10027,7 @@ export const RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema:
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeResponseBody$Outbound = {
   type: "response_body";
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   maxPages: number;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
@@ -7363,7 +10051,7 @@ export const RestCollectMethodPostRestPaginationTypeResponseBody$outboundSchema:
     RestCollectMethodPostRestPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
@@ -7980,6 +10668,7 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -7999,6 +10688,7 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   clientSecretParamValue: types.optional(types.string()),
   serviceAccountCredentials: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodPost$Outbound = {
@@ -8038,6 +10728,7 @@ export type RestCollectMethodPost$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -8049,6 +10740,7 @@ export type RestCollectMethodPost$Outbound = {
   clientSecretParamValue?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   hmacFunctionId?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -8116,6 +10808,7 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -8128,6 +10821,7 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   hmacFunctionId: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodPostToJSON(
@@ -9358,6 +12052,52 @@ export function restCollectMethodGetRestPaginationTypeResponseHeaderLinkFromJSON
 }
 
 /** @internal */
+export const RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesToJSON(
+  restCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes:
+    RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodGetRestPaginationTypeResponseHeaderResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema:
   z.ZodType<
     RestCollectMethodGetRestPaginationTypeResponseHeader,
@@ -9365,7 +12105,7 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("response_header"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -9383,7 +12123,7 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema:
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeResponseHeader$Outbound = {
   type: "response_header";
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   maxPages: number;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
@@ -9407,7 +12147,7 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeader$outboundSchema
     RestCollectMethodGetRestPaginationTypeResponseHeader
   > = z.object({
     type: z.literal("response_header"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
@@ -9450,6 +12190,52 @@ export function restCollectMethodGetRestPaginationTypeResponseHeaderFromJSON(
 }
 
 /** @internal */
+export const RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes$inboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([z.array(z.any()), types.string()]);
+/** @internal */
+export type RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes$Outbound =
+  | Array<any>
+  | string;
+
+/** @internal */
+export const RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes$outboundSchema:
+  z.ZodType<
+    RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes$Outbound,
+    z.ZodTypeDef,
+    RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes
+  > = smartUnion([z.array(z.any()), z.string()]);
+
+export function restCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesToJSON(
+  restCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes:
+    RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes,
+): string {
+  return JSON.stringify(
+    RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes$outboundSchema
+      .parse(
+        restCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes,
+      ),
+  );
+}
+export function restCollectMethodGetRestPaginationTypeResponseBodyResponseAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'RestCollectMethodGetRestPaginationTypeResponseBodyResponseAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema:
   z.ZodType<
     RestCollectMethodGetRestPaginationTypeResponseBody,
@@ -9457,7 +12243,7 @@ export const RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("response_body"),
-    attribute: z.array(types.string()),
+    attribute: smartUnion([z.array(z.any()), types.string()]),
     maxPages: types.number(),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
@@ -9475,7 +12261,7 @@ export const RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema:
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeResponseBody$Outbound = {
   type: "response_body";
-  attribute: Array<string>;
+  attribute: Array<any> | string;
   maxPages: number;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
@@ -9499,7 +12285,7 @@ export const RestCollectMethodGetRestPaginationTypeResponseBody$outboundSchema:
     RestCollectMethodGetRestPaginationTypeResponseBody
   > = z.object({
     type: z.literal("response_body"),
-    attribute: z.array(z.string()),
+    attribute: smartUnion([z.array(z.any()), z.string()]),
     maxPages: z.number(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
@@ -10109,6 +12895,7 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -10128,6 +12915,7 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   clientSecretParamValue: types.optional(types.string()),
   serviceAccountCredentials: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type RestCollectMethodGet$Outbound = {
@@ -10167,6 +12955,7 @@ export type RestCollectMethodGet$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -10178,6 +12967,7 @@ export type RestCollectMethodGet$Outbound = {
   clientSecretParamValue?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   hmacFunctionId?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -10245,6 +13035,7 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -10257,6 +13048,7 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   hmacFunctionId: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function restCollectMethodGetToJSON(

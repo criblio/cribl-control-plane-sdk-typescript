@@ -38,11 +38,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type InputConfluentCloud = {
   /**
@@ -80,7 +80,7 @@ export type InputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
    */
@@ -180,6 +180,14 @@ export type InputConfluentCloud = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -201,9 +209,7 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   brokers: z.array(types.string()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   topics: z.array(types.string()),
   groupId: types.optional(types.string()),
   fromBeginning: types.optional(types.boolean()),
@@ -229,6 +235,8 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   maxSocketErrors: types.optional(types.number()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_groupId: types.optional(types.string()),
 });
 /** @internal */
 export type InputConfluentCloud$Outbound = {
@@ -243,7 +251,7 @@ export type InputConfluentCloud$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   topics: Array<string>;
   groupId?: string | undefined;
   fromBeginning?: boolean | undefined;
@@ -269,6 +277,8 @@ export type InputConfluentCloud$Outbound = {
   maxSocketErrors?: number | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -288,7 +298,7 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   topics: z.array(z.string()),
   groupId: z.string().optional(),
   fromBeginning: z.boolean().optional(),
@@ -313,6 +323,8 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_groupId: z.string().optional(),
 });
 
 export function inputConfluentCloudToJSON(

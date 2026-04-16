@@ -16,10 +16,7 @@ const value: models.RestAuthenticationHmacRestPaginationTypeNone = {
 ```typescript
 const value: models.RestAuthenticationHmacRestPaginationTypeResponseBody = {
   type: "response_body",
-  attribute: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  attribute: "<value>",
   maxPages: 8653.61,
 };
 ```
@@ -29,11 +26,7 @@ const value: models.RestAuthenticationHmacRestPaginationTypeResponseBody = {
 ```typescript
 const value: models.RestAuthenticationHmacRestPaginationTypeResponseHeader = {
   type: "response_header",
-  attribute: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  attribute: "<value>",
   maxPages: 7703.32,
 };
 ```

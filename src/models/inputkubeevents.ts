@@ -73,6 +73,10 @@ export type InputKubeEvents = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -96,6 +100,7 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
   rules: types.optional(z.array(ItemsTypeRules$inboundSchema)),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
 });
 /** @internal */
 export type InputKubeEvents$Outbound = {
@@ -112,6 +117,7 @@ export type InputKubeEvents$Outbound = {
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
 };
 
 /** @internal */
@@ -133,6 +139,7 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
   rules: z.array(ItemsTypeRules$outboundSchema).optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
 });
 
 export function inputKubeEventsToJSON(

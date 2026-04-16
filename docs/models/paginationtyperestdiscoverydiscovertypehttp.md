@@ -16,11 +16,7 @@ const value: models.RestDiscoveryDiscoverTypeHttpPaginationTypeNone = {
 ```typescript
 const value: models.RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody = {
   type: "response_body",
-  attribute: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  attribute: "<value>",
   maxPages: 7762.57,
 };
 ```
@@ -33,8 +29,9 @@ const value: models.RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader =
     type: "response_header",
     attribute: [
       "<value 1>",
+      "<value 2>",
     ],
-    maxPages: 6041.21,
+    maxPages: 3968.43,
   };
 ```
 

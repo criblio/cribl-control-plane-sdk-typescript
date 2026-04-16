@@ -153,6 +153,10 @@ export type InputAzureBlob = {
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -161,6 +165,10 @@ export type InputAzureBlob = {
    */
   __template_connectionString?: string | undefined;
   /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
   __template_tenantId?: string | undefined;
@@ -168,6 +176,10 @@ export type InputAzureBlob = {
    * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
    */
   __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
@@ -213,10 +225,13 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
+  __template_environment: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
   __template_connectionString: types.optional(types.string()),
+  __template_storageAccountName: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
+  __template_azureCloud: types.optional(types.string()),
 });
 /** @internal */
 export type InputAzureBlob$Outbound = {
@@ -253,10 +268,13 @@ export type InputAzureBlob$Outbound = {
   endpointSuffix?: string | undefined;
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
   __template_connectionString?: string | undefined;
+  __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
@@ -299,10 +317,13 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_connectionString: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
 });
 
 export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {

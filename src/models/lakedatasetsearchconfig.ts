@@ -13,11 +13,24 @@ import {
   DatasetMetadata$outboundSchema,
 } from "./datasetmetadata.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ObjectStorageFilter,
+  ObjectStorageFilter$inboundSchema,
+  ObjectStorageFilter$Outbound,
+  ObjectStorageFilter$outboundSchema,
+} from "./objectstoragefilter.js";
+import {
+  SearchVersion,
+  SearchVersion$inboundSchema,
+  SearchVersion$outboundSchema,
+} from "./searchversion.js";
 
 export type LakeDatasetSearchConfig = {
   datatypes?: Array<string> | undefined;
   description?: string | undefined;
   metadata?: DatasetMetadata | undefined;
+  pathFilters?: Array<ObjectStorageFilter> | undefined;
+  searchVersion?: SearchVersion | undefined;
   tags?: string | undefined;
 };
 
@@ -30,6 +43,8 @@ export const LakeDatasetSearchConfig$inboundSchema: z.ZodType<
   datatypes: types.optional(z.array(types.string())),
   description: types.optional(types.string()),
   metadata: types.optional(DatasetMetadata$inboundSchema),
+  pathFilters: types.optional(z.array(ObjectStorageFilter$inboundSchema)),
+  searchVersion: types.optional(SearchVersion$inboundSchema),
   tags: types.optional(types.string()),
 });
 /** @internal */
@@ -37,6 +52,8 @@ export type LakeDatasetSearchConfig$Outbound = {
   datatypes?: Array<string> | undefined;
   description?: string | undefined;
   metadata?: DatasetMetadata$Outbound | undefined;
+  pathFilters?: Array<ObjectStorageFilter$Outbound> | undefined;
+  searchVersion?: string | undefined;
   tags?: string | undefined;
 };
 
@@ -49,6 +66,8 @@ export const LakeDatasetSearchConfig$outboundSchema: z.ZodType<
   datatypes: z.array(z.string()).optional(),
   description: z.string().optional(),
   metadata: DatasetMetadata$outboundSchema.optional(),
+  pathFilters: z.array(ObjectStorageFilter$outboundSchema).optional(),
+  searchVersion: SearchVersion$outboundSchema.optional(),
   tags: z.string().optional(),
 });
 

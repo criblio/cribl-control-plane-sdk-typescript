@@ -509,9 +509,9 @@ async function run() {
   const result = await criblControlPlane.destinations.create({
     id: "cloudflare-r2-output",
     type: "cloudflare_r2",
-    endpoint: "https://account-id.r2.cloudflarestorage.com",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "https://account-id.r2.cloudflarestorage.com",
   });
 
   console.log(result);
@@ -541,9 +541,9 @@ async function run() {
   const res = await destinationsCreate(criblControlPlane, {
     id: "cloudflare-r2-output",
     type: "cloudflare_r2",
-    endpoint: "https://account-id.r2.cloudflarestorage.com",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "https://account-id.r2.cloudflarestorage.com",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -2724,9 +2724,9 @@ async function run() {
   const result = await criblControlPlane.destinations.create({
     id: "minio-output",
     type: "minio",
-    endpoint: "http://localhost:9000",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "http://localhost:9000",
   });
 
   console.log(result);
@@ -2756,9 +2756,9 @@ async function run() {
   const res = await destinationsCreate(criblControlPlane, {
     id: "minio-output",
     type: "minio",
-    endpoint: "http://localhost:9000",
     bucket: "my-bucket",
     stagePath: "/tmp/staging",
+    endpoint: "http://localhost:9000",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -3019,6 +3019,69 @@ async function run() {
     accountId: "123456",
     eventType: "CriblEvent",
     apiKey: "your-api-key",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputCreateExamplesNutanixObjects
+
+<!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesNutanixObjects" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.create({
+    id: "nutanix-objects-output",
+    type: "nutanix_objects",
+    bucket: "my-bucket",
+    stagePath: "/tmp/staging",
+    endpoint: "https://nutanix-objects.example.com",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsCreate } from "cribl-control-plane/funcs/destinationsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsCreate(criblControlPlane, {
+    id: "nutanix-objects-output",
+    type: "nutanix_objects",
+    bucket: "my-bucket",
+    stagePath: "/tmp/staging",
+    endpoint: "https://nutanix-objects.example.com",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -3354,9 +3417,9 @@ async function run() {
   const result = await criblControlPlane.destinations.create({
     id: "security-lake-output",
     type: "security_lake",
+    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     bucket: "my-bucket",
     region: "us-east-1",
-    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     stagePath: "/tmp/staging",
     accountId: "123456789012",
     customSource: "my-custom-source",
@@ -3389,9 +3452,9 @@ async function run() {
   const res = await destinationsCreate(criblControlPlane, {
     id: "security-lake-output",
     type: "security_lake",
+    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     bucket: "my-bucket",
     region: "us-east-1",
-    assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
     stagePath: "/tmp/staging",
     accountId: "123456789012",
     customSource: "my-custom-source",
@@ -5153,9 +5216,9 @@ async function run() {
     output: {
       id: "cloudflare-r2-output",
       type: "cloudflare_r2",
-      endpoint: "https://account-id.r2.cloudflarestorage.com",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "https://account-id.r2.cloudflarestorage.com",
     },
   });
 
@@ -5188,9 +5251,9 @@ async function run() {
     output: {
       id: "cloudflare-r2-output",
       type: "cloudflare_r2",
-      endpoint: "https://account-id.r2.cloudflarestorage.com",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "https://account-id.r2.cloudflarestorage.com",
     },
   });
   if (res.ok) {
@@ -7566,9 +7629,9 @@ async function run() {
     output: {
       id: "minio-output",
       type: "minio",
-      endpoint: "http://localhost:9000",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "http://localhost:9000",
     },
   });
 
@@ -7601,9 +7664,9 @@ async function run() {
     output: {
       id: "minio-output",
       type: "minio",
-      endpoint: "http://localhost:9000",
       bucket: "my-bucket",
       stagePath: "/tmp/staging",
+      endpoint: "http://localhost:9000",
     },
   });
   if (res.ok) {
@@ -7888,6 +7951,75 @@ async function run() {
       accountId: "123456",
       eventType: "CriblEvent",
       apiKey: "your-api-key",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputCreateExamplesNutanixObjects
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesNutanixObjects" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.update({
+    id: "<id>",
+    output: {
+      id: "nutanix-objects-output",
+      type: "nutanix_objects",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://nutanix-objects.example.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsUpdate } from "cribl-control-plane/funcs/destinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    output: {
+      id: "nutanix-objects-output",
+      type: "nutanix_objects",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://nutanix-objects.example.com",
     },
   });
   if (res.ok) {
@@ -8256,9 +8388,9 @@ async function run() {
     output: {
       id: "security-lake-output",
       type: "security_lake",
+      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       bucket: "my-bucket",
       region: "us-east-1",
-      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       stagePath: "/tmp/staging",
       accountId: "123456789012",
       customSource: "my-custom-source",
@@ -8294,9 +8426,9 @@ async function run() {
     output: {
       id: "security-lake-output",
       type: "security_lake",
+      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       bucket: "my-bucket",
       region: "us-east-1",
-      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
       stagePath: "/tmp/staging",
       accountId: "123456789012",
       customSource: "my-custom-source",

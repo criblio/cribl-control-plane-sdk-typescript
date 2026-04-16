@@ -28,10 +28,10 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  SignatureVersionOptions3,
-  SignatureVersionOptions3$inboundSchema,
-  SignatureVersionOptions3$outboundSchema,
-} from "./signatureversionoptions3.js";
+  SignatureVersionOptionsSqs,
+  SignatureVersionOptionsSqs$inboundSchema,
+  SignatureVersionOptionsSqs$outboundSchema,
+} from "./signatureversionoptionssqs.js";
 
 /**
  * The queue type used (or created)
@@ -115,7 +115,7 @@ export type InputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: SignatureVersionOptions3 | undefined;
+  signatureVersion?: SignatureVersionOptionsSqs | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -167,9 +167,17 @@ export type InputSqs = {
    */
   numReceivers?: number | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
+  /**
+   * Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
+   */
+  __template_queueType?: string | undefined;
   /**
    * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
    */
@@ -182,6 +190,10 @@ export type InputSqs = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -235,7 +247,7 @@ export const InputSqs$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions3$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptionsSqs$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -250,10 +262,13 @@ export const InputSqs$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
   numReceivers: types.optional(types.number()),
+  __template_environment: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
+  __template_queueType: types.optional(types.string()),
   __template_awsAccountId: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
@@ -293,10 +308,13 @@ export type InputSqs$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   numReceivers?: number | undefined;
+  __template_environment?: string | undefined;
   __template_queueName?: string | undefined;
+  __template_queueType?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
@@ -326,7 +344,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions3$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsSqs$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -341,10 +359,13 @@ export const InputSqs$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   numReceivers: z.number().optional(),
+  __template_environment: z.string().optional(),
   __template_queueName: z.string().optional(),
+  __template_queueType: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),

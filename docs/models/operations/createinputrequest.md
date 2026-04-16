@@ -250,6 +250,16 @@ const value: operations.CreateInputInputEventhub = {
 };
 ```
 
+### `operations.CreateInputInputEventhubAmqp`
+
+```typescript
+const value: operations.CreateInputInputEventhubAmqp = {
+  id: "<id>",
+  type: "eventhub_amqp",
+  consumerGroup: "<value>",
+};
+```
+
 ### `operations.CreateInputInputExec`
 
 ```typescript
@@ -689,6 +699,20 @@ const value: operations.CreateInputInputSecurityLake = {
 };
 ```
 
+### `operations.CreateInputInputServicenowTable`
+
+```typescript
+const value: operations.CreateInputInputServicenowTable = {
+  id: "<id>",
+  type: "servicenow_table",
+  instance: "<value>",
+  tableName: "<value>",
+  cronSchedule: "<value>",
+  earliest: "<value>",
+  latest: "<value>",
+};
+```
+
 ### `operations.CreateInputInputZscalerHec`
 
 ```typescript
@@ -710,6 +734,18 @@ const value: operations.CreateInputInputCloudflareHec = {
   host: "rural-scaffold.net",
   port: 8504.37,
   hecAPI: "<value>",
+};
+```
+
+### `operations.CreateInputInputOpenaiComplianceLogs`
+
+```typescript
+const value: operations.CreateInputInputOpenaiComplianceLogs = {
+  id: "<id>",
+  type: "openai_compliance_logs",
+  textSecret: "<value>",
+  accountType: "organization",
+  cronSchedule: "<value>",
 };
 ```
 

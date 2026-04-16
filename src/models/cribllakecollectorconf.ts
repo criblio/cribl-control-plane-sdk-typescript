@@ -13,6 +13,10 @@ export type CriblLakeCollectorConf = {
    * Lake dataset to collect data from.
    */
   dataset: string;
+  /**
+   * Binds 'dataset' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dataset' at runtime.
+   */
+  __template_dataset?: string | undefined;
 };
 
 /** @internal */
@@ -22,10 +26,12 @@ export const CriblLakeCollectorConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   dataset: types.string(),
+  __template_dataset: types.optional(types.string()),
 });
 /** @internal */
 export type CriblLakeCollectorConf$Outbound = {
   dataset: string;
+  __template_dataset?: string | undefined;
 };
 
 /** @internal */
@@ -35,6 +41,7 @@ export const CriblLakeCollectorConf$outboundSchema: z.ZodType<
   CriblLakeCollectorConf
 > = z.object({
   dataset: z.string(),
+  __template_dataset: z.string().optional(),
 });
 
 export function criblLakeCollectorConfToJSON(
