@@ -4,38 +4,116 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
-import {
-  ModeOptionsInstanceSettingsSchema,
-  ModeOptionsInstanceSettingsSchema$inboundSchema,
-} from "./modeoptionsinstancesettingsschema.js";
 
+/**
+ * Configuration bundle and policy revision metadata for this node.
+ */
 export type Config = {
+  /**
+   * Feature flags or feature revision string for this bundle.
+   */
   featuresRev?: string | undefined;
+  /**
+   * Worker-to-Leader heartbeat interval, in seconds.
+   */
   hbPeriodSeconds?: number | undefined;
+  /**
+   * GitOps or LogStream environment label associated with the bundle.
+   */
   logStreamEnv?: string | undefined;
+  /**
+   * Current policies revision string.
+   */
   policyRev?: string | undefined;
+  /**
+   * Configuration bundle version.
+   */
   version?: string | undefined;
 };
 
+/**
+ * Distributed deployment mode for this instance.
+ */
+export const DistMode = {
+  Edge: "edge",
+  ManagedEdge: "managed-edge",
+  Master: "master",
+  Outpost: "outpost",
+  SearchSupervisor: "search-supervisor",
+  Single: "single",
+  Worker: "worker",
+} as const;
+/**
+ * Distributed deployment mode for this instance.
+ */
+export type DistMode = OpenEnum<typeof DistMode>;
+
 export type HBCriblInfo = {
+  /**
+   * Configuration bundle and policy revision metadata for this node.
+   */
   config: Config;
+  /**
+   * Deployment identifier for this node or fleet, when assigned.
+   */
   deploymentId?: string | undefined;
+  /**
+   * If <code>true</code>, SNI-based routing to the Leader is disabled for this connection.
+   */
   disableSNIRouting?: boolean | undefined;
-  distMode: ModeOptionsInstanceSettingsSchema;
+  /**
+   * Distributed deployment mode for this instance.
+   */
+  distMode: DistMode;
+  /**
+   * Count of Edge nodes reported in the Leader heartbeat.
+   */
   edgeNodes?: number | undefined;
+  /**
+   * Worker group or fleet name.
+   */
   group: string;
+  /**
+   * Unique instance identifier for this Cribl node.
+   */
   guid: string;
+  /**
+   * Value of the <code>CRIBL_INSTALL_TYPE</code> environment variable, relayed for upgrade decisions (since 4.5.0).
+   */
   installType?: string | undefined;
+  /**
+   * Lookup file deployment versions.
+   */
   lookupVersions?: { [k: string]: { [k: string]: string } } | undefined;
+  /**
+   * Connection parameters for the Leader node, as reported in a Worker heartbeat.
+   */
   master?: HBLeaderInfo | undefined;
+  /**
+   * PID.
+   */
   pid?: number | undefined;
+  /**
+   * If <code>true</code>, SOCKS proxy connectivity is enabled for this node.
+   */
   socksEnabled?: boolean | undefined;
+  /**
+   * Unix epoch time in milliseconds when the Cribl server process started.
+   */
   startTime: number;
+  /**
+   * Tags from the node.
+   */
   tags?: Array<string> | undefined;
+  /**
+   * Cribl software version string for this node.
+   */
   version?: string | undefined;
 };
 
@@ -60,6 +138,13 @@ export function configFromJSON(
 }
 
 /** @internal */
+export const DistMode$inboundSchema: z.ZodType<
+  DistMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(DistMode);
+
+/** @internal */
 export const HBCriblInfo$inboundSchema: z.ZodType<
   HBCriblInfo,
   z.ZodTypeDef,
@@ -68,7 +153,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   config: z.lazy(() => Config$inboundSchema),
   deploymentId: types.optional(types.string()),
   disableSNIRouting: types.optional(types.boolean()),
-  distMode: ModeOptionsInstanceSettingsSchema$inboundSchema,
+  distMode: DistMode$inboundSchema,
   edgeNodes: types.optional(types.number()),
   group: types.string(),
   guid: types.string(),

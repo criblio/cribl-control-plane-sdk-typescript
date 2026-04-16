@@ -10,10 +10,10 @@ let value: NodeProvidedInfo = {
   cpus: 5118.26,
   cribl: {
     config: {},
-    distMode: "outpost",
+    distMode: "worker",
     group: "<value>",
     guid: "<id>",
-    startTime: 7161.68,
+    startTime: 777671,
   },
   env: {
     "key": "<value>",
