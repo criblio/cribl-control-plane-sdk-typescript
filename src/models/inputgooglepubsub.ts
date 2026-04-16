@@ -121,6 +121,10 @@ export type InputGooglePubsub = {
    */
   orderedDelivery?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
    */
   __template_topicName?: string | undefined;
@@ -169,6 +173,7 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   orderedDelivery: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
   __template_topicName: types.optional(types.string()),
   __template_subscriptionName: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -200,6 +205,7 @@ export type InputGooglePubsub$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_topicName?: string | undefined;
   __template_subscriptionName?: string | undefined;
   __template_region?: string | undefined;
@@ -236,6 +242,7 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
+  __template_environment: z.string().optional(),
   __template_topicName: z.string().optional(),
   __template_subscriptionName: z.string().optional(),
   __template_region: z.string().optional(),

@@ -18,23 +18,20 @@ let value: MasterWorkerEntry = {
       group: "<value>",
       guid: "<id>",
       startTime: 7161.68,
-      tags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
     },
     env: {
       "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
     },
-    hostname: "messy-litter.com",
+    hostname: "heavy-laughter.name",
     node: "<value>",
     platform: "<value>",
     release: "<value>",
-    totalmem: 6281.42,
+    totalmem: 170.36,
   },
-  lastMsgTime: 845.06,
-  workerProcesses: 6128.94,
+  lastMsgTime: 6281.42,
+  workerProcesses: 845.06,
 };
 ```
 

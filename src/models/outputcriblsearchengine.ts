@@ -12,10 +12,10 @@ import {
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions1,
-  CompressionOptions1$inboundSchema,
-  CompressionOptions1$outboundSchema,
-} from "./compressionoptions1.js";
+  CompressionOptionsGzipNone,
+  CompressionOptionsGzipNone$inboundSchema,
+  CompressionOptionsGzipNone$outboundSchema,
+} from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -28,11 +28,11 @@ import {
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  ItemsTypeAuthTokens1,
-  ItemsTypeAuthTokens1$inboundSchema,
-  ItemsTypeAuthTokens1$Outbound,
-  ItemsTypeAuthTokens1$outboundSchema,
-} from "./itemstypeauthtokens1.js";
+  ItemsTypeAuthTokensTokenSecret,
+  ItemsTypeAuthTokensTokenSecret$inboundSchema,
+  ItemsTypeAuthTokensTokenSecret$Outbound,
+  ItemsTypeAuthTokensTokenSecret$outboundSchema,
+} from "./itemstypeauthtokenstokensecret.js";
 import {
   ItemsTypeExtraHttpHeaders,
   ItemsTypeExtraHttpHeaders$inboundSchema,
@@ -68,11 +68,11 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type OutputCriblSearchEnginePqControls = {};
 
@@ -102,7 +102,7 @@ export type OutputCriblSearchEngine = {
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
    */
@@ -114,7 +114,7 @@ export type OutputCriblSearchEngine = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: CompressionOptions1 | undefined;
+  compression?: CompressionOptionsGzipNone | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -171,7 +171,7 @@ export type OutputCriblSearchEngine = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokens1> | undefined;
+  authTokens?: Array<ItemsTypeAuthTokensTokenSecret> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -211,7 +211,7 @@ export type OutputCriblSearchEngine = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -238,7 +238,19 @@ export type OutputCriblSearchEngine = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblSearchEnginePqControls | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -293,12 +305,10 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   loadBalanced: types.optional(types.boolean()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   tokenTTLMinutes: types.optional(types.number()),
   excludeFields: types.optional(z.array(types.string())),
-  compression: types.optional(CompressionOptions1$inboundSchema),
+  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
@@ -318,7 +328,9 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  authTokens: types.optional(z.array(ItemsTypeAuthTokens1$inboundSchema)),
+  authTokens: types.optional(
+    z.array(ItemsTypeAuthTokensTokenSecret$inboundSchema),
+  ),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   useRoundRobinDns: types.optional(types.boolean()),
   description: types.optional(types.string()),
@@ -337,9 +349,12 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   pqPath: types.optional(types.string()),
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(
     z.lazy(() => OutputCriblSearchEnginePqControls$inboundSchema),
   ),
+  __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   __template_url: types.optional(types.string()),
 });
 /** @internal */
@@ -351,7 +366,7 @@ export type OutputCriblSearchEngine$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced?: boolean | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   tokenTTLMinutes?: number | undefined;
   excludeFields?: Array<string> | undefined;
   compression?: string | undefined;
@@ -370,7 +385,7 @@ export type OutputCriblSearchEngine$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?: Array<ItemsTypeAuthTokens1$Outbound> | undefined;
+  authTokens?: Array<ItemsTypeAuthTokensTokenSecret$Outbound> | undefined;
   onBackpressure?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   description?: string | undefined;
@@ -389,7 +404,10 @@ export type OutputCriblSearchEngine$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblSearchEnginePqControls$Outbound | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -406,10 +424,10 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   tokenTTLMinutes: z.number().optional(),
   excludeFields: z.array(z.string()).optional(),
-  compression: CompressionOptions1$outboundSchema.optional(),
+  compression: CompressionOptionsGzipNone$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -426,7 +444,7 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(ItemsTypeAuthTokens1$outboundSchema).optional(),
+  authTokens: z.array(ItemsTypeAuthTokensTokenSecret$outboundSchema).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   useRoundRobinDns: z.boolean().optional(),
   description: z.string().optional(),
@@ -445,8 +463,11 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputCriblSearchEnginePqControls$outboundSchema)
     .optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
 });
 

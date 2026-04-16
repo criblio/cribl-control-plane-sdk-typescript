@@ -15,12 +15,13 @@ const value: operations.CreateOutputSystemByPackOutputDefault = {
 };
 ```
 
-### `operations.CreateOutputSystemByPackOutputWebhook`
+### `operations.CreateOutputSystemByPackOutputWebhookUnion`
 
 ```typescript
-const value: operations.CreateOutputSystemByPackOutputWebhook = {
+const value: operations.CreateOutputSystemByPackOutputWebhookUnion = {
   id: "<id>",
   type: "webhook",
+  url: "https://woeful-futon.info/",
 };
 ```
 
@@ -389,9 +390,9 @@ const value: operations.CreateOutputSystemByPackOutputCloudwatch = {
 const value: operations.CreateOutputSystemByPackOutputMinio = {
   id: "<id>",
   type: "minio",
-  endpoint: "<value>",
   bucket: "<value>",
   stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 
@@ -634,9 +635,9 @@ const value: operations.CreateOutputSystemByPackOutputDlS3 = {
 const value: operations.CreateOutputSystemByPackOutputSecurityLake = {
   id: "<id>",
   type: "security_lake",
+  assumeRoleArn: "<value>",
   bucket: "<value>",
   region: "<value>",
-  assumeRoleArn: "<value>",
   stagePath: "<value>",
   accountId: "<id>",
   customSource: "<value>",
@@ -792,9 +793,21 @@ const value: operations.CreateOutputSystemByPackOutputMicrosoftFabric = {
 const value: operations.CreateOutputSystemByPackOutputCloudflareR2 = {
   id: "<id>",
   type: "cloudflare_r2",
-  endpoint: "<value>",
   bucket: "<value>",
   stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputSystemByPackOutputNutanixObjects`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputNutanixObjects = {
+  id: "<id>",
+  type: "nutanix_objects",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 

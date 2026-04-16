@@ -54,6 +54,10 @@ import {
 } from "./inputedgeprometheus.js";
 import { InputElastic, InputElastic$inboundSchema } from "./inputelastic.js";
 import { InputEventhub, InputEventhub$inboundSchema } from "./inputeventhub.js";
+import {
+  InputEventhubAmqp,
+  InputEventhubAmqp$inboundSchema,
+} from "./inputeventhubamqp.js";
 import { InputExec, InputExec$inboundSchema } from "./inputexec.js";
 import { InputFile, InputFile$inboundSchema } from "./inputfile.js";
 import { InputFirehose, InputFirehose$inboundSchema } from "./inputfirehose.js";
@@ -105,6 +109,10 @@ import {
 } from "./inputoffice365service.js";
 import { InputOpenai, InputOpenai$inboundSchema } from "./inputopenai.js";
 import {
+  InputOpenaiComplianceLogs,
+  InputOpenaiComplianceLogs$inboundSchema,
+} from "./inputopenaicompliancelogs.js";
+import {
   InputOpenTelemetry,
   InputOpenTelemetry$inboundSchema,
 } from "./inputopentelemetry.js";
@@ -126,6 +134,10 @@ import {
   InputSecurityLake,
   InputSecurityLake$inboundSchema,
 } from "./inputsecuritylake.js";
+import {
+  InputServicenowTable,
+  InputServicenowTable$inboundSchema,
+} from "./inputservicenowtable.js";
 import { InputSnmp, InputSnmp$inboundSchema } from "./inputsnmp.js";
 import { InputSplunk, InputSplunk$inboundSchema } from "./inputsplunk.js";
 import {
@@ -188,6 +200,7 @@ export type Input1 =
   | InputOffice365MsgTrace
   | InputMicrosoftGraph
   | InputEventhub
+  | InputEventhubAmqp
   | InputExec
   | InputFirehose
   | InputGooglePubsub
@@ -228,8 +241,10 @@ export type Input1 =
   | InputWizWebhook
   | InputNetflow
   | InputSecurityLake
+  | InputServicenowTable
   | InputZscalerHec
   | InputCloudflareHec
+  | InputOpenaiComplianceLogs
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
@@ -259,6 +274,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     office365_msg_trace: InputOffice365MsgTrace$inboundSchema,
     microsoft_graph: InputMicrosoftGraph$inboundSchema,
     eventhub: InputEventhub$inboundSchema,
+    eventhub_amqp: InputEventhubAmqp$inboundSchema,
     exec: InputExec$inboundSchema,
     firehose: InputFirehose$inboundSchema,
     google_pubsub: InputGooglePubsub$inboundSchema,
@@ -301,8 +317,10 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     wiz_webhook: InputWizWebhook$inboundSchema,
     netflow: InputNetflow$inboundSchema,
     security_lake: InputSecurityLake$inboundSchema,
+    servicenow_table: InputServicenowTable$inboundSchema,
     zscaler_hec: InputZscalerHec$inboundSchema,
     cloudflare_hec: InputCloudflareHec$inboundSchema,
+    openai_compliance_logs: InputOpenaiComplianceLogs$inboundSchema,
   });
 
 export function input1FromJSON(

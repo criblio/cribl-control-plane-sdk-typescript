@@ -158,6 +158,10 @@ export type InputSyslogSyslog2 = {
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -169,6 +173,10 @@ export type InputSyslogSyslog2 = {
    * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
    */
   __template_tcpPort?: string | undefined;
+  /**
+   * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+   */
+  __template_timestampTimezone?: string | undefined;
 };
 
 export const InputSyslogType1 = {
@@ -295,6 +303,10 @@ export type InputSyslogSyslog1 = {
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -306,6 +318,10 @@ export type InputSyslogSyslog1 = {
    * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
    */
   __template_tcpPort?: string | undefined;
+  /**
+   * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+   */
+  __template_timestampTimezone?: string | undefined;
 };
 
 export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
@@ -360,9 +376,11 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
   enableLoadBalancing: types.optional(types.boolean()),
   description: types.optional(types.string()),
   enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_udpPort: types.optional(types.string()),
   __template_tcpPort: types.optional(types.string()),
+  __template_timestampTimezone: types.optional(types.string()),
 });
 /** @internal */
 export type InputSyslogSyslog2$Outbound = {
@@ -399,9 +417,11 @@ export type InputSyslogSyslog2$Outbound = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_udpPort?: string | undefined;
   __template_tcpPort?: string | undefined;
+  __template_timestampTimezone?: string | undefined;
 };
 
 /** @internal */
@@ -443,9 +463,11 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_udpPort: z.string().optional(),
   __template_tcpPort: z.string().optional(),
+  __template_timestampTimezone: z.string().optional(),
 });
 
 export function inputSyslogSyslog2ToJSON(
@@ -515,9 +537,11 @@ export const InputSyslogSyslog1$inboundSchema: z.ZodType<
   enableLoadBalancing: types.optional(types.boolean()),
   description: types.optional(types.string()),
   enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_udpPort: types.optional(types.string()),
   __template_tcpPort: types.optional(types.string()),
+  __template_timestampTimezone: types.optional(types.string()),
 });
 /** @internal */
 export type InputSyslogSyslog1$Outbound = {
@@ -554,9 +578,11 @@ export type InputSyslogSyslog1$Outbound = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_udpPort?: string | undefined;
   __template_tcpPort?: string | undefined;
+  __template_timestampTimezone?: string | undefined;
 };
 
 /** @internal */
@@ -598,9 +624,11 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_udpPort: z.string().optional(),
   __template_tcpPort: z.string().optional(),
+  __template_timestampTimezone: z.string().optional(),
 });
 
 export function inputSyslogSyslog1ToJSON(

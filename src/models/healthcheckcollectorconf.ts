@@ -561,6 +561,10 @@ export type HealthCheckAuthenticationOauthSecret = {
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone =
@@ -1080,6 +1084,10 @@ export type HealthCheckAuthenticationOauth = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone =
@@ -1600,6 +1608,10 @@ export type HealthCheckAuthenticationLoginSecret = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone =
@@ -2121,6 +2133,10 @@ export type HealthCheckAuthenticationLogin = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone =
@@ -2619,6 +2635,10 @@ export type HealthCheckAuthenticationBasicSecret = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone =
@@ -3118,6 +3138,10 @@ export type HealthCheckAuthenticationBasic = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone =
@@ -3609,6 +3633,10 @@ export type HealthCheckAuthenticationNone = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -4126,6 +4154,10 @@ export type HealthCheckCollectMethodPostWithBody = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -4639,6 +4671,10 @@ export type HealthCheckCollectMethodPost = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 /**
@@ -5163,6 +5199,10 @@ export type HealthCheckCollectMethodGet = {
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
 };
 
 export type HealthCheckCollectorConf =
@@ -6284,6 +6324,7 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
     ),
   })),
   clientSecretParamValue: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecret$Outbound = {
@@ -6326,6 +6367,7 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   clientSecretParamValue?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -6394,6 +6436,7 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationOauthSecretToJSON(
@@ -7513,6 +7556,7 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
     ),
   })),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauth$Outbound = {
@@ -7555,6 +7599,7 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -7622,6 +7667,7 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationOauthToJSON(
@@ -8748,6 +8794,7 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecret$Outbound = {
@@ -8788,6 +8835,7 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -8854,6 +8902,7 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationLoginSecretToJSON(
@@ -9970,6 +10019,7 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationLogin$Outbound = {
@@ -10011,6 +10061,7 @@ export type HealthCheckAuthenticationLogin$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -10077,6 +10128,7 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationLoginToJSON(
@@ -11194,6 +11246,7 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecret$Outbound = {
@@ -11227,6 +11280,7 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -11286,6 +11340,7 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationBasicSecretToJSON(
@@ -12393,6 +12448,7 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasic$Outbound = {
@@ -12427,6 +12483,7 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -12486,6 +12543,7 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationBasicToJSON(
@@ -13577,6 +13635,7 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckAuthenticationNone$Outbound = {
@@ -13609,6 +13668,7 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -13666,6 +13726,7 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckAuthenticationNoneToJSON(
@@ -14803,6 +14864,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBody$Outbound = {
@@ -14836,6 +14898,7 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -14896,6 +14959,7 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckCollectMethodPostWithBodyToJSON(
@@ -15996,6 +16060,7 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodPost$Outbound = {
@@ -16031,6 +16096,7 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -16091,6 +16157,7 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckCollectMethodPostToJSON(
@@ -17244,6 +17311,7 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   })),
   clientSecretParamValue: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
 });
 /** @internal */
 export type HealthCheckCollectMethodGet$Outbound = {
@@ -17279,6 +17347,7 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | undefined;
   clientSecretParamValue?: string | undefined;
   textSecret?: string | undefined;
+  __template_collectUrl?: string | undefined;
 };
 
 /** @internal */
@@ -17339,6 +17408,7 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
   ]).optional(),
   clientSecretParamValue: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
 });
 
 export function healthCheckCollectMethodGetToJSON(

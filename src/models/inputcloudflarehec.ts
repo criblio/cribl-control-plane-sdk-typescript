@@ -22,15 +22,15 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
+  MaximumTlsVersionOptionsTls,
+  MaximumTlsVersionOptionsTls$inboundSchema,
+  MaximumTlsVersionOptionsTls$outboundSchema,
+} from "./maximumtlsversionoptionstls.js";
 import {
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./minimumtlsversionoptionskafkaschemaregistrytls.js";
+  MinimumTlsVersionOptionsTls,
+  MinimumTlsVersionOptionsTls$inboundSchema,
+  MinimumTlsVersionOptionsTls$outboundSchema,
+} from "./minimumtlsversionoptionstls.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -109,8 +109,8 @@ export type TLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  minVersion?: MinimumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
-  maxVersion?: MaximumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
+  minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: MaximumTlsVersionOptionsTls | undefined;
 };
 
 export type InputCloudflareHec = {
@@ -232,6 +232,10 @@ export type InputCloudflareHec = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -327,12 +331,8 @@ export const TLSSettingsServerSide$inboundSchema: z.ZodType<
   passphrase: types.optional(types.string()),
   certPath: types.optional(types.string()),
   caPath: types.optional(types.string()),
-  minVersion: types.optional(
-    MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
-  maxVersion: types.optional(
-    MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
+  minVersion: types.optional(MinimumTlsVersionOptionsTls$inboundSchema),
+  maxVersion: types.optional(MaximumTlsVersionOptionsTls$inboundSchema),
 });
 /** @internal */
 export type TLSSettingsServerSide$Outbound = {
@@ -364,10 +364,8 @@ export const TLSSettingsServerSide$outboundSchema: z.ZodType<
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
-  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
+  minVersion: MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: MaximumTlsVersionOptionsTls$outboundSchema.optional(),
 });
 
 export function tlsSettingsServerSideToJSON(
@@ -430,6 +428,7 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   accessControlAllowHeaders: types.optional(z.array(types.string())),
   emitTokenMetrics: types.optional(types.boolean()),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
 });
@@ -468,6 +467,7 @@ export type InputCloudflareHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -512,6 +512,7 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });

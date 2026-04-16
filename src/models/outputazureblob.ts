@@ -14,10 +14,10 @@ import {
   AuthenticationMethodOptions$outboundSchema,
 } from "./authenticationmethodoptions.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
@@ -30,10 +30,10 @@ import {
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$inboundSchema,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
   DataFormatOptions$inboundSchema,
@@ -56,6 +56,12 @@ import {
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
+import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
@@ -185,7 +191,7 @@ export type OutputAzureBlob = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -199,13 +205,14 @@ export type OutputAzureBlob = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   authType?: AuthenticationMethodOptions | undefined;
   storageClass?: BlobAccessTier | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -308,13 +315,41 @@ export type OutputAzureBlob = {
    */
   __template_containerName?: string | undefined;
   /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
   /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
    * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
    */
   __template_connectionString?: string | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
   /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
@@ -323,6 +358,10 @@ export type OutputAzureBlob = {
    * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
    */
   __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
@@ -367,17 +406,20 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   authType: types.optional(AuthenticationMethodOptions$inboundSchema),
   storageClass: types.optional(BlobAccessTier$inboundSchema),
   description: types.optional(types.string()),
-  compress: types.optional(CompressionOptions2$inboundSchema),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
   automaticSchema: types.optional(types.boolean()),
   parquetSchema: types.optional(types.string()),
@@ -408,10 +450,18 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
   __template_containerName: types.optional(types.string()),
+  __template_destPath: types.optional(types.string()),
+  __template_partitionExpr: types.optional(types.string()),
   __template_format: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
   __template_connectionString: types.optional(types.string()),
+  __template_storageAccountName: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
+  __template_azureCloud: types.optional(types.string()),
 });
 /** @internal */
 export type OutputAzureBlob$Outbound = {
@@ -443,6 +493,7 @@ export type OutputAzureBlob$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   authType?: string | undefined;
   storageClass?: string | undefined;
   description?: string | undefined;
@@ -473,10 +524,18 @@ export type OutputAzureBlob$Outbound = {
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
   __template_containerName?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
   __template_connectionString?: string | undefined;
+  __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
@@ -508,15 +567,17 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   authType: AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: BlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.optional(),
+  compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -545,10 +606,18 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_containerName: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
   __template_connectionString: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
 });
 
 export function outputAzureBlobToJSON(

@@ -163,6 +163,10 @@ export type InputCriblLakeHttp = {
   authTokensExt?: Array<AuthTokensExt> | undefined;
   description?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -170,6 +174,14 @@ export type InputCriblLakeHttp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+   */
+  __template_criblAPI?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
   /**
    * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
    */
@@ -357,8 +369,11 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
     z.array(z.lazy(() => AuthTokensExt$inboundSchema)),
   ),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_criblAPI: types.optional(types.string()),
+  __template_elasticAPI: types.optional(types.string()),
   __template_splunkHecAPI: types.optional(types.string()),
 });
 /** @internal */
@@ -395,8 +410,11 @@ export type InputCriblLakeHttp$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_criblAPI?: string | undefined;
+  __template_elasticAPI?: string | undefined;
   __template_splunkHecAPI?: string | undefined;
 };
 
@@ -438,8 +456,11 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_criblAPI: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
   __template_splunkHecAPI: z.string().optional(),
 });
 

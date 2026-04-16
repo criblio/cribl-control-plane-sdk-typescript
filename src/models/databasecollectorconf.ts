@@ -41,6 +41,10 @@ export type DatabaseCollectorConf = {
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
   __scheduling?: DatabaseCollectorConfScheduling | undefined;
+  /**
+   * Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
+   */
+  __template_query?: string | undefined;
 };
 
 /** @internal */
@@ -144,6 +148,7 @@ export const DatabaseCollectorConf$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => DatabaseCollectorConfScheduling$inboundSchema),
   ),
+  __template_query: types.optional(types.string()),
 });
 /** @internal */
 export type DatabaseCollectorConf$Outbound = {
@@ -152,6 +157,7 @@ export type DatabaseCollectorConf$Outbound = {
   queryValidationEnabled?: boolean | undefined;
   defaultBreakers?: string | undefined;
   __scheduling?: DatabaseCollectorConfScheduling$Outbound | undefined;
+  __template_query?: string | undefined;
 };
 
 /** @internal */
@@ -167,6 +173,7 @@ export const DatabaseCollectorConf$outboundSchema: z.ZodType<
     HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema.optional(),
   __scheduling: z.lazy(() => DatabaseCollectorConfScheduling$outboundSchema)
     .optional(),
+  __template_query: z.string().optional(),
 });
 
 export function databaseCollectorConfToJSON(

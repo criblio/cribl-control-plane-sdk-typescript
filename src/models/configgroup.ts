@@ -7,6 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  Commit,
+  Commit$inboundSchema,
+  Commit$Outbound,
+  Commit$outboundSchema,
+} from "./commit.js";
+import {
   ConfigGroupCloud,
   ConfigGroupCloud$inboundSchema,
   ConfigGroupCloud$Outbound,
@@ -25,54 +31,154 @@ import {
   EstimatedIngestRateOptionsConfigGroup$outboundSchema,
 } from "./estimatedingestrateoptionsconfiggroup.js";
 import {
-  GitTypeConfigGroup,
-  GitTypeConfigGroup$inboundSchema,
-  GitTypeConfigGroup$Outbound,
-  GitTypeConfigGroup$outboundSchema,
-} from "./gittypeconfiggroup.js";
-import {
   TypeOptionsConfigGroup,
   TypeOptionsConfigGroup$inboundSchema,
   TypeOptionsConfigGroup$outboundSchema,
 } from "./typeoptionsconfiggroup.js";
 
+/**
+ * Git status of the Worker Group, Outpost Group, or Edge Fleet configuration. Automatically populated and returned in responses.
+ */
+export type Git = {
+  /**
+   * Commit hash of the currently committed configuration version.
+   */
+  commit?: string | undefined;
+  /**
+   * Number of local configuration changes not yet committed.
+   */
+  localChanges?: number | undefined;
+  /**
+   * List of recent configuration commits.
+   */
+  log?: Array<Commit> | undefined;
+};
+
 export type ConfigGroup = {
   cloud?: ConfigGroupCloud | undefined;
+  /**
+   * Commit hash of the deployed configuration version for the Worker Group, Outpost Group, or Edge Fleet. Automatically populated and returned in responses.<br/><br/> **Warning**: Do not change the value of <code>configVersion</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
+   */
   configVersion?: string | undefined;
+  /**
+   * Number of Workers or Nodes that are currently deploying the latest configuration version.<br/><br/> **Warning**: Do not change the value of <code>deployingWorkerCount</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
+   */
   deployingWorkerCount?: number | undefined;
+  /**
+   * Brief description of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   description?: string | undefined;
   /**
-   * Estimated ingest rate for Cloud Groups, in GB/sec.
+   * Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
    */
   estimatedIngestRate?: EstimatedIngestRateOptionsConfigGroup | undefined;
-  git?: GitTypeConfigGroup | undefined;
+  /**
+   * Git status of the Worker Group, Outpost Group, or Edge Fleet configuration. Automatically populated and returned in responses.
+   */
+  git?: Git | undefined;
   id: string;
+  /**
+   * Number of Workers or Nodes running a Cribl version that is incompatible with the current upgrade target.<br/><br/> **Warning**: Do not change the value of <code>incompatibleWorkerCount</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
+   */
   incompatibleWorkerCount?: number | undefined;
+  /**
+   * The <code>id</code> of the parent Edge Fleet. If provided, this Fleet inherits configuration from the specified parent Fleet. Applies only to Edge Fleets.
+   */
   inherits?: string | undefined;
   /**
-   * Indicates whether this is an Edge Fleet. This flag is deprecated — use to identify Edge Fleets.
+   * Indicates whether this is an Edge Fleet. Deprecated. Use to identify Edge Fleets.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   isFleet?: boolean | undefined;
   /**
-   * Indicates whether this is an internal Search Group. This flag is deprecated — use to identify Search Groups.
+   * Indicates whether this is an internal Search Group. Deprecated. Use to identify Search Groups.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   isSearch?: boolean | undefined;
+  /**
+   * Lookup deployment status per Worker or Node context.<br/><br/> **Warning**: Do not change the value of <code>lookupDeployments</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
+   */
   lookupDeployments?: Array<ConfigGroupLookups> | undefined;
+  /**
+   * Maximum duration a Worker or Node can remain disconnected before the Leader removes it. The value is a numeral with units, such as <code>8h</code>, <code>5d</code>, <code>1w</code>.
+   */
   maxWorkerAge?: string | undefined;
+  /**
+   * Name of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   name?: string | undefined;
+  /**
+   * If <code>true</code>, the Worker Group, Outpost Group, or Edge Fleet uses customer-hosted (on-prem) workers. If <code>false</code>, the Worker Group, Outpost Group, or Edge Fleet is managed in Cribl.Cloud.
+   */
   onPrem?: boolean | undefined;
+  /**
+   * If <code>true</code>, the Cribl.Cloud Worker Group has active Workers provisioned. Applies only to Cribl.Cloud Worker Groups.
+   */
   provisioned?: boolean | undefined;
+  /**
+   * Metadata tags attached to the Worker Group, Outpost Group, or Edge Fleet for categorization, filtering, and tag-based routing and policy application. Useful for organizing Groups and Fleets and enabling tag-driven workflows in Cribl.
+   */
   streamtags?: Array<string> | undefined;
+  /**
+   * Legacy system-level tags associated with the Worker Group, Outpost Group, or Edge Fleet. Use <code>streamtags</code> instead.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
   tags?: string | undefined;
+  /**
+   * Explicit type of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   type?: TypeOptionsConfigGroup | undefined;
+  /**
+   * Target software upgrade version. Applies only to Outpost Groups and Edge Fleets.
+   */
   upgradeVersion?: string | undefined;
+  /**
+   * Number of Workers or Nodes currently in the Worker Group, Outpost Group, or Edge Fleet. The value is automatically populated and **does not scale Cribl.Cloud Worker Groups**. Use <code>estimatedIngestRate</code> to scale Cribl.Cloud Worker Groups. <br/><br/> **Warning**: Do not change the value of <code>workerCount</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
+   */
   workerCount?: number | undefined;
+  /**
+   * If <code>true</code>, the Leader allows remote access (teleporting) into the Workers or Nodes of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   workerRemoteAccess?: boolean | undefined;
 };
+
+/** @internal */
+export const Git$inboundSchema: z.ZodType<Git, z.ZodTypeDef, unknown> = z
+  .object({
+    commit: types.optional(types.string()),
+    localChanges: types.optional(types.number()),
+    log: types.optional(z.array(Commit$inboundSchema)),
+  });
+/** @internal */
+export type Git$Outbound = {
+  commit?: string | undefined;
+  localChanges?: number | undefined;
+  log?: Array<Commit$Outbound> | undefined;
+};
+
+/** @internal */
+export const Git$outboundSchema: z.ZodType<Git$Outbound, z.ZodTypeDef, Git> = z
+  .object({
+    commit: z.string().optional(),
+    localChanges: z.number().int().optional(),
+    log: z.array(Commit$outboundSchema).optional(),
+  });
+
+export function gitToJSON(git: Git): string {
+  return JSON.stringify(Git$outboundSchema.parse(git));
+}
+export function gitFromJSON(
+  jsonString: string,
+): SafeParseResult<Git, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Git$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Git' from JSON`,
+  );
+}
 
 /** @internal */
 export const ConfigGroup$inboundSchema: z.ZodType<
@@ -87,7 +193,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   estimatedIngestRate: types.optional(
     EstimatedIngestRateOptionsConfigGroup$inboundSchema,
   ),
-  git: types.optional(GitTypeConfigGroup$inboundSchema),
+  git: types.optional(z.lazy(() => Git$inboundSchema)),
   id: types.string(),
   incompatibleWorkerCount: types.optional(types.number()),
   inherits: types.optional(types.string()),
@@ -112,7 +218,7 @@ export type ConfigGroup$Outbound = {
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
-  git?: GitTypeConfigGroup$Outbound | undefined;
+  git?: Git$Outbound | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -139,13 +245,13 @@ export const ConfigGroup$outboundSchema: z.ZodType<
 > = z.object({
   cloud: ConfigGroupCloud$outboundSchema.optional(),
   configVersion: z.string().optional(),
-  deployingWorkerCount: z.number().optional(),
+  deployingWorkerCount: z.number().int().optional(),
   description: z.string().optional(),
   estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup$outboundSchema
     .optional(),
-  git: GitTypeConfigGroup$outboundSchema.optional(),
+  git: z.lazy(() => Git$outboundSchema).optional(),
   id: z.string(),
-  incompatibleWorkerCount: z.number().optional(),
+  incompatibleWorkerCount: z.number().int().optional(),
   inherits: z.string().optional(),
   isFleet: z.boolean().optional(),
   isSearch: z.boolean().optional(),
@@ -158,7 +264,7 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   tags: z.string().optional(),
   type: TypeOptionsConfigGroup$outboundSchema.optional(),
   upgradeVersion: z.string().optional(),
-  workerCount: z.number().optional(),
+  workerCount: z.number().int().optional(),
   workerRemoteAccess: z.boolean().optional(),
 });
 

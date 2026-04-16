@@ -38,11 +38,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type InputKafka = {
   /**
@@ -129,7 +129,7 @@ export type InputKafka = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: AuthenticationType | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -180,6 +180,14 @@ export type InputKafka = {
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
+   */
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -216,9 +224,7 @@ export const InputKafka$inboundSchema: z.ZodType<
   authenticationTimeout: types.optional(types.number()),
   reauthenticationThreshold: types.optional(types.number()),
   sasl: types.optional(AuthenticationType$inboundSchema),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
   sessionTimeout: types.optional(types.number()),
   rebalanceTimeout: types.optional(types.number()),
   heartbeatInterval: types.optional(types.number()),
@@ -229,6 +235,8 @@ export const InputKafka$inboundSchema: z.ZodType<
   maxSocketErrors: types.optional(types.number()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_groupId: types.optional(types.string()),
 });
 /** @internal */
 export type InputKafka$Outbound = {
@@ -258,7 +266,7 @@ export type InputKafka$Outbound = {
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
   sasl?: AuthenticationType$Outbound | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
@@ -269,6 +277,8 @@ export type InputKafka$Outbound = {
   maxSocketErrors?: number | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_groupId?: string | undefined;
 };
 
 /** @internal */
@@ -302,7 +312,7 @@ export const InputKafka$outboundSchema: z.ZodType<
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
   sasl: AuthenticationType$outboundSchema.optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
@@ -313,6 +323,8 @@ export const InputKafka$outboundSchema: z.ZodType<
   maxSocketErrors: z.number().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_groupId: z.string().optional(),
 });
 
 export function inputKafkaToJSON(inputKafka: InputKafka): string {

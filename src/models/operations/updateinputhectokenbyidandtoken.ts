@@ -12,7 +12,7 @@ export type UpdateInputHecTokenByIdAndTokenRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the HEC token to update.
+   * The HEC token value to update.
    */
   token: string;
   /**

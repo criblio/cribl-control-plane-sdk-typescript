@@ -9,9 +9,7 @@ let value: UpdateOutputSystemByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   output: {
-    type: "s3",
-    bucket: "<value>",
-    stagePath: "<value>",
+    type: "tcpjson",
   },
 };
 ```

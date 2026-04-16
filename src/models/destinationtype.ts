@@ -78,6 +78,7 @@ export const DestinationType = {
   DynatraceHttp: "dynatrace_http",
   Databricks: "databricks",
   WizHec: "wiz_hec",
+  NutanixObjects: "nutanix_objects",
 } as const;
 export type DestinationType = OpenEnum<typeof DestinationType>;
 

@@ -4,15 +4,13 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptions1,
-  AuthenticationMethodOptions1$inboundSchema,
-  AuthenticationMethodOptions1$outboundSchema,
-} from "./authenticationmethodoptions1.js";
+  AuthenticationMethodOptionsManualSecret,
+  AuthenticationMethodOptionsManualSecret$inboundSchema,
+  AuthenticationMethodOptionsManualSecret$outboundSchema,
+} from "./authenticationmethodoptionsmanualsecret.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -27,6 +25,11 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
+  LogLevelOptionsContentConfigItemsDebugError,
+  LogLevelOptionsContentConfigItemsDebugError$inboundSchema,
+  LogLevelOptionsContentConfigItemsDebugError$outboundSchema,
+} from "./logleveloptionscontentconfigitemsdebugerror.js";
+import {
   PqType,
   PqType$inboundSchema,
   PqType$Outbound,
@@ -40,21 +43,6 @@ import {
 } from "./retryrulestype.js";
 
 export type InputWizManageState = {};
-
-/**
- * Collector runtime log level
- */
-export const InputWizLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Collector runtime log level
- */
-export type InputWizLogLevel = OpenEnum<typeof InputWizLogLevel>;
 
 export type InputWizContentConfig = {
   /**
@@ -99,7 +87,7 @@ export type InputWizContentConfig = {
   /**
    * Collector runtime log level
    */
-  logLevel?: InputWizLogLevel | undefined;
+  logLevel?: LogLevelOptionsContentConfigItemsDebugError | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
    */
@@ -179,11 +167,19 @@ export type InputWiz = {
    * Fields to add to events from this input
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
   retryRules?: RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions1 | undefined;
+  authType?: AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -193,6 +189,10 @@ export type InputWiz = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
   /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
@@ -241,19 +241,6 @@ export function inputWizManageStateFromJSON(
 }
 
 /** @internal */
-export const InputWizLogLevel$inboundSchema: z.ZodType<
-  InputWizLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWizLogLevel);
-/** @internal */
-export const InputWizLogLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWizLogLevel
-> = openEnums.outboundSchema(InputWizLogLevel);
-
-/** @internal */
 export const InputWizContentConfig$inboundSchema: z.ZodType<
   InputWizContentConfig,
   z.ZodTypeDef,
@@ -271,7 +258,9 @@ export const InputWizContentConfig$inboundSchema: z.ZodType<
   earliest: types.string(),
   latest: types.string(),
   jobTimeout: types.optional(types.string()),
-  logLevel: types.optional(InputWizLogLevel$inboundSchema),
+  logLevel: types.optional(
+    LogLevelOptionsContentConfigItemsDebugError$inboundSchema,
+  ),
   maxPages: types.optional(types.number()),
 });
 /** @internal */
@@ -310,7 +299,8 @@ export const InputWizContentConfig$outboundSchema: z.ZodType<
   earliest: z.string(),
   latest: z.string(),
   jobTimeout: z.string().optional(),
-  logLevel: InputWizLogLevel$outboundSchema.optional(),
+  logLevel: LogLevelOptionsContentConfigItemsDebugError$outboundSchema
+    .optional(),
   maxPages: z.number().optional(),
 });
 
@@ -360,11 +350,16 @@ export const InputWiz$inboundSchema: z.ZodType<
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
   retryRules: types.optional(RetryRulesType$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions1$inboundSchema),
+  authType: types.optional(
+    AuthenticationMethodOptionsManualSecret$inboundSchema,
+  ),
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_authUrl: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
@@ -392,11 +387,14 @@ export type InputWiz$Outbound = {
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_authUrl?: string | undefined;
   __template_clientId?: string | undefined;
@@ -429,11 +427,14 @@ export const InputWiz$outboundSchema: z.ZodType<
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$outboundSchema.optional(),
+  authType: AuthenticationMethodOptionsManualSecret$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_authUrl: z.string().optional(),
   __template_clientId: z.string().optional(),

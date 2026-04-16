@@ -11,9 +11,6 @@ let value: HBCriblInfo = {
   group: "<value>",
   guid: "<id>",
   startTime: 7981.9,
-  tags: [
-    "<value 1>",
-  ],
 };
 ```
 
@@ -34,5 +31,5 @@ let value: HBCriblInfo = {
 | `pid`                                                                                      | *number*                                                                                   | :heavy_minus_sign:                                                                         | N/A                                                                                        |
 | `socksEnabled`                                                                             | *boolean*                                                                                  | :heavy_minus_sign:                                                                         | N/A                                                                                        |
 | `startTime`                                                                                | *number*                                                                                   | :heavy_check_mark:                                                                         | N/A                                                                                        |
-| `tags`                                                                                     | *string*[]                                                                                 | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `tags`                                                                                     | *string*[]                                                                                 | :heavy_minus_sign:                                                                         | N/A                                                                                        |
 | `version`                                                                                  | *string*                                                                                   | :heavy_minus_sign:                                                                         | N/A                                                                                        |

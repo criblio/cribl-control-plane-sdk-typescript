@@ -50,10 +50,10 @@ import {
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
 import {
-  SignatureVersionOptions1,
-  SignatureVersionOptions1$inboundSchema,
-  SignatureVersionOptions1$outboundSchema,
-} from "./signatureversionoptions1.js";
+  SignatureVersionOptionsV2V4,
+  SignatureVersionOptionsV2V4$inboundSchema,
+  SignatureVersionOptionsV2V4$outboundSchema,
+} from "./signatureversionoptionsv2v4.js";
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -240,7 +240,7 @@ export type InputEdgePrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: SignatureVersionOptions1 | undefined;
+  signatureVersion?: SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -298,6 +298,10 @@ export type InputEdgePrometheus = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
@@ -309,6 +313,10 @@ export type InputEdgePrometheus = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
   /**
    * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
    */
@@ -466,7 +474,7 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   awsSecretKey: types.optional(types.string()),
   region: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions1$inboundSchema),
+  signatureVersion: types.optional(SignatureVersionOptionsV2V4$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   enableAssumeRole: types.optional(types.boolean()),
@@ -480,9 +488,11 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   username: types.optional(types.string()),
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
 });
@@ -534,9 +544,11 @@ export type InputEdgePrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_environment?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
 };
@@ -579,7 +591,7 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsV2V4$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -593,9 +605,11 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
 });

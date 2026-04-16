@@ -7,7 +7,13 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Sample events from a Destination.
+ */
 export type OutputSamplesResponse = {
+  /**
+   * Array of sample events returned from a Destination test.
+   */
   events: Array<{ [k: string]: any }>;
 };
 

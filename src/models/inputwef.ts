@@ -22,15 +22,15 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
+  MaximumTlsVersionOptionsTls,
+  MaximumTlsVersionOptionsTls$inboundSchema,
+  MaximumTlsVersionOptionsTls$outboundSchema,
+} from "./maximumtlsversionoptionstls.js";
 import {
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./minimumtlsversionoptionskafkaschemaregistrytls.js";
+  MinimumTlsVersionOptionsTls,
+  MinimumTlsVersionOptionsTls$inboundSchema,
+  MinimumTlsVersionOptionsTls$outboundSchema,
+} from "./minimumtlsversionoptionstls.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -95,8 +95,8 @@ export type MTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?: MinimumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
-  maxVersion?: MaximumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
+  minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: MaximumTlsVersionOptionsTls | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -297,6 +297,10 @@ export type InputWef = {
    */
   logFingerprintMismatch?: boolean | undefined;
   /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -334,12 +338,8 @@ export const MTLSSettings$inboundSchema: z.ZodType<
   certPath: types.string(),
   caPath: types.string(),
   commonNameRegex: types.optional(types.string()),
-  minVersion: types.optional(
-    MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
-  maxVersion: types.optional(
-    MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
+  minVersion: types.optional(MinimumTlsVersionOptionsTls$inboundSchema),
+  maxVersion: types.optional(MaximumTlsVersionOptionsTls$inboundSchema),
   ocspCheck: types.optional(types.boolean()),
   ocspCheckFailClose: types.optional(types.boolean()),
 });
@@ -375,10 +375,8 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().optional(),
-  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
-  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
+  minVersion: MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: MaximumTlsVersionOptionsTls$outboundSchema.optional(),
   ocspCheck: z.boolean().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
@@ -570,6 +568,7 @@ export const InputWef$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   logFingerprintMismatch: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
 });
@@ -606,6 +605,7 @@ export type InputWef$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
+  __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -647,6 +647,7 @@ export const InputWef$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
+  __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });

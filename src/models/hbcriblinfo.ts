@@ -35,7 +35,7 @@ export type HBCriblInfo = {
   pid?: number | undefined;
   socksEnabled?: boolean | undefined;
   startTime: number;
-  tags: Array<string>;
+  tags?: Array<string> | undefined;
   version?: string | undefined;
 };
 
@@ -78,7 +78,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   pid: types.optional(types.number()),
   socksEnabled: types.optional(types.boolean()),
   startTime: types.number(),
-  tags: z.array(types.string()),
+  tags: types.optional(z.array(types.string())),
   version: types.optional(types.string()),
 });
 

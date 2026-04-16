@@ -8,6 +8,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class PacksDestinationsStatuses extends ClientSDK {
   /**
@@ -31,13 +32,18 @@ export class PacksDestinationsStatuses extends ClientSDK {
    * List the status of all Destinations within a Pack
    *
    * @remarks
-   * List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
+   * List status information and optional metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
    */
   async list(
     request: operations.GetOutputStatusSystemOutputsByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutputStatus> {
-    return unwrapAsync(packsDestinationsStatusesList(
+  ): Promise<
+    PageIterator<
+      operations.GetOutputStatusSystemOutputsByPackResponse,
+      { offset: number }
+    >
+  > {
+    return unwrapResultIterator(packsDestinationsStatusesList(
       this,
       request,
       options,

@@ -9,20 +9,20 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CompressionLevelOptions,
   CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$inboundSchema,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
   DataFormatOptions$inboundSchema,
@@ -46,6 +46,12 @@ import {
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -57,20 +63,20 @@ import {
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
-  ServerSideEncryptionOptions,
-  ServerSideEncryptionOptions$inboundSchema,
-  ServerSideEncryptionOptions$outboundSchema,
-} from "./serversideencryptionoptions.js";
+  ServerSideEncryptionForUploadedObjectsOptionsAes256,
+  ServerSideEncryptionForUploadedObjectsOptionsAes256$inboundSchema,
+  ServerSideEncryptionForUploadedObjectsOptionsAes256$outboundSchema,
+} from "./serversideencryptionforuploadedobjectsoptionsaes256.js";
 import {
-  SignatureVersionOptions5,
-  SignatureVersionOptions5$inboundSchema,
-  SignatureVersionOptions5$outboundSchema,
-} from "./signatureversionoptions5.js";
+  SignatureVersionOptionsMinIo,
+  SignatureVersionOptionsMinIo$inboundSchema,
+  SignatureVersionOptionsMinIo$outboundSchema,
+} from "./signatureversionoptionsminio.js";
 import {
-  StorageClassOptions2,
-  StorageClassOptions2$inboundSchema,
-  StorageClassOptions2$outboundSchema,
-} from "./storageclassoptions2.js";
+  StorageClassOptionsReducedredundancyStandard,
+  StorageClassOptionsReducedredundancyStandard$inboundSchema,
+  StorageClassOptionsReducedredundancyStandard$outboundSchema,
+} from "./storageclassoptionsreducedredundancystandard.js";
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -115,57 +121,53 @@ export type OutputCloudflareR2 = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
+   * AWS authentication method. Choose Auto to use IAM roles.
    */
-  endpoint: string;
+  awsAuthenticationMethod?: OutputCloudflareR2AuthenticationMethod | undefined;
+  /**
+   * Signature version to use for signing MinIO requests
+   */
+  signatureVersion?: SignatureVersionOptionsMinIo | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
   /**
    * Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   bucket: string;
   /**
-   * AWS authentication method. Choose Auto to use IAM roles.
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
    */
-  awsAuthenticationMethod?: OutputCloudflareR2AuthenticationMethod | undefined;
+  destPath?: string | undefined;
   /**
-   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
    */
-  awsSecretKey?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
   /**
-   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
   stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
-   */
-  destPath?: string | undefined;
-  /**
-   * Signature version to use for signing MinIO requests
-   */
-  signatureVersion?: SignatureVersionOptions5 | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: StorageClassOptions2 | undefined;
-  /**
-   * Server-side encryption for uploaded objects
-   */
-  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Disable if you can access files within the bucket but not the bucket itself
-   */
-  verifyPermissions?: boolean | undefined;
   /**
    * Remove empty staging directories after moving files
    */
@@ -191,6 +193,14 @@ export type OutputCloudflareR2 = {
    */
   maxFileSizeMB?: number | undefined;
   /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
    * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
    */
   maxOpenFiles?: number | undefined;
@@ -205,7 +215,7 @@ export type OutputCloudflareR2 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -219,18 +229,21 @@ export type OutputCloudflareR2 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
    */
-  maxFileOpenTimeSec?: number | undefined;
+  endpoint: string;
   /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   * Storage class to select for uploaded objects
    */
-  maxFileIdleTimeSec?: number | undefined;
+  storageClass?: StorageClassOptionsReducedredundancyStandard | undefined;
   /**
-   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   * Server-side encryption to use for uploaded objects
    */
-  maxConcurrentFileParts?: number | undefined;
+  serverSideEncryption?:
+    | ServerSideEncryptionForUploadedObjectsOptionsAes256
+    | undefined;
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -239,7 +252,7 @@ export type OutputCloudflareR2 = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -305,13 +318,49 @@ export type OutputCloudflareR2 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
   /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+   */
+  __template_serverSideEncryption?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -339,45 +388,51 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   systemFields: types.optional(z.array(types.string())),
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
-  endpoint: types.string(),
-  bucket: types.string(),
   awsAuthenticationMethod: types.optional(
     OutputCloudflareR2AuthenticationMethod$inboundSchema,
   ),
-  awsSecretKey: types.optional(types.string()),
-  stagePath: types.string(),
-  addIdToStagePath: types.optional(types.boolean()),
-  destPath: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptions5$inboundSchema),
-  storageClass: types.optional(StorageClassOptions2$inboundSchema),
-  serverSideEncryption: types.optional(
-    ServerSideEncryptionOptions$inboundSchema,
-  ),
+  signatureVersion: types.optional(SignatureVersionOptionsMinIo$inboundSchema),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
+  awsSecretKey: types.optional(types.string()),
+  bucket: types.string(),
+  destPath: types.optional(types.string()),
+  maxConcurrentFileParts: types.optional(types.number()),
   verifyPermissions: types.optional(types.boolean()),
+  maxClosingFilesToBackpressure: types.optional(types.number()),
+  stagePath: types.string(),
+  addIdToStagePath: types.optional(types.boolean()),
   removeEmptyDirs: types.optional(types.boolean()),
   partitionExpr: types.optional(types.string()),
   format: types.optional(DataFormatOptions$inboundSchema),
   baseFileName: types.optional(types.string()),
   fileNameSuffix: types.optional(types.string()),
   maxFileSizeMB: types.optional(types.number()),
+  maxFileOpenTimeSec: types.optional(types.number()),
+  maxFileIdleTimeSec: types.optional(types.number()),
   maxOpenFiles: types.optional(types.number()),
   headerLine: types.optional(types.string()),
   writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
   deadletterEnabled: types.optional(types.boolean()),
   onDiskFullBackpressure: types.optional(
     DiskSpaceProtectionOptions$inboundSchema,
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxConcurrentFileParts: types.optional(types.number()),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
+  endpoint: types.string(),
+  storageClass: types.optional(
+    StorageClassOptionsReducedredundancyStandard$inboundSchema,
+  ),
+  serverSideEncryption: types.optional(
+    ServerSideEncryptionForUploadedObjectsOptionsAes256$inboundSchema,
+  ),
   description: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
-  compress: types.optional(CompressionOptions2$inboundSchema),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
   automaticSchema: types.optional(types.boolean()),
   parquetSchema: types.optional(types.string()),
@@ -396,8 +451,17 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_awsSecretKey: types.optional(types.string()),
   __template_bucket: types.optional(types.string()),
+  __template_destPath: types.optional(types.string()),
+  __template_partitionExpr: types.optional(types.string()),
   __template_format: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_storageClass: types.optional(types.string()),
+  __template_serverSideEncryption: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCloudflareR2$Outbound = {
@@ -407,25 +471,26 @@ export type OutputCloudflareR2$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  endpoint: string;
-  bucket: string;
   awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  stagePath: string;
-  addIdToStagePath?: boolean | undefined;
-  destPath?: string | undefined;
   signatureVersion?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket: string;
+  destPath?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
   verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
   removeEmptyDirs?: boolean | undefined;
   partitionExpr?: string | undefined;
   format?: string | undefined;
   baseFileName?: string | undefined;
   fileNameSuffix?: string | undefined;
   maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
   maxOpenFiles?: number | undefined;
   headerLine?: string | undefined;
   writeHighWaterMark?: number | undefined;
@@ -434,9 +499,10 @@ export type OutputCloudflareR2$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxConcurrentFileParts?: number | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
+  endpoint: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
   description?: string | undefined;
   awsSecret?: string | undefined;
   compress?: string | undefined;
@@ -456,8 +522,17 @@ export type OutputCloudflareR2$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_serverSideEncryption?: string | undefined;
+  __template_compress?: string | undefined;
 };
 
 /** @internal */
@@ -472,40 +547,46 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  endpoint: z.string(),
-  bucket: z.string(),
   awsAuthenticationMethod: OutputCloudflareR2AuthenticationMethod$outboundSchema
     .optional(),
-  awsSecretKey: z.string().optional(),
-  stagePath: z.string(),
-  addIdToStagePath: z.boolean().optional(),
-  destPath: z.string().optional(),
-  signatureVersion: SignatureVersionOptions5$outboundSchema.optional(),
-  storageClass: StorageClassOptions2$outboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptionsMinIo$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string(),
+  destPath: z.string().optional(),
+  maxConcurrentFileParts: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
   removeEmptyDirs: z.boolean().optional(),
   partitionExpr: z.string().optional(),
   format: DataFormatOptions$outboundSchema.optional(),
   baseFileName: z.string().optional(),
   fileNameSuffix: z.string().optional(),
   maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxConcurrentFileParts: z.number().optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
+  endpoint: z.string(),
+  storageClass: StorageClassOptionsReducedredundancyStandard$outboundSchema
+    .optional(),
+  serverSideEncryption:
+    ServerSideEncryptionForUploadedObjectsOptionsAes256$outboundSchema
+      .optional(),
   description: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.optional(),
+  compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -523,8 +604,17 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_storageClass: z.string().optional(),
+  __template_serverSideEncryption: z.string().optional(),
+  __template_compress: z.string().optional(),
 });
 
 export function outputCloudflareR2ToJSON(
