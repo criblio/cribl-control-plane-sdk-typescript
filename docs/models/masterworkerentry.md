@@ -11,27 +11,27 @@ let value: MasterWorkerEntry = {
   id: "<id>",
   info: {
     architecture: "<value>",
-    cpus: 9819.35,
+    cpus: 2715.21,
     cribl: {
       config: {},
-      distMode: "outpost",
+      distMode: "worker",
       group: "<value>",
       guid: "<id>",
-      startTime: 7161.68,
+      startTime: 777671,
     },
     env: {
       "key": "<value>",
       "key1": "<value>",
       "key2": "<value>",
     },
-    hostname: "heavy-laughter.name",
+    hostname: "suburban-courtroom.org",
     node: "<value>",
     platform: "<value>",
     release: "<value>",
-    totalmem: 170.36,
+    totalmem: 3679.01,
   },
-  lastMsgTime: 6281.42,
-  workerProcesses: 845.06,
+  lastMsgTime: 9819.35,
+  workerProcesses: 7209.39,
 };
 ```
 

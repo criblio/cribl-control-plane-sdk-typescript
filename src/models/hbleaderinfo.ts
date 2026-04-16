@@ -8,10 +8,25 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Connection parameters for the Leader node, as reported in a Worker heartbeat.
+ */
 export type HBLeaderInfo = {
+  /**
+   * Leader hostname or IP address.
+   */
   host: string;
+  /**
+   * Leader TCP port.
+   */
   port: number;
+  /**
+   * TLS server name (SNI) for the Leader connection.
+   */
   servername?: string | undefined;
+  /**
+   * If <code>true</code>, TLS is enabled for the Leader connection.
+   */
   tls?: boolean | undefined;
 };
 

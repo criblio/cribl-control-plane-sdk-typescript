@@ -392,7 +392,6 @@ export * from "./minimumtlsversionoptionstls.js";
 export * from "./modeoptions.js";
 export * from "./modeoptionsgpu.js";
 export * from "./modeoptionshost.js";
-export * from "./modeoptionsinstancesettingsschema.js";
 export * from "./modeoptionspq.js";
 export * from "./nestedfieldserializationoptions.js";
 export * from "./nodeactiveupgradestatus.js";
