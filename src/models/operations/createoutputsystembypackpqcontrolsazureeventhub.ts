@@ -180,6 +180,7 @@ export type CreateOutputSystemByPackOutputNutanixObjects = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
    */
@@ -464,6 +465,7 @@ export type CreateOutputSystemByPackOutputCloudflareR2 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
    */
@@ -909,6 +911,7 @@ export type CreateOutputSystemByPackOutputDatabricks = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
    */
@@ -2990,6 +2993,7 @@ export type CreateOutputSystemByPackOutputCriblLake = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -3243,6 +3247,7 @@ export type CreateOutputSystemByPackOutputSecurityLake = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -3543,6 +3548,7 @@ export type CreateOutputSystemByPackOutputDlS3 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -7533,6 +7539,7 @@ export type CreateOutputSystemByPackOutputMinio = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * MinIO service url (e.g. http://minioHost:9000)
    */
@@ -9617,6 +9624,7 @@ export type CreateOutputSystemByPackOutputExabeam = {
    */
   onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
@@ -10286,6 +10294,7 @@ export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -10744,6 +10753,7 @@ export type CreateOutputSystemByPackOutputNutanixObjects$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   endpoint: string;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -10829,6 +10839,7 @@ export const CreateOutputSystemByPackOutputNutanixObjects$outboundSchema:
       .optional(),
     forceCloseOnShutdown: z.boolean().optional(),
     retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
     endpoint: z.string(),
     description: z.string().optional(),
     awsApiKey: z.string().optional(),
@@ -10923,6 +10934,7 @@ export type CreateOutputSystemByPackOutputCloudflareR2$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   endpoint: string;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -11006,6 +11018,7 @@ export const CreateOutputSystemByPackOutputCloudflareR2$outboundSchema:
       .optional(),
     forceCloseOnShutdown: z.boolean().optional(),
     retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
     endpoint: z.string(),
     storageClass: models
       .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
@@ -11284,6 +11297,7 @@ export type CreateOutputSystemByPackOutputDatabricks$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   workspaceId: string;
   workspaceHost?: string | undefined;
   scope: string;
@@ -11354,6 +11368,7 @@ export const CreateOutputSystemByPackOutputDatabricks$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   workspaceId: z.string(),
   workspaceHost: z.string().optional(),
   scope: z.string(),
@@ -13011,6 +13026,7 @@ export type CreateOutputSystemByPackOutputCriblLake$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -13084,6 +13100,7 @@ export const CreateOutputSystemByPackOutputCriblLake$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
@@ -13173,6 +13190,7 @@ export type CreateOutputSystemByPackOutputSecurityLake$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -13261,6 +13279,7 @@ export const CreateOutputSystemByPackOutputSecurityLake$outboundSchema:
       .optional(),
     forceCloseOnShutdown: z.boolean().optional(),
     retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
     objectACL: models.ObjectAclOptions$outboundSchema.optional(),
     storageClass: models.StorageClassOptions$outboundSchema.optional(),
     serverSideEncryption: models
@@ -13355,6 +13374,7 @@ export type CreateOutputSystemByPackOutputDlS3$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -13449,6 +13469,7 @@ export const CreateOutputSystemByPackOutputDlS3$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
@@ -16566,6 +16587,7 @@ export type CreateOutputSystemByPackOutputMinio$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   endpoint: string;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
@@ -16652,6 +16674,7 @@ export const CreateOutputSystemByPackOutputMinio$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   endpoint: z.string(),
   objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models
@@ -18200,6 +18223,7 @@ export type CreateOutputSystemByPackOutputExabeam$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   maxFileSizeMB?: number | undefined;
   encodedConfiguration?: string | undefined;
   collectorInstanceId: string;
@@ -18253,6 +18277,7 @@ export const CreateOutputSystemByPackOutputExabeam$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -18661,6 +18686,7 @@ export type CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   description?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -18745,6 +18771,7 @@ export const CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema:
       .optional(),
     forceCloseOnShutdown: z.boolean().optional(),
     retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
     description: z.string().optional(),
     compress: models.CompressionOptionsHttp$outboundSchema.optional(),
     compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),

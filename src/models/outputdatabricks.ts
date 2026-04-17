@@ -44,6 +44,12 @@ import {
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -150,6 +156,7 @@ export type OutputDatabricks = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
    */
@@ -316,6 +323,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   workspaceId: types.string(),
   workspaceHost: types.optional(types.string()),
   scope: types.string(),
@@ -379,6 +387,7 @@ export type OutputDatabricks$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   workspaceId: string;
   workspaceHost?: string | undefined;
   scope: string;
@@ -446,6 +455,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   workspaceId: z.string(),
   workspaceHost: z.string().optional(),
   scope: z.string(),

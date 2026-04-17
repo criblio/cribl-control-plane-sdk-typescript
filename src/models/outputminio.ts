@@ -49,6 +49,12 @@ import {
   ObjectAclOptions$outboundSchema,
 } from "./objectacloptions.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -210,6 +216,7 @@ export type OutputMinio = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * MinIO service url (e.g. http://minioHost:9000)
    */
@@ -408,6 +415,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   endpoint: types.string(),
   objectACL: types.optional(ObjectAclOptions$inboundSchema),
   storageClass: types.optional(
@@ -490,6 +498,7 @@ export type OutputMinio$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   endpoint: string;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
@@ -572,6 +581,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   endpoint: z.string(),
   objectACL: ObjectAclOptions$outboundSchema.optional(),
   storageClass: StorageClassOptionsReducedredundancyStandard$outboundSchema
