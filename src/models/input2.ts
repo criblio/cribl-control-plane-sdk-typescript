@@ -199,6 +199,11 @@ import {
   InputOffice365Service$outboundSchema,
 } from "./inputoffice365service.js";
 import {
+  InputOkta,
+  InputOkta$Outbound,
+  InputOkta$outboundSchema,
+} from "./inputokta.js";
+import {
   InputOpenaiInput,
   InputOpenaiInput$Outbound,
   InputOpenaiInput$outboundSchema,
@@ -394,7 +399,8 @@ export type Input2 =
   | InputServicenowTable
   | InputZscalerHec
   | InputCloudflareHec
-  | InputOpenaiComplianceLogs;
+  | InputOpenaiComplianceLogs
+  | InputOkta;
 
 /** @internal */
 export type Input2$Outbound =
@@ -462,7 +468,8 @@ export type Input2$Outbound =
   | InputServicenowTable$Outbound
   | InputZscalerHec$Outbound
   | InputCloudflareHec$Outbound
-  | InputOpenaiComplianceLogs$Outbound;
+  | InputOpenaiComplianceLogs$Outbound
+  | InputOkta$Outbound;
 
 /** @internal */
 export const Input2$outboundSchema: z.ZodType<
@@ -537,6 +544,7 @@ export const Input2$outboundSchema: z.ZodType<
   InputZscalerHec$outboundSchema,
   InputCloudflareHec$outboundSchema,
   InputOpenaiComplianceLogs$outboundSchema,
+  InputOkta$outboundSchema,
 ]);
 
 export function input2ToJSON(input2: Input2): string {
