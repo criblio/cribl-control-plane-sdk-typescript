@@ -9,6 +9,102 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 
+export type CreateInputSystemByPackInputOkta = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "okta";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Your Okta domain (example: your-org). Do not include .okta.com, https://, or trailing slashes.
+   */
+  oktaDomain: string;
+  /**
+   * Your Okta API token for authentication
+   */
+  oktaToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Earliest time for data collection, relative to now
+   */
+  earliest?: string | undefined;
+  /**
+   * Latest time for data collection, relative to now
+   */
+  latest?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'oktaDomain' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oktaDomain' at runtime.
+   */
+  __template_oktaDomain?: string | undefined;
+};
+
 export const CreateInputSystemByPackAccountType = {
   /**
    * Workspace
@@ -10430,7 +10526,8 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputServicenowTable
   | CreateInputSystemByPackInputZscalerHec
   | CreateInputSystemByPackInputCloudflareHec
-  | CreateInputSystemByPackInputOpenaiComplianceLogs;
+  | CreateInputSystemByPackInputOpenaiComplianceLogs
+  | CreateInputSystemByPackInputOkta;
 
 export type CreateInputSystemByPackRequest = {
   /**
@@ -10511,8 +10608,86 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputServicenowTable
     | CreateInputSystemByPackInputZscalerHec
     | CreateInputSystemByPackInputCloudflareHec
-    | CreateInputSystemByPackInputOpenaiComplianceLogs;
+    | CreateInputSystemByPackInputOpenaiComplianceLogs
+    | CreateInputSystemByPackInputOkta;
 };
+
+/** @internal */
+export type CreateInputSystemByPackInputOkta$Outbound = {
+  id: string;
+  type: "okta";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  oktaDomain: string;
+  oktaToken?: string | undefined;
+  textSecret: string;
+  cronSchedule?: string | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  requestTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_oktaDomain?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackInputOkta$outboundSchema: z.ZodType<
+  CreateInputSystemByPackInputOkta$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackInputOkta
+> = z.object({
+  id: z.string(),
+  type: z.literal("okta"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  oktaDomain: z.string(),
+  oktaToken: z.string().optional(),
+  textSecret: z.string(),
+  cronSchedule: z.string().optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_oktaDomain: z.string().optional(),
+});
+
+export function createInputSystemByPackInputOktaToJSON(
+  createInputSystemByPackInputOkta: CreateInputSystemByPackInputOkta,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackInputOkta$outboundSchema.parse(
+      createInputSystemByPackInputOkta,
+    ),
+  );
+}
 
 /** @internal */
 export const CreateInputSystemByPackAccountType$outboundSchema: z.ZodType<
@@ -19647,7 +19822,8 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputServicenowTable$Outbound
   | CreateInputSystemByPackInputZscalerHec$Outbound
   | CreateInputSystemByPackInputCloudflareHec$Outbound
-  | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound;
+  | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound
+  | CreateInputSystemByPackInputOkta$Outbound;
 
 /** @internal */
 export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
@@ -19726,6 +19902,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputZscalerHec$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputCloudflareHec$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema),
+  z.lazy(() => CreateInputSystemByPackInputOkta$outboundSchema),
 ]);
 
 export function createInputSystemByPackRequestBodyToJSON(
@@ -19814,7 +19991,8 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputServicenowTable$Outbound
     | CreateInputSystemByPackInputZscalerHec$Outbound
     | CreateInputSystemByPackInputCloudflareHec$Outbound
-    | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound;
+    | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound
+    | CreateInputSystemByPackInputOkta$Outbound;
 };
 
 /** @internal */
@@ -19900,6 +20078,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() =>
       CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema
     ),
+    z.lazy(() => CreateInputSystemByPackInputOkta$outboundSchema),
   ]),
 }).transform((v) => {
   return remap$(v, {

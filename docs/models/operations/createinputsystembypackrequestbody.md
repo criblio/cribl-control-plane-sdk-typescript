@@ -764,3 +764,14 @@ const value: operations.CreateInputSystemByPackInputOpenaiComplianceLogs = {
 };
 ```
 
+### `operations.CreateInputSystemByPackInputOkta`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputOkta = {
+  id: "<id>",
+  type: "okta",
+  oktaDomain: "<value>",
+  textSecret: "<value>",
+};
+```
+

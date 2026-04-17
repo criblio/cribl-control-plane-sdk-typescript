@@ -749,3 +749,14 @@ const value: operations.CreateInputInputOpenaiComplianceLogs = {
 };
 ```
 
+### `operations.CreateInputInputOkta`
+
+```typescript
+const value: operations.CreateInputInputOkta = {
+  id: "<id>",
+  type: "okta",
+  oktaDomain: "<value>",
+  textSecret: "<value>",
+};
+```
+
