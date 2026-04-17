@@ -46,6 +46,12 @@ import {
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -223,6 +229,7 @@ export type OutputCloudflareR2 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
    */
@@ -415,6 +422,7 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   endpoint: types.string(),
   storageClass: types.optional(
     StorageClassOptionsReducedredundancyStandard$inboundSchema,
@@ -491,6 +499,7 @@ export type OutputCloudflareR2$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   endpoint: string;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -568,6 +577,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   endpoint: z.string(),
   storageClass: StorageClassOptionsReducedredundancyStandard$outboundSchema
     .optional(),

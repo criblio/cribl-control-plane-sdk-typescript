@@ -995,6 +995,10 @@ export type RestAuthenticationLoginSecret = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -1994,6 +1998,10 @@ export type RestAuthenticationLogin = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -2969,6 +2977,10 @@ export type RestAuthenticationBasicSecret = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -3941,6 +3953,10 @@ export type RestAuthenticationBasic = {
    */
   captureHeaders?: boolean | undefined;
   /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
+  /**
    * Stop pagination when the Event Breaker produces no events
    */
   stopOnEmptyResults?: boolean | undefined;
@@ -4910,6 +4926,10 @@ export type RestAuthenticationNone = {
    * Enable to add response headers to the resHeaders field under the __collectible object
    */
   captureHeaders?: boolean | undefined;
+  /**
+   * HTTP status codes that should emit events from the collect response body. Supports exact values like 200 or wildcard classes like 2xx, 4xx, and 5xx.
+   */
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   /**
    * Stop pagination when the Event Breaker produces no events
    */
@@ -7033,6 +7053,7 @@ export const RestAuthenticationLoginSecret$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -7099,6 +7120,7 @@ export type RestAuthenticationLoginSecret$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -7187,6 +7209,7 @@ export const RestAuthenticationLoginSecret$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -9286,6 +9309,7 @@ export const RestAuthenticationLogin$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -9353,6 +9377,7 @@ export type RestAuthenticationLogin$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -9440,6 +9465,7 @@ export const RestAuthenticationLogin$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -11557,6 +11583,7 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -11614,6 +11641,7 @@ export type RestAuthenticationBasicSecret$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -11693,6 +11721,7 @@ export const RestAuthenticationBasicSecret$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -13783,6 +13812,7 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -13841,6 +13871,7 @@ export type RestAuthenticationBasic$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -13919,6 +13950,7 @@ export const RestAuthenticationBasic$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([
@@ -16004,6 +16036,7 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
   decodeUrl: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  emitEventsForHttpStatusCodes: types.optional(z.array(types.string())),
   stopOnEmptyResults: types.optional(types.boolean()),
   safeHeaders: types.optional(z.array(types.string())),
   retryRules: types.optional(discriminatedUnion("type", {
@@ -16060,6 +16093,7 @@ export type RestAuthenticationNone$Outbound = {
   decodeUrl?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   captureHeaders?: boolean | undefined;
+  emitEventsForHttpStatusCodes?: Array<string> | undefined;
   stopOnEmptyResults?: boolean | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?:
@@ -16136,6 +16170,7 @@ export const RestAuthenticationNone$outboundSchema: z.ZodType<
   decodeUrl: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   captureHeaders: z.boolean().optional(),
+  emitEventsForHttpStatusCodes: z.array(z.string()).optional(),
   stopOnEmptyResults: z.boolean().optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.union([

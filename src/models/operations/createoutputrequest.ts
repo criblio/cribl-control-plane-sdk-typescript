@@ -1196,6 +1196,7 @@ export type CreateOutputOutputAzureDataExplorer = {
    */
   addIdToStagePath?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Amount of time, in seconds, to wait for a request to complete before canceling it
    */
@@ -1507,6 +1508,7 @@ export type CreateOutputOutputAzureBlob = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
   storageClass?: CreateOutputBlobAccessTier | undefined;
   description?: string | undefined;
@@ -1820,6 +1822,7 @@ export type CreateOutputOutputS3 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -2084,6 +2087,7 @@ export type CreateOutputOutputFilesystem = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -5636,6 +5640,7 @@ export type CreateOutputOutputAzureDataExplorer$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   addIdToStagePath?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
@@ -5751,6 +5756,7 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
     .optional(),
   addIdToStagePath: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),
@@ -5854,6 +5860,7 @@ export type CreateOutputOutputAzureBlob$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   authType?: string | undefined;
   storageClass?: string | undefined;
   description?: string | undefined;
@@ -5938,6 +5945,7 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: CreateOutputBlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
@@ -6037,6 +6045,7 @@ export type CreateOutputOutputS3$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -6132,6 +6141,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
@@ -6214,6 +6224,7 @@ export type CreateOutputOutputFilesystem$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   description?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -6275,6 +6286,7 @@ export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   description: z.string().optional(),
   compress: models.CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),

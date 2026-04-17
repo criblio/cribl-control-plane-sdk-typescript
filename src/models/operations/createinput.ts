@@ -2470,7 +2470,7 @@ export type CreateInputInputFile = {
   staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   /**
-   * Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+   * Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
    */
   path?: string | undefined;
   /**
@@ -2491,7 +2491,7 @@ export type CreateInputInputFile = {
    */
   optimizeLeafDirectories?: boolean | undefined;
   /**
-   * Stream binary files as Base64-encoded chunks.
+   * Stream binary files as Base64-encoded chunks
    */
   includeUnidentifiableBinary?: boolean | undefined;
   /**

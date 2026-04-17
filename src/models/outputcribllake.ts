@@ -30,6 +30,12 @@ import {
   ObjectAclOptions$outboundSchema,
 } from "./objectacloptions.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   RetrySettingsType,
   RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
@@ -197,6 +203,7 @@ export type OutputCriblLake = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -357,6 +364,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   objectACL: types.optional(ObjectAclOptions$inboundSchema),
   storageClass: types.optional(StorageClassOptions$inboundSchema),
   serverSideEncryption: types.optional(
@@ -426,6 +434,7 @@ export type OutputCriblLake$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -498,6 +507,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   objectACL: ObjectAclOptions$outboundSchema.optional(),
   storageClass: StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption:

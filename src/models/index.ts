@@ -405,6 +405,7 @@ export * from "./notificationunion.js";
 export * from "./objectacloptions.js";
 export * from "./objectacloptionsauthenticatedreadbucketownerfullcontrol.js";
 export * from "./objectstoragefilter.js";
+export * from "./orphanfilerecoverytype.js";
 export * from "./otlpversionoptions.js";
 export * from "./otlpversionoptions131.js";
 export * from "./outpostnodeinfo.js";
