@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 53248f0e705a52fe67fe7a881d2181f8
-  docVersion: 4.18.0-alpha.1776455088361-e66ce0c1
+  docChecksum: be93d84e49dde23dec756cfc3d812298
+  docVersion: 4.18.0-alpha.1776467234517-c8429dbb
   speakeasyVersion: 1.761.8
   generationVersion: 2.881.2
-  releaseVersion: 0.7.0-beta.25
-  configChecksum: bf95d2e8a9fc5e94c5fdeae0569b348a
+  releaseVersion: 0.7.0-beta.26
+  configChecksum: 2ca817652230fa5645ef9f54958d1d75
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 6d57b23e-a49f-448e-9cae-fb772ad49ffd
-  pristine_commit_hash: 0d05f0493a5cb8c69c0c18ee1294e9add7f97d56
-  pristine_tree_hash: 00ea32c3174700502c2003eef688dbaaf383e845
+  generation_id: 4ef74492-38be-4564-a2b2-8065734d2abc
+  pristine_commit_hash: 224c8d052fdbba17b7aca2fddd4cf5159b6c3dd6
+  pristine_tree_hash: c8132e99738d6809ced710dad1446c6d10da6d72
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -11370,12 +11370,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:a7f896ec67ea34e0ab2f934ed478a8320affb7f6
-    pristine_git_object: fbd74417d0a79445ebb52f3799be1c8d47578b91
+    last_write_checksum: sha1:32f2029c3cf360f5b3aac3fac94bea776dd07843
+    pristine_git_object: 96b1b5ec7fcbff6b0268dd8a770318c08cb1529c
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:8c86f2ebcaff21bc0dff1a358b9d9d31c7156d0c
-    pristine_git_object: 4f48dd3f91d212fb4b2971ee7bd0df9aea78aa97
+    last_write_checksum: sha1:b5a87f951b4aa54f454af1f308c68c0daaf30f9a
+    pristine_git_object: c373b30ecee5329368230842f0586ed490524d28
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -11874,8 +11874,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:6908481299b03567190e3aa5227e76444249b8ee
-    pristine_git_object: 98b02653492a5f92818ea0b954d54b5da59deed9
+    last_write_checksum: sha1:6a7daf5b3481ac7aad0363cf775af69fc9f3e981
+    pristine_git_object: 885110ed49fdc8b5f702cd4d6beb2f7648de6810
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -26052,7 +26052,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.packs.install()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.packs.update()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.packs.get()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.packs.list()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.union(okta)` **Added**\n  *  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.sources.delete()`:  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.sources.list()`:  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.union(okta)` **Added**\n  *  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.packs.sources.list()`:  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody.union(okta)` **Added**\n  *  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.packs.sources.get()`:  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input.union(okta)` **Added**\n  *  `response.items[].union(okta)` **Added**\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[].union(okta)` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
