@@ -13,7 +13,7 @@ import {
 } from "./authenticationmethodoptionsauth.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type AuthTypeAuthTypeCredentialsSecret = {
+export type AuthTypeTemplatemanualApiKeyAuthType = {
   disabled: boolean;
   username?: string | undefined;
   password?: string | undefined;
@@ -33,11 +33,15 @@ export type AuthTypeAuthTypeCredentialsSecret = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'manualAPIKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'manualAPIKey' at runtime.
+   */
+  __template_manualAPIKey?: string | undefined;
 };
 
 /** @internal */
-export const AuthTypeAuthTypeCredentialsSecret$inboundSchema: z.ZodType<
-  AuthTypeAuthTypeCredentialsSecret,
+export const AuthTypeTemplatemanualApiKeyAuthType$inboundSchema: z.ZodType<
+  AuthTypeTemplatemanualApiKeyAuthType,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -48,9 +52,10 @@ export const AuthTypeAuthTypeCredentialsSecret$inboundSchema: z.ZodType<
   credentialsSecret: types.optional(types.string()),
   manualAPIKey: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_manualAPIKey: types.optional(types.string()),
 });
 /** @internal */
-export type AuthTypeAuthTypeCredentialsSecret$Outbound = {
+export type AuthTypeTemplatemanualApiKeyAuthType$Outbound = {
   disabled: boolean;
   username?: string | undefined;
   password?: string | undefined;
@@ -58,13 +63,14 @@ export type AuthTypeAuthTypeCredentialsSecret$Outbound = {
   credentialsSecret?: string | undefined;
   manualAPIKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_manualAPIKey?: string | undefined;
 };
 
 /** @internal */
-export const AuthTypeAuthTypeCredentialsSecret$outboundSchema: z.ZodType<
-  AuthTypeAuthTypeCredentialsSecret$Outbound,
+export const AuthTypeTemplatemanualApiKeyAuthType$outboundSchema: z.ZodType<
+  AuthTypeTemplatemanualApiKeyAuthType$Outbound,
   z.ZodTypeDef,
-  AuthTypeAuthTypeCredentialsSecret
+  AuthTypeTemplatemanualApiKeyAuthType
 > = z.object({
   disabled: z.boolean(),
   username: z.string().optional(),
@@ -73,23 +79,25 @@ export const AuthTypeAuthTypeCredentialsSecret$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   manualAPIKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_manualAPIKey: z.string().optional(),
 });
 
-export function authTypeAuthTypeCredentialsSecretToJSON(
-  authTypeAuthTypeCredentialsSecret: AuthTypeAuthTypeCredentialsSecret,
+export function authTypeTemplatemanualApiKeyAuthTypeToJSON(
+  authTypeTemplatemanualApiKeyAuthType: AuthTypeTemplatemanualApiKeyAuthType,
 ): string {
   return JSON.stringify(
-    AuthTypeAuthTypeCredentialsSecret$outboundSchema.parse(
-      authTypeAuthTypeCredentialsSecret,
+    AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.parse(
+      authTypeTemplatemanualApiKeyAuthType,
     ),
   );
 }
-export function authTypeAuthTypeCredentialsSecretFromJSON(
+export function authTypeTemplatemanualApiKeyAuthTypeFromJSON(
   jsonString: string,
-): SafeParseResult<AuthTypeAuthTypeCredentialsSecret, SDKValidationError> {
+): SafeParseResult<AuthTypeTemplatemanualApiKeyAuthType, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => AuthTypeAuthTypeCredentialsSecret$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AuthTypeAuthTypeCredentialsSecret' from JSON`,
+    (x) =>
+      AuthTypeTemplatemanualApiKeyAuthType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTypeTemplatemanualApiKeyAuthType' from JSON`,
   );
 }

@@ -312,6 +312,10 @@ export type CreateOutputSystemByPackOutputAzureEventhub = {
    */
   __template_topic?: string | undefined;
   /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -1367,6 +1371,10 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer = {
    */
   __template_compress?: string | undefined;
   /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
    * Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
    */
   __template_mappingRef?: string | undefined;
@@ -1654,6 +1662,10 @@ export type CreateOutputSystemByPackOutputAzureBlob = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
   /**
    * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
    */
@@ -1999,6 +2011,10 @@ export type CreateOutputSystemByPackOutputS3 = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export type CreateOutputSystemByPackOutputFilesystem = {
@@ -2190,6 +2206,10 @@ export type CreateOutputSystemByPackOutputFilesystem = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsSignalfx = {};
@@ -5056,6 +5076,7 @@ export type CreateOutputSystemByPackOutputAzureEventhub$Outbound = {
     | CreateOutputSystemByPackPqControlsAzureEventhub$Outbound
     | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -5106,6 +5127,7 @@ export const CreateOutputSystemByPackOutputAzureEventhub$outboundSchema:
     pqControls: CreateOutputSystemByPackPqControlsAzureEventhub$outboundSchema
       .optional(),
     __template_topic: z.string().optional(),
+    __template_format: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
   });
 
@@ -5836,6 +5858,7 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer$Outbound = {
   __template_clientSecret?: string | undefined;
   __template_format?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
   __template_mappingRef?: string | undefined;
   __template_ingestUrl?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -5965,6 +5988,7 @@ export const CreateOutputSystemByPackOutputAzureDataExplorer$outboundSchema:
     __template_clientSecret: z.string().optional(),
     __template_format: z.string().optional(),
     __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
     __template_mappingRef: z.string().optional(),
     __template_ingestUrl: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
@@ -6061,6 +6085,7 @@ export type CreateOutputSystemByPackOutputAzureBlob$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
   __template_connectionString?: string | undefined;
   __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
@@ -6146,6 +6171,7 @@ export const CreateOutputSystemByPackOutputAzureBlob$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
   __template_connectionString: z.string().optional(),
   __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
@@ -6251,6 +6277,7 @@ export type CreateOutputSystemByPackOutputS3$Outbound = {
   __template_kmsKeyId?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -6348,6 +6375,7 @@ export const CreateOutputSystemByPackOutputS3$outboundSchema: z.ZodType<
   __template_kmsKeyId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputS3ToJSON(
@@ -6414,6 +6442,7 @@ export type CreateOutputSystemByPackOutputFilesystem$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -6476,6 +6505,7 @@ export const CreateOutputSystemByPackOutputFilesystem$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputFilesystemToJSON(

@@ -29,7 +29,7 @@ export * from "./authenticationtypeoptionsprometheusauthbasiccredentialssecret.j
 export * from "./authenticationtypeuse.js";
 export * from "./authtoken.js";
 export * from "./authtype.js";
-export * from "./authtypeauthtypecredentialssecret.js";
+export * from "./authtypetemplatemanualapikeyauthtype.js";
 export * from "./awstypeheartbeatmetadata.js";
 export * from "./azureblobcollectorconf.js";
 export * from "./azuretypeheartbeatmetadata.js";

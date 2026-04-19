@@ -348,9 +348,53 @@ export type OutputGoogleCloudLogging = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls | undefined;
   /**
+   * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+   */
+  __template_logLocationType?: string | undefined;
+  /**
+   * Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+   */
+  __template_logNameExpression?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
+  /**
+   * Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+   */
+  __template_resourceTypeExpression?: string | undefined;
+  /**
+   * Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+   */
+  __template_severityExpression?: string | undefined;
+  /**
+   * Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+   */
+  __template_insertIdExpression?: string | undefined;
+  /**
+   * Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+   */
+  __template_traceExpression?: string | undefined;
+  /**
+   * Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+   */
+  __template_spanIdExpression?: string | undefined;
+  /**
+   * Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+   */
+  __template_traceSampledExpression?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+   */
+  __template_logLocationExpression?: string | undefined;
+  /**
+   * Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+   */
+  __template_payloadExpression?: string | undefined;
 };
 
 /** @internal */
@@ -495,7 +539,18 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGoogleCloudLoggingPqControls$inboundSchema),
   ),
+  __template_logLocationType: types.optional(types.string()),
+  __template_logNameExpression: types.optional(types.string()),
+  __template_payloadFormat: types.optional(types.string()),
+  __template_resourceTypeExpression: types.optional(types.string()),
+  __template_severityExpression: types.optional(types.string()),
+  __template_insertIdExpression: types.optional(types.string()),
+  __template_traceExpression: types.optional(types.string()),
+  __template_spanIdExpression: types.optional(types.string()),
+  __template_traceSampledExpression: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
+  __template_logLocationExpression: types.optional(types.string()),
+  __template_payloadExpression: types.optional(types.string()),
 });
 /** @internal */
 export type OutputGoogleCloudLogging$Outbound = {
@@ -569,7 +624,18 @@ export type OutputGoogleCloudLogging$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls$Outbound | undefined;
+  __template_logLocationType?: string | undefined;
+  __template_logNameExpression?: string | undefined;
+  __template_payloadFormat?: string | undefined;
+  __template_resourceTypeExpression?: string | undefined;
+  __template_severityExpression?: string | undefined;
+  __template_insertIdExpression?: string | undefined;
+  __template_traceExpression?: string | undefined;
+  __template_spanIdExpression?: string | undefined;
+  __template_traceSampledExpression?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_logLocationExpression?: string | undefined;
+  __template_payloadExpression?: string | undefined;
 };
 
 /** @internal */
@@ -649,7 +715,18 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$outboundSchema)
     .optional(),
+  __template_logLocationType: z.string().optional(),
+  __template_logNameExpression: z.string().optional(),
+  __template_payloadFormat: z.string().optional(),
+  __template_resourceTypeExpression: z.string().optional(),
+  __template_severityExpression: z.string().optional(),
+  __template_insertIdExpression: z.string().optional(),
+  __template_traceExpression: z.string().optional(),
+  __template_spanIdExpression: z.string().optional(),
+  __template_traceSampledExpression: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_logLocationExpression: z.string().optional(),
+  __template_payloadExpression: z.string().optional(),
 });
 
 export function outputGoogleCloudLoggingToJSON(
