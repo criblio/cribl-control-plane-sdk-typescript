@@ -250,6 +250,10 @@ export type OutputFilesystem = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -314,6 +318,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   __template_fileNameSuffix: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_compress: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
 });
 /** @internal */
 export type OutputFilesystem$Outbound = {
@@ -367,6 +372,7 @@ export type OutputFilesystem$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -427,6 +433,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function outputFilesystemToJSON(

@@ -192,6 +192,18 @@ export type OutputExabeam = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -250,6 +262,9 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
   __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_objectACL: types.optional(types.string()),
+  __template_storageClass: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
@@ -293,6 +308,9 @@ export type OutputExabeam$Outbound = {
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -344,6 +362,9 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_objectACL: z.string().optional(),
+  __template_storageClass: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 

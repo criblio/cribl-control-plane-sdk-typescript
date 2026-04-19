@@ -310,6 +310,10 @@ export type CreateOutputSystemByPackOutputNutanixObjects = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 /**
@@ -599,6 +603,10 @@ export type CreateOutputSystemByPackOutputCloudflareR2 = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export const CreateOutputSystemByPackClientSecretAuthTypeAuthenticationMethod =
@@ -661,6 +669,22 @@ export type CreateOutputSystemByPackAuthentication = {
    * Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
    */
   __template_mechanism?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+   */
+  __template_scope?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsMicrosoftFabric = {};
@@ -806,6 +830,10 @@ export type CreateOutputSystemByPackOutputMicrosoftFabric = {
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -1041,6 +1069,10 @@ export type CreateOutputSystemByPackOutputDatabricks = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export const CreateOutputSystemByPackAuthenticationMethodChronicle = {
@@ -1254,6 +1286,26 @@ export type CreateOutputSystemByPackOutputChronicle = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'namespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'namespace' at runtime.
+   */
+  __template_namespace?: string | undefined;
+  /**
+   * Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
+   */
+  __template_logType?: string | undefined;
+  /**
+   * Binds 'logTextField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logTextField' at runtime.
+   */
+  __template_logTextField?: string | undefined;
+  /**
+   * Binds 'gcpProjectId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpProjectId' at runtime.
+   */
+  __template_gcpProjectId?: string | undefined;
+  /**
+   * Binds 'gcpInstance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpInstance' at runtime.
+   */
+  __template_gcpInstance?: string | undefined;
   /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
@@ -3392,9 +3444,21 @@ export type CreateOutputSystemByPackOutputSecurityLake = {
    */
   __template_kmsKeyId?: string | undefined;
   /**
+   * Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
+   */
+  __template_accountId?: string | undefined;
+  /**
+   * Binds 'customSource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customSource' at runtime.
+   */
+  __template_customSource?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export type CreateOutputSystemByPackOutputDlS3 = {
@@ -3716,6 +3780,10 @@ export type CreateOutputSystemByPackOutputDlS3 = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem = {};
@@ -7693,6 +7761,10 @@ export type CreateOutputSystemByPackOutputMinio = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsCloudwatch = {};
@@ -8612,7 +8684,7 @@ export type CreateOutputSystemByPackOutputElasticCloud = {
    * Extra parameters to use in HTTP requests
    */
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: models.AuthTypeAuthTypeCredentialsSecret | undefined;
+  auth?: models.AuthTypeTemplatemanualApiKeyAuthType | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
    */
@@ -8683,9 +8755,21 @@ export type CreateOutputSystemByPackOutputElasticCloud = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsElasticCloud | undefined;
   /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
+   */
+  __template_index?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'elasticPipeline' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticPipeline' at runtime.
+   */
+  __template_elasticPipeline?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -8843,7 +8927,7 @@ export type CreateOutputSystemByPackOutputElastic = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: models.AuthTypeAuthTypeCredentialsSecret | undefined;
+  auth?: models.AuthTypeTemplatemanualApiKeyAuthType | undefined;
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
@@ -8936,9 +9020,21 @@ export type CreateOutputSystemByPackOutputElastic = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsElastic | undefined;
   /**
+   * Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
+   */
+  __template_index?: string | undefined;
+  /**
+   * Binds 'docType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'docType' at runtime.
+   */
+  __template_docType?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'elasticPipeline' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticPipeline' at runtime.
+   */
+  __template_elasticPipeline?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -9678,6 +9774,18 @@ export type CreateOutputSystemByPackOutputExabeam = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -10134,9 +10242,53 @@ export type CreateOutputSystemByPackOutputGoogleCloudLogging = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsGoogleCloudLogging | undefined;
   /**
+   * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+   */
+  __template_logLocationType?: string | undefined;
+  /**
+   * Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+   */
+  __template_logNameExpression?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
+  /**
+   * Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+   */
+  __template_resourceTypeExpression?: string | undefined;
+  /**
+   * Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+   */
+  __template_severityExpression?: string | undefined;
+  /**
+   * Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+   */
+  __template_insertIdExpression?: string | undefined;
+  /**
+   * Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+   */
+  __template_traceExpression?: string | undefined;
+  /**
+   * Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+   */
+  __template_spanIdExpression?: string | undefined;
+  /**
+   * Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+   */
+  __template_traceSampledExpression?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+   */
+  __template_logLocationExpression?: string | undefined;
+  /**
+   * Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+   */
+  __template_payloadExpression?: string | undefined;
 };
 
 export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage = {
@@ -10385,9 +10537,21 @@ export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
    */
   __template_region?: string | undefined;
   /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
    * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
    */
   __template_destPath?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
   /**
    * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
    */
@@ -10412,6 +10576,18 @@ export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
 };
 
 export const CreateOutputSystemByPackAPIVersion = {
@@ -10789,6 +10965,7 @@ export type CreateOutputSystemByPackOutputNutanixObjects$Outbound = {
   __template_endpoint?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -10875,6 +11052,7 @@ export const CreateOutputSystemByPackOutputNutanixObjects$outboundSchema:
     __template_endpoint: z.string().optional(),
     __template_awsApiKey: z.string().optional(),
     __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
   });
 
 export function createOutputSystemByPackOutputNutanixObjectsToJSON(
@@ -10970,6 +11148,7 @@ export type CreateOutputSystemByPackOutputCloudflareR2$Outbound = {
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -11057,6 +11236,7 @@ export const CreateOutputSystemByPackOutputCloudflareR2$outboundSchema:
     __template_storageClass: z.string().optional(),
     __template_serverSideEncryption: z.string().optional(),
     __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
   });
 
 export function createOutputSystemByPackOutputCloudflareR2ToJSON(
@@ -11097,6 +11277,10 @@ export type CreateOutputSystemByPackAuthentication$Outbound = {
   tenantId?: string | undefined;
   scope?: string | undefined;
   __template_mechanism?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_scope?: string | undefined;
 };
 
 /** @internal */
@@ -11125,6 +11309,10 @@ export const CreateOutputSystemByPackAuthentication$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   scope: z.string().optional(),
   __template_mechanism: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_scope: z.string().optional(),
 });
 
 export function createOutputSystemByPackAuthenticationToJSON(
@@ -11202,6 +11390,7 @@ export type CreateOutputSystemByPackOutputMicrosoftFabric$Outbound = {
     | CreateOutputSystemByPackPqControlsMicrosoftFabric$Outbound
     | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_bootstrap_server?: string | undefined;
 };
@@ -11255,6 +11444,7 @@ export const CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema:
       CreateOutputSystemByPackPqControlsMicrosoftFabric$outboundSchema
     ).optional(),
     __template_topic: z.string().optional(),
+    __template_format: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
     __template_bootstrap_server: z.string().optional(),
   });
@@ -11333,6 +11523,7 @@ export type CreateOutputSystemByPackOutputDatabricks$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -11404,6 +11595,7 @@ export const CreateOutputSystemByPackOutputDatabricks$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputDatabricksToJSON(
@@ -11536,6 +11728,11 @@ export type CreateOutputSystemByPackOutputChronicle$Outbound = {
   __template_region?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_namespace?: string | undefined;
+  __template_logType?: string | undefined;
+  __template_logTextField?: string | undefined;
+  __template_gcpProjectId?: string | undefined;
+  __template_gcpInstance?: string | undefined;
   __template_endpoint?: string | undefined;
 };
 
@@ -11607,6 +11804,11 @@ export const CreateOutputSystemByPackOutputChronicle$outboundSchema: z.ZodType<
   __template_region: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_namespace: z.string().optional(),
+  __template_logType: z.string().optional(),
+  __template_logTextField: z.string().optional(),
+  __template_gcpProjectId: z.string().optional(),
+  __template_gcpInstance: z.string().optional(),
   __template_endpoint: z.string().optional(),
 });
 
@@ -13229,7 +13431,10 @@ export type CreateOutputSystemByPackOutputSecurityLake$Outbound = {
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
   __template_kmsKeyId?: string | undefined;
+  __template_accountId?: string | undefined;
+  __template_customSource?: string | undefined;
   __template_awsApiKey?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -13319,7 +13524,10 @@ export const CreateOutputSystemByPackOutputSecurityLake$outboundSchema:
     __template_storageClass: z.string().optional(),
     __template_serverSideEncryption: z.string().optional(),
     __template_kmsKeyId: z.string().optional(),
+    __template_accountId: z.string().optional(),
+    __template_customSource: z.string().optional(),
     __template_awsApiKey: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
   });
 
 export function createOutputSystemByPackOutputSecurityLakeToJSON(
@@ -13419,6 +13627,7 @@ export type CreateOutputSystemByPackOutputDlS3$Outbound = {
   __template_kmsKeyId?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -13515,6 +13724,7 @@ export const CreateOutputSystemByPackOutputDlS3$outboundSchema: z.ZodType<
   __template_kmsKeyId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputDlS3ToJSON(
@@ -16628,6 +16838,7 @@ export type CreateOutputSystemByPackOutputMinio$Outbound = {
   __template_serverSideEncryption?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -16718,6 +16929,7 @@ export const CreateOutputSystemByPackOutputMinio$outboundSchema: z.ZodType<
   __template_serverSideEncryption: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputMinioToJSON(
@@ -17436,7 +17648,7 @@ export type CreateOutputSystemByPackOutputElasticCloud$Outbound = {
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: models.AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
+  auth?: models.AuthTypeTemplatemanualApiKeyAuthType$Outbound | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
   responseRetrySettings?:
@@ -17460,7 +17672,10 @@ export type CreateOutputSystemByPackOutputElasticCloud$Outbound = {
   pqControls?:
     | CreateOutputSystemByPackPqControlsElasticCloud$Outbound
     | undefined;
+  __template_url?: string | undefined;
+  __template_index?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
+  __template_elasticPipeline?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -17493,7 +17708,7 @@ export const CreateOutputSystemByPackOutputElasticCloud$outboundSchema:
     safeHeaders: z.array(z.string()).optional(),
     extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
       .optional(),
-    auth: models.AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
+    auth: models.AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
     elasticPipeline: z.string().optional(),
     includeDocId: z.boolean().optional(),
     responseRetrySettings: z.array(
@@ -17519,7 +17734,10 @@ export const CreateOutputSystemByPackOutputElasticCloud$outboundSchema:
     pqControls: z.lazy(() =>
       CreateOutputSystemByPackPqControlsElasticCloud$outboundSchema
     ).optional(),
+    __template_url: z.string().optional(),
+    __template_index: z.string().optional(),
     __template_failedRequestLoggingMode: z.string().optional(),
+    __template_elasticPipeline: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
   });
 
@@ -17627,7 +17845,7 @@ export type CreateOutputSystemByPackOutputElastic$Outbound = {
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: models.AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
+  auth?: models.AuthTypeTemplatemanualApiKeyAuthType$Outbound | undefined;
   elasticVersion?: string | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
@@ -17653,7 +17871,10 @@ export type CreateOutputSystemByPackOutputElastic$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsElastic$Outbound | undefined;
+  __template_index?: string | undefined;
+  __template_docType?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
+  __template_elasticPipeline?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
 };
@@ -17693,7 +17914,7 @@ export const CreateOutputSystemByPackOutputElastic$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().optional(),
   extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
     .optional(),
-  auth: models.AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
+  auth: models.AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
   elasticVersion: CreateOutputSystemByPackElasticVersion$outboundSchema
     .optional(),
   elasticPipeline: z.string().optional(),
@@ -17723,7 +17944,10 @@ export const CreateOutputSystemByPackOutputElastic$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsElastic$outboundSchema
   ).optional(),
+  __template_index: z.string().optional(),
+  __template_docType: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
+  __template_elasticPipeline: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
 });
@@ -18238,6 +18462,9 @@ export type CreateOutputSystemByPackOutputExabeam$Outbound = {
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -18292,6 +18519,9 @@ export const CreateOutputSystemByPackOutputExabeam$outboundSchema: z.ZodType<
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
   __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_objectACL: z.string().optional(),
+  __template_storageClass: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
@@ -18539,7 +18769,18 @@ export type CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound = {
   pqControls?:
     | CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound
     | undefined;
+  __template_logLocationType?: string | undefined;
+  __template_logNameExpression?: string | undefined;
+  __template_payloadFormat?: string | undefined;
+  __template_resourceTypeExpression?: string | undefined;
+  __template_severityExpression?: string | undefined;
+  __template_insertIdExpression?: string | undefined;
+  __template_traceExpression?: string | undefined;
+  __template_spanIdExpression?: string | undefined;
+  __template_traceSampledExpression?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_logLocationExpression?: string | undefined;
+  __template_payloadExpression?: string | undefined;
 };
 
 /** @internal */
@@ -18625,7 +18866,18 @@ export const CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema:
     pqControls: z.lazy(() =>
       CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema
     ).optional(),
+    __template_logLocationType: z.string().optional(),
+    __template_logNameExpression: z.string().optional(),
+    __template_payloadFormat: z.string().optional(),
+    __template_resourceTypeExpression: z.string().optional(),
+    __template_severityExpression: z.string().optional(),
+    __template_insertIdExpression: z.string().optional(),
+    __template_traceExpression: z.string().optional(),
+    __template_spanIdExpression: z.string().optional(),
+    __template_traceSampledExpression: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
+    __template_logLocationExpression: z.string().optional(),
+    __template_payloadExpression: z.string().optional(),
   });
 
 export function createOutputSystemByPackOutputGoogleCloudLoggingToJSON(
@@ -18712,13 +18964,19 @@ export type CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound = {
   awsSecret?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
   __template_destPath?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
   __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
 };
 
 /** @internal */
@@ -18797,13 +19055,19 @@ export const CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema:
     awsSecret: z.string().optional(),
     __template_bucket: z.string().optional(),
     __template_region: z.string().optional(),
+    __template_endpoint: z.string().optional(),
     __template_destPath: z.string().optional(),
+    __template_objectACL: z.string().optional(),
+    __template_storageClass: z.string().optional(),
     __template_partitionExpr: z.string().optional(),
     __template_format: z.string().optional(),
     __template_baseFileName: z.string().optional(),
     __template_fileNameSuffix: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
     __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+    __template_awsApiKey: z.string().optional(),
+    __template_awsSecretKey: z.string().optional(),
   });
 
 export function createOutputSystemByPackOutputGoogleCloudStorageToJSON(
