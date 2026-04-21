@@ -8,6 +8,16 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
+  CreateOutputAPIVersion,
+  CreateOutputAPIVersion$outboundSchema,
+  CreateOutputAuthenticationMethodGoogleChronicle,
+  CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema,
+  CreateOutputExtraLogType,
+  CreateOutputExtraLogType$Outbound,
+  CreateOutputExtraLogType$outboundSchema,
+  CreateOutputOutputAlphasocS3,
+  CreateOutputOutputAlphasocS3$Outbound,
+  CreateOutputOutputAlphasocS3$outboundSchema,
   CreateOutputOutputChronicle,
   CreateOutputOutputChronicle$Outbound,
   CreateOutputOutputChronicle$outboundSchema,
@@ -68,9 +78,6 @@ import {
   CreateOutputOutputExabeam,
   CreateOutputOutputExabeam$Outbound,
   CreateOutputOutputExabeam$outboundSchema,
-  CreateOutputOutputGoogleChronicle,
-  CreateOutputOutputGoogleChronicle$Outbound,
-  CreateOutputOutputGoogleChronicle$outboundSchema,
   CreateOutputOutputGoogleCloudLogging,
   CreateOutputOutputGoogleCloudLogging$Outbound,
   CreateOutputOutputGoogleCloudLogging$outboundSchema,
@@ -164,10 +171,226 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-  CreateOutputPqControlsAzureEventhub,
-  CreateOutputPqControlsAzureEventhub$Outbound,
-  CreateOutputPqControlsAzureEventhub$outboundSchema,
-} from "./createoutputpqcontrolsazureeventhub.js";
+  CreateOutputPqControlsGoogleChronicle,
+  CreateOutputPqControlsGoogleChronicle$Outbound,
+  CreateOutputPqControlsGoogleChronicle$outboundSchema,
+  CreateOutputSendEventsAs,
+  CreateOutputSendEventsAs$outboundSchema,
+  CreateOutputUDMType,
+  CreateOutputUDMType$outboundSchema,
+} from "./createoutputpqcontrolsgooglechronicle.js";
+
+export type CreateOutputOutputGoogleChronicle = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_chronicle";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: CreateOutputAPIVersion | undefined;
+  authenticationMethod?:
+    | CreateOutputAuthenticationMethodGoogleChronicle
+    | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType: CreateOutputSendEventsAs;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<CreateOutputExtraLogType> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: CreateOutputUDMType | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputPqControlsGoogleChronicle | undefined;
+  /**
+   * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
+   */
+  __template_apiVersion?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
+   */
+  __template_customerId?: string | undefined;
+};
+
+export type CreateOutputPqControlsAzureEventhub = {};
 
 export type CreateOutputOutputAzureEventhub = {
   /**
@@ -310,6 +533,10 @@ export type CreateOutputOutputAzureEventhub = {
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -1358,6 +1585,10 @@ export type CreateOutputOutputAzureDataExplorer = {
    */
   __template_compress?: string | undefined;
   /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
    * Binds 'mappingRef' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mappingRef' at runtime.
    */
   __template_mappingRef?: string | undefined;
@@ -1645,6 +1876,10 @@ export type CreateOutputOutputAzureBlob = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
   /**
    * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
    */
@@ -1990,6 +2225,10 @@ export type CreateOutputOutputS3 = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export type CreateOutputOutputFilesystem = {
@@ -2181,6 +2420,10 @@ export type CreateOutputOutputFilesystem = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 export type CreateOutputPqControlsSignalfx = {};
@@ -4903,7 +5146,171 @@ export type CreateOutputRequest =
   | CreateOutputOutputDatabricks
   | CreateOutputOutputMicrosoftFabric
   | CreateOutputOutputCloudflareR2
-  | CreateOutputOutputNutanixObjects;
+  | CreateOutputOutputNutanixObjects
+  | CreateOutputOutputAlphasocS3;
+
+/** @internal */
+export type CreateOutputOutputGoogleChronicle$Outbound = {
+  id: string;
+  type: "google_chronicle";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion?: string | undefined;
+  authenticationMethod?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<CreateOutputExtraLogType$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  udmType?: string | undefined;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputPqControlsGoogleChronicle$Outbound | undefined;
+  __template_apiVersion?: string | undefined;
+  __template_region?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_customerId?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
+  CreateOutputOutputGoogleChronicle$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputGoogleChronicle
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_chronicle"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: CreateOutputAPIVersion$outboundSchema.optional(),
+  authenticationMethod:
+    CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  logFormatType: CreateOutputSendEventsAs$outboundSchema,
+  region: z.string().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(CreateOutputExtraLogType$outboundSchema).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  udmType: CreateOutputUDMType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
+  pqControls: CreateOutputPqControlsGoogleChronicle$outboundSchema.optional(),
+  __template_apiVersion: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_customerId: z.string().optional(),
+});
+
+export function createOutputOutputGoogleChronicleToJSON(
+  createOutputOutputGoogleChronicle: CreateOutputOutputGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputGoogleChronicle$outboundSchema.parse(
+      createOutputOutputGoogleChronicle,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputPqControlsAzureEventhub$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsAzureEventhub$outboundSchema: z.ZodType<
+  CreateOutputPqControlsAzureEventhub$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsAzureEventhub
+> = z.object({});
+
+export function createOutputPqControlsAzureEventhubToJSON(
+  createOutputPqControlsAzureEventhub: CreateOutputPqControlsAzureEventhub,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsAzureEventhub$outboundSchema.parse(
+      createOutputPqControlsAzureEventhub,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputOutputAzureEventhub$Outbound = {
@@ -4945,6 +5352,7 @@ export type CreateOutputOutputAzureEventhub$Outbound = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsAzureEventhub$Outbound | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -4990,8 +5398,10 @@ export const CreateOutputOutputAzureEventhub$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: CreateOutputPqControlsAzureEventhub$outboundSchema.optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsAzureEventhub$outboundSchema)
+    .optional(),
   __template_topic: z.string().optional(),
+  __template_format: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
@@ -5685,6 +6095,7 @@ export type CreateOutputOutputAzureDataExplorer$Outbound = {
   __template_clientSecret?: string | undefined;
   __template_format?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
   __template_mappingRef?: string | undefined;
   __template_ingestUrl?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -5807,6 +6218,7 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
   __template_clientSecret: z.string().optional(),
   __template_format: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
   __template_mappingRef: z.string().optional(),
   __template_ingestUrl: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -5902,6 +6314,7 @@ export type CreateOutputOutputAzureBlob$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
   __template_connectionString?: string | undefined;
   __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
@@ -5986,6 +6399,7 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
   __template_connectionString: z.string().optional(),
   __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
@@ -6090,6 +6504,7 @@ export type CreateOutputOutputS3$Outbound = {
   __template_kmsKeyId?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -6187,6 +6602,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   __template_kmsKeyId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function createOutputOutputS3ToJSON(
@@ -6251,6 +6667,7 @@ export type CreateOutputOutputFilesystem$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -6313,6 +6730,7 @@ export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function createOutputOutputFilesystemToJSON(
@@ -8414,7 +8832,8 @@ export type CreateOutputRequest$Outbound =
   | CreateOutputOutputDatabricks$Outbound
   | CreateOutputOutputMicrosoftFabric$Outbound
   | CreateOutputOutputCloudflareR2$Outbound
-  | CreateOutputOutputNutanixObjects$Outbound;
+  | CreateOutputOutputNutanixObjects$Outbound
+  | CreateOutputOutputAlphasocS3$Outbound;
 
 /** @internal */
 export const CreateOutputRequest$outboundSchema: z.ZodType<
@@ -8445,7 +8864,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputOutputKinesis$outboundSchema),
   z.lazy(() => CreateOutputOutputHoneycomb$outboundSchema),
   z.lazy(() => CreateOutputOutputAzureEventhub$outboundSchema),
-  CreateOutputOutputGoogleChronicle$outboundSchema,
+  z.lazy(() => CreateOutputOutputGoogleChronicle$outboundSchema),
   CreateOutputOutputGoogleCloudStorage$outboundSchema,
   CreateOutputOutputGoogleCloudLogging$outboundSchema,
   CreateOutputOutputGooglePubsub$outboundSchema,
@@ -8499,6 +8918,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   CreateOutputOutputMicrosoftFabric$outboundSchema,
   CreateOutputOutputCloudflareR2$outboundSchema,
   CreateOutputOutputNutanixObjects$outboundSchema,
+  CreateOutputOutputAlphasocS3$outboundSchema,
 ]);
 
 export function createOutputRequestToJSON(

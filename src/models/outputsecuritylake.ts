@@ -358,9 +358,21 @@ export type OutputSecurityLake = {
    */
   __template_kmsKeyId?: string | undefined;
   /**
+   * Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
+   */
+  __template_accountId?: string | undefined;
+  /**
+   * Binds 'customSource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customSource' at runtime.
+   */
+  __template_customSource?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -465,7 +477,10 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   __template_storageClass: types.optional(types.string()),
   __template_serverSideEncryption: types.optional(types.string()),
   __template_kmsKeyId: types.optional(types.string()),
+  __template_accountId: types.optional(types.string()),
+  __template_customSource: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSecurityLake$Outbound = {
@@ -542,7 +557,10 @@ export type OutputSecurityLake$Outbound = {
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
   __template_kmsKeyId?: string | undefined;
+  __template_accountId?: string | undefined;
+  __template_customSource?: string | undefined;
   __template_awsApiKey?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -628,7 +646,10 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
   __template_kmsKeyId: z.string().optional(),
+  __template_accountId: z.string().optional(),
+  __template_customSource: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function outputSecurityLakeToJSON(

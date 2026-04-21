@@ -110,6 +110,22 @@ export type OutputMicrosoftFabricAuthentication = {
    * Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
    */
   __template_mechanism?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+   */
+  __template_scope?: string | undefined;
 };
 
 export type OutputMicrosoftFabricPqControls = {};
@@ -256,6 +272,10 @@ export type OutputMicrosoftFabric = {
    */
   __template_topic?: string | undefined;
   /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -303,6 +323,10 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   tenantId: types.optional(types.string()),
   scope: types.optional(types.string()),
   __template_mechanism: types.optional(types.string()),
+  __template_oauthEndpoint: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_scope: types.optional(types.string()),
 });
 /** @internal */
 export type OutputMicrosoftFabricAuthentication$Outbound = {
@@ -321,6 +345,10 @@ export type OutputMicrosoftFabricAuthentication$Outbound = {
   tenantId?: string | undefined;
   scope?: string | undefined;
   __template_mechanism?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_scope?: string | undefined;
 };
 
 /** @internal */
@@ -346,6 +374,10 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   scope: z.string().optional(),
   __template_mechanism: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_scope: z.string().optional(),
 });
 
 export function outputMicrosoftFabricAuthenticationToJSON(
@@ -451,6 +483,7 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
     z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema),
   ),
   __template_topic: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_bootstrap_server: types.optional(types.string()),
 });
@@ -494,6 +527,7 @@ export type OutputMicrosoftFabric$Outbound = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls$Outbound | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_bootstrap_server?: string | undefined;
 };
@@ -544,6 +578,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
   __template_topic: z.string().optional(),
+  __template_format: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_bootstrap_server: z.string().optional(),
 });

@@ -9,6 +9,12 @@ import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  OutputAlphasocS3,
+  OutputAlphasocS3$inboundSchema,
+  OutputAlphasocS3$Outbound,
+  OutputAlphasocS3$outboundSchema,
+} from "./outputalphasocs3.js";
+import {
   OutputAzureBlob,
   OutputAzureBlob$inboundSchema,
   OutputAzureBlob$Outbound,
@@ -514,6 +520,7 @@ export type Output =
   | OutputMicrosoftFabric
   | OutputCloudflareR2
   | OutputNutanixObjects
+  | OutputAlphasocS3
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
@@ -595,6 +602,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
     microsoft_fabric: OutputMicrosoftFabric$inboundSchema,
     cloudflare_r2: OutputCloudflareR2$inboundSchema,
     nutanix_objects: OutputNutanixObjects$inboundSchema,
+    alphasoc_s3: OutputAlphasocS3$inboundSchema,
   });
 /** @internal */
 export type Output$Outbound =
@@ -669,7 +677,8 @@ export type Output$Outbound =
   | OutputDatabricks$Outbound
   | OutputMicrosoftFabric$Outbound
   | OutputCloudflareR2$Outbound
-  | OutputNutanixObjects$Outbound;
+  | OutputNutanixObjects$Outbound
+  | OutputAlphasocS3$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -751,6 +760,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputMicrosoftFabric$outboundSchema,
   OutputCloudflareR2$outboundSchema,
   OutputNutanixObjects$outboundSchema,
+  OutputAlphasocS3$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {

@@ -400,6 +400,10 @@ export type OutputDlS3 = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -500,6 +504,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
   __template_kmsKeyId: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_compress: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDlS3$Outbound = {
@@ -585,6 +590,7 @@ export type OutputDlS3$Outbound = {
   __template_kmsKeyId?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -679,6 +685,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   __template_kmsKeyId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function outputDlS3ToJSON(outputDlS3: OutputDlS3): string {

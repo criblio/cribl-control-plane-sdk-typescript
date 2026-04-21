@@ -811,3 +811,14 @@ const value: operations.CreateOutputSystemByPackOutputNutanixObjects = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputAlphasocS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputAlphasocS3 = {
+  id: "<id>",
+  type: "alphasoc_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+

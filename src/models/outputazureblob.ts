@@ -343,6 +343,10 @@ export type OutputAzureBlob = {
    */
   __template_compress?: string | undefined;
   /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
    * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
    */
   __template_connectionString?: string | undefined;
@@ -457,6 +461,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   __template_fileNameSuffix: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_compress: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
   __template_connectionString: types.optional(types.string()),
   __template_storageAccountName: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
@@ -531,6 +536,7 @@ export type OutputAzureBlob$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
   __template_connectionString?: string | undefined;
   __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
@@ -613,6 +619,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
   __template_connectionString: z.string().optional(),
   __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
