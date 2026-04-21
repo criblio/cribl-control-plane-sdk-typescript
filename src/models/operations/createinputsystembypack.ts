@@ -3194,6 +3194,38 @@ export type CreateInputSystemByPackOTLPVersion = OpenEnum<
   typeof CreateInputSystemByPackOTLPVersion
 >;
 
+/**
+ * OpenTelemetry authentication type
+ */
+export const CreateInputSystemByPackAuthenticationTypeOpenTelemetry = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+} as const;
+/**
+ * OpenTelemetry authentication type
+ */
+export type CreateInputSystemByPackAuthenticationTypeOpenTelemetry = OpenEnum<
+  typeof CreateInputSystemByPackAuthenticationTypeOpenTelemetry
+>;
+
 export type CreateInputSystemByPackInputOpenTelemetry = {
   /**
    * Unique ID for this input
@@ -3286,7 +3318,7 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
   /**
    * OpenTelemetry authentication type
    */
-  authType?: models.AuthenticationTypeOptions | undefined;
+  authType?: CreateInputSystemByPackAuthenticationTypeOpenTelemetry | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -13310,6 +13342,16 @@ export const CreateInputSystemByPackOTLPVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputSystemByPackOTLPVersion);
 
 /** @internal */
+export const CreateInputSystemByPackAuthenticationTypeOpenTelemetry$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationTypeOpenTelemetry
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthenticationTypeOpenTelemetry,
+  );
+
+/** @internal */
 export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
@@ -13384,7 +13426,9 @@ export const CreateInputSystemByPackInputOpenTelemetry$outboundSchema:
     extractSpans: z.boolean().optional(),
     extractMetrics: z.boolean().optional(),
     otlpVersion: CreateInputSystemByPackOTLPVersion$outboundSchema.optional(),
-    authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
+    authType:
+      CreateInputSystemByPackAuthenticationTypeOpenTelemetry$outboundSchema
+        .optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     maxActiveCxn: z.number().optional(),
     description: z.string().optional(),

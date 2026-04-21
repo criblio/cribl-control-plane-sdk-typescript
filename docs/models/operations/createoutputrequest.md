@@ -810,3 +810,14 @@ const value: operations.CreateOutputOutputNutanixObjects = {
 };
 ```
 
+### `operations.CreateOutputOutputAlphasocS3`
+
+```typescript
+const value: operations.CreateOutputOutputAlphasocS3 = {
+  id: "<id>",
+  type: "alphasoc_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+

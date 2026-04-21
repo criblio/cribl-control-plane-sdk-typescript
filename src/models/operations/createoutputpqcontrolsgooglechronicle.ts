@@ -9,24 +9,279 @@ import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 
 /**
- * AWS authentication method.
+ * Signature version to use for signing AlphaSOC requests
  */
-export const CreateOutputAuthenticationMethodNutanixObjects = {
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
+export const CreateOutputSignatureVersionAlphasocS3 = {
+  V2: "v2",
+  V4: "v4",
 } as const;
 /**
- * AWS authentication method.
+ * Signature version to use for signing AlphaSOC requests
  */
-export type CreateOutputAuthenticationMethodNutanixObjects = OpenEnum<
-  typeof CreateOutputAuthenticationMethodNutanixObjects
+export type CreateOutputSignatureVersionAlphasocS3 = OpenEnum<
+  typeof CreateOutputSignatureVersionAlphasocS3
 >;
+
+export type CreateOutputOutputAlphasocS3 = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "alphasoc_s3";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * AWS authentication method.
+   */
+  awsAuthenticationMethod?:
+    | models.AuthenticationMethodOptionsa18be1
+    | undefined;
+  /**
+   * Signature version to use for signing AlphaSOC requests
+   */
+  signatureVersion?: CreateOutputSignatureVersionAlphasocS3 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Name of the destination AlphaSOC bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
+  /**
+   * AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
+   */
+  endpoint?: string | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptionsHttp | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+};
 
 /**
  * Signature version to use for signing Nutanix Objects requests
@@ -68,7 +323,7 @@ export type CreateOutputOutputNutanixObjects = {
    * AWS authentication method.
    */
   awsAuthenticationMethod?:
-    | CreateOutputAuthenticationMethodNutanixObjects
+    | models.AuthenticationMethodOptionsa18be1
     | undefined;
   /**
    * Signature version to use for signing Nutanix Objects requests
@@ -2397,7 +2652,7 @@ export type CreateOutputOutputLocalSearchStorage = {
    * URL of the database instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: models.AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
+  authType?: models.AuthenticationTypeOptions | undefined;
   database: string;
   /**
    * Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -2660,7 +2915,7 @@ export type CreateOutputOutputClickHouse = {
    * URL of the ClickHouse instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: models.AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
+  authType?: models.AuthenticationTypeOptions | undefined;
   database: string;
   /**
    * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -5081,6 +5336,36 @@ export const CreateOutputOTLPVersion = {
  */
 export type CreateOutputOTLPVersion = OpenEnum<typeof CreateOutputOTLPVersion>;
 
+export const CreateOutputAuthenticationTypeOpenTelemetry = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * OAuth (text secret)
+   */
+  OauthSecret: "oauthSecret",
+} as const;
+export type CreateOutputAuthenticationTypeOpenTelemetry = OpenEnum<
+  typeof CreateOutputAuthenticationTypeOpenTelemetry
+>;
+
 export type CreateOutputPqControlsOpenTelemetry = {};
 
 export type CreateOutputOutputOpenTelemetry = {
@@ -5125,10 +5410,7 @@ export type CreateOutputOutputOpenTelemetry = {
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
   httpCompress?: models.CompressionOptionsMessages | undefined;
-  /**
-   * OpenTelemetry authentication type
-   */
-  authType?: models.AuthenticationTypeOptions | undefined;
+  authType?: CreateOutputAuthenticationTypeOpenTelemetry | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -5196,6 +5478,38 @@ export type CreateOutputOutputOpenTelemetry = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Select or create a stored text secret for the OAuth secret parameter value to pass in request body
+   */
+  oauthTextSecret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
    *
@@ -5281,6 +5595,10 @@ export type CreateOutputOutputOpenTelemetry = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
 };
 
 /**
@@ -10617,225 +10935,176 @@ export type CreateOutputUDMType = OpenEnum<typeof CreateOutputUDMType>;
 
 export type CreateOutputPqControlsGoogleChronicle = {};
 
-export type CreateOutputOutputGoogleChronicle = {
-  /**
-   * Unique ID for this output
-   */
-  id: string;
-  type: "google_chronicle";
-  /**
-   * Pipeline to process data before sending out to this output
-   */
-  pipeline?: string | undefined;
-  /**
-   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-   */
-  systemFields?: Array<string> | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  apiVersion?: CreateOutputAPIVersion | undefined;
-  authenticationMethod?:
-    | CreateOutputAuthenticationMethodGoogleChronicle
-    | undefined;
-  /**
-   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-   */
-  responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
-    | undefined;
-  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-   */
-  responseHonorRetryAfterHeader?: boolean | undefined;
-  logFormatType: CreateOutputSendEventsAs;
-  /**
-   * Regional endpoint to send events to
-   */
-  region?: string | undefined;
-  /**
-   * Maximum number of ongoing requests before blocking
-   */
-  concurrency?: number | undefined;
-  /**
-   * Maximum size, in KB, of the request body
-   */
-  maxPayloadSizeKB?: number | undefined;
-  /**
-   * Maximum number of events to include in the request body. Default is 0 (unlimited).
-   */
-  maxPayloadEvents?: number | undefined;
-  /**
-   * Compress the payload body before sending
-   */
-  compress?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
-   *
-   * @remarks
-   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
-   *         that value will take precedence.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Amount of time, in seconds, to wait for a request to complete before canceling it
-   */
-  timeoutSec?: number | undefined;
-  /**
-   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-   */
-  flushPeriodSec?: number | undefined;
-  /**
-   * Headers to add to all events
-   */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
-  /**
-   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-   */
-  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
-  /**
-   * List of headers that are safe to log in plain text
-   */
-  safeHeaders?: Array<string> | undefined;
-  /**
-   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
-   */
-  useRoundRobinDns?: boolean | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  /**
-   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-   */
-  totalMemoryLimitKB?: number | undefined;
-  description?: string | undefined;
-  /**
-   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
-   */
-  extraLogTypes?: Array<CreateOutputExtraLogType> | undefined;
-  /**
-   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
-   */
-  logType?: string | undefined;
-  /**
-   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
-   */
-  logTextField?: string | undefined;
-  /**
-   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
-   */
-  customerId?: string | undefined;
-  /**
-   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
-   */
-  namespace?: string | undefined;
-  /**
-   * Custom labels to be added to every batch
-   */
-  customLabels?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
-  /**
-   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
-   */
-  udmType?: CreateOutputUDMType | undefined;
-  /**
-   * Organization's API key in Google SecOps
-   */
-  apiKey?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  apiKeySecret?: string | undefined;
-  /**
-   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-   */
-  serviceAccountCredentials?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  serviceAccountCredentialsSecret?: string | undefined;
-  /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: models.ModeOptions | undefined;
-  /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-   */
-  pqMaxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  pqMaxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-   */
-  pqPath?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  pqCompress?: models.CompressionOptionsPq | undefined;
-  /**
-   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-   */
-  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGoogleChronicle | undefined;
-  /**
-   * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
-   */
-  __template_apiVersion?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
-   */
-  __template_failedRequestLoggingMode?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
-  /**
-   * Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
-   */
-  __template_customerId?: string | undefined;
-};
-
-export type CreateOutputPqControlsAzureEventhub = {};
+/** @internal */
+export const CreateOutputSignatureVersionAlphasocS3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSignatureVersionAlphasocS3
+> = openEnums.outboundSchema(CreateOutputSignatureVersionAlphasocS3);
 
 /** @internal */
-export const CreateOutputAuthenticationMethodNutanixObjects$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateOutputAuthenticationMethodNutanixObjects
-  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodNutanixObjects);
+export type CreateOutputOutputAlphasocS3$Outbound = {
+  id: string;
+  type: "alphasoc_s3";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  bucket: string;
+  destPath?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
+  endpoint?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputOutputAlphasocS3$outboundSchema: z.ZodType<
+  CreateOutputOutputAlphasocS3$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputAlphasocS3
+> = z.object({
+  id: z.string(),
+  type: z.literal("alphasoc_s3"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  awsAuthenticationMethod: models
+    .AuthenticationMethodOptionsa18be1$outboundSchema.optional(),
+  signatureVersion: CreateOutputSignatureVersionAlphasocS3$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  awsSecretKey: z.string().optional(),
+  bucket: z.string(),
+  destPath: z.string().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+  endpoint: z.string().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+  __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
+});
+
+export function createOutputOutputAlphasocS3ToJSON(
+  createOutputOutputAlphasocS3: CreateOutputOutputAlphasocS3,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputAlphasocS3$outboundSchema.parse(
+      createOutputOutputAlphasocS3,
+    ),
+  );
+}
 
 /** @internal */
 export const CreateOutputSignatureVersionNutanixObjects$outboundSchema:
@@ -10930,8 +11199,8 @@ export const CreateOutputOutputNutanixObjects$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod:
-    CreateOutputAuthenticationMethodNutanixObjects$outboundSchema.optional(),
+  awsAuthenticationMethod: models
+    .AuthenticationMethodOptionsa18be1$outboundSchema.optional(),
   signatureVersion: CreateOutputSignatureVersionNutanixObjects$outboundSchema
     .optional(),
   reuseConnections: z.boolean().optional(),
@@ -12682,8 +12951,7 @@ export const CreateOutputOutputLocalSearchStorage$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: models
-    .AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema.optional(),
+  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
   format: CreateOutputFormatLocalSearchStorage$outboundSchema.optional(),
@@ -12900,8 +13168,7 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: models
-    .AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema.optional(),
+  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
   format: CreateOutputFormatClickHouse$outboundSchema.optional(),
@@ -14584,6 +14851,11 @@ export const CreateOutputOTLPVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateOutputOTLPVersion);
 
 /** @internal */
+export const CreateOutputAuthenticationTypeOpenTelemetry$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationTypeOpenTelemetry> =
+    openEnums.outboundSchema(CreateOutputAuthenticationTypeOpenTelemetry);
+
+/** @internal */
 export type CreateOutputPqControlsOpenTelemetry$Outbound = {};
 
 /** @internal */
@@ -14636,6 +14908,14 @@ export type CreateOutputOutputOpenTelemetry$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  oauthTextSecret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   rejectUnauthorized?: boolean | undefined;
   useRoundRobinDns?: boolean | undefined;
   extraHttpHeaders?:
@@ -14662,6 +14942,7 @@ export type CreateOutputOutputOpenTelemetry$Outbound = {
   pqControls?: CreateOutputPqControlsOpenTelemetry$Outbound | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_loginUrl?: string | undefined;
 };
 
 /** @internal */
@@ -14681,7 +14962,8 @@ export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
   otlpVersion: CreateOutputOTLPVersion$outboundSchema.optional(),
   compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
   httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
-  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationTypeOpenTelemetry$outboundSchema
+    .optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
@@ -14702,6 +14984,14 @@ export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  oauthTextSecret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   rejectUnauthorized: z.boolean().optional(),
   useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
@@ -14729,6 +15019,7 @@ export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
     .optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
 });
 
 export function createOutputOutputOpenTelemetryToJSON(
@@ -18782,171 +19073,6 @@ export function createOutputPqControlsGoogleChronicleToJSON(
   return JSON.stringify(
     CreateOutputPqControlsGoogleChronicle$outboundSchema.parse(
       createOutputPqControlsGoogleChronicle,
-    ),
-  );
-}
-
-/** @internal */
-export type CreateOutputOutputGoogleChronicle$Outbound = {
-  id: string;
-  type: "google_chronicle";
-  pipeline?: string | undefined;
-  systemFields?: Array<string> | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  apiVersion?: string | undefined;
-  authenticationMethod?: string | undefined;
-  responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
-    | undefined;
-  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader?: boolean | undefined;
-  logFormatType: string;
-  region?: string | undefined;
-  concurrency?: number | undefined;
-  maxPayloadSizeKB?: number | undefined;
-  maxPayloadEvents?: number | undefined;
-  compress?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  timeoutSec?: number | undefined;
-  flushPeriodSec?: number | undefined;
-  extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
-    | undefined;
-  failedRequestLoggingMode?: string | undefined;
-  safeHeaders?: Array<string> | undefined;
-  useRoundRobinDns?: boolean | undefined;
-  onBackpressure?: string | undefined;
-  totalMemoryLimitKB?: number | undefined;
-  description?: string | undefined;
-  extraLogTypes?: Array<CreateOutputExtraLogType$Outbound> | undefined;
-  logType?: string | undefined;
-  logTextField?: string | undefined;
-  customerId?: string | undefined;
-  namespace?: string | undefined;
-  customLabels?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  udmType?: string | undefined;
-  apiKey?: string | undefined;
-  apiKeySecret?: string | undefined;
-  serviceAccountCredentials?: string | undefined;
-  serviceAccountCredentialsSecret?: string | undefined;
-  pqStrictOrdering?: boolean | undefined;
-  pqRatePerSec?: number | undefined;
-  pqMode?: string | undefined;
-  pqMaxBufferSize?: number | undefined;
-  pqMaxBackpressureSec?: number | undefined;
-  pqMaxFileSize?: string | undefined;
-  pqMaxSize?: string | undefined;
-  pqPath?: string | undefined;
-  pqCompress?: string | undefined;
-  pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGoogleChronicle$Outbound | undefined;
-  __template_apiVersion?: string | undefined;
-  __template_region?: string | undefined;
-  __template_failedRequestLoggingMode?: string | undefined;
-  __template_onBackpressure?: string | undefined;
-  __template_customerId?: string | undefined;
-};
-
-/** @internal */
-export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
-  CreateOutputOutputGoogleChronicle$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputGoogleChronicle
-> = z.object({
-  id: z.string(),
-  type: z.literal("google_chronicle"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  apiVersion: CreateOutputAPIVersion$outboundSchema.optional(),
-  authenticationMethod:
-    CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema.optional(),
-  responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  logFormatType: CreateOutputSendEventsAs$outboundSchema,
-  region: z.string().optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  totalMemoryLimitKB: z.number().optional(),
-  description: z.string().optional(),
-  extraLogTypes: z.array(z.lazy(() => CreateOutputExtraLogType$outboundSchema))
-    .optional(),
-  logType: z.string().optional(),
-  logTextField: z.string().optional(),
-  customerId: z.string().optional(),
-  namespace: z.string().optional(),
-  customLabels: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
-  udmType: CreateOutputUDMType$outboundSchema.optional(),
-  apiKey: z.string().optional(),
-  apiKeySecret: z.string().optional(),
-  serviceAccountCredentials: z.string().optional(),
-  serviceAccountCredentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsGoogleChronicle$outboundSchema)
-    .optional(),
-  __template_apiVersion: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_customerId: z.string().optional(),
-});
-
-export function createOutputOutputGoogleChronicleToJSON(
-  createOutputOutputGoogleChronicle: CreateOutputOutputGoogleChronicle,
-): string {
-  return JSON.stringify(
-    CreateOutputOutputGoogleChronicle$outboundSchema.parse(
-      createOutputOutputGoogleChronicle,
-    ),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsAzureEventhub$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsAzureEventhub$outboundSchema: z.ZodType<
-  CreateOutputPqControlsAzureEventhub$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsAzureEventhub
-> = z.object({});
-
-export function createOutputPqControlsAzureEventhubToJSON(
-  createOutputPqControlsAzureEventhub: CreateOutputPqControlsAzureEventhub,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsAzureEventhub$outboundSchema.parse(
-      createOutputPqControlsAzureEventhub,
     ),
   );
 }

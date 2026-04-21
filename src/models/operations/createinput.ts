@@ -3173,6 +3173,38 @@ export const CreateInputOTLPVersion = {
  */
 export type CreateInputOTLPVersion = OpenEnum<typeof CreateInputOTLPVersion>;
 
+/**
+ * OpenTelemetry authentication type
+ */
+export const CreateInputAuthenticationTypeOpenTelemetry = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+} as const;
+/**
+ * OpenTelemetry authentication type
+ */
+export type CreateInputAuthenticationTypeOpenTelemetry = OpenEnum<
+  typeof CreateInputAuthenticationTypeOpenTelemetry
+>;
+
 export type CreateInputInputOpenTelemetry = {
   /**
    * Unique ID for this input
@@ -3265,7 +3297,7 @@ export type CreateInputInputOpenTelemetry = {
   /**
    * OpenTelemetry authentication type
    */
-  authType?: models.AuthenticationTypeOptions | undefined;
+  authType?: CreateInputAuthenticationTypeOpenTelemetry | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -13070,6 +13102,11 @@ export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputOTLPVersion);
 
 /** @internal */
+export const CreateInputAuthenticationTypeOpenTelemetry$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthenticationTypeOpenTelemetry> =
+    openEnums.outboundSchema(CreateInputAuthenticationTypeOpenTelemetry);
+
+/** @internal */
 export type CreateInputInputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
@@ -13143,7 +13180,8 @@ export const CreateInputInputOpenTelemetry$outboundSchema: z.ZodType<
   extractSpans: z.boolean().optional(),
   extractMetrics: z.boolean().optional(),
   otlpVersion: CreateInputOTLPVersion$outboundSchema.optional(),
-  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
+  authType: CreateInputAuthenticationTypeOpenTelemetry$outboundSchema
+    .optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   description: z.string().optional(),

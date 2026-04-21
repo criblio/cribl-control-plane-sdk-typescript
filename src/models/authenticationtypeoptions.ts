@@ -6,9 +6,6 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
-/**
- * OpenTelemetry authentication type
- */
 export const AuthenticationTypeOptions = {
   /**
    * None
@@ -23,17 +20,10 @@ export const AuthenticationTypeOptions = {
    */
   CredentialsSecret: "credentialsSecret",
   /**
-   * Token
+   * SSL User Certificate
    */
-  Token: "token",
-  /**
-   * Token (text secret)
-   */
-  TextSecret: "textSecret",
+  SslUserCertificate: "sslUserCertificate",
 } as const;
-/**
- * OpenTelemetry authentication type
- */
 export type AuthenticationTypeOptions = OpenEnum<
   typeof AuthenticationTypeOptions
 >;

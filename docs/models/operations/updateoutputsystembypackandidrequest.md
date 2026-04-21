@@ -9,7 +9,8 @@ let value: UpdateOutputSystemByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   output: {
-    type: "tcpjson",
+    type: "wavefront",
+    domain: "dirty-hamburger.info",
   },
 };
 ```

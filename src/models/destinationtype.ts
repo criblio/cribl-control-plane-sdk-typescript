@@ -79,6 +79,7 @@ export const DestinationType = {
   Databricks: "databricks",
   WizHec: "wiz_hec",
   NutanixObjects: "nutanix_objects",
+  AlphasocS3: "alphasoc_s3",
 } as const;
 export type DestinationType = OpenEnum<typeof DestinationType>;
 

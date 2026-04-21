@@ -69,25 +69,25 @@ import {
 } from "./retrysettingstype.js";
 
 /**
- * Signature version to use for signing Nutanix Objects requests
+ * Signature version to use for signing AlphaSOC requests
  */
-export const OutputNutanixObjectsSignatureVersion = {
+export const OutputAlphasocS3SignatureVersion = {
   V2: "v2",
   V4: "v4",
 } as const;
 /**
- * Signature version to use for signing Nutanix Objects requests
+ * Signature version to use for signing AlphaSOC requests
  */
-export type OutputNutanixObjectsSignatureVersion = OpenEnum<
-  typeof OutputNutanixObjectsSignatureVersion
+export type OutputAlphasocS3SignatureVersion = OpenEnum<
+  typeof OutputAlphasocS3SignatureVersion
 >;
 
-export type OutputNutanixObjects = {
+export type OutputAlphasocS3 = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: "nutanix_objects";
+  type: "alphasoc_s3";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -109,9 +109,9 @@ export type OutputNutanixObjects = {
    */
   awsAuthenticationMethod?: AuthenticationMethodOptionsa18be1 | undefined;
   /**
-   * Signature version to use for signing Nutanix Objects requests
+   * Signature version to use for signing AlphaSOC requests
    */
-  signatureVersion?: OutputNutanixObjectsSignatureVersion | undefined;
+  signatureVersion?: OutputAlphasocS3SignatureVersion | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -125,13 +125,9 @@ export type OutputNutanixObjects = {
    */
   awsSecretKey?: string | undefined;
   /**
-   * Name of the destination Nutanix Objects bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   * Name of the destination AlphaSOC bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   bucket: string;
-  /**
-   * Region where the Nutanix Objects bucket is located
-   */
-  region?: string | undefined;
   /**
    * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
    */
@@ -219,9 +215,9 @@ export type OutputNutanixObjects = {
   retrySettings?: RetrySettingsType | undefined;
   orphans?: OrphanFileRecoveryType | undefined;
   /**
-   * Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
+   * AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
    */
-  endpoint: string;
+  endpoint?: string | undefined;
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -308,17 +304,9 @@ export type OutputNutanixObjects = {
    */
   __template_bucket?: string | undefined;
   /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
    * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
    */
   __template_destPath?: string | undefined;
-  /**
-   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
-   */
-  __template_partitionExpr?: string | undefined;
   /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
@@ -354,26 +342,26 @@ export type OutputNutanixObjects = {
 };
 
 /** @internal */
-export const OutputNutanixObjectsSignatureVersion$inboundSchema: z.ZodType<
-  OutputNutanixObjectsSignatureVersion,
+export const OutputAlphasocS3SignatureVersion$inboundSchema: z.ZodType<
+  OutputAlphasocS3SignatureVersion,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(OutputNutanixObjectsSignatureVersion);
+> = openEnums.inboundSchema(OutputAlphasocS3SignatureVersion);
 /** @internal */
-export const OutputNutanixObjectsSignatureVersion$outboundSchema: z.ZodType<
+export const OutputAlphasocS3SignatureVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  OutputNutanixObjectsSignatureVersion
-> = openEnums.outboundSchema(OutputNutanixObjectsSignatureVersion);
+  OutputAlphasocS3SignatureVersion
+> = openEnums.outboundSchema(OutputAlphasocS3SignatureVersion);
 
 /** @internal */
-export const OutputNutanixObjects$inboundSchema: z.ZodType<
-  OutputNutanixObjects,
+export const OutputAlphasocS3$inboundSchema: z.ZodType<
+  OutputAlphasocS3,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: types.optional(types.string()),
-  type: types.literal("nutanix_objects"),
+  type: types.literal("alphasoc_s3"),
   pipeline: types.optional(types.string()),
   systemFields: types.optional(z.array(types.string())),
   environment: types.optional(types.string()),
@@ -382,13 +370,12 @@ export const OutputNutanixObjects$inboundSchema: z.ZodType<
     AuthenticationMethodOptionsa18be1$inboundSchema,
   ),
   signatureVersion: types.optional(
-    OutputNutanixObjectsSignatureVersion$inboundSchema,
+    OutputAlphasocS3SignatureVersion$inboundSchema,
   ),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   awsSecretKey: types.optional(types.string()),
   bucket: types.string(),
-  region: types.optional(types.string()),
   destPath: types.optional(types.string()),
   maxConcurrentFileParts: types.optional(types.number()),
   verifyPermissions: types.optional(types.boolean()),
@@ -416,7 +403,7 @@ export const OutputNutanixObjects$inboundSchema: z.ZodType<
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
   orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  endpoint: types.string(),
+  endpoint: types.optional(types.string()),
   description: types.optional(types.string()),
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
@@ -441,9 +428,7 @@ export const OutputNutanixObjects$inboundSchema: z.ZodType<
   maxRetryNum: types.optional(types.number()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_bucket: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
   __template_destPath: types.optional(types.string()),
-  __template_partitionExpr: types.optional(types.string()),
   __template_format: types.optional(types.string()),
   __template_baseFileName: types.optional(types.string()),
   __template_fileNameSuffix: types.optional(types.string()),
@@ -454,9 +439,9 @@ export const OutputNutanixObjects$inboundSchema: z.ZodType<
   __template_parquetSchema: types.optional(types.string()),
 });
 /** @internal */
-export type OutputNutanixObjects$Outbound = {
+export type OutputAlphasocS3$Outbound = {
   id?: string | undefined;
-  type: "nutanix_objects";
+  type: "alphasoc_s3";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -467,7 +452,6 @@ export type OutputNutanixObjects$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   awsSecretKey?: string | undefined;
   bucket: string;
-  region?: string | undefined;
   destPath?: string | undefined;
   maxConcurrentFileParts?: number | undefined;
   verifyPermissions?: boolean | undefined;
@@ -491,7 +475,7 @@ export type OutputNutanixObjects$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
   orphans?: OrphanFileRecoveryType$Outbound | undefined;
-  endpoint: string;
+  endpoint?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -514,9 +498,7 @@ export type OutputNutanixObjects$Outbound = {
   maxRetryNum?: number | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
   __template_destPath?: string | undefined;
-  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
@@ -528,26 +510,24 @@ export type OutputNutanixObjects$Outbound = {
 };
 
 /** @internal */
-export const OutputNutanixObjects$outboundSchema: z.ZodType<
-  OutputNutanixObjects$Outbound,
+export const OutputAlphasocS3$outboundSchema: z.ZodType<
+  OutputAlphasocS3$Outbound,
   z.ZodTypeDef,
-  OutputNutanixObjects
+  OutputAlphasocS3
 > = z.object({
   id: z.string().optional(),
-  type: z.literal("nutanix_objects"),
+  type: z.literal("alphasoc_s3"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   awsAuthenticationMethod: AuthenticationMethodOptionsa18be1$outboundSchema
     .optional(),
-  signatureVersion: OutputNutanixObjectsSignatureVersion$outboundSchema
-    .optional(),
+  signatureVersion: OutputAlphasocS3SignatureVersion$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   awsSecretKey: z.string().optional(),
   bucket: z.string(),
-  region: z.string().optional(),
   destPath: z.string().optional(),
   maxConcurrentFileParts: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
@@ -572,7 +552,7 @@ export const OutputNutanixObjects$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
-  endpoint: z.string(),
+  endpoint: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -596,9 +576,7 @@ export const OutputNutanixObjects$outboundSchema: z.ZodType<
   maxRetryNum: z.number().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
   __template_destPath: z.string().optional(),
-  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
@@ -609,19 +587,19 @@ export const OutputNutanixObjects$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function outputNutanixObjectsToJSON(
-  outputNutanixObjects: OutputNutanixObjects,
+export function outputAlphasocS3ToJSON(
+  outputAlphasocS3: OutputAlphasocS3,
 ): string {
   return JSON.stringify(
-    OutputNutanixObjects$outboundSchema.parse(outputNutanixObjects),
+    OutputAlphasocS3$outboundSchema.parse(outputAlphasocS3),
   );
 }
-export function outputNutanixObjectsFromJSON(
+export function outputAlphasocS3FromJSON(
   jsonString: string,
-): SafeParseResult<OutputNutanixObjects, SDKValidationError> {
+): SafeParseResult<OutputAlphasocS3, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputNutanixObjects$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNutanixObjects' from JSON`,
+    (x) => OutputAlphasocS3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAlphasocS3' from JSON`,
   );
 }
