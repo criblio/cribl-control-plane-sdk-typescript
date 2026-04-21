@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: fc2e7dc65e9e67e28ef97b0a04f39e3c
-  docVersion: 4.18.0-alpha.1776765370303-78edef6e
+  docChecksum: 939f1453e3cbe71c4860ccc62515f084
+  docVersion: 4.18.0-alpha.1776797533587-4e4e09dc
   speakeasyVersion: 1.761.8
   generationVersion: 2.881.2
-  releaseVersion: 0.7.0-rc.16
-  configChecksum: d4b6acad356caddba7a4d11113ea76f9
+  releaseVersion: 0.7.0-rc.17
+  configChecksum: b3e267a027aad856541a5de606fe190f
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 584f43b7-1d95-4e47-9f74-265553ab5af7
-  pristine_commit_hash: 457be9b8a631547dff3bb0714376a486cafe3c1f
-  pristine_tree_hash: be776d9f21385bf92f0ad9e8363b70b74cb06f91
+  generation_id: 8f214146-ca18-4172-af3a-92fd8a32c0b4
+  pristine_commit_hash: e168cf5d40a592319d5a79260f451366e3d901da
+  pristine_tree_hash: f8c99cf0452615de0eca4eae2074324382258504
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -346,8 +346,8 @@ trackedFiles:
     pristine_git_object: 76c643b672ffd2550f1fd70fa8344d9c249d8e47
   docs/models/captureparams.md:
     id: 1d6912bc4894
-    last_write_checksum: sha1:499bcea48aa9e648cef399b8850d485b1a462fc5
-    pristine_git_object: 10ad550f8b0a87cbca20facf869ce010ffdd11eb
+    last_write_checksum: sha1:6fd73d35906ae0700b95b7d54561d17d9e404c45
+    pristine_git_object: e710514d827f781495a227641020d06ab99bbed8
   docs/models/capturesettings.md:
     id: bb1908540520
     last_write_checksum: sha1:c516562088bb00dc8bc61e33fd630dc258a0eeba
@@ -1552,6 +1552,10 @@ trackedFiles:
     id: 345df7081232
     last_write_checksum: sha1:8d3567d4a85cbd26ea2a08fd244b986711e3c122
     pristine_git_object: c978b5f1e54a02ef29cfb452211f2d2fa73504be
+  docs/models/granttype.md:
+    id: c3d5681ac7bd
+    last_write_checksum: sha1:6f318873e41dd7c3683ffed1ab7821e3b245b629
+    pristine_git_object: 9b8d691a8e91a38c37f66abe34c1ae4e71b8721f
   docs/models/groupcreaterequest.md:
     id: eabe8de251b6
     last_write_checksum: sha1:c569af53cb11482ef340d27b1de40618658a6562
@@ -2702,8 +2706,8 @@ trackedFiles:
     pristine_git_object: 244dde314285b804cf3329ffe6b3e31d3d65cfc1
   docs/models/inputservicenowtable.md:
     id: 5e26bd68f257
-    last_write_checksum: sha1:bb5f67e3a1f3788a5c64e0fce1b6e94ff819aada
-    pristine_git_object: 566cd50e61dbb82f2d9e0f5adfb8e8cd85cbe2ca
+    last_write_checksum: sha1:1bb6b10512275445149172c1b1f6a1ace9d80943
+    pristine_git_object: 07b02cc383105abb476f4a145e6b065411421c00
   docs/models/inputservicenowtableauthenticationtype.md:
     id: 4c299290f8f0
     last_write_checksum: sha1:40068384604a79aeea15835022ac013a0222abc1
@@ -3596,6 +3600,10 @@ trackedFiles:
     id: 9f5567ece937
     last_write_checksum: sha1:f81ced884fc1147ba7e4f364ed2caca7c6a4ddd6
     pristine_git_object: f68196673bc8c78a0114ff63019512d03a9f4f1a
+  docs/models/operations/createinputgranttype.md:
+    id: 9ea586d332e1
+    last_write_checksum: sha1:579bd0bb3428d9036048c2619961e077408c637d
+    pristine_git_object: cd3607da68e1d2d8a3d2947a0488a3ea9bee9de5
   docs/models/operations/createinputhectokenbyidrequest.md:
     id: b240f3427726
     last_write_checksum: sha1:a82da47bde8e5d56c2891834e8b6657e7c87c6e1
@@ -3838,8 +3846,8 @@ trackedFiles:
     pristine_git_object: 0fd4ef1d67a2fd0980781d15122611fc98c92c3e
   docs/models/operations/createinputinputservicenowtable.md:
     id: 09fe2ff38b91
-    last_write_checksum: sha1:db79d739749a0becb1958f0c81a3c75628b499d9
-    pristine_git_object: 565f92e76b14323302d13abeb76a2a1b92ddffee
+    last_write_checksum: sha1:04a8dd36de0d9732ac0bc1fcceb42a6a1d5153c5
+    pristine_git_object: 6db3bdeec650356061de16dfbc9cfdafe169d948
   docs/models/operations/createinputinputsnmp.md:
     id: ab314229c911
     last_write_checksum: sha1:5ea2b6e475762a12c46841a9af91b8cccd1ec01a
@@ -4348,6 +4356,10 @@ trackedFiles:
     id: c1f6f76261c1
     last_write_checksum: sha1:fd2e85806fb6f00e327aaa86c2662bfd3b38dd57
     pristine_git_object: 2be356db4ddd112764acb43a4401b3e821d20093
+  docs/models/operations/createinputsystembypackgranttype.md:
+    id: 7c7c1dfcf8da
+    last_write_checksum: sha1:0f37d37a563280ecfbb60c8dfaa8d7a0dcc64568
+    pristine_git_object: 4783373925bc25da146270e4bc0bfa5ab22d6001
   docs/models/operations/createinputsystembypackhostinfo.md:
     id: 8d85229c0be3
     last_write_checksum: sha1:896d6eec2a6b74f1633236b4780965e160729876
@@ -4586,8 +4598,8 @@ trackedFiles:
     pristine_git_object: f7534f94b9dbc1153f9ea134b23aa5888d4c4243
   docs/models/operations/createinputsystembypackinputservicenowtable.md:
     id: d2312dd2364e
-    last_write_checksum: sha1:227b611fc5ec598b175717ea3ce02b599674e63d
-    pristine_git_object: c06ee925f80cbfeba88f7dd76e2941530adcbd75
+    last_write_checksum: sha1:d1e673acea99574cfdcd9bda0bfe27a1b37fc518
+    pristine_git_object: 9b63eb6cbc29cc8f9617dba4c86004add9b4ae8d
   docs/models/operations/createinputsystembypackinputsnmp.md:
     id: 6eb781b19f39
     last_write_checksum: sha1:12f07eb00d72c147483e5f2308d56db912fa588a
@@ -11406,12 +11418,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:b4ffa71ccf8458a3a2e2fcd50904cb53edaf6595
-    pristine_git_object: 2f64affadd7c05ab82abec105187be22ee10b457
+    last_write_checksum: sha1:7641755bda9d73ed7f3fd4de91463a2c11ae36a9
+    pristine_git_object: e3ccc087247dfd1391fbd3824ba065b119a8eb8e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:cbbfbbbf4c576de6c8fbd62ab64bdde714f373b0
-    pristine_git_object: 7f8fa61a0b6c4757beb85b457c6e375a4b498246
+    last_write_checksum: sha1:1c3b0f071ca46ddbc13894bb78156bc051f74fa0
+    pristine_git_object: 38e4facbf1d40bbc052c9b32dddaf001c24b8a39
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -11910,8 +11922,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:cb647dfbd24d29ca8f879e133e879ddc75eddb9f
-    pristine_git_object: 8fb18d47b55d9a012b9f7659722e20c711570f76
+    last_write_checksum: sha1:0abfd0601803bbe500ce6588736e65b0fc0ecd0f
+    pristine_git_object: 0a74ce6d0ddd88dc1277115cdcee02cf88007146
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -12130,8 +12142,8 @@ trackedFiles:
     pristine_git_object: 701f51a45b0f28a864264a6d19e7da8eefeb4c7e
   src/models/captureparams.ts:
     id: 384f22c325d8
-    last_write_checksum: sha1:7b57e5ede6cce40991f85856d840928c25df8f38
-    pristine_git_object: d8a5957bf2dbade9a1999388bf9c704d0ab28033
+    last_write_checksum: sha1:1bf7110edfaa24829b11f0ef7635a55e744caab8
+    pristine_git_object: cffec86a1c2c54afe327a9d8c72da79e11a0fc42
   src/models/certificatetypeazureblobauthtypeclientcert.ts:
     id: c649f2a6aae1
     last_write_checksum: sha1:3b940ade64c9bc5367928ae91d866439a0a05e62
@@ -13274,8 +13286,8 @@ trackedFiles:
     pristine_git_object: d20b3c0d9b565f025e815da30155e2cf2e6cd618
   src/models/inputservicenowtable.ts:
     id: c3030e536b28
-    last_write_checksum: sha1:7fbb71ad7344408306720adf3ea9bcf0dc835407
-    pristine_git_object: 665a9824283229ae369de6a296ed3dbad4a073da
+    last_write_checksum: sha1:3d7ace9ba3fd4992c58ff19a47322e931f470476
+    pristine_git_object: c11822396f4365adb72146226b477f7f1b70f434
   src/models/inputsnmp.ts:
     id: 8220cbd542bb
     last_write_checksum: sha1:0065bf72ee08b9dcbe2df498ebec86d6414e8933
@@ -13634,16 +13646,16 @@ trackedFiles:
     pristine_git_object: b70baf74b65eb6014e2e326c2e60baf3d8967a5f
   src/models/operations/createinput.ts:
     id: 9b961c34b2ad
-    last_write_checksum: sha1:587db77d1b6747c69bb6a15bc929ffb1c074d163
-    pristine_git_object: b2e67ff0c1de0e72d3ccef599303c71c229d135c
+    last_write_checksum: sha1:9c9a4effab0fcc5e3cdd64cc7b99ab98fcd95e85
+    pristine_git_object: a0b40b4bec36194d8f27d234358c88aa108977b1
   src/models/operations/createinputhectokenbyid.ts:
     id: 9a464b44af35
     last_write_checksum: sha1:03dd8fb2b2839e7942c5878317541441f3b3dabd
     pristine_git_object: d50a0dbe7b197ac6f66323b5b328909b1f8d4bcb
   src/models/operations/createinputsystembypack.ts:
     id: dffd2d4542a1
-    last_write_checksum: sha1:15adc269b40d05d3449ad8c2556a14d823bde3f8
-    pristine_git_object: 93a8105c54a2afd40eeb9ebc45669e3d1e3710d7
+    last_write_checksum: sha1:c4a4173aa4e96074a8d86ca074bf43072186465f
+    pristine_git_object: 251775bac77674587ebfa29b2e360d0c251db862
   src/models/operations/createinputsystemhectokenbypackandid.ts:
     id: 2604ae95759e
     last_write_checksum: sha1:ded26c9726b95b548001b19f142eef9d470388b8
@@ -20271,7 +20283,7 @@ examples:
   createSystemCapture:
     speakeasy-default-create-system-capture:
       requestBody:
-        application/json: {"duration": 5717.32, "filter": "<value>", "level": 2, "maxEvents": 9941.84}
+        application/json: {}
       responses:
         "500":
           application/json: {}
@@ -26357,7 +26369,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.packs.sources.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.update()`: \n  *  `request.savedJob.union(SavedJobCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(SavedJobResponseCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.get()`:  `response.items[].union(SavedJobResponseCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.delete()`:  `response.items[].union(SavedJobResponseCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.list()`:  `response.items[].union(SavedJobResponseCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.install()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.packs.list()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.packs.get()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.packs.update()`:  `response.items[].navItems` **Removed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.create()`: \n  *  `request.union(SavedJobCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(SavedJobResponseCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.destinations.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.destinations.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector.union(rest).conf` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.destinations.list()`: \n  *  `request.type` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.destinations.list()`: \n  *  `request.type` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items[]` **Changed**\n* `criblcontrolplane.packs.destinations.create()`: \n  *  `request.requestBody` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.packs.destinations.get()`:  `response.items[]` **Changed**\n* `criblcontrolplane.packs.destinations.update()`: \n  *  `request.output` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.packs.destinations.delete()`:  `response.items[]` **Changed**\n* `criblcontrolplane.packs.sources.get()`:  `response.items[]` **Changed**\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[]` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items[]` **Changed**\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.packs.sources.list()`:  `response.items[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items[]` **Changed**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed**\n  *  `response.items[]` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items[]` **Changed**\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed**\n  *  `response.items[]` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.list()`:  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.create()`: \n  *  `request.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.get()`:  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.delete()`:  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.list()`:  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.get()`:  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input.union(servicenow_table)` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[].union(servicenow_table)` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.system.captures.create()`:  `request` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

@@ -7,23 +7,23 @@ import { CaptureLevel, CaptureLevel$outboundSchema } from "./capturelevel.js";
 
 export type CaptureParams = {
   /**
-   * Amount of time to keep capture open, in seconds.
+   * Amount of time to keep capture open, in seconds. If not provided, the default is 5 seconds.
    */
-  duration: number;
+  duration?: number | undefined;
   /**
-   * JavaScript expression evaluated against each event to determine whether an event is included in the capture output. Expressions can reference any event field and use logical operators.
+   * JavaScript expression evaluated against each event to determine whether an event is included in the capture output. Expressions can reference any event field and use logical operators. If not provided, all events are captured.
    */
-  filter: string;
+  filter?: string | undefined;
   /**
    * Stage at which events are captured. <br><code>0</code> == Before pre-processing Pipeline <br><code>1</code> == Before the Routes <br><code>2</code> == Before post-processing Pipeline <br><code>3</code> == Before the Destination.
    */
-  level: CaptureLevel;
+  level?: CaptureLevel | undefined;
   /**
-   * Maximum number of events to capture.
+   * Maximum number of events to capture. If not provided, the default is 100.
    */
-  maxEvents: number;
+  maxEvents?: number | undefined;
   /**
-   * How long to wait before increasing the capture sample size. Specify <code>1</code> second or longer.
+   * How long to wait before increasing the capture sample size. Specify <code>1</code> second or longer. If not provided, the default is 5 seconds.
    */
   stepDuration?: number | undefined;
   /**
@@ -31,17 +31,17 @@ export type CaptureParams = {
    */
   workerId?: string | undefined;
   /**
-   * Maximum number of Workers that can capture initially. A value of <code>0</code> means unlimited (all available Workers can capture).
+   * Maximum number of Workers that can capture initially. A value of <code>0</code> means unlimited (all available Workers can capture). If not provided, the default is 50.
    */
   workerThreshold?: number | undefined;
 };
 
 /** @internal */
 export type CaptureParams$Outbound = {
-  duration: number;
-  filter: string;
-  level: number;
-  maxEvents: number;
+  duration?: number | undefined;
+  filter?: string | undefined;
+  level?: number | undefined;
+  maxEvents?: number | undefined;
   stepDuration?: number | undefined;
   workerId?: string | undefined;
   workerThreshold?: number | undefined;
@@ -53,10 +53,10 @@ export const CaptureParams$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CaptureParams
 > = z.object({
-  duration: z.number(),
-  filter: z.string(),
-  level: CaptureLevel$outboundSchema,
-  maxEvents: z.number().int(),
+  duration: z.number().int().optional(),
+  filter: z.string().optional(),
+  level: CaptureLevel$outboundSchema.optional(),
+  maxEvents: z.number().int().optional(),
   stepDuration: z.number().int().optional(),
   workerId: z.string().optional(),
   workerThreshold: z.number().int().optional(),

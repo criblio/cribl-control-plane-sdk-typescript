@@ -46,9 +46,9 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
 export const SDK_METADATA = {
   language: "typescript",
-  openapiDocVersion: "4.18.0-alpha.1776765370303-78edef6e",
-  sdkVersion: "0.7.0-rc.16",
+  openapiDocVersion: "4.18.0-alpha.1776797533587-4e4e09dc",
+  sdkVersion: "0.7.0-rc.17",
   genVersion: "2.881.2",
   userAgent:
-    "speakeasy-sdk/typescript 0.7.0-rc.16 2.881.2 4.18.0-alpha.1776765370303-78edef6e cribl-control-plane",
+    "speakeasy-sdk/typescript 0.7.0-rc.17 2.881.2 4.18.0-alpha.1776797533587-4e4e09dc cribl-control-plane",
 } as const;
