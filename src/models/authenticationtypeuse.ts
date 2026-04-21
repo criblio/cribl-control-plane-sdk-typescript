@@ -92,6 +92,22 @@ export type AuthenticationTypeUse = {
    * Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
    */
   __template_mechanism?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+   */
+  __template_scope?: string | undefined;
 };
 
 /** @internal */
@@ -127,6 +143,10 @@ export const AuthenticationTypeUse$inboundSchema: z.ZodType<
   scope: types.optional(types.string()),
   __template_password: types.optional(types.string()),
   __template_mechanism: types.optional(types.string()),
+  __template_oauthEndpoint: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_scope: types.optional(types.string()),
 });
 /** @internal */
 export type AuthenticationTypeUse$Outbound = {
@@ -149,6 +169,10 @@ export type AuthenticationTypeUse$Outbound = {
   scope?: string | undefined;
   __template_password?: string | undefined;
   __template_mechanism?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_scope?: string | undefined;
 };
 
 /** @internal */
@@ -179,6 +203,10 @@ export const AuthenticationTypeUse$outboundSchema: z.ZodType<
   scope: z.string().optional(),
   __template_password: z.string().optional(),
   __template_mechanism: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_scope: z.string().optional(),
 });
 
 export function authenticationTypeUseToJSON(

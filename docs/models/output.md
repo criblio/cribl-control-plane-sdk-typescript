@@ -744,3 +744,13 @@ const value: models.OutputNutanixObjects = {
 };
 ```
 
+### `models.OutputAlphasocS3`
+
+```typescript
+const value: models.OutputAlphasocS3 = {
+  type: "alphasoc_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+

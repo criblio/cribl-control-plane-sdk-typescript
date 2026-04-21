@@ -1,6 +1,6 @@
 # Config
 
-Configuration bundle and policy revision metadata for this node.
+Configuration bundle and policy revision metadata for the node.
 
 ## Example Usage
 
@@ -14,7 +14,7 @@ let value: Config = {};
 
 | Field                                                             | Type                                                              | Required                                                          | Description                                                       |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `featuresRev`                                                     | *string*                                                          | :heavy_minus_sign:                                                | Feature flags or feature revision string for this bundle.         |
+| `featuresRev`                                                     | *string*                                                          | :heavy_minus_sign:                                                | Feature flags or feature revision string for the bundle.          |
 | `hbPeriodSeconds`                                                 | *number*                                                          | :heavy_minus_sign:                                                | Worker-to-Leader heartbeat interval, in seconds.                  |
 | `logStreamEnv`                                                    | *string*                                                          | :heavy_minus_sign:                                                | GitOps or LogStream environment label associated with the bundle. |
 | `policyRev`                                                       | *string*                                                          | :heavy_minus_sign:                                                | Current policies revision string.                                 |

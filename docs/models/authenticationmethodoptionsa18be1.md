@@ -1,13 +1,13 @@
-# OutputNutanixObjectsAuthenticationMethod
+# AuthenticationMethodOptionsa18be1
 
 AWS authentication method.
 
 ## Example Usage
 
 ```typescript
-import { OutputNutanixObjectsAuthenticationMethod } from "cribl-control-plane/models";
+import { AuthenticationMethodOptionsa18be1 } from "cribl-control-plane/models";
 
-let value: OutputNutanixObjectsAuthenticationMethod = "secret";
+let value: AuthenticationMethodOptionsa18be1 = "secret";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

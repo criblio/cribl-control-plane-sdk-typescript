@@ -9,6 +9,11 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  AuthenticationMethodOptionsa18be1,
+  AuthenticationMethodOptionsa18be1$inboundSchema,
+  AuthenticationMethodOptionsa18be1$outboundSchema,
+} from "./authenticationmethodoptionsa18be1.js";
+import {
   BackpressureBehaviorOptionsBlockDrop,
   BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
@@ -64,26 +69,6 @@ import {
 } from "./retrysettingstype.js";
 
 /**
- * AWS authentication method.
- */
-export const OutputNutanixObjectsAuthenticationMethod = {
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method.
- */
-export type OutputNutanixObjectsAuthenticationMethod = OpenEnum<
-  typeof OutputNutanixObjectsAuthenticationMethod
->;
-
-/**
  * Signature version to use for signing Nutanix Objects requests
  */
 export const OutputNutanixObjectsSignatureVersion = {
@@ -122,9 +107,7 @@ export type OutputNutanixObjects = {
   /**
    * AWS authentication method.
    */
-  awsAuthenticationMethod?:
-    | OutputNutanixObjectsAuthenticationMethod
-    | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptionsa18be1 | undefined;
   /**
    * Signature version to use for signing Nutanix Objects requests
    */
@@ -364,20 +347,11 @@ export type OutputNutanixObjects = {
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
 };
-
-/** @internal */
-export const OutputNutanixObjectsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputNutanixObjectsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputNutanixObjectsAuthenticationMethod);
-/** @internal */
-export const OutputNutanixObjectsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputNutanixObjectsAuthenticationMethod
-> = openEnums.outboundSchema(OutputNutanixObjectsAuthenticationMethod);
 
 /** @internal */
 export const OutputNutanixObjectsSignatureVersion$inboundSchema: z.ZodType<
@@ -405,7 +379,7 @@ export const OutputNutanixObjects$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   awsAuthenticationMethod: types.optional(
-    OutputNutanixObjectsAuthenticationMethod$inboundSchema,
+    AuthenticationMethodOptionsa18be1$inboundSchema,
   ),
   signatureVersion: types.optional(
     OutputNutanixObjectsSignatureVersion$inboundSchema,
@@ -477,6 +451,7 @@ export const OutputNutanixObjects$inboundSchema: z.ZodType<
   __template_endpoint: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_compress: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
 });
 /** @internal */
 export type OutputNutanixObjects$Outbound = {
@@ -549,6 +524,7 @@ export type OutputNutanixObjects$Outbound = {
   __template_endpoint?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -563,8 +539,8 @@ export const OutputNutanixObjects$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod:
-    OutputNutanixObjectsAuthenticationMethod$outboundSchema.optional(),
+  awsAuthenticationMethod: AuthenticationMethodOptionsa18be1$outboundSchema
+    .optional(),
   signatureVersion: OutputNutanixObjectsSignatureVersion$outboundSchema
     .optional(),
   reuseConnections: z.boolean().optional(),
@@ -630,6 +606,7 @@ export const OutputNutanixObjects$outboundSchema: z.ZodType<
   __template_endpoint: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function outputNutanixObjectsToJSON(

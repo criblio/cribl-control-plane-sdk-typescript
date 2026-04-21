@@ -2769,6 +2769,83 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesOkta
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesOkta" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesOpenAI
 
 <!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesOpenAI" -->
@@ -7575,6 +7652,85 @@ async function run() {
       pqEnabled: false,
       tenantId: "tenant-id",
       appId: "app-id",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesOkta
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesOkta" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
     },
   });
   if (res.ok) {

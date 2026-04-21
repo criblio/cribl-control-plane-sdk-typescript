@@ -9,8 +9,9 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "loki",
-    url: "https://scary-reach.info",
+    type: "crowdstrike_next_gen_siem",
+    url: "https://unhappy-programme.net",
+    format: "JSON",
   },
 };
 ```

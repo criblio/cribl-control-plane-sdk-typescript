@@ -8,7 +8,7 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "wiz_webhook",
+    type: "netflow",
     host: "fake-promise.name",
     port: 8170.81,
   },

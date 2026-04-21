@@ -107,6 +107,7 @@ import {
   InputOffice365Service,
   InputOffice365Service$inboundSchema,
 } from "./inputoffice365service.js";
+import { InputOkta, InputOkta$inboundSchema } from "./inputokta.js";
 import { InputOpenai, InputOpenai$inboundSchema } from "./inputopenai.js";
 import {
   InputOpenaiComplianceLogs,
@@ -245,6 +246,7 @@ export type Input1 =
   | InputZscalerHec
   | InputCloudflareHec
   | InputOpenaiComplianceLogs
+  | InputOkta
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
@@ -321,6 +323,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     zscaler_hec: InputZscalerHec$inboundSchema,
     cloudflare_hec: InputCloudflareHec$inboundSchema,
     openai_compliance_logs: InputOpenaiComplianceLogs$inboundSchema,
+    okta: InputOkta$inboundSchema,
   });
 
 export function input1FromJSON(

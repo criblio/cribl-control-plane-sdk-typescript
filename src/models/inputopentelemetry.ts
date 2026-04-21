@@ -8,11 +8,6 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AuthenticationTypeOptions,
-  AuthenticationTypeOptions$inboundSchema,
-  AuthenticationTypeOptions$outboundSchema,
-} from "./authenticationtypeoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -77,6 +72,38 @@ export const InputOpenTelemetryOTLPVersion = {
  */
 export type InputOpenTelemetryOTLPVersion = OpenEnum<
   typeof InputOpenTelemetryOTLPVersion
+>;
+
+/**
+ * OpenTelemetry authentication type
+ */
+export const InputOpenTelemetryAuthenticationType = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+} as const;
+/**
+ * OpenTelemetry authentication type
+ */
+export type InputOpenTelemetryAuthenticationType = OpenEnum<
+  typeof InputOpenTelemetryAuthenticationType
 >;
 
 export type InputOpenTelemetry = {
@@ -171,7 +198,7 @@ export type InputOpenTelemetry = {
   /**
    * OpenTelemetry authentication type
    */
-  authType?: AuthenticationTypeOptions | undefined;
+  authType?: InputOpenTelemetryAuthenticationType | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -240,6 +267,19 @@ export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputOpenTelemetryOTLPVersion);
 
 /** @internal */
+export const InputOpenTelemetryAuthenticationType$inboundSchema: z.ZodType<
+  InputOpenTelemetryAuthenticationType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputOpenTelemetryAuthenticationType);
+/** @internal */
+export const InputOpenTelemetryAuthenticationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputOpenTelemetryAuthenticationType
+> = openEnums.outboundSchema(InputOpenTelemetryAuthenticationType);
+
+/** @internal */
 export const InputOpenTelemetry$inboundSchema: z.ZodType<
   InputOpenTelemetry,
   z.ZodTypeDef,
@@ -272,7 +312,7 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   extractSpans: types.optional(types.boolean()),
   extractMetrics: types.optional(types.boolean()),
   otlpVersion: types.optional(InputOpenTelemetryOTLPVersion$inboundSchema),
-  authType: types.optional(AuthenticationTypeOptions$inboundSchema),
+  authType: types.optional(InputOpenTelemetryAuthenticationType$inboundSchema),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   maxActiveCxn: types.optional(types.number()),
   description: types.optional(types.string()),
@@ -359,7 +399,7 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   extractSpans: z.boolean().optional(),
   extractMetrics: z.boolean().optional(),
   otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
-  authType: AuthenticationTypeOptions$outboundSchema.optional(),
+  authType: InputOpenTelemetryAuthenticationType$outboundSchema.optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   description: z.string().optional(),

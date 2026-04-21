@@ -9,10 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationTypeOptionsBasicCredentialsSecret,
-  AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
-  AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema,
-} from "./authenticationtypeoptionsbasiccredentialssecret.js";
+  AuthenticationTypeOptions,
+  AuthenticationTypeOptions$inboundSchema,
+  AuthenticationTypeOptions$outboundSchema,
+} from "./authenticationtypeoptions.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -157,7 +157,7 @@ export type OutputLocalSearchStorage = {
    * URL of the database instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: AuthenticationTypeOptionsBasicCredentialsSecret | undefined;
+  authType?: AuthenticationTypeOptions | undefined;
   database: string;
   /**
    * Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -513,9 +513,7 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   url: types.string(),
-  authType: types.optional(
-    AuthenticationTypeOptionsBasicCredentialsSecret$inboundSchema,
-  ),
+  authType: types.optional(AuthenticationTypeOptions$inboundSchema),
   database: types.string(),
   tableName: types.string(),
   format: types.optional(OutputLocalSearchStorageFormat$inboundSchema),
@@ -660,8 +658,7 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: AuthenticationTypeOptionsBasicCredentialsSecret$outboundSchema
-    .optional(),
+  authType: AuthenticationTypeOptions$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
   format: OutputLocalSearchStorageFormat$outboundSchema.optional(),

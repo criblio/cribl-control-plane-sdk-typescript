@@ -261,6 +261,26 @@ export type OutputChronicle = {
    */
   __template_onBackpressure?: string | undefined;
   /**
+   * Binds 'namespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'namespace' at runtime.
+   */
+  __template_namespace?: string | undefined;
+  /**
+   * Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
+   */
+  __template_logType?: string | undefined;
+  /**
+   * Binds 'logTextField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logTextField' at runtime.
+   */
+  __template_logTextField?: string | undefined;
+  /**
+   * Binds 'gcpProjectId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpProjectId' at runtime.
+   */
+  __template_gcpProjectId?: string | undefined;
+  /**
+   * Binds 'gcpInstance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'gcpInstance' at runtime.
+   */
+  __template_gcpInstance?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -422,6 +442,11 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   __template_region: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
+  __template_namespace: types.optional(types.string()),
+  __template_logType: types.optional(types.string()),
+  __template_logTextField: types.optional(types.string()),
+  __template_gcpProjectId: types.optional(types.string()),
+  __template_gcpInstance: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
 });
 /** @internal */
@@ -479,6 +504,11 @@ export type OutputChronicle$Outbound = {
   __template_region?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_namespace?: string | undefined;
+  __template_logType?: string | undefined;
+  __template_logTextField?: string | undefined;
+  __template_gcpProjectId?: string | undefined;
+  __template_gcpInstance?: string | undefined;
   __template_endpoint?: string | undefined;
 };
 
@@ -543,6 +573,11 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   __template_region: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_namespace: z.string().optional(),
+  __template_logType: z.string().optional(),
+  __template_logTextField: z.string().optional(),
+  __template_gcpProjectId: z.string().optional(),
+  __template_gcpInstance: z.string().optional(),
   __template_endpoint: z.string().optional(),
 });
 

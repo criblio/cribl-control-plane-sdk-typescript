@@ -676,3 +676,13 @@ const value: models.InputOpenaiComplianceLogs = {
 };
 ```
 
+### `models.InputOkta`
+
+```typescript
+const value: models.InputOkta = {
+  type: "okta",
+  oktaDomain: "<value>",
+  textSecret: "<value>",
+};
+```
+

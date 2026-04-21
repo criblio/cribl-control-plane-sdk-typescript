@@ -7,11 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthTypeAuthTypeCredentialsSecret,
-  AuthTypeAuthTypeCredentialsSecret$inboundSchema,
-  AuthTypeAuthTypeCredentialsSecret$Outbound,
-  AuthTypeAuthTypeCredentialsSecret$outboundSchema,
-} from "./authtypeauthtypecredentialssecret.js";
+  AuthTypeTemplatemanualApiKeyAuthType,
+  AuthTypeTemplatemanualApiKeyAuthType$inboundSchema,
+  AuthTypeTemplatemanualApiKeyAuthType$Outbound,
+  AuthTypeTemplatemanualApiKeyAuthType$outboundSchema,
+} from "./authtypetemplatemanualapikeyauthtype.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -143,7 +143,7 @@ export type OutputElasticCloud = {
    * Extra parameters to use in HTTP requests
    */
   extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: AuthTypeAuthTypeCredentialsSecret | undefined;
+  auth?: AuthTypeTemplatemanualApiKeyAuthType | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
    */
@@ -212,9 +212,21 @@ export type OutputElasticCloud = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls | undefined;
   /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
+   */
+  __template_index?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'elasticPipeline' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticPipeline' at runtime.
+   */
+  __template_elasticPipeline?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -287,7 +299,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   extraParams: types.optional(
     z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
   ),
-  auth: types.optional(AuthTypeAuthTypeCredentialsSecret$inboundSchema),
+  auth: types.optional(AuthTypeTemplatemanualApiKeyAuthType$inboundSchema),
   elasticPipeline: types.optional(types.string()),
   includeDocId: types.optional(types.boolean()),
   responseRetrySettings: types.optional(
@@ -311,7 +323,10 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputElasticCloudPqControls$inboundSchema),
   ),
+  __template_url: types.optional(types.string()),
+  __template_index: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
+  __template_elasticPipeline: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
@@ -335,7 +350,7 @@ export type OutputElasticCloud$Outbound = {
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   extraParams?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: AuthTypeAuthTypeCredentialsSecret$Outbound | undefined;
+  auth?: AuthTypeTemplatemanualApiKeyAuthType$Outbound | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
   responseRetrySettings?:
@@ -357,7 +372,10 @@ export type OutputElasticCloud$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls$Outbound | undefined;
+  __template_url?: string | undefined;
+  __template_index?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
+  __template_elasticPipeline?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -388,7 +406,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
-  auth: AuthTypeAuthTypeCredentialsSecret$outboundSchema.optional(),
+  auth: AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
@@ -410,7 +428,10 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$outboundSchema)
     .optional(),
+  __template_url: z.string().optional(),
+  __template_index: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
+  __template_elasticPipeline: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
