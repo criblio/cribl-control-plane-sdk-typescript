@@ -93,6 +93,24 @@ export type InputServicenowTableAuthenticationType = OpenEnum<
   typeof InputServicenowTableAuthenticationType
 >;
 
+/**
+ * ServiceNow OAuth grant type used for token requests
+ */
+export const GrantType = {
+  /**
+   * Password
+   */
+  ClientCredentials: "client_credentials",
+  /**
+   * Client credentials
+   */
+  Password: "password",
+} as const;
+/**
+ * ServiceNow OAuth grant type used for token requests
+ */
+export type GrantType = OpenEnum<typeof GrantType>;
+
 export type InputServicenowTableManageState = {};
 
 export type InputServicenowTable = {
@@ -230,29 +248,21 @@ export type InputServicenowTable = {
    */
   credentialsSecret?: string | undefined;
   /**
-   * URL for OAuth
+   * ServiceNow OAuth grant type used for token requests
    */
-  loginUrl?: string | undefined;
+  oauthGrantType?: GrantType | undefined;
   /**
-   * Secret parameter name to pass in request body
+   * ServiceNow username for the password grant type
    */
-  secretParamName?: string | undefined;
+  username?: string | undefined;
   /**
-   * Select or create a stored text secret for the OAuth client secret parameter value
+   * Select or create a stored text secret for the ServiceNow password value
    */
   textSecret?: string | undefined;
   /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   * Enable custom OAuth request parameters or headers for advanced ServiceNow configurations. Leave disabled for standard ServiceNow OAuth flows.
    */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
+  useCustomOAuthParamsOrHeaders?: boolean | undefined;
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
@@ -261,6 +271,11 @@ export type InputServicenowTable = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  clientId?: string | undefined;
+  /**
+   * Select or create a stored text secret for the OAuth client secret value
+   */
+  clientTextSecret?: string | undefined;
   /**
    * JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
    */
@@ -287,9 +302,13 @@ export type InputServicenowTable = {
    */
   __template_query?: string | undefined;
   /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
-  __template_loginUrl?: string | undefined;
+  __template_username?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -317,6 +336,19 @@ export const InputServicenowTableAuthenticationType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputServicenowTableAuthenticationType
 > = openEnums.outboundSchema(InputServicenowTableAuthenticationType);
+
+/** @internal */
+export const GrantType$inboundSchema: z.ZodType<
+  GrantType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(GrantType);
+/** @internal */
+export const GrantType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  GrantType
+> = openEnums.outboundSchema(GrantType);
 
 /** @internal */
 export const InputServicenowTableManageState$inboundSchema: z.ZodType<
@@ -400,14 +432,14 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
+  oauthGrantType: types.optional(GrantType$inboundSchema),
+  username: types.optional(types.string()),
   textSecret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
+  useCustomOAuthParamsOrHeaders: types.optional(types.boolean()),
   oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
   oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
+  clientId: types.optional(types.string()),
+  clientTextSecret: types.optional(types.string()),
   stateUpdateExpression: types.optional(types.string()),
   stateMergeExpression: types.optional(types.string()),
   manageState: types.optional(
@@ -417,7 +449,8 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
   __template_instance: types.optional(types.string()),
   __template_orderByField: types.optional(types.string()),
   __template_query: types.optional(types.string()),
-  __template_loginUrl: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
 });
 /** @internal */
 export type InputServicenowTable$Outbound = {
@@ -458,14 +491,14 @@ export type InputServicenowTable$Outbound = {
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   credentialsSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
+  oauthGrantType?: string | undefined;
+  username?: string | undefined;
   textSecret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
+  useCustomOAuthParamsOrHeaders?: boolean | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  clientId?: string | undefined;
+  clientTextSecret?: string | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?: InputServicenowTableManageState$Outbound | undefined;
@@ -473,7 +506,8 @@ export type InputServicenowTable$Outbound = {
   __template_instance?: string | undefined;
   __template_orderByField?: string | undefined;
   __template_query?: string | undefined;
-  __template_loginUrl?: string | undefined;
+  __template_username?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -519,14 +553,14 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
+  oauthGrantType: GrantType$outboundSchema.optional(),
+  username: z.string().optional(),
   textSecret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
+  useCustomOAuthParamsOrHeaders: z.boolean().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  clientId: z.string().optional(),
+  clientTextSecret: z.string().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
   manageState: z.lazy(() => InputServicenowTableManageState$outboundSchema)
@@ -535,7 +569,8 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   __template_instance: z.string().optional(),
   __template_orderByField: z.string().optional(),
   __template_query: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
+  __template_username: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
 export function inputServicenowTableToJSON(
