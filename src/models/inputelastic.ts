@@ -266,6 +266,10 @@ export type InputElastic = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
 };
 
 /** @internal */
@@ -422,6 +426,7 @@ export const InputElastic$inboundSchema: z.ZodType<
   __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_elasticAPI: types.optional(types.string()),
 });
 /** @internal */
 export type InputElastic$Outbound = {
@@ -464,6 +469,7 @@ export type InputElastic$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_elasticAPI?: string | undefined;
 };
 
 /** @internal */
@@ -512,6 +518,7 @@ export const InputElastic$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
 });
 
 export function inputElasticToJSON(inputElastic: InputElastic): string {
