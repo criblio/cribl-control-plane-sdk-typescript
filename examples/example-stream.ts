@@ -31,7 +31,6 @@ import {
   ConfigGroup,
   PipelineInput,
   RouteConf,
-  CaptureParams,
   CaptureLevel,
 } from "../dist/esm/models";
 import { baseUrl, createCriblClient } from "./auth";
@@ -154,7 +153,7 @@ async function main() {
 
   // Capture live events from the Pipeline
   console.log("\n📡 Starting event capture...");
-  const captureParams: CaptureParams = {
+  const captureParams = {
     duration: 30,
     filter: "__inputId=='tcpjson:my-tcp-json'",
     level: CaptureLevel.BeforeRoutes,
