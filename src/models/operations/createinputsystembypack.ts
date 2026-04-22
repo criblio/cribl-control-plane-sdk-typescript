@@ -464,6 +464,10 @@ export type CreateInputSystemByPackInputCloudflareHec = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+   */
+  __template_hecAPI?: string | undefined;
 };
 
 export type CreateInputSystemByPackAuthTokenZscalerHec = {
@@ -667,6 +671,26 @@ export type CreateInputSystemByPackAuthenticationTypeServicenowTable = OpenEnum<
   typeof CreateInputSystemByPackAuthenticationTypeServicenowTable
 >;
 
+/**
+ * ServiceNow OAuth grant type used for token requests
+ */
+export const CreateInputSystemByPackGrantType = {
+  /**
+   * Password
+   */
+  ClientCredentials: "client_credentials",
+  /**
+   * Client credentials
+   */
+  Password: "password",
+} as const;
+/**
+ * ServiceNow OAuth grant type used for token requests
+ */
+export type CreateInputSystemByPackGrantType = OpenEnum<
+  typeof CreateInputSystemByPackGrantType
+>;
+
 export type CreateInputSystemByPackManageStateServicenowTable = {};
 
 export type CreateInputSystemByPackInputServicenowTable = {
@@ -806,29 +830,21 @@ export type CreateInputSystemByPackInputServicenowTable = {
    */
   credentialsSecret?: string | undefined;
   /**
-   * URL for OAuth
+   * ServiceNow OAuth grant type used for token requests
    */
-  loginUrl?: string | undefined;
+  oauthGrantType?: CreateInputSystemByPackGrantType | undefined;
   /**
-   * Secret parameter name to pass in request body
+   * ServiceNow username for the password grant type
    */
-  secretParamName?: string | undefined;
+  username?: string | undefined;
   /**
-   * Select or create a stored text secret for the OAuth client secret parameter value
+   * Select or create a stored text secret for the ServiceNow password value
    */
   textSecret?: string | undefined;
   /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   * Enable custom OAuth request parameters or headers for advanced ServiceNow configurations. Leave disabled for standard ServiceNow OAuth flows.
    */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
+  useCustomOAuthParamsOrHeaders?: boolean | undefined;
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
@@ -837,6 +853,11 @@ export type CreateInputSystemByPackInputServicenowTable = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  clientId?: string | undefined;
+  /**
+   * Select or create a stored text secret for the OAuth client secret value
+   */
+  clientTextSecret?: string | undefined;
   /**
    * JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
    */
@@ -863,9 +884,13 @@ export type CreateInputSystemByPackInputServicenowTable = {
    */
   __template_query?: string | undefined;
   /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
-  __template_loginUrl?: string | undefined;
+  __template_username?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputSecurityLake = {
@@ -2187,6 +2212,14 @@ export type CreateInputSystemByPackInputWef = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'keytab' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytab' at runtime.
+   */
+  __template_keytab?: string | undefined;
+  /**
+   * Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+   */
+  __template_principal?: string | undefined;
 };
 
 export type CreateInputSystemByPackAllow = {
@@ -3358,6 +3391,14 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'protocol' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'protocol' at runtime.
+   */
+  __template_protocol?: string | undefined;
+  /**
+   * Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
+   */
+  __template_otlpVersion?: string | undefined;
 };
 
 export type CreateInputSystemByPackV3User = {
@@ -9189,6 +9230,10 @@ export type CreateInputSystemByPackInputElastic = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
 };
 
 export type CreateInputSystemByPackInputAzureBlob = {
@@ -10995,6 +11040,7 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_hecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -11047,6 +11093,7 @@ export const CreateInputSystemByPackInputCloudflareHec$outboundSchema:
     __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
+    __template_hecAPI: z.string().optional(),
   });
 
 export function createInputSystemByPackInputCloudflareHecToJSON(
@@ -11217,6 +11264,13 @@ export const CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSc
   );
 
 /** @internal */
+export const CreateInputSystemByPackGrantType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackGrantType
+> = openEnums.outboundSchema(CreateInputSystemByPackGrantType);
+
+/** @internal */
 export type CreateInputSystemByPackManageStateServicenowTable$Outbound = {};
 
 /** @internal */
@@ -11277,14 +11331,14 @@ export type CreateInputSystemByPackInputServicenowTable$Outbound = {
   retryRules?: models.RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   credentialsSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
+  oauthGrantType?: string | undefined;
+  username?: string | undefined;
   textSecret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
+  useCustomOAuthParamsOrHeaders?: boolean | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  clientId?: string | undefined;
+  clientTextSecret?: string | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?:
@@ -11294,7 +11348,8 @@ export type CreateInputSystemByPackInputServicenowTable$Outbound = {
   __template_instance?: string | undefined;
   __template_orderByField?: string | undefined;
   __template_query?: string | undefined;
-  __template_loginUrl?: string | undefined;
+  __template_username?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -11345,15 +11400,15 @@ export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
     retryRules: models.RetryRulesType$outboundSchema.optional(),
     description: z.string().optional(),
     credentialsSecret: z.string().optional(),
-    loginUrl: z.string().optional(),
-    secretParamName: z.string().optional(),
+    oauthGrantType: CreateInputSystemByPackGrantType$outboundSchema.optional(),
+    username: z.string().optional(),
     textSecret: z.string().optional(),
-    tokenAttributeName: z.string().optional(),
-    authHeaderExpr: z.string().optional(),
-    tokenTimeoutSecs: z.number().optional(),
+    useCustomOAuthParamsOrHeaders: z.boolean().optional(),
     oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
     oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema)
       .optional(),
+    clientId: z.string().optional(),
+    clientTextSecret: z.string().optional(),
     stateUpdateExpression: z.string().optional(),
     stateMergeExpression: z.string().optional(),
     manageState: z.lazy(() =>
@@ -11363,7 +11418,8 @@ export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
     __template_instance: z.string().optional(),
     __template_orderByField: z.string().optional(),
     __template_query: z.string().optional(),
-    __template_loginUrl: z.string().optional(),
+    __template_username: z.string().optional(),
+    __template_clientId: z.string().optional(),
   });
 
 export function createInputSystemByPackInputServicenowTableToJSON(
@@ -12455,6 +12511,8 @@ export type CreateInputSystemByPackInputWef$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_keytab?: string | undefined;
+  __template_principal?: string | undefined;
 };
 
 /** @internal */
@@ -12503,6 +12561,8 @@ export const CreateInputSystemByPackInputWef$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_keytab: z.string().optional(),
+  __template_principal: z.string().optional(),
 });
 
 export function createInputSystemByPackInputWefToJSON(
@@ -13391,6 +13451,8 @@ export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_protocol?: string | undefined;
+  __template_otlpVersion?: string | undefined;
 };
 
 /** @internal */
@@ -13441,6 +13503,8 @@ export const CreateInputSystemByPackInputOpenTelemetry$outboundSchema:
     __template_environment: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
+    __template_protocol: z.string().optional(),
+    __template_otlpVersion: z.string().optional(),
   });
 
 export function createInputSystemByPackInputOpenTelemetryToJSON(
@@ -18751,6 +18815,7 @@ export type CreateInputSystemByPackInputElastic$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_elasticAPI?: string | undefined;
 };
 
 /** @internal */
@@ -18803,6 +18868,7 @@ export const CreateInputSystemByPackInputElastic$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
 });
 
 export function createInputSystemByPackInputElasticToJSON(

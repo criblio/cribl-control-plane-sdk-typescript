@@ -368,7 +368,7 @@ export * from "./jobinfo.js";
 export * from "./jobstatus.js";
 export * from "./jobtypeoptionsrunnablejobcollection.js";
 export * from "./kafkaschemaregistryauthenticationtype.js";
-export * from "./kafkaschemaregistryauthenticationtypeauthconnectiontimeout.js";
+export * from "./kafkaschemaregistryauthenticationtypetemplateschemaregistryurlauth.js";
 export * from "./kubetypeheartbeatmetadata.js";
 export * from "./lakedatasetmetrics.js";
 export * from "./lakedatasetsearchconfig.js";

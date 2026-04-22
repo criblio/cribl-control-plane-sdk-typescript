@@ -43,6 +43,10 @@ export type KafkaSchemaRegistryAuthenticationType = {
    */
   auth?: AuthType | undefined;
   tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  /**
+   * Binds 'schemaRegistryURL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'schemaRegistryURL' at runtime.
+   */
+  __template_schemaRegistryURL?: string | undefined;
 };
 
 /** @internal */
@@ -58,6 +62,7 @@ export const KafkaSchemaRegistryAuthenticationType$inboundSchema: z.ZodType<
   maxRetries: types.optional(types.number()),
   auth: types.optional(AuthType$inboundSchema),
   tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
+  __template_schemaRegistryURL: types.optional(types.string()),
 });
 /** @internal */
 export type KafkaSchemaRegistryAuthenticationType$Outbound = {
@@ -68,6 +73,7 @@ export type KafkaSchemaRegistryAuthenticationType$Outbound = {
   maxRetries?: number | undefined;
   auth?: AuthType$Outbound | undefined;
   tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  __template_schemaRegistryURL?: string | undefined;
 };
 
 /** @internal */
@@ -83,6 +89,7 @@ export const KafkaSchemaRegistryAuthenticationType$outboundSchema: z.ZodType<
   maxRetries: z.number().optional(),
   auth: AuthType$outboundSchema.optional(),
   tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  __template_schemaRegistryURL: z.string().optional(),
 });
 
 export function kafkaSchemaRegistryAuthenticationTypeToJSON(
