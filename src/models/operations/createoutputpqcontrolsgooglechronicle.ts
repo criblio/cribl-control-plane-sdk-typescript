@@ -9381,7 +9381,7 @@ export type CreateOutputOutputMsk = {
    */
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
+    | models.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -9620,7 +9620,7 @@ export type CreateOutputOutputConfluentCloud = {
    */
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
+    | models.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -9791,7 +9791,7 @@ export type CreateOutputOutputKafka = {
    */
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
+    | models.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -17958,7 +17958,7 @@ export type CreateOutputOutputMsk$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
+    | models.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -18031,7 +18031,7 @@ export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+    .KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema
     .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
@@ -18129,7 +18129,7 @@ export type CreateOutputOutputConfluentCloud$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
+    | models.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -18184,7 +18184,7 @@ export const CreateOutputOutputConfluentCloud$outboundSchema: z.ZodType<
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+    .KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema
     .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
@@ -18265,7 +18265,7 @@ export type CreateOutputOutputKafka$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | models.KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
+    | models.KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -18320,7 +18320,7 @@ export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+    .KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema
     .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),

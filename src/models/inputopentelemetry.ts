@@ -238,6 +238,14 @@ export type InputOpenTelemetry = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'protocol' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'protocol' at runtime.
+   */
+  __template_protocol?: string | undefined;
+  /**
+   * Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
+   */
+  __template_otlpVersion?: string | undefined;
 };
 
 /** @internal */
@@ -325,6 +333,8 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_protocol: types.optional(types.string()),
+  __template_otlpVersion: types.optional(types.string()),
 });
 /** @internal */
 export type InputOpenTelemetry$Outbound = {
@@ -366,6 +376,8 @@ export type InputOpenTelemetry$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_protocol?: string | undefined;
+  __template_otlpVersion?: string | undefined;
 };
 
 /** @internal */
@@ -412,6 +424,8 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_protocol: z.string().optional(),
+  __template_otlpVersion: z.string().optional(),
 });
 
 export function inputOpenTelemetryToJSON(

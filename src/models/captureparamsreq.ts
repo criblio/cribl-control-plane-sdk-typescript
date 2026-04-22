@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { CaptureLevel, CaptureLevel$outboundSchema } from "./capturelevel.js";
 
-export type CaptureParams = {
+export type CaptureParamsReq = {
   /**
    * Amount of time to keep capture open, in seconds. If not provided, the default is 5 seconds.
    */
@@ -37,7 +37,7 @@ export type CaptureParams = {
 };
 
 /** @internal */
-export type CaptureParams$Outbound = {
+export type CaptureParamsReq$Outbound = {
   duration?: number | undefined;
   filter?: string | undefined;
   level?: number | undefined;
@@ -48,10 +48,10 @@ export type CaptureParams$Outbound = {
 };
 
 /** @internal */
-export const CaptureParams$outboundSchema: z.ZodType<
-  CaptureParams$Outbound,
+export const CaptureParamsReq$outboundSchema: z.ZodType<
+  CaptureParamsReq$Outbound,
   z.ZodTypeDef,
-  CaptureParams
+  CaptureParamsReq
 > = z.object({
   duration: z.number().int().optional(),
   filter: z.string().optional(),
@@ -62,6 +62,10 @@ export const CaptureParams$outboundSchema: z.ZodType<
   workerThreshold: z.number().int().optional(),
 });
 
-export function captureParamsToJSON(captureParams: CaptureParams): string {
-  return JSON.stringify(CaptureParams$outboundSchema.parse(captureParams));
+export function captureParamsReqToJSON(
+  captureParamsReq: CaptureParamsReq,
+): string {
+  return JSON.stringify(
+    CaptureParamsReq$outboundSchema.parse(captureParamsReq),
+  );
 }

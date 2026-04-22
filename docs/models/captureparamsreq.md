@@ -1,11 +1,11 @@
-# CaptureParams
+# CaptureParamsReq
 
 ## Example Usage
 
 ```typescript
-import { CaptureParams } from "cribl-control-plane/models";
+import { CaptureParamsReq } from "cribl-control-plane/models";
 
-let value: CaptureParams = {};
+let value: CaptureParamsReq = {};
 ```
 
 ## Fields

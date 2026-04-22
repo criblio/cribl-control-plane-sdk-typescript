@@ -459,6 +459,10 @@ export type CreateInputInputCloudflareHec = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+   */
+  __template_hecAPI?: string | undefined;
 };
 
 export type CreateInputAuthTokenZscalerHec = {
@@ -2191,6 +2195,14 @@ export type CreateInputInputWef = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'keytab' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytab' at runtime.
+   */
+  __template_keytab?: string | undefined;
+  /**
+   * Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+   */
+  __template_principal?: string | undefined;
 };
 
 export type CreateInputAllow = {
@@ -3356,6 +3368,14 @@ export type CreateInputInputOpenTelemetry = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'protocol' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'protocol' at runtime.
+   */
+  __template_protocol?: string | undefined;
+  /**
+   * Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
+   */
+  __template_otlpVersion?: string | undefined;
 };
 
 export type CreateInputV3User = {
@@ -9172,6 +9192,10 @@ export type CreateInputInputElastic = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
 };
 
 export type CreateInputInputAzureBlob = {
@@ -10875,6 +10899,7 @@ export type CreateInputInputCloudflareHec$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_hecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -10922,6 +10947,7 @@ export const CreateInputInputCloudflareHec$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_hecAPI: z.string().optional(),
 });
 
 export function createInputInputCloudflareHecToJSON(
@@ -12277,6 +12303,8 @@ export type CreateInputInputWef$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_keytab?: string | undefined;
+  __template_principal?: string | undefined;
 };
 
 /** @internal */
@@ -12321,6 +12349,8 @@ export const CreateInputInputWef$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_keytab: z.string().optional(),
+  __template_principal: z.string().optional(),
 });
 
 export function createInputInputWefToJSON(
@@ -13174,6 +13204,8 @@ export type CreateInputInputOpenTelemetry$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_protocol?: string | undefined;
+  __template_otlpVersion?: string | undefined;
 };
 
 /** @internal */
@@ -13222,6 +13254,8 @@ export const CreateInputInputOpenTelemetry$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_protocol: z.string().optional(),
+  __template_otlpVersion: z.string().optional(),
 });
 
 export function createInputInputOpenTelemetryToJSON(
@@ -18250,6 +18284,7 @@ export type CreateInputInputElastic$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_elasticAPI?: string | undefined;
 };
 
 /** @internal */
@@ -18300,6 +18335,7 @@ export const CreateInputInputElastic$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
 });
 
 export function createInputInputElasticToJSON(

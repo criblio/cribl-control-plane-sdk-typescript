@@ -308,6 +308,14 @@ export type InputWef = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'keytab' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytab' at runtime.
+   */
+  __template_keytab?: string | undefined;
+  /**
+   * Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+   */
+  __template_principal?: string | undefined;
 };
 
 /** @internal */
@@ -571,6 +579,8 @@ export const InputWef$inboundSchema: z.ZodType<
   __template_environment: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_keytab: types.optional(types.string()),
+  __template_principal: types.optional(types.string()),
 });
 /** @internal */
 export type InputWef$Outbound = {
@@ -608,6 +618,8 @@ export type InputWef$Outbound = {
   __template_environment?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_keytab?: string | undefined;
+  __template_principal?: string | undefined;
 };
 
 /** @internal */
@@ -650,6 +662,8 @@ export const InputWef$outboundSchema: z.ZodType<
   __template_environment: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_keytab: z.string().optional(),
+  __template_principal: z.string().optional(),
 });
 
 export function inputWefToJSON(inputWef: InputWef): string {
