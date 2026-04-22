@@ -83,6 +83,30 @@ export type AuthenticationType = {
    * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
    */
   saslExtensions?: Array<ItemsTypeSaslSaslExtensions> | undefined;
+  /**
+   * Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
+   */
+  __template_mechanism?: string | undefined;
+  /**
+   * Binds 'keytabLocation' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytabLocation' at runtime.
+   */
+  __template_keytabLocation?: string | undefined;
+  /**
+   * Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+   */
+  __template_principal?: string | undefined;
+  /**
+   * Binds 'brokerServiceClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokerServiceClass' at runtime.
+   */
+  __template_brokerServiceClass?: string | undefined;
+  /**
+   * Binds 'tokenUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenUrl' at runtime.
+   */
+  __template_tokenUrl?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -109,6 +133,12 @@ export const AuthenticationType$inboundSchema: z.ZodType<
   saslExtensions: types.optional(
     z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
   ),
+  __template_mechanism: types.optional(types.string()),
+  __template_keytabLocation: types.optional(types.string()),
+  __template_principal: types.optional(types.string()),
+  __template_brokerServiceClass: types.optional(types.string()),
+  __template_tokenUrl: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
 });
 /** @internal */
 export type AuthenticationType$Outbound = {
@@ -128,6 +158,12 @@ export type AuthenticationType$Outbound = {
   clientTextSecret?: string | undefined;
   oauthParams?: Array<ItemsTypeSaslOauthParams$Outbound> | undefined;
   saslExtensions?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
+  __template_mechanism?: string | undefined;
+  __template_keytabLocation?: string | undefined;
+  __template_principal?: string | undefined;
+  __template_brokerServiceClass?: string | undefined;
+  __template_tokenUrl?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -153,6 +189,12 @@ export const AuthenticationType$outboundSchema: z.ZodType<
   oauthParams: z.array(ItemsTypeSaslOauthParams$outboundSchema).optional(),
   saslExtensions: z.array(ItemsTypeSaslSaslExtensions$outboundSchema)
     .optional(),
+  __template_mechanism: z.string().optional(),
+  __template_keytabLocation: z.string().optional(),
+  __template_principal: z.string().optional(),
+  __template_brokerServiceClass: z.string().optional(),
+  __template_tokenUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
 export function authenticationTypeToJSON(

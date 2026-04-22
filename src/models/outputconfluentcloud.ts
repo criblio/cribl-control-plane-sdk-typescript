@@ -34,11 +34,11 @@ import {
 } from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout,
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$inboundSchema,
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound,
-  KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema,
-} from "./kafkaschemaregistryauthenticationtypeauthconnectiontimeout.js";
+  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth,
+  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
+  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound,
+  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema,
+} from "./kafkaschemaregistryauthenticationtypetemplateschemaregistryurlauth.js";
 import {
   ModeOptions,
   ModeOptions$inboundSchema,
@@ -119,7 +119,7 @@ export type OutputConfluentCloud = {
    */
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout
+    | KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth
     | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -290,7 +290,7 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
   flushEventCount: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   kafkaSchemaRegistry: types.optional(
-    KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$inboundSchema,
+    KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
   ),
   connectionTimeout: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
@@ -342,7 +342,7 @@ export type OutputConfluentCloud$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$Outbound
+    | KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -397,7 +397,7 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry:
-    KafkaSchemaRegistryAuthenticationTypeAuthConnectionTimeout$outboundSchema
+    KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema
       .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
