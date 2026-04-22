@@ -112,16 +112,16 @@ async function run() {
   const result = await criblControlPlane.packs.routes.update({
     id: "<id>",
     pack: "<value>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
-          description: "Route access logs to main pipeline",
+          description: "Route access logs to main Pipeline",
           filter: "source == \"access.log\"",
-          final: true,
-          id: "default",
           name: "my-route",
           pipeline: "main",
+          final: true,
+          id: "default",
         },
       ],
     },
@@ -154,16 +154,16 @@ async function run() {
   const res = await packsRoutesUpdate(criblControlPlane, {
     id: "<id>",
     pack: "<value>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
-          description: "Route access logs to main pipeline",
+          description: "Route access logs to main Pipeline",
           filter: "source == \"access.log\"",
-          final: true,
-          id: "default",
           name: "my-route",
           pipeline: "main",
+          final: true,
+          id: "default",
         },
       ],
     },
@@ -195,43 +195,152 @@ async function run() {
   const result = await criblControlPlane.packs.routes.update({
     id: "<id>",
     pack: "<value>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
           description: "Route speedtest logs",
           filter: "source == \"speedtest.log\"",
-          final: false,
-          id: "route-speedtest",
           name: "speedtest",
           output: "default",
           pipeline: "main",
+          final: false,
+          id: "route-speedtest",
         },
         {
           description: "Route mtr logs",
           filter: "source == \"mtr.log\"",
-          final: false,
-          id: "route-mtr",
           name: "mtr",
           output: "default",
           pipeline: "passthru",
+          final: false,
+          id: "route-mtr",
         },
         {
           description: "Route statsd metrics",
           filter: "source == \"statsd.log\"",
-          final: false,
-          id: "route-statsd",
           name: "statsd",
           output: "devnull",
           pipeline: "prometheus_metrics",
+          final: false,
+          id: "route-statsd",
         },
         {
           description: "Catch-all Route for all other events",
           filter: "true",
-          final: true,
-          id: "route-default",
           name: "default",
           output: "default",
+          pipeline: "main",
+          final: true,
+          id: "route-default",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsRoutesUpdate } from "cribl-control-plane/funcs/packsRoutesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsRoutesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    routesInput: {
+      id: "default",
+      routes: [
+        {
+          description: "Route speedtest logs",
+          filter: "source == \"speedtest.log\"",
+          name: "speedtest",
+          output: "default",
+          pipeline: "main",
+          final: false,
+          id: "route-speedtest",
+        },
+        {
+          description: "Route mtr logs",
+          filter: "source == \"mtr.log\"",
+          name: "mtr",
+          output: "default",
+          pipeline: "passthru",
+          final: false,
+          id: "route-mtr",
+        },
+        {
+          description: "Route statsd metrics",
+          filter: "source == \"statsd.log\"",
+          name: "statsd",
+          output: "devnull",
+          pipeline: "prometheus_metrics",
+          final: false,
+          id: "route-statsd",
+        },
+        {
+          description: "Catch-all Route for all other events",
+          filter: "true",
+          name: "default",
+          output: "default",
+          pipeline: "main",
+          final: true,
+          id: "route-default",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsRoutesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesUpdateExamplesRouteWithDefaults
+
+<!-- UsageSnippet language="typescript" operationID="updateRoutesByPackAndId" method="patch" path="/p/{pack}/routes/{id}" example="RoutesUpdateExamplesRouteWithDefaults" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.routes.update({
+    id: "<id>",
+    pack: "<value>",
+    routesInput: {
+      id: "default",
+      routes: [
+        {
+          description: "Route access logs to main Pipeline",
+          filter: "source == \"access.log\"",
+          name: "my-route",
           pipeline: "main",
         },
       ],
@@ -265,43 +374,13 @@ async function run() {
   const res = await packsRoutesUpdate(criblControlPlane, {
     id: "<id>",
     pack: "<value>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
-          description: "Route speedtest logs",
-          filter: "source == \"speedtest.log\"",
-          final: false,
-          id: "route-speedtest",
-          name: "speedtest",
-          output: "default",
-          pipeline: "main",
-        },
-        {
-          description: "Route mtr logs",
-          filter: "source == \"mtr.log\"",
-          final: false,
-          id: "route-mtr",
-          name: "mtr",
-          output: "default",
-          pipeline: "passthru",
-        },
-        {
-          description: "Route statsd metrics",
-          filter: "source == \"statsd.log\"",
-          final: false,
-          id: "route-statsd",
-          name: "statsd",
-          output: "devnull",
-          pipeline: "prometheus_metrics",
-        },
-        {
-          description: "Catch-all Route for all other events",
-          filter: "true",
-          final: true,
-          id: "route-default",
-          name: "default",
-          output: "default",
+          description: "Route access logs to main Pipeline",
+          filter: "source == \"access.log\"",
+          name: "my-route",
           pipeline: "main",
         },
       ],
@@ -334,18 +413,18 @@ async function run() {
   const result = await criblControlPlane.packs.routes.update({
     id: "<id>",
     pack: "<value>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
           description: "Route with dynamic Destination based on environment",
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
-          final: true,
-          id: "route-dynamic",
           name: "dynamic-output",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
+          final: true,
+          id: "route-dynamic",
         },
       ],
     },
@@ -378,18 +457,18 @@ async function run() {
   const res = await packsRoutesUpdate(criblControlPlane, {
     id: "<id>",
     pack: "<value>",
-    routes: {
+    routesInput: {
       id: "default",
       routes: [
         {
           description: "Route with dynamic Destination based on environment",
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
-          final: true,
-          id: "route-dynamic",
           name: "dynamic-output",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
+          final: true,
+          id: "route-dynamic",
         },
       ],
     },
@@ -530,20 +609,20 @@ async function run() {
       {
         description: "Route audit logs",
         filter: "source == \"audit.log\"",
-        final: false,
-        id: "route-audit",
         name: "audit",
         output: "default",
         pipeline: "main",
+        final: false,
+        id: "route-audit",
       },
       {
         description: "Route security logs",
         filter: "source == \"security.log\"",
-        final: false,
-        id: "route-security",
         name: "security",
         output: "devnull",
         pipeline: "passthru",
+        final: false,
+        id: "route-security",
       },
     ],
   });
@@ -579,20 +658,93 @@ async function run() {
       {
         description: "Route audit logs",
         filter: "source == \"audit.log\"",
-        final: false,
-        id: "route-audit",
         name: "audit",
         output: "default",
         pipeline: "main",
+        final: false,
+        id: "route-audit",
       },
       {
         description: "Route security logs",
         filter: "source == \"security.log\"",
-        final: false,
-        id: "route-security",
         name: "security",
         output: "devnull",
         pipeline: "passthru",
+        final: false,
+        id: "route-security",
+      },
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsRoutesAppend failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesAppendExamplesRouteWithDefaults
+
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendByPackAndId" method="post" path="/p/{pack}/routes/{id}/append" example="RoutesAppendExamplesRouteWithDefaults" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.routes.append({
+    id: "<id>",
+    pack: "<value>",
+    requestBody: [
+      {
+        description: "Route with server-generated id and default final value",
+        filter: "source == \"new.log\"",
+        name: "new-route",
+        pipeline: "main",
+      },
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsRoutesAppend } from "cribl-control-plane/funcs/packsRoutesAppend.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsRoutesAppend(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    requestBody: [
+      {
+        description: "Route with server-generated id and default final value",
+        filter: "source == \"new.log\"",
+        name: "new-route",
+        pipeline: "main",
       },
     ],
   });
@@ -628,11 +780,11 @@ async function run() {
         description: "Route with dynamic Destination based on environment",
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
-        final: true,
-        id: "route-dynamic-append",
         name: "dynamic-append",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
+        final: true,
+        id: "route-dynamic-append",
       },
     ],
   });
@@ -669,11 +821,11 @@ async function run() {
         description: "Route with dynamic Destination based on environment",
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
-        final: true,
-        id: "route-dynamic-append",
         name: "dynamic-append",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
+        final: true,
+        id: "route-dynamic-append",
       },
     ],
   });
@@ -708,10 +860,10 @@ async function run() {
       {
         description: "Route new logs to main pipeline",
         filter: "source == \"new.log\"",
-        final: true,
-        id: "route-new",
         name: "new-route",
         pipeline: "main",
+        final: true,
+        id: "route-new",
       },
     ],
   });
@@ -747,10 +899,10 @@ async function run() {
       {
         description: "Route new logs to main pipeline",
         filter: "source == \"new.log\"",
-        final: true,
-        id: "route-new",
         name: "new-route",
         pipeline: "main",
+        final: true,
+        id: "route-new",
       },
     ],
   });

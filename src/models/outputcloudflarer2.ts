@@ -46,6 +46,12 @@ import {
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -219,6 +225,7 @@ export type OutputCloudflareR2 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -372,6 +379,7 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   maxFileOpenTimeSec: types.optional(types.number()),
   maxFileIdleTimeSec: types.optional(types.number()),
   maxConcurrentFileParts: types.optional(types.number()),
@@ -434,6 +442,7 @@ export type OutputCloudflareR2$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -500,6 +509,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),

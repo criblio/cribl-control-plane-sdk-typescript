@@ -7,11 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  TargetContext,
-  TargetContext$inboundSchema,
-  TargetContext$outboundSchema,
-} from "./targetcontext.js";
+import { TargetContext, TargetContext$inboundSchema } from "./targetcontext.js";
 
 export type RouteConf = {
   /**
@@ -90,49 +86,7 @@ export const RouteConf$inboundSchema: z.ZodType<
   pipeline: types.string(),
   targetContext: types.optional(TargetContext$inboundSchema),
 });
-/** @internal */
-export type RouteConf$Outbound = {
-  clones?: Array<{ [k: string]: string }> | undefined;
-  context?: string | undefined;
-  description?: string | undefined;
-  disabled?: boolean | undefined;
-  enableOutputExpression?: boolean | undefined;
-  filter?: string | undefined;
-  final: boolean;
-  groupId?: string | undefined;
-  id: string;
-  name: string;
-  output?: string | undefined;
-  outputExpression?: string | undefined;
-  pipeline: string;
-  targetContext?: string | undefined;
-};
 
-/** @internal */
-export const RouteConf$outboundSchema: z.ZodType<
-  RouteConf$Outbound,
-  z.ZodTypeDef,
-  RouteConf
-> = z.object({
-  clones: z.array(z.record(z.string())).optional(),
-  context: z.string().optional(),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  enableOutputExpression: z.boolean().optional(),
-  filter: z.string().optional(),
-  final: z.boolean(),
-  groupId: z.string().optional(),
-  id: z.string(),
-  name: z.string(),
-  output: z.string().optional(),
-  outputExpression: z.string().optional(),
-  pipeline: z.string(),
-  targetContext: TargetContext$outboundSchema.optional(),
-});
-
-export function routeConfToJSON(routeConf: RouteConf): string {
-  return JSON.stringify(RouteConf$outboundSchema.parse(routeConf));
-}
 export function routeConfFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteConf, SDKValidationError> {

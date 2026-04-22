@@ -8,8 +8,6 @@ import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 import {
-  CreateOutputSystemByPackCompression,
-  CreateOutputSystemByPackCompression$outboundSchema,
   CreateOutputSystemByPackOutputAzureEventhub,
   CreateOutputSystemByPackOutputAzureEventhub$Outbound,
   CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
@@ -169,7 +167,27 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-} from "./createoutputsystembypackcompression.js";
+} from "./createoutputsystembypackoutputhoneycomb.js";
+
+/**
+ * Compression type to use for records
+ */
+export const CreateOutputSystemByPackCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Compression type to use for records
+ */
+export type CreateOutputSystemByPackCompression = OpenEnum<
+  typeof CreateOutputSystemByPackCompression
+>;
 
 export type CreateOutputSystemByPackPqControlsKinesis = {};
 
@@ -852,6 +870,7 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer = {
    */
   addIdToStagePath?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Amount of time, in seconds, to wait for a request to complete before canceling it
    */
@@ -1143,6 +1162,7 @@ export type CreateOutputSystemByPackOutputAzureBlob = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
   storageClass?: CreateOutputSystemByPackBlobAccessTier | undefined;
   description?: string | undefined;
@@ -1419,6 +1439,7 @@ export type CreateOutputSystemByPackOutputS3 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -1641,6 +1662,7 @@ export type CreateOutputSystemByPackOutputFilesystem = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -4049,6 +4071,13 @@ export type CreateOutputSystemByPackRequest = {
 };
 
 /** @internal */
+export const CreateOutputSystemByPackCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackCompression
+> = openEnums.outboundSchema(CreateOutputSystemByPackCompression);
+
+/** @internal */
 export type CreateOutputSystemByPackPqControlsKinesis$Outbound = {};
 
 /** @internal */
@@ -4559,6 +4588,7 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   addIdToStagePath?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
@@ -4677,6 +4707,7 @@ export const CreateOutputSystemByPackOutputAzureDataExplorer$outboundSchema:
       .optional(),
     addIdToStagePath: z.boolean().optional(),
     retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
     timeoutSec: z.number().optional(),
     flushImmediately: z.boolean().optional(),
     retainBlobOnSuccess: z.boolean().optional(),
@@ -4777,6 +4808,7 @@ export type CreateOutputSystemByPackOutputAzureBlob$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   authType?: string | undefined;
   storageClass?: string | undefined;
   description?: string | undefined;
@@ -4852,6 +4884,7 @@ export const CreateOutputSystemByPackOutputAzureBlob$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: CreateOutputSystemByPackBlobAccessTier$outboundSchema
     .optional(),
@@ -4944,6 +4977,7 @@ export type CreateOutputSystemByPackOutputS3$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -5028,6 +5062,7 @@ export const CreateOutputSystemByPackOutputS3$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -5101,6 +5136,7 @@ export type CreateOutputSystemByPackOutputFilesystem$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
   description?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -5156,6 +5192,7 @@ export const CreateOutputSystemByPackOutputFilesystem$outboundSchema: z.ZodType<
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
   description: z.string().optional(),
   compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),

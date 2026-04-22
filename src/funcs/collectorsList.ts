@@ -4,6 +4,7 @@
 
 import { CriblControlPlaneCore } from "../core.js";
 import { encodeFormQuery } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -38,7 +39,7 @@ export function collectorsList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedSavedJob,
+    models.CountedSavedJobResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -64,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedSavedJob,
+      models.CountedSavedJobResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -94,8 +95,6 @@ async function $do(
 
   const query = encodeFormQuery({
     "collectorType": payload?.collectorType,
-    "criblPack": payload?.criblPack,
-    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({
@@ -148,7 +147,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -162,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedSavedJob,
+    models.CountedSavedJobResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -173,7 +173,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedSavedJob$inboundSchema),
+    M.json(200, models.CountedSavedJobResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

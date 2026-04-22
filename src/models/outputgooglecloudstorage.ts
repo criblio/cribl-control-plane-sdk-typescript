@@ -51,6 +51,12 @@ import {
   ObjectAclOptions1$outboundSchema,
 } from "./objectacloptions1.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -224,6 +230,7 @@ export type OutputGoogleCloudStorage = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -379,6 +386,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   description: types.optional(types.string()),
   compress: types.optional(CompressionOptions2$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
@@ -443,6 +451,7 @@ export type OutputGoogleCloudStorage$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   description?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -511,6 +520,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   description: z.string().optional(),
   compress: CompressionOptions2$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),

@@ -10,7 +10,7 @@ import { Destinations } from "./destinations.js";
 import { Functions } from "./functions.js";
 import { Groups } from "./groups.js";
 import { Health } from "./health.js";
-import { LakeDatasets } from "./lakedatasets.js";
+import { Lakes } from "./lakes.js";
 import { Nodes } from "./nodes.js";
 import { Packs } from "./packs.js";
 import { Pipelines } from "./pipelines.js";
@@ -67,9 +67,9 @@ export class CriblControlPlane extends ClientSDK {
     return (this._groups ??= new Groups(this._options));
   }
 
-  private _lakeDatasets?: LakeDatasets;
-  get lakeDatasets(): LakeDatasets {
-    return (this._lakeDatasets ??= new LakeDatasets(this._options));
+  private _lakes?: Lakes;
+  get lakes(): Lakes {
+    return (this._lakes ??= new Lakes(this._options));
   }
 
   private _auth?: Auth;
