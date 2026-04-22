@@ -31,7 +31,6 @@ import {
   ConfigGroup,
   PipelineInput,
   RouteConf,
-  CaptureParams,
   CaptureLevel,
 } from "../dist/esm/models";
 import { baseUrl, createCriblClient } from "./auth";
