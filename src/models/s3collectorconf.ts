@@ -135,6 +135,14 @@ export type S3AwsAuthenticationMethodSecret = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
 };
 
 /**
@@ -259,6 +267,10 @@ export type S3AwsAuthenticationMethodManual = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
 };
 
 /**
@@ -375,6 +387,18 @@ export type S3AwsAuthenticationMethodAuto = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
 };
 
 /**
@@ -493,6 +517,18 @@ export type S3PartitioningSchemeNone = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
 };
 
 /**
@@ -607,6 +643,18 @@ export type S3PartitioningSchemeDdss = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
 };
 
 export type S3CollectorConf =
@@ -720,6 +768,8 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  awsApiKey: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodSecret$Outbound = {
@@ -746,6 +796,8 @@ export type S3AwsAuthenticationMethodSecret$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
 };
 
 /** @internal */
@@ -779,6 +831,8 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodSecretToJSON(
@@ -906,6 +960,7 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  awsSecret: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodManual$Outbound = {
@@ -933,6 +988,7 @@ export type S3AwsAuthenticationMethodManual$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  awsSecret?: string | undefined;
 };
 
 /** @internal */
@@ -967,6 +1023,7 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  awsSecret: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodManualToJSON(
@@ -1081,6 +1138,9 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  awsApiKey: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodAuto$Outbound = {
@@ -1106,6 +1166,9 @@ export type S3AwsAuthenticationMethodAuto$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
 };
 
 /** @internal */
@@ -1138,6 +1201,9 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodAutoToJSON(
@@ -1245,6 +1311,9 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  awsApiKey: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
 });
 /** @internal */
 export type S3PartitioningSchemeNone$Outbound = {
@@ -1269,6 +1338,9 @@ export type S3PartitioningSchemeNone$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
 };
 
 /** @internal */
@@ -1302,6 +1374,9 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
 });
 
 export function s3PartitioningSchemeNoneToJSON(
@@ -1406,6 +1481,9 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
+  awsApiKey: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
 });
 /** @internal */
 export type S3PartitioningSchemeDdss$Outbound = {
@@ -1429,6 +1507,9 @@ export type S3PartitioningSchemeDdss$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
 };
 
 /** @internal */
@@ -1461,6 +1542,9 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
 });
 
 export function s3PartitioningSchemeDdssToJSON(

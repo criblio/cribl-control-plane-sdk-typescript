@@ -70,6 +70,10 @@ export type GoogleCloudStorageAuthTypeSecret = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
 };
 
 export type GoogleCloudStorageAuthTypeManualExtractor = {
@@ -132,6 +136,10 @@ export type GoogleCloudStorageAuthTypeManual = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Select or create a stored text secret that references your credentials
+   */
+  textSecret?: string | undefined;
 };
 
 export type GoogleCloudStorageAuthTypeAutoExtractor = {
@@ -190,6 +198,14 @@ export type GoogleCloudStorageAuthTypeAuto = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret that references your credentials
+   */
+  textSecret?: string | undefined;
 };
 
 export type GoogleCloudStorageCollectorConf =
@@ -272,6 +288,7 @@ export const GoogleCloudStorageAuthTypeSecret$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  serviceAccountCredentials: types.optional(types.string()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeSecret$Outbound = {
@@ -289,6 +306,7 @@ export type GoogleCloudStorageAuthTypeSecret$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  serviceAccountCredentials?: string | undefined;
 };
 
 /** @internal */
@@ -311,6 +329,7 @@ export const GoogleCloudStorageAuthTypeSecret$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  serviceAccountCredentials: z.string().optional(),
 });
 
 export function googleCloudStorageAuthTypeSecretToJSON(
@@ -406,6 +425,7 @@ export const GoogleCloudStorageAuthTypeManual$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeManual$Outbound = {
@@ -423,6 +443,7 @@ export type GoogleCloudStorageAuthTypeManual$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -445,6 +466,7 @@ export const GoogleCloudStorageAuthTypeManual$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function googleCloudStorageAuthTypeManualToJSON(
@@ -538,6 +560,8 @@ export const GoogleCloudStorageAuthTypeAuto$inboundSchema: z.ZodType<
   maxBatchSize: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
+  serviceAccountCredentials: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeAuto$Outbound = {
@@ -554,6 +578,8 @@ export type GoogleCloudStorageAuthTypeAuto$Outbound = {
   maxBatchSize?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
+  serviceAccountCredentials?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -575,6 +601,8 @@ export const GoogleCloudStorageAuthTypeAuto$outboundSchema: z.ZodType<
   maxBatchSize: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 export function googleCloudStorageAuthTypeAutoToJSON(

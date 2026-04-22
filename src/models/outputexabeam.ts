@@ -23,6 +23,12 @@ import {
   ObjectAclOptions1$outboundSchema,
 } from "./objectacloptions1.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   RetrySettingsType,
   RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
@@ -130,6 +136,7 @@ export type OutputExabeam = {
    */
   onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
@@ -216,6 +223,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
     DiskSpaceProtectionOptions$inboundSchema,
   ),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   maxFileSizeMB: types.optional(types.number()),
   encodedConfiguration: types.optional(types.string()),
   collectorInstanceId: types.string(),
@@ -257,6 +265,7 @@ export type OutputExabeam$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   maxFileSizeMB?: number | undefined;
   encodedConfiguration?: string | undefined;
   collectorInstanceId: string;
@@ -303,6 +312,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),

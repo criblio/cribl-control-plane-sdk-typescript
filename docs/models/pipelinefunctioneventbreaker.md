@@ -9,6 +9,7 @@ let value: PipelineFunctionEventBreaker = {
   id: "event_breaker",
   conf: {
     existingOrNew: "existing",
+    ruleType: "header",
   },
 };
 ```

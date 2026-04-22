@@ -3,7 +3,8 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery, encodeJSON } from "../lib/encodings.js";
+import { encodeJSON } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -22,7 +23,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
-import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -34,11 +34,11 @@ import { Result } from "../types/fp.js";
  */
 export function collectorsCreate(
   client: CriblControlPlaneCore,
-  request: operations.CreateSavedJobRequest,
+  request: models.SavedJob,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedSavedJob,
+    models.CountedSavedJobResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -59,12 +59,12 @@ export function collectorsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.CreateSavedJobRequest,
+  request: models.SavedJob,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      models.CountedSavedJob,
+      models.CountedSavedJobResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,20 +80,16 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.CreateSavedJobRequest$outboundSchema.parse(value),
+    (value) => models.SavedJob$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.SavedJob, { explode: true });
+  const body = encodeJSON("body", payload, { explode: true });
 
   const path = pathToFunc("/lib/jobs")();
-
-  const query = encodeFormQuery({
-    "criblPack": payload.criblPack,
-  });
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -134,7 +130,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -146,7 +141,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -160,7 +156,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedSavedJob,
+    models.CountedSavedJobResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -171,7 +167,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedSavedJob$inboundSchema),
+    M.json(200, models.CountedSavedJobResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

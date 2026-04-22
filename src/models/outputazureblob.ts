@@ -57,6 +57,12 @@ import {
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
@@ -199,6 +205,7 @@ export type OutputAzureBlob = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   authType?: AuthenticationMethodOptions | undefined;
   storageClass?: BlobAccessTier | undefined;
   description?: string | undefined;
@@ -374,6 +381,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   authType: types.optional(AuthenticationMethodOptions$inboundSchema),
   storageClass: types.optional(BlobAccessTier$inboundSchema),
   description: types.optional(types.string()),
@@ -443,6 +451,7 @@ export type OutputAzureBlob$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   authType?: string | undefined;
   storageClass?: string | undefined;
   description?: string | undefined;
@@ -513,6 +522,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   authType: AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: BlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
