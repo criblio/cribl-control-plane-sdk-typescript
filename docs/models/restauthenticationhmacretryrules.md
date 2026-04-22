@@ -15,7 +15,7 @@ const value: models.RestAuthenticationHmacRestRetryRulesTypeNone = {
 
 ```typescript
 const value: models.RestAuthenticationHmacRestRetryRulesTypeStatic = {
-  type: "<value>",
+  type: "static",
 };
 ```
 
@@ -23,7 +23,7 @@ const value: models.RestAuthenticationHmacRestRetryRulesTypeStatic = {
 
 ```typescript
 const value: models.RestAuthenticationHmacRestRetryRulesTypeBackoff = {
-  type: "<value>",
+  type: "backoff",
 };
 ```
 

@@ -115,6 +115,10 @@ export type OutputXsiam = {
    */
   maxPayloadEvents?: number | undefined;
   /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
    *
    * @remarks
@@ -341,6 +345,7 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   maxPayloadEvents: types.optional(types.number()),
+  compress: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
@@ -394,6 +399,7 @@ export type OutputXsiam$Outbound = {
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
@@ -448,6 +454,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),

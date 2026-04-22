@@ -3,6 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -23,10 +24,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve health status of the server
+ * Get the health status of the server
  *
  * @remarks
- * Get the current health status of the server.
+ * Get the current health status of the server (Leader or Worker Node).
  */
 export function healthGet(
   client: CriblControlPlaneCore,
@@ -119,7 +120,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["420", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

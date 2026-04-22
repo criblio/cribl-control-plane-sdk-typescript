@@ -134,7 +134,7 @@ async function main() {
   }
   routes.routes = [route, ...routes.routes];
   await cribl.packs.routes.update(
-    { id: routes.id, pack: PACK_ID, routes },
+    { id: routes.id, pack: PACK_ID, routesInput: routes },
     { serverURL: groupUrl },
   );
   console.log(`✅ Added Route ${route.id} in Pack: ${PACK_ID}`);

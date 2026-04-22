@@ -2059,6 +2059,10 @@ export type CreateInputSystemByPackInputFile = {
    */
   saltHash?: boolean | undefined;
   /**
+   * Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
+   */
+  optimizeLeafDirectories?: boolean | undefined;
+  /**
    * Stream binary files as Base64-encoded chunks.
    */
   includeUnidentifiableBinary?: boolean | undefined;
@@ -6042,6 +6046,52 @@ export type CreateInputSystemByPackInputEventhub = {
   description?: string | undefined;
 };
 
+/**
+ * Select authentication method.
+ */
+export const CreateInputSystemByPackAuthenticationMethodMicrosoftGraph = {
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputSystemByPackAuthenticationMethodMicrosoftGraph =
+  OpenEnum<typeof CreateInputSystemByPackAuthenticationMethodMicrosoftGraph>;
+
+/**
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+ */
+export const CreateInputSystemByPackSubscriptionPlan = {
+  /**
+   * Microsoft 365 Enterprise
+   */
+  EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Microsoft 365 GCC
+   */
+  Gcc: "gcc",
+  /**
+   * Microsoft 365 GCC High
+   */
+  GccHigh: "gcc_high",
+  /**
+   * Microsoft 365 DoD
+   */
+  Dod: "dod",
+  /**
+   * Microsoft 365 China (21Vianet)
+   */
+  China: "china",
+} as const;
+/**
+ * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+ */
+export type CreateInputSystemByPackSubscriptionPlan = OpenEnum<
+  typeof CreateInputSystemByPackSubscriptionPlan
+>;
+
 export type CreateInputSystemByPackInputMicrosoftGraph = {
   /**
    * Unique ID for this input
@@ -6099,9 +6149,15 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   disableTimeFilter?: boolean | undefined;
   /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+  /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?:
+    | CreateInputSystemByPackAuthenticationMethodMicrosoftGraph
+    | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -6141,18 +6197,6 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
   retryRules?: models.RetryRulesType1 | undefined;
   description?: string | undefined;
   /**
-   * Username to run Microsoft Graph API call.
-   */
-  username?: string | undefined;
-  /**
-   * Password to run Microsoft Graph API call.
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials.
-   */
-  credentialsSecret?: string | undefined;
-  /**
    * client_secret to pass in the OAuth request parameter.
    */
   clientSecret?: string | undefined;
@@ -6169,9 +6213,9 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
-  planType?: models.SubscriptionPlanOptions | undefined;
+  planType?: CreateInputSystemByPackSubscriptionPlan | undefined;
   /**
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
@@ -6194,6 +6238,22 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   __template_resource?: string | undefined;
 };
+
+/**
+ * Select authentication method.
+ */
+export const CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace =
+  OpenEnum<typeof CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace>;
 
 export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
@@ -6254,7 +6314,9 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: models.AuthenticationMethodOptions2 | undefined;
+  authType?:
+    | CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace
+    | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -6322,7 +6384,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    */
   resource?: string | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
@@ -6350,7 +6412,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
 
 export type CreateInputSystemByPackContentConfigOffice365Service = {
   /**
-   * Office 365 Services API Content Type
+   * Microsoft 365 Services API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -6398,15 +6460,15 @@ export type CreateInputSystemByPackInputOffice365Service = {
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType?: models.SubscriptionPlanOptions | undefined;
   /**
-   * Office 365 Azure Tenant ID
+   * Microsoft 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Office 365 Azure Application ID
+   * Microsoft 365 Azure Application ID
    */
   appId: string;
   /**
@@ -6438,7 +6500,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
    */
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
-   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Service>
@@ -6450,7 +6512,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
   authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
-   * Office 365 Azure client secret
+   * Microsoft 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**
@@ -6473,7 +6535,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
 
 export type CreateInputSystemByPackContentConfigOffice365Mgmt = {
   /**
-   * Office 365 Management Activity API Content Type
+   * Microsoft 365 Management Activity API Content Type
    */
   contentType?: string | undefined;
   /**
@@ -6521,15 +6583,15 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
   /**
-   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
    */
   planType: models.SubscriptionPlanOptions;
   /**
-   * Office 365 Azure Tenant ID
+   * Microsoft 365 Azure Tenant ID
    */
   tenantId: string;
   /**
-   * Office 365 Azure Application ID
+   * Microsoft 365 Azure Application ID
    */
   appId: string;
   /**
@@ -6565,13 +6627,13 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    */
   publisherIdentifier?: string | undefined;
   /**
-   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   * Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
    */
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Mgmt>
     | undefined;
   /**
-   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
   retryRules?: models.RetryRulesType1 | undefined;
@@ -6581,7 +6643,7 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
   authType?: models.AuthenticationMethodOptions1 | undefined;
   description?: string | undefined;
   /**
-   * Office 365 Azure client secret
+   * Microsoft 365 Azure client secret
    */
   clientSecret?: string | undefined;
   /**
@@ -11174,6 +11236,7 @@ export type CreateInputSystemByPackInputFile$Outbound = {
   suppressMissingPathErrors?: boolean | undefined;
   deleteFiles?: boolean | undefined;
   saltHash?: boolean | undefined;
+  optimizeLeafDirectories?: boolean | undefined;
   includeUnidentifiableBinary?: boolean | undefined;
 };
 
@@ -11214,6 +11277,7 @@ export const CreateInputSystemByPackInputFile$outboundSchema: z.ZodType<
   suppressMissingPathErrors: z.boolean().optional(),
   deleteFiles: z.boolean().optional(),
   saltHash: z.boolean().optional(),
+  optimizeLeafDirectories: z.boolean().optional(),
   includeUnidentifiableBinary: z.boolean().optional(),
 });
 
@@ -15063,6 +15127,23 @@ export function createInputSystemByPackInputEventhubToJSON(
 }
 
 /** @internal */
+export const CreateInputSystemByPackAuthenticationMethodMicrosoftGraph$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationMethodMicrosoftGraph
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthenticationMethodMicrosoftGraph,
+  );
+
+/** @internal */
+export const CreateInputSystemByPackSubscriptionPlan$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackSubscriptionPlan
+> = openEnums.outboundSchema(CreateInputSystemByPackSubscriptionPlan);
+
+/** @internal */
 export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   id: string;
   type: "microsoft_graph";
@@ -15080,6 +15161,7 @@ export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   endDate?: string | undefined;
   timeout?: number | undefined;
   disableTimeFilter?: boolean | undefined;
+  maxPages?: number | undefined;
   authType?: string | undefined;
   keepAliveTime?: number | undefined;
   jobTimeout?: string | undefined;
@@ -15092,9 +15174,6 @@ export type CreateInputSystemByPackInputMicrosoftGraph$Outbound = {
   logLevel?: string | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   description?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
   clientId?: string | undefined;
@@ -15132,7 +15211,10 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     endDate: z.string().optional(),
     timeout: z.number().optional(),
     disableTimeFilter: z.boolean().optional(),
-    authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+    maxPages: z.number().int().optional(),
+    authType:
+      CreateInputSystemByPackAuthenticationMethodMicrosoftGraph$outboundSchema
+        .optional(),
     keepAliveTime: z.number().optional(),
     jobTimeout: z.string().optional(),
     maxMissedKeepAlives: z.number().optional(),
@@ -15144,14 +15226,11 @@ export const CreateInputSystemByPackInputMicrosoftGraph$outboundSchema:
     logLevel: models.LogLevelOptions$outboundSchema.optional(),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
     description: z.string().optional(),
-    username: z.string().optional(),
-    password: z.string().optional(),
-    credentialsSecret: z.string().optional(),
     clientSecret: z.string().optional(),
     tenantId: z.string().optional(),
     clientId: z.string().optional(),
     resource: z.string().optional(),
-    planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
+    planType: CreateInputSystemByPackSubscriptionPlan$outboundSchema.optional(),
     textSecret: z.string().optional(),
     certOptions: models.CertOptionsType$outboundSchema.optional(),
     __template_url: z.string().optional(),
@@ -15170,6 +15249,16 @@ export function createInputSystemByPackInputMicrosoftGraphToJSON(
     ),
   );
 }
+
+/** @internal */
+export const CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace,
+  );
 
 /** @internal */
 export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
@@ -15241,7 +15330,9 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     endDate: z.string().optional(),
     timeout: z.number().optional(),
     disableTimeFilter: z.boolean().optional(),
-    authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+    authType:
+      CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace$outboundSchema
+        .optional(),
     keepAliveTime: z.number().optional(),
     jobTimeout: z.string().optional(),
     maxMissedKeepAlives: z.number().optional(),

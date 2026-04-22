@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { CriblControlPlaneCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import { JsonLStream } from "../lib/jsonl.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -142,7 +143,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

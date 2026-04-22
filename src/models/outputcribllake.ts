@@ -4,13 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AwsAuthenticationMethodOptions,
-  AwsAuthenticationMethodOptions$inboundSchema,
-  AwsAuthenticationMethodOptions$outboundSchema,
-} from "./awsauthenticationmethodoptions.js";
 import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
@@ -33,6 +30,12 @@ import {
   ObjectAclOptions$outboundSchema,
 } from "./objectacloptions.js";
 import {
+  OrphanFileRecoveryType,
+  OrphanFileRecoveryType$inboundSchema,
+  OrphanFileRecoveryType$Outbound,
+  OrphanFileRecoveryType$outboundSchema,
+} from "./orphanfilerecoverytype.js";
+import {
   RetrySettingsType,
   RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
@@ -53,6 +56,13 @@ import {
   StorageClassOptions$inboundSchema,
   StorageClassOptions$outboundSchema,
 } from "./storageclassoptions.js";
+
+export const AwsAuthenticationMethod = {
+  Auto: "auto",
+  AutoRpc: "auto_rpc",
+  Manual: "manual",
+} as const;
+export type AwsAuthenticationMethod = OpenEnum<typeof AwsAuthenticationMethod>;
 
 export type OutputCriblLake = {
   /**
@@ -192,6 +202,7 @@ export type OutputCriblLake = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -208,7 +219,7 @@ export type OutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethod | undefined;
   format?: FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
@@ -258,6 +269,19 @@ export type OutputCriblLake = {
 };
 
 /** @internal */
+export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
+  AwsAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AwsAuthenticationMethod);
+/** @internal */
+export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AwsAuthenticationMethod
+> = openEnums.outboundSchema(AwsAuthenticationMethod);
+
+/** @internal */
 export const OutputCriblLake$inboundSchema: z.ZodType<
   OutputCriblLake,
   z.ZodTypeDef,
@@ -305,12 +329,13 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   ),
   forceCloseOnShutdown: types.optional(types.boolean()),
   retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
   maxFileOpenTimeSec: types.optional(types.number()),
   maxFileIdleTimeSec: types.optional(types.number()),
   verifyPermissions: types.optional(types.boolean()),
   maxClosingFilesToBackpressure: types.optional(types.number()),
   awsAuthenticationMethod: types.optional(
-    AwsAuthenticationMethodOptions$inboundSchema,
+    AwsAuthenticationMethod$inboundSchema,
   ),
   format: types.optional(FormatOptions$inboundSchema),
   maxConcurrentFileParts: types.optional(types.number()),
@@ -364,6 +389,7 @@ export type OutputCriblLake$Outbound = {
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
+  orphans?: OrphanFileRecoveryType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   verifyPermissions?: boolean | undefined;
@@ -428,12 +454,12 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
+  orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
   maxClosingFilesToBackpressure: z.number().optional(),
-  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
-    .optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethod$outboundSchema.optional(),
   format: FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
