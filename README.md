@@ -153,7 +153,7 @@ async function run() {
     }, ...routes.routes];
     await criblControlPlane.routes.update({
       id: routes.id,
-      routes,
+      routesInput: routes,
     }, {
       serverURL: groupUrl,
     });
