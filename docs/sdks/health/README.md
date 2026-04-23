@@ -20,6 +20,9 @@ import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
@@ -43,6 +46,9 @@ import { healthGet } from "cribl-control-plane/funcs/healthGet.js";
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
