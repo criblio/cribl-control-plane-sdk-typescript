@@ -6,9 +6,9 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { smartUnion } from "../types/smartUnion.js";
 import { DiffLine, DiffLine$inboundSchema } from "./diffline.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import { ScalarOrArray, ScalarOrArray$inboundSchema } from "./scalarorarray.js";
 
 export type Block = {
   header: string;
@@ -21,16 +21,12 @@ export type Block = {
   oldStartLine2?: number | undefined;
 };
 
-export type ChecksumBefore = string | Array<string>;
-
-export type OldMode = string | Array<string>;
-
 export type DiffFiles = {
   addedLines: number;
   blocks: Array<Block>;
   changedPercentage?: number | undefined;
   checksumAfter?: string | undefined;
-  checksumBefore?: string | Array<string> | undefined;
+  checksumBefore?: ScalarOrArray | undefined;
   deletedFileMode?: string | undefined;
   deletedLines: number;
   isBinary?: boolean | undefined;
@@ -46,7 +42,7 @@ export type DiffFiles = {
   newFileMode?: string | undefined;
   newMode?: string | undefined;
   newName: string;
-  oldMode?: string | Array<string> | undefined;
+  oldMode?: ScalarOrArray | undefined;
   oldName: string;
   unchangedPercentage?: number | undefined;
 };
@@ -72,37 +68,6 @@ export function blockFromJSON(
 }
 
 /** @internal */
-export const ChecksumBefore$inboundSchema: z.ZodType<
-  ChecksumBefore,
-  z.ZodTypeDef,
-  unknown
-> = smartUnion([types.string(), z.array(types.string())]);
-
-export function checksumBeforeFromJSON(
-  jsonString: string,
-): SafeParseResult<ChecksumBefore, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ChecksumBefore$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ChecksumBefore' from JSON`,
-  );
-}
-
-/** @internal */
-export const OldMode$inboundSchema: z.ZodType<OldMode, z.ZodTypeDef, unknown> =
-  smartUnion([types.string(), z.array(types.string())]);
-
-export function oldModeFromJSON(
-  jsonString: string,
-): SafeParseResult<OldMode, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OldMode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OldMode' from JSON`,
-  );
-}
-
-/** @internal */
 export const DiffFiles$inboundSchema: z.ZodType<
   DiffFiles,
   z.ZodTypeDef,
@@ -112,9 +77,7 @@ export const DiffFiles$inboundSchema: z.ZodType<
   blocks: z.array(z.lazy(() => Block$inboundSchema)),
   changedPercentage: types.optional(types.number()),
   checksumAfter: types.optional(types.string()),
-  checksumBefore: types.optional(
-    smartUnion([types.string(), z.array(types.string())]),
-  ),
+  checksumBefore: types.optional(ScalarOrArray$inboundSchema),
   deletedFileMode: types.optional(types.string()),
   deletedLines: types.number(),
   isBinary: types.optional(types.boolean()),
@@ -130,9 +93,7 @@ export const DiffFiles$inboundSchema: z.ZodType<
   newFileMode: types.optional(types.string()),
   newMode: types.optional(types.string()),
   newName: types.string(),
-  oldMode: types.optional(
-    smartUnion([types.string(), z.array(types.string())]),
-  ),
+  oldMode: types.optional(ScalarOrArray$inboundSchema),
   oldName: types.string(),
   unchangedPercentage: types.optional(types.number()),
 });

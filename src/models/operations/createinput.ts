@@ -3236,6 +3236,52 @@ export type CreateInputAuthenticationTypeOpenTelemetry = OpenEnum<
   typeof CreateInputAuthenticationTypeOpenTelemetry
 >;
 
+export const CreateInputAuthMethodsExtAuthenticationType = {
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (secret)
+   */
+  TokenSecret: "tokenSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+} as const;
+export type CreateInputAuthMethodsExtAuthenticationType = OpenEnum<
+  typeof CreateInputAuthMethodsExtAuthenticationType
+>;
+
+export type CreateInputAuthMethodsExt = {
+  authType: CreateInputAuthMethodsExtAuthenticationType;
+  /**
+   * Bearer token for Authorization header
+   */
+  token?: string | undefined;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this auth method
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  enabled?: boolean | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
 export type CreateInputInputOpenTelemetry = {
   /**
    * Unique ID for this input
@@ -3329,6 +3375,10 @@ export type CreateInputInputOpenTelemetry = {
    * OpenTelemetry authentication type
    */
   authType?: CreateInputAuthenticationTypeOpenTelemetry | undefined;
+  /**
+   * Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
+   */
+  authMethodsExt?: Array<CreateInputAuthMethodsExt> | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -13165,6 +13215,49 @@ export const CreateInputAuthenticationTypeOpenTelemetry$outboundSchema:
     openEnums.outboundSchema(CreateInputAuthenticationTypeOpenTelemetry);
 
 /** @internal */
+export const CreateInputAuthMethodsExtAuthenticationType$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthMethodsExtAuthenticationType> =
+    openEnums.outboundSchema(CreateInputAuthMethodsExtAuthenticationType);
+
+/** @internal */
+export type CreateInputAuthMethodsExt$Outbound = {
+  authType: string;
+  token?: string | undefined;
+  description?: string | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  enabled?: boolean | undefined;
+  tokenSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthMethodsExt$outboundSchema: z.ZodType<
+  CreateInputAuthMethodsExt$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthMethodsExt
+> = z.object({
+  authType: CreateInputAuthMethodsExtAuthenticationType$outboundSchema,
+  token: z.string().optional(),
+  description: z.string().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  enabled: z.boolean().optional(),
+  tokenSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+});
+
+export function createInputAuthMethodsExtToJSON(
+  createInputAuthMethodsExt: CreateInputAuthMethodsExt,
+): string {
+  return JSON.stringify(
+    CreateInputAuthMethodsExt$outboundSchema.parse(createInputAuthMethodsExt),
+  );
+}
+
+/** @internal */
 export type CreateInputInputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
@@ -13192,6 +13285,7 @@ export type CreateInputInputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
+  authMethodsExt?: Array<CreateInputAuthMethodsExt$Outbound> | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
@@ -13242,6 +13336,9 @@ export const CreateInputInputOpenTelemetry$outboundSchema: z.ZodType<
   otlpVersion: CreateInputOTLPVersion$outboundSchema.optional(),
   authType: CreateInputAuthenticationTypeOpenTelemetry$outboundSchema
     .optional(),
+  authMethodsExt: z.array(
+    z.lazy(() => CreateInputAuthMethodsExt$outboundSchema),
+  ).optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   description: z.string().optional(),

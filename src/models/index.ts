@@ -614,6 +614,7 @@ export * from "./savedjobcollection.js";
 export * from "./savedjobexecutor.js";
 export * from "./savedjobresponse.js";
 export * from "./savedjobscheduledsearch.js";
+export * from "./scalarorarray.js";
 export * from "./scalereadsoptionsredisdeploymenttypecluster.js";
 export * from "./scheduletyperunnablejobcollection.js";
 export * from "./scheduletypesavedjobresponsecollection.js";
