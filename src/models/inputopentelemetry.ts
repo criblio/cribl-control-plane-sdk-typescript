@@ -106,6 +106,52 @@ export type InputOpenTelemetryAuthenticationType = OpenEnum<
   typeof InputOpenTelemetryAuthenticationType
 >;
 
+export const AuthMethodsExtAuthenticationType = {
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (secret)
+   */
+  TokenSecret: "tokenSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+} as const;
+export type AuthMethodsExtAuthenticationType = OpenEnum<
+  typeof AuthMethodsExtAuthenticationType
+>;
+
+export type AuthMethodsExt = {
+  authType: AuthMethodsExtAuthenticationType;
+  /**
+   * Bearer token for Authorization header
+   */
+  token?: string | undefined;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this auth method
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  enabled?: boolean | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
 export type InputOpenTelemetry = {
   /**
    * Unique ID for this input
@@ -200,6 +246,10 @@ export type InputOpenTelemetry = {
    */
   authType?: InputOpenTelemetryAuthenticationType | undefined;
   /**
+   * Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
+   */
+  authMethodsExt?: Array<AuthMethodsExt> | undefined;
+  /**
    * Fields to add to events from this input
    */
   metadata?: Array<ItemsTypeMetadata> | undefined;
@@ -288,6 +338,78 @@ export const InputOpenTelemetryAuthenticationType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputOpenTelemetryAuthenticationType);
 
 /** @internal */
+export const AuthMethodsExtAuthenticationType$inboundSchema: z.ZodType<
+  AuthMethodsExtAuthenticationType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthMethodsExtAuthenticationType);
+/** @internal */
+export const AuthMethodsExtAuthenticationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthMethodsExtAuthenticationType
+> = openEnums.outboundSchema(AuthMethodsExtAuthenticationType);
+
+/** @internal */
+export const AuthMethodsExt$inboundSchema: z.ZodType<
+  AuthMethodsExt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthMethodsExtAuthenticationType$inboundSchema,
+  token: types.optional(types.string()),
+  description: types.optional(types.string()),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  enabled: types.optional(types.boolean()),
+  tokenSecret: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+});
+/** @internal */
+export type AuthMethodsExt$Outbound = {
+  authType: string;
+  token?: string | undefined;
+  description?: string | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  enabled?: boolean | undefined;
+  tokenSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const AuthMethodsExt$outboundSchema: z.ZodType<
+  AuthMethodsExt$Outbound,
+  z.ZodTypeDef,
+  AuthMethodsExt
+> = z.object({
+  authType: AuthMethodsExtAuthenticationType$outboundSchema,
+  token: z.string().optional(),
+  description: z.string().optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  enabled: z.boolean().optional(),
+  tokenSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+});
+
+export function authMethodsExtToJSON(authMethodsExt: AuthMethodsExt): string {
+  return JSON.stringify(AuthMethodsExt$outboundSchema.parse(authMethodsExt));
+}
+export function authMethodsExtFromJSON(
+  jsonString: string,
+): SafeParseResult<AuthMethodsExt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthMethodsExt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthMethodsExt' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputOpenTelemetry$inboundSchema: z.ZodType<
   InputOpenTelemetry,
   z.ZodTypeDef,
@@ -321,6 +443,9 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   extractMetrics: types.optional(types.boolean()),
   otlpVersion: types.optional(InputOpenTelemetryOTLPVersion$inboundSchema),
   authType: types.optional(InputOpenTelemetryAuthenticationType$inboundSchema),
+  authMethodsExt: types.optional(
+    z.array(z.lazy(() => AuthMethodsExt$inboundSchema)),
+  ),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   maxActiveCxn: types.optional(types.number()),
   description: types.optional(types.string()),
@@ -364,6 +489,7 @@ export type InputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
+  authMethodsExt?: Array<AuthMethodsExt$Outbound> | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
@@ -412,6 +538,8 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   extractMetrics: z.boolean().optional(),
   otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
   authType: InputOpenTelemetryAuthenticationType$outboundSchema.optional(),
+  authMethodsExt: z.array(z.lazy(() => AuthMethodsExt$outboundSchema))
+    .optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   description: z.string().optional(),

@@ -3259,6 +3259,52 @@ export type CreateInputSystemByPackAuthenticationTypeOpenTelemetry = OpenEnum<
   typeof CreateInputSystemByPackAuthenticationTypeOpenTelemetry
 >;
 
+export const CreateInputSystemByPackAuthMethodsExtAuthenticationType = {
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (secret)
+   */
+  TokenSecret: "tokenSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+} as const;
+export type CreateInputSystemByPackAuthMethodsExtAuthenticationType = OpenEnum<
+  typeof CreateInputSystemByPackAuthMethodsExtAuthenticationType
+>;
+
+export type CreateInputSystemByPackAuthMethodsExt = {
+  authType: CreateInputSystemByPackAuthMethodsExtAuthenticationType;
+  /**
+   * Bearer token for Authorization header
+   */
+  token?: string | undefined;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this auth method
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  enabled?: boolean | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
 export type CreateInputSystemByPackInputOpenTelemetry = {
   /**
    * Unique ID for this input
@@ -3352,6 +3398,10 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
    * OpenTelemetry authentication type
    */
   authType?: CreateInputSystemByPackAuthenticationTypeOpenTelemetry | undefined;
+  /**
+   * Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
+   */
+  authMethodsExt?: Array<CreateInputSystemByPackAuthMethodsExt> | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -6712,11 +6762,11 @@ export type CreateInputSystemByPackAuthAuthenticationMethod = OpenEnum<
 >;
 
 export type CreateInputSystemByPackAuth = {
-  mechanism?: CreateInputSystemByPackAuthenticationMechanism | undefined;
+  mechanism: CreateInputSystemByPackAuthenticationMechanism;
   /**
    * Enter connection string directly, or select a stored secret
    */
-  authType: CreateInputSystemByPackAuthAuthenticationMethod;
+  authType?: CreateInputSystemByPackAuthAuthenticationMethod | undefined;
   /**
    * Event Hubs namespace or Event Hub-level connection string
    */
@@ -13412,6 +13462,57 @@ export const CreateInputSystemByPackAuthenticationTypeOpenTelemetry$outboundSche
   );
 
 /** @internal */
+export const CreateInputSystemByPackAuthMethodsExtAuthenticationType$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackAuthMethodsExtAuthenticationType
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackAuthMethodsExtAuthenticationType,
+  );
+
+/** @internal */
+export type CreateInputSystemByPackAuthMethodsExt$Outbound = {
+  authType: string;
+  token?: string | undefined;
+  description?: string | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  enabled?: boolean | undefined;
+  tokenSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackAuthMethodsExt$outboundSchema: z.ZodType<
+  CreateInputSystemByPackAuthMethodsExt$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackAuthMethodsExt
+> = z.object({
+  authType:
+    CreateInputSystemByPackAuthMethodsExtAuthenticationType$outboundSchema,
+  token: z.string().optional(),
+  description: z.string().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  enabled: z.boolean().optional(),
+  tokenSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+});
+
+export function createInputSystemByPackAuthMethodsExtToJSON(
+  createInputSystemByPackAuthMethodsExt: CreateInputSystemByPackAuthMethodsExt,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackAuthMethodsExt$outboundSchema.parse(
+      createInputSystemByPackAuthMethodsExt,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
@@ -13439,6 +13540,9 @@ export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
+  authMethodsExt?:
+    | Array<CreateInputSystemByPackAuthMethodsExt$Outbound>
+    | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
@@ -13491,6 +13595,9 @@ export const CreateInputSystemByPackInputOpenTelemetry$outboundSchema:
     authType:
       CreateInputSystemByPackAuthenticationTypeOpenTelemetry$outboundSchema
         .optional(),
+    authMethodsExt: z.array(
+      z.lazy(() => CreateInputSystemByPackAuthMethodsExt$outboundSchema),
+    ).optional(),
     metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
@@ -16831,8 +16938,8 @@ export const CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema:
 
 /** @internal */
 export type CreateInputSystemByPackAuth$Outbound = {
-  mechanism?: string | undefined;
-  authType: string;
+  mechanism: string;
+  authType?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -16843,9 +16950,9 @@ export const CreateInputSystemByPackAuth$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateInputSystemByPackAuth
 > = z.object({
-  mechanism: CreateInputSystemByPackAuthenticationMechanism$outboundSchema
+  mechanism: CreateInputSystemByPackAuthenticationMechanism$outboundSchema,
+  authType: CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema
     .optional(),
-  authType: CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema,
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
 });
