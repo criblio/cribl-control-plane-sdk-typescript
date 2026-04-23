@@ -7,6 +7,7 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { CriblControlPlaneError } from "../models/errors/criblcontrolplaneerror.js";
 import {
@@ -80,15 +81,18 @@ async function $do(
     Accept: "application/json",
   }));
 
+  const securityInput = await extractSecurity(client._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "getHealth",
-    oAuth2Scopes: null,
+    oAuth2Scopes: [],
 
-    resolvedSecurity: null,
+    resolvedSecurity: requestSecurity,
 
-    securitySource: null,
+    securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
       || {
@@ -106,6 +110,7 @@ async function $do(
   };
 
   const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "GET",
     baseURL: options?.serverURL,
     path: path,
