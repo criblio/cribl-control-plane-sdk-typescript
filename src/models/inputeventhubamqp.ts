@@ -62,11 +62,11 @@ export type InputEventhubAmqpAuthenticationMethod = OpenEnum<
 >;
 
 export type Auth = {
-  mechanism?: AuthenticationMechanism | undefined;
+  mechanism: AuthenticationMechanism;
   /**
    * Enter connection string directly, or select a stored secret
    */
-  authType: InputEventhubAmqpAuthenticationMethod;
+  authType?: InputEventhubAmqpAuthenticationMethod | undefined;
   /**
    * Event Hubs namespace or Event Hub-level connection string
    */
@@ -290,15 +290,17 @@ export const InputEventhubAmqpAuthenticationMethod$outboundSchema: z.ZodType<
 /** @internal */
 export const Auth$inboundSchema: z.ZodType<Auth, z.ZodTypeDef, unknown> = z
   .object({
-    mechanism: types.optional(AuthenticationMechanism$inboundSchema),
-    authType: InputEventhubAmqpAuthenticationMethod$inboundSchema,
+    mechanism: AuthenticationMechanism$inboundSchema,
+    authType: types.optional(
+      InputEventhubAmqpAuthenticationMethod$inboundSchema,
+    ),
     connectionString: types.optional(types.string()),
     textSecret: types.optional(types.string()),
   });
 /** @internal */
 export type Auth$Outbound = {
-  mechanism?: string | undefined;
-  authType: string;
+  mechanism: string;
+  authType?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -306,8 +308,8 @@ export type Auth$Outbound = {
 /** @internal */
 export const Auth$outboundSchema: z.ZodType<Auth$Outbound, z.ZodTypeDef, Auth> =
   z.object({
-    mechanism: AuthenticationMechanism$outboundSchema.optional(),
-    authType: InputEventhubAmqpAuthenticationMethod$outboundSchema,
+    mechanism: AuthenticationMechanism$outboundSchema,
+    authType: InputEventhubAmqpAuthenticationMethod$outboundSchema.optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
   });

@@ -12,7 +12,7 @@ export class Health extends ClientSDK {
    * Get the health status of the server
    *
    * @remarks
-   * Get the current health status of the server (Leader or Worker Node).
+   * Get the current health status of the server (Leader or Worker Node).  In Distributed deployments, requests routed to a Worker or Edge node using the [host context](https://docs.cribl.io/cribl-as-code/api#base-url-group-fleet-host) require a Bearer token for [authentication](https://docs.cribl.io/cribl-as-code/api-auth/).
    */
   async get(
     options?: RequestOptions,

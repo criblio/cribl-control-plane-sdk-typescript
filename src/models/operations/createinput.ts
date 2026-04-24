@@ -6733,11 +6733,11 @@ export type CreateInputAuthAuthenticationMethod = OpenEnum<
 >;
 
 export type CreateInputAuth = {
-  mechanism?: CreateInputAuthenticationMechanism | undefined;
+  mechanism: CreateInputAuthenticationMechanism;
   /**
    * Enter connection string directly, or select a stored secret
    */
-  authType: CreateInputAuthAuthenticationMethod;
+  authType?: CreateInputAuthAuthenticationMethod | undefined;
   /**
    * Event Hubs namespace or Event Hub-level connection string
    */
@@ -16492,8 +16492,8 @@ export const CreateInputAuthAuthenticationMethod$outboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateInputAuth$Outbound = {
-  mechanism?: string | undefined;
-  authType: string;
+  mechanism: string;
+  authType?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -16504,8 +16504,8 @@ export const CreateInputAuth$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateInputAuth
 > = z.object({
-  mechanism: CreateInputAuthenticationMechanism$outboundSchema.optional(),
-  authType: CreateInputAuthAuthenticationMethod$outboundSchema,
+  mechanism: CreateInputAuthenticationMechanism$outboundSchema,
+  authType: CreateInputAuthAuthenticationMethod$outboundSchema.optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
 });
