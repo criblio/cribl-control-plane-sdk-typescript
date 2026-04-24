@@ -40,7 +40,7 @@ export * from "./branchinfo.js";
 export * from "./cacheconnection.js";
 export * from "./cacheconnectionbackfillstatus.js";
 export * from "./capturelevel.js";
-export * from "./captureparams.js";
+export * from "./captureparamsreq.js";
 export * from "./certificatetypeazureblobauthtypeclientcert.js";
 export * from "./certoptionstype.js";
 export * from "./checkpointingtype.js";

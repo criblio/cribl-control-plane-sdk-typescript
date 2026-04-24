@@ -6762,11 +6762,11 @@ export type CreateInputSystemByPackAuthAuthenticationMethod = OpenEnum<
 >;
 
 export type CreateInputSystemByPackAuth = {
-  mechanism?: CreateInputSystemByPackAuthenticationMechanism | undefined;
+  mechanism: CreateInputSystemByPackAuthenticationMechanism;
   /**
    * Enter connection string directly, or select a stored secret
    */
-  authType: CreateInputSystemByPackAuthAuthenticationMethod;
+  authType?: CreateInputSystemByPackAuthAuthenticationMethod | undefined;
   /**
    * Event Hubs namespace or Event Hub-level connection string
    */
@@ -16938,8 +16938,8 @@ export const CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema:
 
 /** @internal */
 export type CreateInputSystemByPackAuth$Outbound = {
-  mechanism?: string | undefined;
-  authType: string;
+  mechanism: string;
+  authType?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -16950,9 +16950,9 @@ export const CreateInputSystemByPackAuth$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateInputSystemByPackAuth
 > = z.object({
-  mechanism: CreateInputSystemByPackAuthenticationMechanism$outboundSchema
+  mechanism: CreateInputSystemByPackAuthenticationMechanism$outboundSchema,
+  authType: CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema
     .optional(),
-  authType: CreateInputSystemByPackAuthAuthenticationMethod$outboundSchema,
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
 });
