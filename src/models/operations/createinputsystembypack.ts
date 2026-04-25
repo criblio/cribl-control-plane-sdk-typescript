@@ -983,6 +983,10 @@ export type CreateInputSystemByPackInputSecurityLake = {
    */
   numReceivers?: number | undefined;
   /**
+   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+   */
+  fileConcurrency?: number | undefined;
+  /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
   socketTimeout?: number | undefined;
@@ -3649,6 +3653,10 @@ export type CreateInputSystemByPackInputS3Inventory = {
    */
   numReceivers?: number | undefined;
   /**
+   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+   */
+  fileConcurrency?: number | undefined;
+  /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
   socketTimeout?: number | undefined;
@@ -3852,6 +3860,10 @@ export type CreateInputSystemByPackInputS3 = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
+  /**
+   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+   */
+  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -4721,6 +4733,10 @@ export type CreateInputSystemByPackInputCrowdstrike = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
+  /**
+   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+   */
+  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -11510,6 +11526,7 @@ export type CreateInputSystemByPackInputSecurityLake$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
+  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -11575,6 +11592,7 @@ export const CreateInputSystemByPackInputSecurityLake$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
+  fileConcurrency: z.number().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -13788,6 +13806,7 @@ export type CreateInputSystemByPackInputS3Inventory$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
+  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -13855,6 +13874,7 @@ export const CreateInputSystemByPackInputS3Inventory$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
+  fileConcurrency: z.number().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -13928,6 +13948,7 @@ export type CreateInputSystemByPackInputS3$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
+  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -13993,6 +14014,7 @@ export const CreateInputSystemByPackInputS3$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
+  fileConcurrency: z.number().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -14608,6 +14630,7 @@ export type CreateInputSystemByPackInputCrowdstrike$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
+  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -14671,6 +14694,7 @@ export const CreateInputSystemByPackInputCrowdstrike$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
+  fileConcurrency: z.number().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),

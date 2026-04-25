@@ -8,11 +8,7 @@ import { UpdateOutputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateOutputByIdRequest = {
   id: "<id>",
   output: {
-    type: "sentinel",
-    loginUrl: "https://hateful-traditionalism.info/",
-    secret: "<value>",
-    client_id: "<id>",
-    endpointURLConfiguration: "url",
+    type: "newrelic",
   },
 };
 ```

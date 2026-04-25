@@ -9,8 +9,10 @@ let value: UpdateOutputSystemByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   output: {
-    type: "wavefront",
-    domain: "dirty-hamburger.info",
+    type: "local_search_storage",
+    url: "https://shiny-popularity.org/",
+    database: "<value>",
+    tableName: "<value>",
   },
 };
 ```
