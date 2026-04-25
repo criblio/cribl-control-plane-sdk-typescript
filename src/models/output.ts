@@ -57,6 +57,12 @@ import {
   OutputCloudflareR2$outboundSchema,
 } from "./outputcloudflarer2.js";
 import {
+  OutputCloudianS3,
+  OutputCloudianS3$inboundSchema,
+  OutputCloudianS3$Outbound,
+  OutputCloudianS3$outboundSchema,
+} from "./outputcloudians3.js";
+import {
   OutputCloudwatch,
   OutputCloudwatch$inboundSchema,
   OutputCloudwatch$Outbound,
@@ -122,6 +128,12 @@ import {
   OutputDefault$Outbound,
   OutputDefault$outboundSchema,
 } from "./outputdefault.js";
+import {
+  OutputDellS3,
+  OutputDellS3$inboundSchema,
+  OutputDellS3$Outbound,
+  OutputDellS3$outboundSchema,
+} from "./outputdells3.js";
 import {
   OutputDevnull,
   OutputDevnull$inboundSchema,
@@ -405,6 +417,12 @@ import {
   OutputStatsdExt$outboundSchema,
 } from "./outputstatsdext.js";
 import {
+  OutputStorjS3,
+  OutputStorjS3$inboundSchema,
+  OutputStorjS3$Outbound,
+  OutputStorjS3$outboundSchema,
+} from "./outputstorjs3.js";
+import {
   OutputSumoLogic,
   OutputSumoLogic$inboundSchema,
   OutputSumoLogic$Outbound,
@@ -520,7 +538,10 @@ export type Output =
   | OutputMicrosoftFabric
   | OutputCloudflareR2
   | OutputNutanixObjects
+  | OutputStorjS3
   | OutputAlphasocS3
+  | OutputDellS3
+  | OutputCloudianS3
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
@@ -602,7 +623,10 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
     microsoft_fabric: OutputMicrosoftFabric$inboundSchema,
     cloudflare_r2: OutputCloudflareR2$inboundSchema,
     nutanix_objects: OutputNutanixObjects$inboundSchema,
+    storj_s3: OutputStorjS3$inboundSchema,
     alphasoc_s3: OutputAlphasocS3$inboundSchema,
+    dell_s3: OutputDellS3$inboundSchema,
+    cloudian_s3: OutputCloudianS3$inboundSchema,
   });
 /** @internal */
 export type Output$Outbound =
@@ -678,7 +702,10 @@ export type Output$Outbound =
   | OutputMicrosoftFabric$Outbound
   | OutputCloudflareR2$Outbound
   | OutputNutanixObjects$Outbound
-  | OutputAlphasocS3$Outbound;
+  | OutputStorjS3$Outbound
+  | OutputAlphasocS3$Outbound
+  | OutputDellS3$Outbound
+  | OutputCloudianS3$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -760,7 +787,10 @@ export const Output$outboundSchema: z.ZodType<
   OutputMicrosoftFabric$outboundSchema,
   OutputCloudflareR2$outboundSchema,
   OutputNutanixObjects$outboundSchema,
+  OutputStorjS3$outboundSchema,
   OutputAlphasocS3$outboundSchema,
+  OutputDellS3$outboundSchema,
+  OutputCloudianS3$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {
