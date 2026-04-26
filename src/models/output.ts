@@ -339,6 +339,12 @@ import {
   OutputS3$outboundSchema,
 } from "./outputs3.js";
 import {
+  OutputScalityS3,
+  OutputScalityS3$inboundSchema,
+  OutputScalityS3$Outbound,
+  OutputScalityS3$outboundSchema,
+} from "./outputscalitys3.js";
+import {
   OutputSecurityLake,
   OutputSecurityLake$inboundSchema,
   OutputSecurityLake$Outbound,
@@ -542,6 +548,7 @@ export type Output =
   | OutputAlphasocS3
   | OutputDellS3
   | OutputCloudianS3
+  | OutputScalityS3
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
@@ -627,6 +634,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
     alphasoc_s3: OutputAlphasocS3$inboundSchema,
     dell_s3: OutputDellS3$inboundSchema,
     cloudian_s3: OutputCloudianS3$inboundSchema,
+    scality_s3: OutputScalityS3$inboundSchema,
   });
 /** @internal */
 export type Output$Outbound =
@@ -705,7 +713,8 @@ export type Output$Outbound =
   | OutputStorjS3$Outbound
   | OutputAlphasocS3$Outbound
   | OutputDellS3$Outbound
-  | OutputCloudianS3$Outbound;
+  | OutputCloudianS3$Outbound
+  | OutputScalityS3$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -791,6 +800,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputAlphasocS3$outboundSchema,
   OutputDellS3$outboundSchema,
   OutputCloudianS3$outboundSchema,
+  OutputScalityS3$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {

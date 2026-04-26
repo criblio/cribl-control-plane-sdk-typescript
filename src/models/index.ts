@@ -467,6 +467,7 @@ export * from "./outputring.js";
 export * from "./outputrouter.js";
 export * from "./outputs3.js";
 export * from "./outputsamplesresponse.js";
+export * from "./outputscalitys3.js";
 export * from "./outputsecuritylake.js";
 export * from "./outputsentinel.js";
 export * from "./outputsentineloneaisiem.js";

@@ -857,3 +857,15 @@ const value: operations.CreateOutputOutputCloudianS3 = {
 };
 ```
 
+### `operations.CreateOutputOutputScalityS3`
+
+```typescript
+const value: operations.CreateOutputOutputScalityS3 = {
+  id: "<id>",
+  type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+

@@ -9,8 +9,8 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage,
-  CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema,
+  CreateOutputSystemByPackLogLocationType,
+  CreateOutputSystemByPackLogLocationType$outboundSchema,
   CreateOutputSystemByPackOutputAlphasocS3,
   CreateOutputSystemByPackOutputAlphasocS3$Outbound,
   CreateOutputSystemByPackOutputAlphasocS3$outboundSchema,
@@ -80,9 +80,6 @@ import {
   CreateOutputSystemByPackOutputExabeam,
   CreateOutputSystemByPackOutputExabeam$Outbound,
   CreateOutputSystemByPackOutputExabeam$outboundSchema,
-  CreateOutputSystemByPackOutputGoogleCloudLogging,
-  CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound,
-  CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
   CreateOutputSystemByPackOutputGooglePubsub,
   CreateOutputSystemByPackOutputGooglePubsub$Outbound,
   CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
@@ -140,6 +137,9 @@ import {
   CreateOutputSystemByPackOutputRouter,
   CreateOutputSystemByPackOutputRouter$Outbound,
   CreateOutputSystemByPackOutputRouter$outboundSchema,
+  CreateOutputSystemByPackOutputScalityS3,
+  CreateOutputSystemByPackOutputScalityS3$Outbound,
+  CreateOutputSystemByPackOutputScalityS3$outboundSchema,
   CreateOutputSystemByPackOutputSecurityLake,
   CreateOutputSystemByPackOutputSecurityLake$Outbound,
   CreateOutputSystemByPackOutputSecurityLake$outboundSchema,
@@ -173,7 +173,347 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-} from "./createoutputsystembypackauthenticationmethodgooglecloudstorage.js";
+  CreateOutputSystemByPackPayloadFormat,
+  CreateOutputSystemByPackPayloadFormat$outboundSchema,
+  CreateOutputSystemByPackPqControlsGoogleCloudLogging,
+  CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound,
+  CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema,
+} from "./createoutputsystembypackpqcontrolsgooglecloudlogging.js";
+
+export type CreateOutputSystemByPackOutputGoogleCloudLogging = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_cloud_logging";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  logLocationType: CreateOutputSystemByPackLogLocationType;
+  /**
+   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  payloadFormat?: CreateOutputSystemByPackPayloadFormat | undefined;
+  /**
+   * Labels to apply to the log entry
+   */
+  logLabels?: Array<models.ItemsTypeLogLabels> | undefined;
+  /**
+   * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+   */
+  resourceTypeExpression?: string | undefined;
+  /**
+   * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+   */
+  resourceTypeLabels?: Array<models.ItemsTypeLogLabels> | undefined;
+  /**
+   * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+   */
+  severityExpression?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the insert ID field.
+   */
+  insertIdExpression?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * Maximum size, in KB, of the request body.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it.
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum number of requests to limit to per second.
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestMethodExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestUrlExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  statusExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  responseSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  userAgentExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  remoteIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  serverIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  refererExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  latencyExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheLookupExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheHitExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheValidatedExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheFillBytesExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  protocolExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  idExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  producerExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  firstExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  lastExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  fileExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  lineExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  functionExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  uidExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  indexExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  totalSplitsExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  spanIdExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceSampledExpression?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logLocationExpression: string;
+  /**
+   * JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+   */
+  payloadExpression?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsGoogleCloudLogging | undefined;
+  /**
+   * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+   */
+  __template_logLocationType?: string | undefined;
+  /**
+   * Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+   */
+  __template_logNameExpression?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
+  /**
+   * Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+   */
+  __template_resourceTypeExpression?: string | undefined;
+  /**
+   * Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+   */
+  __template_severityExpression?: string | undefined;
+  /**
+   * Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+   */
+  __template_insertIdExpression?: string | undefined;
+  /**
+   * Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+   */
+  __template_traceExpression?: string | undefined;
+  /**
+   * Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+   */
+  __template_spanIdExpression?: string | undefined;
+  /**
+   * Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+   */
+  __template_traceSampledExpression?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+   */
+  __template_logLocationExpression?: string | undefined;
+  /**
+   * Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+   */
+  __template_payloadExpression?: string | undefined;
+};
+
+export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage = {
+  /**
+   * auto
+   */
+  Auto: "auto",
+  /**
+   * manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+export type CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage =
+  OpenEnum<
+    typeof CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+  >;
 
 export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
   /**
@@ -5515,7 +5855,8 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputStorjS3
   | CreateOutputSystemByPackOutputAlphasocS3
   | CreateOutputSystemByPackOutputDellS3
-  | CreateOutputSystemByPackOutputCloudianS3;
+  | CreateOutputSystemByPackOutputCloudianS3
+  | CreateOutputSystemByPackOutputScalityS3;
 
 export type CreateOutputSystemByPackRequest = {
   /**
@@ -5606,8 +5947,215 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputStorjS3
     | CreateOutputSystemByPackOutputAlphasocS3
     | CreateOutputSystemByPackOutputDellS3
-    | CreateOutputSystemByPackOutputCloudianS3;
+    | CreateOutputSystemByPackOutputCloudianS3
+    | CreateOutputSystemByPackOutputScalityS3;
 };
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound = {
+  id: string;
+  type: "google_cloud_logging";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logLocationType: string;
+  logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
+  payloadFormat?: string | undefined;
+  logLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
+  resourceTypeExpression?: string | undefined;
+  resourceTypeLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
+  severityExpression?: string | undefined;
+  insertIdExpression?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  concurrency?: number | undefined;
+  connectionTimeout?: number | undefined;
+  timeoutSec?: number | undefined;
+  throttleRateReqPerSec?: number | undefined;
+  requestMethodExpression?: string | undefined;
+  requestUrlExpression?: string | undefined;
+  requestSizeExpression?: string | undefined;
+  statusExpression?: string | undefined;
+  responseSizeExpression?: string | undefined;
+  userAgentExpression?: string | undefined;
+  remoteIpExpression?: string | undefined;
+  serverIpExpression?: string | undefined;
+  refererExpression?: string | undefined;
+  latencyExpression?: string | undefined;
+  cacheLookupExpression?: string | undefined;
+  cacheHitExpression?: string | undefined;
+  cacheValidatedExpression?: string | undefined;
+  cacheFillBytesExpression?: string | undefined;
+  protocolExpression?: string | undefined;
+  idExpression?: string | undefined;
+  producerExpression?: string | undefined;
+  firstExpression?: string | undefined;
+  lastExpression?: string | undefined;
+  fileExpression?: string | undefined;
+  lineExpression?: string | undefined;
+  functionExpression?: string | undefined;
+  uidExpression?: string | undefined;
+  indexExpression?: string | undefined;
+  totalSplitsExpression?: string | undefined;
+  traceExpression?: string | undefined;
+  spanIdExpression?: string | undefined;
+  traceSampledExpression?: string | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  logLocationExpression: string;
+  payloadExpression?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound
+    | undefined;
+  __template_logLocationType?: string | undefined;
+  __template_logNameExpression?: string | undefined;
+  __template_payloadFormat?: string | undefined;
+  __template_resourceTypeExpression?: string | undefined;
+  __template_severityExpression?: string | undefined;
+  __template_insertIdExpression?: string | undefined;
+  __template_traceExpression?: string | undefined;
+  __template_spanIdExpression?: string | undefined;
+  __template_traceSampledExpression?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_logLocationExpression?: string | undefined;
+  __template_payloadExpression?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGoogleCloudLogging
+  > = z.object({
+    id: z.string(),
+    type: z.literal("google_cloud_logging"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    logLocationType: CreateOutputSystemByPackLogLocationType$outboundSchema,
+    logNameExpression: z.string(),
+    sanitizeLogNames: z.boolean().optional(),
+    payloadFormat: CreateOutputSystemByPackPayloadFormat$outboundSchema
+      .optional(),
+    logLabels: z.array(models.ItemsTypeLogLabels$outboundSchema).optional(),
+    resourceTypeExpression: z.string().optional(),
+    resourceTypeLabels: z.array(models.ItemsTypeLogLabels$outboundSchema)
+      .optional(),
+    severityExpression: z.string().optional(),
+    insertIdExpression: z.string().optional(),
+    googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+      .optional(),
+    serviceAccountCredentials: z.string().optional(),
+    secret: z.string().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    concurrency: z.number().optional(),
+    connectionTimeout: z.number().optional(),
+    timeoutSec: z.number().optional(),
+    throttleRateReqPerSec: z.number().int().optional(),
+    requestMethodExpression: z.string().optional(),
+    requestUrlExpression: z.string().optional(),
+    requestSizeExpression: z.string().optional(),
+    statusExpression: z.string().optional(),
+    responseSizeExpression: z.string().optional(),
+    userAgentExpression: z.string().optional(),
+    remoteIpExpression: z.string().optional(),
+    serverIpExpression: z.string().optional(),
+    refererExpression: z.string().optional(),
+    latencyExpression: z.string().optional(),
+    cacheLookupExpression: z.string().optional(),
+    cacheHitExpression: z.string().optional(),
+    cacheValidatedExpression: z.string().optional(),
+    cacheFillBytesExpression: z.string().optional(),
+    protocolExpression: z.string().optional(),
+    idExpression: z.string().optional(),
+    producerExpression: z.string().optional(),
+    firstExpression: z.string().optional(),
+    lastExpression: z.string().optional(),
+    fileExpression: z.string().optional(),
+    lineExpression: z.string().optional(),
+    functionExpression: z.string().optional(),
+    uidExpression: z.string().optional(),
+    indexExpression: z.string().optional(),
+    totalSplitsExpression: z.string().optional(),
+    traceExpression: z.string().optional(),
+    spanIdExpression: z.string().optional(),
+    traceSampledExpression: z.string().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    totalMemoryLimitKB: z.number().optional(),
+    description: z.string().optional(),
+    logLocationExpression: z.string(),
+    payloadExpression: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls:
+      CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema
+        .optional(),
+    __template_logLocationType: z.string().optional(),
+    __template_logNameExpression: z.string().optional(),
+    __template_payloadFormat: z.string().optional(),
+    __template_resourceTypeExpression: z.string().optional(),
+    __template_severityExpression: z.string().optional(),
+    __template_insertIdExpression: z.string().optional(),
+    __template_traceExpression: z.string().optional(),
+    __template_spanIdExpression: z.string().optional(),
+    __template_traceSampledExpression: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_logLocationExpression: z.string().optional(),
+    __template_payloadExpression: z.string().optional(),
+  });
+
+export function createOutputSystemByPackOutputGoogleCloudLoggingToJSON(
+  createOutputSystemByPackOutputGoogleCloudLogging:
+    CreateOutputSystemByPackOutputGoogleCloudLogging,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema.parse(
+      createOutputSystemByPackOutputGoogleCloudLogging,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage,
+  );
 
 /** @internal */
 export type CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound = {
@@ -9724,7 +10272,8 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputStorjS3$Outbound
   | CreateOutputSystemByPackOutputAlphasocS3$Outbound
   | CreateOutputSystemByPackOutputDellS3$Outbound
-  | CreateOutputSystemByPackOutputCloudianS3$Outbound;
+  | CreateOutputSystemByPackOutputCloudianS3$Outbound
+  | CreateOutputSystemByPackOutputScalityS3$Outbound;
 
 /** @internal */
 export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
@@ -9757,7 +10306,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputSystemByPackOutputAzureEventhub$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema),
-  CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
+  z.lazy(() => CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema),
   CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
   CreateOutputSystemByPackOutputExabeam$outboundSchema,
   CreateOutputSystemByPackOutputKafka$outboundSchema,
@@ -9813,6 +10362,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputAlphasocS3$outboundSchema,
   CreateOutputSystemByPackOutputDellS3$outboundSchema,
   CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
+  CreateOutputSystemByPackOutputScalityS3$outboundSchema,
 ]);
 
 export function createOutputSystemByPackRequestBodyToJSON(
@@ -9911,7 +10461,8 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputStorjS3$Outbound
     | CreateOutputSystemByPackOutputAlphasocS3$Outbound
     | CreateOutputSystemByPackOutputDellS3$Outbound
-    | CreateOutputSystemByPackOutputCloudianS3$Outbound;
+    | CreateOutputSystemByPackOutputCloudianS3$Outbound
+    | CreateOutputSystemByPackOutputScalityS3$Outbound;
 };
 
 /** @internal */
@@ -9955,7 +10506,9 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() =>
       CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema
     ),
-    CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
+    z.lazy(() =>
+      CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema
+    ),
     CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
     CreateOutputSystemByPackOutputExabeam$outboundSchema,
     CreateOutputSystemByPackOutputKafka$outboundSchema,
@@ -10011,6 +10564,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputAlphasocS3$outboundSchema,
     CreateOutputSystemByPackOutputDellS3$outboundSchema,
     CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
+    CreateOutputSystemByPackOutputScalityS3$outboundSchema,
   ]),
 }).transform((v) => {
   return remap$(v, {

@@ -83,6 +83,7 @@ export const DestinationType = {
   AlphasocS3: "alphasoc_s3",
   DellS3: "dell_s3",
   CloudianS3: "cloudian_s3",
+  ScalityS3: "scality_s3",
 } as const;
 export type DestinationType = OpenEnum<typeof DestinationType>;
 

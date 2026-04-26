@@ -787,3 +787,14 @@ const value: models.OutputCloudianS3 = {
 };
 ```
 
+### `models.OutputScalityS3`
+
+```typescript
+const value: models.OutputScalityS3 = {
+  type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
