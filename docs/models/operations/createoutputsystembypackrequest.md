@@ -9,13 +9,7 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "security_lake",
-    assumeRoleArn: "<value>",
-    bucket: "<value>",
-    region: "<value>",
-    stagePath: "<value>",
-    accountId: "<id>",
-    customSource: "<value>",
+    type: "cribl_lake",
   },
 };
 ```
