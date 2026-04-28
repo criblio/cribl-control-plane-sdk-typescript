@@ -21,6 +21,10 @@ export type FunctionConfSchemaFoldkeys = {
    * Optional regular expression to select a subset of the keys to fold.
    */
   selectionRegExp?: string | undefined;
+  /**
+   * Maximum recursion depth when traversing nested objects. Prevents infinite loops caused by cyclic references. Defaults to 20.
+   */
+  maxDepth?: number | undefined;
 };
 
 /** @internal */
@@ -32,12 +36,14 @@ export const FunctionConfSchemaFoldkeys$inboundSchema: z.ZodType<
   deleteOriginal: types.optional(types.boolean()),
   separator: types.optional(types.string()),
   selectionRegExp: types.optional(types.string()),
+  maxDepth: types.optional(types.number()),
 });
 /** @internal */
 export type FunctionConfSchemaFoldkeys$Outbound = {
   deleteOriginal?: boolean | undefined;
   separator?: string | undefined;
   selectionRegExp?: string | undefined;
+  maxDepth?: number | undefined;
 };
 
 /** @internal */
@@ -49,6 +55,7 @@ export const FunctionConfSchemaFoldkeys$outboundSchema: z.ZodType<
   deleteOriginal: z.boolean().optional(),
   separator: z.string().optional(),
   selectionRegExp: z.string().optional(),
+  maxDepth: z.number().int().optional(),
 });
 
 export function functionConfSchemaFoldkeysToJSON(
