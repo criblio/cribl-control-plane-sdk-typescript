@@ -645,6 +645,7 @@ export * from "./ssltypesystemsettingsconfapi.js";
 export * from "./statuserror.js";
 export * from "./storageclassoptions.js";
 export * from "./storageclassoptionsarchivecoldline.js";
+export * from "./storageclassoptionscribllakedataset.js";
 export * from "./storageclassoptionsreducedredundancystandard.js";
 export * from "./subscriptionplanoptions.js";
 export * from "./supporttypesystemsettingsconf.js";

@@ -93,6 +93,7 @@ export type InputJournalFiles = {
    * The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
    */
   maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -172,6 +173,7 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   ),
   currentBoot: types.optional(types.boolean()),
   maxAgeDur: types.optional(types.string()),
+  suppressMissingPathErrors: types.optional(types.boolean()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
@@ -194,6 +196,7 @@ export type InputJournalFiles$Outbound = {
   rules?: Array<InputJournalFilesRule$Outbound> | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -221,6 +224,7 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
+  suppressMissingPathErrors: z.boolean().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),

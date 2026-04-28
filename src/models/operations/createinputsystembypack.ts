@@ -1731,6 +1731,7 @@ export type CreateInputSystemByPackInputJournalFiles = {
    * The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
    */
   maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -12198,6 +12199,7 @@ export type CreateInputSystemByPackInputJournalFiles$Outbound = {
     | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
   metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -12228,6 +12230,7 @@ export const CreateInputSystemByPackInputJournalFiles$outboundSchema: z.ZodType<
   ).optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
+  suppressMissingPathErrors: z.boolean().optional(),
   metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
