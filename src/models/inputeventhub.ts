@@ -182,6 +182,10 @@ export type InputEventhub = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
+  /**
    * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
    */
   __template_groupId?: string | undefined;
@@ -231,6 +235,7 @@ export const InputEventhub$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_brokers: types.optional(types.string()),
   __template_groupId: types.optional(types.string()),
 });
 /** @internal */
@@ -271,6 +276,7 @@ export type InputEventhub$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_brokers?: string | undefined;
   __template_groupId?: string | undefined;
 };
 
@@ -316,6 +322,7 @@ export const InputEventhub$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_brokers: z.string().optional(),
   __template_groupId: z.string().optional(),
 });
 

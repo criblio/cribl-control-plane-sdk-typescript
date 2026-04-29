@@ -5860,7 +5860,7 @@ export type CreateOutputSystemByPackRequestBody =
 
 export type CreateOutputSystemByPackRequest = {
   /**
-   * The <code>id</code> of the Pack to create.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**

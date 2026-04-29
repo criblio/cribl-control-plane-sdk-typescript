@@ -12,7 +12,7 @@ export type CreateRoutesAppendByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to append.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**

@@ -20,5 +20,5 @@ let value: UpdateInputSystemByPackAndIdRequest = {
 | Field                                        | Type                                         | Required                                     | Description                                  |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | `id`                                         | *string*                                     | :heavy_check_mark:                           | The <code>id</code> of the Source to update. |
-| `pack`                                       | *string*                                     | :heavy_check_mark:                           | The <code>id</code> of the Pack to update.   |
+| `pack`                                       | *string*                                     | :heavy_check_mark:                           | The <code>id</code> of the Pack.             |
 | `input`                                      | *models.Input2*                              | :heavy_check_mark:                           | Input object                                 |

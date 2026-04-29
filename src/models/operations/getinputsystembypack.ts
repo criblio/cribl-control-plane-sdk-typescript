@@ -10,7 +10,7 @@ export type GetInputSystemByPackRequest = {
    */
   type?: Array<string> | undefined;
   /**
-   * The <code>id</code> of the Pack to list.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };

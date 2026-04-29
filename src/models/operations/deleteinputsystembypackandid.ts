@@ -10,7 +10,7 @@ export type DeleteInputSystemByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to delete.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };

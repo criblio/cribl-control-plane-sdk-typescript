@@ -12,7 +12,7 @@ export type UpdateRoutesByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to update.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**

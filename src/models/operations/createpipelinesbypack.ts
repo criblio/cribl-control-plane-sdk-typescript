@@ -8,7 +8,7 @@ import * as models from "../index.js";
 
 export type CreatePipelinesByPackRequest = {
   /**
-   * The <code>id</code> of the Pack to create.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**
