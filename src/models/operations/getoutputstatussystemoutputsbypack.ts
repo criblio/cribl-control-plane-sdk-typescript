@@ -27,7 +27,7 @@ export type GetOutputStatusSystemOutputsByPackRequest = {
    */
   limit?: number | undefined;
   /**
-   * The <code>id</code> of the Pack to list.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };

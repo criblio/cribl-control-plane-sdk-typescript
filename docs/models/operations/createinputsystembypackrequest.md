@@ -20,5 +20,5 @@ let value: CreateInputSystemByPackRequest = {
 
 | Field                                           | Type                                            | Required                                        | Description                                     |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| `pack`                                          | *string*                                        | :heavy_check_mark:                              | The <code>id</code> of the Pack to create.      |
+| `pack`                                          | *string*                                        | :heavy_check_mark:                              | The <code>id</code> of the Pack.                |
 | `requestBody`                                   | *operations.CreateInputSystemByPackRequestBody* | :heavy_check_mark:                              | Input object                                    |

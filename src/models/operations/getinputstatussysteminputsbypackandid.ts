@@ -18,7 +18,7 @@ export type GetInputStatusSystemInputsByPackAndIdRequest = {
    */
   type?: boolean | undefined;
   /**
-   * The <code>id</code> of the Pack to get.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };
