@@ -248,6 +248,10 @@ export type InputSplunkSearch = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
   __template_searchHead?: string | undefined;
@@ -428,6 +432,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -478,6 +483,7 @@ export type InputSplunkSearch$Outbound = {
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -535,6 +541,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),

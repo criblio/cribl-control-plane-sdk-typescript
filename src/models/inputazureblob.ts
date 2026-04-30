@@ -157,6 +157,10 @@ export type InputAzureBlob = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -226,6 +230,7 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
   __template_connectionString: types.optional(types.string()),
   __template_storageAccountName: types.optional(types.string()),
@@ -269,6 +274,7 @@ export type InputAzureBlob$Outbound = {
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_queueName?: string | undefined;
   __template_connectionString?: string | undefined;
   __template_storageAccountName?: string | undefined;
@@ -318,6 +324,7 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_connectionString: z.string().optional(),
   __template_storageAccountName: z.string().optional(),

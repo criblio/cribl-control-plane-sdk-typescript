@@ -223,6 +223,10 @@ export type InputKinesis = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
    */
   __template_streamName?: string | undefined;
@@ -345,6 +349,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_streamName: types.optional(types.string()),
   __template_shardIteratorType: types.optional(types.string()),
   __template_payloadFormat: types.optional(types.string()),
@@ -393,6 +398,7 @@ export type InputKinesis$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_streamName?: string | undefined;
   __template_shardIteratorType?: string | undefined;
   __template_payloadFormat?: string | undefined;
@@ -446,6 +452,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_streamName: z.string().optional(),
   __template_shardIteratorType: z.string().optional(),
   __template_payloadFormat: z.string().optional(),

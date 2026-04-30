@@ -123,6 +123,10 @@ export type InputOkta = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'oktaDomain' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oktaDomain' at runtime.
    */
   __template_oktaDomain?: string | undefined;
@@ -162,6 +166,7 @@ export const InputOkta$inboundSchema: z.ZodType<
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_oktaDomain: types.optional(types.string()),
 });
 /** @internal */
@@ -192,6 +197,7 @@ export type InputOkta$Outbound = {
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_oktaDomain?: string | undefined;
 };
 
@@ -227,6 +233,7 @@ export const InputOkta$outboundSchema: z.ZodType<
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_oktaDomain: z.string().optional(),
 });
 

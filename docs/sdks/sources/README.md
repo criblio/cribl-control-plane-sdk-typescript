@@ -92,6 +92,97 @@ run();
 
 Create a new Source.
 
+### Example Usage: InputCreateExamplesAnthropicCompliance
+
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesAnthropicCompliance" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.create({
+    id: "anthropic-compliance-source",
+    type: "anthropic_compliance",
+    sendToRoutes: true,
+    pqEnabled: false,
+    textSecret: "anthropic-api-key-secret",
+    contentConfig: [
+      {
+        contentType: "activities",
+        contentDescription: "Compliance Activities",
+        enabled: true,
+        stateTracking: true,
+        stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+        stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+        cronSchedule: "*/5 * * * *",
+        earliest: "-7d@d",
+        latest: "now",
+        jobTimeout: "300",
+      },
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesCreate } from "cribl-control-plane/funcs/sourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesCreate(criblControlPlane, {
+    id: "anthropic-compliance-source",
+    type: "anthropic_compliance",
+    sendToRoutes: true,
+    pqEnabled: false,
+    textSecret: "anthropic-api-key-secret",
+    contentConfig: [
+      {
+        contentType: "activities",
+        contentDescription: "Compliance Activities",
+        enabled: true,
+        stateTracking: true,
+        stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+        stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+        cronSchedule: "*/5 * * * *",
+        earliest: "-7d@d",
+        latest: "now",
+        jobTimeout: "300",
+      },
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesAppscope
 
 <!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesAppscope" -->
@@ -4527,6 +4618,103 @@ run();
 
 Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
+### Example Usage: InputCreateExamplesAnthropicCompliance
+
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesAnthropicCompliance" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.update({
+    id: "<id>",
+    input: {
+      id: "anthropic-compliance-source",
+      type: "anthropic_compliance",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "anthropic-api-key-secret",
+      contentConfig: [
+        {
+          contentType: "activities",
+          contentDescription: "Compliance Activities",
+          enabled: true,
+          stateTracking: true,
+          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+          cronSchedule: "*/5 * * * *",
+          earliest: "-7d@d",
+          latest: "now",
+          jobTimeout: "300",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesUpdate } from "cribl-control-plane/funcs/sourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    input: {
+      id: "anthropic-compliance-source",
+      type: "anthropic_compliance",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "anthropic-api-key-secret",
+      contentConfig: [
+        {
+          contentType: "activities",
+          contentDescription: "Compliance Activities",
+          enabled: true,
+          stateTracking: true,
+          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+          cronSchedule: "*/5 * * * *",
+          earliest: "-7d@d",
+          latest: "now",
+          jobTimeout: "300",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesAppscope
 
 <!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesAppscope" -->

@@ -69,6 +69,10 @@ export type SavedJobCollection = {
   input?:
     | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
     | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -88,6 +92,7 @@ export type SavedJobCollection$Outbound = {
   input?:
     | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound
     | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -111,6 +116,7 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   input:
     RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema
       .optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function savedJobCollectionToJSON(

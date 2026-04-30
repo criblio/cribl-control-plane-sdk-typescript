@@ -259,6 +259,10 @@ export type InputElastic = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -270,6 +274,10 @@ export type InputElastic = {
    * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
    */
   __template_elasticAPI?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
 };
 
 /** @internal */
@@ -424,9 +432,11 @@ export const InputElastic$inboundSchema: z.ZodType<
   authTokens: types.optional(z.array(types.string())),
   customAPIVersion: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_elasticAPI: types.optional(types.string()),
+  __template_authTokens: types.optional(types.string()),
 });
 /** @internal */
 export type InputElastic$Outbound = {
@@ -467,9 +477,11 @@ export type InputElastic$Outbound = {
   authTokens?: Array<string> | undefined;
   customAPIVersion?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_elasticAPI?: string | undefined;
+  __template_authTokens?: string | undefined;
 };
 
 /** @internal */
@@ -516,9 +528,11 @@ export const InputElastic$outboundSchema: z.ZodType<
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_elasticAPI: z.string().optional(),
+  __template_authTokens: z.string().optional(),
 });
 
 export function inputElasticToJSON(inputElastic: InputElastic): string {

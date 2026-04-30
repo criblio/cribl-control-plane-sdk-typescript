@@ -9,7 +9,7 @@ let value: CreateInputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "cribl_http",
+    type: "cribl_lake_http",
     host: "concrete-orchid.info",
     port: 6994.52,
   },

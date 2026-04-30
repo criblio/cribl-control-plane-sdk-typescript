@@ -58,6 +58,10 @@ export type OutputSnmp = {
    */
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -119,6 +123,7 @@ export const OutputSnmp$inboundSchema: z.ZodType<
   hosts: z.array(z.lazy(() => OutputSnmpHost$inboundSchema)),
   dnsResolvePeriodSec: types.optional(types.number()),
   description: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSnmp$Outbound = {
@@ -131,6 +136,7 @@ export type OutputSnmp$Outbound = {
   hosts: Array<OutputSnmpHost$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -148,6 +154,7 @@ export const OutputSnmp$outboundSchema: z.ZodType<
   hosts: z.array(z.lazy(() => OutputSnmpHost$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputSnmpToJSON(outputSnmp: OutputSnmp): string {

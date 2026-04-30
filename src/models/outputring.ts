@@ -81,6 +81,10 @@ export type OutputRing = {
   onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   description?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -123,6 +127,7 @@ export const OutputRing$inboundSchema: z.ZodType<
     BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   ),
   description: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
@@ -141,6 +146,7 @@ export type OutputRing$Outbound = {
   destPath?: string | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -165,6 +171,7 @@ export const OutputRing$outboundSchema: z.ZodType<
   onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
     .optional(),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 

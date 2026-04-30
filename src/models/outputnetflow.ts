@@ -66,6 +66,10 @@ export type OutputNetflow = {
    * MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
    */
   maxRecordSize?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -133,6 +137,7 @@ export const OutputNetflow$inboundSchema: z.ZodType<
   enableIpSpoofing: types.optional(types.boolean()),
   description: types.optional(types.string()),
   maxRecordSize: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
 });
 /** @internal */
 export type OutputNetflow$Outbound = {
@@ -147,6 +152,7 @@ export type OutputNetflow$Outbound = {
   enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
   maxRecordSize?: number | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -166,6 +172,7 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
   maxRecordSize: z.number().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {

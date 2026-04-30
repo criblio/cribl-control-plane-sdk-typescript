@@ -334,6 +334,10 @@ export type OutputSyslog = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSyslogPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -496,6 +500,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputSyslogPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
@@ -545,6 +550,7 @@ export type OutputSyslog$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSyslogPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -599,6 +605,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSyslogPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

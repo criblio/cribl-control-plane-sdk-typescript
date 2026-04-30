@@ -268,6 +268,10 @@ export type OutputMicrosoftFabric = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -482,6 +486,7 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_topic: types.optional(types.string()),
   __template_format: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
@@ -526,6 +531,7 @@ export type OutputMicrosoftFabric$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -577,6 +583,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

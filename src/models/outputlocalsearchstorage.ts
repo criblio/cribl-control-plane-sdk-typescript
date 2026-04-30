@@ -312,6 +312,10 @@ export type OutputLocalSearchStorage = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLocalSearchStoragePqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -574,6 +578,7 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputLocalSearchStoragePqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   __template_database: types.optional(types.string()),
   __template_tableName: types.optional(types.string()),
@@ -638,6 +643,7 @@ export type OutputLocalSearchStorage$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLocalSearchStoragePqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
@@ -710,6 +716,7 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputLocalSearchStoragePqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),

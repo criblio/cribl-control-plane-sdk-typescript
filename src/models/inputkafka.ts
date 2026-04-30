@@ -185,6 +185,18 @@ export type InputKafka = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
+  /**
+   * Binds 'topics' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topics' at runtime.
+   */
+  __template_topics?: string | undefined;
+  /**
    * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
    */
   __template_groupId?: string | undefined;
@@ -236,6 +248,9 @@ export const InputKafka$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_brokers: types.optional(types.string()),
+  __template_topics: types.optional(types.string()),
   __template_groupId: types.optional(types.string()),
 });
 /** @internal */
@@ -278,6 +293,9 @@ export type InputKafka$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_brokers?: string | undefined;
+  __template_topics?: string | undefined;
   __template_groupId?: string | undefined;
 };
 
@@ -324,6 +342,9 @@ export const InputKafka$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_brokers: z.string().optional(),
+  __template_topics: z.string().optional(),
   __template_groupId: z.string().optional(),
 });
 

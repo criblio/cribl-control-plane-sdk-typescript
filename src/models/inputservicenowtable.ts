@@ -290,6 +290,10 @@ export type InputServicenowTable = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
    */
   __template_instance?: string | undefined;
@@ -446,6 +450,7 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
     z.lazy(() => InputServicenowTableManageState$inboundSchema),
   ),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_instance: types.optional(types.string()),
   __template_orderByField: types.optional(types.string()),
   __template_query: types.optional(types.string()),
@@ -503,6 +508,7 @@ export type InputServicenowTable$Outbound = {
   stateMergeExpression?: string | undefined;
   manageState?: InputServicenowTableManageState$Outbound | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_instance?: string | undefined;
   __template_orderByField?: string | undefined;
   __template_query?: string | undefined;
@@ -566,6 +572,7 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   manageState: z.lazy(() => InputServicenowTableManageState$outboundSchema)
     .optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_instance: z.string().optional(),
   __template_orderByField: z.string().optional(),
   __template_query: z.string().optional(),

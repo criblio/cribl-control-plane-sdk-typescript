@@ -167,6 +167,10 @@ export type InputOffice365Mgmt = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
    */
   __template_planType?: string | undefined;
@@ -282,6 +286,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_planType: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_appId: types.optional(types.string()),
@@ -319,6 +324,7 @@ export type InputOffice365Mgmt$Outbound = {
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_planType?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_appId?: string | undefined;
@@ -363,6 +369,7 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_planType: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_appId: z.string().optional(),

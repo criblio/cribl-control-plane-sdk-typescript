@@ -210,6 +210,10 @@ export type OutputSqs = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSqsPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -349,6 +353,7 @@ export const OutputSqs$inboundSchema: z.ZodType<
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputSqsPqControls$inboundSchema)),
+  __template_streamtags: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
   __template_queueType: types.optional(types.string()),
   __template_awsAccountId: types.optional(types.string()),
@@ -405,6 +410,7 @@ export type OutputSqs$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSqsPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_queueName?: string | undefined;
   __template_queueType?: string | undefined;
   __template_awsAccountId?: string | undefined;
@@ -466,6 +472,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSqsPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_queueType: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
