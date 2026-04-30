@@ -236,6 +236,10 @@ export type InputCloudflareHec = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -247,6 +251,18 @@ export type InputCloudflareHec = {
    * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
    */
   __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
@@ -433,9 +449,13 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   emitTokenMetrics: types.optional(types.boolean()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_hecAPI: types.optional(types.string()),
+  __template_allowedIndexes: types.optional(types.string()),
+  __template_accessControlAllowOrigin: types.optional(types.string()),
+  __template_accessControlAllowHeaders: types.optional(types.string()),
 });
 /** @internal */
 export type InputCloudflareHec$Outbound = {
@@ -473,9 +493,13 @@ export type InputCloudflareHec$Outbound = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_hecAPI?: string | undefined;
+  __template_allowedIndexes?: string | undefined;
+  __template_accessControlAllowOrigin?: string | undefined;
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
@@ -519,9 +543,13 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_hecAPI: z.string().optional(),
+  __template_allowedIndexes: z.string().optional(),
+  __template_accessControlAllowOrigin: z.string().optional(),
+  __template_accessControlAllowHeaders: z.string().optional(),
 });
 
 export function inputCloudflareHecToJSON(

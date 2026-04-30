@@ -9,8 +9,10 @@ let value: UpdateInputSystemByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   input: {
-    type: "exec",
-    command: "<value>",
+    type: "office365_mgmt",
+    planType: "dod",
+    tenantId: "<id>",
+    appId: "<id>",
   },
 };
 ```

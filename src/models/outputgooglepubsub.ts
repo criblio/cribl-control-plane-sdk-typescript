@@ -160,6 +160,10 @@ export type OutputGooglePubsub = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGooglePubsubPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
    */
   __template_topicName?: string | undefined;
@@ -251,6 +255,7 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGooglePubsubPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_topicName: types.optional(types.string()),
   __template_region: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
@@ -290,6 +295,7 @@ export type OutputGooglePubsub$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGooglePubsubPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topicName?: string | undefined;
   __template_region?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -335,6 +341,7 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_topicName: z.string().optional(),
   __template_region: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

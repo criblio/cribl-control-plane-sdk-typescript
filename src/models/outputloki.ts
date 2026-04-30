@@ -246,6 +246,10 @@ export type OutputLoki = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLokiPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -350,6 +354,7 @@ export const OutputLoki$inboundSchema: z.ZodType<
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputLokiPqControls$inboundSchema)),
+  __template_streamtags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
 });
@@ -403,6 +408,7 @@ export type OutputLoki$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLokiPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -465,6 +471,7 @@ export const OutputLoki$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputLokiPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });

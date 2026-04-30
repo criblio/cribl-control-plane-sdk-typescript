@@ -242,6 +242,10 @@ export type CreateOutputOutputScalityS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -546,6 +550,10 @@ export type CreateOutputOutputCloudianS3 = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
@@ -854,6 +862,10 @@ export type CreateOutputOutputDellS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -1141,6 +1153,10 @@ export type CreateOutputOutputAlphasocS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -1425,6 +1441,10 @@ export type CreateOutputOutputStorjS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -1707,6 +1727,10 @@ export type CreateOutputOutputNutanixObjects = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
@@ -2005,6 +2029,10 @@ export type CreateOutputOutputCloudflareR2 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -2270,6 +2298,10 @@ export type CreateOutputOutputMicrosoftFabric = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsMicrosoftFabric | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -2488,6 +2520,10 @@ export type CreateOutputOutputDatabricks = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
    */
@@ -2715,6 +2751,10 @@ export type CreateOutputOutputChronicle = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsChronicle | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
@@ -2994,6 +3034,10 @@ export type CreateOutputOutputSentinelOneAiSiem = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSentinelOneAiSiem | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -3221,6 +3265,10 @@ export type CreateOutputOutputDynatraceOtlp = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsDynatraceOtlp | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -3468,6 +3516,10 @@ export type CreateOutputOutputDynatraceHttp = {
    */
   url?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -3539,6 +3591,10 @@ export type CreateOutputOutputNetflow = {
    * MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
    */
   maxRecordSize?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /**
@@ -3736,6 +3792,10 @@ export type CreateOutputOutputXsiam = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsXsiam | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -4002,6 +4062,10 @@ export type CreateOutputOutputLocalSearchStorage = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsLocalSearchStorage | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -4262,6 +4326,10 @@ export type CreateOutputOutputClickHouse = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsClickHouse | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -4326,6 +4394,10 @@ export type CreateOutputOutputDiskSpool = {
    */
   partitionExpr?: string | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 export const CreateOutputAwsAuthenticationMethod = {
@@ -4518,6 +4590,10 @@ export type CreateOutputOutputCriblLake = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
@@ -4822,6 +4898,10 @@ export type CreateOutputOutputSecurityLake = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
@@ -5140,6 +5220,10 @@ export type CreateOutputOutputDlS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -5199,6 +5283,10 @@ export type CreateOutputOutputDlS3 = {
    * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
    */
   __template_kmsKeyId?: string | undefined;
+  /**
+   * Binds 'partitioningFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitioningFields' at runtime.
+   */
+  __template_partitioningFields?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -5367,6 +5455,10 @@ export type CreateOutputOutputCrowdstrikeNextGenSiem = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCrowdstrikeNextGenSiem | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -5533,6 +5625,10 @@ export type CreateOutputOutputHumioHec = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsHumioHec | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -5719,6 +5815,10 @@ export type CreateOutputOutputCriblSearchEngine = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCriblSearchEngine | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -5904,6 +6004,10 @@ export type CreateOutputOutputCriblHttp = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCriblHTTP | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -6056,6 +6160,10 @@ export type CreateOutputOutputCriblTcp = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCriblTCP | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -6307,6 +6415,10 @@ export type CreateOutputOutputDataset = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -6499,6 +6611,10 @@ export type CreateOutputOutputServiceNow = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsServiceNow | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -6779,6 +6895,10 @@ export type CreateOutputOutputOpenTelemetry = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsOpenTelemetry | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -6854,6 +6974,10 @@ export type CreateOutputOutputRing = {
    */
   onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -7027,6 +7151,10 @@ export type CreateOutputOutputPrometheus = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -7222,6 +7350,10 @@ export type CreateOutputOutputLoki = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsLoki | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -7397,6 +7529,10 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2 = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputOutputGrafanaCloudPqControls2 | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
    */
@@ -7581,6 +7717,10 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1 = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputOutputGrafanaCloudPqControls1 | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
    */
@@ -7898,6 +8038,14 @@ export type CreateOutputOutputDatadog = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'tags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tags' at runtime.
+   */
+  __template_tags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -8081,6 +8229,10 @@ export type CreateOutputOutputSumoLogic = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSumoLogic | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -8144,6 +8296,10 @@ export type CreateOutputOutputSnmp = {
    */
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /**
@@ -8320,6 +8476,10 @@ export type CreateOutputOutputSqs = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSqs | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
@@ -8513,6 +8673,10 @@ export type CreateOutputOutputSns = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSns | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topicArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicArn' at runtime.
    */
   __template_topicArn?: string | undefined;
@@ -8596,6 +8760,10 @@ export type CreateOutputOutputRouter = {
    */
   rules: Array<CreateOutputRule>;
   description?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 export type CreateOutputPqControlsGraphite = {};
@@ -8708,6 +8876,10 @@ export type CreateOutputOutputGraphite = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsGraphite | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -8825,6 +8997,10 @@ export type CreateOutputOutputStatsdExt = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsStatsdExt | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -8940,6 +9116,10 @@ export type CreateOutputOutputStatsd = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsStatsd | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -9180,6 +9360,10 @@ export type CreateOutputOutputMinio = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -9377,6 +9561,10 @@ export type CreateOutputOutputCloudwatch = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCloudwatch | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'logGroupName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logGroupName' at runtime.
    */
@@ -9667,6 +9855,10 @@ export type CreateOutputOutputInfluxdb = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -9846,6 +10038,10 @@ export type CreateOutputOutputNewrelicEvents = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
@@ -10055,6 +10251,10 @@ export type CreateOutputOutputNewrelic = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
@@ -10226,6 +10426,10 @@ export type CreateOutputOutputElasticCloud = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsElasticCloud | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -10490,6 +10694,10 @@ export type CreateOutputOutputElastic = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsElastic | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
    */
   __template_index?: string | undefined;
@@ -10712,6 +10920,10 @@ export type CreateOutputOutputMsk = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsMsk | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -10908,6 +11120,14 @@ export type CreateOutputOutputConfluentCloud = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsConfluentCloud | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -11080,6 +11300,10 @@ export type CreateOutputOutputKafka = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsKafka | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -11240,6 +11464,10 @@ export type CreateOutputOutputExabeam = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
@@ -11388,6 +11616,10 @@ export type CreateOutputOutputGooglePubsub = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsGooglePubsub | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
    */
   __template_topicName?: string | undefined;
@@ -11513,6 +11745,7 @@ export type CreateOutputOutputScalityS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
@@ -11597,6 +11830,7 @@ export const CreateOutputOutputScalityS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
@@ -11694,6 +11928,7 @@ export type CreateOutputOutputCloudianS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
@@ -11787,6 +12022,7 @@ export const CreateOutputOutputCloudianS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
@@ -11885,6 +12121,7 @@ export type CreateOutputOutputDellS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
@@ -11971,6 +12208,7 @@ export const CreateOutputOutputDellS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
@@ -12062,6 +12300,7 @@ export type CreateOutputOutputAlphasocS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_destPath?: string | undefined;
@@ -12143,6 +12382,7 @@ export const CreateOutputOutputAlphasocS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_destPath: z.string().optional(),
@@ -12240,6 +12480,7 @@ export type CreateOutputOutputStorjS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_destPath?: string | undefined;
@@ -12322,6 +12563,7 @@ export const CreateOutputOutputStorjS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_destPath: z.string().optional(),
@@ -12410,6 +12652,7 @@ export type CreateOutputOutputNutanixObjects$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
@@ -12494,6 +12737,7 @@ export const CreateOutputOutputNutanixObjects$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
@@ -12588,6 +12832,7 @@ export type CreateOutputOutputCloudflareR2$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_destPath?: string | undefined;
@@ -12674,6 +12919,7 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_destPath: z.string().optional(),
@@ -12830,6 +13076,7 @@ export type CreateOutputOutputMicrosoftFabric$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsMicrosoftFabric$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -12880,6 +13127,7 @@ export const CreateOutputOutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsMicrosoftFabric$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -12953,6 +13201,7 @@ export type CreateOutputOutputDatabricks$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
@@ -13025,6 +13274,7 @@ export const CreateOutputOutputDatabricks$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
   __template_baseFileName: z.string().optional(),
@@ -13149,6 +13399,7 @@ export type CreateOutputOutputChronicle$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsChronicle$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -13222,6 +13473,7 @@ export const CreateOutputOutputChronicle$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsChronicle$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -13337,6 +13589,7 @@ export type CreateOutputOutputSentinelOneAiSiem$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSentinelOneAiSiem$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -13408,6 +13661,7 @@ export const CreateOutputOutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputPqControlsSentinelOneAiSiem$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -13509,6 +13763,7 @@ export type CreateOutputOutputDynatraceOtlp$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsDynatraceOtlp$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -13572,6 +13827,7 @@ export const CreateOutputOutputDynatraceOtlp$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsDynatraceOtlp$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -13684,6 +13940,7 @@ export type CreateOutputOutputDynatraceHttp$Outbound = {
   environmentId?: string | undefined;
   activeGateDomain?: string | undefined;
   url?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
@@ -13748,6 +14005,7 @@ export const CreateOutputOutputDynatraceHttp$outboundSchema: z.ZodType<
   environmentId: z.string().optional(),
   activeGateDomain: z.string().optional(),
   url: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
@@ -13804,6 +14062,7 @@ export type CreateOutputOutputNetflow$Outbound = {
   enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
   maxRecordSize?: number | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -13823,6 +14082,7 @@ export const CreateOutputOutputNetflow$outboundSchema: z.ZodType<
   enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
   maxRecordSize: z.number().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function createOutputOutputNetflowToJSON(
@@ -13933,6 +14193,7 @@ export type CreateOutputOutputXsiam$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsXsiam$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
@@ -13995,6 +14256,7 @@ export const CreateOutputOutputXsiam$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsXsiam$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
@@ -14169,6 +14431,7 @@ export type CreateOutputOutputLocalSearchStorage$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsLocalSearchStorage$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
@@ -14246,6 +14509,7 @@ export const CreateOutputOutputLocalSearchStorage$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputPqControlsLocalSearchStorage$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),
@@ -14386,6 +14650,7 @@ export type CreateOutputOutputClickHouse$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsClickHouse$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
@@ -14459,6 +14724,7 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsClickHouse$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),
@@ -14490,6 +14756,7 @@ export type CreateOutputOutputDiskSpool$Outbound = {
   compress?: string | undefined;
   partitionExpr?: string | undefined;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -14510,6 +14777,7 @@ export const CreateOutputOutputDiskSpool$outboundSchema: z.ZodType<
   compress: models.CompressionOptionsPersistence$outboundSchema.optional(),
   partitionExpr: z.string().optional(),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function createOutputOutputDiskSpoolToJSON(
@@ -14580,6 +14848,7 @@ export type CreateOutputOutputCriblLake$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -14656,6 +14925,7 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -14754,6 +15024,7 @@ export type CreateOutputOutputSecurityLake$Outbound = {
   parquetSchema?: string | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -14845,6 +15116,7 @@ export const CreateOutputOutputSecurityLake$outboundSchema: z.ZodType<
   parquetSchema: z.string().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -14942,6 +15214,7 @@ export type CreateOutputOutputDlS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -14957,6 +15230,7 @@ export type CreateOutputOutputDlS3$Outbound = {
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
   __template_kmsKeyId?: string | undefined;
+  __template_partitioningFields?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
   __template_parquetSchema?: string | undefined;
@@ -15039,6 +15313,7 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -15054,6 +15329,7 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
   __template_kmsKeyId: z.string().optional(),
+  __template_partitioningFields: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
   __template_parquetSchema: z.string().optional(),
@@ -15136,6 +15412,7 @@ export type CreateOutputOutputCrowdstrikeNextGenSiem$Outbound = {
   pqControls?:
     | CreateOutputPqControlsCrowdstrikeNextGenSiem$Outbound
     | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -15194,6 +15471,7 @@ export const CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputPqControlsCrowdstrikeNextGenSiem$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -15275,6 +15553,7 @@ export type CreateOutputOutputHumioHec$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsHumioHec$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -15332,6 +15611,7 @@ export const CreateOutputOutputHumioHec$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsHumioHec$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -15419,6 +15699,7 @@ export type CreateOutputOutputCriblSearchEngine$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCriblSearchEngine$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
@@ -15483,6 +15764,7 @@ export const CreateOutputOutputCriblSearchEngine$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputPqControlsCriblSearchEngine$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
@@ -15571,6 +15853,7 @@ export type CreateOutputOutputCriblHttp$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCriblHTTP$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
@@ -15634,6 +15917,7 @@ export const CreateOutputOutputCriblHttp$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsCriblHTTP$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
@@ -15708,6 +15992,7 @@ export type CreateOutputOutputCriblTcp$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCriblTCP$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -15757,6 +16042,7 @@ export const CreateOutputOutputCriblTcp$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsCriblTCP$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -15855,6 +16141,7 @@ export type CreateOutputOutputDataset$Outbound = {
   pqControls?: CreateOutputPqControlsDataset$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_customUrl?: string | undefined;
@@ -15918,6 +16205,7 @@ export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_customUrl: z.string().optional(),
@@ -16004,6 +16292,7 @@ export type CreateOutputOutputServiceNow$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsServiceNow$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -16067,6 +16356,7 @@ export const CreateOutputOutputServiceNow$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsServiceNow$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -16178,6 +16468,7 @@ export type CreateOutputOutputOpenTelemetry$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsOpenTelemetry$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
@@ -16255,6 +16546,7 @@ export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsOpenTelemetry$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
@@ -16293,6 +16585,7 @@ export type CreateOutputOutputRing$Outbound = {
   destPath?: string | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -16318,6 +16611,7 @@ export const CreateOutputOutputRing$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
     .optional(),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
@@ -16399,6 +16693,7 @@ export type CreateOutputOutputPrometheus$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -16461,6 +16756,7 @@ export const CreateOutputOutputPrometheus$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -16548,6 +16844,7 @@ export type CreateOutputOutputLoki$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsLoki$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -16614,6 +16911,7 @@ export const CreateOutputOutputLoki$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsLoki$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -16704,6 +17002,7 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputOutputGrafanaCloudPqControls2$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -16769,6 +17068,7 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema:
     pqControls: z.lazy(() =>
       CreateOutputOutputGrafanaCloudPqControls2$outboundSchema
     ).optional(),
+    __template_streamtags: z.string().optional(),
     __template_lokiUrl: z.string().optional(),
     __template_prometheusUrl: z.string().optional(),
     __template_failedRequestLoggingMode: z.string().optional(),
@@ -16864,6 +17164,7 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputOutputGrafanaCloudPqControls1$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -16929,6 +17230,7 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema:
     pqControls: z.lazy(() =>
       CreateOutputOutputGrafanaCloudPqControls1$outboundSchema
     ).optional(),
+    __template_streamtags: z.string().optional(),
     __template_lokiUrl: z.string().optional(),
     __template_prometheusUrl: z.string().optional(),
     __template_failedRequestLoggingMode: z.string().optional(),
@@ -17068,6 +17370,8 @@ export type CreateOutputOutputDatadog$Outbound = {
   pqControls?: CreateOutputPqControlsDatadog$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_tags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -17134,6 +17438,8 @@ export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_tags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -17218,6 +17524,7 @@ export type CreateOutputOutputSumoLogic$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSumoLogic$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -17274,6 +17581,7 @@ export const CreateOutputOutputSumoLogic$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSumoLogic$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -17328,6 +17636,7 @@ export type CreateOutputOutputSnmp$Outbound = {
   hosts: Array<CreateOutputHostSnmp$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -17345,6 +17654,7 @@ export const CreateOutputOutputSnmp$outboundSchema: z.ZodType<
   hosts: z.array(z.lazy(() => CreateOutputHostSnmp$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function createOutputOutputSnmpToJSON(
@@ -17424,6 +17734,7 @@ export type CreateOutputOutputSqs$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSqs$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_queueName?: string | undefined;
   __template_queueType?: string | undefined;
   __template_awsAccountId?: string | undefined;
@@ -17485,6 +17796,7 @@ export const CreateOutputOutputSqs$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSqs$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_queueType: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
@@ -17569,6 +17881,7 @@ export type CreateOutputOutputSns$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsSns$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topicArn?: string | undefined;
   __template_messageGroupId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -17622,6 +17935,7 @@ export const CreateOutputOutputSns$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsSns$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_topicArn: z.string().optional(),
   __template_messageGroupId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -17679,6 +17993,7 @@ export type CreateOutputOutputRouter$Outbound = {
   streamtags?: Array<string> | undefined;
   rules: Array<CreateOutputRule$Outbound>;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -17695,6 +18010,7 @@ export const CreateOutputOutputRouter$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   rules: z.array(z.lazy(() => CreateOutputRule$outboundSchema)),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function createOutputOutputRouterToJSON(
@@ -17756,6 +18072,7 @@ export type CreateOutputOutputGraphite$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsGraphite$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -17795,6 +18112,7 @@ export const CreateOutputOutputGraphite$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsGraphite$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
@@ -17857,6 +18175,7 @@ export type CreateOutputOutputStatsdExt$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsStatsdExt$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -17896,6 +18215,7 @@ export const CreateOutputOutputStatsdExt$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsStatsdExt$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
@@ -17960,6 +18280,7 @@ export type CreateOutputOutputStatsd$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsStatsd$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -17999,6 +18320,7 @@ export const CreateOutputOutputStatsd$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsStatsd$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
@@ -18074,6 +18396,7 @@ export type CreateOutputOutputMinio$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
@@ -18165,6 +18488,7 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
@@ -18249,6 +18573,7 @@ export type CreateOutputOutputCloudwatch$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsCloudwatch$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_logGroupName?: string | undefined;
   __template_logStreamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -18304,6 +18629,7 @@ export const CreateOutputOutputCloudwatch$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsCloudwatch$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_logGroupName: z.string().optional(),
   __template_logStreamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -18413,6 +18739,7 @@ export type CreateOutputOutputInfluxdb$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -18480,6 +18807,7 @@ export const CreateOutputOutputInfluxdb$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -18562,6 +18890,7 @@ export type CreateOutputOutputNewrelicEvents$Outbound = {
   pqControls?: CreateOutputPqControlsNewrelicEvents$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_accountId?: string | undefined;
   __template_eventType?: string | undefined;
@@ -18623,6 +18952,7 @@ export const CreateOutputOutputNewrelicEvents$outboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_accountId: z.string().optional(),
   __template_eventType: z.string().optional(),
@@ -18741,6 +19071,7 @@ export type CreateOutputOutputNewrelic$Outbound = {
   pqControls?: CreateOutputPqControlsNewrelic$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_logType?: string | undefined;
   __template_messageField?: string | undefined;
@@ -18804,6 +19135,7 @@ export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_logType: z.string().optional(),
   __template_messageField: z.string().optional(),
@@ -18884,6 +19216,7 @@ export type CreateOutputOutputElasticCloud$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsElasticCloud$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_index?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -18943,6 +19276,7 @@ export const CreateOutputOutputElasticCloud$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsElasticCloud$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_index: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
@@ -19075,6 +19409,7 @@ export type CreateOutputOutputElastic$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsElastic$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_index?: string | undefined;
   __template_docType?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -19145,6 +19480,7 @@ export const CreateOutputOutputElastic$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsElastic$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_index: z.string().optional(),
   __template_docType: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
@@ -19236,6 +19572,7 @@ export type CreateOutputOutputMsk$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsMsk$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_compression?: string | undefined;
@@ -19309,6 +19646,7 @@ export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsMsk$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_compression: z.string().optional(),
@@ -19394,6 +19732,8 @@ export type CreateOutputOutputConfluentCloud$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsConfluentCloud$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_brokers?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_compression?: string | undefined;
@@ -19450,6 +19790,8 @@ export const CreateOutputOutputConfluentCloud$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsConfluentCloud$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_brokers: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_compression: z.string().optional(),
@@ -19531,6 +19873,7 @@ export type CreateOutputOutputKafka$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsKafka$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_compression?: string | undefined;
@@ -19587,6 +19930,7 @@ export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsKafka$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_compression: z.string().optional(),
@@ -19641,6 +19985,7 @@ export type CreateOutputOutputExabeam$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_objectACL?: string | undefined;
@@ -19698,6 +20043,7 @@ export const CreateOutputOutputExabeam$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_objectACL: z.string().optional(),
@@ -19768,6 +20114,7 @@ export type CreateOutputOutputGooglePubsub$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsGooglePubsub$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topicName?: string | undefined;
   __template_region?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -19814,6 +20161,7 @@ export const CreateOutputOutputGooglePubsub$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsGooglePubsub$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_topicName: z.string().optional(),
   __template_region: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

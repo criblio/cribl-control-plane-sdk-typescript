@@ -301,6 +301,10 @@ export type OutputInfluxdb = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -443,6 +447,7 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   token: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
@@ -501,6 +506,7 @@ export type OutputInfluxdb$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -565,6 +571,7 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

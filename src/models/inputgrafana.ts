@@ -196,6 +196,10 @@ export type InputGrafanaGrafana2 = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -364,6 +368,10 @@ export type InputGrafanaGrafana1 = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -536,6 +544,7 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_prometheusAPI: types.optional(types.string()),
@@ -574,6 +583,7 @@ export type InputGrafanaGrafana2$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
@@ -617,6 +627,7 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),
@@ -792,6 +803,7 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_prometheusAPI: types.optional(types.string()),
@@ -830,6 +842,7 @@ export type InputGrafanaGrafana1$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
@@ -873,6 +886,7 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),

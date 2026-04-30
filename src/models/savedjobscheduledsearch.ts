@@ -52,6 +52,10 @@ export type SavedJobScheduledSearch = {
    * Identifies which search query to run
    */
   savedQueryId: string;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -67,6 +71,7 @@ export type SavedJobScheduledSearch$Outbound = {
   schedule?: ScheduleTypeSavedJobResponseCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
   savedQueryId: string;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -86,6 +91,7 @@ export const SavedJobScheduledSearch$outboundSchema: z.ZodType<
   schedule: ScheduleTypeSavedJobResponseCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   savedQueryId: z.string(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function savedJobScheduledSearchToJSON(

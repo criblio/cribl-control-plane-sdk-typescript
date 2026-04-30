@@ -333,6 +333,10 @@ export type OutputCloudianS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -494,6 +498,7 @@ export const OutputCloudianS3$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_bucket: types.optional(types.string()),
@@ -575,6 +580,7 @@ export type OutputCloudianS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
@@ -665,6 +671,7 @@ export const OutputCloudianS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),

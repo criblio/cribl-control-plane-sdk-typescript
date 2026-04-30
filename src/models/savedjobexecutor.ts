@@ -54,6 +54,10 @@ export type SavedJobExecutor = {
    */
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -69,6 +73,7 @@ export type SavedJobExecutor$Outbound = {
   schedule?: ScheduleTypeSavedJobResponseCollection$Outbound | undefined;
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor$Outbound;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -88,6 +93,7 @@ export const SavedJobExecutor$outboundSchema: z.ZodType<
   schedule: ScheduleTypeSavedJobResponseCollection$outboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   executor: ExecutorTypeRunnableJobExecutor$outboundSchema,
+  __template_streamtags: z.string().optional(),
 });
 
 export function savedJobExecutorToJSON(

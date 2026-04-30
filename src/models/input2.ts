@@ -4,6 +4,11 @@
 
 import * as z from "zod/v3";
 import {
+  InputAnthropicCompliance,
+  InputAnthropicCompliance$Outbound,
+  InputAnthropicCompliance$outboundSchema,
+} from "./inputanthropiccompliance.js";
+import {
   InputAppscope,
   InputAppscope$Outbound,
   InputAppscope$outboundSchema,
@@ -400,6 +405,7 @@ export type Input2 =
   | InputZscalerHec
   | InputCloudflareHec
   | InputOpenaiComplianceLogs
+  | InputAnthropicCompliance
   | InputOkta;
 
 /** @internal */
@@ -469,6 +475,7 @@ export type Input2$Outbound =
   | InputZscalerHec$Outbound
   | InputCloudflareHec$Outbound
   | InputOpenaiComplianceLogs$Outbound
+  | InputAnthropicCompliance$Outbound
   | InputOkta$Outbound;
 
 /** @internal */
@@ -544,6 +551,7 @@ export const Input2$outboundSchema: z.ZodType<
   InputZscalerHec$outboundSchema,
   InputCloudflareHec$outboundSchema,
   InputOpenaiComplianceLogs$outboundSchema,
+  InputAnthropicCompliance$outboundSchema,
   InputOkta$outboundSchema,
 ]);
 

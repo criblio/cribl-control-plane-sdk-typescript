@@ -311,6 +311,10 @@ export type OutputGoogleChronicle = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleChroniclePqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
    */
   __template_apiVersion?: string | undefined;
@@ -519,6 +523,7 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_apiVersion: types.optional(types.string()),
   __template_region: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
@@ -579,6 +584,7 @@ export type OutputGoogleChronicle$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleChroniclePqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_apiVersion?: string | undefined;
   __template_region?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -647,6 +653,7 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_apiVersion: z.string().optional(),
   __template_region: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),

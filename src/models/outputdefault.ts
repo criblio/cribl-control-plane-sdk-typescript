@@ -34,6 +34,10 @@ export type OutputDefault = {
    * ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
    */
   defaultId: string | null;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -49,6 +53,7 @@ export const OutputDefault$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   defaultId: types.nullable(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDefault$Outbound = {
@@ -59,6 +64,7 @@ export type OutputDefault$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   defaultId: string | null;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -74,6 +80,7 @@ export const OutputDefault$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   defaultId: z.nullable(z.string()),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputDefaultToJSON(outputDefault: OutputDefault): string {

@@ -221,6 +221,10 @@ export type InputOpenai = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
    */
   __template_openaiOrganization?: string | undefined;
@@ -367,6 +371,10 @@ export type InputOpenaiInput = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
    */
   __template_openaiOrganization?: string | undefined;
@@ -511,6 +519,7 @@ export const InputOpenai$inboundSchema: z.ZodType<
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_openaiOrganization: types.optional(types.string()),
   __template_openaiProject: types.optional(types.string()),
 });
@@ -609,6 +618,7 @@ export type InputOpenaiInput$Outbound = {
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_openaiOrganization?: string | undefined;
   __template_openaiProject?: string | undefined;
 };
@@ -643,6 +653,7 @@ export const InputOpenaiInput$outboundSchema: z.ZodType<
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_openaiOrganization: z.string().optional(),
   __template_openaiProject: z.string().optional(),
 });

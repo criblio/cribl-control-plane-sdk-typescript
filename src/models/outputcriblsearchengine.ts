@@ -244,6 +244,10 @@ export type OutputCriblSearchEngine = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblSearchEnginePqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -353,6 +357,7 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputCriblSearchEnginePqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_url: types.optional(types.string()),
@@ -406,6 +411,7 @@ export type OutputCriblSearchEngine$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblSearchEnginePqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
@@ -466,6 +472,7 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputCriblSearchEnginePqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),

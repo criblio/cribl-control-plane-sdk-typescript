@@ -235,6 +235,10 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls2 | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
    */
   __template_lokiUrl?: string | undefined;
@@ -417,6 +421,10 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls1 | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
    */
   __template_lokiUrl?: string | undefined;
@@ -540,6 +548,7 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGrafanaCloudPqControls2$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_lokiUrl: types.optional(types.string()),
   __template_prometheusUrl: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
@@ -591,6 +600,7 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -650,6 +660,7 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_lokiUrl: z.string().optional(),
   __template_prometheusUrl: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
@@ -777,6 +788,7 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGrafanaCloudPqControls1$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_lokiUrl: types.optional(types.string()),
   __template_prometheusUrl: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
@@ -828,6 +840,7 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -887,6 +900,7 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_lokiUrl: z.string().optional(),
   __template_prometheusUrl: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),

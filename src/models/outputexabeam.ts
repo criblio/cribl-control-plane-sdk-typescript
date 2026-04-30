@@ -188,6 +188,10 @@ export type OutputExabeam = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
@@ -261,6 +265,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
   __template_region: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_objectACL: types.optional(types.string()),
@@ -307,6 +312,7 @@ export type OutputExabeam$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_objectACL?: string | undefined;
@@ -361,6 +367,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_objectACL: z.string().optional(),

@@ -201,6 +201,10 @@ export type RunnableJobCollection = {
     | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
     | undefined;
   run: RunnableJobCollectionRun;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -336,6 +340,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
     RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
+  __template_streamtags: types.optional(types.string()),
 });
 
 export function runnableJobCollectionFromJSON(

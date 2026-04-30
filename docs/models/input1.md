@@ -676,6 +676,23 @@ const value: models.InputOpenaiComplianceLogs = {
 };
 ```
 
+### `models.InputAnthropicCompliance`
+
+```typescript
+const value: models.InputAnthropicCompliance = {
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [
+    {
+      contentType: "<value>",
+      cronSchedule: "<value>",
+      earliest: "<value>",
+      latest: "<value>",
+    },
+  ],
+};
+```
+
 ### `models.InputOkta`
 
 ```typescript

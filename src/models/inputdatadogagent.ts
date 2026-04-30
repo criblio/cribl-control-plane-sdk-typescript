@@ -143,6 +143,10 @@ export type InputDatadogAgent = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -233,6 +237,7 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   ),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
 });
@@ -267,6 +272,7 @@ export type InputDatadogAgent$Outbound = {
   proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
@@ -306,6 +312,7 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });

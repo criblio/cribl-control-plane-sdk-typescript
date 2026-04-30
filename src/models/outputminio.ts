@@ -313,6 +313,10 @@ export type OutputMinio = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -450,6 +454,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -528,6 +533,7 @@ export type OutputMinio$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
@@ -616,6 +622,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),

@@ -764,6 +764,17 @@ const value: operations.CreateInputSystemByPackInputOpenaiComplianceLogs = {
 };
 ```
 
+### `operations.CreateInputSystemByPackInputAnthropicCompliance`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputAnthropicCompliance = {
+  id: "<id>",
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [],
+};
+```
+
 ### `operations.CreateInputSystemByPackInputOkta`
 
 ```typescript

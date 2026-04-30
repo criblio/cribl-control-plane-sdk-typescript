@@ -302,6 +302,18 @@ export type InputEdgePrometheus = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+   */
+  __template_dimensionList?: string | undefined;
+  /**
+   * Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+   */
+  __template_nameList?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
@@ -489,6 +501,9 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_dimensionList: types.optional(types.string()),
+  __template_nameList: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -545,6 +560,9 @@ export type InputEdgePrometheus$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_dimensionList?: string | undefined;
+  __template_nameList?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -606,6 +624,9 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_dimensionList: z.string().optional(),
+  __template_nameList: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),

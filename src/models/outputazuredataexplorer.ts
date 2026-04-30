@@ -536,6 +536,10 @@ export type OutputAzureDataExplorer = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureDataExplorerPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
    */
   __template_clusterUrl?: string | undefined;
@@ -955,6 +959,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_clusterUrl: types.optional(types.string()),
   __template_database: types.optional(types.string()),
   __template_table: types.optional(types.string()),
@@ -1061,6 +1066,7 @@ export type OutputAzureDataExplorer$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureDataExplorerPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_clusterUrl?: string | undefined;
   __template_database?: string | undefined;
   __template_table?: string | undefined;
@@ -1176,6 +1182,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_clusterUrl: z.string().optional(),
   __template_database: z.string().optional(),
   __template_table: z.string().optional(),

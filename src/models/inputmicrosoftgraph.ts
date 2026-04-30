@@ -222,6 +222,10 @@ export type InputMicrosoftGraph = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -316,6 +320,7 @@ export const InputMicrosoftGraph$inboundSchema: z.ZodType<
   textSecret: types.optional(types.string()),
   certOptions: types.optional(CertOptionsType$inboundSchema),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
@@ -361,6 +366,7 @@ export type InputMicrosoftGraph$Outbound = {
   textSecret?: string | undefined;
   certOptions?: CertOptionsType$Outbound | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
@@ -411,6 +417,7 @@ export const InputMicrosoftGraph$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   certOptions: CertOptionsType$outboundSchema.optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),

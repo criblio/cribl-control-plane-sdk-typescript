@@ -349,6 +349,14 @@ export type OutputDatadog = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'tags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tags' at runtime.
+   */
+  __template_tags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -494,6 +502,8 @@ export const OutputDatadog$inboundSchema: z.ZodType<
   ),
   apiKey: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_tags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
 });
@@ -551,6 +561,8 @@ export type OutputDatadog$Outbound = {
   pqControls?: OutputDatadogPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_tags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -614,6 +626,8 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputDatadogPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_tags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });

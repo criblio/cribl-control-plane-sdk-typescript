@@ -54,6 +54,10 @@ export type OutputRouter = {
    */
   rules: Array<OutputRouterRule>;
   description?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -118,6 +122,7 @@ export const OutputRouter$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   rules: z.array(z.lazy(() => OutputRouterRule$inboundSchema)),
   description: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
 /** @internal */
 export type OutputRouter$Outbound = {
@@ -129,6 +134,7 @@ export type OutputRouter$Outbound = {
   streamtags?: Array<string> | undefined;
   rules: Array<OutputRouterRule$Outbound>;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -145,6 +151,7 @@ export const OutputRouter$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   rules: z.array(z.lazy(() => OutputRouterRule$outboundSchema)),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputRouterToJSON(outputRouter: OutputRouter): string {

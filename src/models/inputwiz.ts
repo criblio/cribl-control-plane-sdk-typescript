@@ -194,6 +194,10 @@ export type InputWiz = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -360,6 +364,7 @@ export const InputWiz$inboundSchema: z.ZodType<
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_authUrl: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
@@ -395,6 +400,7 @@ export type InputWiz$Outbound = {
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_authUrl?: string | undefined;
   __template_clientId?: string | undefined;
@@ -435,6 +441,7 @@ export const InputWiz$outboundSchema: z.ZodType<
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_authUrl: z.string().optional(),
   __template_clientId: z.string().optional(),

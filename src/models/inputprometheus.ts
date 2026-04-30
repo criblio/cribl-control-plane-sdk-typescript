@@ -266,6 +266,14 @@ export type InputPrometheus = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+   */
+  __template_dimensionList?: string | undefined;
+  /**
    * Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
    */
   __template_discoveryType?: string | undefined;
@@ -273,6 +281,14 @@ export type InputPrometheus = {
    * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
    */
   __template_logLevel?: string | undefined;
+  /**
+   * Binds 'targetList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'targetList' at runtime.
+   */
+  __template_targetList?: string | undefined;
+  /**
+   * Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+   */
+  __template_nameList?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -389,8 +405,12 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_dimensionList: types.optional(types.string()),
   __template_discoveryType: types.optional(types.string()),
   __template_logLevel: types.optional(types.string()),
+  __template_targetList: types.optional(types.string()),
+  __template_nameList: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -450,8 +470,12 @@ export type InputPrometheus$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_dimensionList?: string | undefined;
   __template_discoveryType?: string | undefined;
   __template_logLevel?: string | undefined;
+  __template_targetList?: string | undefined;
+  __template_nameList?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -516,8 +540,12 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_dimensionList: z.string().optional(),
   __template_discoveryType: z.string().optional(),
   __template_logLevel: z.string().optional(),
+  __template_targetList: z.string().optional(),
+  __template_nameList: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),

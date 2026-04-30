@@ -749,6 +749,17 @@ const value: operations.CreateInputInputOpenaiComplianceLogs = {
 };
 ```
 
+### `operations.CreateInputInputAnthropicCompliance`
+
+```typescript
+const value: operations.CreateInputInputAnthropicCompliance = {
+  id: "<id>",
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [],
+};
+```
+
 ### `operations.CreateInputInputOkta`
 
 ```typescript

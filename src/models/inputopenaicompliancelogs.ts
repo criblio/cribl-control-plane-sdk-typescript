@@ -180,6 +180,10 @@ export type InputOpenaiComplianceLogs = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
    */
   __template_workspaceId?: string | undefined;
@@ -288,6 +292,7 @@ export const InputOpenaiComplianceLogs$inboundSchema: z.ZodType<
     z.lazy(() => InputOpenaiComplianceLogsManageState$inboundSchema),
   ),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_workspaceId: types.optional(types.string()),
   __template_organizationId: types.optional(types.string()),
 });
@@ -331,6 +336,7 @@ export type InputOpenaiComplianceLogs$Outbound = {
   stateMergeExpression?: string | undefined;
   manageState?: InputOpenaiComplianceLogsManageState$Outbound | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_workspaceId?: string | undefined;
   __template_organizationId?: string | undefined;
 };
@@ -381,6 +387,7 @@ export const InputOpenaiComplianceLogs$outboundSchema: z.ZodType<
   manageState: z.lazy(() => InputOpenaiComplianceLogsManageState$outboundSchema)
     .optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_workspaceId: z.string().optional(),
   __template_organizationId: z.string().optional(),
 });

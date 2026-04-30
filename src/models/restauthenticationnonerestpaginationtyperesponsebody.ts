@@ -24,6 +24,167 @@ import {
   PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound,
   PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema,
 } from "./paginationtyperestdiscoverydiscovertypehttp.js";
+import {
+  RestAuthenticationOauthCollectMethod,
+  RestAuthenticationOauthCollectMethod$inboundSchema,
+  RestAuthenticationOauthCollectMethod$outboundSchema,
+  RestAuthenticationOauthDiscovery,
+  RestAuthenticationOauthDiscovery$inboundSchema,
+  RestAuthenticationOauthDiscovery$Outbound,
+  RestAuthenticationOauthDiscovery$outboundSchema,
+  RestAuthenticationOauthPagination,
+  RestAuthenticationOauthPagination$inboundSchema,
+  RestAuthenticationOauthPagination$Outbound,
+  RestAuthenticationOauthPagination$outboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeBackoff,
+  RestAuthenticationOauthRestRetryRulesTypeBackoff$inboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeBackoff$Outbound,
+  RestAuthenticationOauthRestRetryRulesTypeBackoff$outboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeNone,
+  RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeNone$Outbound,
+  RestAuthenticationOauthRestRetryRulesTypeNone$outboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeStatic,
+  RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeStatic$Outbound,
+  RestAuthenticationOauthRestRetryRulesTypeStatic$outboundSchema,
+} from "./restauthenticationoauthrestretryrulestypenone.js";
+
+export type RestAuthenticationOauthRetryRules =
+  | RestAuthenticationOauthRestRetryRulesTypeNone
+  | RestAuthenticationOauthRestRetryRulesTypeStatic
+  | RestAuthenticationOauthRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
+
+/**
+ * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+ */
+export type RestAuthenticationOauthMicrosoftGraphDelta = {
+  /**
+   * Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+   */
+  deltaLinkAttribute?: string | undefined;
+};
+
+export type RestAuthenticationOauthStateTracking = {
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  enabled?: boolean | undefined;
+};
+
+export type RestAuthenticationOauthScheduling = {
+  stateTracking?: RestAuthenticationOauthStateTracking | undefined;
+};
+
+export type RestAuthenticationOauth = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication: "oauth";
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl: string;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr: string;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName: string;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+   */
+  clientSecretParamValue: string;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+    | undefined;
+  authRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+    | undefined;
+  discovery?: RestAuthenticationOauthDiscovery | undefined;
+  /**
+   * URL (constant or JavaScript expression) to use for the Collect operation
+   */
+  collectUrl: string;
+  collectMethod: RestAuthenticationOauthCollectMethod;
+  collectRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+    | undefined;
+  pagination?: RestAuthenticationOauthPagination | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  timeout?: number | undefined;
+  /**
+   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Decode the URL before sending requests (including pagination requests)
+   */
+  decodeUrl?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable to add response headers to the resHeaders field under the __collectible object
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * Stop pagination when the Event Breaker produces no events
+   */
+  stopOnEmptyResults?: boolean | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?:
+    | RestAuthenticationOauthRestRetryRulesTypeNone
+    | RestAuthenticationOauthRestRetryRulesTypeStatic
+    | RestAuthenticationOauthRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
+    | undefined;
+  /**
+   * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+   */
+  microsoftGraphDelta?: RestAuthenticationOauthMicrosoftGraphDelta | undefined;
+  __scheduling?: RestAuthenticationOauthScheduling | undefined;
+  /**
+   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create an HMAC Function to use with authentication
+   */
+  hmacFunctionId?: string | undefined;
+  /**
+   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+   */
+  __template_collectUrl?: string | undefined;
+};
 
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone = {
   /**
@@ -887,6 +1048,16 @@ export type RestAuthenticationLoginSecretRetryRules =
   | RestAuthenticationLoginSecretRestRetryRulesTypeBackoff
   | discriminatedUnionTypes.Unknown<"type">;
 
+/**
+ * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+ */
+export type RestAuthenticationLoginSecretMicrosoftGraphDelta = {
+  /**
+   * Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+   */
+  deltaLinkAttribute?: string | undefined;
+};
+
 export type RestAuthenticationLoginSecretStateTracking = {
   /**
    * Track collection progress between consecutive scheduled executions
@@ -1007,6 +1178,12 @@ export type RestAuthenticationLoginSecret = {
     | RestAuthenticationLoginSecretRestRetryRulesTypeStatic
     | RestAuthenticationLoginSecretRestRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
+    | undefined;
+  /**
+   * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+   */
+  microsoftGraphDelta?:
+    | RestAuthenticationLoginSecretMicrosoftGraphDelta
     | undefined;
   __scheduling?: RestAuthenticationLoginSecretScheduling | undefined;
   /**
@@ -1888,6 +2065,16 @@ export type RestAuthenticationLoginRetryRules =
   | RestAuthenticationLoginRestRetryRulesTypeBackoff
   | discriminatedUnionTypes.Unknown<"type">;
 
+/**
+ * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+ */
+export type RestAuthenticationLoginMicrosoftGraphDelta = {
+  /**
+   * Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+   */
+  deltaLinkAttribute?: string | undefined;
+};
+
 export type RestAuthenticationLoginStateTracking = {
   /**
    * Track collection progress between consecutive scheduled executions
@@ -2007,6 +2194,10 @@ export type RestAuthenticationLogin = {
     | RestAuthenticationLoginRestRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+   */
+  microsoftGraphDelta?: RestAuthenticationLoginMicrosoftGraphDelta | undefined;
   __scheduling?: RestAuthenticationLoginScheduling | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
@@ -2888,6 +3079,16 @@ export type RestAuthenticationBasicSecretRetryRules =
   | RestAuthenticationBasicSecretRestRetryRulesTypeBackoff
   | discriminatedUnionTypes.Unknown<"type">;
 
+/**
+ * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+ */
+export type RestAuthenticationBasicSecretMicrosoftGraphDelta = {
+  /**
+   * Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+   */
+  deltaLinkAttribute?: string | undefined;
+};
+
 export type RestAuthenticationBasicSecretStateTracking = {
   /**
    * Track collection progress between consecutive scheduled executions
@@ -2981,6 +3182,12 @@ export type RestAuthenticationBasicSecret = {
     | RestAuthenticationBasicSecretRestRetryRulesTypeStatic
     | RestAuthenticationBasicSecretRestRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
+    | undefined;
+  /**
+   * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+   */
+  microsoftGraphDelta?:
+    | RestAuthenticationBasicSecretMicrosoftGraphDelta
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling | undefined;
   /**
@@ -3862,6 +4069,16 @@ export type RestAuthenticationBasicRetryRules =
   | RestAuthenticationBasicRestRetryRulesTypeBackoff
   | discriminatedUnionTypes.Unknown<"type">;
 
+/**
+ * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+ */
+export type RestAuthenticationBasicMicrosoftGraphDelta = {
+  /**
+   * Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+   */
+  deltaLinkAttribute?: string | undefined;
+};
+
 export type RestAuthenticationBasicStateTracking = {
   /**
    * Track collection progress between consecutive scheduled executions
@@ -3954,6 +4171,10 @@ export type RestAuthenticationBasic = {
     | RestAuthenticationBasicRestRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+   */
+  microsoftGraphDelta?: RestAuthenticationBasicMicrosoftGraphDelta | undefined;
   __scheduling?: RestAuthenticationBasicScheduling | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
@@ -4691,257 +4912,347 @@ export type RestAuthenticationNoneRestPaginationTypeResponseBody = {
   totalPageField?: string | undefined;
 };
 
-export type RestAuthenticationNoneRestPaginationTypeNone = {
-  type: "none";
-  /**
-   * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-   */
-  lastPageExpr?: string | undefined;
-  /**
-   * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-   */
-  nextRelationAttribute?: string | undefined;
-  /**
-   * Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-   */
-  curRelationAttribute?: string | undefined;
-  /**
-   * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-   */
-  offsetField?: string | undefined;
-  /**
-   * Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-   */
-  offset?: number | undefined;
-  /**
-   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-   */
-  limitField?: string | undefined;
-  /**
-   * Maximum number of records to collect per request
-   */
-  limit?: number | undefined;
-  /**
-   * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-   */
-  pageField?: string | undefined;
-  /**
-   * Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-   */
-  page?: number | undefined;
-  /**
-   * Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-   */
-  sizeField?: string | undefined;
-  /**
-   * Maximum number of records to collect per page
-   */
-  size?: number | undefined;
-  /**
-   * Name of the attribute in the response that contains the total number of pages for the query
-   */
-  totalPageField?: string | undefined;
+/** @internal */
+export const RestAuthenticationOauthRetryRules$inboundSchema: z.ZodType<
+  RestAuthenticationOauthRetryRules,
+  z.ZodTypeDef,
+  unknown
+> = discriminatedUnion("type", {
+  none: RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema,
+  static: RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema,
+  backoff: RestAuthenticationOauthRestRetryRulesTypeBackoff$inboundSchema,
+});
+/** @internal */
+export type RestAuthenticationOauthRetryRules$Outbound =
+  | RestAuthenticationOauthRestRetryRulesTypeNone$Outbound
+  | RestAuthenticationOauthRestRetryRulesTypeStatic$Outbound
+  | RestAuthenticationOauthRestRetryRulesTypeBackoff$Outbound;
+
+/** @internal */
+export const RestAuthenticationOauthRetryRules$outboundSchema: z.ZodType<
+  RestAuthenticationOauthRetryRules$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationOauthRetryRules
+> = z.union([
+  RestAuthenticationOauthRestRetryRulesTypeNone$outboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeStatic$outboundSchema,
+  RestAuthenticationOauthRestRetryRulesTypeBackoff$outboundSchema,
+]);
+
+export function restAuthenticationOauthRetryRulesToJSON(
+  restAuthenticationOauthRetryRules: RestAuthenticationOauthRetryRules,
+): string {
+  return JSON.stringify(
+    RestAuthenticationOauthRetryRules$outboundSchema.parse(
+      restAuthenticationOauthRetryRules,
+    ),
+  );
+}
+export function restAuthenticationOauthRetryRulesFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationOauthRetryRules, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RestAuthenticationOauthRetryRules$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationOauthRetryRules' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationOauthMicrosoftGraphDelta$inboundSchema:
+  z.ZodType<RestAuthenticationOauthMicrosoftGraphDelta, z.ZodTypeDef, unknown> =
+    z.object({
+      deltaLinkAttribute: types.optional(types.string()),
+    });
+/** @internal */
+export type RestAuthenticationOauthMicrosoftGraphDelta$Outbound = {
+  deltaLinkAttribute?: string | undefined;
 };
 
-export type RestAuthenticationNonePagination =
-  | RestAuthenticationNoneRestPaginationTypeNone
-  | RestAuthenticationNoneRestPaginationTypeResponseBody
-  | RestAuthenticationNoneRestPaginationTypeResponseHeader
-  | RestAuthenticationNoneRestPaginationTypeResponseHeaderLink
-  | RestAuthenticationNoneRestPaginationTypeRequestOffset
-  | RestAuthenticationNoneRestPaginationTypeRequestPage
-  | discriminatedUnionTypes.Unknown<"type">;
+/** @internal */
+export const RestAuthenticationOauthMicrosoftGraphDelta$outboundSchema:
+  z.ZodType<
+    RestAuthenticationOauthMicrosoftGraphDelta$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationOauthMicrosoftGraphDelta
+  > = z.object({
+    deltaLinkAttribute: z.string().optional(),
+  });
 
-export type RestAuthenticationNoneRestRetryRulesTypeBackoff = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "backoff";
-  /**
-   * Time interval between a failed request and the first retry
-   */
-  interval?: number | undefined;
-  /**
-   * Maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-   */
-  multiplier?: number | undefined;
-  maxIntervalMs?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
-  retryHeaderName?: string | undefined;
-};
+export function restAuthenticationOauthMicrosoftGraphDeltaToJSON(
+  restAuthenticationOauthMicrosoftGraphDelta:
+    RestAuthenticationOauthMicrosoftGraphDelta,
+): string {
+  return JSON.stringify(
+    RestAuthenticationOauthMicrosoftGraphDelta$outboundSchema.parse(
+      restAuthenticationOauthMicrosoftGraphDelta,
+    ),
+  );
+}
+export function restAuthenticationOauthMicrosoftGraphDeltaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationOauthMicrosoftGraphDelta,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationOauthMicrosoftGraphDelta$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationOauthMicrosoftGraphDelta' from JSON`,
+  );
+}
 
-export type RestAuthenticationNoneRestRetryRulesTypeStatic = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "static";
-  /**
-   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * Maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
-  retryHeaderName?: string | undefined;
-};
-
-export type RestAuthenticationNoneRestRetryRulesTypeNone = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type: "none";
-};
-
-export type RestAuthenticationNoneRetryRules =
-  | RestAuthenticationNoneRestRetryRulesTypeNone
-  | RestAuthenticationNoneRestRetryRulesTypeStatic
-  | RestAuthenticationNoneRestRetryRulesTypeBackoff
-  | discriminatedUnionTypes.Unknown<"type">;
-
-export type RestAuthenticationNoneStateTracking = {
-  /**
-   * Track collection progress between consecutive scheduled executions
-   */
+/** @internal */
+export const RestAuthenticationOauthStateTracking$inboundSchema: z.ZodType<
+  RestAuthenticationOauthStateTracking,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: types.optional(types.boolean()),
+});
+/** @internal */
+export type RestAuthenticationOauthStateTracking$Outbound = {
   enabled?: boolean | undefined;
 };
 
-export type RestAuthenticationNoneScheduling = {
-  stateTracking?: RestAuthenticationNoneStateTracking | undefined;
+/** @internal */
+export const RestAuthenticationOauthStateTracking$outboundSchema: z.ZodType<
+  RestAuthenticationOauthStateTracking$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationOauthStateTracking
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function restAuthenticationOauthStateTrackingToJSON(
+  restAuthenticationOauthStateTracking: RestAuthenticationOauthStateTracking,
+): string {
+  return JSON.stringify(
+    RestAuthenticationOauthStateTracking$outboundSchema.parse(
+      restAuthenticationOauthStateTracking,
+    ),
+  );
+}
+export function restAuthenticationOauthStateTrackingFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationOauthStateTracking, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationOauthStateTracking$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationOauthStateTracking' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationOauthScheduling$inboundSchema: z.ZodType<
+  RestAuthenticationOauthScheduling,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationOauthStateTracking$inboundSchema),
+  ),
+});
+/** @internal */
+export type RestAuthenticationOauthScheduling$Outbound = {
+  stateTracking?: RestAuthenticationOauthStateTracking$Outbound | undefined;
 };
 
-export type RestAuthenticationNone = {
-  /**
-   * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-   */
-  authentication: "none";
-  discovery?:
-    | (
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
-        discoverType: "http";
-      }
-    )
-    | RestAuthenticationNoneRestDiscoveryDiscoverTypeJson
-    | RestAuthenticationNoneRestDiscoveryDiscoverTypeList
-    | RestAuthenticationNoneRestDiscoveryDiscoverTypeNone
-    | discriminatedUnionTypes.Unknown<"discoverType">
+/** @internal */
+export const RestAuthenticationOauthScheduling$outboundSchema: z.ZodType<
+  RestAuthenticationOauthScheduling$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationOauthScheduling
+> = z.object({
+  stateTracking: z.lazy(() =>
+    RestAuthenticationOauthStateTracking$outboundSchema
+  ).optional(),
+});
+
+export function restAuthenticationOauthSchedulingToJSON(
+  restAuthenticationOauthScheduling: RestAuthenticationOauthScheduling,
+): string {
+  return JSON.stringify(
+    RestAuthenticationOauthScheduling$outboundSchema.parse(
+      restAuthenticationOauthScheduling,
+    ),
+  );
+}
+export function restAuthenticationOauthSchedulingFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationOauthScheduling, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RestAuthenticationOauthScheduling$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationOauthScheduling' from JSON`,
+  );
+}
+
+/** @internal */
+export const RestAuthenticationOauth$inboundSchema: z.ZodType<
+  RestAuthenticationOauth,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: types.literal("oauth"),
+  loginUrl: types.string(),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  clientSecretParamName: types.string(),
+  clientSecretParamValue: types.string(),
+  authRequestParams: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  authRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  discovery: types.optional(RestAuthenticationOauthDiscovery$inboundSchema),
+  collectUrl: types.string(),
+  collectMethod: RestAuthenticationOauthCollectMethod$inboundSchema,
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(RestAuthenticationOauthPagination$inboundSchema),
+  timeout: types.optional(types.number()),
+  maxResponseBodySize: types.optional(types.string()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema,
+    static: RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema,
+    backoff: RestAuthenticationOauthRestRetryRulesTypeBackoff$inboundSchema,
+  })),
+  microsoftGraphDelta: types.optional(
+    z.lazy(() => RestAuthenticationOauthMicrosoftGraphDelta$inboundSchema),
+  ),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationOauthScheduling$inboundSchema),
+  ),
+  serviceAccountCredentials: types.optional(types.string()),
+  hmacFunctionId: types.optional(types.string()),
+  __template_collectUrl: types.optional(types.string()),
+});
+/** @internal */
+export type RestAuthenticationOauth$Outbound = {
+  authentication: "oauth";
+  loginUrl: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderKey?: string | undefined;
+  authHeaderExpr: string;
+  clientSecretParamName: string;
+  clientSecretParamValue: string;
+  authRequestParams?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
-  /**
-   * URL (constant or JavaScript expression) to use for the Collect operation
-   */
+  authRequestHeaders?:
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+    | undefined;
+  discovery?: RestAuthenticationOauthDiscovery$Outbound | undefined;
   collectUrl: string;
-  collectMethod: RestAuthenticationNoneCollectMethod;
+  collectMethod: string;
   collectRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
     | undefined;
-  pagination?:
-    | RestAuthenticationNoneRestPaginationTypeNone
-    | RestAuthenticationNoneRestPaginationTypeResponseBody
-    | RestAuthenticationNoneRestPaginationTypeResponseHeader
-    | RestAuthenticationNoneRestPaginationTypeResponseHeaderLink
-    | RestAuthenticationNoneRestPaginationTypeRequestOffset
-    | RestAuthenticationNoneRestPaginationTypeRequestPage
-    | discriminatedUnionTypes.Unknown<"type">
-    | undefined;
-  /**
-   * HTTP request inactivity timeout. Use 0 to disable.
-   */
+  pagination?: RestAuthenticationOauthPagination$Outbound | undefined;
   timeout?: number | undefined;
-  /**
-   * Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
-   */
   maxResponseBodySize?: string | undefined;
-  /**
-   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-   */
   useRoundRobinDns?: boolean | undefined;
-  /**
-   * Disable Collector event time filtering when a date range is specified
-   */
   disableTimeFilter?: boolean | undefined;
-  /**
-   * Decode the URL before sending requests (including pagination requests)
-   */
   decodeUrl?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-   */
   rejectUnauthorized?: boolean | undefined;
-  /**
-   * Enable to add response headers to the resHeaders field under the __collectible object
-   */
   captureHeaders?: boolean | undefined;
-  /**
-   * Stop pagination when the Event Breaker produces no events
-   */
   stopOnEmptyResults?: boolean | undefined;
-  /**
-   * List of headers that are safe to log in plain text
-   */
   safeHeaders?: Array<string> | undefined;
   retryRules?:
-    | RestAuthenticationNoneRestRetryRulesTypeNone
-    | RestAuthenticationNoneRestRetryRulesTypeStatic
-    | RestAuthenticationNoneRestRetryRulesTypeBackoff
-    | discriminatedUnionTypes.Unknown<"type">
+    | RestAuthenticationOauthRestRetryRulesTypeNone$Outbound
+    | RestAuthenticationOauthRestRetryRulesTypeStatic$Outbound
+    | RestAuthenticationOauthRestRetryRulesTypeBackoff$Outbound
     | undefined;
-  __scheduling?: RestAuthenticationNoneScheduling | undefined;
-  /**
-   * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
-   */
-  clientSecretParamValue?: string | undefined;
-  /**
-   * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
-   */
+  microsoftGraphDelta?:
+    | RestAuthenticationOauthMicrosoftGraphDelta$Outbound
+    | undefined;
+  __scheduling?: RestAuthenticationOauthScheduling$Outbound | undefined;
   serviceAccountCredentials?: string | undefined;
-  /**
-   * Select or create an HMAC Function to use with authentication
-   */
   hmacFunctionId?: string | undefined;
-  /**
-   * Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
-   */
   __template_collectUrl?: string | undefined;
 };
+
+/** @internal */
+export const RestAuthenticationOauth$outboundSchema: z.ZodType<
+  RestAuthenticationOauth$Outbound,
+  z.ZodTypeDef,
+  RestAuthenticationOauth
+> = z.object({
+  authentication: z.literal("oauth"),
+  loginUrl: z.string(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderKey: z.string().optional(),
+  authHeaderExpr: z.string(),
+  clientSecretParamName: z.string(),
+  clientSecretParamValue: z.string(),
+  authRequestParams: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  authRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  discovery: RestAuthenticationOauthDiscovery$outboundSchema.optional(),
+  collectUrl: z.string(),
+  collectMethod: RestAuthenticationOauthCollectMethod$outboundSchema,
+  collectRequestHeaders: z.array(
+    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+  ).optional(),
+  pagination: RestAuthenticationOauthPagination$outboundSchema.optional(),
+  timeout: z.number().optional(),
+  maxResponseBodySize: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  decodeUrl: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  stopOnEmptyResults: z.boolean().optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.union([
+    RestAuthenticationOauthRestRetryRulesTypeNone$outboundSchema,
+    RestAuthenticationOauthRestRetryRulesTypeStatic$outboundSchema,
+    RestAuthenticationOauthRestRetryRulesTypeBackoff$outboundSchema,
+  ]).optional(),
+  microsoftGraphDelta: z.lazy(() =>
+    RestAuthenticationOauthMicrosoftGraphDelta$outboundSchema
+  ).optional(),
+  __scheduling: z.lazy(() => RestAuthenticationOauthScheduling$outboundSchema)
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  hmacFunctionId: z.string().optional(),
+  __template_collectUrl: z.string().optional(),
+});
+
+export function restAuthenticationOauthToJSON(
+  restAuthenticationOauth: RestAuthenticationOauth,
+): string {
+  return JSON.stringify(
+    RestAuthenticationOauth$outboundSchema.parse(restAuthenticationOauth),
+  );
+}
+export function restAuthenticationOauthFromJSON(
+  jsonString: string,
+): SafeParseResult<RestAuthenticationOauth, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RestAuthenticationOauth$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RestAuthenticationOauth' from JSON`,
+  );
+}
 
 /** @internal */
 export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone$inboundSchema:
@@ -6859,6 +7170,56 @@ export function restAuthenticationLoginSecretRetryRulesFromJSON(
 }
 
 /** @internal */
+export const RestAuthenticationLoginSecretMicrosoftGraphDelta$inboundSchema:
+  z.ZodType<
+    RestAuthenticationLoginSecretMicrosoftGraphDelta,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    deltaLinkAttribute: types.optional(types.string()),
+  });
+/** @internal */
+export type RestAuthenticationLoginSecretMicrosoftGraphDelta$Outbound = {
+  deltaLinkAttribute?: string | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationLoginSecretMicrosoftGraphDelta$outboundSchema:
+  z.ZodType<
+    RestAuthenticationLoginSecretMicrosoftGraphDelta$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationLoginSecretMicrosoftGraphDelta
+  > = z.object({
+    deltaLinkAttribute: z.string().optional(),
+  });
+
+export function restAuthenticationLoginSecretMicrosoftGraphDeltaToJSON(
+  restAuthenticationLoginSecretMicrosoftGraphDelta:
+    RestAuthenticationLoginSecretMicrosoftGraphDelta,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginSecretMicrosoftGraphDelta$outboundSchema.parse(
+      restAuthenticationLoginSecretMicrosoftGraphDelta,
+    ),
+  );
+}
+export function restAuthenticationLoginSecretMicrosoftGraphDeltaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationLoginSecretMicrosoftGraphDelta,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationLoginSecretMicrosoftGraphDelta$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationLoginSecretMicrosoftGraphDelta' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationLoginSecretStateTracking$inboundSchema:
   z.ZodType<RestAuthenticationLoginSecretStateTracking, z.ZodTypeDef, unknown> =
     z.object({
@@ -7046,6 +7407,11 @@ export const RestAuthenticationLoginSecret$inboundSchema: z.ZodType<
       RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  microsoftGraphDelta: types.optional(
+    z.lazy(() =>
+      RestAuthenticationLoginSecretMicrosoftGraphDelta$inboundSchema
+    ),
+  ),
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationLoginSecretScheduling$inboundSchema),
   ),
@@ -7105,6 +7471,9 @@ export type RestAuthenticationLoginSecret$Outbound = {
     | RestAuthenticationLoginSecretRestRetryRulesTypeNone$Outbound
     | RestAuthenticationLoginSecretRestRetryRulesTypeStatic$Outbound
     | RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$Outbound
+    | undefined;
+  microsoftGraphDelta?:
+    | RestAuthenticationLoginSecretMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestAuthenticationLoginSecretScheduling$Outbound | undefined;
   clientSecretParamValue?: string | undefined;
@@ -7200,6 +7569,9 @@ export const RestAuthenticationLoginSecret$outboundSchema: z.ZodType<
       RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  microsoftGraphDelta: z.lazy(() =>
+    RestAuthenticationLoginSecretMicrosoftGraphDelta$outboundSchema
+  ).optional(),
   __scheduling: z.lazy(() =>
     RestAuthenticationLoginSecretScheduling$outboundSchema
   ).optional(),
@@ -9125,6 +9497,53 @@ export function restAuthenticationLoginRetryRulesFromJSON(
 }
 
 /** @internal */
+export const RestAuthenticationLoginMicrosoftGraphDelta$inboundSchema:
+  z.ZodType<RestAuthenticationLoginMicrosoftGraphDelta, z.ZodTypeDef, unknown> =
+    z.object({
+      deltaLinkAttribute: types.optional(types.string()),
+    });
+/** @internal */
+export type RestAuthenticationLoginMicrosoftGraphDelta$Outbound = {
+  deltaLinkAttribute?: string | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationLoginMicrosoftGraphDelta$outboundSchema:
+  z.ZodType<
+    RestAuthenticationLoginMicrosoftGraphDelta$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationLoginMicrosoftGraphDelta
+  > = z.object({
+    deltaLinkAttribute: z.string().optional(),
+  });
+
+export function restAuthenticationLoginMicrosoftGraphDeltaToJSON(
+  restAuthenticationLoginMicrosoftGraphDelta:
+    RestAuthenticationLoginMicrosoftGraphDelta,
+): string {
+  return JSON.stringify(
+    RestAuthenticationLoginMicrosoftGraphDelta$outboundSchema.parse(
+      restAuthenticationLoginMicrosoftGraphDelta,
+    ),
+  );
+}
+export function restAuthenticationLoginMicrosoftGraphDeltaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationLoginMicrosoftGraphDelta,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationLoginMicrosoftGraphDelta$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationLoginMicrosoftGraphDelta' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationLoginStateTracking$inboundSchema: z.ZodType<
   RestAuthenticationLoginStateTracking,
   z.ZodTypeDef,
@@ -9299,6 +9718,9 @@ export const RestAuthenticationLogin$inboundSchema: z.ZodType<
       RestAuthenticationLoginRestRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  microsoftGraphDelta: types.optional(
+    z.lazy(() => RestAuthenticationLoginMicrosoftGraphDelta$inboundSchema),
+  ),
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationLoginScheduling$inboundSchema),
   ),
@@ -9359,6 +9781,9 @@ export type RestAuthenticationLogin$Outbound = {
     | RestAuthenticationLoginRestRetryRulesTypeNone$Outbound
     | RestAuthenticationLoginRestRetryRulesTypeStatic$Outbound
     | RestAuthenticationLoginRestRetryRulesTypeBackoff$Outbound
+    | undefined;
+  microsoftGraphDelta?:
+    | RestAuthenticationLoginMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestAuthenticationLoginScheduling$Outbound | undefined;
   clientSecretParamValue?: string | undefined;
@@ -9451,6 +9876,9 @@ export const RestAuthenticationLogin$outboundSchema: z.ZodType<
       RestAuthenticationLoginRestRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  microsoftGraphDelta: z.lazy(() =>
+    RestAuthenticationLoginMicrosoftGraphDelta$outboundSchema
+  ).optional(),
   __scheduling: z.lazy(() => RestAuthenticationLoginScheduling$outboundSchema)
     .optional(),
   clientSecretParamValue: z.string().optional(),
@@ -11392,6 +11820,56 @@ export function restAuthenticationBasicSecretRetryRulesFromJSON(
 }
 
 /** @internal */
+export const RestAuthenticationBasicSecretMicrosoftGraphDelta$inboundSchema:
+  z.ZodType<
+    RestAuthenticationBasicSecretMicrosoftGraphDelta,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    deltaLinkAttribute: types.optional(types.string()),
+  });
+/** @internal */
+export type RestAuthenticationBasicSecretMicrosoftGraphDelta$Outbound = {
+  deltaLinkAttribute?: string | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationBasicSecretMicrosoftGraphDelta$outboundSchema:
+  z.ZodType<
+    RestAuthenticationBasicSecretMicrosoftGraphDelta$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationBasicSecretMicrosoftGraphDelta
+  > = z.object({
+    deltaLinkAttribute: z.string().optional(),
+  });
+
+export function restAuthenticationBasicSecretMicrosoftGraphDeltaToJSON(
+  restAuthenticationBasicSecretMicrosoftGraphDelta:
+    RestAuthenticationBasicSecretMicrosoftGraphDelta,
+): string {
+  return JSON.stringify(
+    RestAuthenticationBasicSecretMicrosoftGraphDelta$outboundSchema.parse(
+      restAuthenticationBasicSecretMicrosoftGraphDelta,
+    ),
+  );
+}
+export function restAuthenticationBasicSecretMicrosoftGraphDeltaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationBasicSecretMicrosoftGraphDelta,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationBasicSecretMicrosoftGraphDelta$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationBasicSecretMicrosoftGraphDelta' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationBasicSecretStateTracking$inboundSchema:
   z.ZodType<RestAuthenticationBasicSecretStateTracking, z.ZodTypeDef, unknown> =
     z.object({
@@ -11570,6 +12048,11 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
       RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  microsoftGraphDelta: types.optional(
+    z.lazy(() =>
+      RestAuthenticationBasicSecretMicrosoftGraphDelta$inboundSchema
+    ),
+  ),
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationBasicSecretScheduling$inboundSchema),
   ),
@@ -11620,6 +12103,9 @@ export type RestAuthenticationBasicSecret$Outbound = {
     | RestAuthenticationBasicSecretRestRetryRulesTypeNone$Outbound
     | RestAuthenticationBasicSecretRestRetryRulesTypeStatic$Outbound
     | RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$Outbound
+    | undefined;
+  microsoftGraphDelta?:
+    | RestAuthenticationBasicSecretMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling$Outbound | undefined;
   clientSecretParamValue?: string | undefined;
@@ -11706,6 +12192,9 @@ export const RestAuthenticationBasicSecret$outboundSchema: z.ZodType<
       RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  microsoftGraphDelta: z.lazy(() =>
+    RestAuthenticationBasicSecretMicrosoftGraphDelta$outboundSchema
+  ).optional(),
   __scheduling: z.lazy(() =>
     RestAuthenticationBasicSecretScheduling$outboundSchema
   ).optional(),
@@ -13631,6 +14120,53 @@ export function restAuthenticationBasicRetryRulesFromJSON(
 }
 
 /** @internal */
+export const RestAuthenticationBasicMicrosoftGraphDelta$inboundSchema:
+  z.ZodType<RestAuthenticationBasicMicrosoftGraphDelta, z.ZodTypeDef, unknown> =
+    z.object({
+      deltaLinkAttribute: types.optional(types.string()),
+    });
+/** @internal */
+export type RestAuthenticationBasicMicrosoftGraphDelta$Outbound = {
+  deltaLinkAttribute?: string | undefined;
+};
+
+/** @internal */
+export const RestAuthenticationBasicMicrosoftGraphDelta$outboundSchema:
+  z.ZodType<
+    RestAuthenticationBasicMicrosoftGraphDelta$Outbound,
+    z.ZodTypeDef,
+    RestAuthenticationBasicMicrosoftGraphDelta
+  > = z.object({
+    deltaLinkAttribute: z.string().optional(),
+  });
+
+export function restAuthenticationBasicMicrosoftGraphDeltaToJSON(
+  restAuthenticationBasicMicrosoftGraphDelta:
+    RestAuthenticationBasicMicrosoftGraphDelta,
+): string {
+  return JSON.stringify(
+    RestAuthenticationBasicMicrosoftGraphDelta$outboundSchema.parse(
+      restAuthenticationBasicMicrosoftGraphDelta,
+    ),
+  );
+}
+export function restAuthenticationBasicMicrosoftGraphDeltaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  RestAuthenticationBasicMicrosoftGraphDelta,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RestAuthenticationBasicMicrosoftGraphDelta$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RestAuthenticationBasicMicrosoftGraphDelta' from JSON`,
+  );
+}
+
+/** @internal */
 export const RestAuthenticationBasicStateTracking$inboundSchema: z.ZodType<
   RestAuthenticationBasicStateTracking,
   z.ZodTypeDef,
@@ -13796,6 +14332,9 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
       RestAuthenticationBasicRestRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  microsoftGraphDelta: types.optional(
+    z.lazy(() => RestAuthenticationBasicMicrosoftGraphDelta$inboundSchema),
+  ),
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationBasicScheduling$inboundSchema),
   ),
@@ -13847,6 +14386,9 @@ export type RestAuthenticationBasic$Outbound = {
     | RestAuthenticationBasicRestRetryRulesTypeNone$Outbound
     | RestAuthenticationBasicRestRetryRulesTypeStatic$Outbound
     | RestAuthenticationBasicRestRetryRulesTypeBackoff$Outbound
+    | undefined;
+  microsoftGraphDelta?:
+    | RestAuthenticationBasicMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestAuthenticationBasicScheduling$Outbound | undefined;
   clientSecretParamValue?: string | undefined;
@@ -13930,6 +14472,9 @@ export const RestAuthenticationBasic$outboundSchema: z.ZodType<
       RestAuthenticationBasicRestRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  microsoftGraphDelta: z.lazy(() =>
+    RestAuthenticationBasicMicrosoftGraphDelta$outboundSchema
+  ).optional(),
   __scheduling: z.lazy(() => RestAuthenticationBasicScheduling$outboundSchema)
     .optional(),
   clientSecretParamValue: z.string().optional(),
@@ -15437,735 +15982,5 @@ export function restAuthenticationNoneRestPaginationTypeResponseBodyFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'RestAuthenticationNoneRestPaginationTypeResponseBody' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNoneRestPaginationTypeNone$inboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestPaginationTypeNone,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("none"),
-    lastPageExpr: types.optional(types.string()),
-    nextRelationAttribute: types.optional(types.string()),
-    curRelationAttribute: types.optional(types.string()),
-    offsetField: types.optional(types.string()),
-    offset: types.optional(types.number()),
-    limitField: types.optional(types.string()),
-    limit: types.optional(types.number()),
-    pageField: types.optional(types.string()),
-    page: types.optional(types.number()),
-    sizeField: types.optional(types.string()),
-    size: types.optional(types.number()),
-    totalPageField: types.optional(types.string()),
-  });
-/** @internal */
-export type RestAuthenticationNoneRestPaginationTypeNone$Outbound = {
-  type: "none";
-  lastPageExpr?: string | undefined;
-  nextRelationAttribute?: string | undefined;
-  curRelationAttribute?: string | undefined;
-  offsetField?: string | undefined;
-  offset?: number | undefined;
-  limitField?: string | undefined;
-  limit?: number | undefined;
-  pageField?: string | undefined;
-  page?: number | undefined;
-  sizeField?: string | undefined;
-  size?: number | undefined;
-  totalPageField?: string | undefined;
-};
-
-/** @internal */
-export const RestAuthenticationNoneRestPaginationTypeNone$outboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestPaginationTypeNone$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationNoneRestPaginationTypeNone
-  > = z.object({
-    type: z.literal("none"),
-    lastPageExpr: z.string().optional(),
-    nextRelationAttribute: z.string().optional(),
-    curRelationAttribute: z.string().optional(),
-    offsetField: z.string().optional(),
-    offset: z.number().optional(),
-    limitField: z.string().optional(),
-    limit: z.number().optional(),
-    pageField: z.string().optional(),
-    page: z.number().optional(),
-    sizeField: z.string().optional(),
-    size: z.number().optional(),
-    totalPageField: z.string().optional(),
-  });
-
-export function restAuthenticationNoneRestPaginationTypeNoneToJSON(
-  restAuthenticationNoneRestPaginationTypeNone:
-    RestAuthenticationNoneRestPaginationTypeNone,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneRestPaginationTypeNone$outboundSchema.parse(
-      restAuthenticationNoneRestPaginationTypeNone,
-    ),
-  );
-}
-export function restAuthenticationNoneRestPaginationTypeNoneFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationNoneRestPaginationTypeNone,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationNoneRestPaginationTypeNone$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationNoneRestPaginationTypeNone' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNonePagination$inboundSchema: z.ZodType<
-  RestAuthenticationNonePagination,
-  z.ZodTypeDef,
-  unknown
-> = discriminatedUnion("type", {
-  none: z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeNone$inboundSchema
-  ),
-  response_body: z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeResponseBody$inboundSchema
-  ),
-  response_header: z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeResponseHeader$inboundSchema
-  ),
-  response_header_link: z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$inboundSchema
-  ),
-  request_offset: z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeRequestOffset$inboundSchema
-  ),
-  request_page: z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeRequestPage$inboundSchema
-  ),
-});
-/** @internal */
-export type RestAuthenticationNonePagination$Outbound =
-  | RestAuthenticationNoneRestPaginationTypeNone$Outbound
-  | RestAuthenticationNoneRestPaginationTypeResponseBody$Outbound
-  | RestAuthenticationNoneRestPaginationTypeResponseHeader$Outbound
-  | RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$Outbound
-  | RestAuthenticationNoneRestPaginationTypeRequestOffset$Outbound
-  | RestAuthenticationNoneRestPaginationTypeRequestPage$Outbound;
-
-/** @internal */
-export const RestAuthenticationNonePagination$outboundSchema: z.ZodType<
-  RestAuthenticationNonePagination$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationNonePagination
-> = z.union([
-  z.lazy(() => RestAuthenticationNoneRestPaginationTypeNone$outboundSchema),
-  z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeResponseBody$outboundSchema
-  ),
-  z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeResponseHeader$outboundSchema
-  ),
-  z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$outboundSchema
-  ),
-  z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeRequestOffset$outboundSchema
-  ),
-  z.lazy(() =>
-    RestAuthenticationNoneRestPaginationTypeRequestPage$outboundSchema
-  ),
-]);
-
-export function restAuthenticationNonePaginationToJSON(
-  restAuthenticationNonePagination: RestAuthenticationNonePagination,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNonePagination$outboundSchema.parse(
-      restAuthenticationNonePagination,
-    ),
-  );
-}
-export function restAuthenticationNonePaginationFromJSON(
-  jsonString: string,
-): SafeParseResult<RestAuthenticationNonePagination, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RestAuthenticationNonePagination$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationNonePagination' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestRetryRulesTypeBackoff,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("backoff"),
-    interval: types.optional(types.number()),
-    limit: types.optional(types.number()),
-    multiplier: types.optional(types.number()),
-    maxIntervalMs: types.optional(types.number()),
-    codes: types.optional(z.array(types.number())),
-    enableHeader: types.optional(types.boolean()),
-    retryConnectTimeout: types.optional(types.boolean()),
-    retryConnectReset: types.optional(types.boolean()),
-    retryHeaderName: types.optional(types.string()),
-  });
-/** @internal */
-export type RestAuthenticationNoneRestRetryRulesTypeBackoff$Outbound = {
-  type: "backoff";
-  interval?: number | undefined;
-  limit?: number | undefined;
-  multiplier?: number | undefined;
-  maxIntervalMs?: number | undefined;
-  codes?: Array<number> | undefined;
-  enableHeader?: boolean | undefined;
-  retryConnectTimeout?: boolean | undefined;
-  retryConnectReset?: boolean | undefined;
-  retryHeaderName?: string | undefined;
-};
-
-/** @internal */
-export const RestAuthenticationNoneRestRetryRulesTypeBackoff$outboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestRetryRulesTypeBackoff$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationNoneRestRetryRulesTypeBackoff
-  > = z.object({
-    type: z.literal("backoff"),
-    interval: z.number().optional(),
-    limit: z.number().optional(),
-    multiplier: z.number().optional(),
-    maxIntervalMs: z.number().optional(),
-    codes: z.array(z.number()).optional(),
-    enableHeader: z.boolean().optional(),
-    retryConnectTimeout: z.boolean().optional(),
-    retryConnectReset: z.boolean().optional(),
-    retryHeaderName: z.string().optional(),
-  });
-
-export function restAuthenticationNoneRestRetryRulesTypeBackoffToJSON(
-  restAuthenticationNoneRestRetryRulesTypeBackoff:
-    RestAuthenticationNoneRestRetryRulesTypeBackoff,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneRestRetryRulesTypeBackoff$outboundSchema.parse(
-      restAuthenticationNoneRestRetryRulesTypeBackoff,
-    ),
-  );
-}
-export function restAuthenticationNoneRestRetryRulesTypeBackoffFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationNoneRestRetryRulesTypeBackoff,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationNoneRestRetryRulesTypeBackoff' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestRetryRulesTypeStatic,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("static"),
-    interval: types.optional(types.number()),
-    limit: types.optional(types.number()),
-    codes: types.optional(z.array(types.number())),
-    enableHeader: types.optional(types.boolean()),
-    retryConnectTimeout: types.optional(types.boolean()),
-    retryConnectReset: types.optional(types.boolean()),
-    retryHeaderName: types.optional(types.string()),
-  });
-/** @internal */
-export type RestAuthenticationNoneRestRetryRulesTypeStatic$Outbound = {
-  type: "static";
-  interval?: number | undefined;
-  limit?: number | undefined;
-  codes?: Array<number> | undefined;
-  enableHeader?: boolean | undefined;
-  retryConnectTimeout?: boolean | undefined;
-  retryConnectReset?: boolean | undefined;
-  retryHeaderName?: string | undefined;
-};
-
-/** @internal */
-export const RestAuthenticationNoneRestRetryRulesTypeStatic$outboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestRetryRulesTypeStatic$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationNoneRestRetryRulesTypeStatic
-  > = z.object({
-    type: z.literal("static"),
-    interval: z.number().optional(),
-    limit: z.number().optional(),
-    codes: z.array(z.number()).optional(),
-    enableHeader: z.boolean().optional(),
-    retryConnectTimeout: z.boolean().optional(),
-    retryConnectReset: z.boolean().optional(),
-    retryHeaderName: z.string().optional(),
-  });
-
-export function restAuthenticationNoneRestRetryRulesTypeStaticToJSON(
-  restAuthenticationNoneRestRetryRulesTypeStatic:
-    RestAuthenticationNoneRestRetryRulesTypeStatic,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneRestRetryRulesTypeStatic$outboundSchema.parse(
-      restAuthenticationNoneRestRetryRulesTypeStatic,
-    ),
-  );
-}
-export function restAuthenticationNoneRestRetryRulesTypeStaticFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationNoneRestRetryRulesTypeStatic,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationNoneRestRetryRulesTypeStatic' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestRetryRulesTypeNone,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    type: types.literal("none"),
-  });
-/** @internal */
-export type RestAuthenticationNoneRestRetryRulesTypeNone$Outbound = {
-  type: "none";
-};
-
-/** @internal */
-export const RestAuthenticationNoneRestRetryRulesTypeNone$outboundSchema:
-  z.ZodType<
-    RestAuthenticationNoneRestRetryRulesTypeNone$Outbound,
-    z.ZodTypeDef,
-    RestAuthenticationNoneRestRetryRulesTypeNone
-  > = z.object({
-    type: z.literal("none"),
-  });
-
-export function restAuthenticationNoneRestRetryRulesTypeNoneToJSON(
-  restAuthenticationNoneRestRetryRulesTypeNone:
-    RestAuthenticationNoneRestRetryRulesTypeNone,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneRestRetryRulesTypeNone$outboundSchema.parse(
-      restAuthenticationNoneRestRetryRulesTypeNone,
-    ),
-  );
-}
-export function restAuthenticationNoneRestRetryRulesTypeNoneFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RestAuthenticationNoneRestRetryRulesTypeNone,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RestAuthenticationNoneRestRetryRulesTypeNone' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
-  RestAuthenticationNoneRetryRules,
-  z.ZodTypeDef,
-  unknown
-> = discriminatedUnion("type", {
-  none: z.lazy(() =>
-    RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema
-  ),
-  static: z.lazy(() =>
-    RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema
-  ),
-  backoff: z.lazy(() =>
-    RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema
-  ),
-});
-/** @internal */
-export type RestAuthenticationNoneRetryRules$Outbound =
-  | RestAuthenticationNoneRestRetryRulesTypeNone$Outbound
-  | RestAuthenticationNoneRestRetryRulesTypeStatic$Outbound
-  | RestAuthenticationNoneRestRetryRulesTypeBackoff$Outbound;
-
-/** @internal */
-export const RestAuthenticationNoneRetryRules$outboundSchema: z.ZodType<
-  RestAuthenticationNoneRetryRules$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationNoneRetryRules
-> = z.union([
-  z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeNone$outboundSchema),
-  z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeStatic$outboundSchema),
-  z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeBackoff$outboundSchema),
-]);
-
-export function restAuthenticationNoneRetryRulesToJSON(
-  restAuthenticationNoneRetryRules: RestAuthenticationNoneRetryRules,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneRetryRules$outboundSchema.parse(
-      restAuthenticationNoneRetryRules,
-    ),
-  );
-}
-export function restAuthenticationNoneRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<RestAuthenticationNoneRetryRules, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RestAuthenticationNoneRetryRules$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationNoneRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNoneStateTracking$inboundSchema: z.ZodType<
-  RestAuthenticationNoneStateTracking,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: types.optional(types.boolean()),
-});
-/** @internal */
-export type RestAuthenticationNoneStateTracking$Outbound = {
-  enabled?: boolean | undefined;
-};
-
-/** @internal */
-export const RestAuthenticationNoneStateTracking$outboundSchema: z.ZodType<
-  RestAuthenticationNoneStateTracking$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationNoneStateTracking
-> = z.object({
-  enabled: z.boolean().optional(),
-});
-
-export function restAuthenticationNoneStateTrackingToJSON(
-  restAuthenticationNoneStateTracking: RestAuthenticationNoneStateTracking,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneStateTracking$outboundSchema.parse(
-      restAuthenticationNoneStateTracking,
-    ),
-  );
-}
-export function restAuthenticationNoneStateTrackingFromJSON(
-  jsonString: string,
-): SafeParseResult<RestAuthenticationNoneStateTracking, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RestAuthenticationNoneStateTracking$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationNoneStateTracking' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNoneScheduling$inboundSchema: z.ZodType<
-  RestAuthenticationNoneScheduling,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  stateTracking: types.optional(
-    z.lazy(() => RestAuthenticationNoneStateTracking$inboundSchema),
-  ),
-});
-/** @internal */
-export type RestAuthenticationNoneScheduling$Outbound = {
-  stateTracking?: RestAuthenticationNoneStateTracking$Outbound | undefined;
-};
-
-/** @internal */
-export const RestAuthenticationNoneScheduling$outboundSchema: z.ZodType<
-  RestAuthenticationNoneScheduling$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationNoneScheduling
-> = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationNoneStateTracking$outboundSchema
-  ).optional(),
-});
-
-export function restAuthenticationNoneSchedulingToJSON(
-  restAuthenticationNoneScheduling: RestAuthenticationNoneScheduling,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNoneScheduling$outboundSchema.parse(
-      restAuthenticationNoneScheduling,
-    ),
-  );
-}
-export function restAuthenticationNoneSchedulingFromJSON(
-  jsonString: string,
-): SafeParseResult<RestAuthenticationNoneScheduling, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RestAuthenticationNoneScheduling$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationNoneScheduling' from JSON`,
-  );
-}
-
-/** @internal */
-export const RestAuthenticationNone$inboundSchema: z.ZodType<
-  RestAuthenticationNone,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authentication: types.literal("none"),
-  discovery: types.optional(discriminatedUnion("discoverType", {
-    http: discriminatedUnion("discoverMethod", {
-      get: z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
-      ),
-      post: z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
-      ),
-      post_with_body: z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
-      ),
-      other: z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
-      ),
-    }).and(z.object({ discoverType: z.literal("http") })),
-    json: z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeJson$inboundSchema
-    ),
-    list: z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeList$inboundSchema
-    ),
-    none: z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeNone$inboundSchema
-    ),
-  })),
-  collectUrl: types.string(),
-  collectMethod: RestAuthenticationNoneCollectMethod$inboundSchema,
-  collectRequestHeaders: types.optional(
-    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
-  ),
-  pagination: types.optional(discriminatedUnion("type", {
-    none: z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeNone$inboundSchema
-    ),
-    response_body: z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeResponseBody$inboundSchema
-    ),
-    response_header: z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeResponseHeader$inboundSchema
-    ),
-    response_header_link: z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$inboundSchema
-    ),
-    request_offset: z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeRequestOffset$inboundSchema
-    ),
-    request_page: z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeRequestPage$inboundSchema
-    ),
-  })),
-  timeout: types.optional(types.number()),
-  maxResponseBodySize: types.optional(types.string()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  disableTimeFilter: types.optional(types.boolean()),
-  decodeUrl: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  stopOnEmptyResults: types.optional(types.boolean()),
-  safeHeaders: types.optional(z.array(types.string())),
-  retryRules: types.optional(discriminatedUnion("type", {
-    none: z.lazy(() =>
-      RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema
-    ),
-    static: z.lazy(() =>
-      RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema
-    ),
-    backoff: z.lazy(() =>
-      RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema
-    ),
-  })),
-  __scheduling: types.optional(
-    z.lazy(() => RestAuthenticationNoneScheduling$inboundSchema),
-  ),
-  clientSecretParamValue: types.optional(types.string()),
-  serviceAccountCredentials: types.optional(types.string()),
-  hmacFunctionId: types.optional(types.string()),
-  __template_collectUrl: types.optional(types.string()),
-});
-/** @internal */
-export type RestAuthenticationNone$Outbound = {
-  authentication: "none";
-  discovery?:
-    | (
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound
-      | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound
-        & { discoverType: "http" }
-    )
-    | RestAuthenticationNoneRestDiscoveryDiscoverTypeJson$Outbound
-    | RestAuthenticationNoneRestDiscoveryDiscoverTypeList$Outbound
-    | RestAuthenticationNoneRestDiscoveryDiscoverTypeNone$Outbound
-    | undefined;
-  collectUrl: string;
-  collectMethod: string;
-  collectRequestHeaders?:
-    | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
-    | undefined;
-  pagination?:
-    | RestAuthenticationNoneRestPaginationTypeNone$Outbound
-    | RestAuthenticationNoneRestPaginationTypeResponseBody$Outbound
-    | RestAuthenticationNoneRestPaginationTypeResponseHeader$Outbound
-    | RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$Outbound
-    | RestAuthenticationNoneRestPaginationTypeRequestOffset$Outbound
-    | RestAuthenticationNoneRestPaginationTypeRequestPage$Outbound
-    | undefined;
-  timeout?: number | undefined;
-  maxResponseBodySize?: string | undefined;
-  useRoundRobinDns?: boolean | undefined;
-  disableTimeFilter?: boolean | undefined;
-  decodeUrl?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  captureHeaders?: boolean | undefined;
-  stopOnEmptyResults?: boolean | undefined;
-  safeHeaders?: Array<string> | undefined;
-  retryRules?:
-    | RestAuthenticationNoneRestRetryRulesTypeNone$Outbound
-    | RestAuthenticationNoneRestRetryRulesTypeStatic$Outbound
-    | RestAuthenticationNoneRestRetryRulesTypeBackoff$Outbound
-    | undefined;
-  __scheduling?: RestAuthenticationNoneScheduling$Outbound | undefined;
-  clientSecretParamValue?: string | undefined;
-  serviceAccountCredentials?: string | undefined;
-  hmacFunctionId?: string | undefined;
-  __template_collectUrl?: string | undefined;
-};
-
-/** @internal */
-export const RestAuthenticationNone$outboundSchema: z.ZodType<
-  RestAuthenticationNone$Outbound,
-  z.ZodTypeDef,
-  RestAuthenticationNone
-> = z.object({
-  authentication: z.literal("none"),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$outboundSchema
-      ),
-      z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$outboundSchema
-      ),
-      z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$outboundSchema
-      ),
-      z.lazy(() =>
-        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$outboundSchema
-      ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeJson$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeList$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeNone$outboundSchema
-    ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectMethod: RestAuthenticationNoneCollectMethod$outboundSchema,
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestAuthenticationNoneRestPaginationTypeNone$outboundSchema),
-    z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeResponseBody$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeResponseHeader$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeRequestOffset$outboundSchema
-    ),
-    z.lazy(() =>
-      RestAuthenticationNoneRestPaginationTypeRequestPage$outboundSchema
-    ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  maxResponseBodySize: z.string().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeNone$outboundSchema),
-    z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeStatic$outboundSchema),
-    z.lazy(() =>
-      RestAuthenticationNoneRestRetryRulesTypeBackoff$outboundSchema
-    ),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestAuthenticationNoneScheduling$outboundSchema)
-    .optional(),
-  clientSecretParamValue: z.string().optional(),
-  serviceAccountCredentials: z.string().optional(),
-  hmacFunctionId: z.string().optional(),
-  __template_collectUrl: z.string().optional(),
-});
-
-export function restAuthenticationNoneToJSON(
-  restAuthenticationNone: RestAuthenticationNone,
-): string {
-  return JSON.stringify(
-    RestAuthenticationNone$outboundSchema.parse(restAuthenticationNone),
-  );
-}
-export function restAuthenticationNoneFromJSON(
-  jsonString: string,
-): SafeParseResult<RestAuthenticationNone, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RestAuthenticationNone$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RestAuthenticationNone' from JSON`,
   );
 }
