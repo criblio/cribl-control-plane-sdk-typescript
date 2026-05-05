@@ -8,23 +8,18 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeMetadata,
   ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+import { PqType, PqType$inboundSchema } from "./pqtype.js";
 
 export type InputCriblmetrics = {
   /**
@@ -54,6 +49,12 @@ export type InputCriblmetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -75,6 +76,10 @@ export type InputCriblmetrics = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -91,6 +96,9 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -100,56 +108,9 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
-});
-/** @internal */
-export type InputCriblmetrics$Outbound = {
-  id?: string | undefined;
-  type: "criblmetrics";
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  prefix?: string | undefined;
-  fullFidelity?: boolean | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  __template_environment?: string | undefined;
-};
-
-/** @internal */
-export const InputCriblmetrics$outboundSchema: z.ZodType<
-  InputCriblmetrics$Outbound,
-  z.ZodTypeDef,
-  InputCriblmetrics
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("criblmetrics"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  prefix: z.string().optional(),
-  fullFidelity: z.boolean().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  __template_environment: z.string().optional(),
+  __template_streamtags: types.optional(types.string()),
 });
 
-export function inputCriblmetricsToJSON(
-  inputCriblmetrics: InputCriblmetrics,
-): string {
-  return JSON.stringify(
-    InputCriblmetrics$outboundSchema.parse(inputCriblmetrics),
-  );
-}
 export function inputCriblmetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblmetrics, SDKValidationError> {

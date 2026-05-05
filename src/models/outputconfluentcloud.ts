@@ -3,60 +3,43 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AcknowledgmentsOptionsAllLeader,
-  AcknowledgmentsOptionsAllLeader$inboundSchema,
   AcknowledgmentsOptionsAllLeader$outboundSchema,
 } from "./acknowledgmentsoptionsallleader.js";
 import {
   AuthenticationType,
-  AuthenticationType$inboundSchema,
   AuthenticationType$Outbound,
   AuthenticationType$outboundSchema,
 } from "./authenticationtype.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsGzipLz4,
-  CompressionOptionsGzipLz4$inboundSchema,
   CompressionOptionsGzipLz4$outboundSchema,
 } from "./compressionoptionsgziplz4.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth,
-  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound,
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema,
 } from "./kafkaschemaregistryauthenticationtypetemplateschemaregistryurlauth.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RecordDataFormatOptionsJsonProtobuf,
-  RecordDataFormatOptionsJsonProtobuf$inboundSchema,
   RecordDataFormatOptionsJsonProtobuf$outboundSchema,
 } from "./recorddataformatoptionsjsonprotobuf.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -216,6 +199,14 @@ export type OutputConfluentCloud = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputConfluentCloudPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -233,12 +224,6 @@ export type OutputConfluentCloud = {
   __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputConfluentCloudPqControls$inboundSchema: z.ZodType<
-  OutputConfluentCloudPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputConfluentCloudPqControls$Outbound = {};
 
@@ -258,72 +243,7 @@ export function outputConfluentCloudPqControlsToJSON(
     ),
   );
 }
-export function outputConfluentCloudPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputConfluentCloudPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputConfluentCloudPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputConfluentCloudPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputConfluentCloud$inboundSchema: z.ZodType<
-  OutputConfluentCloud,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("confluent_cloud"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  brokers: z.array(types.string()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptionsAllLeader$inboundSchema),
-  format: types.optional(RecordDataFormatOptionsJsonProtobuf$inboundSchema),
-  compression: types.optional(CompressionOptionsGzipLz4$inboundSchema),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushEventCount: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  kafkaSchemaRegistry: types.optional(
-    KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
-  ),
-  connectionTimeout: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  maxRetries: types.optional(types.number()),
-  maxBackOff: types.optional(types.number()),
-  initialBackoff: types.optional(types.number()),
-  backoffRate: types.optional(types.number()),
-  authenticationTimeout: types.optional(types.number()),
-  reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationType$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  protobufLibraryId: types.optional(types.string()),
-  protobufEncodingId: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputConfluentCloudPqControls$inboundSchema),
-  ),
-  __template_topic: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_compression: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputConfluentCloud$Outbound = {
   id?: string | undefined;
@@ -369,6 +289,8 @@ export type OutputConfluentCloud$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputConfluentCloudPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_brokers?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_compression?: string | undefined;
@@ -425,6 +347,8 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputConfluentCloudPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_brokers: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_compression: z.string().optional(),
@@ -436,14 +360,5 @@ export function outputConfluentCloudToJSON(
 ): string {
   return JSON.stringify(
     OutputConfluentCloud$outboundSchema.parse(outputConfluentCloud),
-  );
-}
-export function outputConfluentCloudFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputConfluentCloud, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputConfluentCloud$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputConfluentCloud' from JSON`,
   );
 }

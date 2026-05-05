@@ -282,27 +282,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [get](docs/sdks/functions/README.md#get) - Get a Function
 * [list](docs/sdks/functions/README.md#list) - List all Functions
 
-### [Groups](docs/sdks/groups/README.md)
-
-* [list](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
-* [create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
-* [get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
-* [update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
-* [delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
-* [deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
-
-#### [Groups.Acl](docs/sdks/acl/README.md)
-
-* [get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
-
-##### [Groups.Acl.Teams](docs/sdks/teams/README.md)
-
-* [get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
-
-#### [Groups.Configs.Versions](docs/sdks/configsversions/README.md)
-
-* [get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
-
 ### [Health](docs/sdks/health/README.md)
 
 * [get](docs/sdks/health/README.md#get) - Get the health status of the server
@@ -467,9 +446,9 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [count](docs/sdks/files/README.md#count) - Get a count of files that changed since a commit
 * [list](docs/sdks/files/README.md#list) - Get the names and statuses of files that changed since a commit
 
-### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
+### [Versions.Configs](docs/sdks/configs/README.md)
 
-* [get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
+* [get](docs/sdks/configs/README.md#get) - Get the configuration and status for the Git integration
 
 ### [Versions.Statuses](docs/sdks/versionsstatuses/README.md)
 
@@ -516,15 +495,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
 - [`functionsGet`](docs/sdks/functions/README.md#get) - Get a Function
 - [`functionsList`](docs/sdks/functions/README.md#list) - List all Functions
-- [`groupsAclGet`](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
-- [`groupsAclTeamsGet`](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
-- [`groupsConfigsVersionsGet`](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
-- [`groupsCreate`](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
-- [`groupsDelete`](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
-- [`groupsDeploy`](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
-- [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
-- [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
-- [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 - [`healthGet`](docs/sdks/health/README.md#get) - Get the health status of the server
 - [`lakesDatasetsCreate`](docs/sdks/datasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
 - [`lakesDatasetsDelete`](docs/sdks/datasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
@@ -608,7 +578,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versionsCommitsPush`](docs/sdks/commits/README.md#push) - Push local commits to the remote repository
 - [`versionsCommitsRevert`](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 - [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
-- [`versionsConfigsGet`](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
+- [`versionsConfigsGet`](docs/sdks/configs/README.md#get) - Get the configuration and status for the Git integration
 - [`versionsStatusesGet`](docs/sdks/versionsstatuses/README.md#get) - Get the status of the current working tree
 
 </details>

@@ -8,28 +8,21 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeMetadata,
   ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+import { PqType, PqType$inboundSchema } from "./pqtype.js";
 import {
   TlsSettingsServerSideType,
   TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
 export type InputMetrics = {
@@ -59,6 +52,12 @@ export type InputMetrics = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -103,6 +102,10 @@ export type InputMetrics = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -130,6 +133,9 @@ export const InputMetrics$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -145,73 +151,12 @@ export const InputMetrics$inboundSchema: z.ZodType<
   udpSocketRxBufSize: types.optional(types.number()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_udpPort: types.optional(types.string()),
   __template_tcpPort: types.optional(types.string()),
 });
-/** @internal */
-export type InputMetrics$Outbound = {
-  id?: string | undefined;
-  type: "metrics";
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  udpPort?: number | undefined;
-  tcpPort?: number | undefined;
-  maxBufferSize?: number | undefined;
-  ipWhitelistRegex?: string | undefined;
-  enableProxyHeader?: boolean | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  udpSocketRxBufSize?: number | undefined;
-  description?: string | undefined;
-  __template_environment?: string | undefined;
-  __template_host?: string | undefined;
-  __template_udpPort?: string | undefined;
-  __template_tcpPort?: string | undefined;
-};
 
-/** @internal */
-export const InputMetrics$outboundSchema: z.ZodType<
-  InputMetrics$Outbound,
-  z.ZodTypeDef,
-  InputMetrics
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("metrics"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string(),
-  udpPort: z.number().optional(),
-  tcpPort: z.number().optional(),
-  maxBufferSize: z.number().optional(),
-  ipWhitelistRegex: z.string().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  description: z.string().optional(),
-  __template_environment: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_udpPort: z.string().optional(),
-  __template_tcpPort: z.string().optional(),
-});
-
-export function inputMetricsToJSON(inputMetrics: InputMetrics): string {
-  return JSON.stringify(InputMetrics$outboundSchema.parse(inputMetrics));
-}
 export function inputMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetrics, SDKValidationError> {

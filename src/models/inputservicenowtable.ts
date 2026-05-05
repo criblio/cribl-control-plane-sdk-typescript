@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -114,6 +118,214 @@ export type GrantType = OpenEnum<typeof GrantType>;
 export type InputServicenowTableManageState = {};
 
 export type InputServicenowTable = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
+   */
+  instance: string;
+  /**
+   * ServiceNow table name to collect from.
+   */
+  tableName: string;
+  /**
+   * Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * Optional. Sort results by this field (for example sys_created_on or parent.name). Leave empty to use the server default order.
+   */
+  orderByField?: string | undefined;
+  /**
+   * Used only when Sort by field is set.
+   */
+  orderByDirection?: SortDirection | undefined;
+  /**
+   * Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
+   */
+  query?: string | undefined;
+  /**
+   * When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
+   */
+  useRawValues?: boolean | undefined;
+  /**
+   * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+   */
+  pageSize?: number | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * ServiceNow Table API authentication method
+   */
+  authType?: InputServicenowTableAuthenticationType | undefined;
+  /**
+   * Cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  earliest: string;
+  /**
+   * Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  latest: string;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * Collector runtime log level
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} cycles through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * ServiceNow OAuth grant type used for token requests
+   */
+  oauthGrantType?: GrantType | undefined;
+  /**
+   * ServiceNow username for the password grant type
+   */
+  username?: string | undefined;
+  /**
+   * Select or create a stored text secret for the ServiceNow password value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Enable custom OAuth request parameters or headers for advanced ServiceNow configurations. Leave disabled for standard ServiceNow OAuth flows.
+   */
+  useCustomOAuthParamsOrHeaders?: boolean | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  clientId?: string | undefined;
+  /**
+   * Select or create a stored text secret for the OAuth client secret value
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: InputServicenowTableManageState | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
+   */
+  __template_instance?: string | undefined;
+  /**
+   * Binds 'orderByField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'orderByField' at runtime.
+   */
+  __template_orderByField?: string | undefined;
+  /**
+   * Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
+   */
+  __template_query?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+};
+
+export type InputServicenowTableInput = {
   /**
    * Unique ID for this input
    */
@@ -290,6 +502,10 @@ export type InputServicenowTable = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
    */
   __template_instance?: string | undefined;
@@ -399,6 +615,9 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -446,14 +665,26 @@ export const InputServicenowTable$inboundSchema: z.ZodType<
     z.lazy(() => InputServicenowTableManageState$inboundSchema),
   ),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_instance: types.optional(types.string()),
   __template_orderByField: types.optional(types.string()),
   __template_query: types.optional(types.string()),
   __template_username: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
 });
+
+export function inputServicenowTableFromJSON(
+  jsonString: string,
+): SafeParseResult<InputServicenowTable, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputServicenowTable$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputServicenowTable' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputServicenowTable$Outbound = {
+export type InputServicenowTableInput$Outbound = {
   id?: string | undefined;
   type: "servicenow_table";
   disabled?: boolean | undefined;
@@ -503,6 +734,7 @@ export type InputServicenowTable$Outbound = {
   stateMergeExpression?: string | undefined;
   manageState?: InputServicenowTableManageState$Outbound | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_instance?: string | undefined;
   __template_orderByField?: string | undefined;
   __template_query?: string | undefined;
@@ -511,10 +743,10 @@ export type InputServicenowTable$Outbound = {
 };
 
 /** @internal */
-export const InputServicenowTable$outboundSchema: z.ZodType<
-  InputServicenowTable$Outbound,
+export const InputServicenowTableInput$outboundSchema: z.ZodType<
+  InputServicenowTableInput$Outbound,
   z.ZodTypeDef,
-  InputServicenowTable
+  InputServicenowTableInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("servicenow_table"),
@@ -566,6 +798,7 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   manageState: z.lazy(() => InputServicenowTableManageState$outboundSchema)
     .optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_instance: z.string().optional(),
   __template_orderByField: z.string().optional(),
   __template_query: z.string().optional(),
@@ -573,19 +806,10 @@ export const InputServicenowTable$outboundSchema: z.ZodType<
   __template_clientId: z.string().optional(),
 });
 
-export function inputServicenowTableToJSON(
-  inputServicenowTable: InputServicenowTable,
+export function inputServicenowTableInputToJSON(
+  inputServicenowTableInput: InputServicenowTableInput,
 ): string {
   return JSON.stringify(
-    InputServicenowTable$outboundSchema.parse(inputServicenowTable),
-  );
-}
-export function inputServicenowTableFromJSON(
-  jsonString: string,
-): SafeParseResult<InputServicenowTable, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputServicenowTable$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputServicenowTable' from JSON`,
+    InputServicenowTableInput$outboundSchema.parse(inputServicenowTableInput),
   );
 }

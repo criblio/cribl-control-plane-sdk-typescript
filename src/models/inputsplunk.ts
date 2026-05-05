@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -83,6 +87,140 @@ export const InputSplunkCompression = {
 export type InputSplunkCompression = OpenEnum<typeof InputSplunkCompression>;
 
 export type InputSplunk = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "splunk";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputSplunkAuthToken> | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SVersion | undefined;
+  description?: string | undefined;
+  /**
+   * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+   */
+  useFwdTimezone?: boolean | undefined;
+  /**
+   * Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+   */
+  dropControlFields?: boolean | undefined;
+  /**
+   * Extract and process Splunk-generated metrics as Cribl metrics
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: InputSplunkCompression | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+   */
+  __template_maxS2Sversion?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+};
+
+export type InputSplunkInput = {
   /**
    * Unique ID for this input
    */
@@ -189,6 +327,10 @@ export type InputSplunk = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -288,6 +430,9 @@ export const InputSplunk$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -314,13 +459,25 @@ export const InputSplunk$inboundSchema: z.ZodType<
   extractMetrics: types.optional(types.boolean()),
   compress: types.optional(InputSplunkCompression$inboundSchema),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_maxS2Sversion: types.optional(types.string()),
   __template_compress: types.optional(types.string()),
 });
+
+export function inputSplunkFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunk, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunk$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunk' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputSplunk$Outbound = {
+export type InputSplunkInput$Outbound = {
   id?: string | undefined;
   type: "splunk";
   disabled?: boolean | undefined;
@@ -351,6 +508,7 @@ export type InputSplunk$Outbound = {
   extractMetrics?: boolean | undefined;
   compress?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_maxS2Sversion?: string | undefined;
@@ -358,10 +516,10 @@ export type InputSplunk$Outbound = {
 };
 
 /** @internal */
-export const InputSplunk$outboundSchema: z.ZodType<
-  InputSplunk$Outbound,
+export const InputSplunkInput$outboundSchema: z.ZodType<
+  InputSplunkInput$Outbound,
   z.ZodTypeDef,
-  InputSplunk
+  InputSplunkInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("splunk"),
@@ -394,21 +552,17 @@ export const InputSplunk$outboundSchema: z.ZodType<
   extractMetrics: z.boolean().optional(),
   compress: InputSplunkCompression$outboundSchema.optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_maxS2Sversion: z.string().optional(),
   __template_compress: z.string().optional(),
 });
 
-export function inputSplunkToJSON(inputSplunk: InputSplunk): string {
-  return JSON.stringify(InputSplunk$outboundSchema.parse(inputSplunk));
-}
-export function inputSplunkFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunk, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunk$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunk' from JSON`,
+export function inputSplunkInputToJSON(
+  inputSplunkInput: InputSplunkInput,
+): string {
+  return JSON.stringify(
+    InputSplunkInput$outboundSchema.parse(inputSplunkInput),
   );
 }

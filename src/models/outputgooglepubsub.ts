@@ -3,33 +3,21 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   GoogleAuthenticationMethodOptions,
-  GoogleAuthenticationMethodOptions$inboundSchema,
   GoogleAuthenticationMethodOptions$outboundSchema,
 } from "./googleauthenticationmethodoptions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 
@@ -160,6 +148,10 @@ export type OutputGooglePubsub = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGooglePubsubPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
    */
   __template_topicName?: string | undefined;
@@ -173,12 +165,6 @@ export type OutputGooglePubsub = {
   __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputGooglePubsubPqControls$inboundSchema: z.ZodType<
-  OutputGooglePubsubPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputGooglePubsubPqControls$Outbound = {};
 
@@ -198,63 +184,7 @@ export function outputGooglePubsubPqControlsToJSON(
     ),
   );
 }
-export function outputGooglePubsubPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGooglePubsubPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGooglePubsubPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGooglePubsubPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGooglePubsub$inboundSchema: z.ZodType<
-  OutputGooglePubsub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("google_pubsub"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  topicName: types.string(),
-  createTopic: types.optional(types.boolean()),
-  orderedDelivery: types.optional(types.boolean()),
-  region: types.optional(types.string()),
-  googleAuthMethod: types.optional(
-    GoogleAuthenticationMethodOptions$inboundSchema,
-  ),
-  serviceAccountCredentials: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  batchSize: types.optional(types.number()),
-  batchTimeout: types.optional(types.number()),
-  maxQueueSize: types.optional(types.number()),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushPeriod: types.optional(types.number()),
-  maxInProgress: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputGooglePubsubPqControls$inboundSchema),
-  ),
-  __template_topicName: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputGooglePubsub$Outbound = {
   id?: string | undefined;
@@ -290,6 +220,7 @@ export type OutputGooglePubsub$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGooglePubsubPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topicName?: string | undefined;
   __template_region?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -335,6 +266,7 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_topicName: z.string().optional(),
   __template_region: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -345,14 +277,5 @@ export function outputGooglePubsubToJSON(
 ): string {
   return JSON.stringify(
     OutputGooglePubsub$outboundSchema.parse(outputGooglePubsub),
-  );
-}
-export function outputGooglePubsubFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGooglePubsub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGooglePubsub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGooglePubsub' from JSON`,
   );
 }

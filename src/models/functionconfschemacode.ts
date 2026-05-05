@@ -18,7 +18,7 @@ export type FunctionConfSchemaCode = {
    */
   maxNumOfIterations?: number | undefined;
   /**
-   * Rate at which this Function logs errors. For example, a value of 1 (the default) logs every error, a value of 10 logs every tenth error, and so on.
+   * Rate at which this Function logs errors. For example, a value of 1 logs every error, a value of 1000 (the default) logs every thousandth error, and so on.
    */
   activeLogSampleRate?: number | undefined;
   /**

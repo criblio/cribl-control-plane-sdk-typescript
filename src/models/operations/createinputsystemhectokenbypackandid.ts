@@ -12,7 +12,7 @@ export type CreateInputSystemHecTokenByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to create.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**

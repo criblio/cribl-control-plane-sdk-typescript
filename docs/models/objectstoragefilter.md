@@ -13,7 +13,8 @@ let value: ObjectStorageFilter = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `dataTypeId`       | *string*           | :heavy_check_mark: | N/A                |
-| `filter`           | *string*           | :heavy_check_mark: | N/A                |
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `dataPathFormat`                                                 | [models.PathFilterDataFormat](../models/pathfilterdataformat.md) | :heavy_minus_sign:                                               | N/A                                                              |
+| `dataTypeId`                                                     | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              |
+| `filter`                                                         | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              |

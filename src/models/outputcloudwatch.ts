@@ -3,28 +3,17 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 
@@ -165,6 +154,10 @@ export type OutputCloudwatch = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCloudwatchPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'logGroupName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logGroupName' at runtime.
    */
   __template_logGroupName?: string | undefined;
@@ -203,12 +196,6 @@ export type OutputCloudwatch = {
 };
 
 /** @internal */
-export const OutputCloudwatchPqControls$inboundSchema: z.ZodType<
-  OutputCloudwatchPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputCloudwatchPqControls$Outbound = {};
 
 /** @internal */
@@ -225,71 +212,7 @@ export function outputCloudwatchPqControlsToJSON(
     OutputCloudwatchPqControls$outboundSchema.parse(outputCloudwatchPqControls),
   );
 }
-export function outputCloudwatchPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCloudwatchPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCloudwatchPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCloudwatchPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputCloudwatch$inboundSchema: z.ZodType<
-  OutputCloudwatch,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cloudwatch"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  logGroupName: types.string(),
-  logStreamName: types.string(),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.string(),
-  endpoint: types.optional(types.string()),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  maxQueueSize: types.optional(types.number()),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputCloudwatchPqControls$inboundSchema),
-  ),
-  __template_logGroupName: types.optional(types.string()),
-  __template_logStreamName: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-});
 /** @internal */
 export type OutputCloudwatch$Outbound = {
   id?: string | undefined;
@@ -329,6 +252,7 @@ export type OutputCloudwatch$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCloudwatchPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_logGroupName?: string | undefined;
   __template_logStreamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -384,6 +308,7 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_logGroupName: z.string().optional(),
   __template_logStreamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -400,14 +325,5 @@ export function outputCloudwatchToJSON(
 ): string {
   return JSON.stringify(
     OutputCloudwatch$outboundSchema.parse(outputCloudwatch),
-  );
-}
-export function outputCloudwatchFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCloudwatch, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCloudwatch$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCloudwatch' from JSON`,
   );
 }

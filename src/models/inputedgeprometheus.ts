@@ -16,6 +16,10 @@ import {
 } from "./diskspoolingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -133,6 +137,219 @@ export type PodFilter = {
 };
 
 export type InputEdgePrometheus = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "edge_prometheus";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Other dimensions to include in events
+   */
+  dimensionList?: Array<string> | undefined;
+  /**
+   * Target discovery mechanism. Use static to manually enter a list of targets.
+   */
+  discoveryType: InputEdgePrometheusDiscoveryType;
+  /**
+   * How often in seconds to scrape targets for metrics.
+   */
+  interval: number;
+  /**
+   * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
+   */
+  timeout?: number | undefined;
+  persistence?: DiskSpoolingType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputEdgePrometheusAuthenticationMethod | undefined;
+  description?: string | undefined;
+  targets?: Array<Target> | undefined;
+  /**
+   * DNS record type to resolve
+   */
+  recordType?: RecordTypeOptions | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocol?: ProtocolOptionsTargetsItems | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePath?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Disable to use the private IP address.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * Filter to apply when searching for EC2 instances
+   */
+  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the EC2 is located
+   */
+  region?: string | undefined;
+  /**
+   * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing EC2 requests
+   */
+  signatureVersion?: SignatureVersionOptionsV2V4 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access EC2
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocolExpr?: string | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePortExpr?: string | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePathExpr?: string | undefined;
+  /**
+   *   Add rules to decide which pods to discover for metrics.
+   *
+   * @remarks
+   *   Pods are searched if no rules are given or of all the rules'
+   *   expressions evaluate to true.
+   */
+  podFilter?: Array<PodFilter> | undefined;
+  /**
+   * Username for Prometheus Basic authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password for Prometheus Basic authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+   */
+  __template_dimensionList?: string | undefined;
+  /**
+   * Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+   */
+  __template_nameList?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+};
+
+export type InputEdgePrometheusInput = {
   /**
    * Unique ID for this input
    */
@@ -302,6 +519,18 @@ export type InputEdgePrometheus = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+   */
+  __template_dimensionList?: string | undefined;
+  /**
+   * Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+   */
+  __template_nameList?: string | undefined;
+  /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
@@ -446,6 +675,9 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -489,6 +721,9 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_dimensionList: types.optional(types.string()),
+  __template_nameList: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -496,8 +731,19 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
 });
+
+export function inputEdgePrometheusFromJSON(
+  jsonString: string,
+): SafeParseResult<InputEdgePrometheus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputEdgePrometheus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEdgePrometheus' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputEdgePrometheus$Outbound = {
+export type InputEdgePrometheusInput$Outbound = {
   id?: string | undefined;
   type: "edge_prometheus";
   disabled?: boolean | undefined;
@@ -545,6 +791,9 @@ export type InputEdgePrometheus$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_dimensionList?: string | undefined;
+  __template_nameList?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -554,10 +803,10 @@ export type InputEdgePrometheus$Outbound = {
 };
 
 /** @internal */
-export const InputEdgePrometheus$outboundSchema: z.ZodType<
-  InputEdgePrometheus$Outbound,
+export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
+  InputEdgePrometheusInput$Outbound,
   z.ZodTypeDef,
-  InputEdgePrometheus
+  InputEdgePrometheusInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("edge_prometheus"),
@@ -606,6 +855,9 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_dimensionList: z.string().optional(),
+  __template_nameList: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
@@ -614,19 +866,10 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   __template_assumeRoleExternalId: z.string().optional(),
 });
 
-export function inputEdgePrometheusToJSON(
-  inputEdgePrometheus: InputEdgePrometheus,
+export function inputEdgePrometheusInputToJSON(
+  inputEdgePrometheusInput: InputEdgePrometheusInput,
 ): string {
   return JSON.stringify(
-    InputEdgePrometheus$outboundSchema.parse(inputEdgePrometheus),
-  );
-}
-export function inputEdgePrometheusFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEdgePrometheus, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEdgePrometheus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEdgePrometheus' from JSON`,
+    InputEdgePrometheusInput$outboundSchema.parse(inputEdgePrometheusInput),
   );
 }

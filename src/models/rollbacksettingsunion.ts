@@ -7,54 +7,25 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  EmptyObject,
+  EmptyObject$inboundSchema,
+  EmptyObject$Outbound,
+  EmptyObject$outboundSchema,
+} from "./emptyobject.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type RollbackSettings2 = {};
-
-export type RollbackSettings1 = {
+export type RollbackSettings = {
   rollbackEnabled: boolean;
   rollbackRetries?: number | undefined;
   rollbackTimeout?: number | undefined;
 };
 
-export type RollbackSettingsUnion = RollbackSettings1 | RollbackSettings2;
+export type RollbackSettingsUnion = RollbackSettings | EmptyObject;
 
 /** @internal */
-export const RollbackSettings2$inboundSchema: z.ZodType<
-  RollbackSettings2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type RollbackSettings2$Outbound = {};
-
-/** @internal */
-export const RollbackSettings2$outboundSchema: z.ZodType<
-  RollbackSettings2$Outbound,
-  z.ZodTypeDef,
-  RollbackSettings2
-> = z.object({});
-
-export function rollbackSettings2ToJSON(
-  rollbackSettings2: RollbackSettings2,
-): string {
-  return JSON.stringify(
-    RollbackSettings2$outboundSchema.parse(rollbackSettings2),
-  );
-}
-export function rollbackSettings2FromJSON(
-  jsonString: string,
-): SafeParseResult<RollbackSettings2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RollbackSettings2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RollbackSettings2' from JSON`,
-  );
-}
-
-/** @internal */
-export const RollbackSettings1$inboundSchema: z.ZodType<
-  RollbackSettings1,
+export const RollbackSettings$inboundSchema: z.ZodType<
+  RollbackSettings,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -63,37 +34,37 @@ export const RollbackSettings1$inboundSchema: z.ZodType<
   rollbackTimeout: types.optional(types.number()),
 });
 /** @internal */
-export type RollbackSettings1$Outbound = {
+export type RollbackSettings$Outbound = {
   rollbackEnabled: boolean;
   rollbackRetries?: number | undefined;
   rollbackTimeout?: number | undefined;
 };
 
 /** @internal */
-export const RollbackSettings1$outboundSchema: z.ZodType<
-  RollbackSettings1$Outbound,
+export const RollbackSettings$outboundSchema: z.ZodType<
+  RollbackSettings$Outbound,
   z.ZodTypeDef,
-  RollbackSettings1
+  RollbackSettings
 > = z.object({
   rollbackEnabled: z.boolean(),
   rollbackRetries: z.number().optional(),
   rollbackTimeout: z.number().optional(),
 });
 
-export function rollbackSettings1ToJSON(
-  rollbackSettings1: RollbackSettings1,
+export function rollbackSettingsToJSON(
+  rollbackSettings: RollbackSettings,
 ): string {
   return JSON.stringify(
-    RollbackSettings1$outboundSchema.parse(rollbackSettings1),
+    RollbackSettings$outboundSchema.parse(rollbackSettings),
   );
 }
-export function rollbackSettings1FromJSON(
+export function rollbackSettingsFromJSON(
   jsonString: string,
-): SafeParseResult<RollbackSettings1, SDKValidationError> {
+): SafeParseResult<RollbackSettings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RollbackSettings1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RollbackSettings1' from JSON`,
+    (x) => RollbackSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RollbackSettings' from JSON`,
   );
 }
 
@@ -103,13 +74,13 @@ export const RollbackSettingsUnion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = smartUnion([
-  z.lazy(() => RollbackSettings1$inboundSchema),
-  z.lazy(() => RollbackSettings2$inboundSchema),
+  z.lazy(() => RollbackSettings$inboundSchema),
+  EmptyObject$inboundSchema,
 ]);
 /** @internal */
 export type RollbackSettingsUnion$Outbound =
-  | RollbackSettings1$Outbound
-  | RollbackSettings2$Outbound;
+  | RollbackSettings$Outbound
+  | EmptyObject$Outbound;
 
 /** @internal */
 export const RollbackSettingsUnion$outboundSchema: z.ZodType<
@@ -117,8 +88,8 @@ export const RollbackSettingsUnion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RollbackSettingsUnion
 > = smartUnion([
-  z.lazy(() => RollbackSettings1$outboundSchema),
-  z.lazy(() => RollbackSettings2$outboundSchema),
+  z.lazy(() => RollbackSettings$outboundSchema),
+  EmptyObject$outboundSchema,
 ]);
 
 export function rollbackSettingsUnionToJSON(

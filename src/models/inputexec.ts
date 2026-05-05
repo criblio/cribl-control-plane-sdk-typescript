@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -41,6 +45,91 @@ export const ScheduleType = {
 export type ScheduleType = OpenEnum<typeof ScheduleType>;
 
 export type InputExec = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "exec";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+   */
+  script?: string | undefined;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: ScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputExecInput = {
   /**
    * Unique ID for this input
    */
@@ -113,6 +202,10 @@ export type InputExec = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -142,6 +235,9 @@ export const InputExec$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -157,9 +253,21 @@ export const InputExec$inboundSchema: z.ZodType<
   interval: types.optional(types.number()),
   cronSchedule: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputExecFromJSON(
+  jsonString: string,
+): SafeParseResult<InputExec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputExec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputExec' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputExec$Outbound = {
+export type InputExecInput$Outbound = {
   id?: string | undefined;
   type: "exec";
   disabled?: boolean | undefined;
@@ -181,13 +289,14 @@ export type InputExec$Outbound = {
   interval?: number | undefined;
   cronSchedule?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputExec$outboundSchema: z.ZodType<
-  InputExec$Outbound,
+export const InputExecInput$outboundSchema: z.ZodType<
+  InputExecInput$Outbound,
   z.ZodTypeDef,
-  InputExec
+  InputExecInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("exec"),
@@ -210,17 +319,9 @@ export const InputExec$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputExecToJSON(inputExec: InputExec): string {
-  return JSON.stringify(InputExec$outboundSchema.parse(inputExec));
-}
-export function inputExecFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputExec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExec' from JSON`,
-  );
+export function inputExecInputToJSON(inputExecInput: InputExecInput): string {
+  return JSON.stringify(InputExecInput$outboundSchema.parse(inputExecInput));
 }

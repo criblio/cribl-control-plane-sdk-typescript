@@ -3,57 +3,44 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FormatOptions,
-  FormatOptions$inboundSchema,
   FormatOptions$outboundSchema,
 } from "./formatoptions.js";
 import {
   ObjectAclOptions,
-  ObjectAclOptions$inboundSchema,
   ObjectAclOptions$outboundSchema,
 } from "./objectacloptions.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
   ServerSideEncryptionForUploadedObjectsOptions,
-  ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
   ServerSideEncryptionForUploadedObjectsOptions$outboundSchema,
 } from "./serversideencryptionforuploadedobjectsoptions.js";
 import {
   SignatureVersionOptionsS3CollectorConf,
-  SignatureVersionOptionsS3CollectorConf$inboundSchema,
   SignatureVersionOptionsS3CollectorConf$outboundSchema,
 } from "./signatureversionoptionss3collectorconf.js";
 import {
   StorageClassOptions,
-  StorageClassOptions$inboundSchema,
   StorageClassOptions$outboundSchema,
 } from "./storageclassoptions.js";
 
@@ -246,6 +233,10 @@ export type OutputCriblLake = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -304,98 +295,12 @@ export type OutputCriblLake = {
 };
 
 /** @internal */
-export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
-  AwsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AwsAuthenticationMethod);
-/** @internal */
 export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   AwsAuthenticationMethod
 > = openEnums.outboundSchema(AwsAuthenticationMethod);
 
-/** @internal */
-export const OutputCriblLake$inboundSchema: z.ZodType<
-  OutputCriblLake,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl_lake"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  endpoint: types.optional(types.string()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  ),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  awsSecretKey: types.optional(types.string()),
-  bucket: types.optional(types.string()),
-  region: types.optional(types.string()),
-  destPath: types.optional(types.string()),
-  verifyPermissions: types.optional(types.boolean()),
-  maxClosingFilesToBackpressure: types.optional(types.number()),
-  stagePath: types.optional(types.string()),
-  addIdToStagePath: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  objectACL: types.optional(ObjectAclOptions$inboundSchema),
-  storageClass: types.optional(StorageClassOptions$inboundSchema),
-  serverSideEncryption: types.optional(
-    ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
-  ),
-  kmsKeyId: types.optional(types.string()),
-  awsAuthenticationMethod: types.optional(
-    AwsAuthenticationMethod$inboundSchema,
-  ),
-  format: types.optional(FormatOptions$inboundSchema),
-  maxConcurrentFileParts: types.optional(types.number()),
-  description: types.optional(types.string()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_bucket: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_destPath: types.optional(types.string()),
-  __template_baseFileName: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_objectACL: types.optional(types.string()),
-  __template_storageClass: types.optional(types.string()),
-  __template_serverSideEncryption: types.optional(types.string()),
-  __template_kmsKeyId: types.optional(types.string()),
-});
 /** @internal */
 export type OutputCriblLake$Outbound = {
   id?: string | undefined;
@@ -447,6 +352,7 @@ export type OutputCriblLake$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -521,6 +427,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -541,13 +448,4 @@ export function outputCriblLakeToJSON(
   outputCriblLake: OutputCriblLake,
 ): string {
   return JSON.stringify(OutputCriblLake$outboundSchema.parse(outputCriblLake));
-}
-export function outputCriblLakeFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblLake, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblLake$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblLake' from JSON`,
-  );
 }

@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -31,7 +35,7 @@ import {
 /**
  * Read all stored and future event logs, or only future events
  */
-export const ReadMode = {
+export const InputWinEventLogsReadMode = {
   /**
    * Entire log
    */
@@ -44,7 +48,9 @@ export const ReadMode = {
 /**
  * Read all stored and future event logs, or only future events
  */
-export type ReadMode = OpenEnum<typeof ReadMode>;
+export type InputWinEventLogsReadMode = OpenEnum<
+  typeof InputWinEventLogsReadMode
+>;
 
 /**
  * Format of individual events
@@ -92,6 +98,12 @@ export type InputWinEventLogs = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -103,7 +115,7 @@ export type InputWinEventLogs = {
   /**
    * Read all stored and future event logs, or only future events
    */
-  readMode?: ReadMode | undefined;
+  readMode?: InputWinEventLogsReadMode | undefined;
   /**
    * Format of individual events
    */
@@ -141,20 +153,107 @@ export type InputWinEventLogs = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputWinEventLogsInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "win_event_logs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+   */
+  logNames: Array<string>;
+  /**
+   * Read all stored and future event logs, or only future events
+   */
+  readMode?: InputWinEventLogsReadMode | undefined;
+  /**
+   * Format of individual events
+   */
+  eventFormat?: EventFormat | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+   */
+  disableNativeModule?: boolean | undefined;
+  /**
+   * Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  batchSize?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * The maximum number of bytes in an event before it is flushed to the pipelines
+   */
+  maxEventBytes?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableJsonRendering?: boolean | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableXmlRendering?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const ReadMode$inboundSchema: z.ZodType<
-  ReadMode,
+export const InputWinEventLogsReadMode$inboundSchema: z.ZodType<
+  InputWinEventLogsReadMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(ReadMode);
+> = openEnums.inboundSchema(InputWinEventLogsReadMode);
 /** @internal */
-export const ReadMode$outboundSchema: z.ZodType<
+export const InputWinEventLogsReadMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ReadMode
-> = openEnums.outboundSchema(ReadMode);
+  InputWinEventLogsReadMode
+> = openEnums.outboundSchema(InputWinEventLogsReadMode);
 
 /** @internal */
 export const EventFormat$inboundSchema: z.ZodType<
@@ -183,12 +282,15 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
   pq: types.optional(PqType$inboundSchema),
   logNames: z.array(types.string()),
-  readMode: types.optional(ReadMode$inboundSchema),
+  readMode: types.optional(InputWinEventLogsReadMode$inboundSchema),
   eventFormat: types.optional(EventFormat$inboundSchema),
   disableNativeModule: types.optional(types.boolean()),
   interval: types.optional(types.number()),
@@ -199,9 +301,21 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   disableJsonRendering: types.optional(types.boolean()),
   disableXmlRendering: types.optional(types.boolean()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputWinEventLogsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWinEventLogs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWinEventLogs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWinEventLogs' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputWinEventLogs$Outbound = {
+export type InputWinEventLogsInput$Outbound = {
   id?: string | undefined;
   type: "win_event_logs";
   disabled?: boolean | undefined;
@@ -224,13 +338,14 @@ export type InputWinEventLogs$Outbound = {
   disableJsonRendering?: boolean | undefined;
   disableXmlRendering?: boolean | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputWinEventLogs$outboundSchema: z.ZodType<
-  InputWinEventLogs$Outbound,
+export const InputWinEventLogsInput$outboundSchema: z.ZodType<
+  InputWinEventLogsInput$Outbound,
   z.ZodTypeDef,
-  InputWinEventLogs
+  InputWinEventLogsInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("win_event_logs"),
@@ -243,7 +358,7 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   logNames: z.array(z.string()),
-  readMode: ReadMode$outboundSchema.optional(),
+  readMode: InputWinEventLogsReadMode$outboundSchema.optional(),
   eventFormat: EventFormat$outboundSchema.optional(),
   disableNativeModule: z.boolean().optional(),
   interval: z.number().optional(),
@@ -254,21 +369,13 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   disableJsonRendering: z.boolean().optional(),
   disableXmlRendering: z.boolean().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputWinEventLogsToJSON(
-  inputWinEventLogs: InputWinEventLogs,
+export function inputWinEventLogsInputToJSON(
+  inputWinEventLogsInput: InputWinEventLogsInput,
 ): string {
   return JSON.stringify(
-    InputWinEventLogs$outboundSchema.parse(inputWinEventLogs),
-  );
-}
-export function inputWinEventLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWinEventLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWinEventLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWinEventLogs' from JSON`,
+    InputWinEventLogsInput$outboundSchema.parse(inputWinEventLogsInput),
   );
 }

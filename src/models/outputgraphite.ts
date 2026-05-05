@@ -3,33 +3,21 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
   DestinationProtocolOptions,
-  DestinationProtocolOptions$inboundSchema,
   DestinationProtocolOptions$outboundSchema,
 } from "./destinationprotocoloptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 
@@ -144,17 +132,15 @@ export type OutputGraphite = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGraphitePqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputGraphitePqControls$inboundSchema: z.ZodType<
-  OutputGraphitePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputGraphitePqControls$Outbound = {};
 
@@ -172,55 +158,7 @@ export function outputGraphitePqControlsToJSON(
     OutputGraphitePqControls$outboundSchema.parse(outputGraphitePqControls),
   );
 }
-export function outputGraphitePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGraphitePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGraphitePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGraphitePqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGraphite$inboundSchema: z.ZodType<
-  OutputGraphite,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("graphite"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  protocol: DestinationProtocolOptions$inboundSchema,
-  host: types.string(),
-  port: types.number(),
-  mtu: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  description: types.optional(types.string()),
-  throttleRatePerSec: types.optional(types.string()),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputGraphitePqControls$inboundSchema),
-  ),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputGraphite$Outbound = {
   id?: string | undefined;
@@ -252,6 +190,7 @@ export type OutputGraphite$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGraphitePqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -290,18 +229,10 @@ export const OutputGraphite$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGraphitePqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
 export function outputGraphiteToJSON(outputGraphite: OutputGraphite): string {
   return JSON.stringify(OutputGraphite$outboundSchema.parse(outputGraphite));
-}
-export function outputGraphiteFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGraphite, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGraphite$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGraphite' from JSON`,
-  );
 }

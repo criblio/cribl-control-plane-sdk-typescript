@@ -3,50 +3,35 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsGzipNone,
-  CompressionOptionsGzipNone$inboundSchema,
   CompressionOptionsGzipNone$outboundSchema,
 } from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeAuthTokens,
-  ItemsTypeAuthTokens$inboundSchema,
   ItemsTypeAuthTokens$Outbound,
   ItemsTypeAuthTokens$outboundSchema,
 } from "./itemstypeauthtokens.js";
 import {
   ItemsTypeHosts,
-  ItemsTypeHosts$inboundSchema,
   ItemsTypeHosts$Outbound,
   ItemsTypeHosts$outboundSchema,
 } from "./itemstypehosts.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -191,6 +176,10 @@ export type OutputCriblTcp = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblTcpPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -204,12 +193,6 @@ export type OutputCriblTcp = {
   __template_port?: string | undefined;
 };
 
-/** @internal */
-export const OutputCriblTcpPqControls$inboundSchema: z.ZodType<
-  OutputCriblTcpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputCriblTcpPqControls$Outbound = {};
 
@@ -227,65 +210,7 @@ export function outputCriblTcpPqControlsToJSON(
     OutputCriblTcpPqControls$outboundSchema.parse(outputCriblTcpPqControls),
   );
 }
-export function outputCriblTcpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblTcpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblTcpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblTcpPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputCriblTcp$inboundSchema: z.ZodType<
-  OutputCriblTcp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl_tcp"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(types.boolean()),
-  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
-  logFailedRequests: types.optional(types.boolean()),
-  throttleRatePerSec: types.optional(types.string()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  tokenTTLMinutes: types.optional(types.number()),
-  authTokens: types.optional(z.array(ItemsTypeAuthTokens$inboundSchema)),
-  excludeFields: types.optional(z.array(types.string())),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  host: types.optional(types.string()),
-  port: types.optional(types.number()),
-  excludeSelf: types.optional(types.boolean()),
-  hosts: types.optional(z.array(ItemsTypeHosts$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  maxConcurrentSenders: types.optional(types.number()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputCriblTcpPqControls$inboundSchema),
-  ),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-});
 /** @internal */
 export type OutputCriblTcp$Outbound = {
   id?: string | undefined;
@@ -325,6 +250,7 @@ export type OutputCriblTcp$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblTcpPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -373,6 +299,7 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputCriblTcpPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -380,13 +307,4 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
 
 export function outputCriblTcpToJSON(outputCriblTcp: OutputCriblTcp): string {
   return JSON.stringify(OutputCriblTcp$outboundSchema.parse(outputCriblTcp));
-}
-export function outputCriblTcpFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblTcp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblTcp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblTcp' from JSON`,
-  );
 }

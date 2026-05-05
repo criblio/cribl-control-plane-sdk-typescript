@@ -8,7 +8,6 @@ import { Collectors } from "./collectors.js";
 import { DatabaseConnections } from "./databaseconnections.js";
 import { Destinations } from "./destinations.js";
 import { Functions } from "./functions.js";
-import { Groups } from "./groups.js";
 import { Health } from "./health.js";
 import { Lakes } from "./lakes.js";
 import { Nodes } from "./nodes.js";
@@ -60,11 +59,6 @@ export class CriblControlPlane extends ClientSDK {
   private _collectors?: Collectors;
   get collectors(): Collectors {
     return (this._collectors ??= new Collectors(this._options));
-  }
-
-  private _groups?: Groups;
-  get groups(): Groups {
-    return (this._groups ??= new Groups(this._options));
   }
 
   private _lakes?: Lakes;

@@ -6,7 +6,7 @@ import * as z from "zod/v3";
 
 export type GetRoutesByPackRequest = {
   /**
-   * The <code>id</code> of the Pack to list.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };

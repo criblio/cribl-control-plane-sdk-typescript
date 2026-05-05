@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -96,6 +100,181 @@ export const ShardLoadBalancing = {
 export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
 
 export type InputKinesis = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "kinesis";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing Kinesis stream requests
+   */
+  signatureVersion?: SignatureVersionOptionsKinesis | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
+   */
+  __template_streamName?: string | undefined;
+  /**
+   * Binds 'shardIteratorType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'shardIteratorType' at runtime.
+   */
+  __template_shardIteratorType?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+};
+
+export type InputKinesisInput = {
   /**
    * Unique ID for this input
    */
@@ -223,6 +402,10 @@ export type InputKinesis = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
    */
   __template_streamName?: string | undefined;
@@ -313,6 +496,9 @@ export const InputKinesis$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -345,6 +531,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_streamName: types.optional(types.string()),
   __template_shardIteratorType: types.optional(types.string()),
   __template_payloadFormat: types.optional(types.string()),
@@ -355,8 +542,19 @@ export const InputKinesis$inboundSchema: z.ZodType<
   __template_assumeRoleExternalId: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
 });
+
+export function inputKinesisFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesis, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesis$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesis' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputKinesis$Outbound = {
+export type InputKinesisInput$Outbound = {
   id?: string | undefined;
   type: "kinesis";
   disabled?: boolean | undefined;
@@ -393,6 +591,7 @@ export type InputKinesis$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_streamName?: string | undefined;
   __template_shardIteratorType?: string | undefined;
   __template_payloadFormat?: string | undefined;
@@ -405,10 +604,10 @@ export type InputKinesis$Outbound = {
 };
 
 /** @internal */
-export const InputKinesis$outboundSchema: z.ZodType<
-  InputKinesis$Outbound,
+export const InputKinesisInput$outboundSchema: z.ZodType<
+  InputKinesisInput$Outbound,
   z.ZodTypeDef,
-  InputKinesis
+  InputKinesisInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("kinesis"),
@@ -446,6 +645,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_streamName: z.string().optional(),
   __template_shardIteratorType: z.string().optional(),
   __template_payloadFormat: z.string().optional(),
@@ -457,15 +657,10 @@ export const InputKinesis$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function inputKinesisToJSON(inputKinesis: InputKinesis): string {
-  return JSON.stringify(InputKinesis$outboundSchema.parse(inputKinesis));
-}
-export function inputKinesisFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesis, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesis$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesis' from JSON`,
+export function inputKinesisInputToJSON(
+  inputKinesisInput: InputKinesisInput,
+): string {
+  return JSON.stringify(
+    InputKinesisInput$outboundSchema.parse(inputKinesisInput),
   );
 }

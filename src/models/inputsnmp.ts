@@ -8,6 +8,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -84,6 +88,12 @@ export type InputSnmp = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -129,6 +139,97 @@ export type InputSnmp = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+};
+
+export type InputSnmpInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "snmp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * UDP port to receive SNMP traps on. Defaults to 162.
+   */
+  port: number;
+  /**
+   * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+   */
+  snmpV3Auth?: SNMPv3Authentication | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * If enabled, parses varbinds as an array of objects that include OID, value, and type
+   */
+  varbindsWithTypes?: boolean | undefined;
+  /**
+   * If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+   */
+  bestEffortParsing?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -251,6 +352,9 @@ export const InputSnmp$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -266,11 +370,23 @@ export const InputSnmp$inboundSchema: z.ZodType<
   bestEffortParsing: types.optional(types.boolean()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
 });
+
+export function inputSnmpFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSnmp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSnmp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSnmp' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputSnmp$Outbound = {
+export type InputSnmpInput$Outbound = {
   id?: string | undefined;
   type: "snmp";
   disabled?: boolean | undefined;
@@ -292,15 +408,16 @@ export type InputSnmp$Outbound = {
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputSnmp$outboundSchema: z.ZodType<
-  InputSnmp$Outbound,
+export const InputSnmpInput$outboundSchema: z.ZodType<
+  InputSnmpInput$Outbound,
   z.ZodTypeDef,
-  InputSnmp
+  InputSnmpInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("snmp"),
@@ -323,19 +440,11 @@ export const InputSnmp$outboundSchema: z.ZodType<
   bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
 
-export function inputSnmpToJSON(inputSnmp: InputSnmp): string {
-  return JSON.stringify(InputSnmp$outboundSchema.parse(inputSnmp));
-}
-export function inputSnmpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSnmp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSnmp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSnmp' from JSON`,
-  );
+export function inputSnmpInputToJSON(inputSnmpInput: InputSnmpInput): string {
+  return JSON.stringify(InputSnmpInput$outboundSchema.parse(inputSnmpInput));
 }

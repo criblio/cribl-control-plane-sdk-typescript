@@ -3,62 +3,45 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsApi,
-  AuthenticationMethodOptionsApi$inboundSchema,
   AuthenticationMethodOptionsApi$outboundSchema,
 } from "./authenticationmethodoptionsapi.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RegionOptions,
-  RegionOptions$inboundSchema,
   RegionOptions$outboundSchema,
 } from "./regionoptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -244,6 +227,10 @@ export type OutputNewrelic = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
@@ -266,27 +253,12 @@ export type OutputNewrelic = {
 };
 
 /** @internal */
-export const FieldName$inboundSchema: z.ZodType<
-  FieldName,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FieldName);
-/** @internal */
 export const FieldName$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   FieldName
 > = openEnums.outboundSchema(FieldName);
 
-/** @internal */
-export const Metadatum$inboundSchema: z.ZodType<
-  Metadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: FieldName$inboundSchema,
-  value: types.string(),
-});
 /** @internal */
 export type Metadatum$Outbound = {
   name: string;
@@ -306,22 +278,7 @@ export const Metadatum$outboundSchema: z.ZodType<
 export function metadatumToJSON(metadatum: Metadatum): string {
   return JSON.stringify(Metadatum$outboundSchema.parse(metadatum));
 }
-export function metadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<Metadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Metadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Metadatum' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputNewrelicPqControls$inboundSchema: z.ZodType<
-  OutputNewrelicPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputNewrelicPqControls$Outbound = {};
 
@@ -339,79 +296,7 @@ export function outputNewrelicPqControlsToJSON(
     OutputNewrelicPqControls$outboundSchema.parse(outputNewrelicPqControls),
   );
 }
-export function outputNewrelicPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNewrelicPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNewrelicPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelicPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputNewrelic$inboundSchema: z.ZodType<
-  OutputNewrelic,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("newrelic"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  region: types.optional(RegionOptions$inboundSchema),
-  logType: types.optional(types.string()),
-  messageField: types.optional(types.string()),
-  metadata: types.optional(z.array(z.lazy(() => Metadatum$inboundSchema))),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptionsApi$inboundSchema),
-  totalMemoryLimitKB: types.optional(types.number()),
-  description: types.optional(types.string()),
-  customUrl: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputNewrelicPqControls$inboundSchema),
-  ),
-  apiKey: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_logType: types.optional(types.string()),
-  __template_messageField: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputNewrelic$Outbound = {
   id?: string | undefined;
@@ -459,6 +344,7 @@ export type OutputNewrelic$Outbound = {
   pqControls?: OutputNewrelicPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_logType?: string | undefined;
   __template_messageField?: string | undefined;
@@ -518,6 +404,7 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputNewrelicPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_logType: z.string().optional(),
   __template_messageField: z.string().optional(),
@@ -527,13 +414,4 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
 
 export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {
   return JSON.stringify(OutputNewrelic$outboundSchema.parse(outputNewrelic));
-}
-export function outputNewrelicFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNewrelic, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNewrelic$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelic' from JSON`,
-  );
 }

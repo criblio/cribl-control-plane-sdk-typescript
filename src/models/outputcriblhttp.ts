@@ -3,73 +3,54 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsGzipNone,
-  CompressionOptionsGzipNone$inboundSchema,
   CompressionOptionsGzipNone$outboundSchema,
 } from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeAuthTokensTokenSecret,
-  ItemsTypeAuthTokensTokenSecret$inboundSchema,
   ItemsTypeAuthTokensTokenSecret$Outbound,
   ItemsTypeAuthTokensTokenSecret$outboundSchema,
 } from "./itemstypeauthtokenstokensecret.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
 import {
   ItemsTypeUrls,
-  ItemsTypeUrls$inboundSchema,
   ItemsTypeUrls$Outbound,
   ItemsTypeUrls$outboundSchema,
 } from "./itemstypeurls.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -244,6 +225,10 @@ export type OutputCriblHttp = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblHttpPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -257,12 +242,6 @@ export type OutputCriblHttp = {
   __template_url?: string | undefined;
 };
 
-/** @internal */
-export const OutputCriblHttpPqControls$inboundSchema: z.ZodType<
-  OutputCriblHttpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputCriblHttpPqControls$Outbound = {};
 
@@ -280,81 +259,7 @@ export function outputCriblHttpPqControlsToJSON(
     OutputCriblHttpPqControls$outboundSchema.parse(outputCriblHttpPqControls),
   );
 }
-export function outputCriblHttpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblHttpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttpPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputCriblHttp$inboundSchema: z.ZodType<
-  OutputCriblHttp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl_http"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(types.boolean()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  tokenTTLMinutes: types.optional(types.number()),
-  excludeFields: types.optional(z.array(types.string())),
-  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  throttleRatePerSec: types.optional(types.string()),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  authTokens: types.optional(
-    z.array(ItemsTypeAuthTokensTokenSecret$inboundSchema),
-  ),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  url: types.optional(types.string()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  excludeSelf: types.optional(types.boolean()),
-  urls: types.optional(z.array(ItemsTypeUrls$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputCriblHttpPqControls$inboundSchema),
-  ),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputCriblHttp$Outbound = {
   id?: string | undefined;
@@ -404,6 +309,7 @@ export type OutputCriblHttp$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblHttpPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
@@ -463,6 +369,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputCriblHttpPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
@@ -472,13 +379,4 @@ export function outputCriblHttpToJSON(
   outputCriblHttp: OutputCriblHttp,
 ): string {
   return JSON.stringify(OutputCriblHttp$outboundSchema.parse(outputCriblHttp));
-}
-export function outputCriblHttpFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblHttp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttp' from JSON`,
-  );
 }

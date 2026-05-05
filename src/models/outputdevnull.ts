@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputDevnull = {
   /**
@@ -30,21 +26,12 @@ export type OutputDevnull = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
-/** @internal */
-export const OutputDevnull$inboundSchema: z.ZodType<
-  OutputDevnull,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("devnull"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-});
 /** @internal */
 export type OutputDevnull$Outbound = {
   id?: string | undefined;
@@ -53,6 +40,7 @@ export type OutputDevnull$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -67,17 +55,9 @@ export const OutputDevnull$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputDevnullToJSON(outputDevnull: OutputDevnull): string {
   return JSON.stringify(OutputDevnull$outboundSchema.parse(outputDevnull));
-}
-export function outputDevnullFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDevnull, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDevnull$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDevnull' from JSON`,
-  );
 }

@@ -5,7 +5,7 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Branches } from "./branches.js";
 import { Commits } from "./commits.js";
-import { VersionsConfigs } from "./versionsconfigs.js";
+import { Configs } from "./configs.js";
 import { VersionsStatuses } from "./versionsstatuses.js";
 
 export class Versions extends ClientSDK {
@@ -19,9 +19,9 @@ export class Versions extends ClientSDK {
     return (this._commits ??= new Commits(this._options));
   }
 
-  private _configs?: VersionsConfigs;
-  get configs(): VersionsConfigs {
-    return (this._configs ??= new VersionsConfigs(this._options));
+  private _configs?: Configs;
+  get configs(): Configs {
+    return (this._configs ??= new Configs(this._options));
   }
 
   private _statuses?: VersionsStatuses;

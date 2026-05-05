@@ -8,34 +8,25 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeAuthTokensExt,
   ItemsTypeAuthTokensExt$inboundSchema,
-  ItemsTypeAuthTokensExt$Outbound,
-  ItemsTypeAuthTokensExt$outboundSchema,
 } from "./itemstypeauthtokensext.js";
 import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeMetadata,
   ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+import { PqType, PqType$inboundSchema } from "./pqtype.js";
 import {
   TlsSettingsServerSideType,
   TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
 export type InputHttpRaw = {
@@ -65,6 +56,12 @@ export type InputHttpRaw = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -157,6 +154,10 @@ export type InputHttpRaw = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -164,6 +165,14 @@ export type InputHttpRaw = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+  /**
+   * Binds 'allowedPaths' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedPaths' at runtime.
+   */
+  __template_allowedPaths?: string | undefined;
 };
 
 /** @internal */
@@ -180,6 +189,9 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -207,94 +219,13 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
   authTokensExt: types.optional(z.array(ItemsTypeAuthTokensExt$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
-});
-/** @internal */
-export type InputHttpRaw$Outbound = {
-  id?: string | undefined;
-  type: "http_raw";
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq?: number | undefined;
-  maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: boolean | undefined;
-  captureHeaders?: boolean | undefined;
-  activityLogSampleRate?: number | undefined;
-  requestTimeout?: number | undefined;
-  socketTimeout?: number | undefined;
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: boolean | undefined;
-  ipAllowlistRegex?: string | undefined;
-  ipDenylistRegex?: string | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  allowedPaths?: Array<string> | undefined;
-  allowedMethods?: Array<string> | undefined;
-  authTokensExt?: Array<ItemsTypeAuthTokensExt$Outbound> | undefined;
-  description?: string | undefined;
-  __template_environment?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
-};
-
-/** @internal */
-export const InputHttpRaw$outboundSchema: z.ZodType<
-  InputHttpRaw$Outbound,
-  z.ZodTypeDef,
-  InputHttpRaw
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("http_raw"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().optional(),
-  maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  activityLogSampleRate: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  socketTimeout: z.number().optional(),
-  keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.boolean().optional(),
-  ipAllowlistRegex: z.string().optional(),
-  ipDenylistRegex: z.string().optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  allowedPaths: z.array(z.string()).optional(),
-  allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
-  description: z.string().optional(),
-  __template_environment: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
+  __template_authTokens: types.optional(types.string()),
+  __template_allowedPaths: types.optional(types.string()),
 });
 
-export function inputHttpRawToJSON(inputHttpRaw: InputHttpRaw): string {
-  return JSON.stringify(InputHttpRaw$outboundSchema.parse(inputHttpRaw));
-}
 export function inputHttpRawFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRaw, SDKValidationError> {

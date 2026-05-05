@@ -3,35 +3,23 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   SignatureVersionOptionsKinesis,
-  SignatureVersionOptionsKinesis$inboundSchema,
   SignatureVersionOptionsKinesis$outboundSchema,
 } from "./signatureversionoptionskinesis.js";
 
@@ -208,6 +196,10 @@ export type OutputKinesis = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKinesisPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
    */
   __template_streamName?: string | undefined;
@@ -242,24 +234,12 @@ export type OutputKinesis = {
 };
 
 /** @internal */
-export const OutputKinesisCompression$inboundSchema: z.ZodType<
-  OutputKinesisCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputKinesisCompression);
-/** @internal */
 export const OutputKinesisCompression$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputKinesisCompression
 > = openEnums.outboundSchema(OutputKinesisCompression);
 
-/** @internal */
-export const OutputKinesisPqControls$inboundSchema: z.ZodType<
-  OutputKinesisPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputKinesisPqControls$Outbound = {};
 
@@ -277,76 +257,7 @@ export function outputKinesisPqControlsToJSON(
     OutputKinesisPqControls$outboundSchema.parse(outputKinesisPqControls),
   );
 }
-export function outputKinesisPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputKinesisPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputKinesisPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputKinesisPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputKinesis$inboundSchema: z.ZodType<
-  OutputKinesis,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("kinesis"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  streamName: types.string(),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.string(),
-  endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsKinesis$inboundSchema,
-  ),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  concurrency: types.optional(types.number()),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  compression: types.optional(OutputKinesisCompression$inboundSchema),
-  useListShards: types.optional(types.boolean()),
-  asNdjson: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  maxEventsPerFlush: types.optional(types.number()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputKinesisPqControls$inboundSchema),
-  ),
-  __template_streamName: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-});
 /** @internal */
 export type OutputKinesis$Outbound = {
   id?: string | undefined;
@@ -390,6 +301,7 @@ export type OutputKinesis$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKinesisPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -447,6 +359,7 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputKinesisPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
@@ -459,13 +372,4 @@ export const OutputKinesis$outboundSchema: z.ZodType<
 
 export function outputKinesisToJSON(outputKinesis: OutputKinesis): string {
   return JSON.stringify(OutputKinesis$outboundSchema.parse(outputKinesis));
-}
-export function outputKinesisFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputKinesis, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputKinesis$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputKinesis' from JSON`,
-  );
 }

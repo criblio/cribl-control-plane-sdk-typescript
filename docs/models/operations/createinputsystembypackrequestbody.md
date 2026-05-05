@@ -85,6 +85,7 @@ const value: operations.CreateInputSystemByPackInputSplunkSearch = {
   cronSchedule: "<value>",
   endpoint: "<value>",
   outputMode: "csv",
+  authType: "token",
 };
 ```
 
@@ -617,6 +618,16 @@ const value: operations.CreateInputSystemByPackInputWinEventLogs = {
 };
 ```
 
+### `operations.CreateInputSystemByPackInputAppleUnifiedLogs`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputAppleUnifiedLogs = {
+  id: "<id>",
+  type: "apple_unified_logs",
+  predicate: "<value>",
+};
+```
+
 ### `operations.CreateInputSystemByPackInputRawUdp`
 
 ```typescript
@@ -761,6 +772,17 @@ const value: operations.CreateInputSystemByPackInputOpenaiComplianceLogs = {
   textSecret: "<value>",
   accountType: "workspace",
   cronSchedule: "<value>",
+};
+```
+
+### `operations.CreateInputSystemByPackInputAnthropicCompliance`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputAnthropicCompliance = {
+  id: "<id>",
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [],
 };
 ```
 

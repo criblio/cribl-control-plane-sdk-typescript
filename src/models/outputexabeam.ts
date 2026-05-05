@@ -3,45 +3,34 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol,
-  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
   ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema,
 } from "./objectacloptionsauthenticatedreadbucketownerfullcontrol.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
   SignatureVersionOptionsGoogle,
-  SignatureVersionOptionsGoogle$inboundSchema,
   SignatureVersionOptionsGoogle$outboundSchema,
 } from "./signatureversionoptionsgoogle.js";
 import {
   StorageClassOptionsArchiveColdline,
-  StorageClassOptionsArchiveColdline$inboundSchema,
   StorageClassOptionsArchiveColdline$outboundSchema,
 } from "./storageclassoptionsarchivecoldline.js";
 
@@ -188,6 +177,10 @@ export type OutputExabeam = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
@@ -209,64 +202,6 @@ export type OutputExabeam = {
   __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputExabeam$inboundSchema: z.ZodType<
-  OutputExabeam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("exabeam"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  bucket: types.string(),
-  region: types.string(),
-  stagePath: types.string(),
-  endpoint: types.string(),
-  signatureVersion: types.optional(SignatureVersionOptionsGoogle$inboundSchema),
-  objectACL: types.optional(
-    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
-  ),
-  storageClass: types.optional(
-    StorageClassOptionsArchiveColdline$inboundSchema,
-  ),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  addIdToStagePath: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  maxFileSizeMB: types.optional(types.number()),
-  encodedConfiguration: types.optional(types.string()),
-  collectorInstanceId: types.string(),
-  siteName: types.optional(types.string()),
-  siteId: types.optional(types.string()),
-  timezoneOffset: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  description: types.optional(types.string()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_objectACL: types.optional(types.string()),
-  __template_storageClass: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputExabeam$Outbound = {
   id?: string | undefined;
@@ -307,6 +242,7 @@ export type OutputExabeam$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_objectACL?: string | undefined;
@@ -361,6 +297,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_objectACL: z.string().optional(),
@@ -370,13 +307,4 @@ export const OutputExabeam$outboundSchema: z.ZodType<
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {
   return JSON.stringify(OutputExabeam$outboundSchema.parse(outputExabeam));
-}
-export function outputExabeamFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputExabeam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputExabeam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputExabeam' from JSON`,
-  );
 }

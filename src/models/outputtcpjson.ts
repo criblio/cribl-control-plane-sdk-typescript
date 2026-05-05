@@ -3,49 +3,34 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsGzipNone,
-  CompressionOptionsGzipNone$inboundSchema,
   CompressionOptionsGzipNone$outboundSchema,
 } from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeHosts,
-  ItemsTypeHosts$inboundSchema,
   ItemsTypeHosts$Outbound,
   ItemsTypeHosts$outboundSchema,
 } from "./itemstypehosts.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -198,6 +183,10 @@ export type OutputTcpjson = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -211,12 +200,6 @@ export type OutputTcpjson = {
   __template_port?: string | undefined;
 };
 
-/** @internal */
-export const OutputTcpjsonPqControls$inboundSchema: z.ZodType<
-  OutputTcpjsonPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputTcpjsonPqControls$Outbound = {};
 
@@ -234,69 +217,7 @@ export function outputTcpjsonPqControlsToJSON(
     OutputTcpjsonPqControls$outboundSchema.parse(outputTcpjsonPqControls),
   );
 }
-export function outputTcpjsonPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputTcpjsonPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputTcpjsonPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputTcpjsonPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputTcpjson$inboundSchema: z.ZodType<
-  OutputTcpjson,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("tcpjson"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(types.boolean()),
-  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
-  logFailedRequests: types.optional(types.boolean()),
-  throttleRatePerSec: types.optional(types.string()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  tokenTTLMinutes: types.optional(types.number()),
-  sendHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  host: types.optional(types.string()),
-  port: types.optional(types.number()),
-  excludeSelf: types.optional(types.boolean()),
-  hosts: types.optional(z.array(ItemsTypeHosts$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  maxConcurrentSenders: types.optional(types.number()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputTcpjsonPqControls$inboundSchema),
-  ),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-});
 /** @internal */
 export type OutputTcpjson$Outbound = {
   id?: string | undefined;
@@ -338,6 +259,7 @@ export type OutputTcpjson$Outbound = {
   pqControls?: OutputTcpjsonPqControls$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -389,6 +311,7 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputTcpjsonPqControls$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -396,13 +319,4 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
 
 export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
   return JSON.stringify(OutputTcpjson$outboundSchema.parse(outputTcpjson));
-}
-export function outputTcpjsonFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputTcpjson, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputTcpjson$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputTcpjson' from JSON`,
-  );
 }

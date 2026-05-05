@@ -3,60 +3,43 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RequestFormatOptions,
-  RequestFormatOptions$inboundSchema,
   RequestFormatOptions$outboundSchema,
 } from "./requestformatoptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -213,6 +196,10 @@ export type OutputCrowdstrikeNextGenSiem = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCrowdstrikeNextGenSiemPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -226,12 +213,6 @@ export type OutputCrowdstrikeNextGenSiem = {
   __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemPqControls$inboundSchema: z.ZodType<
-  OutputCrowdstrikeNextGenSiemPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputCrowdstrikeNextGenSiemPqControls$Outbound = {};
 
@@ -252,76 +233,7 @@ export function outputCrowdstrikeNextGenSiemPqControlsToJSON(
     ),
   );
 }
-export function outputCrowdstrikeNextGenSiemPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCrowdstrikeNextGenSiemPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCrowdstrikeNextGenSiemPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCrowdstrikeNextGenSiemPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
-  OutputCrowdstrikeNextGenSiem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("crowdstrike_next_gen_siem"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  url: types.string(),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  format: RequestFormatOptions$inboundSchema,
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  token: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputCrowdstrikeNextGenSiemPqControls$inboundSchema),
-  ),
-  __template_url: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputCrowdstrikeNextGenSiem$Outbound = {
   id?: string | undefined;
@@ -365,6 +277,7 @@ export type OutputCrowdstrikeNextGenSiem$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCrowdstrikeNextGenSiemPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -421,6 +334,7 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     OutputCrowdstrikeNextGenSiemPqControls$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -433,14 +347,5 @@ export function outputCrowdstrikeNextGenSiemToJSON(
     OutputCrowdstrikeNextGenSiem$outboundSchema.parse(
       outputCrowdstrikeNextGenSiem,
     ),
-  );
-}
-export function outputCrowdstrikeNextGenSiemFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCrowdstrikeNextGenSiem, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCrowdstrikeNextGenSiem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCrowdstrikeNextGenSiem' from JSON`,
   );
 }

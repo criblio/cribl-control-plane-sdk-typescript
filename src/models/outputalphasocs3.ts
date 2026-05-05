@@ -3,67 +3,52 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsa18be1,
-  AuthenticationMethodOptionsa18be1$inboundSchema,
   AuthenticationMethodOptionsa18be1$outboundSchema,
 } from "./authenticationmethodoptionsa18be1.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
   CompressionOptionsHttp,
-  CompressionOptionsHttp$inboundSchema,
   CompressionOptionsHttp$outboundSchema,
 } from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
-  DataFormatOptions$inboundSchema,
   DataFormatOptions$outboundSchema,
 } from "./dataformatoptions.js";
 import {
   DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
   DataPageVersionOptions$outboundSchema,
 } from "./datapageversionoptions.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
@@ -296,6 +281,10 @@ export type OutputAlphasocS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
   __template_awsSecretKey?: string | undefined;
@@ -342,102 +331,12 @@ export type OutputAlphasocS3 = {
 };
 
 /** @internal */
-export const OutputAlphasocS3SignatureVersion$inboundSchema: z.ZodType<
-  OutputAlphasocS3SignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAlphasocS3SignatureVersion);
-/** @internal */
 export const OutputAlphasocS3SignatureVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputAlphasocS3SignatureVersion
 > = openEnums.outboundSchema(OutputAlphasocS3SignatureVersion);
 
-/** @internal */
-export const OutputAlphasocS3$inboundSchema: z.ZodType<
-  OutputAlphasocS3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("alphasoc_s3"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  awsAuthenticationMethod: types.optional(
-    AuthenticationMethodOptionsa18be1$inboundSchema,
-  ),
-  signatureVersion: types.optional(
-    OutputAlphasocS3SignatureVersion$inboundSchema,
-  ),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  awsSecretKey: types.optional(types.string()),
-  bucket: types.string(),
-  destPath: types.optional(types.string()),
-  maxConcurrentFileParts: types.optional(types.number()),
-  verifyPermissions: types.optional(types.boolean()),
-  maxClosingFilesToBackpressure: types.optional(types.number()),
-  stagePath: types.string(),
-  addIdToStagePath: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  partitionExpr: types.optional(types.string()),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  endpoint: types.optional(types.string()),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsHttp$inboundSchema),
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_bucket: types.optional(types.string()),
-  __template_destPath: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_baseFileName: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-  __template_parquetSchema: types.optional(types.string()),
-});
 /** @internal */
 export type OutputAlphasocS3$Outbound = {
   id?: string | undefined;
@@ -496,6 +395,7 @@ export type OutputAlphasocS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_destPath?: string | undefined;
@@ -574,6 +474,7 @@ export const OutputAlphasocS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_destPath: z.string().optional(),
@@ -592,14 +493,5 @@ export function outputAlphasocS3ToJSON(
 ): string {
   return JSON.stringify(
     OutputAlphasocS3$outboundSchema.parse(outputAlphasocS3),
-  );
-}
-export function outputAlphasocS3FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAlphasocS3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAlphasocS3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAlphasocS3' from JSON`,
   );
 }

@@ -4,472 +4,486 @@
 
 import * as z from "zod/v3";
 import {
-  InputAppscope,
-  InputAppscope$Outbound,
-  InputAppscope$outboundSchema,
+  InputAnthropicComplianceInput,
+  InputAnthropicComplianceInput$Outbound,
+  InputAnthropicComplianceInput$outboundSchema,
+} from "./inputanthropiccompliance.js";
+import {
+  InputAppleUnifiedLogsInput,
+  InputAppleUnifiedLogsInput$Outbound,
+  InputAppleUnifiedLogsInput$outboundSchema,
+} from "./inputappleunifiedlogs.js";
+import {
+  InputAppscopeInput,
+  InputAppscopeInput$Outbound,
+  InputAppscopeInput$outboundSchema,
 } from "./inputappscope.js";
 import {
-  InputAzureBlob,
-  InputAzureBlob$Outbound,
-  InputAzureBlob$outboundSchema,
-} from "./inputazureblob.js";
+  InputAzureBlobInput,
+  InputAzureBlobInput$Outbound,
+  InputAzureBlobInput$outboundSchema,
+} from "./inputazureblobinput.js";
 import {
-  InputCloudflareHec,
-  InputCloudflareHec$Outbound,
-  InputCloudflareHec$outboundSchema,
+  InputCloudflareHecInput,
+  InputCloudflareHecInput$Outbound,
+  InputCloudflareHecInput$outboundSchema,
 } from "./inputcloudflarehec.js";
 import {
-  InputCollection,
-  InputCollection$Outbound,
-  InputCollection$outboundSchema,
-} from "./inputcollection.js";
+  InputCollectionInput,
+  InputCollectionInput$Outbound,
+  InputCollectionInput$outboundSchema,
+} from "./inputcollectioninput.js";
 import {
-  InputConfluentCloud,
-  InputConfluentCloud$Outbound,
-  InputConfluentCloud$outboundSchema,
-} from "./inputconfluentcloud.js";
+  InputConfluentCloudInput,
+  InputConfluentCloudInput$Outbound,
+  InputConfluentCloudInput$outboundSchema,
+} from "./inputconfluentcloudinput.js";
 import {
-  InputCribl,
-  InputCribl$Outbound,
-  InputCribl$outboundSchema,
-} from "./inputcribl.js";
+  InputCriblHttpInput,
+  InputCriblHttpInput$Outbound,
+  InputCriblHttpInput$outboundSchema,
+} from "./inputcriblhttpinput.js";
 import {
-  InputCriblHttp,
-  InputCriblHttp$Outbound,
-  InputCriblHttp$outboundSchema,
-} from "./inputcriblhttp.js";
+  InputCriblInput,
+  InputCriblInput$Outbound,
+  InputCriblInput$outboundSchema,
+} from "./inputcriblinput.js";
 import {
-  InputCriblLakeHttp,
-  InputCriblLakeHttp$Outbound,
-  InputCriblLakeHttp$outboundSchema,
+  InputCriblLakeHttpInput,
+  InputCriblLakeHttpInput$Outbound,
+  InputCriblLakeHttpInput$outboundSchema,
 } from "./inputcribllakehttp.js";
 import {
-  InputCriblmetrics,
-  InputCriblmetrics$Outbound,
-  InputCriblmetrics$outboundSchema,
-} from "./inputcriblmetrics.js";
+  InputCriblmetricsInput,
+  InputCriblmetricsInput$Outbound,
+  InputCriblmetricsInput$outboundSchema,
+} from "./inputcriblmetricsinput.js";
 import {
-  InputCriblTcp,
-  InputCriblTcp$Outbound,
-  InputCriblTcp$outboundSchema,
-} from "./inputcribltcp.js";
+  InputCriblTcpInput,
+  InputCriblTcpInput$Outbound,
+  InputCriblTcpInput$outboundSchema,
+} from "./inputcribltcpinput.js";
 import {
-  InputCrowdstrike,
-  InputCrowdstrike$Outbound,
-  InputCrowdstrike$outboundSchema,
-} from "./inputcrowdstrike.js";
+  InputCrowdstrikeInput,
+  InputCrowdstrikeInput$Outbound,
+  InputCrowdstrikeInput$outboundSchema,
+} from "./inputcrowdstrikeinput.js";
 import {
-  InputDatadogAgent,
-  InputDatadogAgent$Outbound,
-  InputDatadogAgent$outboundSchema,
+  InputDatadogAgentInput,
+  InputDatadogAgentInput$Outbound,
+  InputDatadogAgentInput$outboundSchema,
 } from "./inputdatadogagent.js";
 import {
-  InputDatagen,
-  InputDatagen$Outbound,
-  InputDatagen$outboundSchema,
+  InputDatagenInput,
+  InputDatagenInput$Outbound,
+  InputDatagenInput$outboundSchema,
 } from "./inputdatagen.js";
 import {
-  InputEdgePrometheus,
-  InputEdgePrometheus$Outbound,
-  InputEdgePrometheus$outboundSchema,
+  InputEdgePrometheusInput,
+  InputEdgePrometheusInput$Outbound,
+  InputEdgePrometheusInput$outboundSchema,
 } from "./inputedgeprometheus.js";
 import {
-  InputElastic,
-  InputElastic$Outbound,
-  InputElastic$outboundSchema,
+  InputElasticInput,
+  InputElasticInput$Outbound,
+  InputElasticInput$outboundSchema,
 } from "./inputelastic.js";
 import {
-  InputEventhub,
-  InputEventhub$Outbound,
-  InputEventhub$outboundSchema,
-} from "./inputeventhub.js";
-import {
-  InputEventhubAmqp,
-  InputEventhubAmqp$Outbound,
-  InputEventhubAmqp$outboundSchema,
+  InputEventhubAmqpInput,
+  InputEventhubAmqpInput$Outbound,
+  InputEventhubAmqpInput$outboundSchema,
 } from "./inputeventhubamqp.js";
 import {
-  InputExec,
-  InputExec$Outbound,
-  InputExec$outboundSchema,
+  InputEventhubInput,
+  InputEventhubInput$Outbound,
+  InputEventhubInput$outboundSchema,
+} from "./inputeventhubinput.js";
+import {
+  InputExecInput,
+  InputExecInput$Outbound,
+  InputExecInput$outboundSchema,
 } from "./inputexec.js";
 import {
-  InputFile,
-  InputFile$Outbound,
-  InputFile$outboundSchema,
+  InputFileInput,
+  InputFileInput$Outbound,
+  InputFileInput$outboundSchema,
 } from "./inputfile.js";
 import {
-  InputFirehose,
-  InputFirehose$Outbound,
-  InputFirehose$outboundSchema,
-} from "./inputfirehose.js";
+  InputFirehoseInput,
+  InputFirehoseInput$Outbound,
+  InputFirehoseInput$outboundSchema,
+} from "./inputfirehoseinput.js";
 import {
-  InputGooglePubsub,
-  InputGooglePubsub$Outbound,
-  InputGooglePubsub$outboundSchema,
-} from "./inputgooglepubsub.js";
+  InputGooglePubsubInput,
+  InputGooglePubsubInput$Outbound,
+  InputGooglePubsubInput$outboundSchema,
+} from "./inputgooglepubsubinput.js";
 import {
-  InputGrafana,
-  InputGrafana$Outbound,
-  InputGrafana$outboundSchema,
+  InputGrafanaInputUnion,
+  InputGrafanaInputUnion$Outbound,
+  InputGrafanaInputUnion$outboundSchema,
 } from "./inputgrafana.js";
 import {
-  InputHttp,
-  InputHttp$Outbound,
-  InputHttp$outboundSchema,
-} from "./inputhttp.js";
+  InputHttpInput,
+  InputHttpInput$Outbound,
+  InputHttpInput$outboundSchema,
+} from "./inputhttpinput.js";
 import {
-  InputHttpRaw,
-  InputHttpRaw$Outbound,
-  InputHttpRaw$outboundSchema,
-} from "./inputhttpraw.js";
+  InputHttpRawInput,
+  InputHttpRawInput$Outbound,
+  InputHttpRawInput$outboundSchema,
+} from "./inputhttprawinput.js";
 import {
-  InputJournalFiles,
-  InputJournalFiles$Outbound,
-  InputJournalFiles$outboundSchema,
+  InputJournalFilesInput,
+  InputJournalFilesInput$Outbound,
+  InputJournalFilesInput$outboundSchema,
 } from "./inputjournalfiles.js";
 import {
-  InputKafka,
-  InputKafka$Outbound,
-  InputKafka$outboundSchema,
-} from "./inputkafka.js";
+  InputKafkaInput,
+  InputKafkaInput$Outbound,
+  InputKafkaInput$outboundSchema,
+} from "./inputkafkainput.js";
 import {
-  InputKinesis,
-  InputKinesis$Outbound,
-  InputKinesis$outboundSchema,
+  InputKinesisInput,
+  InputKinesisInput$Outbound,
+  InputKinesisInput$outboundSchema,
 } from "./inputkinesis.js";
 import {
-  InputKubeEvents,
-  InputKubeEvents$Outbound,
-  InputKubeEvents$outboundSchema,
-} from "./inputkubeevents.js";
+  InputKubeEventsInput,
+  InputKubeEventsInput$Outbound,
+  InputKubeEventsInput$outboundSchema,
+} from "./inputkubeeventsinput.js";
 import {
-  InputKubeLogs,
-  InputKubeLogs$Outbound,
-  InputKubeLogs$outboundSchema,
+  InputKubeLogsInput,
+  InputKubeLogsInput$Outbound,
+  InputKubeLogsInput$outboundSchema,
 } from "./inputkubelogs.js";
 import {
-  InputKubeMetrics,
-  InputKubeMetrics$Outbound,
-  InputKubeMetrics$outboundSchema,
+  InputKubeMetricsInput,
+  InputKubeMetricsInput$Outbound,
+  InputKubeMetricsInput$outboundSchema,
 } from "./inputkubemetrics.js";
 import {
-  InputLoki,
-  InputLoki$Outbound,
-  InputLoki$outboundSchema,
-} from "./inputloki.js";
+  InputLokiInput,
+  InputLokiInput$Outbound,
+  InputLokiInput$outboundSchema,
+} from "./inputlokiinput.js";
 import {
-  InputMetrics,
-  InputMetrics$Outbound,
-  InputMetrics$outboundSchema,
-} from "./inputmetrics.js";
+  InputMetricsInput,
+  InputMetricsInput$Outbound,
+  InputMetricsInput$outboundSchema,
+} from "./inputmetricsinput.js";
 import {
-  InputMicrosoftGraph,
-  InputMicrosoftGraph$Outbound,
-  InputMicrosoftGraph$outboundSchema,
+  InputMicrosoftGraphInput,
+  InputMicrosoftGraphInput$Outbound,
+  InputMicrosoftGraphInput$outboundSchema,
 } from "./inputmicrosoftgraph.js";
 import {
-  InputModelDrivenTelemetry,
-  InputModelDrivenTelemetry$Outbound,
-  InputModelDrivenTelemetry$outboundSchema,
-} from "./inputmodeldriventelemetry.js";
+  InputModelDrivenTelemetryInput,
+  InputModelDrivenTelemetryInput$Outbound,
+  InputModelDrivenTelemetryInput$outboundSchema,
+} from "./inputmodeldriventelemetryinput.js";
 import {
-  InputMsk,
-  InputMsk$Outbound,
-  InputMsk$outboundSchema,
-} from "./inputmsk.js";
+  InputMskInput,
+  InputMskInput$Outbound,
+  InputMskInput$outboundSchema,
+} from "./inputmskinput.js";
 import {
-  InputNetflow,
-  InputNetflow$Outbound,
-  InputNetflow$outboundSchema,
-} from "./inputnetflow.js";
+  InputNetflowInput,
+  InputNetflowInput$Outbound,
+  InputNetflowInput$outboundSchema,
+} from "./inputnetflowinput.js";
 import {
-  InputOffice365Mgmt,
-  InputOffice365Mgmt$Outbound,
-  InputOffice365Mgmt$outboundSchema,
+  InputOffice365MgmtInput,
+  InputOffice365MgmtInput$Outbound,
+  InputOffice365MgmtInput$outboundSchema,
 } from "./inputoffice365mgmt.js";
 import {
-  InputOffice365MsgTrace,
-  InputOffice365MsgTrace$Outbound,
-  InputOffice365MsgTrace$outboundSchema,
+  InputOffice365MsgTraceInput,
+  InputOffice365MsgTraceInput$Outbound,
+  InputOffice365MsgTraceInput$outboundSchema,
 } from "./inputoffice365msgtrace.js";
 import {
-  InputOffice365Service,
-  InputOffice365Service$Outbound,
-  InputOffice365Service$outboundSchema,
+  InputOffice365ServiceInput,
+  InputOffice365ServiceInput$Outbound,
+  InputOffice365ServiceInput$outboundSchema,
 } from "./inputoffice365service.js";
 import {
-  InputOkta,
-  InputOkta$Outbound,
-  InputOkta$outboundSchema,
-} from "./inputokta.js";
+  InputOktaInput,
+  InputOktaInput$Outbound,
+  InputOktaInput$outboundSchema,
+} from "./inputoktainput.js";
 import {
   InputOpenaiInput,
   InputOpenaiInput$Outbound,
   InputOpenaiInput$outboundSchema,
 } from "./inputopenai.js";
 import {
-  InputOpenaiComplianceLogs,
-  InputOpenaiComplianceLogs$Outbound,
-  InputOpenaiComplianceLogs$outboundSchema,
+  InputOpenaiComplianceLogsInput,
+  InputOpenaiComplianceLogsInput$Outbound,
+  InputOpenaiComplianceLogsInput$outboundSchema,
 } from "./inputopenaicompliancelogs.js";
 import {
-  InputOpenTelemetry,
-  InputOpenTelemetry$Outbound,
-  InputOpenTelemetry$outboundSchema,
+  InputOpenTelemetryInput,
+  InputOpenTelemetryInput$Outbound,
+  InputOpenTelemetryInput$outboundSchema,
 } from "./inputopentelemetry.js";
 import {
-  InputPrometheus,
-  InputPrometheus$Outbound,
-  InputPrometheus$outboundSchema,
+  InputPrometheusInput,
+  InputPrometheusInput$Outbound,
+  InputPrometheusInput$outboundSchema,
 } from "./inputprometheus.js";
 import {
-  InputPrometheusRw,
-  InputPrometheusRw$Outbound,
-  InputPrometheusRw$outboundSchema,
-} from "./inputprometheusrw.js";
+  InputPrometheusRwInput,
+  InputPrometheusRwInput$Outbound,
+  InputPrometheusRwInput$outboundSchema,
+} from "./inputprometheusrwinput.js";
 import {
-  InputRawUdp,
-  InputRawUdp$Outbound,
-  InputRawUdp$outboundSchema,
-} from "./inputrawudp.js";
+  InputRawUdpInput,
+  InputRawUdpInput$Outbound,
+  InputRawUdpInput$outboundSchema,
+} from "./inputrawudpinput.js";
 import {
-  InputS3,
-  InputS3$Outbound,
-  InputS3$outboundSchema,
-} from "./inputs3.js";
+  InputS3Input,
+  InputS3Input$Outbound,
+  InputS3Input$outboundSchema,
+} from "./inputs3input.js";
 import {
-  InputS3Inventory,
-  InputS3Inventory$Outbound,
-  InputS3Inventory$outboundSchema,
-} from "./inputs3inventory.js";
+  InputS3InventoryInput,
+  InputS3InventoryInput$Outbound,
+  InputS3InventoryInput$outboundSchema,
+} from "./inputs3inventoryinput.js";
 import {
-  InputSecurityLake,
-  InputSecurityLake$Outbound,
-  InputSecurityLake$outboundSchema,
-} from "./inputsecuritylake.js";
+  InputSecurityLakeInput,
+  InputSecurityLakeInput$Outbound,
+  InputSecurityLakeInput$outboundSchema,
+} from "./inputsecuritylakeinput.js";
 import {
-  InputServicenowTable,
-  InputServicenowTable$Outbound,
-  InputServicenowTable$outboundSchema,
+  InputServicenowTableInput,
+  InputServicenowTableInput$Outbound,
+  InputServicenowTableInput$outboundSchema,
 } from "./inputservicenowtable.js";
 import {
-  InputSnmp,
-  InputSnmp$Outbound,
-  InputSnmp$outboundSchema,
+  InputSnmpInput,
+  InputSnmpInput$Outbound,
+  InputSnmpInput$outboundSchema,
 } from "./inputsnmp.js";
 import {
-  InputSplunk,
-  InputSplunk$Outbound,
-  InputSplunk$outboundSchema,
+  InputSplunkInput,
+  InputSplunkInput$Outbound,
+  InputSplunkInput$outboundSchema,
 } from "./inputsplunk.js";
 import {
-  InputSplunkHec,
-  InputSplunkHec$Outbound,
-  InputSplunkHec$outboundSchema,
+  InputSplunkHecInput,
+  InputSplunkHecInput$Outbound,
+  InputSplunkHecInput$outboundSchema,
 } from "./inputsplunkhec.js";
 import {
-  InputSplunkSearch,
-  InputSplunkSearch$Outbound,
-  InputSplunkSearch$outboundSchema,
+  InputSplunkSearchInput,
+  InputSplunkSearchInput$Outbound,
+  InputSplunkSearchInput$outboundSchema,
 } from "./inputsplunksearch.js";
 import {
-  InputSqs,
-  InputSqs$Outbound,
-  InputSqs$outboundSchema,
+  InputSqsInput,
+  InputSqsInput$Outbound,
+  InputSqsInput$outboundSchema,
 } from "./inputsqs.js";
 import {
-  InputSyslog,
-  InputSyslog$Outbound,
-  InputSyslog$outboundSchema,
+  InputSyslogInputUnion,
+  InputSyslogInputUnion$Outbound,
+  InputSyslogInputUnion$outboundSchema,
 } from "./inputsyslog.js";
 import {
-  InputSystemMetrics,
-  InputSystemMetrics$Outbound,
-  InputSystemMetrics$outboundSchema,
+  InputSystemMetricsInput,
+  InputSystemMetricsInput$Outbound,
+  InputSystemMetricsInput$outboundSchema,
 } from "./inputsystemmetrics.js";
 import {
-  InputSystemState,
-  InputSystemState$Outbound,
-  InputSystemState$outboundSchema,
+  InputSystemStateInput,
+  InputSystemStateInput$Outbound,
+  InputSystemStateInput$outboundSchema,
 } from "./inputsystemstate.js";
 import {
-  InputTcp,
-  InputTcp$Outbound,
-  InputTcp$outboundSchema,
-} from "./inputtcp.js";
+  InputTcpInput,
+  InputTcpInput$Outbound,
+  InputTcpInput$outboundSchema,
+} from "./inputtcpinput.js";
 import {
-  InputTcpjson,
-  InputTcpjson$Outbound,
-  InputTcpjson$outboundSchema,
-} from "./inputtcpjson.js";
+  InputTcpjsonInput,
+  InputTcpjsonInput$Outbound,
+  InputTcpjsonInput$outboundSchema,
+} from "./inputtcpjsoninput.js";
 import {
-  InputWef,
-  InputWef$Outbound,
-  InputWef$outboundSchema,
+  InputWefInput,
+  InputWefInput$Outbound,
+  InputWefInput$outboundSchema,
 } from "./inputwef.js";
 import {
-  InputWindowsMetrics,
-  InputWindowsMetrics$Outbound,
-  InputWindowsMetrics$outboundSchema,
+  InputWindowsMetricsInput,
+  InputWindowsMetricsInput$Outbound,
+  InputWindowsMetricsInput$outboundSchema,
 } from "./inputwindowsmetrics.js";
 import {
-  InputWinEventLogs,
-  InputWinEventLogs$Outbound,
-  InputWinEventLogs$outboundSchema,
+  InputWinEventLogsInput,
+  InputWinEventLogsInput$Outbound,
+  InputWinEventLogsInput$outboundSchema,
 } from "./inputwineventlogs.js";
 import {
-  InputWiz,
-  InputWiz$Outbound,
-  InputWiz$outboundSchema,
+  InputWizInput,
+  InputWizInput$Outbound,
+  InputWizInput$outboundSchema,
 } from "./inputwiz.js";
 import {
-  InputWizWebhook,
-  InputWizWebhook$Outbound,
-  InputWizWebhook$outboundSchema,
-} from "./inputwizwebhook.js";
+  InputWizWebhookInput,
+  InputWizWebhookInput$Outbound,
+  InputWizWebhookInput$outboundSchema,
+} from "./inputwizwebhookinput.js";
 import {
-  InputZscalerHec,
-  InputZscalerHec$Outbound,
-  InputZscalerHec$outboundSchema,
+  InputZscalerHecInput,
+  InputZscalerHecInput$Outbound,
+  InputZscalerHecInput$outboundSchema,
 } from "./inputzscalerhec.js";
 
 export type Input2 =
-  | InputCollection
-  | InputKafka
-  | InputMsk
-  | InputHttp
-  | InputSplunk
-  | InputSplunkSearch
-  | (InputSplunkHec & { type: "splunk_hec" })
-  | InputAzureBlob
-  | InputElastic
-  | InputConfluentCloud
-  | (InputGrafana & { type: "grafana" })
-  | InputLoki
-  | InputPrometheusRw
-  | InputPrometheus
-  | InputEdgePrometheus
-  | InputOffice365Mgmt
-  | InputOffice365Service
-  | InputOffice365MsgTrace
-  | InputMicrosoftGraph
-  | InputEventhub
-  | InputEventhubAmqp
-  | InputExec
-  | InputFirehose
-  | InputGooglePubsub
-  | InputCribl
-  | InputCriblTcp
-  | InputCriblHttp
-  | InputCriblLakeHttp
-  | InputTcpjson
-  | InputSystemMetrics
-  | InputSystemState
-  | InputKubeMetrics
-  | InputKubeLogs
-  | InputKubeEvents
-  | InputWindowsMetrics
-  | InputCrowdstrike
-  | InputDatadogAgent
-  | InputDatagen
-  | InputHttpRaw
-  | InputKinesis
-  | InputCriblmetrics
-  | InputMetrics
-  | InputS3
-  | InputS3Inventory
-  | InputSnmp
-  | InputOpenTelemetry
-  | InputModelDrivenTelemetry
-  | InputSqs
-  | (InputSyslog & { type: "syslog" })
-  | InputFile
-  | InputTcp
-  | InputAppscope
-  | InputWef
-  | InputWinEventLogs
-  | InputRawUdp
-  | InputJournalFiles
-  | InputWiz
+  | InputCollectionInput
+  | InputKafkaInput
+  | InputMskInput
+  | InputHttpInput
+  | InputSplunkInput
+  | InputSplunkSearchInput
+  | InputSplunkHecInput
+  | InputAzureBlobInput
+  | InputElasticInput
+  | InputConfluentCloudInput
+  | (InputGrafanaInputUnion & { type: "grafana" })
+  | InputLokiInput
+  | InputPrometheusRwInput
+  | InputPrometheusInput
+  | InputEdgePrometheusInput
+  | InputOffice365MgmtInput
+  | InputOffice365ServiceInput
+  | InputOffice365MsgTraceInput
+  | InputMicrosoftGraphInput
+  | InputEventhubInput
+  | InputEventhubAmqpInput
+  | InputExecInput
+  | InputFirehoseInput
+  | InputGooglePubsubInput
+  | InputCriblInput
+  | InputCriblTcpInput
+  | InputCriblHttpInput
+  | InputCriblLakeHttpInput
+  | InputTcpjsonInput
+  | InputSystemMetricsInput
+  | InputSystemStateInput
+  | InputKubeMetricsInput
+  | InputKubeLogsInput
+  | InputKubeEventsInput
+  | InputWindowsMetricsInput
+  | InputCrowdstrikeInput
+  | InputDatadogAgentInput
+  | InputDatagenInput
+  | InputHttpRawInput
+  | InputKinesisInput
+  | InputCriblmetricsInput
+  | InputMetricsInput
+  | InputS3Input
+  | InputS3InventoryInput
+  | InputSnmpInput
+  | InputOpenTelemetryInput
+  | InputModelDrivenTelemetryInput
+  | InputSqsInput
+  | (InputSyslogInputUnion & { type: "syslog" })
+  | InputFileInput
+  | InputTcpInput
+  | InputAppscopeInput
+  | InputWefInput
+  | InputWinEventLogsInput
+  | InputAppleUnifiedLogsInput
+  | InputRawUdpInput
+  | InputJournalFilesInput
+  | InputWizInput
   | InputOpenaiInput
-  | InputWizWebhook
-  | InputNetflow
-  | InputSecurityLake
-  | InputServicenowTable
-  | InputZscalerHec
-  | InputCloudflareHec
-  | InputOpenaiComplianceLogs
-  | InputOkta;
+  | InputWizWebhookInput
+  | InputNetflowInput
+  | InputSecurityLakeInput
+  | InputServicenowTableInput
+  | InputZscalerHecInput
+  | InputCloudflareHecInput
+  | InputOpenaiComplianceLogsInput
+  | InputAnthropicComplianceInput
+  | InputOktaInput;
 
 /** @internal */
 export type Input2$Outbound =
-  | InputCollection$Outbound
-  | InputKafka$Outbound
-  | InputMsk$Outbound
-  | InputHttp$Outbound
-  | InputSplunk$Outbound
-  | InputSplunkSearch$Outbound
-  | (InputSplunkHec$Outbound & { type: "splunk_hec" })
-  | InputAzureBlob$Outbound
-  | InputElastic$Outbound
-  | InputConfluentCloud$Outbound
-  | (InputGrafana$Outbound & { type: "grafana" })
-  | InputLoki$Outbound
-  | InputPrometheusRw$Outbound
-  | InputPrometheus$Outbound
-  | InputEdgePrometheus$Outbound
-  | InputOffice365Mgmt$Outbound
-  | InputOffice365Service$Outbound
-  | InputOffice365MsgTrace$Outbound
-  | InputMicrosoftGraph$Outbound
-  | InputEventhub$Outbound
-  | InputEventhubAmqp$Outbound
-  | InputExec$Outbound
-  | InputFirehose$Outbound
-  | InputGooglePubsub$Outbound
-  | InputCribl$Outbound
-  | InputCriblTcp$Outbound
-  | InputCriblHttp$Outbound
-  | InputCriblLakeHttp$Outbound
-  | InputTcpjson$Outbound
-  | InputSystemMetrics$Outbound
-  | InputSystemState$Outbound
-  | InputKubeMetrics$Outbound
-  | InputKubeLogs$Outbound
-  | InputKubeEvents$Outbound
-  | InputWindowsMetrics$Outbound
-  | InputCrowdstrike$Outbound
-  | InputDatadogAgent$Outbound
-  | InputDatagen$Outbound
-  | InputHttpRaw$Outbound
-  | InputKinesis$Outbound
-  | InputCriblmetrics$Outbound
-  | InputMetrics$Outbound
-  | InputS3$Outbound
-  | InputS3Inventory$Outbound
-  | InputSnmp$Outbound
-  | InputOpenTelemetry$Outbound
-  | InputModelDrivenTelemetry$Outbound
-  | InputSqs$Outbound
-  | (InputSyslog$Outbound & { type: "syslog" })
-  | InputFile$Outbound
-  | InputTcp$Outbound
-  | InputAppscope$Outbound
-  | InputWef$Outbound
-  | InputWinEventLogs$Outbound
-  | InputRawUdp$Outbound
-  | InputJournalFiles$Outbound
-  | InputWiz$Outbound
+  | InputCollectionInput$Outbound
+  | InputKafkaInput$Outbound
+  | InputMskInput$Outbound
+  | InputHttpInput$Outbound
+  | InputSplunkInput$Outbound
+  | InputSplunkSearchInput$Outbound
+  | InputSplunkHecInput$Outbound
+  | InputAzureBlobInput$Outbound
+  | InputElasticInput$Outbound
+  | InputConfluentCloudInput$Outbound
+  | (InputGrafanaInputUnion$Outbound & { type: "grafana" })
+  | InputLokiInput$Outbound
+  | InputPrometheusRwInput$Outbound
+  | InputPrometheusInput$Outbound
+  | InputEdgePrometheusInput$Outbound
+  | InputOffice365MgmtInput$Outbound
+  | InputOffice365ServiceInput$Outbound
+  | InputOffice365MsgTraceInput$Outbound
+  | InputMicrosoftGraphInput$Outbound
+  | InputEventhubInput$Outbound
+  | InputEventhubAmqpInput$Outbound
+  | InputExecInput$Outbound
+  | InputFirehoseInput$Outbound
+  | InputGooglePubsubInput$Outbound
+  | InputCriblInput$Outbound
+  | InputCriblTcpInput$Outbound
+  | InputCriblHttpInput$Outbound
+  | InputCriblLakeHttpInput$Outbound
+  | InputTcpjsonInput$Outbound
+  | InputSystemMetricsInput$Outbound
+  | InputSystemStateInput$Outbound
+  | InputKubeMetricsInput$Outbound
+  | InputKubeLogsInput$Outbound
+  | InputKubeEventsInput$Outbound
+  | InputWindowsMetricsInput$Outbound
+  | InputCrowdstrikeInput$Outbound
+  | InputDatadogAgentInput$Outbound
+  | InputDatagenInput$Outbound
+  | InputHttpRawInput$Outbound
+  | InputKinesisInput$Outbound
+  | InputCriblmetricsInput$Outbound
+  | InputMetricsInput$Outbound
+  | InputS3Input$Outbound
+  | InputS3InventoryInput$Outbound
+  | InputSnmpInput$Outbound
+  | InputOpenTelemetryInput$Outbound
+  | InputModelDrivenTelemetryInput$Outbound
+  | InputSqsInput$Outbound
+  | (InputSyslogInputUnion$Outbound & { type: "syslog" })
+  | InputFileInput$Outbound
+  | InputTcpInput$Outbound
+  | InputAppscopeInput$Outbound
+  | InputWefInput$Outbound
+  | InputWinEventLogsInput$Outbound
+  | InputAppleUnifiedLogsInput$Outbound
+  | InputRawUdpInput$Outbound
+  | InputJournalFilesInput$Outbound
+  | InputWizInput$Outbound
   | InputOpenaiInput$Outbound
-  | InputWizWebhook$Outbound
-  | InputNetflow$Outbound
-  | InputSecurityLake$Outbound
-  | InputServicenowTable$Outbound
-  | InputZscalerHec$Outbound
-  | InputCloudflareHec$Outbound
-  | InputOpenaiComplianceLogs$Outbound
-  | InputOkta$Outbound;
+  | InputWizWebhookInput$Outbound
+  | InputNetflowInput$Outbound
+  | InputSecurityLakeInput$Outbound
+  | InputServicenowTableInput$Outbound
+  | InputZscalerHecInput$Outbound
+  | InputCloudflareHecInput$Outbound
+  | InputOpenaiComplianceLogsInput$Outbound
+  | InputAnthropicComplianceInput$Outbound
+  | InputOktaInput$Outbound;
 
 /** @internal */
 export const Input2$outboundSchema: z.ZodType<
@@ -477,74 +491,78 @@ export const Input2$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Input2
 > = z.union([
-  InputCollection$outboundSchema,
-  InputKafka$outboundSchema,
-  InputMsk$outboundSchema,
-  InputHttp$outboundSchema,
-  InputSplunk$outboundSchema,
-  InputSplunkSearch$outboundSchema,
-  InputSplunkHec$outboundSchema.and(
-    z.object({ type: z.literal("splunk_hec") }),
+  InputCollectionInput$outboundSchema,
+  InputKafkaInput$outboundSchema,
+  InputMskInput$outboundSchema,
+  InputHttpInput$outboundSchema,
+  InputSplunkInput$outboundSchema,
+  InputSplunkSearchInput$outboundSchema,
+  InputSplunkHecInput$outboundSchema,
+  InputAzureBlobInput$outboundSchema,
+  InputElasticInput$outboundSchema,
+  InputConfluentCloudInput$outboundSchema,
+  InputGrafanaInputUnion$outboundSchema.and(
+    z.object({ type: z.literal("grafana") }),
   ),
-  InputAzureBlob$outboundSchema,
-  InputElastic$outboundSchema,
-  InputConfluentCloud$outboundSchema,
-  InputGrafana$outboundSchema.and(z.object({ type: z.literal("grafana") })),
-  InputLoki$outboundSchema,
-  InputPrometheusRw$outboundSchema,
-  InputPrometheus$outboundSchema,
-  InputEdgePrometheus$outboundSchema,
-  InputOffice365Mgmt$outboundSchema,
-  InputOffice365Service$outboundSchema,
-  InputOffice365MsgTrace$outboundSchema,
-  InputMicrosoftGraph$outboundSchema,
-  InputEventhub$outboundSchema,
-  InputEventhubAmqp$outboundSchema,
-  InputExec$outboundSchema,
-  InputFirehose$outboundSchema,
-  InputGooglePubsub$outboundSchema,
-  InputCribl$outboundSchema,
-  InputCriblTcp$outboundSchema,
-  InputCriblHttp$outboundSchema,
-  InputCriblLakeHttp$outboundSchema,
-  InputTcpjson$outboundSchema,
-  InputSystemMetrics$outboundSchema,
-  InputSystemState$outboundSchema,
-  InputKubeMetrics$outboundSchema,
-  InputKubeLogs$outboundSchema,
-  InputKubeEvents$outboundSchema,
-  InputWindowsMetrics$outboundSchema,
-  InputCrowdstrike$outboundSchema,
-  InputDatadogAgent$outboundSchema,
-  InputDatagen$outboundSchema,
-  InputHttpRaw$outboundSchema,
-  InputKinesis$outboundSchema,
-  InputCriblmetrics$outboundSchema,
-  InputMetrics$outboundSchema,
-  InputS3$outboundSchema,
-  InputS3Inventory$outboundSchema,
-  InputSnmp$outboundSchema,
-  InputOpenTelemetry$outboundSchema,
-  InputModelDrivenTelemetry$outboundSchema,
-  InputSqs$outboundSchema,
-  InputSyslog$outboundSchema.and(z.object({ type: z.literal("syslog") })),
-  InputFile$outboundSchema,
-  InputTcp$outboundSchema,
-  InputAppscope$outboundSchema,
-  InputWef$outboundSchema,
-  InputWinEventLogs$outboundSchema,
-  InputRawUdp$outboundSchema,
-  InputJournalFiles$outboundSchema,
-  InputWiz$outboundSchema,
+  InputLokiInput$outboundSchema,
+  InputPrometheusRwInput$outboundSchema,
+  InputPrometheusInput$outboundSchema,
+  InputEdgePrometheusInput$outboundSchema,
+  InputOffice365MgmtInput$outboundSchema,
+  InputOffice365ServiceInput$outboundSchema,
+  InputOffice365MsgTraceInput$outboundSchema,
+  InputMicrosoftGraphInput$outboundSchema,
+  InputEventhubInput$outboundSchema,
+  InputEventhubAmqpInput$outboundSchema,
+  InputExecInput$outboundSchema,
+  InputFirehoseInput$outboundSchema,
+  InputGooglePubsubInput$outboundSchema,
+  InputCriblInput$outboundSchema,
+  InputCriblTcpInput$outboundSchema,
+  InputCriblHttpInput$outboundSchema,
+  InputCriblLakeHttpInput$outboundSchema,
+  InputTcpjsonInput$outboundSchema,
+  InputSystemMetricsInput$outboundSchema,
+  InputSystemStateInput$outboundSchema,
+  InputKubeMetricsInput$outboundSchema,
+  InputKubeLogsInput$outboundSchema,
+  InputKubeEventsInput$outboundSchema,
+  InputWindowsMetricsInput$outboundSchema,
+  InputCrowdstrikeInput$outboundSchema,
+  InputDatadogAgentInput$outboundSchema,
+  InputDatagenInput$outboundSchema,
+  InputHttpRawInput$outboundSchema,
+  InputKinesisInput$outboundSchema,
+  InputCriblmetricsInput$outboundSchema,
+  InputMetricsInput$outboundSchema,
+  InputS3Input$outboundSchema,
+  InputS3InventoryInput$outboundSchema,
+  InputSnmpInput$outboundSchema,
+  InputOpenTelemetryInput$outboundSchema,
+  InputModelDrivenTelemetryInput$outboundSchema,
+  InputSqsInput$outboundSchema,
+  InputSyslogInputUnion$outboundSchema.and(
+    z.object({ type: z.literal("syslog") }),
+  ),
+  InputFileInput$outboundSchema,
+  InputTcpInput$outboundSchema,
+  InputAppscopeInput$outboundSchema,
+  InputWefInput$outboundSchema,
+  InputWinEventLogsInput$outboundSchema,
+  InputAppleUnifiedLogsInput$outboundSchema,
+  InputRawUdpInput$outboundSchema,
+  InputJournalFilesInput$outboundSchema,
+  InputWizInput$outboundSchema,
   InputOpenaiInput$outboundSchema,
-  InputWizWebhook$outboundSchema,
-  InputNetflow$outboundSchema,
-  InputSecurityLake$outboundSchema,
-  InputServicenowTable$outboundSchema,
-  InputZscalerHec$outboundSchema,
-  InputCloudflareHec$outboundSchema,
-  InputOpenaiComplianceLogs$outboundSchema,
-  InputOkta$outboundSchema,
+  InputWizWebhookInput$outboundSchema,
+  InputNetflowInput$outboundSchema,
+  InputSecurityLakeInput$outboundSchema,
+  InputServicenowTableInput$outboundSchema,
+  InputZscalerHecInput$outboundSchema,
+  InputCloudflareHecInput$outboundSchema,
+  InputOpenaiComplianceLogsInput$outboundSchema,
+  InputAnthropicComplianceInput$outboundSchema,
+  InputOktaInput$outboundSchema,
 ]);
 
 export function input2ToJSON(input2: Input2): string {

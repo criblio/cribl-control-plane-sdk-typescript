@@ -10,6 +10,10 @@ import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -40,6 +44,313 @@ export const InputSyslogType2 = {
 export type InputSyslogType2 = ClosedEnum<typeof InputSyslogType2>;
 
 export type InputSyslogSyslog2 = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSyslogType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort: number;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Timezone to assign to timestamps without timezone info
+   */
+  timestampTimezone?: string | undefined;
+  /**
+   * Treat UDP packet data received as full syslog message
+   */
+  singleMsgUdpPackets?: boolean | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Wildcard list of fields to keep from source data; * = ALL (default)
+   */
+  keepFieldsList?: Array<string> | undefined;
+  /**
+   * Enable if incoming messages use octet counting per RFC 6587.
+   */
+  octetCounting?: boolean | undefined;
+  /**
+   * Enable if we should infer the syslog framing of the incoming messages.
+   */
+  inferFraming?: boolean | undefined;
+  /**
+   * Enable if we should infer octet counting only if the messages comply with RFC 5424.
+   */
+  strictlyInferOctetCounting?: boolean | undefined;
+  /**
+   * Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
+   */
+  allowNonStandardAppName?: boolean | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
+   */
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
+  /**
+   * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+   */
+  __template_timestampTimezone?: string | undefined;
+};
+
+export const InputSyslogType1 = {
+  Syslog: "syslog",
+} as const;
+export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
+
+export type InputSyslogSyslog1 = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSyslogType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort: number;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Timezone to assign to timestamps without timezone info
+   */
+  timestampTimezone?: string | undefined;
+  /**
+   * Treat UDP packet data received as full syslog message
+   */
+  singleMsgUdpPackets?: boolean | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Wildcard list of fields to keep from source data; * = ALL (default)
+   */
+  keepFieldsList?: Array<string> | undefined;
+  /**
+   * Enable if incoming messages use octet counting per RFC 6587.
+   */
+  octetCounting?: boolean | undefined;
+  /**
+   * Enable if we should infer the syslog framing of the incoming messages.
+   */
+  inferFraming?: boolean | undefined;
+  /**
+   * Enable if we should infer octet counting only if the messages comply with RFC 5424.
+   */
+  strictlyInferOctetCounting?: boolean | undefined;
+  /**
+   * Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
+   */
+  allowNonStandardAppName?: boolean | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
+   */
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
+  /**
+   * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+   */
+  __template_timestampTimezone?: string | undefined;
+};
+
+export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
+
+export type InputSyslogSyslogInput2 = {
   /**
    * Unique ID for this input
    */
@@ -162,6 +473,10 @@ export type InputSyslogSyslog2 = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -179,12 +494,7 @@ export type InputSyslogSyslog2 = {
   __template_timestampTimezone?: string | undefined;
 };
 
-export const InputSyslogType1 = {
-  Syslog: "syslog",
-} as const;
-export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
-
-export type InputSyslogSyslog1 = {
+export type InputSyslogSyslogInput1 = {
   /**
    * Unique ID for this input
    */
@@ -307,6 +617,10 @@ export type InputSyslogSyslog1 = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -324,7 +638,9 @@ export type InputSyslogSyslog1 = {
   __template_timestampTimezone?: string | undefined;
 };
 
-export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
+export type InputSyslogInputUnion =
+  | InputSyslogSyslogInput1
+  | InputSyslogSyslogInput2;
 
 /** @internal */
 export const InputSyslogType2$inboundSchema: z.ZodNativeEnum<
@@ -349,6 +665,9 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -377,13 +696,116 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_udpPort: types.optional(types.string()),
   __template_tcpPort: types.optional(types.string()),
   __template_timestampTimezone: types.optional(types.string()),
 });
+
+export function inputSyslogSyslog2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogSyslog2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogSyslog2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogSyslog2' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputSyslogSyslog2$Outbound = {
+export const InputSyslogType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogType1
+> = z.nativeEnum(InputSyslogType1);
+/** @internal */
+export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogType1
+> = InputSyslogType1$inboundSchema;
+
+/** @internal */
+export const InputSyslogSyslog1$inboundSchema: z.ZodType<
+  InputSyslogSyslog1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: InputSyslogType1$inboundSchema,
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  udpPort: types.number(),
+  tcpPort: types.optional(types.number()),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  timestampTimezone: types.optional(types.string()),
+  singleMsgUdpPackets: types.optional(types.boolean()),
+  enableProxyHeader: types.optional(types.boolean()),
+  keepFieldsList: types.optional(z.array(types.string())),
+  octetCounting: types.optional(types.boolean()),
+  inferFraming: types.optional(types.boolean()),
+  strictlyInferOctetCounting: types.optional(types.boolean()),
+  allowNonStandardAppName: types.optional(types.boolean()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  udpSocketRxBufSize: types.optional(types.number()),
+  enableLoadBalancing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
+  __template_timestampTimezone: types.optional(types.string()),
+});
+
+export function inputSyslogSyslog1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogSyslog1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogSyslog1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogSyslog1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslog$inboundSchema: z.ZodType<
+  InputSyslog,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  z.lazy(() => InputSyslogSyslog1$inboundSchema),
+  z.lazy(() => InputSyslogSyslog2$inboundSchema),
+]);
+
+export function inputSyslogFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslog, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslog$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslog' from JSON`,
+  );
+}
+
+/** @internal */
+export type InputSyslogSyslogInput2$Outbound = {
   id?: string | undefined;
   type: string;
   disabled?: boolean | undefined;
@@ -418,6 +840,7 @@ export type InputSyslogSyslog2$Outbound = {
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_udpPort?: string | undefined;
   __template_tcpPort?: string | undefined;
@@ -425,10 +848,10 @@ export type InputSyslogSyslog2$Outbound = {
 };
 
 /** @internal */
-export const InputSyslogSyslog2$outboundSchema: z.ZodType<
-  InputSyslogSyslog2$Outbound,
+export const InputSyslogSyslogInput2$outboundSchema: z.ZodType<
+  InputSyslogSyslogInput2$Outbound,
   z.ZodTypeDef,
-  InputSyslogSyslog2
+  InputSyslogSyslogInput2
 > = z.object({
   id: z.string().optional(),
   type: InputSyslogType2$outboundSchema,
@@ -464,87 +887,23 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_udpPort: z.string().optional(),
   __template_tcpPort: z.string().optional(),
   __template_timestampTimezone: z.string().optional(),
 });
 
-export function inputSyslogSyslog2ToJSON(
-  inputSyslogSyslog2: InputSyslogSyslog2,
+export function inputSyslogSyslogInput2ToJSON(
+  inputSyslogSyslogInput2: InputSyslogSyslogInput2,
 ): string {
   return JSON.stringify(
-    InputSyslogSyslog2$outboundSchema.parse(inputSyslogSyslog2),
-  );
-}
-export function inputSyslogSyslog2FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogSyslog2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogSyslog2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogSyslog2' from JSON`,
+    InputSyslogSyslogInput2$outboundSchema.parse(inputSyslogSyslogInput2),
   );
 }
 
 /** @internal */
-export const InputSyslogType1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType1
-> = z.nativeEnum(InputSyslogType1);
-/** @internal */
-export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType1
-> = InputSyslogType1$inboundSchema;
-
-/** @internal */
-export const InputSyslogSyslog1$inboundSchema: z.ZodType<
-  InputSyslogSyslog1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: InputSyslogType1$inboundSchema,
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  udpPort: types.number(),
-  tcpPort: types.optional(types.number()),
-  maxBufferSize: types.optional(types.number()),
-  ipWhitelistRegex: types.optional(types.string()),
-  timestampTimezone: types.optional(types.string()),
-  singleMsgUdpPackets: types.optional(types.boolean()),
-  enableProxyHeader: types.optional(types.boolean()),
-  keepFieldsList: types.optional(z.array(types.string())),
-  octetCounting: types.optional(types.boolean()),
-  inferFraming: types.optional(types.boolean()),
-  strictlyInferOctetCounting: types.optional(types.boolean()),
-  allowNonStandardAppName: types.optional(types.boolean()),
-  maxActiveCxn: types.optional(types.number()),
-  socketIdleTimeout: types.optional(types.number()),
-  socketEndingMaxWait: types.optional(types.number()),
-  socketMaxLifespan: types.optional(types.number()),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
-  udpSocketRxBufSize: types.optional(types.number()),
-  enableLoadBalancing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_udpPort: types.optional(types.string()),
-  __template_tcpPort: types.optional(types.string()),
-  __template_timestampTimezone: types.optional(types.string()),
-});
-/** @internal */
-export type InputSyslogSyslog1$Outbound = {
+export type InputSyslogSyslogInput1$Outbound = {
   id?: string | undefined;
   type: string;
   disabled?: boolean | undefined;
@@ -579,6 +938,7 @@ export type InputSyslogSyslog1$Outbound = {
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_udpPort?: string | undefined;
   __template_tcpPort?: string | undefined;
@@ -586,10 +946,10 @@ export type InputSyslogSyslog1$Outbound = {
 };
 
 /** @internal */
-export const InputSyslogSyslog1$outboundSchema: z.ZodType<
-  InputSyslogSyslog1$Outbound,
+export const InputSyslogSyslogInput1$outboundSchema: z.ZodType<
+  InputSyslogSyslogInput1$Outbound,
   z.ZodTypeDef,
-  InputSyslogSyslog1
+  InputSyslogSyslogInput1
 > = z.object({
   id: z.string().optional(),
   type: InputSyslogType1$outboundSchema,
@@ -625,62 +985,40 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_udpPort: z.string().optional(),
   __template_tcpPort: z.string().optional(),
   __template_timestampTimezone: z.string().optional(),
 });
 
-export function inputSyslogSyslog1ToJSON(
-  inputSyslogSyslog1: InputSyslogSyslog1,
+export function inputSyslogSyslogInput1ToJSON(
+  inputSyslogSyslogInput1: InputSyslogSyslogInput1,
 ): string {
   return JSON.stringify(
-    InputSyslogSyslog1$outboundSchema.parse(inputSyslogSyslog1),
-  );
-}
-export function inputSyslogSyslog1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogSyslog1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogSyslog1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogSyslog1' from JSON`,
+    InputSyslogSyslogInput1$outboundSchema.parse(inputSyslogSyslogInput1),
   );
 }
 
 /** @internal */
-export const InputSyslog$inboundSchema: z.ZodType<
-  InputSyslog,
-  z.ZodTypeDef,
-  unknown
-> = smartUnion([
-  z.lazy(() => InputSyslogSyslog1$inboundSchema),
-  z.lazy(() => InputSyslogSyslog2$inboundSchema),
-]);
-/** @internal */
-export type InputSyslog$Outbound =
-  | InputSyslogSyslog1$Outbound
-  | InputSyslogSyslog2$Outbound;
+export type InputSyslogInputUnion$Outbound =
+  | InputSyslogSyslogInput1$Outbound
+  | InputSyslogSyslogInput2$Outbound;
 
 /** @internal */
-export const InputSyslog$outboundSchema: z.ZodType<
-  InputSyslog$Outbound,
+export const InputSyslogInputUnion$outboundSchema: z.ZodType<
+  InputSyslogInputUnion$Outbound,
   z.ZodTypeDef,
-  InputSyslog
+  InputSyslogInputUnion
 > = smartUnion([
-  z.lazy(() => InputSyslogSyslog1$outboundSchema),
-  z.lazy(() => InputSyslogSyslog2$outboundSchema),
+  z.lazy(() => InputSyslogSyslogInput1$outboundSchema),
+  z.lazy(() => InputSyslogSyslogInput2$outboundSchema),
 ]);
 
-export function inputSyslogToJSON(inputSyslog: InputSyslog): string {
-  return JSON.stringify(InputSyslog$outboundSchema.parse(inputSyslog));
-}
-export function inputSyslogFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslog, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslog$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslog' from JSON`,
+export function inputSyslogInputUnionToJSON(
+  inputSyslogInputUnion: InputSyslogInputUnion,
+): string {
+  return JSON.stringify(
+    InputSyslogInputUnion$outboundSchema.parse(inputSyslogInputUnion),
   );
 }

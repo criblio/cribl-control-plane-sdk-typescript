@@ -3,35 +3,23 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   SignatureVersionOptionsSqs,
-  SignatureVersionOptionsSqs$inboundSchema,
   SignatureVersionOptionsSqs$outboundSchema,
 } from "./signatureversionoptionssqs.js";
 
@@ -210,6 +198,10 @@ export type OutputSqs = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSqsPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -256,24 +248,12 @@ export type OutputSqs = {
 };
 
 /** @internal */
-export const OutputSqsQueueType$inboundSchema: z.ZodType<
-  OutputSqsQueueType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSqsQueueType);
-/** @internal */
 export const OutputSqsQueueType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputSqsQueueType
 > = openEnums.outboundSchema(OutputSqsQueueType);
 
-/** @internal */
-export const OutputSqsPqControls$inboundSchema: z.ZodType<
-  OutputSqsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputSqsPqControls$Outbound = {};
 
@@ -291,76 +271,7 @@ export function outputSqsPqControlsToJSON(
     OutputSqsPqControls$outboundSchema.parse(outputSqsPqControls),
   );
 }
-export function outputSqsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSqsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSqsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSqsPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputSqs$inboundSchema: z.ZodType<
-  OutputSqs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("sqs"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  queueName: types.string(),
-  queueType: OutputSqsQueueType$inboundSchema,
-  awsAccountId: types.optional(types.string()),
-  messageGroupId: types.optional(types.string()),
-  createQueue: types.optional(types.boolean()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.optional(types.string()),
-  endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(SignatureVersionOptionsSqs$inboundSchema),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  maxQueueSize: types.optional(types.number()),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  maxInProgress: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(z.lazy(() => OutputSqsPqControls$inboundSchema)),
-  __template_queueName: types.optional(types.string()),
-  __template_queueType: types.optional(types.string()),
-  __template_awsAccountId: types.optional(types.string()),
-  __template_messageGroupId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-});
 /** @internal */
 export type OutputSqs$Outbound = {
   id?: string | undefined;
@@ -405,6 +316,7 @@ export type OutputSqs$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSqsPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_queueName?: string | undefined;
   __template_queueType?: string | undefined;
   __template_awsAccountId?: string | undefined;
@@ -466,6 +378,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSqsPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_queueType: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
@@ -481,13 +394,4 @@ export const OutputSqs$outboundSchema: z.ZodType<
 
 export function outputSqsToJSON(outputSqs: OutputSqs): string {
   return JSON.stringify(OutputSqs$outboundSchema.parse(outputSqs));
-}
-export function outputSqsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSqs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSqs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSqs' from JSON`,
-  );
 }

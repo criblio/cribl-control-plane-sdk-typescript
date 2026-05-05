@@ -3,78 +3,61 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
   CompressionOptionsHttp,
-  CompressionOptionsHttp$inboundSchema,
   CompressionOptionsHttp$outboundSchema,
 } from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
-  DataFormatOptions$inboundSchema,
   DataFormatOptions$outboundSchema,
 } from "./dataformatoptions.js";
 import {
   DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
   DataPageVersionOptions$outboundSchema,
 } from "./datapageversionoptions.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
   ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol,
-  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
   ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema,
 } from "./objectacloptionsauthenticatedreadbucketownerfullcontrol.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
   SignatureVersionOptionsGoogle,
-  SignatureVersionOptionsGoogle$inboundSchema,
   SignatureVersionOptionsGoogle$outboundSchema,
 } from "./signatureversionoptionsgoogle.js";
 import {
   StorageClassOptionsArchiveColdline,
-  StorageClassOptionsArchiveColdline$inboundSchema,
   StorageClassOptionsArchiveColdline$outboundSchema,
 } from "./storageclassoptionsarchivecoldline.js";
 
@@ -315,6 +298,10 @@ export type OutputGoogleCloudStorage = {
    */
   awsSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
@@ -377,13 +364,6 @@ export type OutputGoogleCloudStorage = {
 };
 
 /** @internal */
-export const OutputGoogleCloudStorageAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    OutputGoogleCloudStorageAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputGoogleCloudStorageAuthenticationMethod);
-/** @internal */
 export const OutputGoogleCloudStorageAuthenticationMethod$outboundSchema:
   z.ZodType<
     string,
@@ -391,97 +371,6 @@ export const OutputGoogleCloudStorageAuthenticationMethod$outboundSchema:
     OutputGoogleCloudStorageAuthenticationMethod
   > = openEnums.outboundSchema(OutputGoogleCloudStorageAuthenticationMethod);
 
-/** @internal */
-export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorage,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("google_cloud_storage"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  bucket: types.string(),
-  region: types.string(),
-  endpoint: types.string(),
-  signatureVersion: types.optional(SignatureVersionOptionsGoogle$inboundSchema),
-  awsAuthenticationMethod: types.optional(
-    OutputGoogleCloudStorageAuthenticationMethod$inboundSchema,
-  ),
-  stagePath: types.string(),
-  destPath: types.optional(types.string()),
-  verifyPermissions: types.optional(types.boolean()),
-  objectACL: types.optional(
-    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
-  ),
-  storageClass: types.optional(
-    StorageClassOptionsArchiveColdline$inboundSchema,
-  ),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  addIdToStagePath: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  partitionExpr: types.optional(types.string()),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  description: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsHttp$inboundSchema),
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  awsApiKey: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  __template_bucket: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_destPath: types.optional(types.string()),
-  __template_objectACL: types.optional(types.string()),
-  __template_storageClass: types.optional(types.string()),
-  __template_partitionExpr: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_baseFileName: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-  __template_parquetSchema: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-});
 /** @internal */
 export type OutputGoogleCloudStorage$Outbound = {
   id?: string | undefined;
@@ -541,6 +430,7 @@ export type OutputGoogleCloudStorage$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
@@ -626,6 +516,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),
@@ -648,14 +539,5 @@ export function outputGoogleCloudStorageToJSON(
 ): string {
   return JSON.stringify(
     OutputGoogleCloudStorage$outboundSchema.parse(outputGoogleCloudStorage),
-  );
-}
-export function outputGoogleCloudStorageFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleCloudStorage, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGoogleCloudStorage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleCloudStorage' from JSON`,
   );
 }

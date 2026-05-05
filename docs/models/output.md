@@ -744,6 +744,17 @@ const value: models.OutputNutanixObjects = {
 };
 ```
 
+### `models.OutputStorjS3`
+
+```typescript
+const value: models.OutputStorjS3 = {
+  type: "storj_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
 ### `models.OutputAlphasocS3`
 
 ```typescript
@@ -751,6 +762,39 @@ const value: models.OutputAlphasocS3 = {
   type: "alphasoc_s3",
   bucket: "<value>",
   stagePath: "<value>",
+};
+```
+
+### `models.OutputDellS3`
+
+```typescript
+const value: models.OutputDellS3 = {
+  type: "dell_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `models.OutputCloudianS3`
+
+```typescript
+const value: models.OutputCloudianS3 = {
+  type: "cloudian_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+
+### `models.OutputScalityS3`
+
+```typescript
+const value: models.OutputScalityS3 = {
+  type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 

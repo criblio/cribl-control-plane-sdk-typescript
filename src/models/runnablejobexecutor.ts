@@ -80,6 +80,10 @@ export type RunnableJobExecutor = {
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor;
   run: RunnableJobExecutorRun;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -124,6 +128,7 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
   run: z.lazy(() => RunnableJobExecutorRun$inboundSchema),
+  __template_streamtags: types.optional(types.string()),
 });
 
 export function runnableJobExecutorFromJSON(

@@ -3,58 +3,42 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -311,6 +295,10 @@ export type OutputGoogleChronicle = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleChroniclePqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
    */
   __template_apiVersion?: string | undefined;
@@ -333,12 +321,6 @@ export type OutputGoogleChronicle = {
 };
 
 /** @internal */
-export const OutputGoogleChronicleAPIVersion$inboundSchema: z.ZodType<
-  OutputGoogleChronicleAPIVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleChronicleAPIVersion);
-/** @internal */
 export const OutputGoogleChronicleAPIVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -346,22 +328,10 @@ export const OutputGoogleChronicleAPIVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputGoogleChronicleAPIVersion);
 
 /** @internal */
-export const OutputGoogleChronicleAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputGoogleChronicleAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleChronicleAuthenticationMethod);
-/** @internal */
 export const OutputGoogleChronicleAuthenticationMethod$outboundSchema:
   z.ZodType<string, z.ZodTypeDef, OutputGoogleChronicleAuthenticationMethod> =
     openEnums.outboundSchema(OutputGoogleChronicleAuthenticationMethod);
 
-/** @internal */
-export const SendEventsAs$inboundSchema: z.ZodType<
-  SendEventsAs,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SendEventsAs);
 /** @internal */
 export const SendEventsAs$outboundSchema: z.ZodType<
   string,
@@ -369,15 +339,6 @@ export const SendEventsAs$outboundSchema: z.ZodType<
   SendEventsAs
 > = openEnums.outboundSchema(SendEventsAs);
 
-/** @internal */
-export const ExtraLogType$inboundSchema: z.ZodType<
-  ExtraLogType,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  logType: types.string(),
-  description: types.optional(types.string()),
-});
 /** @internal */
 export type ExtraLogType$Outbound = {
   logType: string;
@@ -397,29 +358,11 @@ export const ExtraLogType$outboundSchema: z.ZodType<
 export function extraLogTypeToJSON(extraLogType: ExtraLogType): string {
   return JSON.stringify(ExtraLogType$outboundSchema.parse(extraLogType));
 }
-export function extraLogTypeFromJSON(
-  jsonString: string,
-): SafeParseResult<ExtraLogType, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ExtraLogType$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ExtraLogType' from JSON`,
-  );
-}
 
-/** @internal */
-export const UDMType$inboundSchema: z.ZodType<UDMType, z.ZodTypeDef, unknown> =
-  openEnums.inboundSchema(UDMType);
 /** @internal */
 export const UDMType$outboundSchema: z.ZodType<string, z.ZodTypeDef, UDMType> =
   openEnums.outboundSchema(UDMType);
 
-/** @internal */
-export const OutputGoogleChroniclePqControls$inboundSchema: z.ZodType<
-  OutputGoogleChroniclePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputGoogleChroniclePqControls$Outbound = {};
 
@@ -439,92 +382,7 @@ export function outputGoogleChroniclePqControlsToJSON(
     ),
   );
 }
-export function outputGoogleChroniclePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleChroniclePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGoogleChroniclePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleChroniclePqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGoogleChronicle$inboundSchema: z.ZodType<
-  OutputGoogleChronicle,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("google_chronicle"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  apiVersion: types.optional(OutputGoogleChronicleAPIVersion$inboundSchema),
-  authenticationMethod: types.optional(
-    OutputGoogleChronicleAuthenticationMethod$inboundSchema,
-  ),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  logFormatType: SendEventsAs$inboundSchema,
-  region: types.optional(types.string()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  useRoundRobinDns: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  totalMemoryLimitKB: types.optional(types.number()),
-  description: types.optional(types.string()),
-  extraLogTypes: types.optional(
-    z.array(z.lazy(() => ExtraLogType$inboundSchema)),
-  ),
-  logType: types.optional(types.string()),
-  logTextField: types.optional(types.string()),
-  customerId: types.optional(types.string()),
-  namespace: types.optional(types.string()),
-  customLabels: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  udmType: types.optional(UDMType$inboundSchema),
-  apiKey: types.optional(types.string()),
-  apiKeySecret: types.optional(types.string()),
-  serviceAccountCredentials: types.optional(types.string()),
-  serviceAccountCredentialsSecret: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema),
-  ),
-  __template_apiVersion: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_customerId: types.optional(types.string()),
-});
 /** @internal */
 export type OutputGoogleChronicle$Outbound = {
   id?: string | undefined;
@@ -579,6 +437,7 @@ export type OutputGoogleChronicle$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleChroniclePqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_apiVersion?: string | undefined;
   __template_region?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -647,6 +506,7 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_apiVersion: z.string().optional(),
   __template_region: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
@@ -659,14 +519,5 @@ export function outputGoogleChronicleToJSON(
 ): string {
   return JSON.stringify(
     OutputGoogleChronicle$outboundSchema.parse(outputGoogleChronicle),
-  );
-}
-export function outputGoogleChronicleFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleChronicle, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGoogleChronicle$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleChronicle' from JSON`,
   );
 }
