@@ -9,15 +9,15 @@ import {
   AdditionalPropertiesTypeRoutesGroups$outboundSchema,
 } from "./additionalpropertiestyperoutesgroups.js";
 import {
+  ItemsTypeRoutesInputRoutes,
+  ItemsTypeRoutesInputRoutes$Outbound,
+  ItemsTypeRoutesInputRoutes$outboundSchema,
+} from "./itemstyperoutesinputroutes.js";
+import {
   RouteComment,
   RouteComment$Outbound,
   RouteComment$outboundSchema,
 } from "./routecomment.js";
-import {
-  RouteConfInput,
-  RouteConfInput$Outbound,
-  RouteConfInput$outboundSchema,
-} from "./routeconfinput.js";
 
 export type RoutesInput = {
   /**
@@ -35,7 +35,7 @@ export type RoutesInput = {
   /**
    * Array of Route configurations that define how events are processed and routed.
    */
-  routes: Array<RouteConfInput>;
+  routes: Array<ItemsTypeRoutesInputRoutes>;
 };
 
 /** @internal */
@@ -45,7 +45,7 @@ export type RoutesInput$Outbound = {
     | { [k: string]: AdditionalPropertiesTypeRoutesGroups$Outbound }
     | undefined;
   id: string;
-  routes: Array<RouteConfInput$Outbound>;
+  routes: Array<ItemsTypeRoutesInputRoutes$Outbound>;
 };
 
 /** @internal */
@@ -58,7 +58,7 @@ export const RoutesInput$outboundSchema: z.ZodType<
   groups: z.record(AdditionalPropertiesTypeRoutesGroups$outboundSchema)
     .optional(),
   id: z.string(),
-  routes: z.array(RouteConfInput$outboundSchema),
+  routes: z.array(ItemsTypeRoutesInputRoutes$outboundSchema),
 });
 
 export function routesInputToJSON(routesInput: RoutesInput): string {

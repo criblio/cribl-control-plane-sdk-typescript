@@ -14,6 +14,10 @@ import {
 } from "./diskspoolingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -44,6 +48,84 @@ export type InputKubeLogsRule = {
 };
 
 export type InputKubeLogs = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "kube_logs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between checks for new containers. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
+   */
+  rules?: Array<InputKubeLogsRule> | undefined;
+  /**
+   * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
+   */
+  timestamps?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  persistence?: DiskSpoolingType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputKubeLogsInput = {
   /**
    * Unique ID for this input
    */
@@ -109,6 +191,10 @@ export type InputKubeLogs = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -167,6 +253,9 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -181,9 +270,21 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
   enableLoadBalancing: types.optional(types.boolean()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputKubeLogsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeLogs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeLogs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeLogs' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputKubeLogs$Outbound = {
+export type InputKubeLogsInput$Outbound = {
   id?: string | undefined;
   type: "kube_logs";
   disabled?: boolean | undefined;
@@ -204,13 +305,14 @@ export type InputKubeLogs$Outbound = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputKubeLogs$outboundSchema: z.ZodType<
-  InputKubeLogs$Outbound,
+export const InputKubeLogsInput$outboundSchema: z.ZodType<
+  InputKubeLogsInput$Outbound,
   z.ZodTypeDef,
-  InputKubeLogs
+  InputKubeLogsInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("kube_logs"),
@@ -232,17 +334,13 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputKubeLogsToJSON(inputKubeLogs: InputKubeLogs): string {
-  return JSON.stringify(InputKubeLogs$outboundSchema.parse(inputKubeLogs));
-}
-export function inputKubeLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeLogs' from JSON`,
+export function inputKubeLogsInputToJSON(
+  inputKubeLogsInput: InputKubeLogsInput,
+): string {
+  return JSON.stringify(
+    InputKubeLogsInput$outboundSchema.parse(inputKubeLogsInput),
   );
 }

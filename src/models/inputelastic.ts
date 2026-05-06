@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -164,6 +168,12 @@ export type InputElastic = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -259,6 +269,10 @@ export type InputElastic = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -270,6 +284,154 @@ export type InputElastic = {
    * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
    */
   __template_elasticAPI?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+};
+
+export type InputElasticInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "elastic";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI: string;
+  authType?: InputElasticAuthenticationType | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  proxyMode?: InputElasticProxyMode | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
 };
 
 /** @internal */
@@ -391,6 +553,9 @@ export const InputElastic$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -424,12 +589,25 @@ export const InputElastic$inboundSchema: z.ZodType<
   authTokens: types.optional(z.array(types.string())),
   customAPIVersion: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_elasticAPI: types.optional(types.string()),
+  __template_authTokens: types.optional(types.string()),
 });
+
+export function inputElasticFromJSON(
+  jsonString: string,
+): SafeParseResult<InputElastic, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElastic$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElastic' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputElastic$Outbound = {
+export type InputElasticInput$Outbound = {
   id?: string | undefined;
   type: "elastic";
   disabled?: boolean | undefined;
@@ -467,16 +645,18 @@ export type InputElastic$Outbound = {
   authTokens?: Array<string> | undefined;
   customAPIVersion?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_elasticAPI?: string | undefined;
+  __template_authTokens?: string | undefined;
 };
 
 /** @internal */
-export const InputElastic$outboundSchema: z.ZodType<
-  InputElastic$Outbound,
+export const InputElasticInput$outboundSchema: z.ZodType<
+  InputElasticInput$Outbound,
   z.ZodTypeDef,
-  InputElastic
+  InputElasticInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("elastic"),
@@ -516,20 +696,17 @@ export const InputElastic$outboundSchema: z.ZodType<
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_elasticAPI: z.string().optional(),
+  __template_authTokens: z.string().optional(),
 });
 
-export function inputElasticToJSON(inputElastic: InputElastic): string {
-  return JSON.stringify(InputElastic$outboundSchema.parse(inputElastic));
-}
-export function inputElasticFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElastic, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElastic$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElastic' from JSON`,
+export function inputElasticInputToJSON(
+  inputElasticInput: InputElasticInput,
+): string {
+  return JSON.stringify(
+    InputElasticInput$outboundSchema.parse(inputElasticInput),
   );
 }

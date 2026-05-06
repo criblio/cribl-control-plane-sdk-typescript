@@ -42,6 +42,10 @@ export type PipelineConf = {
    */
   functions?: Array<PipelineFunctionConf> | undefined;
   groups?: { [k: string]: PipelineGroups } | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 export type Pipeline = {
@@ -68,6 +72,10 @@ export type ConfInput = {
    */
   functions?: Array<PipelineFunctionConfInput> | undefined;
   groups?: { [k: string]: PipelineGroups } | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 export type PipelineInput = {
@@ -128,6 +136,7 @@ export const PipelineConf$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   functions: types.optional(z.array(PipelineFunctionConf$inboundSchema)),
   groups: types.optional(z.record(z.lazy(() => PipelineGroups$inboundSchema))),
+  __template_streamtags: types.optional(types.string()),
 });
 
 export function pipelineConfFromJSON(
@@ -168,6 +177,7 @@ export type ConfInput$Outbound = {
   streamtags?: Array<string> | undefined;
   functions?: Array<PipelineFunctionConfInput$Outbound> | undefined;
   groups?: { [k: string]: PipelineGroups$Outbound } | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -182,6 +192,7 @@ export const ConfInput$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   functions: z.array(PipelineFunctionConfInput$outboundSchema).optional(),
   groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function confInputToJSON(confInput: ConfInput): string {

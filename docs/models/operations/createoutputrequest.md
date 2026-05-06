@@ -810,6 +810,18 @@ const value: operations.CreateOutputOutputNutanixObjects = {
 };
 ```
 
+### `operations.CreateOutputOutputStorjS3`
+
+```typescript
+const value: operations.CreateOutputOutputStorjS3 = {
+  id: "<id>",
+  type: "storj_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
 ### `operations.CreateOutputOutputAlphasocS3`
 
 ```typescript
@@ -818,6 +830,42 @@ const value: operations.CreateOutputOutputAlphasocS3 = {
   type: "alphasoc_s3",
   bucket: "<value>",
   stagePath: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputDellS3`
+
+```typescript
+const value: operations.CreateOutputOutputDellS3 = {
+  id: "<id>",
+  type: "dell_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputCloudianS3`
+
+```typescript
+const value: operations.CreateOutputOutputCloudianS3 = {
+  id: "<id>",
+  type: "cloudian_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputScalityS3`
+
+```typescript
+const value: operations.CreateOutputOutputScalityS3 = {
+  id: "<id>",
+  type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 

@@ -20,6 +20,10 @@ import {
 } from "./authenticationtypeoptionsprometheusauth.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -92,6 +96,319 @@ export type LokiAuth2 = {
 };
 
 export type InputGrafanaGrafana2 = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputGrafanaType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
+   */
+  prometheusAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
+   */
+  lokiAPI: string;
+  prometheusAuth?: PrometheusAuth2 | undefined;
+  lokiAuth?: LokiAuth2 | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+   */
+  __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+   */
+  __template_lokiAPI?: string | undefined;
+};
+
+export const InputGrafanaType1 = {
+  Grafana: "grafana",
+} as const;
+export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
+
+export type PrometheusAuth1 = {
+  /**
+   * Remote Write authentication type
+   */
+  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type LokiAuth1 = {
+  /**
+   * Loki logs authentication type
+   */
+  authType?: AuthenticationTypeOptionsLokiAuth | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputGrafanaGrafana1 = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputGrafanaType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
+   */
+  prometheusAPI: string;
+  /**
+   * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
+   */
+  lokiAPI?: string | undefined;
+  prometheusAuth?: PrometheusAuth1 | undefined;
+  lokiAuth?: LokiAuth1 | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
+   */
+  __template_prometheusAPI?: string | undefined;
+  /**
+   * Binds 'lokiAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiAPI' at runtime.
+   */
+  __template_lokiAPI?: string | undefined;
+};
+
+export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
+
+export type InputGrafanaGrafanaInput2 = {
   /**
    * Unique ID for this input
    */
@@ -196,6 +513,10 @@ export type InputGrafanaGrafana2 = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -213,54 +534,7 @@ export type InputGrafanaGrafana2 = {
   __template_lokiAPI?: string | undefined;
 };
 
-export const InputGrafanaType1 = {
-  Grafana: "grafana",
-} as const;
-export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
-
-export type PrometheusAuth1 = {
-  /**
-   * Remote Write authentication type
-   */
-  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Bearer token to include in the authorization header
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
-
-export type LokiAuth1 = {
-  /**
-   * Loki logs authentication type
-   */
-  authType?: AuthenticationTypeOptionsLokiAuth | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Bearer token to include in the authorization header
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
-
-export type InputGrafanaGrafana1 = {
+export type InputGrafanaGrafanaInput1 = {
   /**
    * Unique ID for this input
    */
@@ -365,6 +639,10 @@ export type InputGrafanaGrafana1 = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -382,7 +660,9 @@ export type InputGrafanaGrafana1 = {
   __template_lokiAPI?: string | undefined;
 };
 
-export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
+export type InputGrafanaInputUnion =
+  | InputGrafanaGrafanaInput1
+  | InputGrafanaGrafanaInput2;
 
 /** @internal */
 export const InputGrafanaType2$inboundSchema: z.ZodNativeEnum<
@@ -511,6 +791,9 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -536,100 +819,13 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_prometheusAPI: types.optional(types.string()),
   __template_lokiAPI: types.optional(types.string()),
 });
-/** @internal */
-export type InputGrafanaGrafana2$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  maxActiveReq?: number | undefined;
-  maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: boolean | undefined;
-  captureHeaders?: boolean | undefined;
-  activityLogSampleRate?: number | undefined;
-  requestTimeout?: number | undefined;
-  socketTimeout?: number | undefined;
-  keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: boolean | undefined;
-  ipAllowlistRegex?: string | undefined;
-  ipDenylistRegex?: string | undefined;
-  prometheusAPI?: string | undefined;
-  lokiAPI: string;
-  prometheusAuth?: PrometheusAuth2$Outbound | undefined;
-  lokiAuth?: LokiAuth2$Outbound | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  description?: string | undefined;
-  __template_environment?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
-  __template_prometheusAPI?: string | undefined;
-  __template_lokiAPI?: string | undefined;
-};
 
-/** @internal */
-export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
-  InputGrafanaGrafana2$Outbound,
-  z.ZodTypeDef,
-  InputGrafanaGrafana2
-> = z.object({
-  id: z.string().optional(),
-  type: InputGrafanaType2$outboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  maxActiveReq: z.number().optional(),
-  maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  activityLogSampleRate: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  socketTimeout: z.number().optional(),
-  keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.boolean().optional(),
-  ipAllowlistRegex: z.string().optional(),
-  ipDenylistRegex: z.string().optional(),
-  prometheusAPI: z.string().optional(),
-  lokiAPI: z.string(),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-  __template_environment: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_prometheusAPI: z.string().optional(),
-  __template_lokiAPI: z.string().optional(),
-});
-
-export function inputGrafanaGrafana2ToJSON(
-  inputGrafanaGrafana2: InputGrafanaGrafana2,
-): string {
-  return JSON.stringify(
-    InputGrafanaGrafana2$outboundSchema.parse(inputGrafanaGrafana2),
-  );
-}
 export function inputGrafanaGrafana2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaGrafana2, SDKValidationError> {
@@ -767,6 +963,9 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -792,13 +991,137 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_prometheusAPI: types.optional(types.string()),
   __template_lokiAPI: types.optional(types.string()),
 });
+
+export function inputGrafanaGrafana1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaGrafana1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaGrafana1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaGrafana1' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputGrafanaGrafana1$Outbound = {
+export const InputGrafana$inboundSchema: z.ZodType<
+  InputGrafana,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  z.lazy(() => InputGrafanaGrafana1$inboundSchema),
+  z.lazy(() => InputGrafanaGrafana2$inboundSchema),
+]);
+
+export function inputGrafanaFromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafana, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafana$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafana' from JSON`,
+  );
+}
+
+/** @internal */
+export type InputGrafanaGrafanaInput2$Outbound = {
+  id?: string | undefined;
+  type: string;
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  prometheusAPI?: string | undefined;
+  lokiAPI: string;
+  prometheusAuth?: PrometheusAuth2$Outbound | undefined;
+  lokiAuth?: LokiAuth2$Outbound | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_prometheusAPI?: string | undefined;
+  __template_lokiAPI?: string | undefined;
+};
+
+/** @internal */
+export const InputGrafanaGrafanaInput2$outboundSchema: z.ZodType<
+  InputGrafanaGrafanaInput2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaGrafanaInput2
+> = z.object({
+  id: z.string().optional(),
+  type: InputGrafanaType2$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  prometheusAPI: z.string().optional(),
+  lokiAPI: z.string(),
+  prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
+  lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_prometheusAPI: z.string().optional(),
+  __template_lokiAPI: z.string().optional(),
+});
+
+export function inputGrafanaGrafanaInput2ToJSON(
+  inputGrafanaGrafanaInput2: InputGrafanaGrafanaInput2,
+): string {
+  return JSON.stringify(
+    InputGrafanaGrafanaInput2$outboundSchema.parse(inputGrafanaGrafanaInput2),
+  );
+}
+
+/** @internal */
+export type InputGrafanaGrafanaInput1$Outbound = {
   id?: string | undefined;
   type: string;
   disabled?: boolean | undefined;
@@ -830,6 +1153,7 @@ export type InputGrafanaGrafana1$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_prometheusAPI?: string | undefined;
@@ -837,10 +1161,10 @@ export type InputGrafanaGrafana1$Outbound = {
 };
 
 /** @internal */
-export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
-  InputGrafanaGrafana1$Outbound,
+export const InputGrafanaGrafanaInput1$outboundSchema: z.ZodType<
+  InputGrafanaGrafanaInput1$Outbound,
   z.ZodTypeDef,
-  InputGrafanaGrafana1
+  InputGrafanaGrafanaInput1
 > = z.object({
   id: z.string().optional(),
   type: InputGrafanaType1$outboundSchema,
@@ -873,62 +1197,40 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_prometheusAPI: z.string().optional(),
   __template_lokiAPI: z.string().optional(),
 });
 
-export function inputGrafanaGrafana1ToJSON(
-  inputGrafanaGrafana1: InputGrafanaGrafana1,
+export function inputGrafanaGrafanaInput1ToJSON(
+  inputGrafanaGrafanaInput1: InputGrafanaGrafanaInput1,
 ): string {
   return JSON.stringify(
-    InputGrafanaGrafana1$outboundSchema.parse(inputGrafanaGrafana1),
-  );
-}
-export function inputGrafanaGrafana1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputGrafanaGrafana1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputGrafanaGrafana1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputGrafanaGrafana1' from JSON`,
+    InputGrafanaGrafanaInput1$outboundSchema.parse(inputGrafanaGrafanaInput1),
   );
 }
 
 /** @internal */
-export const InputGrafana$inboundSchema: z.ZodType<
-  InputGrafana,
-  z.ZodTypeDef,
-  unknown
-> = smartUnion([
-  z.lazy(() => InputGrafanaGrafana1$inboundSchema),
-  z.lazy(() => InputGrafanaGrafana2$inboundSchema),
-]);
-/** @internal */
-export type InputGrafana$Outbound =
-  | InputGrafanaGrafana1$Outbound
-  | InputGrafanaGrafana2$Outbound;
+export type InputGrafanaInputUnion$Outbound =
+  | InputGrafanaGrafanaInput1$Outbound
+  | InputGrafanaGrafanaInput2$Outbound;
 
 /** @internal */
-export const InputGrafana$outboundSchema: z.ZodType<
-  InputGrafana$Outbound,
+export const InputGrafanaInputUnion$outboundSchema: z.ZodType<
+  InputGrafanaInputUnion$Outbound,
   z.ZodTypeDef,
-  InputGrafana
+  InputGrafanaInputUnion
 > = smartUnion([
-  z.lazy(() => InputGrafanaGrafana1$outboundSchema),
-  z.lazy(() => InputGrafanaGrafana2$outboundSchema),
+  z.lazy(() => InputGrafanaGrafanaInput1$outboundSchema),
+  z.lazy(() => InputGrafanaGrafanaInput2$outboundSchema),
 ]);
 
-export function inputGrafanaToJSON(inputGrafana: InputGrafana): string {
-  return JSON.stringify(InputGrafana$outboundSchema.parse(inputGrafana));
-}
-export function inputGrafanaFromJSON(
-  jsonString: string,
-): SafeParseResult<InputGrafana, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputGrafana$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputGrafana' from JSON`,
+export function inputGrafanaInputUnionToJSON(
+  inputGrafanaInputUnion: InputGrafanaInputUnion,
+): string {
+  return JSON.stringify(
+    InputGrafanaInputUnion$outboundSchema.parse(inputGrafanaInputUnion),
   );
 }

@@ -348,6 +348,10 @@ export type OutputGoogleCloudLogging = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
    */
   __template_logLocationType?: string | undefined;
@@ -539,6 +543,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGoogleCloudLoggingPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_logLocationType: types.optional(types.string()),
   __template_logNameExpression: types.optional(types.string()),
   __template_payloadFormat: types.optional(types.string()),
@@ -624,6 +629,7 @@ export type OutputGoogleCloudLogging$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_logLocationType?: string | undefined;
   __template_logNameExpression?: string | undefined;
   __template_payloadFormat?: string | undefined;
@@ -715,6 +721,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_logLocationType: z.string().optional(),
   __template_logNameExpression: z.string().optional(),
   __template_payloadFormat: z.string().optional(),

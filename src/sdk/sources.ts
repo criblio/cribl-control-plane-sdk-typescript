@@ -52,7 +52,7 @@ export class Sources extends ClientSDK {
    * Create a Source
    *
    * @remarks
-   * Create a new Source.
+   * Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body.
    */
   async create(
     request: operations.CreateInputRequest,
@@ -86,7 +86,7 @@ export class Sources extends ClientSDK {
    * Update a Source
    *
    * @remarks
-   * Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
+   * Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
    */
   async update(
     request: operations.UpdateInputByIdRequest,

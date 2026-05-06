@@ -315,6 +315,10 @@ export type OutputGoogleCloudStorage = {
    */
   awsSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
@@ -466,6 +470,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecretKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_bucket: types.optional(types.string()),
   __template_region: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
@@ -541,6 +546,7 @@ export type OutputGoogleCloudStorage$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
   __template_endpoint?: string | undefined;
@@ -626,6 +632,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
   __template_endpoint: z.string().optional(),

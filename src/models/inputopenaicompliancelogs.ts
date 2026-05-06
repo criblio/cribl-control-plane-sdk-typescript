@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -54,6 +58,152 @@ export type AccountType = OpenEnum<typeof AccountType>;
 export type InputOpenaiComplianceLogsManageState = {};
 
 export type InputOpenaiComplianceLogs = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "openai_compliance_logs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  accountType: AccountType;
+  cronSchedule: string;
+  /**
+   * Relative to the current time. Format: [+|-]<time_integer><time_unit>
+   */
+  earliest?: string | undefined;
+  /**
+   * Relative to the current time. Format: [+|-]<time_integer><time_unit>
+   */
+  latest?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Collector runtime log level
+   */
+  logLevel?: LogLevelOptionsContentConfigItemsDebugError | undefined;
+  /**
+   * Maximum number of log file listing pages to retrieve per run. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * The ID of the ChatGPT workspace to collect logs from (UUID format)
+   */
+  workspaceId?: string | undefined;
+  /**
+   * One or more compliance log categories to collect
+   */
+  workspaceEventTypes?: Array<string> | undefined;
+  /**
+   * The ID of the OpenAI API Platform Organization (example: org-XXXXXXXXXXXXXXXXXXXXXXXX)
+   */
+  organizationId?: string | undefined;
+  /**
+   * One or more compliance log categories to collect
+   */
+  organizationEventTypes?: Array<string> | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: InputOpenaiComplianceLogsManageState | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
+   */
+  __template_workspaceId?: string | undefined;
+  /**
+   * Binds 'organizationId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'organizationId' at runtime.
+   */
+  __template_organizationId?: string | undefined;
+};
+
+export type InputOpenaiComplianceLogsInput = {
   /**
    * Unique ID for this input
    */
@@ -180,6 +330,10 @@ export type InputOpenaiComplianceLogs = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
    */
   __template_workspaceId?: string | undefined;
@@ -252,6 +406,9 @@ export const InputOpenaiComplianceLogs$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -288,11 +445,23 @@ export const InputOpenaiComplianceLogs$inboundSchema: z.ZodType<
     z.lazy(() => InputOpenaiComplianceLogsManageState$inboundSchema),
   ),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_workspaceId: types.optional(types.string()),
   __template_organizationId: types.optional(types.string()),
 });
+
+export function inputOpenaiComplianceLogsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenaiComplianceLogs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenaiComplianceLogs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenaiComplianceLogs' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputOpenaiComplianceLogs$Outbound = {
+export type InputOpenaiComplianceLogsInput$Outbound = {
   id?: string | undefined;
   type: "openai_compliance_logs";
   disabled?: boolean | undefined;
@@ -331,15 +500,16 @@ export type InputOpenaiComplianceLogs$Outbound = {
   stateMergeExpression?: string | undefined;
   manageState?: InputOpenaiComplianceLogsManageState$Outbound | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_workspaceId?: string | undefined;
   __template_organizationId?: string | undefined;
 };
 
 /** @internal */
-export const InputOpenaiComplianceLogs$outboundSchema: z.ZodType<
-  InputOpenaiComplianceLogs$Outbound,
+export const InputOpenaiComplianceLogsInput$outboundSchema: z.ZodType<
+  InputOpenaiComplianceLogsInput$Outbound,
   z.ZodTypeDef,
-  InputOpenaiComplianceLogs
+  InputOpenaiComplianceLogsInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("openai_compliance_logs"),
@@ -381,23 +551,17 @@ export const InputOpenaiComplianceLogs$outboundSchema: z.ZodType<
   manageState: z.lazy(() => InputOpenaiComplianceLogsManageState$outboundSchema)
     .optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_workspaceId: z.string().optional(),
   __template_organizationId: z.string().optional(),
 });
 
-export function inputOpenaiComplianceLogsToJSON(
-  inputOpenaiComplianceLogs: InputOpenaiComplianceLogs,
+export function inputOpenaiComplianceLogsInputToJSON(
+  inputOpenaiComplianceLogsInput: InputOpenaiComplianceLogsInput,
 ): string {
   return JSON.stringify(
-    InputOpenaiComplianceLogs$outboundSchema.parse(inputOpenaiComplianceLogs),
-  );
-}
-export function inputOpenaiComplianceLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenaiComplianceLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenaiComplianceLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenaiComplianceLogs' from JSON`,
+    InputOpenaiComplianceLogsInput$outboundSchema.parse(
+      inputOpenaiComplianceLogsInput,
+    ),
   );
 }

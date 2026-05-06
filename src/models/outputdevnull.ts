@@ -30,6 +30,10 @@ export type OutputDevnull = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -44,6 +48,7 @@ export const OutputDevnull$inboundSchema: z.ZodType<
   systemFields: types.optional(z.array(types.string())),
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
+  __template_streamtags: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDevnull$Outbound = {
@@ -53,6 +58,7 @@ export type OutputDevnull$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -67,6 +73,7 @@ export const OutputDevnull$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputDevnullToJSON(outputDevnull: OutputDevnull): string {

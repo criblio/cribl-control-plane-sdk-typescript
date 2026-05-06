@@ -9,38 +9,28 @@ import * as types from "../types/primitives.js";
 import {
   CheckpointingType,
   CheckpointingType$inboundSchema,
-  CheckpointingType$Outbound,
-  CheckpointingType$outboundSchema,
 } from "./checkpointingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeMetadata,
   ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+import { PqType, PqType$inboundSchema } from "./pqtype.js";
 import {
   PreprocessType,
   PreprocessType$inboundSchema,
-  PreprocessType$Outbound,
-  PreprocessType$outboundSchema,
 } from "./preprocesstype.js";
 import {
   SignatureVersionOptionsS3CollectorConf,
   SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  SignatureVersionOptionsS3CollectorConf$outboundSchema,
 } from "./signatureversionoptionss3collectorconf.js";
 
 export type InputS3 = {
@@ -70,6 +60,12 @@ export type InputS3 = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -132,6 +128,10 @@ export type InputS3 = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
+  /**
+   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
+   */
+  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -209,6 +209,10 @@ export type InputS3 = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -253,6 +257,9 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
     environment: types.optional(types.string()),
     pqEnabled: types.optional(types.boolean()),
     streamtags: types.optional(z.array(types.string())),
+    criblSourceProvenance: types.optional(
+      InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+    ),
     connections: types.optional(
       z.array(ItemsTypeConnectionsOptional$inboundSchema),
     ),
@@ -274,6 +281,7 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
     maxMessages: types.optional(types.number()),
     visibilityTimeout: types.optional(types.number()),
     numReceivers: types.optional(types.number()),
+    fileConcurrency: types.optional(types.number()),
     socketTimeout: types.optional(types.number()),
     skipOnError: types.optional(types.boolean()),
     includeSqsMetadata: types.optional(types.boolean()),
@@ -296,6 +304,7 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
     processedTagKey: types.optional(types.string()),
     processedTagValue: types.optional(types.string()),
     __template_environment: types.optional(types.string()),
+    __template_streamtags: types.optional(types.string()),
     __template_queueName: types.optional(types.string()),
     __template_awsAccountId: types.optional(types.string()),
     __template_awsSecretKey: types.optional(types.string()),
@@ -305,132 +314,7 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
     __template_assumeRoleExternalId: types.optional(types.string()),
     __template_awsApiKey: types.optional(types.string()),
   });
-/** @internal */
-export type InputS3$Outbound = {
-  id?: string | undefined;
-  type: "s3";
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  queueName: string;
-  fileFilter?: string | undefined;
-  awsAccountId?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
-  awsSecretKey?: string | undefined;
-  region?: string | undefined;
-  endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  maxMessages?: number | undefined;
-  visibilityTimeout?: number | undefined;
-  numReceivers?: number | undefined;
-  socketTimeout?: number | undefined;
-  skipOnError?: boolean | undefined;
-  includeSqsMetadata?: boolean | undefined;
-  enableAssumeRole?: boolean | undefined;
-  assumeRoleArn?: string | undefined;
-  assumeRoleExternalId?: string | undefined;
-  durationSeconds?: number | undefined;
-  enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessType$Outbound | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  parquetChunkSizeMB?: number | undefined;
-  parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: CheckpointingType$Outbound | undefined;
-  pollTimeout?: number | undefined;
-  encoding?: string | undefined;
-  tagAfterProcessing?: boolean | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  awsSecret?: string | undefined;
-  processedTagKey?: string | undefined;
-  processedTagValue?: string | undefined;
-  __template_environment?: string | undefined;
-  __template_queueName?: string | undefined;
-  __template_awsAccountId?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_endpoint?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
-};
 
-/** @internal */
-export const InputS3$outboundSchema: z.ZodType<
-  InputS3$Outbound,
-  z.ZodTypeDef,
-  InputS3
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("s3"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().optional(),
-  awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string().optional(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  maxMessages: z.number().optional(),
-  visibilityTimeout: z.number().optional(),
-  numReceivers: z.number().optional(),
-  socketTimeout: z.number().optional(),
-  skipOnError: z.boolean().optional(),
-  includeSqsMetadata: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: PreprocessType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  parquetChunkSizeMB: z.number().optional(),
-  parquetChunkDownloadTimeout: z.number().optional(),
-  checkpointing: CheckpointingType$outboundSchema.optional(),
-  pollTimeout: z.number().optional(),
-  encoding: z.string().optional(),
-  tagAfterProcessing: z.boolean().optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  processedTagKey: z.string().optional(),
-  processedTagValue: z.string().optional(),
-  __template_environment: z.string().optional(),
-  __template_queueName: z.string().optional(),
-  __template_awsAccountId: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-});
-
-export function inputS3ToJSON(inputS3: InputS3): string {
-  return JSON.stringify(InputS3$outboundSchema.parse(inputS3));
-}
 export function inputS3FromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3, SDKValidationError> {

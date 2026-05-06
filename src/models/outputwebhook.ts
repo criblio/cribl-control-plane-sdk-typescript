@@ -411,6 +411,10 @@ export type OutputWebhookWebhook2 = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -766,6 +770,10 @@ export type OutputWebhookWebhook1 = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -985,6 +993,7 @@ export const OutputWebhookWebhook2$inboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputWebhookUrl2$inboundSchema)),
   dnsResolvePeriodSec: types.optional(types.number()),
   loadBalanceStatsPeriodSec: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
@@ -1062,6 +1071,7 @@ export type OutputWebhookWebhook2$Outbound = {
   urls: Array<OutputWebhookUrl2$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
@@ -1146,6 +1156,7 @@ export const OutputWebhookWebhook2$outboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputWebhookUrl2$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
@@ -1366,6 +1377,7 @@ export const OutputWebhookWebhook1$inboundSchema: z.ZodType<
   urls: types.optional(z.array(z.lazy(() => OutputWebhookUrl1$inboundSchema))),
   dnsResolvePeriodSec: types.optional(types.number()),
   loadBalanceStatsPeriodSec: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
@@ -1443,6 +1455,7 @@ export type OutputWebhookWebhook1$Outbound = {
   urls?: Array<OutputWebhookUrl1$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
@@ -1527,6 +1540,7 @@ export const OutputWebhookWebhook1$outboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputWebhookUrl1$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),

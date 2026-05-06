@@ -1,0 +1,30 @@
+# InputAnthropicComplianceContentConfig
+
+## Example Usage
+
+```typescript
+import { InputAnthropicComplianceContentConfig } from "cribl-control-plane/models";
+
+let value: InputAnthropicComplianceContentConfig = {
+  contentType: "<value>",
+  cronSchedule: "<value>",
+  earliest: "<value>",
+  latest: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `contentType`                                                                                  | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `contentDescription`                                                                           | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `enabled`                                                                                      | *boolean*                                                                                      | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `stateTracking`                                                                                | *boolean*                                                                                      | :heavy_minus_sign:                                                                             | Track collection progress between consecutive scheduled executions                             |
+| `stateUpdateExpression`                                                                        | *string*                                                                                       | :heavy_minus_sign:                                                                             | JavaScript expression that defines how to update the state from an event                       |
+| `stateMergeExpression`                                                                         | *string*                                                                                       | :heavy_minus_sign:                                                                             | JavaScript expression that defines which state to keep when merging task state                 |
+| `manageState`                                                                                  | [models.InputAnthropicComplianceManageState](../models/inputanthropiccompliancemanagestate.md) | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `cronSchedule`                                                                                 | *string*                                                                                       | :heavy_check_mark:                                                                             | Schedule on which to run this collection job                                                   |
+| `earliest`                                                                                     | *string*                                                                                       | :heavy_check_mark:                                                                             | Earliest time for data collection, relative to now                                             |
+| `latest`                                                                                       | *string*                                                                                       | :heavy_check_mark:                                                                             | Latest time for data collection, relative to now                                               |
+| `jobTimeout`                                                                                   | *string*                                                                                       | :heavy_minus_sign:                                                                             | Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.   |

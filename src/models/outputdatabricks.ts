@@ -263,6 +263,10 @@ export type OutputDatabricks = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
    */
   __template_partitionExpr?: string | undefined;
@@ -357,6 +361,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
   __template_partitionExpr: types.optional(types.string()),
   __template_format: types.optional(types.string()),
   __template_baseFileName: types.optional(types.string()),
@@ -420,6 +425,7 @@ export type OutputDatabricks$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
@@ -490,6 +496,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
   __template_baseFileName: z.string().optional(),

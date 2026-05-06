@@ -218,6 +218,10 @@ export type OutputNewrelicEvents = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
@@ -333,6 +337,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   ),
   apiKey: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_region: types.optional(types.string()),
   __template_accountId: types.optional(types.string()),
   __template_eventType: types.optional(types.string()),
@@ -385,6 +390,7 @@ export type OutputNewrelicEvents$Outbound = {
   pqControls?: OutputNewrelicEventsPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_accountId?: string | undefined;
   __template_eventType?: string | undefined;
@@ -444,6 +450,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_accountId: z.string().optional(),
   __template_eventType: z.string().optional(),

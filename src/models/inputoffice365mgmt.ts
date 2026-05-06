@@ -13,6 +13,10 @@ import {
 } from "./authenticationmethodoptionsmanualsecret.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -65,6 +69,140 @@ export type InputOffice365MgmtContentConfig = {
 };
 
 export type InputOffice365Mgmt = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "office365_mgmt";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+   */
+  planType: SubscriptionPlanOptions;
+  /**
+   * Microsoft 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Microsoft 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
+   */
+  publisherIdentifier?: string | undefined;
+  /**
+   * Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<InputOffice365MgmtContentConfig> | undefined;
+  /**
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Microsoft 365 events are available for retrieval.
+   */
+  ingestionLag?: number | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptionsManualSecret | undefined;
+  description?: string | undefined;
+  /**
+   * Microsoft 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+   */
+  __template_appId?: string | undefined;
+  /**
+   * Binds 'publisherIdentifier' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'publisherIdentifier' at runtime.
+   */
+  __template_publisherIdentifier?: string | undefined;
+  /**
+   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+   */
+  __template_clientSecret?: string | undefined;
+};
+
+export type InputOffice365MgmtInput = {
   /**
    * Unique ID for this input
    */
@@ -167,6 +305,10 @@ export type InputOffice365Mgmt = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
    */
   __template_planType?: string | undefined;
@@ -255,6 +397,9 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -282,14 +427,26 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_planType: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_appId: types.optional(types.string()),
   __template_publisherIdentifier: types.optional(types.string()),
   __template_clientSecret: types.optional(types.string()),
 });
+
+export function inputOffice365MgmtFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365Mgmt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365Mgmt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365Mgmt' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputOffice365Mgmt$Outbound = {
+export type InputOffice365MgmtInput$Outbound = {
   id?: string | undefined;
   type: "office365_mgmt";
   disabled?: boolean | undefined;
@@ -319,6 +476,7 @@ export type InputOffice365Mgmt$Outbound = {
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_planType?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_appId?: string | undefined;
@@ -327,10 +485,10 @@ export type InputOffice365Mgmt$Outbound = {
 };
 
 /** @internal */
-export const InputOffice365Mgmt$outboundSchema: z.ZodType<
-  InputOffice365Mgmt$Outbound,
+export const InputOffice365MgmtInput$outboundSchema: z.ZodType<
+  InputOffice365MgmtInput$Outbound,
   z.ZodTypeDef,
-  InputOffice365Mgmt
+  InputOffice365MgmtInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("office365_mgmt"),
@@ -363,6 +521,7 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_planType: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_appId: z.string().optional(),
@@ -370,19 +529,10 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   __template_clientSecret: z.string().optional(),
 });
 
-export function inputOffice365MgmtToJSON(
-  inputOffice365Mgmt: InputOffice365Mgmt,
+export function inputOffice365MgmtInputToJSON(
+  inputOffice365MgmtInput: InputOffice365MgmtInput,
 ): string {
   return JSON.stringify(
-    InputOffice365Mgmt$outboundSchema.parse(inputOffice365Mgmt),
-  );
-}
-export function inputOffice365MgmtFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365Mgmt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365Mgmt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365Mgmt' from JSON`,
+    InputOffice365MgmtInput$outboundSchema.parse(inputOffice365MgmtInput),
   );
 }

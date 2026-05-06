@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -180,6 +184,12 @@ export type InputOpenTelemetry = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -280,6 +290,160 @@ export type InputOpenTelemetry = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'protocol' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'protocol' at runtime.
+   */
+  __template_protocol?: string | undefined;
+  /**
+   * Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
+   */
+  __template_otlpVersion?: string | undefined;
+};
+
+export type InputOpenTelemetryInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "open_telemetry";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: InputOpenTelemetryProtocol | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: InputOpenTelemetryOTLPVersion | undefined;
+  /**
+   * OpenTelemetry authentication type
+   */
+  authType?: InputOpenTelemetryAuthenticationType | undefined;
+  /**
+   * Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
+   */
+  authMethodsExt?: Array<AuthMethodsExt> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -423,6 +587,9 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -456,13 +623,25 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   textSecret: types.optional(types.string()),
   extractLogs: types.optional(types.boolean()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_protocol: types.optional(types.string()),
   __template_otlpVersion: types.optional(types.string()),
 });
+
+export function inputOpenTelemetryFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetry, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetry$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetry' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputOpenTelemetry$Outbound = {
+export type InputOpenTelemetryInput$Outbound = {
   id?: string | undefined;
   type: "open_telemetry";
   disabled?: boolean | undefined;
@@ -500,6 +679,7 @@ export type InputOpenTelemetry$Outbound = {
   textSecret?: string | undefined;
   extractLogs?: boolean | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_protocol?: string | undefined;
@@ -507,10 +687,10 @@ export type InputOpenTelemetry$Outbound = {
 };
 
 /** @internal */
-export const InputOpenTelemetry$outboundSchema: z.ZodType<
-  InputOpenTelemetry$Outbound,
+export const InputOpenTelemetryInput$outboundSchema: z.ZodType<
+  InputOpenTelemetryInput$Outbound,
   z.ZodTypeDef,
-  InputOpenTelemetry
+  InputOpenTelemetryInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("open_telemetry"),
@@ -550,25 +730,17 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   extractLogs: z.boolean().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_protocol: z.string().optional(),
   __template_otlpVersion: z.string().optional(),
 });
 
-export function inputOpenTelemetryToJSON(
-  inputOpenTelemetry: InputOpenTelemetry,
+export function inputOpenTelemetryInputToJSON(
+  inputOpenTelemetryInput: InputOpenTelemetryInput,
 ): string {
   return JSON.stringify(
-    InputOpenTelemetry$outboundSchema.parse(inputOpenTelemetry),
-  );
-}
-export function inputOpenTelemetryFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetry, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetry$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetry' from JSON`,
+    InputOpenTelemetryInput$outboundSchema.parse(inputOpenTelemetryInput),
   );
 }

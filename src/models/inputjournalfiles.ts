@@ -8,6 +8,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -65,6 +69,12 @@ export type InputJournalFiles = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -93,6 +103,7 @@ export type InputJournalFiles = {
    * The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
    */
   maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -102,6 +113,82 @@ export type InputJournalFiles = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputJournalFilesInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "journal_files";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
+   */
+  path: string;
+  /**
+   * Time, in seconds, between scanning for journals.
+   */
+  interval?: number | undefined;
+  /**
+   * The full path of discovered journals are matched against this wildcard list.
+   */
+  journals: Array<string>;
+  /**
+   * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
+   */
+  rules?: Array<InputJournalFilesRule> | undefined;
+  /**
+   * Skip log messages that are not part of the current boot session.
+   */
+  currentBoot?: boolean | undefined;
+  /**
+   * The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
+   */
+  maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -160,6 +247,9 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -172,12 +262,25 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   ),
   currentBoot: types.optional(types.boolean()),
   maxAgeDur: types.optional(types.string()),
+  suppressMissingPathErrors: types.optional(types.boolean()),
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputJournalFilesFromJSON(
+  jsonString: string,
+): SafeParseResult<InputJournalFiles, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputJournalFiles$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFiles' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputJournalFiles$Outbound = {
+export type InputJournalFilesInput$Outbound = {
   id?: string | undefined;
   type: "journal_files";
   disabled?: boolean | undefined;
@@ -194,16 +297,18 @@ export type InputJournalFiles$Outbound = {
   rules?: Array<InputJournalFilesRule$Outbound> | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputJournalFiles$outboundSchema: z.ZodType<
-  InputJournalFiles$Outbound,
+export const InputJournalFilesInput$outboundSchema: z.ZodType<
+  InputJournalFilesInput$Outbound,
   z.ZodTypeDef,
-  InputJournalFiles
+  InputJournalFilesInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("journal_files"),
@@ -221,24 +326,17 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
+  suppressMissingPathErrors: z.boolean().optional(),
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputJournalFilesToJSON(
-  inputJournalFiles: InputJournalFiles,
+export function inputJournalFilesInputToJSON(
+  inputJournalFilesInput: InputJournalFilesInput,
 ): string {
   return JSON.stringify(
-    InputJournalFiles$outboundSchema.parse(inputJournalFiles),
-  );
-}
-export function inputJournalFilesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputJournalFiles, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputJournalFiles$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputJournalFiles' from JSON`,
+    InputJournalFilesInput$outboundSchema.parse(inputJournalFilesInput),
   );
 }

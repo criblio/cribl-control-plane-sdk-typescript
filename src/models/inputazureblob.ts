@@ -9,33 +9,25 @@ import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptions,
   AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
 } from "./authenticationmethodoptions.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
-  CertificateTypeAzureBlobAuthTypeClientCert$Outbound,
-  CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
 } from "./certificatetypeazureblobauthtypeclientcert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeMetadata,
   ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+import { PqType, PqType$inboundSchema } from "./pqtype.js";
 
 export type InputAzureBlob = {
   /**
@@ -64,6 +56,12 @@ export type InputAzureBlob = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -157,6 +155,10 @@ export type InputAzureBlob = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -196,6 +198,9 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -226,6 +231,7 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
   __template_connectionString: types.optional(types.string()),
   __template_storageAccountName: types.optional(types.string()),
@@ -233,102 +239,7 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   __template_clientId: types.optional(types.string()),
   __template_azureCloud: types.optional(types.string()),
 });
-/** @internal */
-export type InputAzureBlob$Outbound = {
-  id?: string | undefined;
-  type: "azure_blob";
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  queueName: string;
-  fileFilter?: string | undefined;
-  visibilityTimeout?: number | undefined;
-  numReceivers?: number | undefined;
-  maxMessages?: number | undefined;
-  servicePeriodSecs?: number | undefined;
-  skipOnError?: boolean | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  parquetChunkSizeMB?: number | undefined;
-  parquetChunkDownloadTimeout?: number | undefined;
-  authType?: string | undefined;
-  description?: string | undefined;
-  connectionString?: string | undefined;
-  textSecret?: string | undefined;
-  storageAccountName?: string | undefined;
-  tenantId?: string | undefined;
-  clientId?: string | undefined;
-  azureCloud?: string | undefined;
-  endpointSuffix?: string | undefined;
-  clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
-  __template_environment?: string | undefined;
-  __template_queueName?: string | undefined;
-  __template_connectionString?: string | undefined;
-  __template_storageAccountName?: string | undefined;
-  __template_tenantId?: string | undefined;
-  __template_clientId?: string | undefined;
-  __template_azureCloud?: string | undefined;
-};
 
-/** @internal */
-export const InputAzureBlob$outboundSchema: z.ZodType<
-  InputAzureBlob$Outbound,
-  z.ZodTypeDef,
-  InputAzureBlob
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("azure_blob"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  queueName: z.string(),
-  fileFilter: z.string().optional(),
-  visibilityTimeout: z.number().optional(),
-  numReceivers: z.number().optional(),
-  maxMessages: z.number().optional(),
-  servicePeriodSecs: z.number().optional(),
-  skipOnError: z.boolean().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  parquetChunkSizeMB: z.number().optional(),
-  parquetChunkDownloadTimeout: z.number().optional(),
-  authType: AuthenticationMethodOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  connectionString: z.string().optional(),
-  textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
-    .optional(),
-  __template_environment: z.string().optional(),
-  __template_queueName: z.string().optional(),
-  __template_connectionString: z.string().optional(),
-  __template_storageAccountName: z.string().optional(),
-  __template_tenantId: z.string().optional(),
-  __template_clientId: z.string().optional(),
-  __template_azureCloud: z.string().optional(),
-});
-
-export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {
-  return JSON.stringify(InputAzureBlob$outboundSchema.parse(inputAzureBlob));
-}
 export function inputAzureBlobFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAzureBlob, SDKValidationError> {

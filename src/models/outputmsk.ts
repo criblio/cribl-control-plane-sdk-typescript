@@ -257,6 +257,10 @@ export type OutputMsk = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMskPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -392,6 +396,7 @@ export const OutputMsk$inboundSchema: z.ZodType<
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputMskPqControls$inboundSchema)),
+  __template_streamtags: types.optional(types.string()),
   __template_topic: types.optional(types.string()),
   __template_format: types.optional(types.string()),
   __template_compression: types.optional(types.string()),
@@ -460,6 +465,7 @@ export type OutputMsk$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMskPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_compression?: string | undefined;
@@ -533,6 +539,7 @@ export const OutputMsk$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputMskPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_compression: z.string().optional(),

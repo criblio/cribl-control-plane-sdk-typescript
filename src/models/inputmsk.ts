@@ -8,39 +8,29 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeMetadata,
   ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
   KafkaSchemaRegistryAuthenticationType,
   KafkaSchemaRegistryAuthenticationType$inboundSchema,
-  KafkaSchemaRegistryAuthenticationType$Outbound,
-  KafkaSchemaRegistryAuthenticationType$outboundSchema,
 } from "./kafkaschemaregistryauthenticationtype.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+import { PqType, PqType$inboundSchema } from "./pqtype.js";
 import {
   SignatureVersionOptions,
   SignatureVersionOptions$inboundSchema,
-  SignatureVersionOptions$outboundSchema,
 } from "./signatureversionoptions.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
   TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
-  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
-  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type InputMsk = {
@@ -70,6 +60,12 @@ export type InputMsk = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
@@ -226,6 +222,18 @@ export type InputMsk = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
+  /**
+   * Binds 'topics' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topics' at runtime.
+   */
+  __template_topics?: string | undefined;
+  /**
    * Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
    */
   __template_groupId?: string | undefined;
@@ -269,6 +277,9 @@ export const InputMsk$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -313,6 +324,9 @@ export const InputMsk$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_brokers: types.optional(types.string()),
+  __template_topics: types.optional(types.string()),
   __template_groupId: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -321,134 +335,7 @@ export const InputMsk$inboundSchema: z.ZodType<
   __template_assumeRoleExternalId: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
 });
-/** @internal */
-export type InputMsk$Outbound = {
-  id?: string | undefined;
-  type: "msk";
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  brokers: Array<string>;
-  topics: Array<string>;
-  groupId?: string | undefined;
-  fromBeginning?: boolean | undefined;
-  sessionTimeout?: number | undefined;
-  rebalanceTimeout?: number | undefined;
-  heartbeatInterval?: number | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType$Outbound
-    | undefined;
-  connectionTimeout?: number | undefined;
-  requestTimeout?: number | undefined;
-  maxRetries?: number | undefined;
-  maxBackOff?: number | undefined;
-  initialBackoff?: number | undefined;
-  backoffRate?: number | undefined;
-  authenticationTimeout?: number | undefined;
-  reauthenticationThreshold?: number | undefined;
-  awsAuthenticationMethod: string;
-  awsSecretKey?: string | undefined;
-  region: string;
-  endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  enableAssumeRole?: boolean | undefined;
-  assumeRoleArn?: string | undefined;
-  assumeRoleExternalId?: string | undefined;
-  durationSeconds?: number | undefined;
-  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
-  autoCommitInterval?: number | undefined;
-  autoCommitThreshold?: number | undefined;
-  maxBytesPerPartition?: number | undefined;
-  maxBytes?: number | undefined;
-  maxSocketErrors?: number | undefined;
-  description?: string | undefined;
-  awsApiKey?: string | undefined;
-  awsSecret?: string | undefined;
-  __template_environment?: string | undefined;
-  __template_groupId?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_endpoint?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
-};
 
-/** @internal */
-export const InputMsk$outboundSchema: z.ZodType<
-  InputMsk$Outbound,
-  z.ZodTypeDef,
-  InputMsk
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("msk"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  brokers: z.array(z.string()),
-  topics: z.array(z.string()),
-  groupId: z.string().optional(),
-  fromBeginning: z.boolean().optional(),
-  sessionTimeout: z.number().optional(),
-  rebalanceTimeout: z.number().optional(),
-  heartbeatInterval: z.number().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
-    .optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  maxBackOff: z.number().optional(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  authenticationTimeout: z.number().optional(),
-  reauthenticationThreshold: z.number().optional(),
-  awsAuthenticationMethod: z.string(),
-  awsSecretKey: z.string().optional(),
-  region: z.string(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions$outboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
-  autoCommitInterval: z.number().optional(),
-  autoCommitThreshold: z.number().optional(),
-  maxBytesPerPartition: z.number().optional(),
-  maxBytes: z.number().optional(),
-  maxSocketErrors: z.number().optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  __template_environment: z.string().optional(),
-  __template_groupId: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-});
-
-export function inputMskToJSON(inputMsk: InputMsk): string {
-  return JSON.stringify(InputMsk$outboundSchema.parse(inputMsk));
-}
 export function inputMskFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMsk, SDKValidationError> {

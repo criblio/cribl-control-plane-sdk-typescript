@@ -8,6 +8,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -55,6 +59,154 @@ export type AuthTokensExt = {
 };
 
 export type InputCriblLakeHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "cribl_lake_http";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  authTokensExt?: Array<AuthTokensExt> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+  /**
+   * Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+   */
+  __template_criblAPI?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
+};
+
+export type InputCriblLakeHttpInput = {
   /**
    * Unique ID for this input
    */
@@ -167,6 +319,10 @@ export type InputCriblLakeHttp = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -174,6 +330,10 @@ export type InputCriblLakeHttp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
   /**
    * Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
    */
@@ -341,6 +501,9 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -370,14 +533,27 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   ),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
+  __template_authTokens: types.optional(types.string()),
   __template_criblAPI: types.optional(types.string()),
   __template_elasticAPI: types.optional(types.string()),
   __template_splunkHecAPI: types.optional(types.string()),
 });
+
+export function inputCriblLakeHttpFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHttp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHttp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHttp' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputCriblLakeHttp$Outbound = {
+export type InputCriblLakeHttpInput$Outbound = {
   id?: string | undefined;
   type: "cribl_lake_http";
   disabled?: boolean | undefined;
@@ -411,18 +587,20 @@ export type InputCriblLakeHttp$Outbound = {
   authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
   __template_criblAPI?: string | undefined;
   __template_elasticAPI?: string | undefined;
   __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblLakeHttp$outboundSchema: z.ZodType<
-  InputCriblLakeHttp$Outbound,
+export const InputCriblLakeHttpInput$outboundSchema: z.ZodType<
+  InputCriblLakeHttpInput$Outbound,
   z.ZodTypeDef,
-  InputCriblLakeHttp
+  InputCriblLakeHttpInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("cribl_lake_http"),
@@ -457,26 +635,19 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
   __template_criblAPI: z.string().optional(),
   __template_elasticAPI: z.string().optional(),
   __template_splunkHecAPI: z.string().optional(),
 });
 
-export function inputCriblLakeHttpToJSON(
-  inputCriblLakeHttp: InputCriblLakeHttp,
+export function inputCriblLakeHttpInputToJSON(
+  inputCriblLakeHttpInput: InputCriblLakeHttpInput,
 ): string {
   return JSON.stringify(
-    InputCriblLakeHttp$outboundSchema.parse(inputCriblLakeHttp),
-  );
-}
-export function inputCriblLakeHttpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblLakeHttp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblLakeHttp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblLakeHttp' from JSON`,
+    InputCriblLakeHttpInput$outboundSchema.parse(inputCriblLakeHttpInput),
   );
 }

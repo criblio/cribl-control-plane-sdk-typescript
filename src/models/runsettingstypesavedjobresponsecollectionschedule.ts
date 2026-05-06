@@ -9,18 +9,18 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  BrokenEventProcessor,
+  BrokenEventProcessor$inboundSchema,
+  BrokenEventProcessor$Outbound,
+  BrokenEventProcessor$outboundSchema,
+} from "./brokeneventprocessor.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LogLevelOptionsRunnableJobCollectionScheduleRun,
   LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
   LogLevelOptionsRunnableJobCollectionScheduleRun$outboundSchema,
 } from "./logleveloptionsrunnablejobcollectionschedulerun.js";
-import {
-  MetricsStore,
-  MetricsStore$inboundSchema,
-  MetricsStore$Outbound,
-  MetricsStore$outboundSchema,
-} from "./metricsstore.js";
 
 export const RunSettingsTypeSavedJobResponseCollectionScheduleType = {
   Collection: "collection",
@@ -75,7 +75,7 @@ export type RunSettingsTypeSavedJobResponseCollectionSchedule = {
    */
   latest?: number | string | undefined;
   timestampTimezone?: any | undefined;
-  timeWarning?: MetricsStore | undefined;
+  timeWarning?: BrokenEventProcessor | undefined;
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
@@ -226,7 +226,7 @@ export const RunSettingsTypeSavedJobResponseCollectionSchedule$inboundSchema:
     earliest: types.optional(smartUnion([types.number(), types.string()])),
     latest: types.optional(smartUnion([types.number(), types.string()])),
     timestampTimezone: types.optional(z.any()),
-    timeWarning: types.optional(MetricsStore$inboundSchema),
+    timeWarning: types.optional(BrokenEventProcessor$inboundSchema),
     expression: types.optional(types.string()),
     minTaskSize: types.optional(types.string()),
     maxTaskSize: types.optional(types.string()),
@@ -243,7 +243,7 @@ export type RunSettingsTypeSavedJobResponseCollectionSchedule$Outbound = {
   earliest?: number | string | undefined;
   latest?: number | string | undefined;
   timestampTimezone?: any | undefined;
-  timeWarning?: MetricsStore$Outbound | undefined;
+  timeWarning?: BrokenEventProcessor$Outbound | undefined;
   expression?: string | undefined;
   minTaskSize?: string | undefined;
   maxTaskSize?: string | undefined;
@@ -268,7 +268,7 @@ export const RunSettingsTypeSavedJobResponseCollectionSchedule$outboundSchema:
     earliest: smartUnion([z.number(), z.string()]).optional(),
     latest: smartUnion([z.number(), z.string()]).optional(),
     timestampTimezone: z.any().optional(),
-    timeWarning: MetricsStore$outboundSchema.optional(),
+    timeWarning: BrokenEventProcessor$outboundSchema.optional(),
     expression: z.string().optional(),
     minTaskSize: z.string().optional(),
     maxTaskSize: z.string().optional(),

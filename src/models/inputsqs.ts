@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -52,6 +56,173 @@ export const InputSqsQueueType = {
 export type InputSqsQueueType = OpenEnum<typeof InputSqsQueueType>;
 
 export type InputSqs = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "sqs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: InputSqsQueueType;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing SQS requests
+   */
+  signatureVersion?: SignatureVersionOptionsSqs | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
+   */
+  __template_queueType?: string | undefined;
+  /**
+   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+   */
+  __template_awsAccountId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+};
+
+export type InputSqsInput = {
   /**
    * Unique ID for this input
    */
@@ -171,6 +342,10 @@ export type InputSqs = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
   __template_queueName?: string | undefined;
@@ -235,6 +410,9 @@ export const InputSqs$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -263,6 +441,7 @@ export const InputSqs$inboundSchema: z.ZodType<
   awsSecret: types.optional(types.string()),
   numReceivers: types.optional(types.number()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_queueName: types.optional(types.string()),
   __template_queueType: types.optional(types.string()),
   __template_awsAccountId: types.optional(types.string()),
@@ -273,8 +452,19 @@ export const InputSqs$inboundSchema: z.ZodType<
   __template_assumeRoleExternalId: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
 });
+
+export function inputSqsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqs' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputSqs$Outbound = {
+export type InputSqsInput$Outbound = {
   id?: string | undefined;
   type: "sqs";
   disabled?: boolean | undefined;
@@ -309,6 +499,7 @@ export type InputSqs$Outbound = {
   awsSecret?: string | undefined;
   numReceivers?: number | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_queueName?: string | undefined;
   __template_queueType?: string | undefined;
   __template_awsAccountId?: string | undefined;
@@ -321,10 +512,10 @@ export type InputSqs$Outbound = {
 };
 
 /** @internal */
-export const InputSqs$outboundSchema: z.ZodType<
-  InputSqs$Outbound,
+export const InputSqsInput$outboundSchema: z.ZodType<
+  InputSqsInput$Outbound,
   z.ZodTypeDef,
-  InputSqs
+  InputSqsInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("sqs"),
@@ -360,6 +551,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   numReceivers: z.number().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_queueType: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
@@ -371,15 +563,6 @@ export const InputSqs$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function inputSqsToJSON(inputSqs: InputSqs): string {
-  return JSON.stringify(InputSqs$outboundSchema.parse(inputSqs));
-}
-export function inputSqsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqs' from JSON`,
-  );
+export function inputSqsInputToJSON(inputSqsInput: InputSqsInput): string {
+  return JSON.stringify(InputSqsInput$outboundSchema.parse(inputSqsInput));
 }

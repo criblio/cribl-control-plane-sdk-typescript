@@ -13,6 +13,10 @@ import {
 } from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -89,6 +93,12 @@ export type InputKubeMetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -111,6 +121,66 @@ export type InputKubeMetrics = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputKubeMetricsInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "kube_metrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  persistence?: InputKubeMetricsPersistence | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -185,6 +255,9 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -197,9 +270,21 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
   ),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputKubeMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeMetrics' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputKubeMetrics$Outbound = {
+export type InputKubeMetricsInput$Outbound = {
   id?: string | undefined;
   type: "kube_metrics";
   disabled?: boolean | undefined;
@@ -216,13 +301,14 @@ export type InputKubeMetrics$Outbound = {
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputKubeMetrics$outboundSchema: z.ZodType<
-  InputKubeMetrics$Outbound,
+export const InputKubeMetricsInput$outboundSchema: z.ZodType<
+  InputKubeMetricsInput$Outbound,
   z.ZodTypeDef,
-  InputKubeMetrics
+  InputKubeMetricsInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("kube_metrics"),
@@ -241,21 +327,13 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputKubeMetricsToJSON(
-  inputKubeMetrics: InputKubeMetrics,
+export function inputKubeMetricsInputToJSON(
+  inputKubeMetricsInput: InputKubeMetricsInput,
 ): string {
   return JSON.stringify(
-    InputKubeMetrics$outboundSchema.parse(inputKubeMetrics),
-  );
-}
-export function inputKubeMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeMetrics' from JSON`,
+    InputKubeMetricsInput$outboundSchema.parse(inputKubeMetricsInput),
   );
 }

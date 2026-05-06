@@ -225,6 +225,10 @@ export type OutputSumoLogic = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSumoLogicPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -337,6 +341,7 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputSumoLogicPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
@@ -384,6 +389,7 @@ export type OutputSumoLogic$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSumoLogicPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -437,6 +443,7 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

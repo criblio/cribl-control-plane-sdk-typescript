@@ -7,8 +7,14 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  PathFilterDataFormat,
+  PathFilterDataFormat$inboundSchema,
+  PathFilterDataFormat$outboundSchema,
+} from "./pathfilterdataformat.js";
 
 export type ObjectStorageFilter = {
+  dataPathFormat?: PathFilterDataFormat | undefined;
   dataTypeId: string;
   filter: string;
 };
@@ -19,11 +25,13 @@ export const ObjectStorageFilter$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  dataPathFormat: types.optional(PathFilterDataFormat$inboundSchema),
   dataTypeId: types.string(),
   filter: types.string(),
 });
 /** @internal */
 export type ObjectStorageFilter$Outbound = {
+  dataPathFormat?: string | undefined;
   dataTypeId: string;
   filter: string;
 };
@@ -34,6 +42,7 @@ export const ObjectStorageFilter$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ObjectStorageFilter
 > = z.object({
+  dataPathFormat: PathFilterDataFormat$outboundSchema.optional(),
   dataTypeId: z.string(),
   filter: z.string(),
 });

@@ -9,9 +9,7 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "crowdstrike_next_gen_siem",
-    url: "https://unhappy-programme.net",
-    format: "JSON",
+    type: "cribl_lake",
   },
 };
 ```
@@ -20,5 +18,5 @@ let value: CreateOutputSystemByPackRequest = {
 
 | Field                                            | Type                                             | Required                                         | Description                                      |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `pack`                                           | *string*                                         | :heavy_check_mark:                               | The <code>id</code> of the Pack to create.       |
+| `pack`                                           | *string*                                         | :heavy_check_mark:                               | The <code>id</code> of the Pack.                 |
 | `requestBody`                                    | *operations.CreateOutputSystemByPackRequestBody* | :heavy_check_mark:                               | Output object                                    |

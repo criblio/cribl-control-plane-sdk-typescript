@@ -7,10 +7,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthenticationMethodOptionsAuth,
-  AuthenticationMethodOptionsAuth$inboundSchema,
-  AuthenticationMethodOptionsAuth$outboundSchema,
-} from "./authenticationmethodoptionsauth.js";
+  AuthenticationMethodOptionsAuthManualManualApiKey,
+  AuthenticationMethodOptionsAuthManualManualApiKey$inboundSchema,
+  AuthenticationMethodOptionsAuthManualManualApiKey$outboundSchema,
+} from "./authenticationmethodoptionsauthmanualmanualapikey.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AuthTypeTemplatemanualApiKeyAuthType = {
@@ -20,7 +20,7 @@ export type AuthTypeTemplatemanualApiKeyAuthType = {
   /**
    * Enter credentials directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptionsAuth | undefined;
+  authType?: AuthenticationMethodOptionsAuthManualManualApiKey | undefined;
   /**
    * Select or create a secret that references your credentials
    */
@@ -48,7 +48,9 @@ export const AuthTypeTemplatemanualApiKeyAuthType$inboundSchema: z.ZodType<
   disabled: types.boolean(),
   username: types.optional(types.string()),
   password: types.optional(types.string()),
-  authType: types.optional(AuthenticationMethodOptionsAuth$inboundSchema),
+  authType: types.optional(
+    AuthenticationMethodOptionsAuthManualManualApiKey$inboundSchema,
+  ),
   credentialsSecret: types.optional(types.string()),
   manualAPIKey: types.optional(types.string()),
   textSecret: types.optional(types.string()),
@@ -75,7 +77,8 @@ export const AuthTypeTemplatemanualApiKeyAuthType$outboundSchema: z.ZodType<
   disabled: z.boolean(),
   username: z.string().optional(),
   password: z.string().optional(),
-  authType: AuthenticationMethodOptionsAuth$outboundSchema.optional(),
+  authType: AuthenticationMethodOptionsAuthManualManualApiKey$outboundSchema
+    .optional(),
   credentialsSecret: z.string().optional(),
   manualAPIKey: z.string().optional(),
   textSecret: z.string().optional(),

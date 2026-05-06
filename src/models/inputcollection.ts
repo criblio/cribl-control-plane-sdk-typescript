@@ -8,28 +8,21 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
   ItemsTypeMetadata,
   ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+import { PqType, PqType$inboundSchema } from "./pqtype.js";
 import {
   PreprocessType,
   PreprocessType$inboundSchema,
-  PreprocessType$Outbound,
-  PreprocessType$outboundSchema,
 } from "./preprocesstype.js";
 
 export type InputCollection = {
@@ -60,6 +53,12 @@ export type InputCollection = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -89,6 +88,10 @@ export type InputCollection = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -105,6 +108,9 @@ export const InputCollection$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -116,58 +122,9 @@ export const InputCollection$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   output: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
-});
-/** @internal */
-export type InputCollection$Outbound = {
-  id?: string | undefined;
-  type: "collection";
-  disabled?: boolean | undefined;
-  pipeline?: string | undefined;
-  sendToRoutes?: boolean | undefined;
-  environment?: string | undefined;
-  pqEnabled?: boolean | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
-  preprocess?: PreprocessType$Outbound | undefined;
-  throttleRatePerSec?: string | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
-  output?: string | undefined;
-  __template_environment?: string | undefined;
-};
-
-/** @internal */
-export const InputCollection$outboundSchema: z.ZodType<
-  InputCollection$Outbound,
-  z.ZodTypeDef,
-  InputCollection
-> = z.object({
-  id: z.string().optional(),
-  type: z.literal("collection"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  preprocess: PreprocessType$outboundSchema.optional(),
-  throttleRatePerSec: z.string().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
-  output: z.string().optional(),
-  __template_environment: z.string().optional(),
+  __template_streamtags: types.optional(types.string()),
 });
 
-export function inputCollectionToJSON(
-  inputCollection: InputCollection,
-): string {
-  return JSON.stringify(InputCollection$outboundSchema.parse(inputCollection));
-}
 export function inputCollectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCollection, SDKValidationError> {

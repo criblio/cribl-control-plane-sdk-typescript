@@ -14,12 +14,21 @@ import {
   AuthenticationMethodOptions$outboundSchema,
 } from "./authenticationmethodoptions.js";
 import {
+  AuthenticationMethodOptionsAuth,
+  AuthenticationMethodOptionsAuth$inboundSchema,
+  AuthenticationMethodOptionsAuth$outboundSchema,
+} from "./authenticationmethodoptionsauth.js";
+import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   CertificateTypeAzureBlobAuthTypeClientCert$Outbound,
   CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
 } from "./certificatetypeazureblobauthtypeclientcert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
 import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
@@ -33,6 +42,11 @@ import {
   ItemsTypeMetadata$outboundSchema,
 } from "./itemstypemetadata.js";
 import {
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
+} from "./microsoftentraidauthenticationendpointoptionssasl.js";
+import {
   PqType,
   PqType$inboundSchema,
   PqType$Outbound,
@@ -44,6 +58,10 @@ export const AuthenticationMechanism = {
    * Connection String
    */
   ConnectionString: "connection-string",
+  /**
+   * OAuth Bearer
+   */
+  OauthBearer: "oauth-bearer",
 } as const;
 export type AuthenticationMechanism = OpenEnum<typeof AuthenticationMechanism>;
 
@@ -75,6 +93,44 @@ export type Auth = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  clientSecretAuthType?: AuthenticationMethodOptionsAuth | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?: MicrosoftEntraIdAuthenticationEndpointOptionsSasl | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * The fully qualified Event Hubs namespace that the consumer is associated with. This is likely to be similar to {yournamespace}.servicebus.windows.net.
+   */
+  fullyQualifiedNamespace?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
+   */
+  __template_fullyQualifiedNamespace?: string | undefined;
 };
 
 /**
@@ -192,6 +248,12 @@ export type InputEventhubAmqp = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -259,6 +321,111 @@ export type InputEventhubAmqp = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputEventhubAmqpInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "eventhub_amqp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name of the Event Hub to consume from
+   */
+  eventHubName?: string | undefined;
+  /**
+   * The consumer group this instance belongs to. Default is '$Default'.
+   */
+  consumerGroup: string;
+  auth?: Auth | undefined;
+  checkpointing?: Checkpointing | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum number of events in each batch delivered to the consumer
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum time to wait for a batch of events before delivering a partial batch
+   */
+  maxWaitTimeInSeconds?: number | undefined;
+  /**
+   * Number of events to prefetch from the service for processing
+   */
+  prefetchCount?: number | undefined;
+  /**
+   * Maximum number of retries per operation
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Initial delay before the first retry, in milliseconds
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Maximum delay between retries, in milliseconds
+   */
+  maxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a request to complete
+   */
+  timeoutInMs?: number | undefined;
+  /**
+   * Initial delay before the first reconnection attempt, in milliseconds
+   */
+  connectionInitialBackoff?: number | undefined;
+  /**
+   * Maximum delay between reconnection attempts, in milliseconds
+   */
+  connectionMaxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete
+   */
+  connectionTimeoutInMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -296,6 +463,23 @@ export const Auth$inboundSchema: z.ZodType<Auth, z.ZodTypeDef, unknown> = z
     ),
     connectionString: types.optional(types.string()),
     textSecret: types.optional(types.string()),
+    clientSecretAuthType: types.optional(
+      AuthenticationMethodOptionsAuth$inboundSchema,
+    ),
+    clientTextSecret: types.optional(types.string()),
+    certificate: types.optional(
+      CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
+    ),
+    oauthEndpoint: types.optional(
+      MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
+    ),
+    clientId: types.optional(types.string()),
+    tenantId: types.optional(types.string()),
+    fullyQualifiedNamespace: types.optional(types.string()),
+    __template_oauthEndpoint: types.optional(types.string()),
+    __template_clientId: types.optional(types.string()),
+    __template_tenantId: types.optional(types.string()),
+    __template_fullyQualifiedNamespace: types.optional(types.string()),
   });
 /** @internal */
 export type Auth$Outbound = {
@@ -303,6 +487,17 @@ export type Auth$Outbound = {
   authType?: string | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
+  clientSecretAuthType?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  oauthEndpoint?: string | undefined;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  fullyQualifiedNamespace?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_fullyQualifiedNamespace?: string | undefined;
 };
 
 /** @internal */
@@ -312,6 +507,21 @@ export const Auth$outboundSchema: z.ZodType<Auth$Outbound, z.ZodTypeDef, Auth> =
     authType: InputEventhubAmqpAuthenticationMethod$outboundSchema.optional(),
     connectionString: z.string().optional(),
     textSecret: z.string().optional(),
+    clientSecretAuthType: AuthenticationMethodOptionsAuth$outboundSchema
+      .optional(),
+    clientTextSecret: z.string().optional(),
+    certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+      .optional(),
+    oauthEndpoint:
+      MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema
+        .optional(),
+    clientId: z.string().optional(),
+    tenantId: z.string().optional(),
+    fullyQualifiedNamespace: z.string().optional(),
+    __template_oauthEndpoint: z.string().optional(),
+    __template_clientId: z.string().optional(),
+    __template_tenantId: z.string().optional(),
+    __template_fullyQualifiedNamespace: z.string().optional(),
   });
 
 export function authToJSON(auth: Auth): string {
@@ -479,6 +689,9 @@ export const InputEventhubAmqp$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -501,9 +714,21 @@ export const InputEventhubAmqp$inboundSchema: z.ZodType<
   metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputEventhubAmqpFromJSON(
+  jsonString: string,
+): SafeParseResult<InputEventhubAmqp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputEventhubAmqp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEventhubAmqp' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputEventhubAmqp$Outbound = {
+export type InputEventhubAmqpInput$Outbound = {
   id?: string | undefined;
   type: "eventhub_amqp";
   disabled?: boolean | undefined;
@@ -532,13 +757,14 @@ export type InputEventhubAmqp$Outbound = {
   metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputEventhubAmqp$outboundSchema: z.ZodType<
-  InputEventhubAmqp$Outbound,
+export const InputEventhubAmqpInput$outboundSchema: z.ZodType<
+  InputEventhubAmqpInput$Outbound,
   z.ZodTypeDef,
-  InputEventhubAmqp
+  InputEventhubAmqpInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("eventhub_amqp"),
@@ -568,21 +794,13 @@ export const InputEventhubAmqp$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputEventhubAmqpToJSON(
-  inputEventhubAmqp: InputEventhubAmqp,
+export function inputEventhubAmqpInputToJSON(
+  inputEventhubAmqpInput: InputEventhubAmqpInput,
 ): string {
   return JSON.stringify(
-    InputEventhubAmqp$outboundSchema.parse(inputEventhubAmqp),
-  );
-}
-export function inputEventhubAmqpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubAmqp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubAmqp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubAmqp' from JSON`,
+    InputEventhubAmqpInput$outboundSchema.parse(inputEventhubAmqpInput),
   );
 }

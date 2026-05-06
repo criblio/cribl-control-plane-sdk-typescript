@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
@@ -13,6 +12,10 @@ import {
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
 import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
@@ -37,11 +40,6 @@ import {
   TlsSettingsServerSideType$Outbound,
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
-
-export const InputSplunkHecType = {
-  SplunkHec: "splunk_hec",
-} as const;
-export type InputSplunkHecType = ClosedEnum<typeof InputSplunkHecType>;
 
 export type InputSplunkHecAuthToken = {
   /**
@@ -76,7 +74,169 @@ export type InputSplunkHec = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSplunkHecType;
+  type: string;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputSplunkHecAuthToken> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
+   */
+  splunkHecAPI: string;
+  /**
+   * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * Enable Splunk HEC acknowledgements
+   */
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+   */
+  useFwdTimezone?: boolean | undefined;
+  /**
+   * Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+   */
+  dropControlFields?: boolean | undefined;
+  /**
+   * Extract and process Splunk-generated metrics as Cribl metrics
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
+};
+
+export type InputSplunkHecInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "splunk_hec";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -210,6 +370,10 @@ export type InputSplunkHec = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -222,15 +386,6 @@ export type InputSplunkHec = {
    */
   __template_splunkHecAPI?: string | undefined;
 };
-
-/** @internal */
-export const InputSplunkHecType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkHecType
-> = z.nativeEnum(InputSplunkHecType);
-/** @internal */
-export const InputSplunkHecType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkHecType
-> = InputSplunkHecType$inboundSchema;
 
 /** @internal */
 export const InputSplunkHecAuthToken$inboundSchema: z.ZodType<
@@ -299,13 +454,16 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: types.optional(types.string()),
-  type: InputSplunkHecType$inboundSchema,
+  type: types.string(),
   disabled: types.optional(types.boolean()),
   pipeline: types.optional(types.string()),
   sendToRoutes: types.optional(types.boolean()),
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -340,14 +498,26 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   emitTokenMetrics: types.optional(types.boolean()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_splunkHecAPI: types.optional(types.string()),
 });
+
+export function inputSplunkHecFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHec' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputSplunkHec$Outbound = {
+export type InputSplunkHecInput$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "splunk_hec";
   disabled?: boolean | undefined;
   pipeline?: string | undefined;
   sendToRoutes?: boolean | undefined;
@@ -384,19 +554,20 @@ export type InputSplunkHec$Outbound = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
-export const InputSplunkHec$outboundSchema: z.ZodType<
-  InputSplunkHec$Outbound,
+export const InputSplunkHecInput$outboundSchema: z.ZodType<
+  InputSplunkHecInput$Outbound,
   z.ZodTypeDef,
-  InputSplunkHec
+  InputSplunkHecInput
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkHecType$outboundSchema,
+  type: z.literal("splunk_hec"),
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
@@ -434,20 +605,16 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_splunkHecAPI: z.string().optional(),
 });
 
-export function inputSplunkHecToJSON(inputSplunkHec: InputSplunkHec): string {
-  return JSON.stringify(InputSplunkHec$outboundSchema.parse(inputSplunkHec));
-}
-export function inputSplunkHecFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkHec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkHec' from JSON`,
+export function inputSplunkHecInputToJSON(
+  inputSplunkHecInput: InputSplunkHecInput,
+): string {
+  return JSON.stringify(
+    InputSplunkHecInput$outboundSchema.parse(inputSplunkHecInput),
   );
 }

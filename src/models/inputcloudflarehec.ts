@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -141,6 +145,12 @@ export type InputCloudflareHec = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -236,6 +246,10 @@ export type InputCloudflareHec = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -247,6 +261,170 @@ export type InputCloudflareHec = {
    * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
    */
   __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
+};
+
+export type InputCloudflareHecInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "cloudflare_hec";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
+  tls?: TLSSettingsServerSide | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+   */
+  __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
@@ -403,6 +581,9 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -433,12 +614,27 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
   emitTokenMetrics: types.optional(types.boolean()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_hecAPI: types.optional(types.string()),
+  __template_allowedIndexes: types.optional(types.string()),
+  __template_accessControlAllowOrigin: types.optional(types.string()),
+  __template_accessControlAllowHeaders: types.optional(types.string()),
 });
+
+export function inputCloudflareHecFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCloudflareHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCloudflareHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCloudflareHec' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputCloudflareHec$Outbound = {
+export type InputCloudflareHecInput$Outbound = {
   id?: string | undefined;
   type: "cloudflare_hec";
   disabled?: boolean | undefined;
@@ -473,16 +669,20 @@ export type InputCloudflareHec$Outbound = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_hecAPI?: string | undefined;
+  __template_allowedIndexes?: string | undefined;
+  __template_accessControlAllowOrigin?: string | undefined;
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
-export const InputCloudflareHec$outboundSchema: z.ZodType<
-  InputCloudflareHec$Outbound,
+export const InputCloudflareHecInput$outboundSchema: z.ZodType<
+  InputCloudflareHecInput$Outbound,
   z.ZodTypeDef,
-  InputCloudflareHec
+  InputCloudflareHecInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("cloudflare_hec"),
@@ -519,24 +719,19 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_hecAPI: z.string().optional(),
+  __template_allowedIndexes: z.string().optional(),
+  __template_accessControlAllowOrigin: z.string().optional(),
+  __template_accessControlAllowHeaders: z.string().optional(),
 });
 
-export function inputCloudflareHecToJSON(
-  inputCloudflareHec: InputCloudflareHec,
+export function inputCloudflareHecInputToJSON(
+  inputCloudflareHecInput: InputCloudflareHecInput,
 ): string {
   return JSON.stringify(
-    InputCloudflareHec$outboundSchema.parse(inputCloudflareHec),
-  );
-}
-export function inputCloudflareHecFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCloudflareHec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCloudflareHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHec' from JSON`,
+    InputCloudflareHecInput$outboundSchema.parse(inputCloudflareHecInput),
   );
 }

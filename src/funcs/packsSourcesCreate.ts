@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Create a Source within a Pack
  *
  * @remarks
- * Create a new Source within the specified Pack.
+ * Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body within the specified Pack.
  */
 export function packsSourcesCreate(
   client: CriblControlPlaneCore,

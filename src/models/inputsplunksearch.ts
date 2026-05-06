@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -104,6 +108,186 @@ export type InputSplunkSearchAuthenticationType = OpenEnum<
 >;
 
 export type InputSplunkSearch = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "splunk_search";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead: string;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * REST API used to create a search
+   */
+  endpoint: string;
+  /**
+   * Format of the returned output
+   */
+  outputMode: OutputModeOptionsSplunkCollectorConf;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<EndpointParam> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<EndpointHeader> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: InputSplunkSearchLogLevel | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType: InputSplunkSearchAuthenticationType;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
+   */
+  __template_searchHead?: string | undefined;
+  /**
+   * Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
+   */
+  __template_search?: string | undefined;
+  /**
+   * Binds 'earliest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'earliest' at runtime.
+   */
+  __template_earliest?: string | undefined;
+  /**
+   * Binds 'latest' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'latest' at runtime.
+   */
+  __template_latest?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+   */
+  __template_logLevel?: string | undefined;
+};
+
+export type InputSplunkSearchInput = {
   /**
    * Unique ID for this input
    */
@@ -227,7 +411,7 @@ export type InputSplunkSearch = {
   /**
    * Splunk Search authentication type
    */
-  authType?: InputSplunkSearchAuthenticationType | undefined;
+  authType: InputSplunkSearchAuthenticationType;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -247,6 +431,10 @@ export type InputSplunkSearch = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -389,6 +577,9 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -420,7 +611,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   retryRules: types.optional(RetryRulesType$inboundSchema),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
-  authType: types.optional(InputSplunkSearchAuthenticationType$inboundSchema),
+  authType: InputSplunkSearchAuthenticationType$inboundSchema,
   description: types.optional(types.string()),
   username: types.optional(types.string()),
   password: types.optional(types.string()),
@@ -428,6 +619,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -435,8 +627,19 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   __template_endpoint: types.optional(types.string()),
   __template_logLevel: types.optional(types.string()),
 });
+
+export function inputSplunkSearchFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearch, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearch$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearch' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputSplunkSearch$Outbound = {
+export type InputSplunkSearchInput$Outbound = {
   id?: string | undefined;
   type: "splunk_search";
   disabled?: boolean | undefined;
@@ -470,7 +673,7 @@ export type InputSplunkSearch$Outbound = {
   retryRules?: RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  authType?: string | undefined;
+  authType: string;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -478,6 +681,7 @@ export type InputSplunkSearch$Outbound = {
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -487,10 +691,10 @@ export type InputSplunkSearch$Outbound = {
 };
 
 /** @internal */
-export const InputSplunkSearch$outboundSchema: z.ZodType<
-  InputSplunkSearch$Outbound,
+export const InputSplunkSearchInput$outboundSchema: z.ZodType<
+  InputSplunkSearchInput$Outbound,
   z.ZodTypeDef,
-  InputSplunkSearch
+  InputSplunkSearchInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("splunk_search"),
@@ -527,7 +731,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   retryRules: RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  authType: InputSplunkSearchAuthenticationType$outboundSchema.optional(),
+  authType: InputSplunkSearchAuthenticationType$outboundSchema,
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -535,6 +739,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -543,19 +748,10 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   __template_logLevel: z.string().optional(),
 });
 
-export function inputSplunkSearchToJSON(
-  inputSplunkSearch: InputSplunkSearch,
+export function inputSplunkSearchInputToJSON(
+  inputSplunkSearchInput: InputSplunkSearchInput,
 ): string {
   return JSON.stringify(
-    InputSplunkSearch$outboundSchema.parse(inputSplunkSearch),
-  );
-}
-export function inputSplunkSearchFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearch, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearch$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearch' from JSON`,
+    InputSplunkSearchInput$outboundSchema.parse(inputSplunkSearchInput),
   );
 }

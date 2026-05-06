@@ -9,13 +9,6 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputSystemByPackAPIVersion,
-  CreateOutputSystemByPackAPIVersion$outboundSchema,
-  CreateOutputSystemByPackAuthenticationMethodGoogleChronicle,
-  CreateOutputSystemByPackAuthenticationMethodGoogleChronicle$outboundSchema,
-  CreateOutputSystemByPackExtraLogType,
-  CreateOutputSystemByPackExtraLogType$Outbound,
-  CreateOutputSystemByPackExtraLogType$outboundSchema,
   CreateOutputSystemByPackOutputAlphasocS3,
   CreateOutputSystemByPackOutputAlphasocS3$Outbound,
   CreateOutputSystemByPackOutputAlphasocS3$outboundSchema,
@@ -28,6 +21,9 @@ import {
   CreateOutputSystemByPackOutputCloudflareR2,
   CreateOutputSystemByPackOutputCloudflareR2$Outbound,
   CreateOutputSystemByPackOutputCloudflareR2$outboundSchema,
+  CreateOutputSystemByPackOutputCloudianS3,
+  CreateOutputSystemByPackOutputCloudianS3$Outbound,
+  CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
   CreateOutputSystemByPackOutputCloudwatch,
   CreateOutputSystemByPackOutputCloudwatch$Outbound,
   CreateOutputSystemByPackOutputCloudwatch$outboundSchema,
@@ -58,6 +54,9 @@ import {
   CreateOutputSystemByPackOutputDataset,
   CreateOutputSystemByPackOutputDataset$Outbound,
   CreateOutputSystemByPackOutputDataset$outboundSchema,
+  CreateOutputSystemByPackOutputDellS3,
+  CreateOutputSystemByPackOutputDellS3$Outbound,
+  CreateOutputSystemByPackOutputDellS3$outboundSchema,
   CreateOutputSystemByPackOutputDiskSpool,
   CreateOutputSystemByPackOutputDiskSpool$Outbound,
   CreateOutputSystemByPackOutputDiskSpool$outboundSchema,
@@ -82,9 +81,6 @@ import {
   CreateOutputSystemByPackOutputGoogleCloudLogging,
   CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound,
   CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
-  CreateOutputSystemByPackOutputGoogleCloudStorage,
-  CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound,
-  CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
   CreateOutputSystemByPackOutputGooglePubsub,
   CreateOutputSystemByPackOutputGooglePubsub$Outbound,
   CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
@@ -142,6 +138,9 @@ import {
   CreateOutputSystemByPackOutputRouter,
   CreateOutputSystemByPackOutputRouter$Outbound,
   CreateOutputSystemByPackOutputRouter$outboundSchema,
+  CreateOutputSystemByPackOutputScalityS3,
+  CreateOutputSystemByPackOutputScalityS3$Outbound,
+  CreateOutputSystemByPackOutputScalityS3$outboundSchema,
   CreateOutputSystemByPackOutputSecurityLake,
   CreateOutputSystemByPackOutputSecurityLake$Outbound,
   CreateOutputSystemByPackOutputSecurityLake$outboundSchema,
@@ -166,20 +165,389 @@ import {
   CreateOutputSystemByPackOutputStatsdExt,
   CreateOutputSystemByPackOutputStatsdExt$Outbound,
   CreateOutputSystemByPackOutputStatsdExt$outboundSchema,
+  CreateOutputSystemByPackOutputStorjS3,
+  CreateOutputSystemByPackOutputStorjS3$Outbound,
+  CreateOutputSystemByPackOutputStorjS3$outboundSchema,
   CreateOutputSystemByPackOutputSumoLogic,
   CreateOutputSystemByPackOutputSumoLogic$Outbound,
   CreateOutputSystemByPackOutputSumoLogic$outboundSchema,
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-  CreateOutputSystemByPackPqControlsGoogleChronicle,
-  CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
-  CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema,
-  CreateOutputSystemByPackSendEventsAs,
-  CreateOutputSystemByPackSendEventsAs$outboundSchema,
-  CreateOutputSystemByPackUDMType,
-  CreateOutputSystemByPackUDMType$outboundSchema,
-} from "./createoutputsystembypackpqcontrolsgooglechronicle.js";
+} from "./createoutputsystembypackoutputgooglecloudlogging.js";
+
+export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage = {
+  /**
+   * auto
+   */
+  Auto: "auto",
+  /**
+   * manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+export type CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage =
+  OpenEnum<
+    typeof CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+  >;
+
+export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_cloud_storage";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint: string;
+  /**
+   * Signature version to use for signing Google Cloud Storage requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsGoogle | undefined;
+  awsAuthenticationMethod?:
+    | CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+    | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?:
+    | models.ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
+    | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptionsArchiveColdline | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptionsHttp | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+};
+
+export const CreateOutputSystemByPackAPIVersion = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type CreateOutputSystemByPackAPIVersion = OpenEnum<
+  typeof CreateOutputSystemByPackAPIVersion
+>;
+
+export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type CreateOutputSystemByPackAuthenticationMethodGoogleChronicle =
+  OpenEnum<typeof CreateOutputSystemByPackAuthenticationMethodGoogleChronicle>;
+
+export const CreateOutputSystemByPackSendEventsAs = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type CreateOutputSystemByPackSendEventsAs = OpenEnum<
+  typeof CreateOutputSystemByPackSendEventsAs
+>;
+
+export type CreateOutputSystemByPackExtraLogType = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const CreateOutputSystemByPackUDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type CreateOutputSystemByPackUDMType = OpenEnum<
+  typeof CreateOutputSystemByPackUDMType
+>;
+
+export type CreateOutputSystemByPackPqControlsGoogleChronicle = {};
 
 export type CreateOutputSystemByPackOutputGoogleChronicle = {
   /**
@@ -370,6 +738,10 @@ export type CreateOutputSystemByPackOutputGoogleChronicle = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsGoogleChronicle | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
    */
   __template_apiVersion?: string | undefined;
@@ -530,6 +902,14 @@ export type CreateOutputSystemByPackOutputAzureEventhub = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsAzureEventhub | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
@@ -693,6 +1073,10 @@ export type CreateOutputSystemByPackOutputHoneycomb = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -875,6 +1259,10 @@ export type CreateOutputSystemByPackOutputKinesis = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsKinesis | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
    */
@@ -1081,6 +1469,10 @@ export type CreateOutputSystemByPackOutputAzureLogs = {
    * Select or create a stored secret that references your access key and secret key
    */
   keypairSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -1554,6 +1946,10 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsAzureDataExplorer | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
    */
   __template_clusterUrl?: string | undefined;
@@ -1853,6 +2249,10 @@ export type CreateOutputSystemByPackOutputAzureBlob = {
    */
   clientTextSecret?: string | undefined;
   certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
    */
@@ -2163,6 +2563,10 @@ export type CreateOutputSystemByPackOutputS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -2406,6 +2810,10 @@ export type CreateOutputSystemByPackOutputFilesystem = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
    */
   __template_partitionExpr?: string | undefined;
@@ -2585,6 +2993,10 @@ export type CreateOutputSystemByPackOutputSignalfx = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSignalfx | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -2744,6 +3156,10 @@ export type CreateOutputSystemByPackOutputWavefront = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsWavefront | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -2900,6 +3316,10 @@ export type CreateOutputSystemByPackOutputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
@@ -3077,6 +3497,10 @@ export type CreateOutputSystemByPackOutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -3293,6 +3717,10 @@ export type CreateOutputSystemByPackOutputSplunkHec = {
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSplunkHec | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -3522,6 +3950,10 @@ export type CreateOutputSystemByPackOutputSplunkLb = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
    */
   __template_nestedFields?: string | undefined;
@@ -3675,6 +4107,10 @@ export type CreateOutputSystemByPackOutputSplunk = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -3724,27 +4160,93 @@ export type CreateOutputSystemByPackProtocolSyslog = OpenEnum<
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
 export const CreateOutputSystemByPackFacility = {
+  /**
+   * kern
+   */
   Zero: 0,
+  /**
+   * user
+   */
   One: 1,
+  /**
+   * mail
+   */
   Two: 2,
+  /**
+   * daemon
+   */
   Three: 3,
+  /**
+   * auth
+   */
   Four: 4,
+  /**
+   * syslog
+   */
   Five: 5,
+  /**
+   * lpr
+   */
   Six: 6,
+  /**
+   * news
+   */
   Seven: 7,
+  /**
+   * uucp
+   */
   Eight: 8,
+  /**
+   * cron
+   */
   Nine: 9,
+  /**
+   * authpriv
+   */
   Ten: 10,
+  /**
+   * ftp
+   */
   Eleven: 11,
+  /**
+   * ntp
+   */
   Twelve: 12,
+  /**
+   * security
+   */
   Thirteen: 13,
+  /**
+   * console
+   */
   Fourteen: 14,
+  /**
+   * solaris-cron
+   */
   Fifteen: 15,
+  /**
+   * local0
+   */
   Sixteen: 16,
+  /**
+   * local1
+   */
   Seventeen: 17,
+  /**
+   * local2
+   */
   Eighteen: 18,
+  /**
+   * local3
+   */
   Nineteen: 19,
+  /**
+   * local4
+   */
   Twenty: 20,
+  /**
+   * local5
+   */
   TwentyOne: 21,
 } as const;
 /**
@@ -4002,6 +4504,10 @@ export type CreateOutputSystemByPackOutputSyslog = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSyslog | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -4037,6 +4543,10 @@ export type CreateOutputSystemByPackOutputDevnull = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 export const CreateOutputSystemByPackAuthType = {
@@ -4287,6 +4797,10 @@ export type CreateOutputSystemByPackOutputSentinel = {
    * The name of the stream (Sentinel table) in which to store the events
    */
   streamName?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
@@ -4671,6 +5185,10 @@ export type CreateOutputSystemByPackOutputWebhookWebhook2 = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -5034,6 +5552,10 @@ export type CreateOutputSystemByPackOutputWebhookWebhook1 = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -5085,6 +5607,10 @@ export type CreateOutputSystemByPackOutputDefault = {
    * ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
    */
   defaultId: string | null;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /**
@@ -5168,11 +5694,15 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputMicrosoftFabric
   | CreateOutputSystemByPackOutputCloudflareR2
   | CreateOutputSystemByPackOutputNutanixObjects
-  | CreateOutputSystemByPackOutputAlphasocS3;
+  | CreateOutputSystemByPackOutputStorjS3
+  | CreateOutputSystemByPackOutputAlphasocS3
+  | CreateOutputSystemByPackOutputDellS3
+  | CreateOutputSystemByPackOutputCloudianS3
+  | CreateOutputSystemByPackOutputScalityS3;
 
 export type CreateOutputSystemByPackRequest = {
   /**
-   * The <code>id</code> of the Pack to create.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**
@@ -5256,8 +5786,283 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputMicrosoftFabric
     | CreateOutputSystemByPackOutputCloudflareR2
     | CreateOutputSystemByPackOutputNutanixObjects
-    | CreateOutputSystemByPackOutputAlphasocS3;
+    | CreateOutputSystemByPackOutputStorjS3
+    | CreateOutputSystemByPackOutputAlphasocS3
+    | CreateOutputSystemByPackOutputDellS3
+    | CreateOutputSystemByPackOutputCloudianS3
+    | CreateOutputSystemByPackOutputScalityS3;
 };
+
+/** @internal */
+export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage,
+  );
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound = {
+  id: string;
+  type: "google_cloud_storage";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  stagePath: string;
+  destPath?: string | undefined;
+  verifyPermissions?: boolean | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
+  description?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_partitionExpr?: string | undefined;
+  __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGoogleCloudStorage
+  > = z.object({
+    id: z.string(),
+    type: z.literal("google_cloud_storage"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string(),
+    signatureVersion: models.SignatureVersionOptionsGoogle$outboundSchema
+      .optional(),
+    awsAuthenticationMethod:
+      CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema
+        .optional(),
+    stagePath: z.string(),
+    destPath: z.string().optional(),
+    verifyPermissions: z.boolean().optional(),
+    objectACL: models
+      .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
+      .optional(),
+    storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
+      .optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    addIdToStagePath: z.boolean().optional(),
+    removeEmptyDirs: z.boolean().optional(),
+    partitionExpr: z.string().optional(),
+    format: models.DataFormatOptions$outboundSchema.optional(),
+    baseFileName: z.string().optional(),
+    fileNameSuffix: z.string().optional(),
+    maxFileSizeMB: z.number().optional(),
+    maxFileOpenTimeSec: z.number().optional(),
+    maxFileIdleTimeSec: z.number().optional(),
+    maxOpenFiles: z.number().optional(),
+    headerLine: z.string().optional(),
+    writeHighWaterMark: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+      .optional(),
+    deadletterEnabled: z.boolean().optional(),
+    onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+      .optional(),
+    forceCloseOnShutdown: z.boolean().optional(),
+    retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+    description: z.string().optional(),
+    compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+    compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+    automaticSchema: z.boolean().optional(),
+    parquetSchema: z.string().optional(),
+    parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+    parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+      .optional(),
+    parquetRowGroupLength: z.number().optional(),
+    parquetPageSize: z.string().optional(),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+      .optional(),
+    enableStatistics: z.boolean().optional(),
+    enableWritePageIndex: z.boolean().optional(),
+    enablePageChecksum: z.boolean().optional(),
+    emptyDirCleanupSec: z.number().optional(),
+    directoryBatchSize: z.number().optional(),
+    deadletterPath: z.string().optional(),
+    maxRetryNum: z.number().optional(),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_bucket: z.string().optional(),
+    __template_region: z.string().optional(),
+    __template_endpoint: z.string().optional(),
+    __template_destPath: z.string().optional(),
+    __template_objectACL: z.string().optional(),
+    __template_storageClass: z.string().optional(),
+    __template_partitionExpr: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_baseFileName: z.string().optional(),
+    __template_fileNameSuffix: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+    __template_awsApiKey: z.string().optional(),
+    __template_awsSecretKey: z.string().optional(),
+  });
+
+export function createOutputSystemByPackOutputGoogleCloudStorageToJSON(
+  createOutputSystemByPackOutputGoogleCloudStorage:
+    CreateOutputSystemByPackOutputGoogleCloudStorage,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema.parse(
+      createOutputSystemByPackOutputGoogleCloudStorage,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputSystemByPackAPIVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackAPIVersion
+> = openEnums.outboundSchema(CreateOutputSystemByPackAPIVersion);
+
+/** @internal */
+export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationMethodGoogleChronicle
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodGoogleChronicle,
+  );
+
+/** @internal */
+export const CreateOutputSystemByPackSendEventsAs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackSendEventsAs
+> = openEnums.outboundSchema(CreateOutputSystemByPackSendEventsAs);
+
+/** @internal */
+export type CreateOutputSystemByPackExtraLogType$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackExtraLogType$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackExtraLogType$Outbound,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackExtraLogType
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function createOutputSystemByPackExtraLogTypeToJSON(
+  createOutputSystemByPackExtraLogType: CreateOutputSystemByPackExtraLogType,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackExtraLogType$outboundSchema.parse(
+      createOutputSystemByPackExtraLogType,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputSystemByPackUDMType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackUDMType
+> = openEnums.outboundSchema(CreateOutputSystemByPackUDMType);
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGoogleChronicle
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsGoogleChronicleToJSON(
+  createOutputSystemByPackPqControlsGoogleChronicle:
+    CreateOutputSystemByPackPqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGoogleChronicle,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputSystemByPackOutputGoogleChronicle$Outbound = {
@@ -5319,6 +6124,7 @@ export type CreateOutputSystemByPackOutputGoogleChronicle$Outbound = {
   pqControls?:
     | CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound
     | undefined;
+  __template_streamtags?: string | undefined;
   __template_apiVersion?: string | undefined;
   __template_region?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -5368,8 +6174,9 @@ export const CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema:
       .optional(),
     totalMemoryLimitKB: z.number().optional(),
     description: z.string().optional(),
-    extraLogTypes: z.array(CreateOutputSystemByPackExtraLogType$outboundSchema)
-      .optional(),
+    extraLogTypes: z.array(
+      z.lazy(() => CreateOutputSystemByPackExtraLogType$outboundSchema),
+    ).optional(),
     logType: z.string().optional(),
     logTextField: z.string().optional(),
     customerId: z.string().optional(),
@@ -5392,8 +6199,10 @@ export const CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema:
     pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
     pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
     pqMaxBufferSizeBytes: z.string().optional(),
-    pqControls: CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
-      .optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
     __template_apiVersion: z.string().optional(),
     __template_region: z.string().optional(),
     __template_failedRequestLoggingMode: z.string().optional(),
@@ -5475,6 +6284,8 @@ export type CreateOutputSystemByPackOutputAzureEventhub$Outbound = {
   pqControls?:
     | CreateOutputSystemByPackPqControlsAzureEventhub$Outbound
     | undefined;
+  __template_streamtags?: string | undefined;
+  __template_brokers?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -5527,6 +6338,8 @@ export const CreateOutputSystemByPackOutputAzureEventhub$outboundSchema:
     pqControls: z.lazy(() =>
       CreateOutputSystemByPackPqControlsAzureEventhub$outboundSchema
     ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_brokers: z.string().optional(),
     __template_topic: z.string().optional(),
     __template_format: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
@@ -5609,6 +6422,7 @@ export type CreateOutputSystemByPackOutputHoneycomb$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsHoneycomb$Outbound | undefined;
   team?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -5664,6 +6478,7 @@ export const CreateOutputSystemByPackOutputHoneycomb$outboundSchema: z.ZodType<
   ).optional(),
   team: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -5751,6 +6566,7 @@ export type CreateOutputSystemByPackOutputKinesis$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsKinesis$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -5811,6 +6627,7 @@ export const CreateOutputSystemByPackOutputKinesis$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsKinesis$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
@@ -5910,6 +6727,7 @@ export type CreateOutputSystemByPackOutputAzureLogs$Outbound = {
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_workspaceId?: string | undefined;
@@ -5971,6 +6789,7 @@ export const CreateOutputSystemByPackOutputAzureLogs$outboundSchema: z.ZodType<
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_workspaceId: z.string().optional(),
@@ -6249,6 +7068,7 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer$Outbound = {
   pqControls?:
     | CreateOutputSystemByPackPqControlsAzureDataExplorer$Outbound
     | undefined;
+  __template_streamtags?: string | undefined;
   __template_clusterUrl?: string | undefined;
   __template_database?: string | undefined;
   __template_table?: string | undefined;
@@ -6379,6 +7199,7 @@ export const CreateOutputSystemByPackOutputAzureDataExplorer$outboundSchema:
     pqControls: z.lazy(() =>
       CreateOutputSystemByPackPqControlsAzureDataExplorer$outboundSchema
     ).optional(),
+    __template_streamtags: z.string().optional(),
     __template_clusterUrl: z.string().optional(),
     __template_database: z.string().optional(),
     __template_table: z.string().optional(),
@@ -6478,6 +7299,7 @@ export type CreateOutputSystemByPackOutputAzureBlob$Outbound = {
   certificate?:
     | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
     | undefined;
+  __template_streamtags?: string | undefined;
   __template_containerName?: string | undefined;
   __template_destPath?: string | undefined;
   __template_partitionExpr?: string | undefined;
@@ -6564,6 +7386,7 @@ export const CreateOutputSystemByPackOutputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_containerName: z.string().optional(),
   __template_destPath: z.string().optional(),
   __template_partitionExpr: z.string().optional(),
@@ -6660,6 +7483,7 @@ export type CreateOutputSystemByPackOutputS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -6758,6 +7582,7 @@ export const CreateOutputSystemByPackOutputS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -6837,6 +7662,7 @@ export type CreateOutputSystemByPackOutputFilesystem$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
   __template_baseFileName?: string | undefined;
@@ -6900,6 +7726,7 @@ export const CreateOutputSystemByPackOutputFilesystem$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
   __template_baseFileName: z.string().optional(),
@@ -6986,6 +7813,7 @@ export type CreateOutputSystemByPackOutputSignalfx$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSignalfx$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -7042,6 +7870,7 @@ export const CreateOutputSystemByPackOutputSignalfx$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsSignalfx$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -7123,6 +7952,7 @@ export type CreateOutputSystemByPackOutputWavefront$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsWavefront$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -7179,6 +8009,7 @@ export const CreateOutputSystemByPackOutputWavefront$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsWavefront$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
@@ -7257,6 +8088,7 @@ export type CreateOutputSystemByPackOutputTcpjson$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsTcpjson$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -7310,6 +8142,7 @@ export const CreateOutputSystemByPackOutputTcpjson$outboundSchema: z.ZodType<
   ).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -7397,6 +8230,7 @@ export type CreateOutputSystemByPackOutputWizHec$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsWizHec$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_wiz_environment?: string | undefined;
@@ -7462,6 +8296,7 @@ export const CreateOutputSystemByPackOutputWizHec$outboundSchema: z.ZodType<
   ).optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
@@ -7584,6 +8419,7 @@ export type CreateOutputSystemByPackOutputSplunkHec$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSplunkHec$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
@@ -7653,6 +8489,7 @@ export const CreateOutputSystemByPackOutputSplunkHec$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsSplunkHec$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
@@ -7809,6 +8646,7 @@ export type CreateOutputSystemByPackOutputSplunkLb$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsSplunkLb$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_nestedFields?: string | undefined;
   __template_maxS2Sversion?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -7869,6 +8707,7 @@ export const CreateOutputSystemByPackOutputSplunkLb$outboundSchema: z.ZodType<
   ).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_nestedFields: z.string().optional(),
   __template_maxS2Sversion: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -7945,6 +8784,7 @@ export type CreateOutputSystemByPackOutputSplunk$Outbound = {
   pqControls?: CreateOutputSystemByPackPqControlsSplunk$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_nestedFields?: string | undefined;
@@ -7999,6 +8839,7 @@ export const CreateOutputSystemByPackOutputSplunk$outboundSchema: z.ZodType<
   ).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_nestedFields: z.string().optional(),
@@ -8118,6 +8959,7 @@ export type CreateOutputSystemByPackOutputSyslog$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSyslog$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -8176,6 +9018,7 @@ export const CreateOutputSystemByPackOutputSyslog$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     CreateOutputSystemByPackPqControlsSyslog$outboundSchema
   ).optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
@@ -8199,6 +9042,7 @@ export type CreateOutputSystemByPackOutputDevnull$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -8213,6 +9057,7 @@ export const CreateOutputSystemByPackOutputDevnull$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputDevnullToJSON(
@@ -8330,6 +9175,7 @@ export type CreateOutputSystemByPackOutputSentinel$Outbound = {
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
   streamName?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
@@ -8411,6 +9257,7 @@ export const CreateOutputSystemByPackOutputSentinel$outboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
@@ -8586,6 +9433,7 @@ export type CreateOutputSystemByPackOutputWebhookWebhook2$Outbound = {
   urls: Array<CreateOutputSystemByPackOutputWebhookUrl2$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
@@ -8682,6 +9530,7 @@ export const CreateOutputSystemByPackOutputWebhookWebhook2$outboundSchema:
     ),
     dnsResolvePeriodSec: z.number().optional(),
     loadBalanceStatsPeriodSec: z.number().optional(),
+    __template_streamtags: z.string().optional(),
     __template_failedRequestLoggingMode: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
     __template_loginUrl: z.string().optional(),
@@ -8852,6 +9701,7 @@ export type CreateOutputSystemByPackOutputWebhookWebhook1$Outbound = {
   urls?: Array<CreateOutputSystemByPackOutputWebhookUrl1$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
@@ -8948,6 +9798,7 @@ export const CreateOutputSystemByPackOutputWebhookWebhook1$outboundSchema:
     ).optional(),
     dnsResolvePeriodSec: z.number().optional(),
     loadBalanceStatsPeriodSec: z.number().optional(),
+    __template_streamtags: z.string().optional(),
     __template_failedRequestLoggingMode: z.string().optional(),
     __template_onBackpressure: z.string().optional(),
     __template_loginUrl: z.string().optional(),
@@ -9002,6 +9853,7 @@ export type CreateOutputSystemByPackOutputDefault$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   defaultId: string | null;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -9017,6 +9869,7 @@ export const CreateOutputSystemByPackOutputDefault$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   defaultId: z.nullable(z.string()),
+  __template_streamtags: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputDefaultToJSON(
@@ -9110,7 +9963,11 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputMicrosoftFabric$Outbound
   | CreateOutputSystemByPackOutputCloudflareR2$Outbound
   | CreateOutputSystemByPackOutputNutanixObjects$Outbound
-  | CreateOutputSystemByPackOutputAlphasocS3$Outbound;
+  | CreateOutputSystemByPackOutputStorjS3$Outbound
+  | CreateOutputSystemByPackOutputAlphasocS3$Outbound
+  | CreateOutputSystemByPackOutputDellS3$Outbound
+  | CreateOutputSystemByPackOutputCloudianS3$Outbound
+  | CreateOutputSystemByPackOutputScalityS3$Outbound;
 
 /** @internal */
 export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
@@ -9142,7 +9999,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputSystemByPackOutputHoneycomb$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputAzureEventhub$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema),
-  CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
+  z.lazy(() => CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema),
   CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
   CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
   CreateOutputSystemByPackOutputExabeam$outboundSchema,
@@ -9195,7 +10052,11 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema,
   CreateOutputSystemByPackOutputCloudflareR2$outboundSchema,
   CreateOutputSystemByPackOutputNutanixObjects$outboundSchema,
+  CreateOutputSystemByPackOutputStorjS3$outboundSchema,
   CreateOutputSystemByPackOutputAlphasocS3$outboundSchema,
+  CreateOutputSystemByPackOutputDellS3$outboundSchema,
+  CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
+  CreateOutputSystemByPackOutputScalityS3$outboundSchema,
 ]);
 
 export function createOutputSystemByPackRequestBodyToJSON(
@@ -9291,7 +10152,11 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputMicrosoftFabric$Outbound
     | CreateOutputSystemByPackOutputCloudflareR2$Outbound
     | CreateOutputSystemByPackOutputNutanixObjects$Outbound
-    | CreateOutputSystemByPackOutputAlphasocS3$Outbound;
+    | CreateOutputSystemByPackOutputStorjS3$Outbound
+    | CreateOutputSystemByPackOutputAlphasocS3$Outbound
+    | CreateOutputSystemByPackOutputDellS3$Outbound
+    | CreateOutputSystemByPackOutputCloudianS3$Outbound
+    | CreateOutputSystemByPackOutputScalityS3$Outbound;
 };
 
 /** @internal */
@@ -9332,7 +10197,9 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateOutputSystemByPackOutputHoneycomb$outboundSchema),
     z.lazy(() => CreateOutputSystemByPackOutputAzureEventhub$outboundSchema),
     z.lazy(() => CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema),
-    CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
+    z.lazy(() =>
+      CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema
+    ),
     CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
     CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
     CreateOutputSystemByPackOutputExabeam$outboundSchema,
@@ -9385,7 +10252,11 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema,
     CreateOutputSystemByPackOutputCloudflareR2$outboundSchema,
     CreateOutputSystemByPackOutputNutanixObjects$outboundSchema,
+    CreateOutputSystemByPackOutputStorjS3$outboundSchema,
     CreateOutputSystemByPackOutputAlphasocS3$outboundSchema,
+    CreateOutputSystemByPackOutputDellS3$outboundSchema,
+    CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
+    CreateOutputSystemByPackOutputScalityS3$outboundSchema,
   ]),
 }).transform((v) => {
   return remap$(v, {
