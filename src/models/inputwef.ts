@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -214,6 +218,12 @@ export type InputWef = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -300,6 +310,146 @@ export type InputWef = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'keytab' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytab' at runtime.
+   */
+  __template_keytab?: string | undefined;
+  /**
+   * Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+   */
+  __template_principal?: string | undefined;
+};
+
+export type InputWefInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "wef";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod | undefined;
+  tls?: MTLSSettings | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -551,6 +701,9 @@ export const InputWef$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -577,13 +730,25 @@ export const InputWef$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   logFingerprintMismatch: types.optional(types.boolean()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_keytab: types.optional(types.string()),
   __template_principal: types.optional(types.string()),
 });
+
+export function inputWefFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWef, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWef$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWef' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputWef$Outbound = {
+export type InputWefInput$Outbound = {
   id?: string | undefined;
   type: "wef";
   disabled?: boolean | undefined;
@@ -616,6 +781,7 @@ export type InputWef$Outbound = {
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_keytab?: string | undefined;
@@ -623,10 +789,10 @@ export type InputWef$Outbound = {
 };
 
 /** @internal */
-export const InputWef$outboundSchema: z.ZodType<
-  InputWef$Outbound,
+export const InputWefInput$outboundSchema: z.ZodType<
+  InputWefInput$Outbound,
   z.ZodTypeDef,
-  InputWef
+  InputWefInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("wef"),
@@ -660,21 +826,13 @@ export const InputWef$outboundSchema: z.ZodType<
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_keytab: z.string().optional(),
   __template_principal: z.string().optional(),
 });
 
-export function inputWefToJSON(inputWef: InputWef): string {
-  return JSON.stringify(InputWef$outboundSchema.parse(inputWef));
-}
-export function inputWefFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWef, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWef$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWef' from JSON`,
-  );
+export function inputWefInputToJSON(inputWefInput: InputWefInput): string {
+  return JSON.stringify(InputWefInput$outboundSchema.parse(inputWefInput));
 }

@@ -144,6 +144,10 @@ export type OutputStatsdExt = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputStatsdExtPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -219,6 +223,7 @@ export const OutputStatsdExt$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputStatsdExtPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
 });
 /** @internal */
@@ -252,6 +257,7 @@ export type OutputStatsdExt$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputStatsdExtPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
@@ -290,6 +296,7 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputStatsdExtPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 

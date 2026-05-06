@@ -291,6 +291,10 @@ export type OutputDataset = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -422,6 +426,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
   ),
   apiKey: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_customUrl: types.optional(types.string()),
@@ -475,6 +480,7 @@ export type OutputDataset$Outbound = {
   pqControls?: OutputDatasetPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_customUrl?: string | undefined;
@@ -534,6 +540,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputDatasetPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_customUrl: z.string().optional(),

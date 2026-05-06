@@ -333,6 +333,10 @@ export type OutputDlS3 = {
    */
   maxRetryNum?: number | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
    */
   __template_endpoint?: string | undefined;
@@ -392,6 +396,10 @@ export type OutputDlS3 = {
    * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
    */
   __template_kmsKeyId?: string | undefined;
+  /**
+   * Binds 'partitioningFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitioningFields' at runtime.
+   */
+  __template_partitioningFields?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -487,6 +495,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
   __template_endpoint: types.optional(types.string()),
   __template_assumeRoleArn: types.optional(types.string()),
   __template_assumeRoleExternalId: types.optional(types.string()),
@@ -502,6 +511,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
   __template_storageClass: types.optional(types.string()),
   __template_serverSideEncryption: types.optional(types.string()),
   __template_kmsKeyId: types.optional(types.string()),
+  __template_partitioningFields: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_compress: types.optional(types.string()),
   __template_parquetSchema: types.optional(types.string()),
@@ -573,6 +583,7 @@ export type OutputDlS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_streamtags?: string | undefined;
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
@@ -588,6 +599,7 @@ export type OutputDlS3$Outbound = {
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
   __template_kmsKeyId?: string | undefined;
+  __template_partitioningFields?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
   __template_parquetSchema?: string | undefined;
@@ -668,6 +680,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_streamtags: z.string().optional(),
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
@@ -683,6 +696,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
   __template_kmsKeyId: z.string().optional(),
+  __template_partitioningFields: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
   __template_parquetSchema: z.string().optional(),

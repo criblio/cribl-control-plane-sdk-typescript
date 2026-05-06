@@ -21,6 +21,10 @@ import {
   GpuType$outboundSchema,
 } from "./gputype.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -341,6 +345,12 @@ export type InputWindowsMetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -366,6 +376,69 @@ export type InputWindowsMetrics = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputWindowsMetricsInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "windows_metrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputWindowsMetricsHost | undefined;
+  process?: ProcessType | undefined;
+  gpu?: GpuType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  persistence?: InputWindowsMetricsPersistence | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -831,6 +904,9 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -846,9 +922,21 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
   disableNativeModule: types.optional(types.boolean()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWindowsMetrics' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputWindowsMetrics$Outbound = {
+export type InputWindowsMetricsInput$Outbound = {
   id?: string | undefined;
   type: "windows_metrics";
   disabled?: boolean | undefined;
@@ -868,13 +956,14 @@ export type InputWindowsMetrics$Outbound = {
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputWindowsMetrics$outboundSchema: z.ZodType<
-  InputWindowsMetrics$Outbound,
+export const InputWindowsMetricsInput$outboundSchema: z.ZodType<
+  InputWindowsMetricsInput$Outbound,
   z.ZodTypeDef,
-  InputWindowsMetrics
+  InputWindowsMetricsInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("windows_metrics"),
@@ -896,21 +985,13 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   disableNativeModule: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputWindowsMetricsToJSON(
-  inputWindowsMetrics: InputWindowsMetrics,
+export function inputWindowsMetricsInputToJSON(
+  inputWindowsMetricsInput: InputWindowsMetricsInput,
 ): string {
   return JSON.stringify(
-    InputWindowsMetrics$outboundSchema.parse(inputWindowsMetrics),
-  );
-}
-export function inputWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWindowsMetrics' from JSON`,
+    InputWindowsMetricsInput$outboundSchema.parse(inputWindowsMetricsInput),
   );
 }

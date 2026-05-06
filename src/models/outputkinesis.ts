@@ -208,6 +208,10 @@ export type OutputKinesis = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKinesisPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
    */
   __template_streamName?: string | undefined;
@@ -338,6 +342,7 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputKinesisPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_streamName: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -390,6 +395,7 @@ export type OutputKinesis$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputKinesisPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -447,6 +453,7 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputKinesisPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),

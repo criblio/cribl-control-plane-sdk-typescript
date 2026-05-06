@@ -77,6 +77,7 @@ const value: operations.CreateInputInputSplunkSearch = {
   cronSchedule: "<value>",
   endpoint: "<value>",
   outputMode: "json",
+  authType: "credentialsSecret",
 };
 ```
 
@@ -617,6 +618,16 @@ const value: operations.CreateInputInputWinEventLogs = {
 };
 ```
 
+### `operations.CreateInputInputAppleUnifiedLogs`
+
+```typescript
+const value: operations.CreateInputInputAppleUnifiedLogs = {
+  id: "<id>",
+  type: "apple_unified_logs",
+  predicate: "<value>",
+};
+```
+
 ### `operations.CreateInputInputRawUdp`
 
 ```typescript
@@ -746,6 +757,17 @@ const value: operations.CreateInputInputOpenaiComplianceLogs = {
   textSecret: "<value>",
   accountType: "organization",
   cronSchedule: "<value>",
+};
+```
+
+### `operations.CreateInputInputAnthropicCompliance`
+
+```typescript
+const value: operations.CreateInputInputAnthropicCompliance = {
+  id: "<id>",
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [],
 };
 ```
 

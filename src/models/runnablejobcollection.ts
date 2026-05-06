@@ -9,6 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  BrokenEventProcessor,
+  BrokenEventProcessor$inboundSchema,
+} from "./brokeneventprocessor.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -19,7 +23,6 @@ import {
   LogLevelOptionsRunnableJobCollectionScheduleRun,
   LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
 } from "./logleveloptionsrunnablejobcollectionschedulerun.js";
-import { MetricsStore, MetricsStore$inboundSchema } from "./metricsstore.js";
 import {
   RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
   RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
@@ -126,7 +129,7 @@ export type RunnableJobCollectionRun = {
    * Timezone to use for Earliest and Latest times
    */
   timestampTimezone?: string | undefined;
-  timeWarning?: MetricsStore | undefined;
+  timeWarning?: BrokenEventProcessor | undefined;
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
@@ -201,6 +204,10 @@ export type RunnableJobCollection = {
     | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
     | undefined;
   run: RunnableJobCollectionRun;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -296,7 +303,7 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   earliest: types.optional(smartUnion([types.number(), types.string()])),
   latest: types.optional(smartUnion([types.number(), types.string()])),
   timestampTimezone: types.optional(types.string()),
-  timeWarning: types.optional(MetricsStore$inboundSchema),
+  timeWarning: types.optional(BrokenEventProcessor$inboundSchema),
   expression: types.optional(types.string()),
   minTaskSize: types.optional(types.string()),
   maxTaskSize: types.optional(types.string()),
@@ -336,6 +343,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
     RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
+  __template_streamtags: types.optional(types.string()),
 });
 
 export function runnableJobCollectionFromJSON(

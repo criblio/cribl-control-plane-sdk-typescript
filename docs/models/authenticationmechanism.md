@@ -5,7 +5,7 @@
 ```typescript
 import { AuthenticationMechanism } from "cribl-control-plane/models";
 
-let value: AuthenticationMechanism = "connection-string";
+let value: AuthenticationMechanism = "oauth-bearer";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: AuthenticationMechanism = "connection-string";
 ## Values
 
 ```typescript
-"connection-string" | Unrecognized<string>
+"connection-string" | "oauth-bearer" | Unrecognized<string>
 ```

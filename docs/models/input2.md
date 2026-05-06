@@ -3,553 +3,21 @@
 
 ## Supported Types
 
-### `models.InputCollection`
+### `models.InputCollectionInput`
 
 ```typescript
-const value: models.InputCollection = {
+const value: models.InputCollectionInput = {
   type: "collection",
 };
 ```
 
-### `models.InputKafka`
+### `models.InputKafkaInput`
 
 ```typescript
-const value: models.InputKafka = {
+const value: models.InputKafkaInput = {
   type: "kafka",
-  brokers: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  brokers: [],
   topics: [
-    "<value 1>",
-  ],
-};
-```
-
-### `models.InputMsk`
-
-```typescript
-const value: models.InputMsk = {
-  type: "msk",
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
-  ],
-  awsAuthenticationMethod: "<value>",
-  region: "<value>",
-};
-```
-
-### `models.InputHttp`
-
-```typescript
-const value: models.InputHttp = {
-  type: "http",
-  host: "oily-cook.net",
-  port: 3082.66,
-};
-```
-
-### `models.InputSplunk`
-
-```typescript
-const value: models.InputSplunk = {
-  type: "splunk",
-  host: "sour-finding.biz",
-  port: 9520.51,
-};
-```
-
-### `models.InputSplunkSearch`
-
-```typescript
-const value: models.InputSplunkSearch = {
-  type: "splunk_search",
-  searchHead: "<value>",
-  search: "<value>",
-  cronSchedule: "<value>",
-  endpoint: "<value>",
-  outputMode: "json",
-};
-```
-
-### `models.InputSplunkHec`
-
-```typescript
-const value: models.InputSplunkHec = {
-  type: "splunk_hec",
-  host: "ruddy-birdcage.com",
-  port: 206.09,
-  splunkHecAPI: "<value>",
-};
-```
-
-### `models.InputAzureBlob`
-
-```typescript
-const value: models.InputAzureBlob = {
-  type: "azure_blob",
-  queueName: "<value>",
-};
-```
-
-### `models.InputElastic`
-
-```typescript
-const value: models.InputElastic = {
-  type: "elastic",
-  host: "instructive-sonnet.org",
-  port: 1950.48,
-  elasticAPI: "<value>",
-};
-```
-
-### `models.InputConfluentCloud`
-
-```typescript
-const value: models.InputConfluentCloud = {
-  type: "confluent_cloud",
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
-  ],
-};
-```
-
-### `models.InputGrafana`
-
-```typescript
-const value: models.InputGrafana = {
-  type: "grafana",
-  host: "wilted-tributary.com",
-  port: 5099.38,
-  prometheusAPI: "<value>",
-};
-```
-
-### `models.InputLoki`
-
-```typescript
-const value: models.InputLoki = {
-  type: "loki",
-  host: "careless-obesity.net",
-  port: 1220.18,
-  lokiAPI: "<value>",
-};
-```
-
-### `models.InputPrometheusRw`
-
-```typescript
-const value: models.InputPrometheusRw = {
-  type: "prometheus_rw",
-  host: "all-platter.biz",
-  port: 2300.12,
-  prometheusAPI: "<value>",
-};
-```
-
-### `models.InputPrometheus`
-
-```typescript
-const value: models.InputPrometheus = {
-  type: "prometheus",
-  interval: 8895.72,
-  logLevel: "info",
-};
-```
-
-### `models.InputEdgePrometheus`
-
-```typescript
-const value: models.InputEdgePrometheus = {
-  type: "edge_prometheus",
-  discoveryType: "ec2",
-  interval: 1632.08,
-};
-```
-
-### `models.InputOffice365Mgmt`
-
-```typescript
-const value: models.InputOffice365Mgmt = {
-  type: "office365_mgmt",
-  planType: "gcc",
-  tenantId: "<id>",
-  appId: "<id>",
-};
-```
-
-### `models.InputOffice365Service`
-
-```typescript
-const value: models.InputOffice365Service = {
-  type: "office365_service",
-  tenantId: "<id>",
-  appId: "<id>",
-};
-```
-
-### `models.InputOffice365MsgTrace`
-
-```typescript
-const value: models.InputOffice365MsgTrace = {
-  type: "office365_msg_trace",
-  url: "https://paltry-obedience.com",
-  interval: 280928,
-};
-```
-
-### `models.InputMicrosoftGraph`
-
-```typescript
-const value: models.InputMicrosoftGraph = {
-  type: "microsoft_graph",
-  url: "https://apprehensive-stock.name",
-  interval: 628836,
-};
-```
-
-### `models.InputEventhub`
-
-```typescript
-const value: models.InputEventhub = {
-  type: "eventhub",
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
-  ],
-};
-```
-
-### `models.InputEventhubAmqp`
-
-```typescript
-const value: models.InputEventhubAmqp = {
-  type: "eventhub_amqp",
-  consumerGroup: "<value>",
-};
-```
-
-### `models.InputExec`
-
-```typescript
-const value: models.InputExec = {
-  type: "exec",
-  command: "<value>",
-};
-```
-
-### `models.InputFirehose`
-
-```typescript
-const value: models.InputFirehose = {
-  type: "firehose",
-  host: "big-reservation.info",
-  port: 6191.54,
-};
-```
-
-### `models.InputGooglePubsub`
-
-```typescript
-const value: models.InputGooglePubsub = {
-  type: "google_pubsub",
-  topicName: "<value>",
-  subscriptionName: "<value>",
-};
-```
-
-### `models.InputCribl`
-
-```typescript
-const value: models.InputCribl = {
-  type: "cribl",
-};
-```
-
-### `models.InputCriblTcp`
-
-```typescript
-const value: models.InputCriblTcp = {
-  type: "cribl_tcp",
-  host: "wrathful-import.com",
-  port: 2820.59,
-};
-```
-
-### `models.InputCriblHttp`
-
-```typescript
-const value: models.InputCriblHttp = {
-  type: "cribl_http",
-  host: "well-off-exterior.info",
-  port: 394.56,
-};
-```
-
-### `models.InputCriblLakeHttp`
-
-```typescript
-const value: models.InputCriblLakeHttp = {
-  type: "cribl_lake_http",
-  host: "grimy-hundred.com",
-  port: 7454.32,
-};
-```
-
-### `models.InputTcpjson`
-
-```typescript
-const value: models.InputTcpjson = {
-  type: "tcpjson",
-  host: "frilly-pillbox.net",
-  port: 8074.93,
-};
-```
-
-### `models.InputSystemMetrics`
-
-```typescript
-const value: models.InputSystemMetrics = {
-  type: "system_metrics",
-};
-```
-
-### `models.InputSystemState`
-
-```typescript
-const value: models.InputSystemState = {
-  type: "system_state",
-};
-```
-
-### `models.InputKubeMetrics`
-
-```typescript
-const value: models.InputKubeMetrics = {
-  type: "kube_metrics",
-};
-```
-
-### `models.InputKubeLogs`
-
-```typescript
-const value: models.InputKubeLogs = {
-  type: "kube_logs",
-};
-```
-
-### `models.InputKubeEvents`
-
-```typescript
-const value: models.InputKubeEvents = {
-  type: "kube_events",
-};
-```
-
-### `models.InputWindowsMetrics`
-
-```typescript
-const value: models.InputWindowsMetrics = {
-  type: "windows_metrics",
-};
-```
-
-### `models.InputCrowdstrike`
-
-```typescript
-const value: models.InputCrowdstrike = {
-  type: "crowdstrike",
-  queueName: "<value>",
-};
-```
-
-### `models.InputDatadogAgent`
-
-```typescript
-const value: models.InputDatadogAgent = {
-  type: "datadog_agent",
-  host: "standard-granny.net",
-  port: 3507.99,
-};
-```
-
-### `models.InputDatagen`
-
-```typescript
-const value: models.InputDatagen = {
-  type: "datagen",
-  samples: [],
-};
-```
-
-### `models.InputHttpRaw`
-
-```typescript
-const value: models.InputHttpRaw = {
-  type: "http_raw",
-  host: "equatorial-importance.org",
-  port: 1259.51,
-};
-```
-
-### `models.InputKinesis`
-
-```typescript
-const value: models.InputKinesis = {
-  type: "kinesis",
-  streamName: "<value>",
-  region: "<value>",
-};
-```
-
-### `models.InputCriblmetrics`
-
-```typescript
-const value: models.InputCriblmetrics = {
-  type: "criblmetrics",
-};
-```
-
-### `models.InputMetrics`
-
-```typescript
-const value: models.InputMetrics = {
-  type: "metrics",
-  host: "unfinished-circumference.name",
-};
-```
-
-### `models.InputS3`
-
-```typescript
-const value: models.InputS3 = {
-  type: "s3",
-  queueName: "<value>",
-};
-```
-
-### `models.InputS3Inventory`
-
-```typescript
-const value: models.InputS3Inventory = {
-  type: "s3_inventory",
-  queueName: "<value>",
-};
-```
-
-### `models.InputSnmp`
-
-```typescript
-const value: models.InputSnmp = {
-  type: "snmp",
-  host: "zesty-gray.org",
-  port: 3485.4,
-};
-```
-
-### `models.InputOpenTelemetry`
-
-```typescript
-const value: models.InputOpenTelemetry = {
-  type: "open_telemetry",
-  host: "sorrowful-airbus.com",
-  port: 3497.15,
-};
-```
-
-### `models.InputModelDrivenTelemetry`
-
-```typescript
-const value: models.InputModelDrivenTelemetry = {
-  type: "model_driven_telemetry",
-  host: "partial-compromise.org",
-  port: 9132.56,
-};
-```
-
-### `models.InputSqs`
-
-```typescript
-const value: models.InputSqs = {
-  type: "sqs",
-  queueName: "<value>",
-  queueType: "fifo",
-};
-```
-
-### `models.InputSyslog`
-
-```typescript
-const value: models.InputSyslog = {
-  type: "syslog",
-  host: "webbed-charm.info",
-  tcpPort: 5340.53,
-};
-```
-
-### `models.InputFile`
-
-```typescript
-const value: models.InputFile = {
-  type: "file",
-};
-```
-
-### `models.InputTcp`
-
-```typescript
-const value: models.InputTcp = {
-  type: "tcp",
-  host: "regal-comparison.info",
-  port: 2587.69,
-};
-```
-
-### `models.InputAppscope`
-
-```typescript
-const value: models.InputAppscope = {
-  type: "appscope",
-};
-```
-
-### `models.InputWef`
-
-```typescript
-const value: models.InputWef = {
-  type: "wef",
-  host: "bad-pearl.net",
-  port: 8695.05,
-  subscriptions: [
-    {
-      subscriptionName: "<value>",
-      contentFormat: "Raw",
-      heartbeatInterval: 2988.37,
-      batchTimeout: 1432.95,
-      targets: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-    },
-  ],
-};
-```
-
-### `models.InputWinEventLogs`
-
-```typescript
-const value: models.InputWinEventLogs = {
-  type: "win_event_logs",
-  logNames: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
@@ -557,35 +25,564 @@ const value: models.InputWinEventLogs = {
 };
 ```
 
-### `models.InputRawUdp`
+### `models.InputMskInput`
 
 ```typescript
-const value: models.InputRawUdp = {
-  type: "raw_udp",
-  host: "next-hovel.net",
-  port: 8140.6,
+const value: models.InputMskInput = {
+  type: "msk",
+  brokers: [],
+  topics: [],
+  awsAuthenticationMethod: "<value>",
+  region: "<value>",
 };
 ```
 
-### `models.InputJournalFiles`
+### `models.InputHttpInput`
 
 ```typescript
-const value: models.InputJournalFiles = {
+const value: models.InputHttpInput = {
+  type: "http",
+  host: "basic-experience.net",
+  port: 372.97,
+};
+```
+
+### `models.InputSplunkInput`
+
+```typescript
+const value: models.InputSplunkInput = {
+  type: "splunk",
+  host: "expensive-zen.net",
+  port: 5767.03,
+};
+```
+
+### `models.InputSplunkSearchInput`
+
+```typescript
+const value: models.InputSplunkSearchInput = {
+  type: "splunk_search",
+  searchHead: "<value>",
+  search: "<value>",
+  cronSchedule: "<value>",
+  endpoint: "<value>",
+  outputMode: "json",
+  authType: "none",
+};
+```
+
+### `models.InputSplunkHecInput`
+
+```typescript
+const value: models.InputSplunkHecInput = {
+  type: "splunk_hec",
+  host: "awesome-collectivization.info",
+  port: 6877.61,
+  splunkHecAPI: "<value>",
+};
+```
+
+### `models.InputAzureBlobInput`
+
+```typescript
+const value: models.InputAzureBlobInput = {
+  type: "azure_blob",
+  queueName: "<value>",
+};
+```
+
+### `models.InputElasticInput`
+
+```typescript
+const value: models.InputElasticInput = {
+  type: "elastic",
+  host: "lavish-flight.name",
+  port: 176.54,
+  elasticAPI: "<value>",
+};
+```
+
+### `models.InputConfluentCloudInput`
+
+```typescript
+const value: models.InputConfluentCloudInput = {
+  type: "confluent_cloud",
+  brokers: [],
+  topics: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+
+### `models.InputGrafanaInputUnion`
+
+```typescript
+const value: models.InputGrafanaInputUnion = {
+  type: "grafana",
+  host: "majestic-bakeware.name",
+  port: 27.66,
+  prometheusAPI: "<value>",
+};
+```
+
+### `models.InputLokiInput`
+
+```typescript
+const value: models.InputLokiInput = {
+  type: "loki",
+  host: "tender-settler.name",
+  port: 4635.9,
+  lokiAPI: "<value>",
+};
+```
+
+### `models.InputPrometheusRwInput`
+
+```typescript
+const value: models.InputPrometheusRwInput = {
+  type: "prometheus_rw",
+  host: "unsightly-exhaust.com",
+  port: 4244.47,
+  prometheusAPI: "<value>",
+};
+```
+
+### `models.InputPrometheusInput`
+
+```typescript
+const value: models.InputPrometheusInput = {
+  type: "prometheus",
+  interval: 4368.99,
+  logLevel: "debug",
+};
+```
+
+### `models.InputEdgePrometheusInput`
+
+```typescript
+const value: models.InputEdgePrometheusInput = {
+  type: "edge_prometheus",
+  discoveryType: "ec2",
+  interval: 8929.97,
+};
+```
+
+### `models.InputOffice365MgmtInput`
+
+```typescript
+const value: models.InputOffice365MgmtInput = {
+  type: "office365_mgmt",
+  planType: "dod",
+  tenantId: "<id>",
+  appId: "<id>",
+};
+```
+
+### `models.InputOffice365ServiceInput`
+
+```typescript
+const value: models.InputOffice365ServiceInput = {
+  type: "office365_service",
+  tenantId: "<id>",
+  appId: "<id>",
+};
+```
+
+### `models.InputOffice365MsgTraceInput`
+
+```typescript
+const value: models.InputOffice365MsgTraceInput = {
+  type: "office365_msg_trace",
+  url: "https://majestic-promise.name",
+  interval: 222466,
+};
+```
+
+### `models.InputMicrosoftGraphInput`
+
+```typescript
+const value: models.InputMicrosoftGraphInput = {
+  type: "microsoft_graph",
+  url: "https://svelte-retrospectivity.info/",
+  interval: 461874,
+};
+```
+
+### `models.InputEventhubInput`
+
+```typescript
+const value: models.InputEventhubInput = {
+  type: "eventhub",
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  topics: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+
+### `models.InputEventhubAmqpInput`
+
+```typescript
+const value: models.InputEventhubAmqpInput = {
+  type: "eventhub_amqp",
+  consumerGroup: "<value>",
+};
+```
+
+### `models.InputExecInput`
+
+```typescript
+const value: models.InputExecInput = {
+  type: "exec",
+  command: "<value>",
+};
+```
+
+### `models.InputFirehoseInput`
+
+```typescript
+const value: models.InputFirehoseInput = {
+  type: "firehose",
+  host: "instructive-battle.com",
+  port: 2100.54,
+};
+```
+
+### `models.InputGooglePubsubInput`
+
+```typescript
+const value: models.InputGooglePubsubInput = {
+  type: "google_pubsub",
+  topicName: "<value>",
+  subscriptionName: "<value>",
+};
+```
+
+### `models.InputCriblInput`
+
+```typescript
+const value: models.InputCriblInput = {
+  type: "cribl",
+};
+```
+
+### `models.InputCriblTcpInput`
+
+```typescript
+const value: models.InputCriblTcpInput = {
+  type: "cribl_tcp",
+  host: "sophisticated-reporter.name",
+  port: 4249.56,
+};
+```
+
+### `models.InputCriblHttpInput`
+
+```typescript
+const value: models.InputCriblHttpInput = {
+  type: "cribl_http",
+  host: "remarkable-brochure.com",
+  port: 9025.75,
+};
+```
+
+### `models.InputCriblLakeHttpInput`
+
+```typescript
+const value: models.InputCriblLakeHttpInput = {
+  type: "cribl_lake_http",
+  host: "actual-elevation.org",
+  port: 1651.06,
+};
+```
+
+### `models.InputTcpjsonInput`
+
+```typescript
+const value: models.InputTcpjsonInput = {
+  type: "tcpjson",
+  host: "taut-brush.com",
+  port: 8094.05,
+};
+```
+
+### `models.InputSystemMetricsInput`
+
+```typescript
+const value: models.InputSystemMetricsInput = {
+  type: "system_metrics",
+};
+```
+
+### `models.InputSystemStateInput`
+
+```typescript
+const value: models.InputSystemStateInput = {
+  type: "system_state",
+};
+```
+
+### `models.InputKubeMetricsInput`
+
+```typescript
+const value: models.InputKubeMetricsInput = {
+  type: "kube_metrics",
+};
+```
+
+### `models.InputKubeLogsInput`
+
+```typescript
+const value: models.InputKubeLogsInput = {
+  type: "kube_logs",
+};
+```
+
+### `models.InputKubeEventsInput`
+
+```typescript
+const value: models.InputKubeEventsInput = {
+  type: "kube_events",
+};
+```
+
+### `models.InputWindowsMetricsInput`
+
+```typescript
+const value: models.InputWindowsMetricsInput = {
+  type: "windows_metrics",
+};
+```
+
+### `models.InputCrowdstrikeInput`
+
+```typescript
+const value: models.InputCrowdstrikeInput = {
+  type: "crowdstrike",
+  queueName: "<value>",
+};
+```
+
+### `models.InputDatadogAgentInput`
+
+```typescript
+const value: models.InputDatadogAgentInput = {
+  type: "datadog_agent",
+  host: "mundane-warming.biz",
+  port: 8031.95,
+};
+```
+
+### `models.InputDatagenInput`
+
+```typescript
+const value: models.InputDatagenInput = {
+  type: "datagen",
+  samples: [
+    {
+      sample: "<value>",
+      eventsPerSec: 9279.73,
+    },
+  ],
+};
+```
+
+### `models.InputHttpRawInput`
+
+```typescript
+const value: models.InputHttpRawInput = {
+  type: "http_raw",
+  host: "reasonable-awareness.com",
+  port: 416.19,
+};
+```
+
+### `models.InputKinesisInput`
+
+```typescript
+const value: models.InputKinesisInput = {
+  type: "kinesis",
+  streamName: "<value>",
+  region: "<value>",
+};
+```
+
+### `models.InputCriblmetricsInput`
+
+```typescript
+const value: models.InputCriblmetricsInput = {
+  type: "criblmetrics",
+};
+```
+
+### `models.InputMetricsInput`
+
+```typescript
+const value: models.InputMetricsInput = {
+  type: "metrics",
+  host: "marvelous-toaster.org",
+};
+```
+
+### `models.InputS3Input`
+
+```typescript
+const value: models.InputS3Input = {
+  type: "s3",
+  queueName: "<value>",
+};
+```
+
+### `models.InputS3InventoryInput`
+
+```typescript
+const value: models.InputS3InventoryInput = {
+  type: "s3_inventory",
+  queueName: "<value>",
+};
+```
+
+### `models.InputSnmpInput`
+
+```typescript
+const value: models.InputSnmpInput = {
+  type: "snmp",
+  host: "livid-desk.com",
+  port: 1010.06,
+};
+```
+
+### `models.InputOpenTelemetryInput`
+
+```typescript
+const value: models.InputOpenTelemetryInput = {
+  type: "open_telemetry",
+  host: "rough-leading.name",
+  port: 2830.28,
+};
+```
+
+### `models.InputModelDrivenTelemetryInput`
+
+```typescript
+const value: models.InputModelDrivenTelemetryInput = {
+  type: "model_driven_telemetry",
+  host: "illustrious-catalyst.biz",
+  port: 661.76,
+};
+```
+
+### `models.InputSqsInput`
+
+```typescript
+const value: models.InputSqsInput = {
+  type: "sqs",
+  queueName: "<value>",
+  queueType: "fifo",
+};
+```
+
+### `models.InputSyslogInputUnion`
+
+```typescript
+const value: models.InputSyslogInputUnion = {
+  type: "syslog",
+  host: "variable-tackle.net",
+  tcpPort: 3569.95,
+};
+```
+
+### `models.InputFileInput`
+
+```typescript
+const value: models.InputFileInput = {
+  type: "file",
+};
+```
+
+### `models.InputTcpInput`
+
+```typescript
+const value: models.InputTcpInput = {
+  type: "tcp",
+  host: "triangular-bob.biz",
+  port: 5853.7,
+};
+```
+
+### `models.InputAppscopeInput`
+
+```typescript
+const value: models.InputAppscopeInput = {
+  type: "appscope",
+};
+```
+
+### `models.InputWefInput`
+
+```typescript
+const value: models.InputWefInput = {
+  type: "wef",
+  host: "unkempt-electronics.biz",
+  port: 1159.95,
+  subscriptions: [],
+};
+```
+
+### `models.InputWinEventLogsInput`
+
+```typescript
+const value: models.InputWinEventLogsInput = {
+  type: "win_event_logs",
+  logNames: [],
+};
+```
+
+### `models.InputAppleUnifiedLogsInput`
+
+```typescript
+const value: models.InputAppleUnifiedLogsInput = {
+  type: "apple_unified_logs",
+  predicate: "<value>",
+};
+```
+
+### `models.InputRawUdpInput`
+
+```typescript
+const value: models.InputRawUdpInput = {
+  type: "raw_udp",
+  host: "fake-phrase.net",
+  port: 5050.39,
+};
+```
+
+### `models.InputJournalFilesInput`
+
+```typescript
+const value: models.InputJournalFilesInput = {
   type: "journal_files",
-  path: "/bin",
+  path: "/usr",
   journals: [
     "<value 1>",
   ],
 };
 ```
 
-### `models.InputWiz`
+### `models.InputWizInput`
 
 ```typescript
-const value: models.InputWiz = {
+const value: models.InputWizInput = {
   type: "wiz",
   endpoint: "<value>",
-  authUrl: "https://lone-cinder.name/",
+  authUrl: "https://gummy-mousse.info",
   clientId: "<id>",
   contentConfig: [],
 };
@@ -601,39 +598,39 @@ const value: models.InputOpenaiInput = {
 };
 ```
 
-### `models.InputWizWebhook`
+### `models.InputWizWebhookInput`
 
 ```typescript
-const value: models.InputWizWebhook = {
+const value: models.InputWizWebhookInput = {
   type: "wiz_webhook",
-  host: "self-reliant-platter.name",
-  port: 6921.06,
+  host: "pleasant-coordination.com",
+  port: 9904.19,
 };
 ```
 
-### `models.InputNetflow`
+### `models.InputNetflowInput`
 
 ```typescript
-const value: models.InputNetflow = {
+const value: models.InputNetflowInput = {
   type: "netflow",
-  host: "sorrowful-custody.info",
-  port: 9623.36,
+  host: "far-flung-curl.org",
+  port: 1526.63,
 };
 ```
 
-### `models.InputSecurityLake`
+### `models.InputSecurityLakeInput`
 
 ```typescript
-const value: models.InputSecurityLake = {
+const value: models.InputSecurityLakeInput = {
   type: "security_lake",
   queueName: "<value>",
 };
 ```
 
-### `models.InputServicenowTable`
+### `models.InputServicenowTableInput`
 
 ```typescript
-const value: models.InputServicenowTable = {
+const value: models.InputServicenowTableInput = {
   type: "servicenow_table",
   instance: "<value>",
   tableName: "<value>",
@@ -643,32 +640,32 @@ const value: models.InputServicenowTable = {
 };
 ```
 
-### `models.InputZscalerHec`
+### `models.InputZscalerHecInput`
 
 ```typescript
-const value: models.InputZscalerHec = {
+const value: models.InputZscalerHecInput = {
   type: "zscaler_hec",
-  host: "lined-sonnet.net",
-  port: 1183.03,
+  host: "messy-commodity.info",
+  port: 1944.29,
   hecAPI: "<value>",
 };
 ```
 
-### `models.InputCloudflareHec`
+### `models.InputCloudflareHecInput`
 
 ```typescript
-const value: models.InputCloudflareHec = {
+const value: models.InputCloudflareHecInput = {
   type: "cloudflare_hec",
-  host: "grizzled-receptor.com",
-  port: 5918.65,
+  host: "amused-arcade.biz",
+  port: 2120.79,
   hecAPI: "<value>",
 };
 ```
 
-### `models.InputOpenaiComplianceLogs`
+### `models.InputOpenaiComplianceLogsInput`
 
 ```typescript
-const value: models.InputOpenaiComplianceLogs = {
+const value: models.InputOpenaiComplianceLogsInput = {
   type: "openai_compliance_logs",
   textSecret: "<value>",
   accountType: "workspace",
@@ -676,10 +673,20 @@ const value: models.InputOpenaiComplianceLogs = {
 };
 ```
 
-### `models.InputOkta`
+### `models.InputAnthropicComplianceInput`
 
 ```typescript
-const value: models.InputOkta = {
+const value: models.InputAnthropicComplianceInput = {
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [],
+};
+```
+
+### `models.InputOktaInput`
+
+```typescript
+const value: models.InputOktaInput = {
   type: "okta",
   oktaDomain: "<value>",
   textSecret: "<value>",

@@ -21,6 +21,10 @@ import {
   GpuType$outboundSchema,
 } from "./gputype.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -414,6 +418,12 @@ export type InputSystemMetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
@@ -436,6 +446,66 @@ export type InputSystemMetrics = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputSystemMetricsInput = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "system_metrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputSystemMetricsHost | undefined;
+  process?: ProcessType | undefined;
+  container?: Container | undefined;
+  gpu?: GpuType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  persistence?: InputSystemMetricsPersistence | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -1018,6 +1088,9 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -1033,9 +1106,21 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   ),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetrics' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputSystemMetrics$Outbound = {
+export type InputSystemMetricsInput$Outbound = {
   id?: string | undefined;
   type: "system_metrics";
   disabled?: boolean | undefined;
@@ -1055,13 +1140,14 @@ export type InputSystemMetrics$Outbound = {
   persistence?: InputSystemMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputSystemMetrics$outboundSchema: z.ZodType<
-  InputSystemMetrics$Outbound,
+export const InputSystemMetricsInput$outboundSchema: z.ZodType<
+  InputSystemMetricsInput$Outbound,
   z.ZodTypeDef,
-  InputSystemMetrics
+  InputSystemMetricsInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("system_metrics"),
@@ -1083,21 +1169,13 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputSystemMetricsToJSON(
-  inputSystemMetrics: InputSystemMetrics,
+export function inputSystemMetricsInputToJSON(
+  inputSystemMetricsInput: InputSystemMetricsInput,
 ): string {
   return JSON.stringify(
-    InputSystemMetrics$outboundSchema.parse(inputSystemMetrics),
-  );
-}
-export function inputSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetrics' from JSON`,
+    InputSystemMetricsInput$outboundSchema.parse(inputSystemMetricsInput),
   );
 }

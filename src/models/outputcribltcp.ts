@@ -191,6 +191,10 @@ export type OutputCriblTcp = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblTcpPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
@@ -282,6 +286,7 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputCriblTcpPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
@@ -325,6 +330,7 @@ export type OutputCriblTcp$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCriblTcpPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -373,6 +379,7 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputCriblTcpPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),

@@ -177,6 +177,10 @@ export type OutputSns = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSnsPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topicArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicArn' at runtime.
    */
   __template_topicArn?: string | undefined;
@@ -302,6 +306,7 @@ export const OutputSns$inboundSchema: z.ZodType<
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => OutputSnsPqControls$inboundSchema)),
+  __template_streamtags: types.optional(types.string()),
   __template_topicArn: types.optional(types.string()),
   __template_messageGroupId: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
@@ -350,6 +355,7 @@ export type OutputSns$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSnsPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topicArn?: string | undefined;
   __template_messageGroupId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -403,6 +409,7 @@ export const OutputSns$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputSnsPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
   __template_topicArn: z.string().optional(),
   __template_messageGroupId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),

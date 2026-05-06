@@ -22,6 +22,10 @@ import {
   LakeDatasetSearchConfig$Outbound,
   LakeDatasetSearchConfig$outboundSchema,
 } from "./lakedatasetsearchconfig.js";
+import {
+  StorageClassOptionsCriblLakeDataset,
+  StorageClassOptionsCriblLakeDataset$outboundSchema,
+} from "./storageclassoptionscribllakedataset.js";
 
 export type CriblLakeDatasetUpdate = {
   acceleratedFields?: Array<string> | undefined;
@@ -35,6 +39,7 @@ export type CriblLakeDatasetUpdate = {
   metrics?: LakeDatasetMetrics | undefined;
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig | undefined;
+  storageClass?: StorageClassOptionsCriblLakeDataset | undefined;
   storageLocationId?: string | undefined;
   viewName?: string | undefined;
 };
@@ -52,6 +57,7 @@ export type CriblLakeDatasetUpdate$Outbound = {
   metrics?: LakeDatasetMetrics$Outbound | undefined;
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig$Outbound | undefined;
+  storageClass?: string | undefined;
   storageLocationId?: string | undefined;
   viewName?: string | undefined;
 };
@@ -73,6 +79,7 @@ export const CriblLakeDatasetUpdate$outboundSchema: z.ZodType<
   metrics: LakeDatasetMetrics$outboundSchema.optional(),
   retentionPeriodInDays: z.number().optional(),
   searchConfig: LakeDatasetSearchConfig$outboundSchema.optional(),
+  storageClass: StorageClassOptionsCriblLakeDataset$outboundSchema.optional(),
   storageLocationId: z.string().optional(),
   viewName: z.string().optional(),
 });

@@ -169,6 +169,14 @@ export type OutputDynatraceOtlp = {
    */
   metadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
+   * Batch event data upon dynamic metadata (whether presented or not)
+   */
+  dynamicHeadersEnabled?: boolean | undefined;
+  /**
+   * When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
+   */
+  dynamicHeadersField?: string | undefined;
+  /**
    * Maximum number of ongoing requests before blocking
    */
   concurrency?: number | undefined;
@@ -289,6 +297,10 @@ export type OutputDynatraceOtlp = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceOtlpPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
@@ -380,6 +392,8 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   httpMetricsEndpointOverride: types.optional(types.string()),
   httpLogsEndpointOverride: types.optional(types.string()),
   metadata: types.optional(z.array(ItemsTypeKeyValueMetadata$inboundSchema)),
+  dynamicHeadersEnabled: types.optional(types.boolean()),
+  dynamicHeadersField: types.optional(types.string()),
   concurrency: types.optional(types.number()),
   maxPayloadSizeKB: types.optional(types.number()),
   timeoutSec: types.optional(types.number()),
@@ -420,6 +434,7 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputDynatraceOtlpPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
 });
@@ -440,6 +455,8 @@ export type OutputDynatraceOtlp$Outbound = {
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
   metadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  dynamicHeadersEnabled?: boolean | undefined;
+  dynamicHeadersField?: string | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   timeoutSec?: number | undefined;
@@ -474,6 +491,7 @@ export type OutputDynatraceOtlp$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceOtlpPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
@@ -499,6 +517,8 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema).optional(),
+  dynamicHeadersEnabled: z.boolean().optional(),
+  dynamicHeadersField: z.string().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   timeoutSec: z.number().optional(),
@@ -535,6 +555,7 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });

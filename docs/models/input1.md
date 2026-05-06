@@ -72,6 +72,7 @@ const value: models.InputSplunkSearch = {
   cronSchedule: "<value>",
   endpoint: "<value>",
   outputMode: "json",
+  authType: "textSecret",
 };
 ```
 
@@ -79,7 +80,7 @@ const value: models.InputSplunkSearch = {
 
 ```typescript
 const value: models.InputSplunkHec = {
-  type: "splunk_hec",
+  type: "<value>",
   host: "ruddy-birdcage.com",
   port: 206.09,
   splunkHecAPI: "<value>",
@@ -557,6 +558,15 @@ const value: models.InputWinEventLogs = {
 };
 ```
 
+### `models.InputAppleUnifiedLogs`
+
+```typescript
+const value: models.InputAppleUnifiedLogs = {
+  type: "apple_unified_logs",
+  predicate: "<value>",
+};
+```
+
 ### `models.InputRawUdp`
 
 ```typescript
@@ -673,6 +683,23 @@ const value: models.InputOpenaiComplianceLogs = {
   textSecret: "<value>",
   accountType: "workspace",
   cronSchedule: "<value>",
+};
+```
+
+### `models.InputAnthropicCompliance`
+
+```typescript
+const value: models.InputAnthropicCompliance = {
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [
+    {
+      contentType: "<value>",
+      cronSchedule: "<value>",
+      earliest: "<value>",
+      latest: "<value>",
+    },
+  ],
 };
 ```
 

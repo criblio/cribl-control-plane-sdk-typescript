@@ -212,6 +212,10 @@ export type OutputElasticCloud = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -323,6 +327,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputElasticCloudPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   __template_index: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
@@ -372,6 +377,7 @@ export type OutputElasticCloud$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputElasticCloudPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_index?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -428,6 +434,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_index: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),

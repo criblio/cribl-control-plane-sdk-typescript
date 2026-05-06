@@ -10,6 +10,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -47,6 +51,136 @@ export const InputFileMode = {
 export type InputFileMode = OpenEnum<typeof InputFileMode>;
 
 export type InputFile = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "file";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Choose how to discover files to monitor
+   */
+  mode?: InputFileMode | undefined;
+  /**
+   * Time, in seconds, between scanning for files
+   */
+  interval?: number | undefined;
+  /**
+   * The full path of discovered files are matched against this wildcard list
+   */
+  filenames?: Array<string> | undefined;
+  /**
+   * Apply filename allowlist to file entries in archive file types, like tar or zip.
+   */
+  filterArchivedFiles?: boolean | undefined;
+  /**
+   * Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
+   */
+  tailOnly?: boolean | undefined;
+  /**
+   * Time, in seconds, before an idle file is closed
+   */
+  idleTimeout?: number | undefined;
+  /**
+   * The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+   */
+  minAgeDur?: string | undefined;
+  /**
+   * The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
+   */
+  maxAgeDur?: string | undefined;
+  /**
+   * Skip files with modification times earlier than the maximum age duration
+   */
+  checkFileModTime?: boolean | undefined;
+  /**
+   * Forces files containing binary data to be streamed as text
+   */
+  forceText?: boolean | undefined;
+  /**
+   * Length of file header bytes to use in hash for unique file identification
+   */
+  hashLen?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
+   */
+  path?: string | undefined;
+  /**
+   * Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
+   */
+  depth?: number | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
+  /**
+   * Delete files after they have been collected
+   */
+  deleteFiles?: boolean | undefined;
+  /**
+   * Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
+   */
+  saltHash?: boolean | undefined;
+  /**
+   * Skip rescans of unchanged directories based on directory modification time. Uses an exponential backoff strategy, reducing load on the filesystems, but possibly delaying detection of new data. This option is optimized for search paths where files exist in the leaf directories.
+   */
+  optimizeLeafDirectories?: boolean | undefined;
+  /**
+   * Stream binary files as Base64-encoded chunks
+   */
+  includeUnidentifiableBinary?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type InputFileInput = {
   /**
    * Unique ID for this input
    */
@@ -164,6 +298,10 @@ export type InputFile = {
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
   __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -193,6 +331,9 @@ export const InputFile$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -220,9 +361,21 @@ export const InputFile$inboundSchema: z.ZodType<
   optimizeLeafDirectories: types.optional(types.boolean()),
   includeUnidentifiableBinary: types.optional(types.boolean()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
 });
+
+export function inputFileFromJSON(
+  jsonString: string,
+): SafeParseResult<InputFile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputFile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFile' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputFile$Outbound = {
+export type InputFileInput$Outbound = {
   id?: string | undefined;
   type: "file";
   disabled?: boolean | undefined;
@@ -256,13 +409,14 @@ export type InputFile$Outbound = {
   optimizeLeafDirectories?: boolean | undefined;
   includeUnidentifiableBinary?: boolean | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const InputFile$outboundSchema: z.ZodType<
-  InputFile$Outbound,
+export const InputFileInput$outboundSchema: z.ZodType<
+  InputFileInput$Outbound,
   z.ZodTypeDef,
-  InputFile
+  InputFileInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("file"),
@@ -297,17 +451,9 @@ export const InputFile$outboundSchema: z.ZodType<
   optimizeLeafDirectories: z.boolean().optional(),
   includeUnidentifiableBinary: z.boolean().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputFileToJSON(inputFile: InputFile): string {
-  return JSON.stringify(InputFile$outboundSchema.parse(inputFile));
-}
-export function inputFileFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFile' from JSON`,
-  );
+export function inputFileInputToJSON(inputFileInput: InputFileInput): string {
+  return JSON.stringify(InputFileInput$outboundSchema.parse(inputFileInput));
 }

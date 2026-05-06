@@ -8,6 +8,14 @@ import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
 import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  InputAnthropicCompliance,
+  InputAnthropicCompliance$inboundSchema,
+} from "./inputanthropiccompliance.js";
+import {
+  InputAppleUnifiedLogs,
+  InputAppleUnifiedLogs$inboundSchema,
+} from "./inputappleunifiedlogs.js";
 import { InputAppscope, InputAppscope$inboundSchema } from "./inputappscope.js";
 import {
   InputAzureBlob,
@@ -235,6 +243,7 @@ export type Input1 =
   | InputAppscope
   | InputWef
   | InputWinEventLogs
+  | InputAppleUnifiedLogs
   | InputRawUdp
   | InputJournalFiles
   | InputWiz
@@ -246,6 +255,7 @@ export type Input1 =
   | InputZscalerHec
   | InputCloudflareHec
   | InputOpenaiComplianceLogs
+  | InputAnthropicCompliance
   | InputOkta
   | discriminatedUnionTypes.Unknown<"type">;
 
@@ -312,6 +322,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     appscope: InputAppscope$inboundSchema,
     wef: InputWef$inboundSchema,
     win_event_logs: InputWinEventLogs$inboundSchema,
+    apple_unified_logs: InputAppleUnifiedLogs$inboundSchema,
     raw_udp: InputRawUdp$inboundSchema,
     journal_files: InputJournalFiles$inboundSchema,
     wiz: InputWiz$inboundSchema,
@@ -323,6 +334,7 @@ export const Input1$inboundSchema: z.ZodType<Input1, z.ZodTypeDef, unknown> =
     zscaler_hec: InputZscalerHec$inboundSchema,
     cloudflare_hec: InputCloudflareHec$inboundSchema,
     openai_compliance_logs: InputOpenaiComplianceLogs$inboundSchema,
+    anthropic_compliance: InputAnthropicCompliance$inboundSchema,
     okta: InputOkta$inboundSchema,
   });
 

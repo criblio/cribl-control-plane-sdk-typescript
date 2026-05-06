@@ -74,6 +74,10 @@ export type SavedJobResponseScheduledSearch = {
    */
   savedQueryId: string;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Runtime collection state.
    */
   savedState?:
@@ -121,6 +125,10 @@ export type SavedJobResponseExecutor = {
    */
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Runtime collection state.
    */
@@ -180,6 +188,10 @@ export type SavedJobResponseCollection = {
     | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
     | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Runtime collection state.
    */
   savedState?:
@@ -215,6 +227,7 @@ export const SavedJobResponseScheduledSearch$inboundSchema: z.ZodType<
   ),
   streamtags: types.optional(z.array(types.string())),
   savedQueryId: types.string(),
+  __template_streamtags: types.optional(types.string()),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),
@@ -250,6 +263,7 @@ export const SavedJobResponseExecutor$inboundSchema: z.ZodType<
   ),
   streamtags: types.optional(z.array(types.string())),
   executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
+  __template_streamtags: types.optional(types.string()),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),
@@ -289,6 +303,7 @@ export const SavedJobResponseCollection$inboundSchema: z.ZodType<
   input: types.optional(
     RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
+  __template_streamtags: types.optional(types.string()),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),

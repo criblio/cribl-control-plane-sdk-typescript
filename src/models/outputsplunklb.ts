@@ -273,6 +273,10 @@ export type OutputSplunkLb = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
    */
   __template_nestedFields?: string | undefined;
@@ -491,6 +495,7 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
   ),
   authToken: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_nestedFields: types.optional(types.string()),
   __template_maxS2Sversion: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
@@ -540,6 +545,7 @@ export type OutputSplunkLb$Outbound = {
   pqControls?: OutputSplunkLbPqControls$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_nestedFields?: string | undefined;
   __template_maxS2Sversion?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -596,6 +602,7 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSplunkLbPqControls$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_nestedFields: z.string().optional(),
   __template_maxS2Sversion: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

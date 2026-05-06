@@ -1,13 +1,11 @@
 # AuthenticationMethodOptionsAuth
 
-Enter credentials directly, or select a stored secret
-
 ## Example Usage
 
 ```typescript
 import { AuthenticationMethodOptionsAuth } from "cribl-control-plane/models";
 
-let value: AuthenticationMethodOptionsAuth = "manualAPIKey";
+let value: AuthenticationMethodOptionsAuth = "certificate";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +13,5 @@ let value: AuthenticationMethodOptionsAuth = "manualAPIKey";
 ## Values
 
 ```typescript
-"manual" | "secret" | "manualAPIKey" | "textSecret" | Unrecognized<string>
+"secret" | "certificate" | Unrecognized<string>
 ```

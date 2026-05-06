@@ -811,6 +811,18 @@ const value: operations.CreateOutputSystemByPackOutputNutanixObjects = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputStorjS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputStorjS3 = {
+  id: "<id>",
+  type: "storj_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
 ### `operations.CreateOutputSystemByPackOutputAlphasocS3`
 
 ```typescript
@@ -819,6 +831,42 @@ const value: operations.CreateOutputSystemByPackOutputAlphasocS3 = {
   type: "alphasoc_s3",
   bucket: "<value>",
   stagePath: "<value>",
+};
+```
+
+### `operations.CreateOutputSystemByPackOutputDellS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputDellS3 = {
+  id: "<id>",
+  type: "dell_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputSystemByPackOutputCloudianS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputCloudianS3 = {
+  id: "<id>",
+  type: "cloudian_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+
+### `operations.CreateOutputSystemByPackOutputScalityS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputScalityS3 = {
+  id: "<id>",
+  type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 

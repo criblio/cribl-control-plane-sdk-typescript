@@ -4,8 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
@@ -13,6 +11,11 @@ import {
   AcknowledgmentsOptions$inboundSchema,
   AcknowledgmentsOptions$outboundSchema,
 } from "./acknowledgmentsoptions.js";
+import {
+  AuthenticationMethodOptionsAuth,
+  AuthenticationMethodOptionsAuth$inboundSchema,
+  AuthenticationMethodOptionsAuth$outboundSchema,
+} from "./authenticationmethodoptionsauth.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -56,14 +59,6 @@ import {
   TlsSettingsClientSideType$outboundSchema,
 } from "./tlssettingsclientsidetype.js";
 
-export const OutputMicrosoftFabricAuthenticationMethod = {
-  Secret: "secret",
-  Certificate: "certificate",
-} as const;
-export type OutputMicrosoftFabricAuthenticationMethod = OpenEnum<
-  typeof OutputMicrosoftFabricAuthenticationMethod
->;
-
 /**
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
  */
@@ -78,7 +73,7 @@ export type OutputMicrosoftFabricAuthentication = {
    * Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
    */
   textSecret?: string | undefined;
-  clientSecretAuthType?: OutputMicrosoftFabricAuthenticationMethod | undefined;
+  clientSecretAuthType?: AuthenticationMethodOptionsAuth | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -268,6 +263,10 @@ export type OutputMicrosoftFabric = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
@@ -286,17 +285,6 @@ export type OutputMicrosoftFabric = {
 };
 
 /** @internal */
-export const OutputMicrosoftFabricAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricAuthenticationMethod);
-/** @internal */
-export const OutputMicrosoftFabricAuthenticationMethod$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputMicrosoftFabricAuthenticationMethod> =
-    openEnums.outboundSchema(OutputMicrosoftFabricAuthenticationMethod);
-
-/** @internal */
 export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   OutputMicrosoftFabricAuthentication,
   z.ZodTypeDef,
@@ -309,7 +297,7 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   username: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   clientSecretAuthType: types.optional(
-    OutputMicrosoftFabricAuthenticationMethod$inboundSchema,
+    AuthenticationMethodOptionsAuth$inboundSchema,
   ),
   clientTextSecret: types.optional(types.string()),
   certificateName: types.optional(types.string()),
@@ -361,7 +349,7 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   mechanism: SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema.optional(),
   username: z.string().optional(),
   textSecret: z.string().optional(),
-  clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$outboundSchema
+  clientSecretAuthType: AuthenticationMethodOptionsAuth$outboundSchema
     .optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
@@ -482,6 +470,7 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_topic: types.optional(types.string()),
   __template_format: types.optional(types.string()),
   __template_onBackpressure: types.optional(types.string()),
@@ -526,6 +515,7 @@ export type OutputMicrosoftFabric$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -577,6 +567,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
   __template_onBackpressure: z.string().optional(),

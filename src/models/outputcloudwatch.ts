@@ -165,6 +165,10 @@ export type OutputCloudwatch = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCloudwatchPqControls | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'logGroupName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logGroupName' at runtime.
    */
   __template_logGroupName?: string | undefined;
@@ -280,6 +284,7 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputCloudwatchPqControls$inboundSchema),
   ),
+  __template_streamtags: types.optional(types.string()),
   __template_logGroupName: types.optional(types.string()),
   __template_logStreamName: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
@@ -329,6 +334,7 @@ export type OutputCloudwatch$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputCloudwatchPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_logGroupName?: string | undefined;
   __template_logStreamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -384,6 +390,7 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_logGroupName: z.string().optional(),
   __template_logStreamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),

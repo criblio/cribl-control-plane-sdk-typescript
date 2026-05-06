@@ -190,6 +190,10 @@ export type OutputSplunk = {
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
   __template_host?: string | undefined;
@@ -294,6 +298,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   ),
   authToken: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_nestedFields: types.optional(types.string()),
@@ -339,6 +344,7 @@ export type OutputSplunk$Outbound = {
   pqControls?: OutputSplunkPqControls$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_nestedFields?: string | undefined;
@@ -390,6 +396,7 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSplunkPqControls$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_nestedFields: z.string().optional(),

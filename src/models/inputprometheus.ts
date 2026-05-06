@@ -15,6 +15,10 @@ import {
 } from "./authenticationmethodoptionssasl.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -91,6 +95,245 @@ export const MetricsProtocol = {
 export type MetricsProtocol = OpenEnum<typeof MetricsProtocol>;
 
 export type InputPrometheus = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "prometheus";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Other dimensions to include in events
+   */
+  dimensionList?: Array<string> | undefined;
+  /**
+   * Target discovery mechanism. Use static to manually enter a list of targets.
+   */
+  discoveryType?: InputPrometheusDiscoveryType | undefined;
+  /**
+   * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
+   */
+  interval: number;
+  /**
+   * Collector runtime log level
+   */
+  logLevel: LogLevelOptions;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodOptionsSasl | undefined;
+  description?: string | undefined;
+  /**
+   * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
+   */
+  targetList?: Array<string> | undefined;
+  /**
+   * DNS record type to resolve
+   */
+  recordType?: RecordTypeOptions | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocol?: MetricsProtocol | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePath?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Disable to use the private IP address.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * Filter to apply when searching for EC2 instances
+   */
+  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the EC2 is located
+   */
+  region?: string | undefined;
+  /**
+   * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing EC2 requests
+   */
+  signatureVersion?: SignatureVersionOptionsV2V4 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access EC2
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Username for Prometheus Basic authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password for Prometheus Basic authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+   */
+  __template_dimensionList?: string | undefined;
+  /**
+   * Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
+   */
+  __template_discoveryType?: string | undefined;
+  /**
+   * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+   */
+  __template_logLevel?: string | undefined;
+  /**
+   * Binds 'targetList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'targetList' at runtime.
+   */
+  __template_targetList?: string | undefined;
+  /**
+   * Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+   */
+  __template_nameList?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
+};
+
+export type InputPrometheusInput = {
   /**
    * Unique ID for this input
    */
@@ -266,6 +509,14 @@ export type InputPrometheus = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+   */
+  __template_dimensionList?: string | undefined;
+  /**
    * Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
    */
   __template_discoveryType?: string | undefined;
@@ -273,6 +524,14 @@ export type InputPrometheus = {
    * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
    */
   __template_logLevel?: string | undefined;
+  /**
+   * Binds 'targetList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'targetList' at runtime.
+   */
+  __template_targetList?: string | undefined;
+  /**
+   * Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+   */
+  __template_nameList?: string | undefined;
   /**
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
@@ -347,6 +606,9 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -389,8 +651,12 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_dimensionList: types.optional(types.string()),
   __template_discoveryType: types.optional(types.string()),
   __template_logLevel: types.optional(types.string()),
+  __template_targetList: types.optional(types.string()),
+  __template_nameList: types.optional(types.string()),
   __template_awsApiKey: types.optional(types.string()),
   __template_awsSecretKey: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -400,8 +666,19 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   __template_username: types.optional(types.string()),
   __template_password: types.optional(types.string()),
 });
+
+export function inputPrometheusFromJSON(
+  jsonString: string,
+): SafeParseResult<InputPrometheus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputPrometheus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputPrometheus' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputPrometheus$Outbound = {
+export type InputPrometheusInput$Outbound = {
   id?: string | undefined;
   type: "prometheus";
   disabled?: boolean | undefined;
@@ -450,8 +727,12 @@ export type InputPrometheus$Outbound = {
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_dimensionList?: string | undefined;
   __template_discoveryType?: string | undefined;
   __template_logLevel?: string | undefined;
+  __template_targetList?: string | undefined;
+  __template_nameList?: string | undefined;
   __template_awsApiKey?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -463,10 +744,10 @@ export type InputPrometheus$Outbound = {
 };
 
 /** @internal */
-export const InputPrometheus$outboundSchema: z.ZodType<
-  InputPrometheus$Outbound,
+export const InputPrometheusInput$outboundSchema: z.ZodType<
+  InputPrometheusInput$Outbound,
   z.ZodTypeDef,
-  InputPrometheus
+  InputPrometheusInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("prometheus"),
@@ -516,8 +797,12 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_dimensionList: z.string().optional(),
   __template_discoveryType: z.string().optional(),
   __template_logLevel: z.string().optional(),
+  __template_targetList: z.string().optional(),
+  __template_nameList: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
@@ -528,17 +813,10 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   __template_password: z.string().optional(),
 });
 
-export function inputPrometheusToJSON(
-  inputPrometheus: InputPrometheus,
+export function inputPrometheusInputToJSON(
+  inputPrometheusInput: InputPrometheusInput,
 ): string {
-  return JSON.stringify(InputPrometheus$outboundSchema.parse(inputPrometheus));
-}
-export function inputPrometheusFromJSON(
-  jsonString: string,
-): SafeParseResult<InputPrometheus, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputPrometheus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputPrometheus' from JSON`,
+  return JSON.stringify(
+    InputPrometheusInput$outboundSchema.parse(inputPrometheusInput),
   );
 }

@@ -16,6 +16,10 @@ import {
 } from "./certoptionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
   ItemsTypeConnectionsOptional,
   ItemsTypeConnectionsOptional$inboundSchema,
   ItemsTypeConnectionsOptional$Outbound,
@@ -68,6 +72,177 @@ export type InputOffice365MsgTraceAuthenticationMethod = OpenEnum<
 >;
 
 export type InputOffice365MsgTrace = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: "office365_msg_trace";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url: string;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval: number;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<ItemsTypeMetadata> | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: LogLevelOptionsDebugError | undefined;
+  retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+   */
+  planType?: SubscriptionPlanOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptionsType | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+   */
+  __template_resource?: string | undefined;
+  /**
+   * Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+   */
+  __template_planType?: string | undefined;
+};
+
+export type InputOffice365MsgTraceInput = {
   /**
    * Unique ID for this input
    */
@@ -207,6 +382,10 @@ export type InputOffice365MsgTrace = {
    */
   __template_environment?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -251,6 +430,9 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   pqEnabled: types.optional(types.boolean()),
   streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
   connections: types.optional(
     z.array(ItemsTypeConnectionsOptional$inboundSchema),
   ),
@@ -286,14 +468,26 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   textSecret: types.optional(types.string()),
   certOptions: types.optional(CertOptionsType$inboundSchema),
   __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   __template_tenantId: types.optional(types.string()),
   __template_clientId: types.optional(types.string()),
   __template_resource: types.optional(types.string()),
   __template_planType: types.optional(types.string()),
 });
+
+export function inputOffice365MsgTraceFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MsgTrace, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MsgTrace$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MsgTrace' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputOffice365MsgTrace$Outbound = {
+export type InputOffice365MsgTraceInput$Outbound = {
   id?: string | undefined;
   type: "office365_msg_trace";
   disabled?: boolean | undefined;
@@ -333,6 +527,7 @@ export type InputOffice365MsgTrace$Outbound = {
   textSecret?: string | undefined;
   certOptions?: CertOptionsType$Outbound | undefined;
   __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
@@ -341,10 +536,10 @@ export type InputOffice365MsgTrace$Outbound = {
 };
 
 /** @internal */
-export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
-  InputOffice365MsgTrace$Outbound,
+export const InputOffice365MsgTraceInput$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceInput$Outbound,
   z.ZodTypeDef,
-  InputOffice365MsgTrace
+  InputOffice365MsgTraceInput
 > = z.object({
   id: z.string().optional(),
   type: z.literal("office365_msg_trace"),
@@ -386,6 +581,7 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   certOptions: CertOptionsType$outboundSchema.optional(),
   __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
@@ -393,19 +589,12 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   __template_planType: z.string().optional(),
 });
 
-export function inputOffice365MsgTraceToJSON(
-  inputOffice365MsgTrace: InputOffice365MsgTrace,
+export function inputOffice365MsgTraceInputToJSON(
+  inputOffice365MsgTraceInput: InputOffice365MsgTraceInput,
 ): string {
   return JSON.stringify(
-    InputOffice365MsgTrace$outboundSchema.parse(inputOffice365MsgTrace),
-  );
-}
-export function inputOffice365MsgTraceFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MsgTrace, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MsgTrace$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTrace' from JSON`,
+    InputOffice365MsgTraceInput$outboundSchema.parse(
+      inputOffice365MsgTraceInput,
+    ),
   );
 }
