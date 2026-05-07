@@ -123,7 +123,7 @@ export class AuthOnprem implements ICriblAuth {
         username: this.username,
         password: this.password,
       });
-      const token = response.result.token;
+      const token = response.result.tokenSecret;
       this.client = new CriblControlPlane({ serverURL: this.baseUrl, security: { bearerAuth: token } });
       return this.client;
     } catch (error: any) {
