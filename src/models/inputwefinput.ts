@@ -6,19 +6,19 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
-import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  Connection,
+  Connection$Outbound,
+  Connection$outboundSchema,
+} from "./connection.js";
 import {
   MaximumTlsVersionOptionsTls,
   MaximumTlsVersionOptionsTls$outboundSchema,
 } from "./maximumtlsversionoptionstls.js";
+import {
+  Metadata,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 import {
   MinimumTlsVersionOptionsTls,
   MinimumTlsVersionOptionsTls$outboundSchema,
@@ -167,7 +167,7 @@ export type InputWefSubscription = {
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   queries?: Array<InputWefQuery> | undefined;
   /**
    * The XPath query to use for selecting events
@@ -205,7 +205,7 @@ export type InputWefInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -279,7 +279,7 @@ export type InputWefInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
@@ -411,7 +411,7 @@ export type InputWefSubscription$Outbound = {
   targets: Array<string>;
   locale?: string | undefined;
   querySelector?: string | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
   queries?: Array<InputWefQuery$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
@@ -433,7 +433,7 @@ export const InputWefSubscription$outboundSchema: z.ZodType<
   targets: z.array(z.string()),
   locale: z.string().optional(),
   querySelector: InputWefQueryBuilderMode$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
   queries: z.array(z.lazy(() => InputWefQuery$outboundSchema)).optional(),
   xmlQuery: z.string().optional(),
 });
@@ -456,7 +456,7 @@ export type InputWefInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<Connection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -476,7 +476,7 @@ export type InputWefInput$Outbound = {
   principal?: string | undefined;
   allowMachineIdMismatch?: boolean | undefined;
   subscriptions: Array<InputWefSubscription$Outbound>;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
   __template_environment?: string | undefined;
@@ -501,7 +501,7 @@ export const InputWefInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(Connection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -521,7 +521,7 @@ export const InputWefInput$outboundSchema: z.ZodType<
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().optional(),
   subscriptions: z.array(z.lazy(() => InputWefSubscription$outboundSchema)),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
   __template_environment: z.string().optional(),

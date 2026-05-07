@@ -6,15 +6,15 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
+  Connection,
+  Connection$Outbound,
+  Connection$outboundSchema,
+} from "./connection.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  Metadata,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 
 /**
@@ -59,7 +59,7 @@ export type InputExecInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Command to execute; supports Bourne shell (or CMD on Windows) syntax
@@ -88,7 +88,7 @@ export type InputExecInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -125,7 +125,7 @@ export type InputExecInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<Connection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   command: string;
   script?: string | undefined;
@@ -133,7 +133,7 @@ export type InputExecInput$Outbound = {
   scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
   description?: string | undefined;
   interval?: number | undefined;
   cronSchedule?: string | undefined;
@@ -155,7 +155,7 @@ export const InputExecInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(Connection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   command: z.string(),
   script: z.string().optional(),
@@ -163,7 +163,7 @@ export const InputExecInput$outboundSchema: z.ZodType<
   scheduleType: ScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
   description: z.string().optional(),
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),

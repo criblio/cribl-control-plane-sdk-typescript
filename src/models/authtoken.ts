@@ -9,8 +9,12 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AuthToken = {
-  forcePasswordChange: boolean;
-  token: string;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
@@ -19,10 +23,31 @@ export const AuthToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  forcePasswordChange: types.boolean(),
-  token: types.string(),
+  tokenSecret: types.string(),
+  enabled: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type AuthToken$Outbound = {
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const AuthToken$outboundSchema: z.ZodType<
+  AuthToken$Outbound,
+  z.ZodTypeDef,
+  AuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
 });
 
+export function authTokenToJSON(authToken: AuthToken): string {
+  return JSON.stringify(AuthToken$outboundSchema.parse(authToken));
+}
 export function authTokenFromJSON(
   jsonString: string,
 ): SafeParseResult<AuthToken, SDKValidationError> {

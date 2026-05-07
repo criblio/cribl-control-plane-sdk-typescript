@@ -8,19 +8,19 @@ import {
   AuthenticationMethodOptionsManualSecret$outboundSchema,
 } from "./authenticationmethodoptionsmanualsecret.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
-import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  Connection,
+  Connection$Outbound,
+  Connection$outboundSchema,
+} from "./connection.js";
 import {
   LogLevelOptionsContentConfigItems,
   LogLevelOptionsContentConfigItems$outboundSchema,
 } from "./logleveloptionscontentconfigitems.js";
+import {
+  Metadata,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   RetryRulesTypeCodesEnableHeader,
@@ -79,7 +79,7 @@ export type InputOffice365MgmtInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
@@ -120,7 +120,7 @@ export type InputOffice365MgmtInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -219,7 +219,7 @@ export type InputOffice365MgmtInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<Connection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   planType: string;
   tenantId: string;
@@ -230,7 +230,7 @@ export type InputOffice365MgmtInput$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
   contentConfig?: Array<InputOffice365MgmtContentConfig$Outbound> | undefined;
   ingestionLag?: number | undefined;
@@ -262,7 +262,7 @@ export const InputOffice365MgmtInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(Connection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   planType: SubscriptionPlanOptions$outboundSchema,
   tenantId: z.string(),
@@ -273,7 +273,7 @@ export const InputOffice365MgmtInput$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
   publisherIdentifier: z.string().optional(),
   contentConfig: z.array(
     z.lazy(() => InputOffice365MgmtContentConfig$outboundSchema),

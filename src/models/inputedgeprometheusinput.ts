@@ -6,25 +6,25 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
+  Connection,
+  Connection$Outbound,
+  Connection$outboundSchema,
+} from "./connection.js";
+import {
   DiskSpoolingType,
   DiskSpoolingType$Outbound,
   DiskSpoolingType$outboundSchema,
 } from "./diskspoolingtype.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
-import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
-import {
   ItemsTypeSearchFilter,
   ItemsTypeSearchFilter$Outbound,
   ItemsTypeSearchFilter$outboundSchema,
 } from "./itemstypesearchfilter.js";
+import {
+  Metadata,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   ProtocolOptionsTargetsItems,
@@ -59,6 +59,10 @@ export const InputEdgePrometheusDiscoveryType = {
    * Kubernetes Pods
    */
   K8sPods: "k8s-pods",
+  /**
+   * Kubernetes Service Monitor (v4.18+)
+   */
+  K8sServiceMonitor: "k8s-service-monitor",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -142,12 +146,16 @@ export type InputEdgePrometheusInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
    */
   dimensionList?: Array<string> | undefined;
+  /**
+   * Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+   */
+  fieldPerMetric?: boolean | undefined;
   /**
    * Target discovery mechanism. Use static to manually enter a list of targets.
    */
@@ -164,7 +172,7 @@ export type InputEdgePrometheusInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -241,6 +249,10 @@ export type InputEdgePrometheusInput = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * Namespace to search for ServiceMonitor resources. Leave empty to search in all namespaces. Note: Kubernetes Service Monitor discovery requires Cribl Edge version 4.18 or greater. Nodes running an older version with this option configured will report an error due to configuration schema validation failure.
+   */
+  serviceMonitorNamespace?: string | undefined;
   /**
    * Protocol to use when collecting metrics
    */
@@ -393,14 +405,15 @@ export type InputEdgePrometheusInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<Connection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
+  fieldPerMetric?: boolean | undefined;
   discoveryType: string;
   interval: number;
   timeout?: number | undefined;
   persistence?: DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targets?: Array<InputEdgePrometheusTarget$Outbound> | undefined;
@@ -423,6 +436,7 @@ export type InputEdgePrometheusInput$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  serviceMonitorNamespace?: string | undefined;
   scrapeProtocolExpr?: string | undefined;
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
@@ -456,14 +470,15 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(Connection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
+  fieldPerMetric: z.boolean().optional(),
   discoveryType: InputEdgePrometheusDiscoveryType$outboundSchema,
   interval: z.number(),
   timeout: z.number().optional(),
   persistence: DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
   authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.optional(),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => InputEdgePrometheusTarget$outboundSchema))
@@ -487,6 +502,7 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  serviceMonitorNamespace: z.string().optional(),
   scrapeProtocolExpr: z.string().optional(),
   scrapePortExpr: z.string().optional(),
   scrapePathExpr: z.string().optional(),

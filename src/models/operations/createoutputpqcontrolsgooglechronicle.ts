@@ -5506,7 +5506,7 @@ export type CreateOutputOutputCriblSearchEngine = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<models.ItemsTypeAuthTokensTokenSecret> | undefined;
+  authTokens?: Array<models.AuthToken> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -5695,7 +5695,7 @@ export type CreateOutputOutputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
    */
-  authTokens?: Array<models.ItemsTypeAuthTokensTokenSecret> | undefined;
+  authTokens?: Array<models.AuthToken> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -5841,7 +5841,7 @@ export type CreateOutputOutputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
    */
-  authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
+  authTokens?: Array<models.AuthToken> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -15975,9 +15975,7 @@ export type CreateOutputOutputCriblSearchEngine$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?:
-    | Array<models.ItemsTypeAuthTokensTokenSecret$Outbound>
-    | undefined;
+  authTokens?: Array<models.AuthToken$Outbound> | undefined;
   onBackpressure?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   description?: string | undefined;
@@ -16039,8 +16037,7 @@ export const CreateOutputOutputCriblSearchEngine$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(models.ItemsTypeAuthTokensTokenSecret$outboundSchema)
-    .optional(),
+  authTokens: z.array(models.AuthToken$outboundSchema).optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   useRoundRobinDns: z.boolean().optional(),
   description: z.string().optional(),
@@ -16129,9 +16126,7 @@ export type CreateOutputOutputCriblHttp$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?:
-    | Array<models.ItemsTypeAuthTokensTokenSecret$Outbound>
-    | undefined;
+  authTokens?: Array<models.AuthToken$Outbound> | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   url?: string | undefined;
@@ -16193,8 +16188,7 @@ export const CreateOutputOutputCriblHttp$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(models.ItemsTypeAuthTokensTokenSecret$outboundSchema)
-    .optional(),
+  authTokens: z.array(models.AuthToken$outboundSchema).optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
@@ -16268,7 +16262,7 @@ export type CreateOutputOutputCriblTcp$Outbound = {
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
-  authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
+  authTokens?: Array<models.AuthToken$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
@@ -16317,7 +16311,7 @@ export const CreateOutputOutputCriblTcp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
-  authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
+  authTokens: z.array(models.AuthToken$outboundSchema).optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),

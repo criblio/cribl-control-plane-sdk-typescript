@@ -1,11 +1,11 @@
-# ItemsTypeMetadata
+# Metadata
 
 ## Example Usage
 
 ```typescript
-import { ItemsTypeMetadata } from "cribl-control-plane/models";
+import { Metadata } from "cribl-control-plane/models";
 
-let value: ItemsTypeMetadata = {
+let value: Metadata = {
   name: "<value>",
   value: "<value>",
 };

@@ -49,6 +49,7 @@ import {
   AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret,
   AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
 } from "./authenticationtypeoptionsprometheusauthbasiccredentialssecret.js";
+import { AuthToken, AuthToken$inboundSchema } from "./authtoken.js";
 import {
   AuthTypeTemplatemanualApiKeyAuthType,
   AuthTypeTemplatemanualApiKeyAuthType$inboundSchema,
@@ -122,14 +123,6 @@ import {
   GoogleAuthenticationMethodOptions,
   GoogleAuthenticationMethodOptions$inboundSchema,
 } from "./googleauthenticationmethodoptions.js";
-import {
-  ItemsTypeAuthTokens,
-  ItemsTypeAuthTokens$inboundSchema,
-} from "./itemstypeauthtokens.js";
-import {
-  ItemsTypeAuthTokensTokenSecret,
-  ItemsTypeAuthTokensTokenSecret$inboundSchema,
-} from "./itemstypeauthtokenstokensecret.js";
 import {
   ItemsTypeContentConfigItemsRequestParams,
   ItemsTypeContentConfigItemsRequestParams$inboundSchema,
@@ -5912,7 +5905,7 @@ export type OutputResponseOutputCriblSearchEngine = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokensTokenSecret> | undefined;
+  authTokens?: Array<AuthToken> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -6107,7 +6100,7 @@ export type OutputResponseOutputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokensTokenSecret> | undefined;
+  authTokens?: Array<AuthToken> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -6261,7 +6254,7 @@ export type OutputResponseOutputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
+  authTokens?: Array<AuthToken> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -15208,9 +15201,7 @@ export const OutputResponseOutputCriblSearchEngine$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  authTokens: types.optional(
-    z.array(ItemsTypeAuthTokensTokenSecret$inboundSchema),
-  ),
+  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   useRoundRobinDns: types.optional(types.boolean()),
   description: types.optional(types.string()),
@@ -15305,9 +15296,7 @@ export const OutputResponseOutputCriblHttp$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  authTokens: types.optional(
-    z.array(ItemsTypeAuthTokensTokenSecret$inboundSchema),
-  ),
+  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
   url: types.optional(types.string()),
@@ -15383,7 +15372,7 @@ export const OutputResponseOutputCriblTcp$inboundSchema: z.ZodType<
   connectionTimeout: types.optional(types.number()),
   writeTimeout: types.optional(types.number()),
   tokenTTLMinutes: types.optional(types.number()),
-  authTokens: types.optional(z.array(ItemsTypeAuthTokens$inboundSchema)),
+  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
   excludeFields: types.optional(z.array(types.string())),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),

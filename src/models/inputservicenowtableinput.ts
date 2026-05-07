@@ -6,15 +6,10 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
-import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  Connection,
+  Connection$Outbound,
+  Connection$outboundSchema,
+} from "./connection.js";
 import {
   ItemsTypeOauthHeaders,
   ItemsTypeOauthHeaders$Outbound,
@@ -29,6 +24,11 @@ import {
   LogLevelOptions,
   LogLevelOptions$outboundSchema,
 } from "./logleveloptions.js";
+import {
+  Metadata,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   RetryRulesType,
@@ -132,7 +132,7 @@ export type InputServicenowTableInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
@@ -158,10 +158,6 @@ export type InputServicenowTableInput = {
    * Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
    */
   query?: string | undefined;
-  /**
-   * When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
-   */
-  useRawValues?: boolean | undefined;
   /**
    * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
    */
@@ -229,7 +225,7 @@ export type InputServicenowTableInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
@@ -355,7 +351,7 @@ export type InputServicenowTableInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<Connection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   instance: string;
   tableName: string;
@@ -363,7 +359,6 @@ export type InputServicenowTableInput$Outbound = {
   orderByField?: string | undefined;
   orderByDirection?: string | undefined;
   query?: string | undefined;
-  useRawValues?: boolean | undefined;
   pageSize?: number | undefined;
   maxPages?: number | undefined;
   rejectUnauthorized?: boolean | undefined;
@@ -380,7 +375,7 @@ export type InputServicenowTableInput$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -418,7 +413,7 @@ export const InputServicenowTableInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(Connection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   instance: z.string(),
   tableName: z.string(),
@@ -426,7 +421,6 @@ export const InputServicenowTableInput$outboundSchema: z.ZodType<
   orderByField: z.string().optional(),
   orderByDirection: InputServicenowTableSortDirection$outboundSchema.optional(),
   query: z.string().optional(),
-  useRawValues: z.boolean().optional(),
   pageSize: z.number().int().optional(),
   maxPages: z.number().int().optional(),
   rejectUnauthorized: z.boolean().optional(),
@@ -443,7 +437,7 @@ export const InputServicenowTableInput$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
   credentialsSecret: z.string().optional(),

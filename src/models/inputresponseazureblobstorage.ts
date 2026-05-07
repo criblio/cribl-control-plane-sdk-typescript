@@ -21,6 +21,7 @@ import {
   AuthenticationMethodOptionsManualSecret,
   AuthenticationMethodOptionsManualSecret$inboundSchema,
 } from "./authenticationmethodoptionsmanualsecret.js";
+import { AuthToken, AuthToken$inboundSchema } from "./authtoken.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
   CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
@@ -29,6 +30,7 @@ import {
   CheckpointingType,
   CheckpointingType$inboundSchema,
 } from "./checkpointingtype.js";
+import { Connection, Connection$inboundSchema } from "./connection.js";
 import {
   DataCompressionFormatOptionsPersistence,
   DataCompressionFormatOptionsPersistence$inboundSchema,
@@ -48,25 +50,13 @@ import {
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
 } from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
 import {
-  ItemsTypeAuthTokens,
-  ItemsTypeAuthTokens$inboundSchema,
-} from "./itemstypeauthtokens.js";
-import {
   ItemsTypeAuthTokensExt,
   ItemsTypeAuthTokensExt$inboundSchema,
 } from "./itemstypeauthtokensext.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$inboundSchema,
-} from "./itemstypeconnectionsoptional.js";
-import {
   ItemsTypeContentConfigItemsRequestParams,
   ItemsTypeContentConfigItemsRequestParams$inboundSchema,
 } from "./itemstypecontentconfigitemsrequestparams.js";
-import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$inboundSchema,
-} from "./itemstypemetadata.js";
 import {
   ItemsTypeOauthHeaders,
   ItemsTypeOauthHeaders$inboundSchema,
@@ -91,6 +81,7 @@ import {
   MaximumTlsVersionOptionsTls,
   MaximumTlsVersionOptionsTls$inboundSchema,
 } from "./maximumtlsversionoptionstls.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
 import {
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
@@ -167,7 +158,7 @@ export type InputResponseInputOkta = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Your Okta domain (example: your-org). Do not include .okta.com, https://, or trailing slashes.
@@ -220,7 +211,7 @@ export type InputResponseInputOkta = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
@@ -318,7 +309,7 @@ export type InputResponseInputAnthropicCompliance = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   apiKey?: string | undefined;
   /**
@@ -349,7 +340,7 @@ export type InputResponseInputAnthropicCompliance = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
@@ -422,7 +413,7 @@ export type InputResponseInputOpenaiComplianceLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   apiKey?: string | undefined;
   /**
@@ -478,7 +469,7 @@ export type InputResponseInputOpenaiComplianceLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -571,7 +562,7 @@ export type AuthTokenCloudflareHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
 };
 
 export type InputResponseTLSSettingsServerSide = {
@@ -651,7 +642,7 @@ export type InputResponseInputCloudflareHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -713,7 +704,7 @@ export type InputResponseInputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -803,7 +794,7 @@ export type AuthTokenZscalerHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
 };
 
 export type InputResponseInputZscalerHec = {
@@ -842,7 +833,7 @@ export type InputResponseInputZscalerHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -904,7 +895,7 @@ export type InputResponseInputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -1056,7 +1047,7 @@ export type InputResponseInputServicenowTable = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
@@ -1082,10 +1073,6 @@ export type InputResponseInputServicenowTable = {
    * Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
    */
   query?: string | undefined;
-  /**
-   * When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
-   */
-  useRawValues?: boolean | undefined;
   /**
    * Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
    */
@@ -1153,7 +1140,7 @@ export type InputResponseInputServicenowTable = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
@@ -1272,7 +1259,7 @@ export type InputResponseInputSecurityLake = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -1367,7 +1354,7 @@ export type InputResponseInputSecurityLake = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -1486,7 +1473,7 @@ export type InputResponseInputNetflow = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -1531,7 +1518,7 @@ export type InputResponseInputNetflow = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1595,7 +1582,7 @@ export type InputResponseInputWizWebhook = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -1665,7 +1652,7 @@ export type InputResponseInputWizWebhook = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
    */
@@ -1816,7 +1803,7 @@ export type ContentConfigOpenai = {
   /**
    * Fields automatically added to events from this Content Type
    */
-  endpointMetadata?: Array<ItemsTypeMetadata> | undefined;
+  endpointMetadata?: Array<Metadata> | undefined;
 };
 
 export type InputResponseInputOpenai = {
@@ -1855,7 +1842,7 @@ export type InputResponseInputOpenai = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
@@ -1894,7 +1881,7 @@ export type InputResponseInputOpenai = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
@@ -2011,7 +1998,7 @@ export type InputResponseInputWiz = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
@@ -2053,7 +2040,7 @@ export type InputResponseInputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -2153,7 +2140,7 @@ export type InputResponseInputJournalFiles = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
@@ -2183,7 +2170,7 @@ export type InputResponseInputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2239,7 +2226,7 @@ export type InputResponseInputRawUdp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -2272,7 +2259,7 @@ export type InputResponseInputRawUdp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2356,7 +2343,7 @@ export type InputResponseInputAppleUnifiedLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
@@ -2377,7 +2364,7 @@ export type InputResponseInputAppleUnifiedLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2471,7 +2458,7 @@ export type InputResponseInputWinEventLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
@@ -2500,7 +2487,7 @@ export type InputResponseInputWinEventLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
@@ -2672,7 +2659,7 @@ export type InputResponseSubscription = {
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   queries?: Array<InputResponseQuery> | undefined;
   /**
    * The XPath query to use for selecting events
@@ -2716,7 +2703,7 @@ export type InputResponseInputWef = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -2790,7 +2777,7 @@ export type InputResponseInputWef = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
@@ -2921,7 +2908,7 @@ export type InputResponseInputAppscope = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
@@ -2950,7 +2937,7 @@ export type InputResponseInputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -3057,7 +3044,7 @@ export type InputResponseInputTcp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -3095,7 +3082,7 @@ export type InputResponseInputTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -3204,7 +3191,7 @@ export type InputResponseInputFile = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Choose how to discover files to monitor
@@ -3253,7 +3240,7 @@ export type InputResponseInputFile = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -3349,7 +3336,7 @@ export type InputResponseInputSyslogSyslog2 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -3423,7 +3410,7 @@ export type InputResponseInputSyslogSyslog2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -3514,7 +3501,7 @@ export type InputResponseInputSyslogSyslog1 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -3588,7 +3575,7 @@ export type InputResponseInputSyslogSyslog1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -3694,7 +3681,7 @@ export type InputResponseInputSqs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -3760,7 +3747,7 @@ export type InputResponseInputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -3865,7 +3852,7 @@ export type InputResponseInputModelDrivenTelemetry = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -3879,7 +3866,7 @@ export type InputResponseInputModelDrivenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -4017,7 +4004,7 @@ export type InputResponseAuthMethodsExt = {
   /**
    * Fields to add to events referencing this auth method
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   enabled?: boolean | undefined;
   /**
    * Select or create a stored text secret
@@ -4067,7 +4054,7 @@ export type InputResponseInputOpenTelemetry = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -4137,7 +4124,7 @@ export type InputResponseInputOpenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -4256,7 +4243,7 @@ export type InputResponseInputSnmp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -4281,7 +4268,7 @@ export type InputResponseInputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -4357,7 +4344,7 @@ export type InputResponseInputS3Inventory = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -4452,7 +4439,7 @@ export type InputResponseInputS3Inventory = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -4579,7 +4566,7 @@ export type InputResponseInputS3 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -4674,7 +4661,7 @@ export type InputResponseInputS3 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -4796,7 +4783,7 @@ export type InputResponseInputMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -4826,7 +4813,7 @@ export type InputResponseInputMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -4898,7 +4885,7 @@ export type InputResponseInputCriblmetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * A prefix that is applied to the metrics provided by Cribl Stream
@@ -4911,7 +4898,7 @@ export type InputResponseInputCriblmetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5035,7 +5022,7 @@ export type InputResponseInputKinesis = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Kinesis Data Stream to read data from
@@ -5117,7 +5104,7 @@ export type InputResponseInputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -5214,7 +5201,7 @@ export type InputResponseInputHttpRaw = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -5284,7 +5271,7 @@ export type InputResponseInputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -5376,13 +5363,13 @@ export type InputResponseInputDatagen = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   samples: Array<InputResponseSample>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5449,7 +5436,7 @@ export type InputResponseInputDatadogAgent = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -5511,7 +5498,7 @@ export type InputResponseInputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   proxyMode?: ProxyModeDatadogAgent | undefined;
   description?: string | undefined;
   /**
@@ -5576,7 +5563,7 @@ export type InputResponseInputCrowdstrike = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -5671,7 +5658,7 @@ export type InputResponseInputCrowdstrike = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   checkpointing?: CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
@@ -6041,7 +6028,7 @@ export type InputResponseInputWindowsMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
@@ -6053,7 +6040,7 @@ export type InputResponseInputWindowsMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   persistence?: PersistenceWindowsMetrics | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
@@ -6114,7 +6101,7 @@ export type InputResponseInputKubeEvents = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Filtering on event fields
@@ -6123,7 +6110,7 @@ export type InputResponseInputKubeEvents = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6190,7 +6177,7 @@ export type InputResponseInputKubeLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between checks for new containers. Default is 15 secs.
@@ -6207,7 +6194,7 @@ export type InputResponseInputKubeLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   persistence?: DiskSpoolingType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -6300,7 +6287,7 @@ export type InputResponseInputKubeMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
@@ -6313,7 +6300,7 @@ export type InputResponseInputKubeMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   persistence?: PersistenceKubeMetrics | undefined;
   description?: string | undefined;
   /**
@@ -6518,7 +6505,7 @@ export type InputResponseInputSystemState = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
@@ -6527,7 +6514,7 @@ export type InputResponseInputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   collectors?: InputResponseCollectors | undefined;
   persistence?: PersistenceSystemState | undefined;
   /**
@@ -6923,7 +6910,7 @@ export type InputResponseInputSystemMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
@@ -6936,7 +6923,7 @@ export type InputResponseInputSystemMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   persistence?: PersistenceSystemMetrics | undefined;
   description?: string | undefined;
   /**
@@ -6993,7 +6980,7 @@ export type InputResponseInputTcpjson = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -7031,7 +7018,7 @@ export type InputResponseInputTcpjson = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -7092,7 +7079,7 @@ export type InputResponseAuthTokensExt = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   splunkHecMetadata?: InputResponseSplunkHecMetadata | undefined;
   elasticsearchMetadata?: InputResponseElasticsearchMetadata | undefined;
 };
@@ -7133,7 +7120,7 @@ export type InputResponseInputCriblLakeHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -7208,7 +7195,7 @@ export type InputResponseInputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   authTokensExt?: Array<InputResponseAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
@@ -7289,7 +7276,7 @@ export type InputResponseInputCriblHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -7302,7 +7289,7 @@ export type InputResponseInputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
    */
-  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
+  authTokens?: Array<AuthToken> | undefined;
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -7351,7 +7338,7 @@ export type InputResponseInputCriblHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7415,7 +7402,7 @@ export type InputResponseInputCriblTcp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -7449,7 +7436,7 @@ export type InputResponseInputCriblTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -7457,7 +7444,7 @@ export type InputResponseInputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
    */
-  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
+  authTokens?: Array<AuthToken> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7521,13 +7508,13 @@ export type InputResponseInputCribl = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   filter?: string | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7583,7 +7570,7 @@ export type InputResponseInputGooglePubsub = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
@@ -7636,7 +7623,7 @@ export type InputResponseInputGooglePubsub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
@@ -7708,7 +7695,7 @@ export type InputResponseInputFirehose = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -7770,7 +7757,7 @@ export type InputResponseInputFirehose = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7852,7 +7839,7 @@ export type InputResponseInputExec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Command to execute; supports Bourne shell (or CMD on Windows) syntax
@@ -7881,7 +7868,7 @@ export type InputResponseInputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -8070,9 +8057,7 @@ export const InputResponseInputOkta$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   oktaDomain: types.string(),
   oktaToken: types.optional(types.string()),
@@ -8086,7 +8071,7 @@ export const InputResponseInputOkta$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
@@ -8171,9 +8156,7 @@ export const InputResponseInputAnthropicCompliance$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   apiKey: types.optional(types.string()),
   textSecret: types.string(),
@@ -8185,7 +8168,7 @@ export const InputResponseInputAnthropicCompliance$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
@@ -8246,9 +8229,7 @@ export const InputResponseInputOpenaiComplianceLogs$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   apiKey: types.optional(types.string()),
   textSecret: types.string(),
@@ -8267,7 +8248,7 @@ export const InputResponseInputOpenaiComplianceLogs$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
   retryRules: types.optional(RetryRulesType$inboundSchema),
@@ -8318,7 +8299,7 @@ export const AuthTokenCloudflareHec$inboundSchema: z.ZodType<
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
 });
 
 export function authTokenCloudflareHecFromJSON(
@@ -8378,9 +8359,7 @@ export const InputResponseInputCloudflareHec$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -8401,7 +8380,7 @@ export const InputResponseInputCloudflareHec$inboundSchema: z.ZodType<
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   hecAPI: types.string(),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
@@ -8445,7 +8424,7 @@ export const AuthTokenZscalerHec$inboundSchema: z.ZodType<
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
 });
 
 export function authTokenZscalerHecFromJSON(
@@ -8475,9 +8454,7 @@ export const InputResponseInputZscalerHec$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -8496,7 +8473,7 @@ export const InputResponseInputZscalerHec$inboundSchema: z.ZodType<
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   hecAPI: types.string(),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
   hecAcks: types.optional(types.boolean()),
   accessControlAllowOrigin: types.optional(z.array(types.string())),
@@ -8577,9 +8554,7 @@ export const InputResponseInputServicenowTable$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   instance: types.string(),
   tableName: types.string(),
@@ -8587,7 +8562,6 @@ export const InputResponseInputServicenowTable$inboundSchema: z.ZodType<
   orderByField: types.optional(types.string()),
   orderByDirection: types.optional(InputResponseSortDirection$inboundSchema),
   query: types.optional(types.string()),
-  useRawValues: types.optional(types.boolean()),
   pageSize: types.optional(types.number()),
   maxPages: types.optional(types.number()),
   rejectUnauthorized: types.optional(types.boolean()),
@@ -8604,7 +8578,7 @@ export const InputResponseInputServicenowTable$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
@@ -8659,9 +8633,7 @@ export const InputResponseInputSecurityLake$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   queueName: types.string(),
   fileFilter: types.optional(types.string()),
@@ -8687,7 +8659,7 @@ export const InputResponseInputSecurityLake$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   enableSQSAssumeRole: types.optional(types.boolean()),
   preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   checkpointing: types.optional(CheckpointingType$inboundSchema),
@@ -8740,9 +8712,7 @@ export const InputResponseInputNetflow$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -8754,7 +8724,7 @@ export const InputResponseInputNetflow$inboundSchema: z.ZodType<
   v5Enabled: types.optional(types.boolean()),
   v9Enabled: types.optional(types.boolean()),
   ipfixEnabled: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -8791,9 +8761,7 @@ export const InputResponseInputWizWebhook$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -8812,7 +8780,7 @@ export const InputResponseInputWizWebhook$inboundSchema: z.ZodType<
   ipDenylistRegex: types.optional(types.string()),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   allowedPaths: types.optional(z.array(types.string())),
   allowedMethods: types.optional(z.array(types.string())),
   authTokensExt: types.optional(z.array(ItemsTypeAuthTokensExt$inboundSchema)),
@@ -8897,7 +8865,7 @@ export const ContentConfigOpenai$inboundSchema: z.ZodType<
   latest: types.string(),
   jobTimeout: types.optional(types.string()),
   logLevel: types.optional(LogLevelOpenai$inboundSchema),
-  endpointMetadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  endpointMetadata: types.optional(z.array(Metadata$inboundSchema)),
 });
 
 export function contentConfigOpenaiFromJSON(
@@ -8927,9 +8895,7 @@ export const InputResponseInputOpenai$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   openaiOrganization: types.optional(types.string()),
   openaiProject: types.optional(types.string()),
@@ -8941,7 +8907,7 @@ export const InputResponseInputOpenai$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
@@ -9030,9 +8996,7 @@ export const InputResponseInputWiz$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   endpoint: types.string(),
   authUrl: types.string(),
@@ -9044,7 +9008,7 @@ export const InputResponseInputWiz$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
   retryRules: types.optional(RetryRulesType$inboundSchema),
@@ -9111,9 +9075,7 @@ export const InputResponseInputJournalFiles$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   path: types.string(),
   interval: types.optional(types.number()),
@@ -9124,7 +9086,7 @@ export const InputResponseInputJournalFiles$inboundSchema: z.ZodType<
   currentBoot: types.optional(types.boolean()),
   maxAgeDur: types.optional(types.string()),
   suppressMissingPathErrors: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -9159,9 +9121,7 @@ export const InputResponseInputRawUdp$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -9170,7 +9130,7 @@ export const InputResponseInputRawUdp$inboundSchema: z.ZodType<
   singleMsgUdpPackets: types.optional(types.boolean()),
   ingestRawBytes: types.optional(types.boolean()),
   udpSocketRxBufSize: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -9214,15 +9174,13 @@ export const InputResponseInputAppleUnifiedLogs$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   predicate: types.string(),
   readMode: types.optional(ReadModeAppleUnifiedLogs$inboundSchema),
   interval: types.optional(types.number()),
   batchSize: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -9272,9 +9230,7 @@ export const InputResponseInputWinEventLogs$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   logNames: z.array(types.string()),
   readMode: types.optional(ReadModeWinEventLogs$inboundSchema),
@@ -9282,7 +9238,7 @@ export const InputResponseInputWinEventLogs$inboundSchema: z.ZodType<
   disableNativeModule: types.optional(types.boolean()),
   interval: types.optional(types.number()),
   batchSize: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   maxEventBytes: types.optional(types.number()),
   description: types.optional(types.string()),
   disableJsonRendering: types.optional(types.boolean()),
@@ -9392,7 +9348,7 @@ export const InputResponseSubscription$inboundSchema: z.ZodType<
   targets: z.array(types.string()),
   locale: types.optional(types.string()),
   querySelector: types.optional(InputResponseQueryBuilderMode$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   queries: types.optional(
     z.array(z.lazy(() => InputResponseQuery$inboundSchema)),
   ),
@@ -9426,9 +9382,7 @@ export const InputResponseInputWef$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -9448,7 +9402,7 @@ export const InputResponseInputWef$inboundSchema: z.ZodType<
   principal: types.optional(types.string()),
   allowMachineIdMismatch: types.optional(types.boolean()),
   subscriptions: z.array(z.lazy(() => InputResponseSubscription$inboundSchema)),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   logFingerprintMismatch: types.optional(types.boolean()),
   __template_environment: types.optional(types.string()),
@@ -9575,9 +9529,7 @@ export const InputResponseInputAppscope$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   ipWhitelistRegex: types.optional(types.string()),
   maxActiveCxn: types.optional(types.number()),
@@ -9585,7 +9537,7 @@ export const InputResponseInputAppscope$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
   enableUnixPath: types.optional(types.boolean()),
@@ -9637,9 +9589,7 @@ export const InputResponseInputTcp$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -9650,7 +9600,7 @@ export const InputResponseInputTcp$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
   enableHeader: types.optional(types.boolean()),
@@ -9703,9 +9653,7 @@ export const InputResponseInputFile$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   mode: types.optional(InputResponseInputFileMode$inboundSchema),
   interval: types.optional(types.number()),
@@ -9718,7 +9666,7 @@ export const InputResponseInputFile$inboundSchema: z.ZodType<
   checkFileModTime: types.optional(types.boolean()),
   forceText: types.optional(types.boolean()),
   hashLen: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
   description: types.optional(types.string()),
@@ -9767,9 +9715,7 @@ export const InputResponseInputSyslogSyslog2$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   udpPort: types.optional(types.number()),
@@ -9789,7 +9735,7 @@ export const InputResponseInputSyslogSyslog2$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   enableLoadBalancing: types.optional(types.boolean()),
   description: types.optional(types.string()),
@@ -9836,9 +9782,7 @@ export const InputResponseInputSyslogSyslog1$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   udpPort: types.number(),
@@ -9858,7 +9802,7 @@ export const InputResponseInputSyslogSyslog1$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   enableLoadBalancing: types.optional(types.boolean()),
   description: types.optional(types.string()),
@@ -9927,9 +9871,7 @@ export const InputResponseInputSqs$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   queueName: types.string(),
   queueType: InputResponseQueueType$inboundSchema,
@@ -9947,7 +9889,7 @@ export const InputResponseInputSqs$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   maxMessages: types.optional(types.number()),
   visibilityTimeout: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   pollTimeout: types.optional(types.number()),
   description: types.optional(types.string()),
   awsApiKey: types.optional(types.string()),
@@ -9995,14 +9937,12 @@ export const InputResponseInputModelDrivenTelemetry$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   maxActiveCxn: types.optional(types.number()),
   shutdownTimeoutMs: types.optional(types.number()),
   description: types.optional(types.string()),
@@ -10064,7 +10004,7 @@ export const InputResponseAuthMethodsExt$inboundSchema: z.ZodType<
   authType: AuthMethodsExtAuthenticationTypeOpenTelemetry$inboundSchema,
   token: types.optional(types.string()),
   description: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   enabled: types.optional(types.boolean()),
   tokenSecret: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -10099,9 +10039,7 @@ export const InputResponseInputOpenTelemetry$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -10124,7 +10062,7 @@ export const InputResponseInputOpenTelemetry$inboundSchema: z.ZodType<
   authMethodsExt: types.optional(
     z.array(z.lazy(() => InputResponseAuthMethodsExt$inboundSchema)),
   ),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   maxActiveCxn: types.optional(types.number()),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -10218,9 +10156,7 @@ export const InputResponseInputSnmp$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -10229,7 +10165,7 @@ export const InputResponseInputSnmp$inboundSchema: z.ZodType<
   ),
   maxBufferSize: types.optional(types.number()),
   ipWhitelistRegex: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   varbindsWithTypes: types.optional(types.boolean()),
   bestEffortParsing: types.optional(types.boolean()),
@@ -10269,9 +10205,7 @@ export const InputResponseInputS3Inventory$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   queueName: types.string(),
   fileFilter: types.optional(types.string()),
@@ -10297,7 +10231,7 @@ export const InputResponseInputS3Inventory$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   enableSQSAssumeRole: types.optional(types.boolean()),
   preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   checkpointing: types.optional(CheckpointingType$inboundSchema),
@@ -10352,9 +10286,7 @@ export const InputResponseInputS3$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   queueName: types.string(),
   fileFilter: types.optional(types.string()),
@@ -10380,7 +10312,7 @@ export const InputResponseInputS3$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   enableSQSAssumeRole: types.optional(types.boolean()),
   preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   checkpointing: types.optional(CheckpointingType$inboundSchema),
@@ -10433,9 +10365,7 @@ export const InputResponseInputMetrics$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   udpPort: types.optional(types.number()),
@@ -10444,7 +10374,7 @@ export const InputResponseInputMetrics$inboundSchema: z.ZodType<
   ipWhitelistRegex: types.optional(types.string()),
   enableProxyHeader: types.optional(types.boolean()),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
@@ -10483,13 +10413,11 @@ export const InputResponseInputCriblmetrics$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   prefix: types.optional(types.string()),
   fullFidelity: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -10545,9 +10473,7 @@ export const InputResponseInputKinesis$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   streamName: types.string(),
   serviceInterval: types.optional(types.number()),
@@ -10573,7 +10499,7 @@ export const InputResponseInputKinesis$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   verifyKPLCheckSums: types.optional(types.boolean()),
   avoidDuplicates: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
@@ -10619,9 +10545,7 @@ export const InputResponseInputHttpRaw$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -10640,7 +10564,7 @@ export const InputResponseInputHttpRaw$inboundSchema: z.ZodType<
   ipDenylistRegex: types.optional(types.string()),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   allowedPaths: types.optional(z.array(types.string())),
   allowedMethods: types.optional(z.array(types.string())),
   authTokensExt: types.optional(z.array(ItemsTypeAuthTokensExt$inboundSchema)),
@@ -10702,12 +10626,10 @@ export const InputResponseInputDatagen$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   samples: z.array(z.lazy(() => InputResponseSample$inboundSchema)),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -10762,9 +10684,7 @@ export const InputResponseInputDatadogAgent$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -10781,7 +10701,7 @@ export const InputResponseInputDatadogAgent$inboundSchema: z.ZodType<
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   extractMetrics: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   proxyMode: types.optional(z.lazy(() => ProxyModeDatadogAgent$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
@@ -10819,9 +10739,7 @@ export const InputResponseInputCrowdstrike$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   queueName: types.string(),
   fileFilter: types.optional(types.string()),
@@ -10847,7 +10765,7 @@ export const InputResponseInputCrowdstrike$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   enableSQSAssumeRole: types.optional(types.boolean()),
   preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   checkpointing: types.optional(CheckpointingType$inboundSchema),
   pollTimeout: types.optional(types.number()),
   encoding: types.optional(types.string()),
@@ -11109,15 +11027,13 @@ export const InputResponseInputWindowsMetrics$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
   host: types.optional(z.lazy(() => HostWindowsMetrics$inboundSchema)),
   process: types.optional(ProcessType$inboundSchema),
   gpu: types.optional(GpuType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => PersistenceWindowsMetrics$inboundSchema),
   ),
@@ -11156,12 +11072,10 @@ export const InputResponseInputKubeEvents$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   rules: types.optional(z.array(ItemsTypeRules$inboundSchema)),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -11216,14 +11130,12 @@ export const InputResponseInputKubeLogs$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
   rules: types.optional(z.array(z.lazy(() => RuleKubeLogs$inboundSchema))),
   timestamps: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   persistence: types.optional(DiskSpoolingType$inboundSchema),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
@@ -11288,13 +11200,11 @@ export const InputResponseInputKubeMetrics$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
   rules: types.optional(z.array(ItemsTypeRules$inboundSchema)),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => PersistenceKubeMetrics$inboundSchema),
   ),
@@ -11604,12 +11514,10 @@ export const InputResponseInputSystemState$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   collectors: types.optional(
     z.lazy(() => InputResponseCollectors$inboundSchema),
   ),
@@ -11919,16 +11827,14 @@ export const InputResponseInputSystemMetrics$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
   host: types.optional(z.lazy(() => HostSystemMetrics$inboundSchema)),
   process: types.optional(ProcessType$inboundSchema),
   container: types.optional(z.lazy(() => InputResponseContainer$inboundSchema)),
   gpu: types.optional(GpuType$inboundSchema),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => PersistenceSystemMetrics$inboundSchema),
   ),
@@ -11966,9 +11872,7 @@ export const InputResponseInputTcpjson$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -11979,7 +11883,7 @@ export const InputResponseInputTcpjson$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   enableLoadBalancing: types.optional(types.boolean()),
   authType: types.optional(
     AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
@@ -12055,7 +11959,7 @@ export const InputResponseAuthTokensExt$inboundSchema: z.ZodType<
 > = z.object({
   token: types.string(),
   description: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   splunkHecMetadata: types.optional(
     z.lazy(() => InputResponseSplunkHecMetadata$inboundSchema),
   ),
@@ -12091,9 +11995,7 @@ export const InputResponseInputCriblLakeHttp$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -12114,7 +12016,7 @@ export const InputResponseInputCriblLakeHttp$inboundSchema: z.ZodType<
   elasticAPI: types.optional(types.string()),
   splunkHecAPI: types.optional(types.string()),
   splunkHecAcks: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   authTokensExt: types.optional(
     z.array(z.lazy(() => InputResponseAuthTokensExt$inboundSchema)),
   ),
@@ -12158,13 +12060,11 @@ export const InputResponseInputCriblHttp$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
-  authTokens: types.optional(z.array(ItemsTypeAuthTokens$inboundSchema)),
+  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
   maxActiveReq: types.optional(types.number()),
   maxRequestsPerSocket: types.optional(types.number()),
@@ -12177,7 +12077,7 @@ export const InputResponseInputCriblHttp$inboundSchema: z.ZodType<
   enableHealthCheck: types.optional(types.boolean()),
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -12214,9 +12114,7 @@ export const InputResponseInputCriblTcp$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -12226,9 +12124,9 @@ export const InputResponseInputCriblTcp$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   enableLoadBalancing: types.optional(types.boolean()),
-  authTokens: types.optional(z.array(ItemsTypeAuthTokens$inboundSchema)),
+  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -12265,12 +12163,10 @@ export const InputResponseInputCribl$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   filter: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -12305,9 +12201,7 @@ export const InputResponseInputGooglePubsub$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   topicName: types.string(),
   subscriptionName: types.string(),
@@ -12323,7 +12217,7 @@ export const InputResponseInputGooglePubsub$inboundSchema: z.ZodType<
   maxBacklog: types.optional(types.number()),
   concurrency: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   orderedDelivery: types.optional(types.boolean()),
   __template_environment: types.optional(types.string()),
@@ -12362,9 +12256,7 @@ export const InputResponseInputFirehose$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -12381,7 +12273,7 @@ export const InputResponseInputFirehose$inboundSchema: z.ZodType<
   enableHealthCheck: types.optional(types.boolean()),
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -12426,9 +12318,7 @@ export const InputResponseInputExec$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(
-    z.array(ItemsTypeConnectionsOptional$inboundSchema),
-  ),
+  connections: types.optional(z.array(Connection$inboundSchema)),
   pq: types.optional(PqType$inboundSchema),
   command: types.string(),
   script: types.optional(types.string()),
@@ -12436,7 +12326,7 @@ export const InputResponseInputExec$inboundSchema: z.ZodType<
   scheduleType: types.optional(InputResponseScheduleType$inboundSchema),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   description: types.optional(types.string()),
   interval: types.optional(types.number()),
   cronSchedule: types.optional(types.string()),
