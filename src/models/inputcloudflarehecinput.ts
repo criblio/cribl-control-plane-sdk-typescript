@@ -6,19 +6,19 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   MaximumTlsVersionOptionsTls,
   MaximumTlsVersionOptionsTls$outboundSchema,
 } from "./maximumtlsversionoptionstls.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import {
   MinimumTlsVersionOptionsTls,
   MinimumTlsVersionOptionsTls$outboundSchema,
@@ -56,7 +56,7 @@ export type InputCloudflareHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
 };
 
 export type InputCloudflareHecTLSSettingsServerSide = {
@@ -130,7 +130,7 @@ export type InputCloudflareHecInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -192,7 +192,7 @@ export type InputCloudflareHecInput = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -266,7 +266,7 @@ export type InputCloudflareHecAuthToken$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
 };
 
 /** @internal */
@@ -280,7 +280,7 @@ export const InputCloudflareHecAuthToken$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
 });
 
 export function inputCloudflareHecAuthTokenToJSON(
@@ -348,7 +348,7 @@ export type InputCloudflareHecInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -365,7 +365,7 @@ export type InputCloudflareHecInput$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -397,7 +397,7 @@ export const InputCloudflareHecInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -416,7 +416,7 @@ export const InputCloudflareHecInput$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),

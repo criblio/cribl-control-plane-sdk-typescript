@@ -9,15 +9,12 @@ let value: CreateAuthLoginResponse = {
   Headers: {
     "key": [
       "<value 1>",
-    ],
-    "key1": [
-      "<value 1>",
       "<value 2>",
     ],
-    "key2": [],
   },
   result: {
-    tokenSecret: "<value>",
+    forcePasswordChange: false,
+    token: "<value>",
   },
 };
 ```

@@ -4,15 +4,15 @@
 
 import * as z from "zod/v3";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone,
@@ -74,7 +74,7 @@ export type InputSnmpInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -99,7 +99,7 @@ export type InputSnmpInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -199,14 +199,14 @@ export type InputSnmpInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   snmpV3Auth?: InputSnmpSNMPv3Authentication$Outbound | undefined;
   maxBufferSize?: number | undefined;
   ipWhitelistRegex?: string | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   varbindsWithTypes?: boolean | undefined;
   bestEffortParsing?: boolean | undefined;
@@ -231,7 +231,7 @@ export const InputSnmpInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -239,7 +239,7 @@ export const InputSnmpInput$outboundSchema: z.ZodType<
     .optional(),
   maxBufferSize: z.number().optional(),
   ipWhitelistRegex: z.string().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),

@@ -4,10 +4,10 @@
 
 import * as z from "zod/v3";
 import {
-  AuthToken,
-  AuthToken$Outbound,
-  AuthToken$outboundSchema,
-} from "./authtoken.js";
+  AuthTokenConfOutputCriblHttp,
+  AuthTokenConfOutputCriblHttp$Outbound,
+  AuthTokenConfOutputCriblHttp$outboundSchema,
+} from "./authtokenconfoutputcriblhttp.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$outboundSchema,
@@ -21,29 +21,24 @@ import {
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
+import {
   FailedRequestLoggingModeOptions,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ItemsTypeUrls,
-  ItemsTypeUrls$Outbound,
-  ItemsTypeUrls$outboundSchema,
-} from "./itemstypeurls.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
+import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
 import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$Outbound,
@@ -54,6 +49,11 @@ import {
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
+import {
+  UrlConfOutputCriblHttp,
+  UrlConfOutputCriblHttp$Outbound,
+  UrlConfOutputCriblHttp$outboundSchema,
+} from "./urlconfoutputcriblhttp.js";
 
 export type OutputCriblSearchEnginePqControls = {};
 
@@ -127,7 +127,7 @@ export type OutputCriblSearchEngine = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -143,7 +143,9 @@ export type OutputCriblSearchEngine = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -152,7 +154,7 @@ export type OutputCriblSearchEngine = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<AuthToken> | undefined;
+  authTokens?: Array<AuthTokenConfOutputCriblHttp> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -170,7 +172,7 @@ export type OutputCriblSearchEngine = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<ItemsTypeUrls> | undefined;
+  urls?: Array<UrlConfOutputCriblHttp> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -281,22 +283,24 @@ export type OutputCriblSearchEngine$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   throttleRatePerSec?: string | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?: Array<AuthToken$Outbound> | undefined;
+  authTokens?: Array<AuthTokenConfOutputCriblHttp$Outbound> | undefined;
   onBackpressure?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   description?: string | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<ItemsTypeUrls$Outbound> | undefined;
+  urls?: Array<UrlConfOutputCriblHttp$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   pqStrictOrdering?: boolean | undefined;
@@ -340,23 +344,24 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   throttleRatePerSec: z.string().optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(AuthToken$outboundSchema).optional(),
+  authTokens: z.array(AuthTokenConfOutputCriblHttp$outboundSchema).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   useRoundRobinDns: z.boolean().optional(),
   description: z.string().optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(ItemsTypeUrls$outboundSchema).optional(),
+  urls: z.array(UrlConfOutputCriblHttp$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   pqStrictOrdering: z.boolean().optional(),

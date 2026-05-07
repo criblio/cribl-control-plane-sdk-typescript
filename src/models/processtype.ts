@@ -8,17 +8,17 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeProcessSets,
-  ItemsTypeProcessSets$inboundSchema,
-  ItemsTypeProcessSets$Outbound,
-  ItemsTypeProcessSets$outboundSchema,
-} from "./itemstypeprocesssets.js";
+  SetConfInputSystemMetrics,
+  SetConfInputSystemMetrics$inboundSchema,
+  SetConfInputSystemMetrics$Outbound,
+  SetConfInputSystemMetrics$outboundSchema,
+} from "./setconfinputsystemmetrics.js";
 
 export type ProcessType = {
   /**
    * Configure sets to collect process metrics
    */
-  sets?: Array<ItemsTypeProcessSets> | undefined;
+  sets?: Array<SetConfInputSystemMetrics> | undefined;
 };
 
 /** @internal */
@@ -27,11 +27,11 @@ export const ProcessType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sets: types.optional(z.array(ItemsTypeProcessSets$inboundSchema)),
+  sets: types.optional(z.array(SetConfInputSystemMetrics$inboundSchema)),
 });
 /** @internal */
 export type ProcessType$Outbound = {
-  sets?: Array<ItemsTypeProcessSets$Outbound> | undefined;
+  sets?: Array<SetConfInputSystemMetrics$Outbound> | undefined;
 };
 
 /** @internal */
@@ -40,7 +40,7 @@ export const ProcessType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProcessType
 > = z.object({
-  sets: z.array(ItemsTypeProcessSets$outboundSchema).optional(),
+  sets: z.array(SetConfInputSystemMetrics$outboundSchema).optional(),
 });
 
 export function processTypeToJSON(processType: ProcessType): string {

@@ -32,10 +32,10 @@ import {
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
 import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$Outbound,
+  KeyValueMetadataConfOutputFilesystem$outboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
 import {
   OrphanFileRecoveryType,
   OrphanFileRecoveryType$Outbound,
@@ -223,7 +223,7 @@ export type OutputAlphasocS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -341,7 +341,9 @@ export type OutputAlphasocS3$Outbound = {
   parquetRowGroupLength?: number | undefined;
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  keyValueMetadata?:
+    | Array<KeyValueMetadataConfOutputFilesystem$Outbound>
+    | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
   enablePageChecksum?: boolean | undefined;
@@ -414,7 +416,7 @@ export const OutputAlphasocS3$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+  keyValueMetadata: z.array(KeyValueMetadataConfOutputFilesystem$outboundSchema)
     .optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),

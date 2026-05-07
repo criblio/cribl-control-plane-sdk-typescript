@@ -9,15 +9,15 @@ import {
   CheckpointingType$outboundSchema,
 } from "./checkpointingtype.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   PreprocessType,
@@ -59,7 +59,7 @@ export type InputCrowdstrikeInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
@@ -154,7 +154,7 @@ export type InputCrowdstrikeInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   checkpointing?: CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
@@ -231,7 +231,7 @@ export type InputCrowdstrikeInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   queueName: string;
   fileFilter?: string | undefined;
@@ -257,7 +257,7 @@ export type InputCrowdstrikeInput$Outbound = {
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
   preprocess?: PreprocessType$Outbound | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   checkpointing?: CheckpointingType$Outbound | undefined;
   pollTimeout?: number | undefined;
   encoding?: string | undefined;
@@ -293,7 +293,7 @@ export const InputCrowdstrikeInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
   fileFilter: z.string().optional(),
@@ -319,7 +319,7 @@ export const InputCrowdstrikeInput$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
   preprocess: PreprocessType$outboundSchema.optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   checkpointing: CheckpointingType$outboundSchema.optional(),
   pollTimeout: z.number().optional(),
   encoding: z.string().optional(),

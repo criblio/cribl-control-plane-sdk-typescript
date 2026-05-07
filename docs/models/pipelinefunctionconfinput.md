@@ -324,6 +324,15 @@ const value: models.PipelineFunctionLocalSearchSchemaMapper = {
 };
 ```
 
+### `models.PipelineFunctionLocalSearchTimeRangeNormalizer`
+
+```typescript
+const value: models.PipelineFunctionLocalSearchTimeRangeNormalizer = {
+  id: "local_search_time_range_normalizer",
+  conf: {},
+};
+```
+
 ### `models.PipelineFunctionLocalSearchTransformer`
 
 ```typescript

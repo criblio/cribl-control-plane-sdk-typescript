@@ -14,10 +14,10 @@ import {
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$Outbound,
-  ItemsTypeHosts$outboundSchema,
-} from "./itemstypehosts.js";
+  HostConfOutputSyslog,
+  HostConfOutputSyslog$Outbound,
+  HostConfOutputSyslog$outboundSchema,
+} from "./hostconfoutputsyslog.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
@@ -307,7 +307,7 @@ export type OutputSyslog = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<ItemsTypeHosts> | undefined;
+  hosts?: Array<HostConfOutputSyslog> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -483,7 +483,7 @@ export type OutputSyslog$Outbound = {
   host?: string | undefined;
   port?: number | undefined;
   excludeSelf?: boolean | undefined;
-  hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
+  hosts?: Array<HostConfOutputSyslog$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   maxConcurrentSenders?: number | undefined;
@@ -538,7 +538,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
+  hosts: z.array(HostConfOutputSyslog$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   maxConcurrentSenders: z.number().optional(),

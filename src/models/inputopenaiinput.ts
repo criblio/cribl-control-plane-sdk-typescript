@@ -6,21 +6,21 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  ItemsTypeContentConfigItemsRequestParams,
-  ItemsTypeContentConfigItemsRequestParams$Outbound,
-  ItemsTypeContentConfigItemsRequestParams$outboundSchema,
-} from "./itemstypecontentconfigitemsrequestparams.js";
-import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
+import {
+  RequestParamConfInputOpenai,
+  RequestParamConfInputOpenai$Outbound,
+  RequestParamConfInputOpenai$outboundSchema,
+} from "./requestparamconfinputopenai.js";
 import {
   RetryRulesType,
   RetryRulesType$Outbound,
@@ -84,7 +84,7 @@ export type InputOpenaiContentConfig = {
   /**
    * Query-string parameters to send with this endpoint
    */
-  requestParams: Array<ItemsTypeContentConfigItemsRequestParams>;
+  requestParams: Array<RequestParamConfInputOpenai>;
   paginationType: InputOpenaiPaginationType;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -123,7 +123,7 @@ export type InputOpenaiContentConfig = {
   /**
    * Fields automatically added to events from this Content Type
    */
-  endpointMetadata?: Array<Metadata> | undefined;
+  endpointMetadata?: Array<MetadataConfInputCollection> | undefined;
 };
 
 export type InputOpenaiInput = {
@@ -156,7 +156,7 @@ export type InputOpenaiInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
@@ -195,7 +195,7 @@ export type InputOpenaiInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
@@ -255,7 +255,7 @@ export type InputOpenaiContentConfig$Outbound = {
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?: InputOpenaiManageState$Outbound | undefined;
-  requestParams: Array<ItemsTypeContentConfigItemsRequestParams$Outbound>;
+  requestParams: Array<RequestParamConfInputOpenai$Outbound>;
   paginationType: string;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -267,7 +267,7 @@ export type InputOpenaiContentConfig$Outbound = {
   latest: string;
   jobTimeout?: string | undefined;
   logLevel?: string | undefined;
-  endpointMetadata?: Array<Metadata$Outbound> | undefined;
+  endpointMetadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
 };
 
 /** @internal */
@@ -281,9 +281,7 @@ export const InputOpenaiContentConfig$outboundSchema: z.ZodType<
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
   manageState: z.lazy(() => InputOpenaiManageState$outboundSchema).optional(),
-  requestParams: z.array(
-    ItemsTypeContentConfigItemsRequestParams$outboundSchema,
-  ),
+  requestParams: z.array(RequestParamConfInputOpenai$outboundSchema),
   paginationType: InputOpenaiPaginationType$outboundSchema,
   paginationAttribute: z.array(z.string()).optional(),
   paginationLastPageExpr: z.string().optional(),
@@ -295,7 +293,8 @@ export const InputOpenaiContentConfig$outboundSchema: z.ZodType<
   latest: z.string(),
   jobTimeout: z.string().optional(),
   logLevel: InputOpenaiLogLevel$outboundSchema.optional(),
-  endpointMetadata: z.array(Metadata$outboundSchema).optional(),
+  endpointMetadata: z.array(MetadataConfInputCollection$outboundSchema)
+    .optional(),
 });
 
 export function inputOpenaiContentConfigToJSON(
@@ -316,7 +315,7 @@ export type InputOpenaiInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   openaiOrganization?: string | undefined;
   openaiProject?: string | undefined;
@@ -328,7 +327,7 @@ export type InputOpenaiInput$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -351,7 +350,7 @@ export const InputOpenaiInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   openaiOrganization: z.string().optional(),
   openaiProject: z.string().optional(),
@@ -363,7 +362,7 @@ export const InputOpenaiInput$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),

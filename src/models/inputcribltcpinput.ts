@@ -4,20 +4,20 @@
 
 import * as z from "zod/v3";
 import {
-  AuthToken,
-  AuthToken$Outbound,
-  AuthToken$outboundSchema,
-} from "./authtoken.js";
+  AuthTokenConfInputCriblTcp,
+  AuthTokenConfInputCriblTcp$Outbound,
+  AuthTokenConfInputCriblTcp$outboundSchema,
+} from "./authtokenconfinputcribltcp.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   TlsSettingsServerSideType,
@@ -55,7 +55,7 @@ export type InputCriblTcpInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -89,7 +89,7 @@ export type InputCriblTcpInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -97,7 +97,7 @@ export type InputCriblTcpInput = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
    */
-  authTokens?: Array<AuthToken> | undefined;
+  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -127,7 +127,7 @@ export type InputCriblTcpInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -137,9 +137,9 @@ export type InputCriblTcpInput$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
-  authTokens?: Array<AuthToken$Outbound> | undefined;
+  authTokens?: Array<AuthTokenConfInputCriblTcp$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -161,7 +161,7 @@ export const InputCriblTcpInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -171,9 +171,9 @@ export const InputCriblTcpInput$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
-  authTokens: z.array(AuthToken$outboundSchema).optional(),
+  authTokens: z.array(AuthTokenConfInputCriblTcp$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),

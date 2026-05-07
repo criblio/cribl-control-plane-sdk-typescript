@@ -18,10 +18,10 @@ import {
   GoogleAuthenticationMethodOptions$outboundSchema,
 } from "./googleauthenticationmethodoptions.js";
 import {
-  ItemsTypeLogLabels,
-  ItemsTypeLogLabels$Outbound,
-  ItemsTypeLogLabels$outboundSchema,
-} from "./itemstypeloglabels.js";
+  LogLabelConfOutputGoogleCloudLogging,
+  LogLabelConfOutputGoogleCloudLogging$Outbound,
+  LogLabelConfOutputGoogleCloudLogging$outboundSchema,
+} from "./loglabelconfoutputgooglecloudlogging.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
@@ -107,7 +107,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * Labels to apply to the log entry
    */
-  logLabels?: Array<ItemsTypeLogLabels> | undefined;
+  logLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
   /**
    * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
    */
@@ -115,7 +115,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
    */
-  resourceTypeLabels?: Array<ItemsTypeLogLabels> | undefined;
+  resourceTypeLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
   /**
    * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
    */
@@ -438,9 +438,11 @@ export type OutputGoogleCloudLogging$Outbound = {
   logNameExpression: string;
   sanitizeLogNames?: boolean | undefined;
   payloadFormat?: string | undefined;
-  logLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
+  logLabels?: Array<LogLabelConfOutputGoogleCloudLogging$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
-  resourceTypeLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
+  resourceTypeLabels?:
+    | Array<LogLabelConfOutputGoogleCloudLogging$Outbound>
+    | undefined;
   severityExpression?: string | undefined;
   insertIdExpression?: string | undefined;
   googleAuthMethod?: string | undefined;
@@ -530,9 +532,12 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   sanitizeLogNames: z.boolean().optional(),
   payloadFormat: OutputGoogleCloudLoggingPayloadFormat$outboundSchema
     .optional(),
-  logLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
+  logLabels: z.array(LogLabelConfOutputGoogleCloudLogging$outboundSchema)
+    .optional(),
   resourceTypeExpression: z.string().optional(),
-  resourceTypeLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
+  resourceTypeLabels: z.array(
+    LogLabelConfOutputGoogleCloudLogging$outboundSchema,
+  ).optional(),
   severityExpression: z.string().optional(),
   insertIdExpression: z.string().optional(),
   googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.optional(),

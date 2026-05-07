@@ -6,10 +6,10 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   DataCompressionFormatOptionsPersistence,
   DataCompressionFormatOptionsPersistence$outboundSchema,
@@ -20,10 +20,10 @@ import {
   GpuType$outboundSchema,
 } from "./gputype.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import {
   ModeOptionsHost,
   ModeOptionsHost$outboundSchema,
@@ -403,7 +403,7 @@ export type InputSystemMetricsInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
@@ -416,7 +416,7 @@ export type InputSystemMetricsInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   persistence?: InputSystemMetricsPersistence | undefined;
   description?: string | undefined;
   /**
@@ -768,14 +768,14 @@ export type InputSystemMetricsInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   interval?: number | undefined;
   host?: InputSystemMetricsHost$Outbound | undefined;
   process?: ProcessType$Outbound | undefined;
   container?: InputSystemMetricsContainer$Outbound | undefined;
   gpu?: GpuType$Outbound | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   persistence?: InputSystemMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -796,7 +796,7 @@ export const InputSystemMetricsInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   interval: z.number().optional(),
   host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
@@ -804,7 +804,7 @@ export const InputSystemMetricsInput$outboundSchema: z.ZodType<
   container: z.lazy(() => InputSystemMetricsContainer$outboundSchema)
     .optional(),
   gpu: GpuType$outboundSchema.optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
     .optional(),
   description: z.string().optional(),

@@ -11,10 +11,13 @@ import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypePoliciesItemsTemplateTargetPairs,
-  ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
-} from "./itemstypepoliciesitemstemplatetargetpairs.js";
-import { Metadata, Metadata$inboundSchema } from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$inboundSchema,
+} from "./metadataconfinputcollection.js";
+import {
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies,
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
+} from "./templatetargetpairconffunctionconfschemanotificationpolicies.js";
 
 /**
  * Notification mode: direct or policy-based
@@ -99,7 +102,7 @@ export type Notification3 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * The worker group/fleet this notification belongs to
    */
@@ -112,7 +115,7 @@ export type Notification3 = {
    * Pairs of templates and targets for notification routing
    */
   templateTargetPairs?:
-    | Array<ItemsTypePoliciesItemsTemplateTargetPairs>
+    | Array<TemplateTargetPairConfFunctionConfSchemaNotificationPolicies>
     | undefined;
 };
 
@@ -176,7 +179,7 @@ export type Notification2 = {
    * Pairs of templates and targets for notification routing
    */
   templateTargetPairs?:
-    | Array<ItemsTypePoliciesItemsTemplateTargetPairs>
+    | Array<TemplateTargetPairConfFunctionConfSchemaNotificationPolicies>
     | undefined;
   /**
    * Unique identifier for the Notification.
@@ -205,7 +208,7 @@ export type Notification2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * The worker group/fleet this notification belongs to
    */
@@ -275,7 +278,9 @@ export type Notification1 = {
   /**
    * Pairs of templates and targets for notification routing
    */
-  templateTargetPairs: Array<ItemsTypePoliciesItemsTemplateTargetPairs>;
+  templateTargetPairs: Array<
+    TemplateTargetPairConfFunctionConfSchemaNotificationPolicies
+  >;
   /**
    * Unique identifier for the Notification.
    */
@@ -303,7 +308,7 @@ export type Notification1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * The worker group/fleet this notification belongs to
    */
@@ -438,11 +443,13 @@ export const Notification3$inboundSchema: z.ZodType<
   conf: types.optional(
     z.lazy(() => ConditionSpecificConfigurations3$inboundSchema),
   ),
-  metadata: types.optional(z.array(Metadata$inboundSchema)),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   group: types.optional(types.string()),
   pack: types.optional(types.string()),
   templateTargetPairs: types.optional(
-    z.array(ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema),
+    z.array(
+      TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
+    ),
   ),
 });
 
@@ -569,7 +576,9 @@ export const Notification2$inboundSchema: z.ZodType<
 > = z.object({
   mode: NotificationMode2$inboundSchema,
   templateTargetPairs: types.optional(
-    z.array(ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema),
+    z.array(
+      TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
+    ),
   ),
   id: types.string(),
   disabled: types.optional(types.boolean()),
@@ -581,7 +590,7 @@ export const Notification2$inboundSchema: z.ZodType<
   conf: types.optional(
     z.lazy(() => ConditionSpecificConfigurations2$inboundSchema),
   ),
-  metadata: types.optional(z.array(Metadata$inboundSchema)),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   group: types.optional(types.string()),
   pack: types.optional(types.string()),
 });
@@ -709,7 +718,7 @@ export const Notification1$inboundSchema: z.ZodType<
 > = z.object({
   mode: NotificationMode1$inboundSchema,
   templateTargetPairs: z.array(
-    ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
+    TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
   ),
   id: types.string(),
   disabled: types.optional(types.boolean()),
@@ -721,7 +730,7 @@ export const Notification1$inboundSchema: z.ZodType<
   conf: types.optional(
     z.lazy(() => ConditionSpecificConfigurations1$inboundSchema),
   ),
-  metadata: types.optional(z.array(Metadata$inboundSchema)),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   group: types.optional(types.string()),
   pack: types.optional(types.string()),
 });

@@ -197,7 +197,7 @@ export type CreateInputInputEventhubAmqp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * The name of the Event Hub to consume from
@@ -256,7 +256,7 @@ export type CreateInputInputEventhubAmqp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -298,7 +298,7 @@ export type CreateInputInputEventhub = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
@@ -405,7 +405,7 @@ export type CreateInputInputEventhub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -506,7 +506,7 @@ export type CreateInputInputMicrosoftGraph = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
@@ -563,7 +563,7 @@ export type CreateInputInputMicrosoftGraph = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
@@ -680,7 +680,7 @@ export type CreateInputInputOffice365MsgTrace = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * URL to use when retrieving report data.
@@ -733,7 +733,7 @@ export type CreateInputInputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
@@ -862,7 +862,7 @@ export type CreateInputInputOffice365Service = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
@@ -903,7 +903,7 @@ export type CreateInputInputOffice365Service = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
@@ -995,7 +995,7 @@ export type CreateInputInputOffice365Mgmt = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
@@ -1036,7 +1036,7 @@ export type CreateInputInputOffice365Mgmt = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -1204,7 +1204,7 @@ export type CreateInputInputEdgePrometheus = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Other dimensions to include in events
@@ -1230,7 +1230,7 @@ export type CreateInputInputEdgePrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -1273,7 +1273,7 @@ export type CreateInputInputEdgePrometheus = {
   /**
    * Filter to apply when searching for EC2 instances
    */
-  searchFilter?: Array<models.ItemsTypeSearchFilter> | undefined;
+  searchFilter?: Array<models.SearchFilterConfInputPrometheus> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -1453,7 +1453,7 @@ export type CreateInputInputPrometheus = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Other dimensions to include in events
@@ -1506,7 +1506,7 @@ export type CreateInputInputPrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -1552,7 +1552,7 @@ export type CreateInputInputPrometheus = {
   /**
    * Filter to apply when searching for EC2 instances
    */
-  searchFilter?: Array<models.ItemsTypeSearchFilter> | undefined;
+  searchFilter?: Array<models.SearchFilterConfInputPrometheus> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -1686,7 +1686,7 @@ export type CreateInputInputPrometheusRw = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -1752,7 +1752,7 @@ export type CreateInputInputPrometheusRw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1824,7 +1824,7 @@ export type CreateInputInputLoki = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -1890,7 +1890,7 @@ export type CreateInputInputLoki = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -2007,7 +2007,7 @@ export type CreateInputInputGrafanaGrafana2 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -2075,7 +2075,7 @@ export type CreateInputInputGrafanaGrafana2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2182,7 +2182,7 @@ export type CreateInputInputGrafanaGrafana1 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -2250,7 +2250,7 @@ export type CreateInputInputGrafanaGrafana1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2312,7 +2312,7 @@ export type CreateInputInputConfluentCloud = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
@@ -2418,7 +2418,7 @@ export type CreateInputInputConfluentCloud = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2568,7 +2568,7 @@ export type CreateInputInputElastic = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -2635,11 +2635,11 @@ export type CreateInputInputElastic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   proxyMode?: CreateInputProxyModeElastic | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -2712,7 +2712,7 @@ export type CreateInputInputAzureBlob = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
@@ -2745,7 +2745,7 @@ export type CreateInputInputAzureBlob = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -2856,7 +2856,7 @@ export type CreateInputAuthTokenSplunkHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
 };
 
 export type CreateInputInputSplunkHec = {
@@ -2889,7 +2889,7 @@ export type CreateInputInputSplunkHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -2951,7 +2951,7 @@ export type CreateInputInputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -3109,7 +3109,7 @@ export type CreateInputInputSplunkSearch = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
@@ -3190,7 +3190,7 @@ export type CreateInputInputSplunkSearch = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -3333,7 +3333,7 @@ export type CreateInputInputSplunk = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -3371,7 +3371,7 @@ export type CreateInputInputSplunk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -3461,7 +3461,7 @@ export type CreateInputInputHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -3536,11 +3536,11 @@ export type CreateInputInputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
+  authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3606,7 +3606,7 @@ export type CreateInputInputMsk = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
@@ -3652,7 +3652,7 @@ export type CreateInputInputMsk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType
     | undefined;
@@ -3828,7 +3828,7 @@ export type CreateInputInputKafka = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
@@ -3934,7 +3934,7 @@ export type CreateInputInputKafka = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3988,7 +3988,7 @@ export type CreateInputInputCollection = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<models.Connection> | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -4006,7 +4006,7 @@ export type CreateInputInputCollection = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.Metadata> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Destination to send results to
    */
@@ -4131,7 +4131,9 @@ export type CreateInputInputEventhubAmqp$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   eventHubName?: string | undefined;
   consumerGroup: string;
@@ -4148,7 +4150,7 @@ export type CreateInputInputEventhubAmqp$Outbound = {
   connectionInitialBackoff?: number | undefined;
   connectionMaxBackoff?: number | undefined;
   connectionTimeoutInMs?: number | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -4168,7 +4170,8 @@ export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
@@ -4186,7 +4189,8 @@ export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
   connectionInitialBackoff: z.number().int().optional(),
   connectionMaxBackoff: z.number().int().optional(),
   connectionTimeoutInMs: z.number().int().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -4212,7 +4216,9 @@ export type CreateInputInputEventhub$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -4237,7 +4243,7 @@ export type CreateInputInputEventhub$Outbound = {
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
   minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -4260,7 +4266,8 @@ export const CreateInputInputEventhub$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
@@ -4285,7 +4292,8 @@ export const CreateInputInputEventhub$outboundSchema: z.ZodType<
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
   minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -4327,7 +4335,9 @@ export type CreateInputInputMicrosoftGraph$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   url: string;
   interval: number;
@@ -4342,7 +4352,7 @@ export type CreateInputInputMicrosoftGraph$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
@@ -4378,7 +4388,8 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   url: z.string(),
   interval: z.number().int(),
@@ -4394,7 +4405,8 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   rescheduleDroppedTasks: z.boolean().optional(),
   maxTaskReschedule: z.number().optional(),
   logLevel: models.LogLevelOptionsDebugError$outboundSchema.optional(),
@@ -4446,7 +4458,9 @@ export type CreateInputInputOffice365MsgTrace$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   url: string;
   interval: number;
@@ -4460,7 +4474,7 @@ export type CreateInputInputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   rescheduleDroppedTasks?: boolean | undefined;
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
@@ -4499,7 +4513,8 @@ export const CreateInputInputOffice365MsgTrace$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   url: z.string(),
   interval: z.number().int(),
@@ -4514,7 +4529,8 @@ export const CreateInputInputOffice365MsgTrace$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   rescheduleDroppedTasks: z.boolean().optional(),
   maxTaskReschedule: z.number().optional(),
   logLevel: models.LogLevelOptionsDebugError$outboundSchema.optional(),
@@ -4592,7 +4608,9 @@ export type CreateInputInputOffice365Service$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   planType?: string | undefined;
   tenantId: string;
@@ -4603,7 +4621,7 @@ export type CreateInputInputOffice365Service$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   contentConfig?:
     | Array<CreateInputContentConfigOffice365Service$Outbound>
     | undefined;
@@ -4634,7 +4652,8 @@ export const CreateInputInputOffice365Service$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
   tenantId: z.string(),
@@ -4645,7 +4664,8 @@ export const CreateInputInputOffice365Service$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   contentConfig: z.array(
     z.lazy(() => CreateInputContentConfigOffice365Service$outboundSchema),
   ).optional(),
@@ -4715,7 +4735,9 @@ export type CreateInputInputOffice365Mgmt$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   planType: string;
   tenantId: string;
@@ -4726,7 +4748,7 @@ export type CreateInputInputOffice365Mgmt$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
   contentConfig?:
     | Array<CreateInputContentConfigOffice365Mgmt$Outbound>
@@ -4760,7 +4782,8 @@ export const CreateInputInputOffice365Mgmt$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   planType: models.SubscriptionPlanOptions$outboundSchema,
   tenantId: z.string(),
@@ -4771,7 +4794,8 @@ export const CreateInputInputOffice365Mgmt$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   publisherIdentifier: z.string().optional(),
   contentConfig: z.array(
     z.lazy(() => CreateInputContentConfigOffice365Mgmt$outboundSchema),
@@ -4879,7 +4903,9 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   fieldPerMetric?: boolean | undefined;
@@ -4887,7 +4913,7 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   interval: number;
   timeout?: number | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targets?: Array<CreateInputTarget$Outbound> | undefined;
@@ -4900,7 +4926,9 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   usePublicIp?: boolean | undefined;
-  searchFilter?: Array<models.ItemsTypeSearchFilter$Outbound> | undefined;
+  searchFilter?:
+    | Array<models.SearchFilterConfInputPrometheus$Outbound>
+    | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -4944,7 +4972,8 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
   fieldPerMetric: z.boolean().optional(),
@@ -4952,7 +4981,8 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   interval: z.number(),
   timeout: z.number().optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   authType: CreateInputAuthenticationMethodEdgePrometheus$outboundSchema
     .optional(),
   description: z.string().optional(),
@@ -4966,7 +4996,8 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   usePublicIp: z.boolean().optional(),
-  searchFilter: z.array(models.ItemsTypeSearchFilter$outboundSchema).optional(),
+  searchFilter: z.array(models.SearchFilterConfInputPrometheus$outboundSchema)
+    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -5031,7 +5062,9 @@ export type CreateInputInputPrometheus$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   fieldPerMetric?: boolean | undefined;
@@ -5045,7 +5078,7 @@ export type CreateInputInputPrometheus$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
@@ -5058,7 +5091,9 @@ export type CreateInputInputPrometheus$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   usePublicIp?: boolean | undefined;
-  searchFilter?: Array<models.ItemsTypeSearchFilter$Outbound> | undefined;
+  searchFilter?:
+    | Array<models.SearchFilterConfInputPrometheus$Outbound>
+    | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -5101,7 +5136,8 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
   fieldPerMetric: z.boolean().optional(),
@@ -5115,7 +5151,8 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   authType: models.AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
@@ -5128,7 +5165,8 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   usePublicIp: z.boolean().optional(),
-  searchFilter: z.array(models.ItemsTypeSearchFilter$outboundSchema).optional(),
+  searchFilter: z.array(models.SearchFilterConfInputPrometheus$outboundSchema)
+    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -5175,7 +5213,9 @@ export type CreateInputInputPrometheusRw$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -5193,7 +5233,7 @@ export type CreateInputInputPrometheusRw$Outbound = {
   ipDenylistRegex?: string | undefined;
   prometheusAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -5222,7 +5262,8 @@ export const CreateInputInputPrometheusRw$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -5241,7 +5282,8 @@ export const CreateInputInputPrometheusRw$outboundSchema: z.ZodType<
   prometheusAPI: z.string(),
   authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
     .optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -5276,7 +5318,9 @@ export type CreateInputInputLoki$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -5294,7 +5338,7 @@ export type CreateInputInputLoki$Outbound = {
   ipDenylistRegex?: string | undefined;
   lokiAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -5322,7 +5366,8 @@ export const CreateInputInputLoki$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -5340,7 +5385,8 @@ export const CreateInputInputLoki$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   lokiAPI: z.string(),
   authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -5442,7 +5488,9 @@ export type CreateInputInputGrafanaGrafana2$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -5462,7 +5510,7 @@ export type CreateInputInputGrafanaGrafana2$Outbound = {
   lokiAPI: string;
   prometheusAuth?: CreateInputPrometheusAuth2$Outbound | undefined;
   lokiAuth?: CreateInputLokiAuth2$Outbound | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -5486,7 +5534,8 @@ export const CreateInputInputGrafanaGrafana2$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -5507,7 +5556,8 @@ export const CreateInputInputGrafanaGrafana2$outboundSchema: z.ZodType<
   prometheusAuth: z.lazy(() => CreateInputPrometheusAuth2$outboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => CreateInputLokiAuth2$outboundSchema).optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -5607,7 +5657,9 @@ export type CreateInputInputGrafanaGrafana1$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -5627,7 +5679,7 @@ export type CreateInputInputGrafanaGrafana1$Outbound = {
   lokiAPI?: string | undefined;
   prometheusAuth?: CreateInputPrometheusAuth1$Outbound | undefined;
   lokiAuth?: CreateInputLokiAuth1$Outbound | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -5651,7 +5703,8 @@ export const CreateInputInputGrafanaGrafana1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -5672,7 +5725,8 @@ export const CreateInputInputGrafanaGrafana1$outboundSchema: z.ZodType<
   prometheusAuth: z.lazy(() => CreateInputPrometheusAuth1$outboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => CreateInputLokiAuth1$outboundSchema).optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -5727,7 +5781,9 @@ export type CreateInputInputConfluentCloud$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   brokers: Array<string>;
   tls?: models.TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
@@ -5754,7 +5810,7 @@ export type CreateInputInputConfluentCloud$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -5777,7 +5833,8 @@ export const CreateInputInputConfluentCloud$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
@@ -5803,7 +5860,8 @@ export const CreateInputInputConfluentCloud$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().optional(),
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -5895,7 +5953,9 @@ export type CreateInputInputElastic$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -5915,9 +5975,9 @@ export type CreateInputInputElastic$Outbound = {
   authType?: string | undefined;
   apiVersion?: string | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   proxyMode?: CreateInputProxyModeElastic$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -5947,7 +6007,8 @@ export const CreateInputInputElastic$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -5966,9 +6027,11 @@ export const CreateInputInputElastic$outboundSchema: z.ZodType<
   elasticAPI: z.string(),
   authType: CreateInputAuthenticationTypeElastic$outboundSchema.optional(),
   apiVersion: CreateInputAPIVersion$outboundSchema.optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
   proxyMode: z.lazy(() => CreateInputProxyModeElastic$outboundSchema)
     .optional(),
   description: z.string().optional(),
@@ -6003,7 +6066,9 @@ export type CreateInputInputAzureBlob$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   queueName: string;
   fileFilter?: string | undefined;
@@ -6012,7 +6077,7 @@ export type CreateInputInputAzureBlob$Outbound = {
   maxMessages?: number | undefined;
   servicePeriodSecs?: number | undefined;
   skipOnError?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
@@ -6054,7 +6119,8 @@ export const CreateInputInputAzureBlob$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   queueName: z.string(),
   fileFilter: z.string().optional(),
@@ -6063,7 +6129,8 @@ export const CreateInputInputAzureBlob$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   servicePeriodSecs: z.number().optional(),
   skipOnError: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
@@ -6106,7 +6173,7 @@ export type CreateInputAuthTokenSplunkHec$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
 };
 
 /** @internal */
@@ -6122,7 +6189,8 @@ export const CreateInputAuthTokenSplunkHec$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
 });
 
 export function createInputAuthTokenSplunkHecToJSON(
@@ -6145,7 +6213,9 @@ export type CreateInputInputSplunkHec$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -6162,7 +6232,7 @@ export type CreateInputInputSplunkHec$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -6195,7 +6265,8 @@ export const CreateInputInputSplunkHec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -6214,7 +6285,8 @@ export const CreateInputInputSplunkHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
@@ -6311,7 +6383,9 @@ export type CreateInputInputSplunkSearch$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   searchHead: string;
   search: string;
@@ -6332,7 +6406,7 @@ export type CreateInputInputSplunkSearch$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -6367,7 +6441,8 @@ export const CreateInputInputSplunkSearch$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   searchHead: z.string(),
   search: z.string(),
@@ -6391,7 +6466,8 @@ export const CreateInputInputSplunkSearch$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -6470,7 +6546,9 @@ export type CreateInputInputSplunk$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -6481,7 +6559,7 @@ export type CreateInputInputSplunk$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   authTokens?: Array<CreateInputAuthTokenSplunk$Outbound> | undefined;
@@ -6513,7 +6591,8 @@ export const CreateInputInputSplunk$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -6524,7 +6603,8 @@ export const CreateInputInputSplunk$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => CreateInputAuthTokenSplunk$outboundSchema))
@@ -6561,7 +6641,9 @@ export type CreateInputInputHttp$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -6582,8 +6664,8 @@ export type CreateInputInputHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
-  authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  authTokensExt?: Array<models.AuthTokensExtConfInputHttp$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -6609,7 +6691,8 @@ export const CreateInputInputHttp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -6630,8 +6713,9 @@ export const CreateInputInputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
-  authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  authTokensExt: z.array(models.AuthTokensExtConfInputHttp$outboundSchema)
     .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
@@ -6662,7 +6746,9 @@ export type CreateInputInputMsk$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -6671,7 +6757,7 @@ export type CreateInputInputMsk$Outbound = {
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
@@ -6729,7 +6815,8 @@ export const CreateInputInputMsk$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
@@ -6738,7 +6825,8 @@ export const CreateInputInputMsk$outboundSchema: z.ZodType<
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   kafkaSchemaRegistry: models
     .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
@@ -6799,7 +6887,9 @@ export type CreateInputInputKafka$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -6826,7 +6916,7 @@ export type CreateInputInputKafka$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -6849,7 +6939,8 @@ export const CreateInputInputKafka$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
@@ -6875,7 +6966,8 @@ export const CreateInputInputKafka$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().optional(),
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -6902,13 +6994,15 @@ export type CreateInputInputCollection$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<models.Connection$Outbound> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
   pq?: models.PqType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   preprocess?: models.PreprocessType$Outbound | undefined;
   throttleRatePerSec?: string | undefined;
-  metadata?: Array<models.Metadata$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   output?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -6928,13 +7022,15 @@ export const CreateInputInputCollection$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(models.Connection$outboundSchema).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
   pq: models.PqType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   preprocess: models.PreprocessType$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
-  metadata: z.array(models.Metadata$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
   output: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),

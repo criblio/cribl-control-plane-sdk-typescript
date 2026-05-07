@@ -4,25 +4,25 @@
 
 import * as z from "zod/v3";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   DataCompressionFormatOptionsPersistence,
   DataCompressionFormatOptionsPersistence$outboundSchema,
 } from "./datacompressionformatoptionspersistence.js";
 import {
-  ItemsTypeRules,
-  ItemsTypeRules$Outbound,
-  ItemsTypeRules$outboundSchema,
-} from "./itemstyperules.js";
-import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
+import {
+  RuleConfInputKubeMetrics,
+  RuleConfInputKubeMetrics$Outbound,
+  RuleConfInputKubeMetrics$outboundSchema,
+} from "./ruleconfinputkubemetrics.js";
 
 export type InputKubeMetricsPersistence = {
   /**
@@ -78,7 +78,7 @@ export type InputKubeMetricsInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
@@ -87,11 +87,11 @@ export type InputKubeMetricsInput = {
   /**
    * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
    */
-  rules?: Array<ItemsTypeRules> | undefined;
+  rules?: Array<RuleConfInputKubeMetrics> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   persistence?: InputKubeMetricsPersistence | undefined;
   description?: string | undefined;
   /**
@@ -148,11 +148,11 @@ export type InputKubeMetricsInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   interval?: number | undefined;
-  rules?: Array<ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  rules?: Array<RuleConfInputKubeMetrics$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -173,11 +173,11 @@ export const InputKubeMetricsInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  rules: z.array(ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  rules: z.array(RuleConfInputKubeMetrics$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
     .optional(),
   description: z.string().optional(),
