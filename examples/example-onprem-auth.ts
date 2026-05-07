@@ -33,7 +33,7 @@ async function main() {
     username: ONPREM_USERNAME,
     password: ONPREM_PASSWORD,
   });
-  const token = authResponse.result.token;
+  const token = authResponse.result.tokenSecret;
   console.log(`✅ Authenticated with on-prem server. Token: ${token}`);
 
   // Create authenticated SDK client

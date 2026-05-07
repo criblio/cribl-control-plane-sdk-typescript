@@ -8,11 +8,11 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  Metadata,
+  Metadata$inboundSchema,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 
 export type ItemsTypeAuthTokensExt = {
   /**
@@ -23,7 +23,7 @@ export type ItemsTypeAuthTokensExt = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
 };
 
 /** @internal */
@@ -34,13 +34,13 @@ export const ItemsTypeAuthTokensExt$inboundSchema: z.ZodType<
 > = z.object({
   token: types.string(),
   description: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
 });
 /** @internal */
 export type ItemsTypeAuthTokensExt$Outbound = {
   token: string;
   description?: string | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -51,7 +51,7 @@ export const ItemsTypeAuthTokensExt$outboundSchema: z.ZodType<
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
 });
 
 export function itemsTypeAuthTokensExtToJSON(

@@ -10,11 +10,11 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$inboundSchema,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  Metadata,
+  Metadata$inboundSchema,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 import {
   PreprocessType,
   PreprocessType$inboundSchema,
@@ -55,7 +55,7 @@ export type RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Pipeline to process results
    */
@@ -100,7 +100,7 @@ export const RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$in
     sendToRoutes: types.optional(types.boolean()),
     preprocess: types.optional(PreprocessType$inboundSchema),
     throttleRatePerSec: types.optional(types.string()),
-    metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+    metadata: types.optional(z.array(Metadata$inboundSchema)),
     pipeline: types.optional(types.string()),
     output: types.optional(types.string()),
   });
@@ -113,7 +113,7 @@ export type RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Out
     sendToRoutes?: boolean | undefined;
     preprocess?: PreprocessType$Outbound | undefined;
     throttleRatePerSec?: string | undefined;
-    metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+    metadata?: Array<Metadata$Outbound> | undefined;
     pipeline?: string | undefined;
     output?: string | undefined;
   };
@@ -133,7 +133,7 @@ export const RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$ou
     sendToRoutes: z.boolean().optional(),
     preprocess: PreprocessType$outboundSchema.optional(),
     throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+    metadata: z.array(Metadata$outboundSchema).optional(),
     pipeline: z.string().optional(),
     output: z.string().optional(),
   });

@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type ItemsTypeMetadata = {
+export type Metadata = {
   name: string;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -17,8 +17,8 @@ export type ItemsTypeMetadata = {
 };
 
 /** @internal */
-export const ItemsTypeMetadata$inboundSchema: z.ZodType<
-  ItemsTypeMetadata,
+export const Metadata$inboundSchema: z.ZodType<
+  Metadata,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -26,34 +26,30 @@ export const ItemsTypeMetadata$inboundSchema: z.ZodType<
   value: types.string(),
 });
 /** @internal */
-export type ItemsTypeMetadata$Outbound = {
+export type Metadata$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const ItemsTypeMetadata$outboundSchema: z.ZodType<
-  ItemsTypeMetadata$Outbound,
+export const Metadata$outboundSchema: z.ZodType<
+  Metadata$Outbound,
   z.ZodTypeDef,
-  ItemsTypeMetadata
+  Metadata
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export function itemsTypeMetadataToJSON(
-  itemsTypeMetadata: ItemsTypeMetadata,
-): string {
-  return JSON.stringify(
-    ItemsTypeMetadata$outboundSchema.parse(itemsTypeMetadata),
-  );
+export function metadataToJSON(metadata: Metadata): string {
+  return JSON.stringify(Metadata$outboundSchema.parse(metadata));
 }
-export function itemsTypeMetadataFromJSON(
+export function metadataFromJSON(
   jsonString: string,
-): SafeParseResult<ItemsTypeMetadata, SDKValidationError> {
+): SafeParseResult<Metadata, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ItemsTypeMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ItemsTypeMetadata' from JSON`,
+    (x) => Metadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Metadata' from JSON`,
   );
 }

@@ -11,13 +11,10 @@ import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$inboundSchema,
-} from "./itemstypemetadata.js";
-import {
   ItemsTypePoliciesItemsTemplateTargetPairs,
   ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
 } from "./itemstypepoliciesitemstemplatetargetpairs.js";
+import { Metadata, Metadata$inboundSchema } from "./metadata.js";
 
 /**
  * Notification mode: direct or policy-based
@@ -102,7 +99,7 @@ export type Notification3 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * The worker group/fleet this notification belongs to
    */
@@ -208,7 +205,7 @@ export type Notification2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * The worker group/fleet this notification belongs to
    */
@@ -306,7 +303,7 @@ export type Notification1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * The worker group/fleet this notification belongs to
    */
@@ -441,7 +438,7 @@ export const Notification3$inboundSchema: z.ZodType<
   conf: types.optional(
     z.lazy(() => ConditionSpecificConfigurations3$inboundSchema),
   ),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   group: types.optional(types.string()),
   pack: types.optional(types.string()),
   templateTargetPairs: types.optional(
@@ -584,7 +581,7 @@ export const Notification2$inboundSchema: z.ZodType<
   conf: types.optional(
     z.lazy(() => ConditionSpecificConfigurations2$inboundSchema),
   ),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   group: types.optional(types.string()),
   pack: types.optional(types.string()),
 });
@@ -724,7 +721,7 @@ export const Notification1$inboundSchema: z.ZodType<
   conf: types.optional(
     z.lazy(() => ConditionSpecificConfigurations1$inboundSchema),
   ),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  metadata: types.optional(z.array(Metadata$inboundSchema)),
   group: types.optional(types.string()),
   pack: types.optional(types.string()),
 });

@@ -10,15 +10,10 @@ import {
   AuthenticationMethodOptionsSasl$outboundSchema,
 } from "./authenticationmethodoptionssasl.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
-import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  Connection,
+  Connection$Outbound,
+  Connection$outboundSchema,
+} from "./connection.js";
 import {
   ItemsTypeSearchFilter,
   ItemsTypeSearchFilter$Outbound,
@@ -28,6 +23,11 @@ import {
   LogLevelOptions,
   LogLevelOptions$outboundSchema,
 } from "./logleveloptions.js";
+import {
+  Metadata,
+  Metadata$Outbound,
+  Metadata$outboundSchema,
+} from "./metadata.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   RecordTypeOptions,
@@ -102,12 +102,16 @@ export type InputPrometheusInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<Connection> | undefined;
   pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
    */
   dimensionList?: Array<string> | undefined;
+  /**
+   * When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+   */
+  fieldPerMetric?: boolean | undefined;
   /**
    * Target discovery mechanism. Use static to manually enter a list of targets.
    */
@@ -151,7 +155,7 @@ export type InputPrometheusInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<Metadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -325,9 +329,10 @@ export type InputPrometheusInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<Connection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
+  fieldPerMetric?: boolean | undefined;
   discoveryType?: string | undefined;
   interval: number;
   logLevel: string;
@@ -338,7 +343,7 @@ export type InputPrometheusInput$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<Metadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
@@ -394,9 +399,10 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(Connection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
+  fieldPerMetric: z.boolean().optional(),
   discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
   interval: z.number(),
   logLevel: LogLevelOptions$outboundSchema,
@@ -407,7 +413,7 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(Metadata$outboundSchema).optional(),
   authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),

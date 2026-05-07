@@ -4,6 +4,11 @@
 
 import * as z from "zod/v3";
 import {
+  AuthToken,
+  AuthToken$Outbound,
+  AuthToken$outboundSchema,
+} from "./authtoken.js";
+import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
@@ -15,11 +20,6 @@ import {
   CompressionOptionsPq,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import {
-  ItemsTypeAuthTokens,
-  ItemsTypeAuthTokens$Outbound,
-  ItemsTypeAuthTokens$outboundSchema,
-} from "./itemstypeauthtokens.js";
 import {
   ItemsTypeHosts,
   ItemsTypeHosts$Outbound,
@@ -92,7 +92,7 @@ export type OutputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
+  authTokens?: Array<AuthToken> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -227,7 +227,7 @@ export type OutputCriblTcp$Outbound = {
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
-  authTokens?: Array<ItemsTypeAuthTokens$Outbound> | undefined;
+  authTokens?: Array<AuthToken$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
@@ -276,7 +276,7 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
-  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
+  authTokens: z.array(AuthToken$outboundSchema).optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),

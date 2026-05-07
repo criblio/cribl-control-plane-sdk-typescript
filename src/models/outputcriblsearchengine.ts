@@ -4,6 +4,11 @@
 
 import * as z from "zod/v3";
 import {
+  AuthToken,
+  AuthToken$Outbound,
+  AuthToken$outboundSchema,
+} from "./authtoken.js";
+import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
@@ -19,11 +24,6 @@ import {
   FailedRequestLoggingModeOptions,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeAuthTokensTokenSecret,
-  ItemsTypeAuthTokensTokenSecret$Outbound,
-  ItemsTypeAuthTokensTokenSecret$outboundSchema,
-} from "./itemstypeauthtokenstokensecret.js";
 import {
   ItemsTypeExtraHttpHeaders,
   ItemsTypeExtraHttpHeaders$Outbound,
@@ -152,7 +152,7 @@ export type OutputCriblSearchEngine = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokensTokenSecret> | undefined;
+  authTokens?: Array<AuthToken> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -290,7 +290,7 @@ export type OutputCriblSearchEngine$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  authTokens?: Array<ItemsTypeAuthTokensTokenSecret$Outbound> | undefined;
+  authTokens?: Array<AuthToken$Outbound> | undefined;
   onBackpressure?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   description?: string | undefined;
@@ -350,7 +350,7 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(ItemsTypeAuthTokensTokenSecret$outboundSchema).optional(),
+  authTokens: z.array(AuthToken$outboundSchema).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   useRoundRobinDns: z.boolean().optional(),
   description: z.string().optional(),

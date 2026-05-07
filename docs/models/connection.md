@@ -1,11 +1,11 @@
-# ItemsTypeConnectionsOptional
+# Connection
 
 ## Example Usage
 
 ```typescript
-import { ItemsTypeConnectionsOptional } from "cribl-control-plane/models";
+import { Connection } from "cribl-control-plane/models";
 
-let value: ItemsTypeConnectionsOptional = {};
+let value: Connection = {};
 ```
 
 ## Fields
