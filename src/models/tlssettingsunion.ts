@@ -7,11 +7,15 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  EmptyObject,
+  EmptyObject$inboundSchema,
+  EmptyObject$Outbound,
+  EmptyObject$outboundSchema,
+} from "./emptyobject.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type TlsSettings2 = {};
-
-export type TlsSettings1 = {
+export type TlsSettings = {
   defaultCipherList: string;
   defaultEcdhCurve: string;
   maxVersion: string;
@@ -19,40 +23,11 @@ export type TlsSettings1 = {
   rejectUnauthorized: boolean;
 };
 
-export type TlsSettingsUnion = TlsSettings1 | TlsSettings2;
+export type TlsSettingsUnion = TlsSettings | EmptyObject;
 
 /** @internal */
-export const TlsSettings2$inboundSchema: z.ZodType<
-  TlsSettings2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type TlsSettings2$Outbound = {};
-
-/** @internal */
-export const TlsSettings2$outboundSchema: z.ZodType<
-  TlsSettings2$Outbound,
-  z.ZodTypeDef,
-  TlsSettings2
-> = z.object({});
-
-export function tlsSettings2ToJSON(tlsSettings2: TlsSettings2): string {
-  return JSON.stringify(TlsSettings2$outboundSchema.parse(tlsSettings2));
-}
-export function tlsSettings2FromJSON(
-  jsonString: string,
-): SafeParseResult<TlsSettings2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TlsSettings2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TlsSettings2' from JSON`,
-  );
-}
-
-/** @internal */
-export const TlsSettings1$inboundSchema: z.ZodType<
-  TlsSettings1,
+export const TlsSettings$inboundSchema: z.ZodType<
+  TlsSettings,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -63,7 +38,7 @@ export const TlsSettings1$inboundSchema: z.ZodType<
   rejectUnauthorized: types.boolean(),
 });
 /** @internal */
-export type TlsSettings1$Outbound = {
+export type TlsSettings$Outbound = {
   defaultCipherList: string;
   defaultEcdhCurve: string;
   maxVersion: string;
@@ -72,10 +47,10 @@ export type TlsSettings1$Outbound = {
 };
 
 /** @internal */
-export const TlsSettings1$outboundSchema: z.ZodType<
-  TlsSettings1$Outbound,
+export const TlsSettings$outboundSchema: z.ZodType<
+  TlsSettings$Outbound,
   z.ZodTypeDef,
-  TlsSettings1
+  TlsSettings
 > = z.object({
   defaultCipherList: z.string(),
   defaultEcdhCurve: z.string(),
@@ -84,16 +59,16 @@ export const TlsSettings1$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean(),
 });
 
-export function tlsSettings1ToJSON(tlsSettings1: TlsSettings1): string {
-  return JSON.stringify(TlsSettings1$outboundSchema.parse(tlsSettings1));
+export function tlsSettingsToJSON(tlsSettings: TlsSettings): string {
+  return JSON.stringify(TlsSettings$outboundSchema.parse(tlsSettings));
 }
-export function tlsSettings1FromJSON(
+export function tlsSettingsFromJSON(
   jsonString: string,
-): SafeParseResult<TlsSettings1, SDKValidationError> {
+): SafeParseResult<TlsSettings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => TlsSettings1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TlsSettings1' from JSON`,
+    (x) => TlsSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TlsSettings' from JSON`,
   );
 }
 
@@ -103,13 +78,13 @@ export const TlsSettingsUnion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = smartUnion([
-  z.lazy(() => TlsSettings1$inboundSchema),
-  z.lazy(() => TlsSettings2$inboundSchema),
+  z.lazy(() => TlsSettings$inboundSchema),
+  EmptyObject$inboundSchema,
 ]);
 /** @internal */
 export type TlsSettingsUnion$Outbound =
-  | TlsSettings1$Outbound
-  | TlsSettings2$Outbound;
+  | TlsSettings$Outbound
+  | EmptyObject$Outbound;
 
 /** @internal */
 export const TlsSettingsUnion$outboundSchema: z.ZodType<
@@ -117,8 +92,8 @@ export const TlsSettingsUnion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TlsSettingsUnion
 > = smartUnion([
-  z.lazy(() => TlsSettings1$outboundSchema),
-  z.lazy(() => TlsSettings2$outboundSchema),
+  z.lazy(() => TlsSettings$outboundSchema),
+  EmptyObject$outboundSchema,
 ]);
 
 export function tlsSettingsUnionToJSON(

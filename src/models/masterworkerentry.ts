@@ -49,6 +49,7 @@ export type MasterWorkerEntry = {
   lastMsgTime: number;
   metadata?: HeartbeatMetadata | undefined;
   nodeUpgradeStatus?: NodeUpgradeStatus | undefined;
+  provisioningTokenId?: string | undefined;
   status?: string | undefined;
   type?: MasterWorkerEntryType | undefined;
   workerProcesses: number;
@@ -98,6 +99,7 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   lastMsgTime: types.number(),
   metadata: types.optional(HeartbeatMetadata$inboundSchema),
   nodeUpgradeStatus: types.optional(NodeUpgradeStatus$inboundSchema),
+  provisioningTokenId: types.optional(types.string()),
   status: types.optional(types.string()),
   type: types.optional(MasterWorkerEntryType$inboundSchema),
   workerProcesses: types.number(),

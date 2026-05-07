@@ -865,6 +865,23 @@ const value: models.FunctionSampling = {
 };
 ```
 
+### `models.FunctionSearchEngineExport`
+
+```typescript
+const value: models.FunctionSearchEngineExport = {
+  __filename: "example.file",
+  group: "<value>",
+  id: "search_engine_export",
+  loadTime: 6966.28,
+  modTime: 5838.46,
+  name: "<value>",
+  uischema: {
+    "key": "<value>",
+  },
+  version: "<value>",
+};
+```
+
 ### `models.FunctionSend`
 
 ```typescript

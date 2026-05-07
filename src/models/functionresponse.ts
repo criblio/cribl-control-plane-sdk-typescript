@@ -170,6 +170,10 @@ import {
   FunctionSampling,
   FunctionSampling$inboundSchema,
 } from "./functionsampling.js";
+import {
+  FunctionSearchEngineExport,
+  FunctionSearchEngineExport$inboundSchema,
+} from "./functionsearchengineexport.js";
 import { FunctionSend, FunctionSend$inboundSchema } from "./functionsend.js";
 import {
   FunctionSensitiveDataScanner,
@@ -269,6 +273,7 @@ export type FunctionResponse =
   | FunctionRename
   | FunctionRollupMetrics
   | FunctionSampling
+  | FunctionSearchEngineExport
   | FunctionSend
   | FunctionSensitiveDataScanner
   | FunctionSerde
@@ -344,6 +349,7 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   rename: FunctionRename$inboundSchema,
   rollup_metrics: FunctionRollupMetrics$inboundSchema,
   sampling: FunctionSampling$inboundSchema,
+  search_engine_export: FunctionSearchEngineExport$inboundSchema,
   send: FunctionSend$inboundSchema,
   sensitive_data_scanner: FunctionSensitiveDataScanner$inboundSchema,
   serde: FunctionSerde$inboundSchema,

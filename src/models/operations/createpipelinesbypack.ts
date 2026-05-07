@@ -12,7 +12,7 @@ export type CreatePipelinesByPackRequest = {
    */
   pack: string;
   /**
-   * Pipeline object
+   * Pipeline object.
    */
   pipeline: models.PipelineInput;
 };

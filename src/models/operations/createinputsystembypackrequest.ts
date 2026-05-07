@@ -9,9 +9,20 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
+  CreateInputSystemByPackAuth,
+  CreateInputSystemByPackAuth$Outbound,
+  CreateInputSystemByPackAuth$outboundSchema,
+  CreateInputSystemByPackAzureBlobStorage,
+  CreateInputSystemByPackAzureBlobStorage$Outbound,
+  CreateInputSystemByPackAzureBlobStorage$outboundSchema,
+  CreateInputSystemByPackCheckpointStore,
+  CreateInputSystemByPackCheckpointStore$outboundSchema,
   CreateInputSystemByPackInputAnthropicCompliance,
   CreateInputSystemByPackInputAnthropicCompliance$Outbound,
   CreateInputSystemByPackInputAnthropicCompliance$outboundSchema,
+  CreateInputSystemByPackInputAppleUnifiedLogs,
+  CreateInputSystemByPackInputAppleUnifiedLogs$Outbound,
+  CreateInputSystemByPackInputAppleUnifiedLogs$outboundSchema,
   CreateInputSystemByPackInputAppscope,
   CreateInputSystemByPackInputAppscope$Outbound,
   CreateInputSystemByPackInputAppscope$outboundSchema,
@@ -42,9 +53,6 @@ import {
   CreateInputSystemByPackInputDatagen,
   CreateInputSystemByPackInputDatagen$Outbound,
   CreateInputSystemByPackInputDatagen$outboundSchema,
-  CreateInputSystemByPackInputEventhubAmqp,
-  CreateInputSystemByPackInputEventhubAmqp$Outbound,
-  CreateInputSystemByPackInputEventhubAmqp$outboundSchema,
   CreateInputSystemByPackInputExec,
   CreateInputSystemByPackInputExec$Outbound,
   CreateInputSystemByPackInputExec$outboundSchema,
@@ -150,7 +158,116 @@ import {
   CreateInputSystemByPackInputZscalerHec,
   CreateInputSystemByPackInputZscalerHec$Outbound,
   CreateInputSystemByPackInputZscalerHec$outboundSchema,
-} from "./createinputsystembypackinputeventhubamqp.js";
+} from "./createinputsystembypackazureblobstorage.js";
+
+export type CreateInputSystemByPackCheckpointing = {
+  /**
+   * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
+   */
+  checkpointStoreType?: CreateInputSystemByPackCheckpointStore | undefined;
+  blobStore?: CreateInputSystemByPackAzureBlobStorage | undefined;
+};
+
+export type CreateInputSystemByPackInputEventhubAmqp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "eventhub_amqp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name of the Event Hub to consume from
+   */
+  eventHubName?: string | undefined;
+  /**
+   * The consumer group this instance belongs to. Default is '$Default'.
+   */
+  consumerGroup: string;
+  auth?: CreateInputSystemByPackAuth | undefined;
+  checkpointing?: CreateInputSystemByPackCheckpointing | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum number of events in each batch delivered to the consumer
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum time to wait for a batch of events before delivering a partial batch
+   */
+  maxWaitTimeInSeconds?: number | undefined;
+  /**
+   * Number of events to prefetch from the service for processing
+   */
+  prefetchCount?: number | undefined;
+  /**
+   * Maximum number of retries per operation
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Initial delay before the first retry, in milliseconds
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Maximum delay between retries, in milliseconds
+   */
+  maxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a request to complete
+   */
+  timeoutInMs?: number | undefined;
+  /**
+   * Initial delay before the first reconnection attempt, in milliseconds
+   */
+  connectionInitialBackoff?: number | undefined;
+  /**
+   * Maximum delay between reconnection attempts, in milliseconds
+   */
+  connectionMaxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete
+   */
+  connectionTimeoutInMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
 
 export type CreateInputSystemByPackInputEventhub = {
   /**
@@ -1167,10 +1284,6 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing EC2 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
-  /**
    * Reuse connections between requests, which can improve performance
    */
   reuseConnections?: boolean | undefined;
@@ -1441,10 +1554,6 @@ export type CreateInputSystemByPackInputPrometheus = {
    * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing EC2 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -3088,7 +3197,7 @@ export type CreateInputSystemByPackInputSplunkSearch = {
   /**
    * Splunk Search authentication type
    */
-  authType?: CreateInputSystemByPackAuthenticationTypeSplunkSearch | undefined;
+  authType: CreateInputSystemByPackAuthenticationTypeSplunkSearch;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -3589,10 +3698,6 @@ export type CreateInputSystemByPackInputMsk = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing MSK cluster requests
-   */
-  signatureVersion?: models.SignatureVersionOptions | undefined;
-  /**
    * Reuse connections between requests, which can improve performance
    */
   reuseConnections?: boolean | undefined;
@@ -3913,7 +4018,7 @@ export type CreateInputSystemByPackInputCollection = {
 };
 
 /**
- * Input object
+ * Input object.
  */
 export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputCollection
@@ -3973,6 +4078,7 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputAppscope
   | CreateInputSystemByPackInputWef
   | CreateInputSystemByPackInputWinEventLogs
+  | CreateInputSystemByPackInputAppleUnifiedLogs
   | CreateInputSystemByPackInputRawUdp
   | CreateInputSystemByPackInputJournalFiles
   | CreateInputSystemByPackInputWiz
@@ -3993,7 +4099,7 @@ export type CreateInputSystemByPackRequest = {
    */
   pack: string;
   /**
-   * Input object
+   * Input object.
    */
   requestBody:
     | CreateInputSystemByPackInputCollection
@@ -4053,6 +4159,7 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputAppscope
     | CreateInputSystemByPackInputWef
     | CreateInputSystemByPackInputWinEventLogs
+    | CreateInputSystemByPackInputAppleUnifiedLogs
     | CreateInputSystemByPackInputRawUdp
     | CreateInputSystemByPackInputJournalFiles
     | CreateInputSystemByPackInputWiz
@@ -4067,6 +4174,117 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputAnthropicCompliance
     | CreateInputSystemByPackInputOkta;
 };
+
+/** @internal */
+export type CreateInputSystemByPackCheckpointing$Outbound = {
+  checkpointStoreType?: string | undefined;
+  blobStore?: CreateInputSystemByPackAzureBlobStorage$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackCheckpointing$outboundSchema: z.ZodType<
+  CreateInputSystemByPackCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackCheckpointing
+> = z.object({
+  checkpointStoreType: CreateInputSystemByPackCheckpointStore$outboundSchema
+    .optional(),
+  blobStore: CreateInputSystemByPackAzureBlobStorage$outboundSchema.optional(),
+});
+
+export function createInputSystemByPackCheckpointingToJSON(
+  createInputSystemByPackCheckpointing: CreateInputSystemByPackCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackCheckpointing$outboundSchema.parse(
+      createInputSystemByPackCheckpointing,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackInputEventhubAmqp$Outbound = {
+  id: string;
+  type: "eventhub_amqp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  eventHubName?: string | undefined;
+  consumerGroup: string;
+  auth?: CreateInputSystemByPackAuth$Outbound | undefined;
+  checkpointing?: CreateInputSystemByPackCheckpointing$Outbound | undefined;
+  fromBeginning?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  maxWaitTimeInSeconds?: number | undefined;
+  prefetchCount?: number | undefined;
+  maxRetries?: number | undefined;
+  initialBackoff?: number | undefined;
+  maxBackoff?: number | undefined;
+  timeoutInMs?: number | undefined;
+  connectionInitialBackoff?: number | undefined;
+  connectionMaxBackoff?: number | undefined;
+  connectionTimeoutInMs?: number | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackInputEventhubAmqp$outboundSchema: z.ZodType<
+  CreateInputSystemByPackInputEventhubAmqp$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackInputEventhubAmqp
+> = z.object({
+  id: z.string(),
+  type: z.literal("eventhub_amqp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  eventHubName: z.string().optional(),
+  consumerGroup: z.string(),
+  auth: CreateInputSystemByPackAuth$outboundSchema.optional(),
+  checkpointing: z.lazy(() =>
+    CreateInputSystemByPackCheckpointing$outboundSchema
+  ).optional(),
+  fromBeginning: z.boolean().optional(),
+  maxBatchSize: z.number().int().optional(),
+  maxWaitTimeInSeconds: z.number().int().optional(),
+  prefetchCount: z.number().int().optional(),
+  maxRetries: z.number().int().optional(),
+  initialBackoff: z.number().int().optional(),
+  maxBackoff: z.number().int().optional(),
+  timeoutInMs: z.number().int().optional(),
+  connectionInitialBackoff: z.number().int().optional(),
+  connectionMaxBackoff: z.number().int().optional(),
+  connectionTimeoutInMs: z.number().int().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputSystemByPackInputEventhubAmqpToJSON(
+  createInputSystemByPackInputEventhubAmqp:
+    CreateInputSystemByPackInputEventhubAmqp,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackInputEventhubAmqp$outboundSchema.parse(
+      createInputSystemByPackInputEventhubAmqp,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateInputSystemByPackInputEventhub$Outbound = {
@@ -4810,7 +5028,6 @@ export type CreateInputSystemByPackInputEdgePrometheus$Outbound = {
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -4882,8 +5099,6 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
-      .optional(),
     reuseConnections: z.boolean().optional(),
     rejectUnauthorized: z.boolean().optional(),
     enableAssumeRole: z.boolean().optional(),
@@ -4977,7 +5192,6 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
@@ -5050,8 +5264,6 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
@@ -6323,7 +6535,7 @@ export type CreateInputSystemByPackInputSplunkSearch$Outbound = {
   retryRules?: models.RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  authType?: string | undefined;
+  authType: string;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6385,8 +6597,8 @@ export const CreateInputSystemByPackInputSplunkSearch$outboundSchema: z.ZodType<
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  authType: CreateInputSystemByPackAuthenticationTypeSplunkSearch$outboundSchema
-    .optional(),
+  authType:
+    CreateInputSystemByPackAuthenticationTypeSplunkSearch$outboundSchema,
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -6691,7 +6903,6 @@ export type CreateInputSystemByPackInputMsk$Outbound = {
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -6759,7 +6970,6 @@ export const CreateInputSystemByPackInputMsk$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -7023,6 +7233,7 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputAppscope$Outbound
   | CreateInputSystemByPackInputWef$Outbound
   | CreateInputSystemByPackInputWinEventLogs$Outbound
+  | CreateInputSystemByPackInputAppleUnifiedLogs$Outbound
   | CreateInputSystemByPackInputRawUdp$Outbound
   | CreateInputSystemByPackInputJournalFiles$Outbound
   | CreateInputSystemByPackInputWiz$Outbound
@@ -7066,7 +7277,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputMicrosoftGraph$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputEventhub$outboundSchema),
-  CreateInputSystemByPackInputEventhubAmqp$outboundSchema,
+  z.lazy(() => CreateInputSystemByPackInputEventhubAmqp$outboundSchema),
   CreateInputSystemByPackInputExec$outboundSchema,
   CreateInputSystemByPackInputFirehose$outboundSchema,
   CreateInputSystemByPackInputGooglePubsub$outboundSchema,
@@ -7102,6 +7313,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateInputSystemByPackInputAppscope$outboundSchema,
   CreateInputSystemByPackInputWef$outboundSchema,
   CreateInputSystemByPackInputWinEventLogs$outboundSchema,
+  CreateInputSystemByPackInputAppleUnifiedLogs$outboundSchema,
   CreateInputSystemByPackInputRawUdp$outboundSchema,
   CreateInputSystemByPackInputJournalFiles$outboundSchema,
   CreateInputSystemByPackInputWiz$outboundSchema,
@@ -7190,6 +7402,7 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputAppscope$Outbound
     | CreateInputSystemByPackInputWef$Outbound
     | CreateInputSystemByPackInputWinEventLogs$Outbound
+    | CreateInputSystemByPackInputAppleUnifiedLogs$Outbound
     | CreateInputSystemByPackInputRawUdp$Outbound
     | CreateInputSystemByPackInputJournalFiles$Outbound
     | CreateInputSystemByPackInputWiz$Outbound
@@ -7236,7 +7449,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputMicrosoftGraph$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputEventhub$outboundSchema),
-    CreateInputSystemByPackInputEventhubAmqp$outboundSchema,
+    z.lazy(() => CreateInputSystemByPackInputEventhubAmqp$outboundSchema),
     CreateInputSystemByPackInputExec$outboundSchema,
     CreateInputSystemByPackInputFirehose$outboundSchema,
     CreateInputSystemByPackInputGooglePubsub$outboundSchema,
@@ -7272,6 +7485,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateInputSystemByPackInputAppscope$outboundSchema,
     CreateInputSystemByPackInputWef$outboundSchema,
     CreateInputSystemByPackInputWinEventLogs$outboundSchema,
+    CreateInputSystemByPackInputAppleUnifiedLogs$outboundSchema,
     CreateInputSystemByPackInputRawUdp$outboundSchema,
     CreateInputSystemByPackInputJournalFiles$outboundSchema,
     CreateInputSystemByPackInputWiz$outboundSchema,

@@ -8,8 +8,13 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputLogLocationType,
-  CreateOutputLogLocationType$outboundSchema,
+  CreateOutputAPIVersion,
+  CreateOutputAPIVersion$outboundSchema,
+  CreateOutputAuthenticationMethodGoogleChronicle,
+  CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema,
+  CreateOutputExtraLogType,
+  CreateOutputExtraLogType$Outbound,
+  CreateOutputExtraLogType$outboundSchema,
   CreateOutputOutputAlphasocS3,
   CreateOutputOutputAlphasocS3$Outbound,
   CreateOutputOutputAlphasocS3$outboundSchema,
@@ -79,6 +84,12 @@ import {
   CreateOutputOutputExabeam,
   CreateOutputOutputExabeam$Outbound,
   CreateOutputOutputExabeam$outboundSchema,
+  CreateOutputOutputGoogleCloudLogging,
+  CreateOutputOutputGoogleCloudLogging$Outbound,
+  CreateOutputOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputOutputGoogleCloudStorage,
+  CreateOutputOutputGoogleCloudStorage$Outbound,
+  CreateOutputOutputGoogleCloudStorage$outboundSchema,
   CreateOutputOutputGooglePubsub,
   CreateOutputOutputGooglePubsub$Outbound,
   CreateOutputOutputGooglePubsub$outboundSchema,
@@ -172,701 +183,14 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-  CreateOutputPayloadFormat,
-  CreateOutputPayloadFormat$outboundSchema,
-  CreateOutputPqControlsGoogleCloudLogging,
-  CreateOutputPqControlsGoogleCloudLogging$Outbound,
-  CreateOutputPqControlsGoogleCloudLogging$outboundSchema,
-} from "./createoutputpqcontrolsgooglecloudlogging.js";
-
-export type CreateOutputOutputGoogleCloudLogging = {
-  /**
-   * Unique ID for this output
-   */
-  id: string;
-  type: "google_cloud_logging";
-  /**
-   * Pipeline to process data before sending out to this output
-   */
-  pipeline?: string | undefined;
-  /**
-   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-   */
-  systemFields?: Array<string> | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  logLocationType: CreateOutputLogLocationType;
-  /**
-   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
-   */
-  logNameExpression: string;
-  sanitizeLogNames?: boolean | undefined;
-  /**
-   * Format to use when sending payload. Defaults to Text.
-   */
-  payloadFormat?: CreateOutputPayloadFormat | undefined;
-  /**
-   * Labels to apply to the log entry
-   */
-  logLabels?: Array<models.ItemsTypeLogLabels> | undefined;
-  /**
-   * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
-   */
-  resourceTypeExpression?: string | undefined;
-  /**
-   * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-   */
-  resourceTypeLabels?: Array<models.ItemsTypeLogLabels> | undefined;
-  /**
-   * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
-   */
-  severityExpression?: string | undefined;
-  /**
-   * JavaScript expression to compute the value of the insert ID field.
-   */
-  insertIdExpression?: string | undefined;
-  /**
-   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-   */
-  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
-  /**
-   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
-   */
-  serviceAccountCredentials?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  secret?: string | undefined;
-  /**
-   * Maximum size, in KB, of the request body.
-   */
-  maxPayloadSizeKB?: number | undefined;
-  /**
-   * Max number of events to include in the request body. Default is 0 (unlimited).
-   */
-  maxPayloadEvents?: number | undefined;
-  /**
-   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
-   */
-  flushPeriodSec?: number | undefined;
-  /**
-   * Maximum number of ongoing requests before blocking.
-   */
-  concurrency?: number | undefined;
-  /**
-   * Amount of time (milliseconds) to wait for the connection to establish before retrying
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Amount of time, in seconds, to wait for a request to complete before canceling it.
-   */
-  timeoutSec?: number | undefined;
-  /**
-   * Maximum number of requests to limit to per second.
-   */
-  throttleRateReqPerSec?: number | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  requestMethodExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  requestUrlExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  requestSizeExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  statusExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  responseSizeExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  userAgentExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  remoteIpExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  serverIpExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  refererExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  latencyExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  cacheLookupExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  cacheHitExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  cacheValidatedExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  cacheFillBytesExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
-   */
-  protocolExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-   */
-  idExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-   */
-  producerExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-   */
-  firstExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
-   */
-  lastExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-   */
-  fileExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-   */
-  lineExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
-   */
-  functionExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-   */
-  uidExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-   */
-  indexExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
-   */
-  totalSplitsExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-   */
-  traceExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-   */
-  spanIdExpression?: string | undefined;
-  /**
-   * A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
-   */
-  traceSampledExpression?: string | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  /**
-   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-   */
-  totalMemoryLimitKB?: number | undefined;
-  description?: string | undefined;
-  /**
-   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
-   */
-  logLocationExpression: string;
-  /**
-   * JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
-   */
-  payloadExpression?: string | undefined;
-  /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: models.ModeOptions | undefined;
-  /**
-   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-   */
-  pqMaxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  pqMaxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-   */
-  pqPath?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  pqCompress?: models.CompressionOptionsPq | undefined;
-  /**
-   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-   */
-  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-   */
-  pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGoogleCloudLogging | undefined;
-  /**
-   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
-   */
-  __template_streamtags?: string | undefined;
-  /**
-   * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
-   */
-  __template_logLocationType?: string | undefined;
-  /**
-   * Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
-   */
-  __template_logNameExpression?: string | undefined;
-  /**
-   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
-   */
-  __template_payloadFormat?: string | undefined;
-  /**
-   * Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
-   */
-  __template_resourceTypeExpression?: string | undefined;
-  /**
-   * Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
-   */
-  __template_severityExpression?: string | undefined;
-  /**
-   * Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
-   */
-  __template_insertIdExpression?: string | undefined;
-  /**
-   * Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
-   */
-  __template_traceExpression?: string | undefined;
-  /**
-   * Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
-   */
-  __template_spanIdExpression?: string | undefined;
-  /**
-   * Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
-   */
-  __template_traceSampledExpression?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
-  /**
-   * Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
-   */
-  __template_logLocationExpression?: string | undefined;
-  /**
-   * Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
-   */
-  __template_payloadExpression?: string | undefined;
-};
-
-export const CreateOutputAuthenticationMethodGoogleCloudStorage = {
-  /**
-   * auto
-   */
-  Auto: "auto",
-  /**
-   * manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-export type CreateOutputAuthenticationMethodGoogleCloudStorage = OpenEnum<
-  typeof CreateOutputAuthenticationMethodGoogleCloudStorage
->;
-
-export type CreateOutputOutputGoogleCloudStorage = {
-  /**
-   * Unique ID for this output
-   */
-  id: string;
-  type: "google_cloud_storage";
-  /**
-   * Pipeline to process data before sending out to this output
-   */
-  pipeline?: string | undefined;
-  /**
-   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-   */
-  systemFields?: Array<string> | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-   */
-  bucket: string;
-  /**
-   * Region where the bucket is located
-   */
-  region: string;
-  /**
-   * Google Cloud Storage service endpoint
-   */
-  endpoint: string;
-  /**
-   * Signature version to use for signing Google Cloud Storage requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsGoogle | undefined;
-  awsAuthenticationMethod?:
-    | CreateOutputAuthenticationMethodGoogleCloudStorage
-    | undefined;
-  /**
-   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-   */
-  stagePath: string;
-  /**
-   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-   */
-  destPath?: string | undefined;
-  /**
-   * Disable if you can access files within the bucket but not the bucket itself
-   */
-  verifyPermissions?: boolean | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?:
-    | models.ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
-    | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: models.StorageClassOptionsArchiveColdline | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Add the Output ID value to staging location
-   */
-  addIdToStagePath?: boolean | undefined;
-  /**
-   * Remove empty staging directories after moving files
-   */
-  removeEmptyDirs?: boolean | undefined;
-  /**
-   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-   */
-  partitionExpr?: string | undefined;
-  /**
-   * Format of the output data
-   */
-  format?: models.DataFormatOptions | undefined;
-  /**
-   * JavaScript expression to define the output filename prefix (can be constant)
-   */
-  baseFileName?: string | undefined;
-  /**
-   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-   */
-  fileNameSuffix?: string | undefined;
-  /**
-   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-   */
-  maxFileSizeMB?: number | undefined;
-  /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-   */
-  maxFileOpenTimeSec?: number | undefined;
-  /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-   */
-  maxFileIdleTimeSec?: number | undefined;
-  /**
-   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-   */
-  maxOpenFiles?: number | undefined;
-  /**
-   * If set, this line will be written to the beginning of each output file
-   */
-  headerLine?: string | undefined;
-  /**
-   * Buffer size used to write to a file
-   */
-  writeHighWaterMark?: number | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
-  /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-   */
-  deadletterEnabled?: boolean | undefined;
-  /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
-   */
-  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
-  /**
-   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-   */
-  forceCloseOnShutdown?: boolean | undefined;
-  retrySettings?: models.RetrySettingsType | undefined;
-  orphans?: models.OrphanFileRecoveryType | undefined;
-  description?: string | undefined;
-  /**
-   * Data compression format to apply to HTTP content before it is delivered
-   */
-  compress?: models.CompressionOptionsHttp | undefined;
-  /**
-   * Compression level to apply before moving files to final destination
-   */
-  compressionLevel?: models.CompressionLevelOptions | undefined;
-  /**
-   * Automatically calculate the schema based on the events of each Parquet file generated
-   */
-  automaticSchema?: boolean | undefined;
-  /**
-   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-   */
-  parquetSchema?: string | undefined;
-  /**
-   * Determines which data types are supported and how they are represented
-   */
-  parquetVersion?: models.ParquetVersionOptions | undefined;
-  /**
-   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-   */
-  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
-  /**
-   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
-   */
-  parquetRowGroupLength?: number | undefined;
-  /**
-   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-   */
-  parquetPageSize?: string | undefined;
-  /**
-   * Log up to 3 rows that @{product} skips due to data mismatch
-   */
-  shouldLogInvalidRows?: boolean | undefined;
-  /**
-   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-   */
-  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
-  /**
-   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-   */
-  enableStatistics?: boolean | undefined;
-  /**
-   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-   */
-  enableWritePageIndex?: boolean | undefined;
-  /**
-   * Parquet tools can use the checksum of a Parquet page to verify data integrity
-   */
-  enablePageChecksum?: boolean | undefined;
-  /**
-   * How frequently, in seconds, to clean up empty directories
-   */
-  emptyDirCleanupSec?: number | undefined;
-  /**
-   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-   */
-  directoryBatchSize?: number | undefined;
-  /**
-   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
-   */
-  deadletterPath?: string | undefined;
-  /**
-   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-   */
-  maxRetryNum?: number | undefined;
-  /**
-   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
-   */
-  awsApiKey?: string | undefined;
-  /**
-   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
-   */
-  awsSecretKey?: string | undefined;
-  /**
-   * Select or create a stored secret that references your access key and secret key
-   */
-  awsSecret?: string | undefined;
-  /**
-   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
-   */
-  __template_streamtags?: string | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-   */
-  __template_endpoint?: string | undefined;
-  /**
-   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-   */
-  __template_destPath?: string | undefined;
-  /**
-   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-   */
-  __template_objectACL?: string | undefined;
-  /**
-   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-   */
-  __template_storageClass?: string | undefined;
-  /**
-   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
-   */
-  __template_partitionExpr?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
-   */
-  __template_baseFileName?: string | undefined;
-  /**
-   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
-   */
-  __template_fileNameSuffix?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
-  /**
-   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
-   */
-  __template_compress?: string | undefined;
-  /**
-   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
-   */
-  __template_parquetSchema?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-};
-
-export const CreateOutputAPIVersion = {
-  /**
-   * V1
-   */
-  V1: "v1",
-  /**
-   * V2
-   */
-  V2: "v2",
-} as const;
-export type CreateOutputAPIVersion = OpenEnum<typeof CreateOutputAPIVersion>;
-
-export const CreateOutputAuthenticationMethodGoogleChronicle = {
-  /**
-   * API key
-   */
-  Manual: "manual",
-  /**
-   * API key secret
-   */
-  Secret: "secret",
-  /**
-   * Service account credentials
-   */
-  ServiceAccount: "serviceAccount",
-  /**
-   * Service account credentials secret
-   */
-  ServiceAccountSecret: "serviceAccountSecret",
-} as const;
-export type CreateOutputAuthenticationMethodGoogleChronicle = OpenEnum<
-  typeof CreateOutputAuthenticationMethodGoogleChronicle
->;
-
-export const CreateOutputSendEventsAs = {
-  /**
-   * Unstructured
-   */
-  Unstructured: "unstructured",
-  /**
-   * UDM
-   */
-  Udm: "udm",
-} as const;
-export type CreateOutputSendEventsAs = OpenEnum<
-  typeof CreateOutputSendEventsAs
->;
-
-export type CreateOutputExtraLogType = {
-  logType: string;
-  description?: string | undefined;
-};
-
-/**
- * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
- */
-export const CreateOutputUDMType = {
-  Entities: "entities",
-  Logs: "logs",
-} as const;
-/**
- * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
- */
-export type CreateOutputUDMType = OpenEnum<typeof CreateOutputUDMType>;
-
-export type CreateOutputPqControlsGoogleChronicle = {};
+  CreateOutputPqControlsGoogleChronicle,
+  CreateOutputPqControlsGoogleChronicle$Outbound,
+  CreateOutputPqControlsGoogleChronicle$outboundSchema,
+  CreateOutputSendEventsAs,
+  CreateOutputSendEventsAs$outboundSchema,
+  CreateOutputUDMType,
+  CreateOutputUDMType$outboundSchema,
+} from "./createoutputpqcontrolsgooglechronicle.js";
 
 export type CreateOutputOutputGoogleChronicle = {
   /**
@@ -1465,10 +789,6 @@ export type CreateOutputOutputKinesis = {
    * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing Kinesis stream requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsKinesis | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -2669,10 +1989,6 @@ export type CreateOutputOutputS3 = {
    */
   awsAuthenticationMethod?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Reuse connections between requests, which can improve performance
    */
   reuseConnections?: boolean | undefined;
@@ -2680,10 +1996,6 @@ export type CreateOutputOutputS3 = {
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
   rejectUnauthorized?: boolean | undefined;
-  /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-   */
-  awsSecretKey?: string | undefined;
   /**
    * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
@@ -2778,6 +2090,10 @@ export type CreateOutputOutputS3 = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   orphans?: models.OrphanFileRecoveryType | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
@@ -2890,10 +2206,6 @@ export type CreateOutputOutputS3 = {
    */
   __template_assumeRoleExternalId?: string | undefined;
   /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
@@ -2925,6 +2237,10 @@ export type CreateOutputOutputS3 = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
   /**
    * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
    */
@@ -4469,28 +3785,94 @@ export type CreateOutputProtocolSyslog = OpenEnum<
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
 export const CreateOutputFacility = {
-  Zero: 0,
-  One: 1,
-  Two: 2,
-  Three: 3,
-  Four: 4,
-  Five: 5,
-  Six: 6,
-  Seven: 7,
-  Eight: 8,
-  Nine: 9,
-  Ten: 10,
-  Eleven: 11,
-  Twelve: 12,
-  Thirteen: 13,
-  Fourteen: 14,
-  Fifteen: 15,
-  Sixteen: 16,
-  Seventeen: 17,
-  Eighteen: 18,
-  Nineteen: 19,
-  Twenty: 20,
-  TwentyOne: 21,
+  /**
+   * kern
+   */
+  Kern: 0,
+  /**
+   * user
+   */
+  User: 1,
+  /**
+   * mail
+   */
+  Mail: 2,
+  /**
+   * daemon
+   */
+  Daemon: 3,
+  /**
+   * auth
+   */
+  Auth: 4,
+  /**
+   * syslog
+   */
+  Syslog: 5,
+  /**
+   * lpr
+   */
+  Lpr: 6,
+  /**
+   * news
+   */
+  News: 7,
+  /**
+   * uucp
+   */
+  Uucp: 8,
+  /**
+   * cron
+   */
+  Cron: 9,
+  /**
+   * authpriv
+   */
+  Authpriv: 10,
+  /**
+   * ftp
+   */
+  Ftp: 11,
+  /**
+   * ntp
+   */
+  Ntp: 12,
+  /**
+   * security
+   */
+  Security: 13,
+  /**
+   * console
+   */
+  Console: 14,
+  /**
+   * solaris-cron
+   */
+  SolarisCron: 15,
+  /**
+   * local0
+   */
+  Local0: 16,
+  /**
+   * local1
+   */
+  Local1: 17,
+  /**
+   * local2
+   */
+  Local2: 18,
+  /**
+   * local3
+   */
+  Local3: 19,
+  /**
+   * local4
+   */
+  Local4: 20,
+  /**
+   * local5
+   */
+  Local5: 21,
 } as const;
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
@@ -5849,7 +5231,7 @@ export type CreateOutputOutputDefault = {
 };
 
 /**
- * Output object
+ * Output object.
  */
 export type CreateOutputRequest =
   | CreateOutputOutputDefault
@@ -5932,460 +5314,6 @@ export type CreateOutputRequest =
   | CreateOutputOutputDellS3
   | CreateOutputOutputCloudianS3
   | CreateOutputOutputScalityS3;
-
-/** @internal */
-export type CreateOutputOutputGoogleCloudLogging$Outbound = {
-  id: string;
-  type: "google_cloud_logging";
-  pipeline?: string | undefined;
-  systemFields?: Array<string> | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  logLocationType: string;
-  logNameExpression: string;
-  sanitizeLogNames?: boolean | undefined;
-  payloadFormat?: string | undefined;
-  logLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
-  resourceTypeExpression?: string | undefined;
-  resourceTypeLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
-  severityExpression?: string | undefined;
-  insertIdExpression?: string | undefined;
-  googleAuthMethod?: string | undefined;
-  serviceAccountCredentials?: string | undefined;
-  secret?: string | undefined;
-  maxPayloadSizeKB?: number | undefined;
-  maxPayloadEvents?: number | undefined;
-  flushPeriodSec?: number | undefined;
-  concurrency?: number | undefined;
-  connectionTimeout?: number | undefined;
-  timeoutSec?: number | undefined;
-  throttleRateReqPerSec?: number | undefined;
-  requestMethodExpression?: string | undefined;
-  requestUrlExpression?: string | undefined;
-  requestSizeExpression?: string | undefined;
-  statusExpression?: string | undefined;
-  responseSizeExpression?: string | undefined;
-  userAgentExpression?: string | undefined;
-  remoteIpExpression?: string | undefined;
-  serverIpExpression?: string | undefined;
-  refererExpression?: string | undefined;
-  latencyExpression?: string | undefined;
-  cacheLookupExpression?: string | undefined;
-  cacheHitExpression?: string | undefined;
-  cacheValidatedExpression?: string | undefined;
-  cacheFillBytesExpression?: string | undefined;
-  protocolExpression?: string | undefined;
-  idExpression?: string | undefined;
-  producerExpression?: string | undefined;
-  firstExpression?: string | undefined;
-  lastExpression?: string | undefined;
-  fileExpression?: string | undefined;
-  lineExpression?: string | undefined;
-  functionExpression?: string | undefined;
-  uidExpression?: string | undefined;
-  indexExpression?: string | undefined;
-  totalSplitsExpression?: string | undefined;
-  traceExpression?: string | undefined;
-  spanIdExpression?: string | undefined;
-  traceSampledExpression?: string | undefined;
-  onBackpressure?: string | undefined;
-  totalMemoryLimitKB?: number | undefined;
-  description?: string | undefined;
-  logLocationExpression: string;
-  payloadExpression?: string | undefined;
-  pqStrictOrdering?: boolean | undefined;
-  pqRatePerSec?: number | undefined;
-  pqMode?: string | undefined;
-  pqMaxBufferSize?: number | undefined;
-  pqMaxBackpressureSec?: number | undefined;
-  pqMaxFileSize?: string | undefined;
-  pqMaxSize?: string | undefined;
-  pqPath?: string | undefined;
-  pqCompress?: string | undefined;
-  pqOnBackpressure?: string | undefined;
-  pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGoogleCloudLogging$Outbound | undefined;
-  __template_streamtags?: string | undefined;
-  __template_logLocationType?: string | undefined;
-  __template_logNameExpression?: string | undefined;
-  __template_payloadFormat?: string | undefined;
-  __template_resourceTypeExpression?: string | undefined;
-  __template_severityExpression?: string | undefined;
-  __template_insertIdExpression?: string | undefined;
-  __template_traceExpression?: string | undefined;
-  __template_spanIdExpression?: string | undefined;
-  __template_traceSampledExpression?: string | undefined;
-  __template_onBackpressure?: string | undefined;
-  __template_logLocationExpression?: string | undefined;
-  __template_payloadExpression?: string | undefined;
-};
-
-/** @internal */
-export const CreateOutputOutputGoogleCloudLogging$outboundSchema: z.ZodType<
-  CreateOutputOutputGoogleCloudLogging$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputGoogleCloudLogging
-> = z.object({
-  id: z.string(),
-  type: z.literal("google_cloud_logging"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  logLocationType: CreateOutputLogLocationType$outboundSchema,
-  logNameExpression: z.string(),
-  sanitizeLogNames: z.boolean().optional(),
-  payloadFormat: CreateOutputPayloadFormat$outboundSchema.optional(),
-  logLabels: z.array(models.ItemsTypeLogLabels$outboundSchema).optional(),
-  resourceTypeExpression: z.string().optional(),
-  resourceTypeLabels: z.array(models.ItemsTypeLogLabels$outboundSchema)
-    .optional(),
-  severityExpression: z.string().optional(),
-  insertIdExpression: z.string().optional(),
-  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
-    .optional(),
-  serviceAccountCredentials: z.string().optional(),
-  secret: z.string().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  concurrency: z.number().optional(),
-  connectionTimeout: z.number().optional(),
-  timeoutSec: z.number().optional(),
-  throttleRateReqPerSec: z.number().int().optional(),
-  requestMethodExpression: z.string().optional(),
-  requestUrlExpression: z.string().optional(),
-  requestSizeExpression: z.string().optional(),
-  statusExpression: z.string().optional(),
-  responseSizeExpression: z.string().optional(),
-  userAgentExpression: z.string().optional(),
-  remoteIpExpression: z.string().optional(),
-  serverIpExpression: z.string().optional(),
-  refererExpression: z.string().optional(),
-  latencyExpression: z.string().optional(),
-  cacheLookupExpression: z.string().optional(),
-  cacheHitExpression: z.string().optional(),
-  cacheValidatedExpression: z.string().optional(),
-  cacheFillBytesExpression: z.string().optional(),
-  protocolExpression: z.string().optional(),
-  idExpression: z.string().optional(),
-  producerExpression: z.string().optional(),
-  firstExpression: z.string().optional(),
-  lastExpression: z.string().optional(),
-  fileExpression: z.string().optional(),
-  lineExpression: z.string().optional(),
-  functionExpression: z.string().optional(),
-  uidExpression: z.string().optional(),
-  indexExpression: z.string().optional(),
-  totalSplitsExpression: z.string().optional(),
-  traceExpression: z.string().optional(),
-  spanIdExpression: z.string().optional(),
-  traceSampledExpression: z.string().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  totalMemoryLimitKB: z.number().optional(),
-  description: z.string().optional(),
-  logLocationExpression: z.string(),
-  payloadExpression: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: CreateOutputPqControlsGoogleCloudLogging$outboundSchema
-    .optional(),
-  __template_streamtags: z.string().optional(),
-  __template_logLocationType: z.string().optional(),
-  __template_logNameExpression: z.string().optional(),
-  __template_payloadFormat: z.string().optional(),
-  __template_resourceTypeExpression: z.string().optional(),
-  __template_severityExpression: z.string().optional(),
-  __template_insertIdExpression: z.string().optional(),
-  __template_traceExpression: z.string().optional(),
-  __template_spanIdExpression: z.string().optional(),
-  __template_traceSampledExpression: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_logLocationExpression: z.string().optional(),
-  __template_payloadExpression: z.string().optional(),
-});
-
-export function createOutputOutputGoogleCloudLoggingToJSON(
-  createOutputOutputGoogleCloudLogging: CreateOutputOutputGoogleCloudLogging,
-): string {
-  return JSON.stringify(
-    CreateOutputOutputGoogleCloudLogging$outboundSchema.parse(
-      createOutputOutputGoogleCloudLogging,
-    ),
-  );
-}
-
-/** @internal */
-export const CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateOutputAuthenticationMethodGoogleCloudStorage
-  > = openEnums.outboundSchema(
-    CreateOutputAuthenticationMethodGoogleCloudStorage,
-  );
-
-/** @internal */
-export type CreateOutputOutputGoogleCloudStorage$Outbound = {
-  id: string;
-  type: "google_cloud_storage";
-  pipeline?: string | undefined;
-  systemFields?: Array<string> | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  bucket: string;
-  region: string;
-  endpoint: string;
-  signatureVersion?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
-  stagePath: string;
-  destPath?: string | undefined;
-  verifyPermissions?: boolean | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  addIdToStagePath?: boolean | undefined;
-  removeEmptyDirs?: boolean | undefined;
-  partitionExpr?: string | undefined;
-  format?: string | undefined;
-  baseFileName?: string | undefined;
-  fileNameSuffix?: string | undefined;
-  maxFileSizeMB?: number | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxOpenFiles?: number | undefined;
-  headerLine?: string | undefined;
-  writeHighWaterMark?: number | undefined;
-  onBackpressure?: string | undefined;
-  deadletterEnabled?: boolean | undefined;
-  onDiskFullBackpressure?: string | undefined;
-  forceCloseOnShutdown?: boolean | undefined;
-  retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
-  description?: string | undefined;
-  compress?: string | undefined;
-  compressionLevel?: string | undefined;
-  automaticSchema?: boolean | undefined;
-  parquetSchema?: string | undefined;
-  parquetVersion?: string | undefined;
-  parquetDataPageVersion?: string | undefined;
-  parquetRowGroupLength?: number | undefined;
-  parquetPageSize?: string | undefined;
-  shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
-    | undefined;
-  enableStatistics?: boolean | undefined;
-  enableWritePageIndex?: boolean | undefined;
-  enablePageChecksum?: boolean | undefined;
-  emptyDirCleanupSec?: number | undefined;
-  directoryBatchSize?: number | undefined;
-  deadletterPath?: string | undefined;
-  maxRetryNum?: number | undefined;
-  awsApiKey?: string | undefined;
-  awsSecretKey?: string | undefined;
-  awsSecret?: string | undefined;
-  __template_streamtags?: string | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_endpoint?: string | undefined;
-  __template_destPath?: string | undefined;
-  __template_objectACL?: string | undefined;
-  __template_storageClass?: string | undefined;
-  __template_partitionExpr?: string | undefined;
-  __template_format?: string | undefined;
-  __template_baseFileName?: string | undefined;
-  __template_fileNameSuffix?: string | undefined;
-  __template_onBackpressure?: string | undefined;
-  __template_compress?: string | undefined;
-  __template_parquetSchema?: string | undefined;
-  __template_awsApiKey?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-};
-
-/** @internal */
-export const CreateOutputOutputGoogleCloudStorage$outboundSchema: z.ZodType<
-  CreateOutputOutputGoogleCloudStorage$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputGoogleCloudStorage
-> = z.object({
-  id: z.string(),
-  type: z.literal("google_cloud_storage"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string(),
-  signatureVersion: models.SignatureVersionOptionsGoogle$outboundSchema
-    .optional(),
-  awsAuthenticationMethod:
-    CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema
-      .optional(),
-  stagePath: z.string(),
-  destPath: z.string().optional(),
-  verifyPermissions: z.boolean().optional(),
-  objectACL: models
-    .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
-    .optional(),
-  storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  addIdToStagePath: z.boolean().optional(),
-  removeEmptyDirs: z.boolean().optional(),
-  partitionExpr: z.string().optional(),
-  format: models.DataFormatOptions$outboundSchema.optional(),
-  baseFileName: z.string().optional(),
-  fileNameSuffix: z.string().optional(),
-  maxFileSizeMB: z.number().optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxOpenFiles: z.number().optional(),
-  headerLine: z.string().optional(),
-  writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
-  deadletterEnabled: z.boolean().optional(),
-  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .optional(),
-  forceCloseOnShutdown: z.boolean().optional(),
-  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
-  description: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
-  automaticSchema: z.boolean().optional(),
-  parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
-    .optional(),
-  parquetRowGroupLength: z.number().optional(),
-  parquetPageSize: z.string().optional(),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
-  enableStatistics: z.boolean().optional(),
-  enableWritePageIndex: z.boolean().optional(),
-  enablePageChecksum: z.boolean().optional(),
-  emptyDirCleanupSec: z.number().optional(),
-  directoryBatchSize: z.number().optional(),
-  deadletterPath: z.string().optional(),
-  maxRetryNum: z.number().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_destPath: z.string().optional(),
-  __template_objectACL: z.string().optional(),
-  __template_storageClass: z.string().optional(),
-  __template_partitionExpr: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_fileNameSuffix: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_compress: z.string().optional(),
-  __template_parquetSchema: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-});
-
-export function createOutputOutputGoogleCloudStorageToJSON(
-  createOutputOutputGoogleCloudStorage: CreateOutputOutputGoogleCloudStorage,
-): string {
-  return JSON.stringify(
-    CreateOutputOutputGoogleCloudStorage$outboundSchema.parse(
-      createOutputOutputGoogleCloudStorage,
-    ),
-  );
-}
-
-/** @internal */
-export const CreateOutputAPIVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputAPIVersion
-> = openEnums.outboundSchema(CreateOutputAPIVersion);
-
-/** @internal */
-export const CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateOutputAuthenticationMethodGoogleChronicle
-  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodGoogleChronicle);
-
-/** @internal */
-export const CreateOutputSendEventsAs$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputSendEventsAs
-> = openEnums.outboundSchema(CreateOutputSendEventsAs);
-
-/** @internal */
-export type CreateOutputExtraLogType$Outbound = {
-  logType: string;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const CreateOutputExtraLogType$outboundSchema: z.ZodType<
-  CreateOutputExtraLogType$Outbound,
-  z.ZodTypeDef,
-  CreateOutputExtraLogType
-> = z.object({
-  logType: z.string(),
-  description: z.string().optional(),
-});
-
-export function createOutputExtraLogTypeToJSON(
-  createOutputExtraLogType: CreateOutputExtraLogType,
-): string {
-  return JSON.stringify(
-    CreateOutputExtraLogType$outboundSchema.parse(createOutputExtraLogType),
-  );
-}
-
-/** @internal */
-export const CreateOutputUDMType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputUDMType
-> = openEnums.outboundSchema(CreateOutputUDMType);
-
-/** @internal */
-export type CreateOutputPqControlsGoogleChronicle$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsGoogleChronicle$outboundSchema: z.ZodType<
-  CreateOutputPqControlsGoogleChronicle$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsGoogleChronicle
-> = z.object({});
-
-export function createOutputPqControlsGoogleChronicleToJSON(
-  createOutputPqControlsGoogleChronicle: CreateOutputPqControlsGoogleChronicle,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsGoogleChronicle$outboundSchema.parse(
-      createOutputPqControlsGoogleChronicle,
-    ),
-  );
-}
 
 /** @internal */
 export type CreateOutputOutputGoogleChronicle$Outbound = {
@@ -6490,8 +5418,7 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  extraLogTypes: z.array(z.lazy(() => CreateOutputExtraLogType$outboundSchema))
-    .optional(),
+  extraLogTypes: z.array(CreateOutputExtraLogType$outboundSchema).optional(),
   logType: z.string().optional(),
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
@@ -6514,8 +5441,7 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsGoogleChronicle$outboundSchema)
-    .optional(),
+  pqControls: CreateOutputPqControlsGoogleChronicle$outboundSchema.optional(),
   __template_streamtags: z.string().optional(),
   __template_apiVersion: z.string().optional(),
   __template_region: z.string().optional(),
@@ -6835,7 +5761,6 @@ export type CreateOutputOutputKinesis$Outbound = {
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -6893,8 +5818,6 @@ export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsKinesis$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -7687,10 +6610,8 @@ export type CreateOutputOutputS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   awsAuthenticationMethod?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
-  awsSecretKey?: string | undefined;
   bucket: string;
   region?: string | undefined;
   destPath?: string | undefined;
@@ -7716,6 +6637,7 @@ export type CreateOutputOutputS3$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
   orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
+  awsSecretKey?: string | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -7746,7 +6668,6 @@ export type CreateOutputOutputS3$Outbound = {
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
   __template_destPath?: string | undefined;
@@ -7755,6 +6676,7 @@ export type CreateOutputOutputS3$Outbound = {
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
   __template_objectACL?: string | undefined;
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
@@ -7782,11 +6704,8 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   awsAuthenticationMethod: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
-  awsSecretKey: z.string().optional(),
   bucket: z.string(),
   region: z.string().optional(),
   destPath: z.string().optional(),
@@ -7814,6 +6733,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+  awsSecretKey: z.string().optional(),
   objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
@@ -7845,7 +6765,6 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
   __template_destPath: z.string().optional(),
@@ -7854,6 +6773,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
   __template_objectACL: z.string().optional(),
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
@@ -10155,8 +9075,8 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputOutputHoneycomb$outboundSchema),
   z.lazy(() => CreateOutputOutputAzureEventhub$outboundSchema),
   z.lazy(() => CreateOutputOutputGoogleChronicle$outboundSchema),
-  z.lazy(() => CreateOutputOutputGoogleCloudStorage$outboundSchema),
-  z.lazy(() => CreateOutputOutputGoogleCloudLogging$outboundSchema),
+  CreateOutputOutputGoogleCloudStorage$outboundSchema,
+  CreateOutputOutputGoogleCloudLogging$outboundSchema,
   CreateOutputOutputGooglePubsub$outboundSchema,
   CreateOutputOutputExabeam$outboundSchema,
   CreateOutputOutputKafka$outboundSchema,

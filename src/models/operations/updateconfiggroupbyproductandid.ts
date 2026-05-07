@@ -16,7 +16,7 @@ export type UpdateConfigGroupByProductAndIdRequest = {
    */
   id: string;
   /**
-   * ConfigGroup object
+   * ConfigGroup object.
    */
   configGroup: models.ConfigGroup;
 };

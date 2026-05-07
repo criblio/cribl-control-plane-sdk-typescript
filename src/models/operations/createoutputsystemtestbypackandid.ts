@@ -16,7 +16,7 @@ export type CreateOutputSystemTestByPackAndIdRequest = {
    */
   pack: string;
   /**
-   * OutputTestRequest object
+   * OutputTestRequest object.
    */
   outputTestRequest: models.OutputTestRequest;
 };

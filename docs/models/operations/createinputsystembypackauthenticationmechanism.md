@@ -5,7 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackAuthenticationMechanism } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackAuthenticationMechanism = "connection-string";
+let value: CreateInputSystemByPackAuthenticationMechanism = "oauth-bearer";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: CreateInputSystemByPackAuthenticationMechanism = "connection-string";
 ## Values
 
 ```typescript
-"connection-string" | Unrecognized<string>
+"connection-string" | "oauth-bearer" | Unrecognized<string>
 ```

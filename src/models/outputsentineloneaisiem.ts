@@ -3,57 +3,41 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -61,7 +45,7 @@ import {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export const Region = {
+export const OutputSentinelOneAiSiemRegion = {
   Us: "US",
   Ca: "CA",
   Emea: "EMEA",
@@ -73,19 +57,23 @@ export const Region = {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export type Region = OpenEnum<typeof Region>;
+export type OutputSentinelOneAiSiemRegion = OpenEnum<
+  typeof OutputSentinelOneAiSiemRegion
+>;
 
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export const AISIEMEndpointPath = {
+export const OutputSentinelOneAISIEMAISIEMEndpointPath = {
   RootServicesCollectorEvent: "/services/collector/event",
   RootServicesCollectorRaw: "/services/collector/raw",
 } as const;
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export type AISIEMEndpointPath = OpenEnum<typeof AISIEMEndpointPath>;
+export type OutputSentinelOneAISIEMAISIEMEndpointPath = OpenEnum<
+  typeof OutputSentinelOneAISIEMAISIEMEndpointPath
+>;
 
 export type OutputSentinelOneAiSiemPqControls = {};
 
@@ -114,11 +102,11 @@ export type OutputSentinelOneAiSiem = {
   /**
    * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
    */
-  region: Region;
+  region: OutputSentinelOneAiSiemRegion;
   /**
    * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
    */
-  endpoint: AISIEMEndpointPath;
+  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -309,31 +297,17 @@ export type OutputSentinelOneAiSiem = {
 };
 
 /** @internal */
-export const Region$inboundSchema: z.ZodType<Region, z.ZodTypeDef, unknown> =
-  openEnums.inboundSchema(Region);
-/** @internal */
-export const Region$outboundSchema: z.ZodType<string, z.ZodTypeDef, Region> =
-  openEnums.outboundSchema(Region);
-
-/** @internal */
-export const AISIEMEndpointPath$inboundSchema: z.ZodType<
-  AISIEMEndpointPath,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AISIEMEndpointPath);
-/** @internal */
-export const AISIEMEndpointPath$outboundSchema: z.ZodType<
+export const OutputSentinelOneAiSiemRegion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AISIEMEndpointPath
-> = openEnums.outboundSchema(AISIEMEndpointPath);
+  OutputSentinelOneAiSiemRegion
+> = openEnums.outboundSchema(OutputSentinelOneAiSiemRegion);
 
 /** @internal */
-export const OutputSentinelOneAiSiemPqControls$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
+export const OutputSentinelOneAISIEMAISIEMEndpointPath$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, OutputSentinelOneAISIEMAISIEMEndpointPath> =
+    openEnums.outboundSchema(OutputSentinelOneAISIEMAISIEMEndpointPath);
+
 /** @internal */
 export type OutputSentinelOneAiSiemPqControls$Outbound = {};
 
@@ -353,89 +327,7 @@ export function outputSentinelOneAiSiemPqControlsToJSON(
     ),
   );
 }
-export function outputSentinelOneAiSiemPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelOneAiSiemPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSentinelOneAiSiemPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelOneAiSiemPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("sentinel_one_ai_siem"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  region: Region$inboundSchema,
-  endpoint: AISIEMEndpointPath$inboundSchema,
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  token: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  baseUrl: types.optional(types.string()),
-  hostExpression: types.optional(types.string()),
-  sourceExpression: types.optional(types.string()),
-  sourceTypeExpression: types.optional(types.string()),
-  dataSourceCategoryExpression: types.optional(types.string()),
-  dataSourceNameExpression: types.optional(types.string()),
-  dataSourceVendorExpression: types.optional(types.string()),
-  eventTypeExpression: types.optional(types.string()),
-  host: types.optional(types.string()),
-  source: types.optional(types.string()),
-  sourceType: types.optional(types.string()),
-  dataSourceCategory: types.optional(types.string()),
-  dataSourceName: types.optional(types.string()),
-  dataSourceVendor: types.optional(types.string()),
-  eventType: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputSentinelOneAiSiemPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputSentinelOneAiSiem$Outbound = {
   id?: string | undefined;
@@ -510,8 +402,8 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: Region$outboundSchema,
-  endpoint: AISIEMEndpointPath$outboundSchema,
+  region: OutputSentinelOneAiSiemRegion$outboundSchema,
+  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath$outboundSchema,
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -572,14 +464,5 @@ export function outputSentinelOneAiSiemToJSON(
 ): string {
   return JSON.stringify(
     OutputSentinelOneAiSiem$outboundSchema.parse(outputSentinelOneAiSiem),
-  );
-}
-export function outputSentinelOneAiSiemFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelOneAiSiem, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSentinelOneAiSiem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelOneAiSiem' from JSON`,
   );
 }

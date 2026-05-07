@@ -3,57 +3,41 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsApi,
-  AuthenticationMethodOptionsApi$inboundSchema,
   AuthenticationMethodOptionsApi$outboundSchema,
 } from "./authenticationmethodoptionsapi.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -61,7 +45,7 @@ import {
 /**
  * The content type to use when sending logs
  */
-export const SendLogsAs = {
+export const OutputDatadogSendLogsAs = {
   /**
    * text/plain
    */
@@ -74,7 +58,7 @@ export const SendLogsAs = {
 /**
  * The content type to use when sending logs
  */
-export type SendLogsAs = OpenEnum<typeof SendLogsAs>;
+export type OutputDatadogSendLogsAs = OpenEnum<typeof OutputDatadogSendLogsAs>;
 
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
@@ -121,7 +105,7 @@ export type OutputDatadogSeverity = OpenEnum<typeof OutputDatadogSeverity>;
 /**
  * Datadog site to which events should be sent
  */
-export const DatadogSite = {
+export const OutputDatadogDatadogSite = {
   /**
    * US
    */
@@ -154,7 +138,9 @@ export const DatadogSite = {
 /**
  * Datadog site to which events should be sent
  */
-export type DatadogSite = OpenEnum<typeof DatadogSite>;
+export type OutputDatadogDatadogSite = OpenEnum<
+  typeof OutputDatadogDatadogSite
+>;
 
 export type OutputDatadogPqControls = {};
 
@@ -183,7 +169,7 @@ export type OutputDatadog = {
   /**
    * The content type to use when sending logs
    */
-  contentType?: SendLogsAs | undefined;
+  contentType?: OutputDatadogSendLogsAs | undefined;
   /**
    * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
    */
@@ -219,7 +205,7 @@ export type OutputDatadog = {
   /**
    * Datadog site to which events should be sent
    */
-  site?: DatadogSite | undefined;
+  site?: OutputDatadogDatadogSite | undefined;
   /**
    * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
    */
@@ -367,24 +353,12 @@ export type OutputDatadog = {
 };
 
 /** @internal */
-export const SendLogsAs$inboundSchema: z.ZodType<
-  SendLogsAs,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SendLogsAs);
-/** @internal */
-export const SendLogsAs$outboundSchema: z.ZodType<
+export const OutputDatadogSendLogsAs$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SendLogsAs
-> = openEnums.outboundSchema(SendLogsAs);
+  OutputDatadogSendLogsAs
+> = openEnums.outboundSchema(OutputDatadogSendLogsAs);
 
-/** @internal */
-export const OutputDatadogSeverity$inboundSchema: z.ZodType<
-  OutputDatadogSeverity,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatadogSeverity);
 /** @internal */
 export const OutputDatadogSeverity$outboundSchema: z.ZodType<
   string,
@@ -393,24 +367,12 @@ export const OutputDatadogSeverity$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputDatadogSeverity);
 
 /** @internal */
-export const DatadogSite$inboundSchema: z.ZodType<
-  DatadogSite,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(DatadogSite);
-/** @internal */
-export const DatadogSite$outboundSchema: z.ZodType<
+export const OutputDatadogDatadogSite$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DatadogSite
-> = openEnums.outboundSchema(DatadogSite);
+  OutputDatadogDatadogSite
+> = openEnums.outboundSchema(OutputDatadogDatadogSite);
 
-/** @internal */
-export const OutputDatadogPqControls$inboundSchema: z.ZodType<
-  OutputDatadogPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputDatadogPqControls$Outbound = {};
 
@@ -428,85 +390,7 @@ export function outputDatadogPqControlsToJSON(
     OutputDatadogPqControls$outboundSchema.parse(outputDatadogPqControls),
   );
 }
-export function outputDatadogPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatadogPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatadogPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatadogPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputDatadog$inboundSchema: z.ZodType<
-  OutputDatadog,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("datadog"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  contentType: types.optional(SendLogsAs$inboundSchema),
-  message: types.optional(types.string()),
-  source: types.optional(types.string()),
-  host: types.optional(types.string()),
-  service: types.optional(types.string()),
-  tags: types.optional(z.array(types.string())),
-  batchByTags: types.optional(types.boolean()),
-  allowApiKeyFromEvents: types.optional(types.boolean()),
-  severity: types.optional(OutputDatadogSeverity$inboundSchema),
-  site: types.optional(DatadogSite$inboundSchema),
-  sendCountersAsCount: types.optional(types.boolean()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptionsApi$inboundSchema),
-  totalMemoryLimitKB: types.optional(types.number()),
-  description: types.optional(types.string()),
-  customUrl: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputDatadogPqControls$inboundSchema),
-  ),
-  apiKey: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_tags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputDatadog$Outbound = {
   id?: string | undefined;
@@ -579,7 +463,7 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  contentType: SendLogsAs$outboundSchema.optional(),
+  contentType: OutputDatadogSendLogsAs$outboundSchema.optional(),
   message: z.string().optional(),
   source: z.string().optional(),
   host: z.string().optional(),
@@ -588,7 +472,7 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   batchByTags: z.boolean().optional(),
   allowApiKeyFromEvents: z.boolean().optional(),
   severity: OutputDatadogSeverity$outboundSchema.optional(),
-  site: DatadogSite$outboundSchema.optional(),
+  site: OutputDatadogDatadogSite$outboundSchema.optional(),
   sendCountersAsCount: z.boolean().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -634,13 +518,4 @@ export const OutputDatadog$outboundSchema: z.ZodType<
 
 export function outputDatadogToJSON(outputDatadog: OutputDatadog): string {
   return JSON.stringify(OutputDatadog$outboundSchema.parse(outputDatadog));
-}
-export function outputDatadogFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatadog, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatadog$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatadog' from JSON`,
-  );
 }

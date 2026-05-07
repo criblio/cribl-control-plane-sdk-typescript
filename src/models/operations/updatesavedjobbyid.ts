@@ -12,7 +12,7 @@ export type UpdateSavedJobByIdRequest = {
    */
   id: string;
   /**
-   * SavedJob object
+   * SavedJob object.
    */
   savedJob: models.SavedJob;
 };

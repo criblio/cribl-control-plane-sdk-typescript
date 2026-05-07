@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   CompressionOptionsPersistence,
-  CompressionOptionsPersistence$inboundSchema,
   CompressionOptionsPersistence$outboundSchema,
 } from "./compressionoptionspersistence.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputDiskSpool = {
   /**
@@ -63,26 +58,6 @@ export type OutputDiskSpool = {
 };
 
 /** @internal */
-export const OutputDiskSpool$inboundSchema: z.ZodType<
-  OutputDiskSpool,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("disk_spool"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  timeWindow: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsPersistence$inboundSchema),
-  partitionExpr: types.optional(types.string()),
-  description: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-});
-/** @internal */
 export type OutputDiskSpool$Outbound = {
   id?: string | undefined;
   type: "disk_spool";
@@ -124,13 +99,4 @@ export function outputDiskSpoolToJSON(
   outputDiskSpool: OutputDiskSpool,
 ): string {
   return JSON.stringify(OutputDiskSpool$outboundSchema.parse(outputDiskSpool));
-}
-export function outputDiskSpoolFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDiskSpool, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDiskSpool$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDiskSpool' from JSON`,
-  );
 }

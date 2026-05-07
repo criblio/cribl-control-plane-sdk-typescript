@@ -3,64 +3,47 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthTypeTemplatemanualApiKeyAuthType,
-  AuthTypeTemplatemanualApiKeyAuthType$inboundSchema,
   AuthTypeTemplatemanualApiKeyAuthType$Outbound,
   AuthTypeTemplatemanualApiKeyAuthType$outboundSchema,
 } from "./authtypetemplatemanualapikeyauthtype.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
 import {
   ItemsTypeSaslSaslExtensions,
-  ItemsTypeSaslSaslExtensions$inboundSchema,
   ItemsTypeSaslSaslExtensions$Outbound,
   ItemsTypeSaslSaslExtensions$outboundSchema,
 } from "./itemstypesaslsaslextensions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -68,7 +51,7 @@ import {
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
  */
-export const ElasticVersion = {
+export const OutputElasticElasticVersion = {
   /**
    * Auto
    */
@@ -85,12 +68,14 @@ export const ElasticVersion = {
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
  */
-export type ElasticVersion = OpenEnum<typeof ElasticVersion>;
+export type OutputElasticElasticVersion = OpenEnum<
+  typeof OutputElasticElasticVersion
+>;
 
 /**
  * Action to use when writing events. Must be set to `Create` when writing to a data stream.
  */
-export const WriteAction = {
+export const OutputElasticWriteAction = {
   /**
    * Index
    */
@@ -103,7 +88,9 @@ export const WriteAction = {
 /**
  * Action to use when writing events. Must be set to `Create` when writing to a data stream.
  */
-export type WriteAction = OpenEnum<typeof WriteAction>;
+export type OutputElasticWriteAction = OpenEnum<
+  typeof OutputElasticWriteAction
+>;
 
 export type OutputElasticUrl = {
   /**
@@ -214,7 +201,7 @@ export type OutputElastic = {
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
-  elasticVersion?: ElasticVersion | undefined;
+  elasticVersion?: OutputElasticElasticVersion | undefined;
   /**
    * Optional Elasticsearch destination pipeline
    */
@@ -226,7 +213,7 @@ export type OutputElastic = {
   /**
    * Action to use when writing events. Must be set to `Create` when writing to a data stream.
    */
-  writeAction?: WriteAction | undefined;
+  writeAction?: OutputElasticWriteAction | undefined;
   /**
    * Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
    */
@@ -333,41 +320,19 @@ export type OutputElastic = {
 };
 
 /** @internal */
-export const ElasticVersion$inboundSchema: z.ZodType<
-  ElasticVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ElasticVersion);
-/** @internal */
-export const ElasticVersion$outboundSchema: z.ZodType<
+export const OutputElasticElasticVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ElasticVersion
-> = openEnums.outboundSchema(ElasticVersion);
+  OutputElasticElasticVersion
+> = openEnums.outboundSchema(OutputElasticElasticVersion);
 
 /** @internal */
-export const WriteAction$inboundSchema: z.ZodType<
-  WriteAction,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(WriteAction);
-/** @internal */
-export const WriteAction$outboundSchema: z.ZodType<
+export const OutputElasticWriteAction$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  WriteAction
-> = openEnums.outboundSchema(WriteAction);
+  OutputElasticWriteAction
+> = openEnums.outboundSchema(OutputElasticWriteAction);
 
-/** @internal */
-export const OutputElasticUrl$inboundSchema: z.ZodType<
-  OutputElasticUrl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: types.string(),
-  weight: types.optional(types.number()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputElasticUrl$Outbound = {
   url: string;
@@ -393,22 +358,7 @@ export function outputElasticUrlToJSON(
     OutputElasticUrl$outboundSchema.parse(outputElasticUrl),
   );
 }
-export function outputElasticUrlFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticUrl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticUrl' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputElasticPqControls$inboundSchema: z.ZodType<
-  OutputElasticPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputElasticPqControls$Outbound = {};
 
@@ -426,89 +376,7 @@ export function outputElasticPqControlsToJSON(
     OutputElasticPqControls$outboundSchema.parse(outputElasticPqControls),
   );
 }
-export function outputElasticPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputElastic$inboundSchema: z.ZodType<
-  OutputElastic,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("elastic"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(types.boolean()),
-  index: types.string(),
-  docType: types.optional(types.string()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  extraParams: types.optional(
-    z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
-  ),
-  auth: types.optional(AuthTypeTemplatemanualApiKeyAuthType$inboundSchema),
-  elasticVersion: types.optional(ElasticVersion$inboundSchema),
-  elasticPipeline: types.optional(types.string()),
-  includeDocId: types.optional(types.boolean()),
-  writeAction: types.optional(WriteAction$inboundSchema),
-  retryPartialErrors: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  url: types.optional(types.string()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  excludeSelf: types.optional(types.boolean()),
-  urls: types.optional(z.array(z.lazy(() => OutputElasticUrl$inboundSchema))),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputElasticPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_index: types.optional(types.string()),
-  __template_docType: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_elasticPipeline: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputElastic$Outbound = {
   id?: string | undefined;
@@ -604,10 +472,10 @@ export const OutputElastic$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().optional(),
   extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
   auth: AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
-  elasticVersion: ElasticVersion$outboundSchema.optional(),
+  elasticVersion: OutputElasticElasticVersion$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
-  writeAction: WriteAction$outboundSchema.optional(),
+  writeAction: OutputElasticWriteAction$outboundSchema.optional(),
   retryPartialErrors: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
@@ -640,13 +508,4 @@ export const OutputElastic$outboundSchema: z.ZodType<
 
 export function outputElasticToJSON(outputElastic: OutputElastic): string {
   return JSON.stringify(OutputElastic$outboundSchema.parse(outputElastic));
-}
-export function outputElasticFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElastic, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElastic$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElastic' from JSON`,
-  );
 }

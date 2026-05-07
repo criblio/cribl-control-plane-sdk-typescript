@@ -8,9 +8,20 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
+  CreateInputAuth,
+  CreateInputAuth$Outbound,
+  CreateInputAuth$outboundSchema,
+  CreateInputAzureBlobStorage,
+  CreateInputAzureBlobStorage$Outbound,
+  CreateInputAzureBlobStorage$outboundSchema,
+  CreateInputCheckpointStore,
+  CreateInputCheckpointStore$outboundSchema,
   CreateInputInputAnthropicCompliance,
   CreateInputInputAnthropicCompliance$Outbound,
   CreateInputInputAnthropicCompliance$outboundSchema,
+  CreateInputInputAppleUnifiedLogs,
+  CreateInputInputAppleUnifiedLogs$Outbound,
+  CreateInputInputAppleUnifiedLogs$outboundSchema,
   CreateInputInputAppscope,
   CreateInputInputAppscope$Outbound,
   CreateInputInputAppscope$outboundSchema,
@@ -41,9 +52,6 @@ import {
   CreateInputInputDatagen,
   CreateInputInputDatagen$Outbound,
   CreateInputInputDatagen$outboundSchema,
-  CreateInputInputEventhubAmqp,
-  CreateInputInputEventhubAmqp$Outbound,
-  CreateInputInputEventhubAmqp$outboundSchema,
   CreateInputInputExec,
   CreateInputInputExec$Outbound,
   CreateInputInputExec$outboundSchema,
@@ -149,7 +157,116 @@ import {
   CreateInputInputZscalerHec,
   CreateInputInputZscalerHec$Outbound,
   CreateInputInputZscalerHec$outboundSchema,
-} from "./createinputinputeventhubamqp.js";
+} from "./createinputazureblobstorage.js";
+
+export type CreateInputCheckpointing = {
+  /**
+   * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
+   */
+  checkpointStoreType?: CreateInputCheckpointStore | undefined;
+  blobStore?: CreateInputAzureBlobStorage | undefined;
+};
+
+export type CreateInputInputEventhubAmqp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "eventhub_amqp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name of the Event Hub to consume from
+   */
+  eventHubName?: string | undefined;
+  /**
+   * The consumer group this instance belongs to. Default is '$Default'.
+   */
+  consumerGroup: string;
+  auth?: CreateInputAuth | undefined;
+  checkpointing?: CreateInputCheckpointing | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum number of events in each batch delivered to the consumer
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Maximum time to wait for a batch of events before delivering a partial batch
+   */
+  maxWaitTimeInSeconds?: number | undefined;
+  /**
+   * Number of events to prefetch from the service for processing
+   */
+  prefetchCount?: number | undefined;
+  /**
+   * Maximum number of retries per operation
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Initial delay before the first retry, in milliseconds
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Maximum delay between retries, in milliseconds
+   */
+  maxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a request to complete
+   */
+  timeoutInMs?: number | undefined;
+  /**
+   * Initial delay before the first reconnection attempt, in milliseconds
+   */
+  connectionInitialBackoff?: number | undefined;
+  /**
+   * Maximum delay between reconnection attempts, in milliseconds
+   */
+  connectionMaxBackoff?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete
+   */
+  connectionTimeoutInMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
 
 export type CreateInputInputEventhub = {
   /**
@@ -1159,10 +1276,6 @@ export type CreateInputInputEdgePrometheus = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing EC2 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
-  /**
    * Reuse connections between requests, which can improve performance
    */
   reuseConnections?: boolean | undefined;
@@ -1433,10 +1546,6 @@ export type CreateInputInputPrometheus = {
    * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing EC2 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsV2V4 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -3078,7 +3187,7 @@ export type CreateInputInputSplunkSearch = {
   /**
    * Splunk Search authentication type
    */
-  authType?: CreateInputAuthenticationTypeSplunkSearch | undefined;
+  authType: CreateInputAuthenticationTypeSplunkSearch;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -3577,10 +3686,6 @@ export type CreateInputInputMsk = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing MSK cluster requests
-   */
-  signatureVersion?: models.SignatureVersionOptions | undefined;
-  /**
    * Reuse connections between requests, which can improve performance
    */
   reuseConnections?: boolean | undefined;
@@ -3901,7 +4006,7 @@ export type CreateInputInputCollection = {
 };
 
 /**
- * Input object
+ * Input object.
  */
 export type CreateInputRequest =
   | CreateInputInputCollection
@@ -3961,6 +4066,7 @@ export type CreateInputRequest =
   | CreateInputInputAppscope
   | CreateInputInputWef
   | CreateInputInputWinEventLogs
+  | CreateInputInputAppleUnifiedLogs
   | CreateInputInputRawUdp
   | CreateInputInputJournalFiles
   | CreateInputInputWiz
@@ -3974,6 +4080,112 @@ export type CreateInputRequest =
   | CreateInputInputOpenaiComplianceLogs
   | CreateInputInputAnthropicCompliance
   | CreateInputInputOkta;
+
+/** @internal */
+export type CreateInputCheckpointing$Outbound = {
+  checkpointStoreType?: string | undefined;
+  blobStore?: CreateInputAzureBlobStorage$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputCheckpointing$outboundSchema: z.ZodType<
+  CreateInputCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputCheckpointing
+> = z.object({
+  checkpointStoreType: CreateInputCheckpointStore$outboundSchema.optional(),
+  blobStore: CreateInputAzureBlobStorage$outboundSchema.optional(),
+});
+
+export function createInputCheckpointingToJSON(
+  createInputCheckpointing: CreateInputCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputCheckpointing$outboundSchema.parse(createInputCheckpointing),
+  );
+}
+
+/** @internal */
+export type CreateInputInputEventhubAmqp$Outbound = {
+  id: string;
+  type: "eventhub_amqp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  eventHubName?: string | undefined;
+  consumerGroup: string;
+  auth?: CreateInputAuth$Outbound | undefined;
+  checkpointing?: CreateInputCheckpointing$Outbound | undefined;
+  fromBeginning?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  maxWaitTimeInSeconds?: number | undefined;
+  prefetchCount?: number | undefined;
+  maxRetries?: number | undefined;
+  initialBackoff?: number | undefined;
+  maxBackoff?: number | undefined;
+  timeoutInMs?: number | undefined;
+  connectionInitialBackoff?: number | undefined;
+  connectionMaxBackoff?: number | undefined;
+  connectionTimeoutInMs?: number | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
+  CreateInputInputEventhubAmqp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputEventhubAmqp
+> = z.object({
+  id: z.string(),
+  type: z.literal("eventhub_amqp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  eventHubName: z.string().optional(),
+  consumerGroup: z.string(),
+  auth: CreateInputAuth$outboundSchema.optional(),
+  checkpointing: z.lazy(() => CreateInputCheckpointing$outboundSchema)
+    .optional(),
+  fromBeginning: z.boolean().optional(),
+  maxBatchSize: z.number().int().optional(),
+  maxWaitTimeInSeconds: z.number().int().optional(),
+  prefetchCount: z.number().int().optional(),
+  maxRetries: z.number().int().optional(),
+  initialBackoff: z.number().int().optional(),
+  maxBackoff: z.number().int().optional(),
+  timeoutInMs: z.number().int().optional(),
+  connectionInitialBackoff: z.number().int().optional(),
+  connectionMaxBackoff: z.number().int().optional(),
+  connectionTimeoutInMs: z.number().int().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputEventhubAmqpToJSON(
+  createInputInputEventhubAmqp: CreateInputInputEventhubAmqp,
+): string {
+  return JSON.stringify(
+    CreateInputInputEventhubAmqp$outboundSchema.parse(
+      createInputInputEventhubAmqp,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateInputInputEventhub$Outbound = {
@@ -4681,7 +4893,6 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -4747,8 +4958,6 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -4839,7 +5048,6 @@ export type CreateInputInputPrometheus$Outbound = {
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
@@ -4910,8 +5118,6 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsV2V4$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
@@ -6124,7 +6330,7 @@ export type CreateInputInputSplunkSearch$Outbound = {
   retryRules?: models.RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  authType?: string | undefined;
+  authType: string;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6184,7 +6390,7 @@ export const CreateInputInputSplunkSearch$outboundSchema: z.ZodType<
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  authType: CreateInputAuthenticationTypeSplunkSearch$outboundSchema.optional(),
+  authType: CreateInputAuthenticationTypeSplunkSearch$outboundSchema,
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -6478,7 +6684,6 @@ export type CreateInputInputMsk$Outbound = {
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -6546,7 +6751,6 @@ export const CreateInputInputMsk$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -6803,6 +7007,7 @@ export type CreateInputRequest$Outbound =
   | CreateInputInputAppscope$Outbound
   | CreateInputInputWef$Outbound
   | CreateInputInputWinEventLogs$Outbound
+  | CreateInputInputAppleUnifiedLogs$Outbound
   | CreateInputInputRawUdp$Outbound
   | CreateInputInputJournalFiles$Outbound
   | CreateInputInputWiz$Outbound
@@ -6846,7 +7051,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputInputOffice365MsgTrace$outboundSchema),
   z.lazy(() => CreateInputInputMicrosoftGraph$outboundSchema),
   z.lazy(() => CreateInputInputEventhub$outboundSchema),
-  CreateInputInputEventhubAmqp$outboundSchema,
+  z.lazy(() => CreateInputInputEventhubAmqp$outboundSchema),
   CreateInputInputExec$outboundSchema,
   CreateInputInputFirehose$outboundSchema,
   CreateInputInputGooglePubsub$outboundSchema,
@@ -6882,6 +7087,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   CreateInputInputAppscope$outboundSchema,
   CreateInputInputWef$outboundSchema,
   CreateInputInputWinEventLogs$outboundSchema,
+  CreateInputInputAppleUnifiedLogs$outboundSchema,
   CreateInputInputRawUdp$outboundSchema,
   CreateInputInputJournalFiles$outboundSchema,
   CreateInputInputWiz$outboundSchema,

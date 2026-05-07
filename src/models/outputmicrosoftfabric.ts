@@ -3,66 +3,44 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AcknowledgmentsOptions,
-  AcknowledgmentsOptions$inboundSchema,
   AcknowledgmentsOptions$outboundSchema,
 } from "./acknowledgmentsoptions.js";
 import {
+  AuthenticationMethodOptionsAuth,
+  AuthenticationMethodOptionsAuth$outboundSchema,
+} from "./authenticationmethodoptionsauth.js";
+import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
-  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
 } from "./microsoftentraidauthenticationendpointoptionssasl.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RecordDataFormatOptions,
-  RecordDataFormatOptions$inboundSchema,
   RecordDataFormatOptions$outboundSchema,
 } from "./recorddataformatoptions.js";
 import {
   SaslMechanismOptionsSaslOauthbearerPlain,
-  SaslMechanismOptionsSaslOauthbearerPlain$inboundSchema,
   SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema,
 } from "./saslmechanismoptionssasloauthbearerplain.js";
 import {
   TlsSettingsClientSideType,
-  TlsSettingsClientSideType$inboundSchema,
   TlsSettingsClientSideType$Outbound,
   TlsSettingsClientSideType$outboundSchema,
 } from "./tlssettingsclientsidetype.js";
-
-export const OutputMicrosoftFabricAuthenticationMethod = {
-  Secret: "secret",
-  Certificate: "certificate",
-} as const;
-export type OutputMicrosoftFabricAuthenticationMethod = OpenEnum<
-  typeof OutputMicrosoftFabricAuthenticationMethod
->;
 
 /**
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
@@ -78,7 +56,7 @@ export type OutputMicrosoftFabricAuthentication = {
    * Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
    */
   textSecret?: string | undefined;
-  clientSecretAuthType?: OutputMicrosoftFabricAuthenticationMethod | undefined;
+  clientSecretAuthType?: AuthenticationMethodOptionsAuth | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -290,49 +268,6 @@ export type OutputMicrosoftFabric = {
 };
 
 /** @internal */
-export const OutputMicrosoftFabricAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMicrosoftFabricAuthenticationMethod);
-/** @internal */
-export const OutputMicrosoftFabricAuthenticationMethod$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputMicrosoftFabricAuthenticationMethod> =
-    openEnums.outboundSchema(OutputMicrosoftFabricAuthenticationMethod);
-
-/** @internal */
-export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: types.boolean(),
-  mechanism: types.optional(
-    SaslMechanismOptionsSaslOauthbearerPlain$inboundSchema,
-  ),
-  username: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  clientSecretAuthType: types.optional(
-    OutputMicrosoftFabricAuthenticationMethod$inboundSchema,
-  ),
-  clientTextSecret: types.optional(types.string()),
-  certificateName: types.optional(types.string()),
-  certPath: types.optional(types.string()),
-  privKeyPath: types.optional(types.string()),
-  passphrase: types.optional(types.string()),
-  oauthEndpoint: types.optional(
-    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
-  ),
-  clientId: types.optional(types.string()),
-  tenantId: types.optional(types.string()),
-  scope: types.optional(types.string()),
-  __template_mechanism: types.optional(types.string()),
-  __template_oauthEndpoint: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-  __template_tenantId: types.optional(types.string()),
-  __template_scope: types.optional(types.string()),
-});
-/** @internal */
 export type OutputMicrosoftFabricAuthentication$Outbound = {
   disabled: boolean;
   mechanism?: string | undefined;
@@ -365,7 +300,7 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   mechanism: SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema.optional(),
   username: z.string().optional(),
   textSecret: z.string().optional(),
-  clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$outboundSchema
+  clientSecretAuthType: AuthenticationMethodOptionsAuth$outboundSchema
     .optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
@@ -393,23 +328,7 @@ export function outputMicrosoftFabricAuthenticationToJSON(
     ),
   );
 }
-export function outputMicrosoftFabricAuthenticationFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMicrosoftFabricAuthentication, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputMicrosoftFabricAuthentication$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMicrosoftFabricAuthentication' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputMicrosoftFabricPqControls$inboundSchema: z.ZodType<
-  OutputMicrosoftFabricPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputMicrosoftFabricPqControls$Outbound = {};
 
@@ -429,69 +348,7 @@ export function outputMicrosoftFabricPqControlsToJSON(
     ),
   );
 }
-export function outputMicrosoftFabricPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMicrosoftFabricPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputMicrosoftFabricPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMicrosoftFabricPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
-  OutputMicrosoftFabric,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("microsoft_fabric"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptions$inboundSchema),
-  format: types.optional(RecordDataFormatOptions$inboundSchema),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushEventCount: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  connectionTimeout: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  maxRetries: types.optional(types.number()),
-  maxBackOff: types.optional(types.number()),
-  initialBackoff: types.optional(types.number()),
-  backoffRate: types.optional(types.number()),
-  authenticationTimeout: types.optional(types.number()),
-  reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(
-    z.lazy(() => OutputMicrosoftFabricAuthentication$inboundSchema),
-  ),
-  tls: types.optional(TlsSettingsClientSideType$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  bootstrap_server: types.string(),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_topic: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_bootstrap_server: types.optional(types.string()),
-});
 /** @internal */
 export type OutputMicrosoftFabric$Outbound = {
   id?: string | undefined;
@@ -595,14 +452,5 @@ export function outputMicrosoftFabricToJSON(
 ): string {
   return JSON.stringify(
     OutputMicrosoftFabric$outboundSchema.parse(outputMicrosoftFabric),
-  );
-}
-export function outputMicrosoftFabricFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMicrosoftFabric, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputMicrosoftFabric$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMicrosoftFabric' from JSON`,
   );
 }

@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
+**Promise\<[models.CountedOutputResponse](../../models/countedoutputresponse.md)\>**
 
 ### Errors
 
@@ -4983,7 +4983,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
+**Promise\<[models.CountedOutputResponse](../../models/countedoutputresponse.md)\>**
 
 ### Errors
 
@@ -5063,7 +5063,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
+**Promise\<[models.CountedOutputResponse](../../models/countedoutputresponse.md)\>**
 
 ### Errors
 
@@ -10482,7 +10482,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
+**Promise\<[models.CountedOutputResponse](../../models/countedoutputresponse.md)\>**
 
 ### Errors
 
@@ -10562,7 +10562,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
+**Promise\<[models.CountedOutputResponse](../../models/countedoutputresponse.md)\>**
 
 ### Errors
 

@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputNetflowHost = {
   /**
@@ -73,17 +69,6 @@ export type OutputNetflow = {
 };
 
 /** @internal */
-export const OutputNetflowHost$inboundSchema: z.ZodType<
-  OutputNetflowHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: types.string(),
-  port: types.number(),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-});
-/** @internal */
 export type OutputNetflowHost$Outbound = {
   host: string;
   port: number;
@@ -110,35 +95,7 @@ export function outputNetflowHostToJSON(
     OutputNetflowHost$outboundSchema.parse(outputNetflowHost),
   );
 }
-export function outputNetflowHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNetflowHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNetflowHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNetflowHost' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputNetflow$inboundSchema: z.ZodType<
-  OutputNetflow,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("netflow"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  hosts: z.array(z.lazy(() => OutputNetflowHost$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  enableIpSpoofing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  maxRecordSize: types.optional(types.number()),
-  __template_streamtags: types.optional(types.string()),
-});
 /** @internal */
 export type OutputNetflow$Outbound = {
   id?: string | undefined;
@@ -177,13 +134,4 @@ export const OutputNetflow$outboundSchema: z.ZodType<
 
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {
   return JSON.stringify(OutputNetflow$outboundSchema.parse(outputNetflow));
-}
-export function outputNetflowFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNetflow, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNetflow$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNetflow' from JSON`,
-  );
 }

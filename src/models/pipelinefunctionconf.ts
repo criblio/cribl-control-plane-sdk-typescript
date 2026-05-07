@@ -213,6 +213,10 @@ import {
   PipelineFunctionSampling$inboundSchema,
 } from "./pipelinefunctionsampling.js";
 import {
+  PipelineFunctionSearchEngineExport,
+  PipelineFunctionSearchEngineExport$inboundSchema,
+} from "./pipelinefunctionsearchengineexport.js";
+import {
   PipelineFunctionSend,
   PipelineFunctionSend$inboundSchema,
 } from "./pipelinefunctionsend.js";
@@ -329,6 +333,7 @@ export type PipelineFunctionConf =
   | PipelineFunctionRename
   | PipelineFunctionRollupMetrics
   | PipelineFunctionSampling
+  | PipelineFunctionSearchEngineExport
   | PipelineFunctionSend
   | PipelineFunctionSensitiveDataScanner
   | PipelineFunctionSerde
@@ -408,6 +413,7 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
   rename: PipelineFunctionRename$inboundSchema,
   rollup_metrics: PipelineFunctionRollupMetrics$inboundSchema,
   sampling: PipelineFunctionSampling$inboundSchema,
+  search_engine_export: PipelineFunctionSearchEngineExport$inboundSchema,
   send: PipelineFunctionSend$inboundSchema,
   sensitive_data_scanner: PipelineFunctionSensitiveDataScanner$inboundSchema,
   serde: PipelineFunctionSerde$inboundSchema,

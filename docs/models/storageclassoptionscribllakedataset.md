@@ -1,5 +1,7 @@
 # StorageClassOptionsCriblLakeDataset
 
+Storage class used for objects written to the Dataset.
+
 ## Example Usage
 
 ```typescript
@@ -13,5 +15,5 @@ let value: StorageClassOptionsCriblLakeDataset = "INTELLIGENT_TIERING";
 ## Values
 
 ```typescript
-"STANDARD" | "STANDARD_IA" | "ONEZONE_IA" | "INTELLIGENT_TIERING" | "GLACIER" | "GLACIER_IR" | "DEEP_ARCHIVE" | Unrecognized<string>
+"DEEP_ARCHIVE" | "GLACIER" | "GLACIER_IR" | "INTELLIGENT_TIERING" | "ONEZONE_IA" | "STANDARD" | "STANDARD_IA" | Unrecognized<string>
 ```

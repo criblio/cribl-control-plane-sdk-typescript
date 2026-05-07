@@ -12,7 +12,7 @@ export type CreateInputHecTokenByIdRequest = {
    */
   id: string;
   /**
-   * AddHecTokenRequest object
+   * AddHecTokenRequest object.
    */
   addHecTokenRequest: models.AddHecTokenRequest;
 };

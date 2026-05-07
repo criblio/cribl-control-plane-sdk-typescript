@@ -3,93 +3,53 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
+import {
+  AuthenticationMethodOptionsSecret,
+  AuthenticationMethodOptionsSecret$outboundSchema,
+} from "./authenticationmethodoptionssecret.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
   CompressionOptionsHttp,
-  CompressionOptionsHttp$inboundSchema,
   CompressionOptionsHttp$outboundSchema,
 } from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
-  DataFormatOptions$inboundSchema,
   DataFormatOptions$outboundSchema,
 } from "./dataformatoptions.js";
 import {
   DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
   DataPageVersionOptions$outboundSchema,
 } from "./datapageversionoptions.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
-
-export const OutputStorjS3AuthenticationMethod = {
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-export type OutputStorjS3AuthenticationMethod = OpenEnum<
-  typeof OutputStorjS3AuthenticationMethod
->;
-
-/**
- * Signature version to use for signing Storj requests
- */
-export const OutputStorjS3SignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing Storj requests
- */
-export type OutputStorjS3SignatureVersion = OpenEnum<
-  typeof OutputStorjS3SignatureVersion
->;
 
 export type OutputStorjS3 = {
   /**
@@ -113,11 +73,10 @@ export type OutputStorjS3 = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  awsAuthenticationMethod?: OutputStorjS3AuthenticationMethod | undefined;
   /**
-   * Signature version to use for signing Storj requests
+   * Authentication method.
    */
-  signatureVersion?: OutputStorjS3SignatureVersion | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptionsSecret | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -126,10 +85,6 @@ export type OutputStorjS3 = {
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
   rejectUnauthorized?: boolean | undefined;
-  /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-   */
-  awsSecretKey?: string | undefined;
   /**
    * Name of the destination Storj bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
@@ -226,10 +181,6 @@ export type OutputStorjS3 = {
   endpoint: string;
   description?: string | undefined;
   /**
-   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-   */
-  awsApiKey?: string | undefined;
-  /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
@@ -306,10 +257,6 @@ export type OutputStorjS3 = {
    */
   __template_streamtags?: string | undefined;
   /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
@@ -342,10 +289,6 @@ export type OutputStorjS3 = {
    */
   __template_endpoint?: string | undefined;
   /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
-  /**
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
@@ -356,116 +299,6 @@ export type OutputStorjS3 = {
 };
 
 /** @internal */
-export const OutputStorjS3AuthenticationMethod$inboundSchema: z.ZodType<
-  OutputStorjS3AuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputStorjS3AuthenticationMethod);
-/** @internal */
-export const OutputStorjS3AuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputStorjS3AuthenticationMethod
-> = openEnums.outboundSchema(OutputStorjS3AuthenticationMethod);
-
-/** @internal */
-export const OutputStorjS3SignatureVersion$inboundSchema: z.ZodType<
-  OutputStorjS3SignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputStorjS3SignatureVersion);
-/** @internal */
-export const OutputStorjS3SignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputStorjS3SignatureVersion
-> = openEnums.outboundSchema(OutputStorjS3SignatureVersion);
-
-/** @internal */
-export const OutputStorjS3$inboundSchema: z.ZodType<
-  OutputStorjS3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("storj_s3"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  awsAuthenticationMethod: types.optional(
-    OutputStorjS3AuthenticationMethod$inboundSchema,
-  ),
-  signatureVersion: types.optional(OutputStorjS3SignatureVersion$inboundSchema),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  awsSecretKey: types.optional(types.string()),
-  bucket: types.string(),
-  destPath: types.optional(types.string()),
-  maxConcurrentFileParts: types.optional(types.number()),
-  verifyPermissions: types.optional(types.boolean()),
-  maxClosingFilesToBackpressure: types.optional(types.number()),
-  stagePath: types.string(),
-  addIdToStagePath: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  partitionExpr: types.optional(types.string()),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  endpoint: types.string(),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsHttp$inboundSchema),
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  __template_streamtags: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_bucket: types.optional(types.string()),
-  __template_destPath: types.optional(types.string()),
-  __template_partitionExpr: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_baseFileName: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-  __template_parquetSchema: types.optional(types.string()),
-});
-/** @internal */
 export type OutputStorjS3$Outbound = {
   id?: string | undefined;
   type: "storj_s3";
@@ -474,10 +307,8 @@ export type OutputStorjS3$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   awsAuthenticationMethod?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
-  awsSecretKey?: string | undefined;
   bucket: string;
   destPath?: string | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -504,7 +335,6 @@ export type OutputStorjS3$Outbound = {
   orphans?: OrphanFileRecoveryType$Outbound | undefined;
   endpoint: string;
   description?: string | undefined;
-  awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -524,7 +354,6 @@ export type OutputStorjS3$Outbound = {
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
   __template_streamtags?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_destPath?: string | undefined;
   __template_partitionExpr?: string | undefined;
@@ -533,7 +362,6 @@ export type OutputStorjS3$Outbound = {
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_endpoint?: string | undefined;
-  __template_awsApiKey?: string | undefined;
   __template_compress?: string | undefined;
   __template_parquetSchema?: string | undefined;
 };
@@ -550,12 +378,10 @@ export const OutputStorjS3$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod: OutputStorjS3AuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: AuthenticationMethodOptionsSecret$outboundSchema
     .optional(),
-  signatureVersion: OutputStorjS3SignatureVersion$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
-  awsSecretKey: z.string().optional(),
   bucket: z.string(),
   destPath: z.string().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -583,7 +409,6 @@ export const OutputStorjS3$outboundSchema: z.ZodType<
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   endpoint: z.string(),
   description: z.string().optional(),
-  awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
@@ -604,7 +429,6 @@ export const OutputStorjS3$outboundSchema: z.ZodType<
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
   __template_streamtags: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_destPath: z.string().optional(),
   __template_partitionExpr: z.string().optional(),
@@ -613,20 +437,10 @@ export const OutputStorjS3$outboundSchema: z.ZodType<
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_endpoint: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
   __template_compress: z.string().optional(),
   __template_parquetSchema: z.string().optional(),
 });
 
 export function outputStorjS3ToJSON(outputStorjS3: OutputStorjS3): string {
   return JSON.stringify(OutputStorjS3$outboundSchema.parse(outputStorjS3));
-}
-export function outputStorjS3FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputStorjS3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputStorjS3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputStorjS3' from JSON`,
-  );
 }

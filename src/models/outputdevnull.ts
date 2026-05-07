@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputDevnull = {
   /**
@@ -37,20 +33,6 @@ export type OutputDevnull = {
 };
 
 /** @internal */
-export const OutputDevnull$inboundSchema: z.ZodType<
-  OutputDevnull,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("devnull"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  __template_streamtags: types.optional(types.string()),
-});
-/** @internal */
 export type OutputDevnull$Outbound = {
   id?: string | undefined;
   type: "devnull";
@@ -78,13 +60,4 @@ export const OutputDevnull$outboundSchema: z.ZodType<
 
 export function outputDevnullToJSON(outputDevnull: OutputDevnull): string {
   return JSON.stringify(OutputDevnull$outboundSchema.parse(outputDevnull));
-}
-export function outputDevnullFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDevnull, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDevnull$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDevnull' from JSON`,
-  );
 }

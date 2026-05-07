@@ -1,6 +1,6 @@
 # CreateInputSystemByPackRequestBody
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -85,6 +85,7 @@ const value: operations.CreateInputSystemByPackInputSplunkSearch = {
   cronSchedule: "<value>",
   endpoint: "<value>",
   outputMode: "csv",
+  authType: "token",
 };
 ```
 
@@ -614,6 +615,16 @@ const value: operations.CreateInputSystemByPackInputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
   logNames: [],
+};
+```
+
+### `operations.CreateInputSystemByPackInputAppleUnifiedLogs`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputAppleUnifiedLogs = {
+  id: "<id>",
+  type: "apple_unified_logs",
+  predicate: "<value>",
 };
 ```
 

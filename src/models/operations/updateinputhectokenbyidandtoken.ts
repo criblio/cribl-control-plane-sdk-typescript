@@ -16,7 +16,7 @@ export type UpdateInputHecTokenByIdAndTokenRequest = {
    */
   token: string;
   /**
-   * UpdateHecTokenRequest object
+   * UpdateHecTokenRequest object.
    */
   updateHecTokenRequest: models.UpdateHecTokenRequest;
 };

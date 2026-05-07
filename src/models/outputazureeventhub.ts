@@ -3,49 +3,34 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AcknowledgmentsOptions,
-  AcknowledgmentsOptions$inboundSchema,
   AcknowledgmentsOptions$outboundSchema,
 } from "./acknowledgmentsoptions.js";
 import {
   AuthenticationTypeUse,
-  AuthenticationTypeUse$inboundSchema,
   AuthenticationTypeUse$Outbound,
   AuthenticationTypeUse$outboundSchema,
 } from "./authenticationtypeuse.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RecordDataFormatOptions,
-  RecordDataFormatOptions$inboundSchema,
   RecordDataFormatOptions$outboundSchema,
 } from "./recorddataformatoptions.js";
 import {
   TlsSettingsClientSideType,
-  TlsSettingsClientSideType$inboundSchema,
   TlsSettingsClientSideType$Outbound,
   TlsSettingsClientSideType$outboundSchema,
 } from "./tlssettingsclientsidetype.js";
@@ -212,12 +197,6 @@ export type OutputAzureEventhub = {
 };
 
 /** @internal */
-export const OutputAzureEventhubPqControls$inboundSchema: z.ZodType<
-  OutputAzureEventhubPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputAzureEventhubPqControls$Outbound = {};
 
 /** @internal */
@@ -236,67 +215,7 @@ export function outputAzureEventhubPqControlsToJSON(
     ),
   );
 }
-export function outputAzureEventhubPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureEventhubPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureEventhubPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureEventhubPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputAzureEventhub$inboundSchema: z.ZodType<
-  OutputAzureEventhub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("azure_eventhub"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  brokers: z.array(types.string()),
-  topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptions$inboundSchema),
-  format: types.optional(RecordDataFormatOptions$inboundSchema),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushEventCount: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  connectionTimeout: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  maxRetries: types.optional(types.number()),
-  maxBackOff: types.optional(types.number()),
-  initialBackoff: types.optional(types.number()),
-  backoffRate: types.optional(types.number()),
-  authenticationTimeout: types.optional(types.number()),
-  reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationTypeUse$inboundSchema),
-  tls: types.optional(TlsSettingsClientSideType$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputAzureEventhubPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_brokers: types.optional(types.string()),
-  __template_topic: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputAzureEventhub$Outbound = {
   id?: string | undefined;
@@ -399,14 +318,5 @@ export function outputAzureEventhubToJSON(
 ): string {
   return JSON.stringify(
     OutputAzureEventhub$outboundSchema.parse(outputAzureEventhub),
-  );
-}
-export function outputAzureEventhubFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureEventhub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureEventhub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureEventhub' from JSON`,
   );
 }

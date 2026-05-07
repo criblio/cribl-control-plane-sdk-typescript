@@ -3,99 +3,76 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
   CompressionOptionsHttp,
-  CompressionOptionsHttp$inboundSchema,
   CompressionOptionsHttp$outboundSchema,
 } from "./compressionoptionshttp.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
   DataFormatOptions,
-  DataFormatOptions$inboundSchema,
   DataFormatOptions$outboundSchema,
 } from "./dataformatoptions.js";
 import {
   DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
   DataPageVersionOptions$outboundSchema,
 } from "./datapageversionoptions.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
 import {
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
-  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
 } from "./microsoftentraidauthenticationendpointoptionssasl.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
-export const IngestionMode = {
+export const OutputAzureDataExplorerIngestionMode = {
   /**
    * Batching
    */
@@ -105,7 +82,9 @@ export const IngestionMode = {
    */
   Streaming: "streaming",
 } as const;
-export type IngestionMode = OpenEnum<typeof IngestionMode>;
+export type OutputAzureDataExplorerIngestionMode = OpenEnum<
+  typeof OutputAzureDataExplorerIngestionMode
+>;
 
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
@@ -131,14 +110,14 @@ export type OutputAzureDataExplorerAuthenticationMethod = OpenEnum<
   typeof OutputAzureDataExplorerAuthenticationMethod
 >;
 
-export type Certificate = {
+export type OutputAzureDataExplorerCertificate = {
   /**
    * The certificate you registered as credentials for your app in the Azure portal
    */
   certificateName?: string | undefined;
 };
 
-export const PrefixOptional = {
+export const OutputAzureDataExplorerPrefixOptional = {
   /**
    * drop-by
    */
@@ -148,21 +127,23 @@ export const PrefixOptional = {
    */
   IngestBy: "ingestBy",
 } as const;
-export type PrefixOptional = OpenEnum<typeof PrefixOptional>;
+export type OutputAzureDataExplorerPrefixOptional = OpenEnum<
+  typeof OutputAzureDataExplorerPrefixOptional
+>;
 
-export type ExtentTag = {
-  prefix?: PrefixOptional | undefined;
+export type OutputAzureDataExplorerExtentTag = {
+  prefix?: OutputAzureDataExplorerPrefixOptional | undefined;
   value: string;
 };
 
-export type IngestIfNotExist = {
+export type OutputAzureDataExplorerIngestIfNotExist = {
   value: string;
 };
 
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export const ReportLevel = {
+export const OutputAzureDataExplorerReportLevel = {
   /**
    * FailuresOnly
    */
@@ -179,12 +160,14 @@ export const ReportLevel = {
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export type ReportLevel = OpenEnum<typeof ReportLevel>;
+export type OutputAzureDataExplorerReportLevel = OpenEnum<
+  typeof OutputAzureDataExplorerReportLevel
+>;
 
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export const ReportMethod = {
+export const OutputAzureDataExplorerReportMethod = {
   /**
    * Queue
    */
@@ -201,9 +184,11 @@ export const ReportMethod = {
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export type ReportMethod = OpenEnum<typeof ReportMethod>;
+export type OutputAzureDataExplorerReportMethod = OpenEnum<
+  typeof OutputAzureDataExplorerReportMethod
+>;
 
-export type AdditionalProperty = {
+export type OutputAzureDataExplorerAdditionalProperty = {
   key: string;
   value: string;
 };
@@ -248,7 +233,7 @@ export type OutputAzureDataExplorer = {
    * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
    */
   validateDatabaseSettings?: boolean | undefined;
-  ingestMode?: IngestionMode | undefined;
+  ingestMode?: OutputAzureDataExplorerIngestionMode | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
@@ -278,7 +263,7 @@ export type OutputAzureDataExplorer = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  certificate?: Certificate | undefined;
+  certificate?: OutputAzureDataExplorerCertificate | undefined;
   /**
    * Format of the output data
    */
@@ -432,23 +417,27 @@ export type OutputAzureDataExplorer = {
   /**
    * Strings or tags associated with the extent (ingested data shard)
    */
-  extentTags?: Array<ExtentTag> | undefined;
+  extentTags?: Array<OutputAzureDataExplorerExtentTag> | undefined;
   /**
    * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
    */
-  ingestIfNotExists?: Array<IngestIfNotExist> | undefined;
+  ingestIfNotExists?:
+    | Array<OutputAzureDataExplorerIngestIfNotExist>
+    | undefined;
   /**
    * Level of ingestion status reporting. Defaults to FailuresOnly.
    */
-  reportLevel?: ReportLevel | undefined;
+  reportLevel?: OutputAzureDataExplorerReportLevel | undefined;
   /**
    * Target of the ingestion status reporting. Defaults to Queue.
    */
-  reportMethod?: ReportMethod | undefined;
+  reportMethod?: OutputAzureDataExplorerReportMethod | undefined;
   /**
    * Optionally, enter additional configuration properties to send to the ingestion service
    */
-  additionalProperties?: Array<AdditionalProperty> | undefined;
+  additionalProperties?:
+    | Array<OutputAzureDataExplorerAdditionalProperty>
+    | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -602,229 +591,141 @@ export type OutputAzureDataExplorer = {
 };
 
 /** @internal */
-export const IngestionMode$inboundSchema: z.ZodType<
-  IngestionMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(IngestionMode);
-/** @internal */
-export const IngestionMode$outboundSchema: z.ZodType<
+export const OutputAzureDataExplorerIngestionMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  IngestionMode
-> = openEnums.outboundSchema(IngestionMode);
+  OutputAzureDataExplorerIngestionMode
+> = openEnums.outboundSchema(OutputAzureDataExplorerIngestionMode);
 
-/** @internal */
-export const OutputAzureDataExplorerAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputAzureDataExplorerAuthenticationMethod);
 /** @internal */
 export const OutputAzureDataExplorerAuthenticationMethod$outboundSchema:
   z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerAuthenticationMethod> =
     openEnums.outboundSchema(OutputAzureDataExplorerAuthenticationMethod);
 
 /** @internal */
-export const Certificate$inboundSchema: z.ZodType<
-  Certificate,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: types.optional(types.string()),
-});
-/** @internal */
-export type Certificate$Outbound = {
+export type OutputAzureDataExplorerCertificate$Outbound = {
   certificateName?: string | undefined;
 };
 
 /** @internal */
-export const Certificate$outboundSchema: z.ZodType<
-  Certificate$Outbound,
+export const OutputAzureDataExplorerCertificate$outboundSchema: z.ZodType<
+  OutputAzureDataExplorerCertificate$Outbound,
   z.ZodTypeDef,
-  Certificate
+  OutputAzureDataExplorerCertificate
 > = z.object({
   certificateName: z.string().optional(),
 });
 
-export function certificateToJSON(certificate: Certificate): string {
-  return JSON.stringify(Certificate$outboundSchema.parse(certificate));
-}
-export function certificateFromJSON(
-  jsonString: string,
-): SafeParseResult<Certificate, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Certificate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Certificate' from JSON`,
+export function outputAzureDataExplorerCertificateToJSON(
+  outputAzureDataExplorerCertificate: OutputAzureDataExplorerCertificate,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerCertificate$outboundSchema.parse(
+      outputAzureDataExplorerCertificate,
+    ),
   );
 }
 
 /** @internal */
-export const PrefixOptional$inboundSchema: z.ZodType<
-  PrefixOptional,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PrefixOptional);
-/** @internal */
-export const PrefixOptional$outboundSchema: z.ZodType<
+export const OutputAzureDataExplorerPrefixOptional$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PrefixOptional
-> = openEnums.outboundSchema(PrefixOptional);
+  OutputAzureDataExplorerPrefixOptional
+> = openEnums.outboundSchema(OutputAzureDataExplorerPrefixOptional);
 
 /** @internal */
-export const ExtentTag$inboundSchema: z.ZodType<
-  ExtentTag,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  prefix: types.optional(PrefixOptional$inboundSchema),
-  value: types.string(),
-});
-/** @internal */
-export type ExtentTag$Outbound = {
+export type OutputAzureDataExplorerExtentTag$Outbound = {
   prefix?: string | undefined;
   value: string;
 };
 
 /** @internal */
-export const ExtentTag$outboundSchema: z.ZodType<
-  ExtentTag$Outbound,
+export const OutputAzureDataExplorerExtentTag$outboundSchema: z.ZodType<
+  OutputAzureDataExplorerExtentTag$Outbound,
   z.ZodTypeDef,
-  ExtentTag
+  OutputAzureDataExplorerExtentTag
 > = z.object({
-  prefix: PrefixOptional$outboundSchema.optional(),
+  prefix: OutputAzureDataExplorerPrefixOptional$outboundSchema.optional(),
   value: z.string(),
 });
 
-export function extentTagToJSON(extentTag: ExtentTag): string {
-  return JSON.stringify(ExtentTag$outboundSchema.parse(extentTag));
-}
-export function extentTagFromJSON(
-  jsonString: string,
-): SafeParseResult<ExtentTag, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ExtentTag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ExtentTag' from JSON`,
+export function outputAzureDataExplorerExtentTagToJSON(
+  outputAzureDataExplorerExtentTag: OutputAzureDataExplorerExtentTag,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerExtentTag$outboundSchema.parse(
+      outputAzureDataExplorerExtentTag,
+    ),
   );
 }
 
 /** @internal */
-export const IngestIfNotExist$inboundSchema: z.ZodType<
-  IngestIfNotExist,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  value: types.string(),
-});
-/** @internal */
-export type IngestIfNotExist$Outbound = {
+export type OutputAzureDataExplorerIngestIfNotExist$Outbound = {
   value: string;
 };
 
 /** @internal */
-export const IngestIfNotExist$outboundSchema: z.ZodType<
-  IngestIfNotExist$Outbound,
+export const OutputAzureDataExplorerIngestIfNotExist$outboundSchema: z.ZodType<
+  OutputAzureDataExplorerIngestIfNotExist$Outbound,
   z.ZodTypeDef,
-  IngestIfNotExist
+  OutputAzureDataExplorerIngestIfNotExist
 > = z.object({
   value: z.string(),
 });
 
-export function ingestIfNotExistToJSON(
-  ingestIfNotExist: IngestIfNotExist,
+export function outputAzureDataExplorerIngestIfNotExistToJSON(
+  outputAzureDataExplorerIngestIfNotExist:
+    OutputAzureDataExplorerIngestIfNotExist,
 ): string {
   return JSON.stringify(
-    IngestIfNotExist$outboundSchema.parse(ingestIfNotExist),
-  );
-}
-export function ingestIfNotExistFromJSON(
-  jsonString: string,
-): SafeParseResult<IngestIfNotExist, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => IngestIfNotExist$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'IngestIfNotExist' from JSON`,
+    OutputAzureDataExplorerIngestIfNotExist$outboundSchema.parse(
+      outputAzureDataExplorerIngestIfNotExist,
+    ),
   );
 }
 
 /** @internal */
-export const ReportLevel$inboundSchema: z.ZodType<
-  ReportLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ReportLevel);
-/** @internal */
-export const ReportLevel$outboundSchema: z.ZodType<
+export const OutputAzureDataExplorerReportLevel$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ReportLevel
-> = openEnums.outboundSchema(ReportLevel);
+  OutputAzureDataExplorerReportLevel
+> = openEnums.outboundSchema(OutputAzureDataExplorerReportLevel);
 
 /** @internal */
-export const ReportMethod$inboundSchema: z.ZodType<
-  ReportMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ReportMethod);
-/** @internal */
-export const ReportMethod$outboundSchema: z.ZodType<
+export const OutputAzureDataExplorerReportMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ReportMethod
-> = openEnums.outboundSchema(ReportMethod);
+  OutputAzureDataExplorerReportMethod
+> = openEnums.outboundSchema(OutputAzureDataExplorerReportMethod);
 
 /** @internal */
-export const AdditionalProperty$inboundSchema: z.ZodType<
-  AdditionalProperty,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: types.string(),
-  value: types.string(),
-});
-/** @internal */
-export type AdditionalProperty$Outbound = {
+export type OutputAzureDataExplorerAdditionalProperty$Outbound = {
   key: string;
   value: string;
 };
 
 /** @internal */
-export const AdditionalProperty$outboundSchema: z.ZodType<
-  AdditionalProperty$Outbound,
-  z.ZodTypeDef,
-  AdditionalProperty
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
+export const OutputAzureDataExplorerAdditionalProperty$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAdditionalProperty$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAdditionalProperty
+  > = z.object({
+    key: z.string(),
+    value: z.string(),
+  });
 
-export function additionalPropertyToJSON(
-  additionalProperty: AdditionalProperty,
+export function outputAzureDataExplorerAdditionalPropertyToJSON(
+  outputAzureDataExplorerAdditionalProperty:
+    OutputAzureDataExplorerAdditionalProperty,
 ): string {
   return JSON.stringify(
-    AdditionalProperty$outboundSchema.parse(additionalProperty),
-  );
-}
-export function additionalPropertyFromJSON(
-  jsonString: string,
-): SafeParseResult<AdditionalProperty, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AdditionalProperty$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AdditionalProperty' from JSON`,
+    OutputAzureDataExplorerAdditionalProperty$outboundSchema.parse(
+      outputAzureDataExplorerAdditionalProperty,
+    ),
   );
 }
 
-/** @internal */
-export const OutputAzureDataExplorerPqControls$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputAzureDataExplorerPqControls$Outbound = {};
 
@@ -844,138 +745,7 @@ export function outputAzureDataExplorerPqControlsToJSON(
     ),
   );
 }
-export function outputAzureDataExplorerPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureDataExplorerPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureDataExplorerPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureDataExplorerPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
-  OutputAzureDataExplorer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("azure_data_explorer"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  clusterUrl: types.string(),
-  database: types.string(),
-  table: types.string(),
-  validateDatabaseSettings: types.optional(types.boolean()),
-  ingestMode: types.optional(IngestionMode$inboundSchema),
-  oauthEndpoint:
-    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
-  tenantId: types.string(),
-  clientId: types.string(),
-  scope: types.string(),
-  oauthType: OutputAzureDataExplorerAuthenticationMethod$inboundSchema,
-  description: types.optional(types.string()),
-  clientSecret: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  certificate: types.optional(z.lazy(() => Certificate$inboundSchema)),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  compress: CompressionOptionsHttp$inboundSchema,
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterEnabled: types.optional(types.boolean()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  isMappingObj: types.optional(types.boolean()),
-  mappingObj: types.optional(types.string()),
-  mappingRef: types.optional(types.string()),
-  ingestUrl: types.optional(types.string()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  stagePath: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  maxConcurrentFileParts: types.optional(types.number()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  addIdToStagePath: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  timeoutSec: types.optional(types.number()),
-  flushImmediately: types.optional(types.boolean()),
-  retainBlobOnSuccess: types.optional(types.boolean()),
-  extentTags: types.optional(z.array(z.lazy(() => ExtentTag$inboundSchema))),
-  ingestIfNotExists: types.optional(
-    z.array(z.lazy(() => IngestIfNotExist$inboundSchema)),
-  ),
-  reportLevel: types.optional(ReportLevel$inboundSchema),
-  reportMethod: types.optional(ReportMethod$inboundSchema),
-  additionalProperties: types.optional(
-    z.array(z.lazy(() => AdditionalProperty$inboundSchema)),
-  ),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  keepAlive: types.optional(types.boolean()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_clusterUrl: types.optional(types.string()),
-  __template_database: types.optional(types.string()),
-  __template_table: types.optional(types.string()),
-  __template_oauthEndpoint: types.optional(types.string()),
-  __template_tenantId: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-  __template_scope: types.optional(types.string()),
-  __template_clientSecret: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-  __template_parquetSchema: types.optional(types.string()),
-  __template_mappingRef: types.optional(types.string()),
-  __template_ingestUrl: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-});
 /** @internal */
 export type OutputAzureDataExplorer$Outbound = {
   id?: string | undefined;
@@ -997,7 +767,7 @@ export type OutputAzureDataExplorer$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
-  certificate?: Certificate$Outbound | undefined;
+  certificate?: OutputAzureDataExplorerCertificate$Outbound | undefined;
   format?: string | undefined;
   compress: string;
   compressionLevel?: string | undefined;
@@ -1037,11 +807,15 @@ export type OutputAzureDataExplorer$Outbound = {
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
-  extentTags?: Array<ExtentTag$Outbound> | undefined;
-  ingestIfNotExists?: Array<IngestIfNotExist$Outbound> | undefined;
+  extentTags?: Array<OutputAzureDataExplorerExtentTag$Outbound> | undefined;
+  ingestIfNotExists?:
+    | Array<OutputAzureDataExplorerIngestIfNotExist$Outbound>
+    | undefined;
   reportLevel?: string | undefined;
   reportMethod?: string | undefined;
-  additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
+  additionalProperties?:
+    | Array<OutputAzureDataExplorerAdditionalProperty$Outbound>
+    | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
@@ -1100,7 +874,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   database: z.string(),
   table: z.string(),
   validateDatabaseSettings: z.boolean().optional(),
-  ingestMode: IngestionMode$outboundSchema.optional(),
+  ingestMode: OutputAzureDataExplorerIngestionMode$outboundSchema.optional(),
   oauthEndpoint:
     MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
   tenantId: z.string(),
@@ -1110,7 +884,8 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => Certificate$outboundSchema).optional(),
+  certificate: z.lazy(() => OutputAzureDataExplorerCertificate$outboundSchema)
+    .optional(),
   format: DataFormatOptions$outboundSchema.optional(),
   compress: CompressionOptionsHttp$outboundSchema,
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
@@ -1151,13 +926,17 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),
-  extentTags: z.array(z.lazy(() => ExtentTag$outboundSchema)).optional(),
-  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$outboundSchema))
-    .optional(),
-  reportLevel: ReportLevel$outboundSchema.optional(),
-  reportMethod: ReportMethod$outboundSchema.optional(),
-  additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
-    .optional(),
+  extentTags: z.array(
+    z.lazy(() => OutputAzureDataExplorerExtentTag$outboundSchema),
+  ).optional(),
+  ingestIfNotExists: z.array(
+    z.lazy(() => OutputAzureDataExplorerIngestIfNotExist$outboundSchema),
+  ).optional(),
+  reportLevel: OutputAzureDataExplorerReportLevel$outboundSchema.optional(),
+  reportMethod: OutputAzureDataExplorerReportMethod$outboundSchema.optional(),
+  additionalProperties: z.array(
+    z.lazy(() => OutputAzureDataExplorerAdditionalProperty$outboundSchema),
+  ).optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
@@ -1205,14 +984,5 @@ export function outputAzureDataExplorerToJSON(
 ): string {
   return JSON.stringify(
     OutputAzureDataExplorer$outboundSchema.parse(outputAzureDataExplorer),
-  );
-}
-export function outputAzureDataExplorerFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureDataExplorer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureDataExplorer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureDataExplorer' from JSON`,
   );
 }

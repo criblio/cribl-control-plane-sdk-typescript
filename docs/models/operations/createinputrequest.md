@@ -1,6 +1,6 @@
 # CreateInputRequest
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -77,6 +77,7 @@ const value: operations.CreateInputInputSplunkSearch = {
   cronSchedule: "<value>",
   endpoint: "<value>",
   outputMode: "json",
+  authType: "credentialsSecret",
 };
 ```
 
@@ -614,6 +615,16 @@ const value: operations.CreateInputInputWinEventLogs = {
     "<value 2>",
     "<value 3>",
   ],
+};
+```
+
+### `operations.CreateInputInputAppleUnifiedLogs`
+
+```typescript
+const value: operations.CreateInputInputAppleUnifiedLogs = {
+  id: "<id>",
+  type: "apple_unified_logs",
+  predicate: "<value>",
 };
 ```
 
