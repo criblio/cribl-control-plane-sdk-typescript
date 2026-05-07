@@ -6,14 +6,14 @@
 import { AuthToken } from "cribl-control-plane/models";
 
 let value: AuthToken = {
-  tokenSecret: "<value>",
+  forcePasswordChange: false,
+  token: "<value>",
 };
 ```
 
 ## Fields
 
-| Field                                 | Type                                  | Required                              | Description                           |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| `tokenSecret`                         | *string*                              | :heavy_check_mark:                    | Select or create a stored text secret |
-| `enabled`                             | *boolean*                             | :heavy_minus_sign:                    | N/A                                   |
-| `description`                         | *string*                              | :heavy_minus_sign:                    | N/A                                   |
+| Field                 | Type                  | Required              | Description           |
+| --------------------- | --------------------- | --------------------- | --------------------- |
+| `forcePasswordChange` | *boolean*             | :heavy_check_mark:    | N/A                   |
+| `token`               | *string*              | :heavy_check_mark:    | N/A                   |

@@ -99,6 +99,10 @@ import {
   FunctionLocalSearchSchemaMapper$inboundSchema,
 } from "./functionlocalsearchschemamapper.js";
 import {
+  FunctionLocalSearchTimeRangeNormalizer,
+  FunctionLocalSearchTimeRangeNormalizer$inboundSchema,
+} from "./functionlocalsearchtimerangenormalizer.js";
+import {
   FunctionLocalSearchTransformer,
   FunctionLocalSearchTransformer$inboundSchema,
 } from "./functionlocalsearchtransformer.js";
@@ -252,6 +256,7 @@ export type FunctionResponse =
   | FunctionLocalSearchDatatypeParser
   | FunctionLocalSearchRulesetRunner
   | FunctionLocalSearchSchemaMapper
+  | FunctionLocalSearchTimeRangeNormalizer
   | FunctionLocalSearchTransformer
   | FunctionLookup
   | FunctionMask
@@ -328,6 +333,8 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   local_search_datatype_parser: FunctionLocalSearchDatatypeParser$inboundSchema,
   local_search_ruleset_runner: FunctionLocalSearchRulesetRunner$inboundSchema,
   local_search_schema_mapper: FunctionLocalSearchSchemaMapper$inboundSchema,
+  local_search_time_range_normalizer:
+    FunctionLocalSearchTimeRangeNormalizer$inboundSchema,
   local_search_transformer: FunctionLocalSearchTransformer$inboundSchema,
   lookup: FunctionLookup$inboundSchema,
   mask: FunctionMask$inboundSchema,

@@ -22,35 +22,30 @@ import {
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
+import {
   FailedRequestLoggingModeOptions,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
-import {
-  ItemsTypeOauthHeaders,
-  ItemsTypeOauthHeaders$Outbound,
-  ItemsTypeOauthHeaders$outboundSchema,
-} from "./itemstypeoauthheaders.js";
-import {
-  ItemsTypeOauthParams,
-  ItemsTypeOauthParams$Outbound,
-  ItemsTypeOauthParams$outboundSchema,
-} from "./itemstypeoauthparams.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$Outbound,
+  KeyValueMetadataConfOutputFilesystem$outboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
+import {
+  OauthHeaderConfInputServicenowTable,
+  OauthHeaderConfInputServicenowTable$Outbound,
+  OauthHeaderConfInputServicenowTable$outboundSchema,
+} from "./oauthheaderconfinputservicenowtable.js";
+import {
+  OauthParamConfInputServicenowTable,
+  OauthParamConfInputServicenowTable$Outbound,
+  OauthParamConfInputServicenowTable$outboundSchema,
+} from "./oauthparamconfinputservicenowtable.js";
 import {
   ProtocolOptions,
   ProtocolOptions$outboundSchema,
@@ -59,6 +54,11 @@ import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
+import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
 import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$Outbound,
@@ -180,7 +180,7 @@ export type OutputOpenTelemetry = {
   /**
    * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
    */
-  metadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  metadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Batch event data upon dynamic metadata (whether presented or not)
    */
@@ -267,11 +267,11 @@ export type OutputOpenTelemetry = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<OauthParamConfInputServicenowTable> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
    *
@@ -287,7 +287,7 @@ export type OutputOpenTelemetry = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -295,7 +295,9 @@ export type OutputOpenTelemetry = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -416,7 +418,7 @@ export type OutputOpenTelemetry$Outbound = {
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
-  metadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  metadata?: Array<KeyValueMetadataConfOutputFilesystem$Outbound> | undefined;
   dynamicHeadersEnabled?: boolean | undefined;
   dynamicHeadersField?: string | undefined;
   concurrency?: number | undefined;
@@ -440,14 +442,18 @@ export type OutputOpenTelemetry$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<OauthParamConfInputServicenowTable$Outbound> | undefined;
+  oauthHeaders?:
+    | Array<OauthHeaderConfInputServicenowTable$Outbound>
+    | undefined;
   rejectUnauthorized?: boolean | undefined;
   useRoundRobinDns?: boolean | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -491,7 +497,8 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema).optional(),
+  metadata: z.array(KeyValueMetadataConfOutputFilesystem$outboundSchema)
+    .optional(),
   dynamicHeadersEnabled: z.boolean().optional(),
   dynamicHeadersField: z.string().optional(),
   concurrency: z.number().optional(),
@@ -516,15 +523,18 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(OauthParamConfInputServicenowTable$outboundSchema)
+    .optional(),
+  oauthHeaders: z.array(OauthHeaderConfInputServicenowTable$outboundSchema)
+    .optional(),
   rejectUnauthorized: z.boolean().optional(),
   useRoundRobinDns: z.boolean().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   tls: TlsSettingsClientSideTypeExtended$outboundSchema.optional(),

@@ -4,19 +4,19 @@
 
 import * as z from "zod/v3";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   GoogleAuthenticationMethodOptions,
   GoogleAuthenticationMethodOptions$outboundSchema,
 } from "./googleauthenticationmethodoptions.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 
 export type InputGooglePubsubInput = {
@@ -49,7 +49,7 @@ export type InputGooglePubsubInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
@@ -102,7 +102,7 @@ export type InputGooglePubsubInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
@@ -140,7 +140,7 @@ export type InputGooglePubsubInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   topicName: string;
   subscriptionName: string;
@@ -154,7 +154,7 @@ export type InputGooglePubsubInput$Outbound = {
   maxBacklog?: number | undefined;
   concurrency?: number | undefined;
   requestTimeout?: number | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery?: boolean | undefined;
   __template_environment?: string | undefined;
@@ -178,7 +178,7 @@ export const InputGooglePubsubInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   topicName: z.string(),
   subscriptionName: z.string(),
@@ -192,7 +192,7 @@ export const InputGooglePubsubInput$outboundSchema: z.ZodType<
   maxBacklog: z.number().optional(),
   concurrency: z.number().optional(),
   requestTimeout: z.number().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
   __template_environment: z.string().optional(),

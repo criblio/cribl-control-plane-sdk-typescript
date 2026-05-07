@@ -34,15 +34,10 @@ import {
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
 import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$Outbound,
+  KeyValueMetadataConfOutputFilesystem$outboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
 import {
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
   MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
@@ -61,6 +56,11 @@ import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
+import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
 import {
   RetrySettingsType,
   RetrySettingsType$Outbound,
@@ -307,7 +307,7 @@ export type OutputAzureDataExplorer = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -441,7 +441,9 @@ export type OutputAzureDataExplorer = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -778,7 +780,9 @@ export type OutputAzureDataExplorer$Outbound = {
   parquetRowGroupLength?: number | undefined;
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  keyValueMetadata?:
+    | Array<KeyValueMetadataConfOutputFilesystem$Outbound>
+    | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
   enablePageChecksum?: boolean | undefined;
@@ -817,7 +821,7 @@ export type OutputAzureDataExplorer$Outbound = {
     | Array<OutputAzureDataExplorerAdditionalProperty$Outbound>
     | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -896,7 +900,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+  keyValueMetadata: z.array(KeyValueMetadataConfOutputFilesystem$outboundSchema)
     .optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),
@@ -937,8 +941,9 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   additionalProperties: z.array(
     z.lazy(() => OutputAzureDataExplorerAdditionalProperty$outboundSchema),
   ).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   concurrency: z.number().optional(),

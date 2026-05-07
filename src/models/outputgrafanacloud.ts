@@ -14,24 +14,14 @@ import {
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
+import {
   FailedRequestLoggingModeOptions,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeContentConfigItemsRequestParams,
-  ItemsTypeContentConfigItemsRequestParams$Outbound,
-  ItemsTypeContentConfigItemsRequestParams$outboundSchema,
-} from "./itemstypecontentconfigitemsrequestparams.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
 import {
   MessageFormatOptions,
   MessageFormatOptions$outboundSchema,
@@ -46,6 +36,16 @@ import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
+import {
+  RequestParamConfInputOpenai,
+  RequestParamConfInputOpenai$Outbound,
+  RequestParamConfInputOpenai$outboundSchema,
+} from "./requestparamconfinputopenai.js";
+import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
 import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$Outbound,
@@ -102,7 +102,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
+  labels?: Array<RequestParamConfInputOpenai> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -140,7 +140,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -156,7 +156,9 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -288,7 +290,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
+  labels?: Array<RequestParamConfInputOpenai> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -326,7 +328,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -342,7 +344,9 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -465,7 +469,7 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   prometheusUrl: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams$Outbound> | undefined;
+  labels?: Array<RequestParamConfInputOpenai$Outbound> | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -475,12 +479,14 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -522,8 +528,7 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   prometheusUrl: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
-    .optional(),
+  labels: z.array(RequestParamConfInputOpenai$outboundSchema).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),
@@ -533,14 +538,15 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
@@ -613,7 +619,7 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   prometheusUrl?: string | undefined;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams$Outbound> | undefined;
+  labels?: Array<RequestParamConfInputOpenai$Outbound> | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -623,12 +629,14 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -670,8 +678,7 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
-    .optional(),
+  labels: z.array(RequestParamConfInputOpenai$outboundSchema).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),
@@ -681,14 +688,15 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),

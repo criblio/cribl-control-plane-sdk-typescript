@@ -14,10 +14,10 @@ import {
   RouteComment$outboundSchema,
 } from "./routecomment.js";
 import {
-  RouteConf,
-  RouteConf$Outbound,
-  RouteConf$outboundSchema,
-} from "./routeconf.js";
+  RouteConfInput,
+  RouteConfInput$Outbound,
+  RouteConfInput$outboundSchema,
+} from "./routeconfinput.js";
 
 export type RoutesInput = {
   /**
@@ -35,7 +35,7 @@ export type RoutesInput = {
   /**
    * Array of Route configurations that define how events are processed and routed.
    */
-  routes: Array<RouteConf>;
+  routes: Array<RouteConfInput>;
 };
 
 /** @internal */
@@ -45,7 +45,7 @@ export type RoutesInput$Outbound = {
     | { [k: string]: AdditionalPropertiesTypeRoutesGroups$Outbound }
     | undefined;
   id: string;
-  routes: Array<RouteConf$Outbound>;
+  routes: Array<RouteConfInput$Outbound>;
 };
 
 /** @internal */
@@ -58,7 +58,7 @@ export const RoutesInput$outboundSchema: z.ZodType<
   groups: z.record(AdditionalPropertiesTypeRoutesGroups$outboundSchema)
     .optional(),
   id: z.string(),
-  routes: z.array(RouteConf$outboundSchema),
+  routes: z.array(RouteConfInput$outboundSchema),
 });
 
 export function routesInputToJSON(routesInput: RoutesInput): string {

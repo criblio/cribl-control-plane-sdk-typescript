@@ -10,29 +10,29 @@ import {
   AuthenticationMethodOptionsSasl$outboundSchema,
 } from "./authenticationmethodoptionssasl.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
-import {
-  ItemsTypeSearchFilter,
-  ItemsTypeSearchFilter$Outbound,
-  ItemsTypeSearchFilter$outboundSchema,
-} from "./itemstypesearchfilter.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   LogLevelOptions,
   LogLevelOptions$outboundSchema,
 } from "./logleveloptions.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   RecordTypeOptions,
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
+import {
+  SearchFilterConfInputPrometheus,
+  SearchFilterConfInputPrometheus$Outbound,
+  SearchFilterConfInputPrometheus$outboundSchema,
+} from "./searchfilterconfinputprometheus.js";
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -102,7 +102,7 @@ export type InputPrometheusInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
@@ -155,7 +155,7 @@ export type InputPrometheusInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -201,7 +201,7 @@ export type InputPrometheusInput = {
   /**
    * Filter to apply when searching for EC2 instances
    */
-  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
+  searchFilter?: Array<SearchFilterConfInputPrometheus> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -329,7 +329,7 @@ export type InputPrometheusInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   fieldPerMetric?: boolean | undefined;
@@ -343,7 +343,7 @@ export type InputPrometheusInput$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
@@ -356,7 +356,7 @@ export type InputPrometheusInput$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   usePublicIp?: boolean | undefined;
-  searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
+  searchFilter?: Array<SearchFilterConfInputPrometheus$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -399,7 +399,7 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
   fieldPerMetric: z.boolean().optional(),
@@ -413,7 +413,7 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
@@ -426,7 +426,8 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   usePublicIp: z.boolean().optional(),
-  searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
+  searchFilter: z.array(SearchFilterConfInputPrometheus$outboundSchema)
+    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),

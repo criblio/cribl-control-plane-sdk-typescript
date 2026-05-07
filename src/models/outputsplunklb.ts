@@ -20,10 +20,10 @@ import {
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$Outbound,
-  ItemsTypeHosts$outboundSchema,
-} from "./itemstypehosts.js";
+  HostConfOutputSyslog,
+  HostConfOutputSyslog$Outbound,
+  HostConfOutputSyslog$outboundSchema,
+} from "./hostconfoutputsyslog.js";
 import {
   MaxS2SVersionOptions,
   MaxS2SVersionOptions$outboundSchema,
@@ -201,7 +201,7 @@ export type OutputSplunkLb = {
   /**
    * Set of Splunk indexers to load-balance data to.
    */
-  hosts: Array<ItemsTypeHosts>;
+  hosts: Array<HostConfOutputSyslog>;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -393,7 +393,7 @@ export type OutputSplunkLb$Outbound = {
     | OutputSplunkLbIndexerDiscoveryConfigs$Outbound
     | undefined;
   excludeSelf?: boolean | undefined;
-  hosts: Array<ItemsTypeHosts$Outbound>;
+  hosts: Array<HostConfOutputSyslog$Outbound>;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -451,7 +451,7 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
     OutputSplunkLbIndexerDiscoveryConfigs$outboundSchema
   ).optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(ItemsTypeHosts$outboundSchema),
+  hosts: z.array(HostConfOutputSyslog$outboundSchema),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: ModeOptions$outboundSchema.optional(),

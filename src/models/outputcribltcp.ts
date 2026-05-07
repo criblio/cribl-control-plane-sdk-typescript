@@ -4,10 +4,10 @@
 
 import * as z from "zod/v3";
 import {
-  AuthToken,
-  AuthToken$Outbound,
-  AuthToken$outboundSchema,
-} from "./authtoken.js";
+  AuthTokenConfInputCriblTcp,
+  AuthTokenConfInputCriblTcp$Outbound,
+  AuthTokenConfInputCriblTcp$outboundSchema,
+} from "./authtokenconfinputcribltcp.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$outboundSchema,
@@ -21,10 +21,10 @@ import {
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$Outbound,
-  ItemsTypeHosts$outboundSchema,
-} from "./itemstypehosts.js";
+  HostConfOutputSyslog,
+  HostConfOutputSyslog$Outbound,
+  HostConfOutputSyslog$outboundSchema,
+} from "./hostconfoutputsyslog.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
@@ -92,7 +92,7 @@ export type OutputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
    */
-  authTokens?: Array<AuthToken> | undefined;
+  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -117,7 +117,7 @@ export type OutputCriblTcp = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<ItemsTypeHosts> | undefined;
+  hosts?: Array<HostConfOutputSyslog> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -227,14 +227,14 @@ export type OutputCriblTcp$Outbound = {
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
-  authTokens?: Array<AuthToken$Outbound> | undefined;
+  authTokens?: Array<AuthTokenConfInputCriblTcp$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
   excludeSelf?: boolean | undefined;
-  hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
+  hosts?: Array<HostConfOutputSyslog$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   maxConcurrentSenders?: number | undefined;
@@ -276,14 +276,14 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
-  authTokens: z.array(AuthToken$outboundSchema).optional(),
+  authTokens: z.array(AuthTokenConfInputCriblTcp$outboundSchema).optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
+  hosts: z.array(HostConfOutputSyslog$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   maxConcurrentSenders: z.number().optional(),

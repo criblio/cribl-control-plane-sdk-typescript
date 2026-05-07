@@ -7,11 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  TargetContext,
-  TargetContext$inboundSchema,
-  TargetContext$outboundSchema,
-} from "./targetcontext.js";
+import { TargetContext, TargetContext$inboundSchema } from "./targetcontext.js";
 
 export type RouteConf = {
   /**
@@ -39,9 +35,17 @@ export type RouteConf = {
    */
   filter?: string | undefined;
   /**
+   * If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
+   */
+  final: boolean;
+  /**
    * Unique identifier for the Route Group that the Route is associated with.
    */
   groupId?: string | undefined;
+  /**
+   * Unique identifier for the Route.
+   */
+  id: string;
   /**
    * Name of the Route.
    */
@@ -59,14 +63,6 @@ export type RouteConf = {
    */
   pipeline: string;
   targetContext?: TargetContext | undefined;
-  /**
-   * If <code>true</code> (default), the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
-   */
-  final?: boolean | undefined;
-  /**
-   * Unique identifier for the Route. If omitted, the server generates a deterministic identifier.
-   */
-  id?: string | undefined;
 };
 
 /** @internal */
@@ -81,58 +77,16 @@ export const RouteConf$inboundSchema: z.ZodType<
   disabled: types.optional(types.boolean()),
   enableOutputExpression: types.optional(types.boolean()),
   filter: types.optional(types.string()),
+  final: types.boolean(),
   groupId: types.optional(types.string()),
+  id: types.string(),
   name: types.string(),
   output: types.optional(types.string()),
   outputExpression: types.optional(types.string()),
   pipeline: types.string(),
   targetContext: types.optional(TargetContext$inboundSchema),
-  final: types.optional(types.boolean()),
-  id: types.optional(types.string()),
-});
-/** @internal */
-export type RouteConf$Outbound = {
-  clones?: Array<{ [k: string]: string }> | undefined;
-  context?: string | undefined;
-  description?: string | undefined;
-  disabled?: boolean | undefined;
-  enableOutputExpression?: boolean | undefined;
-  filter?: string | undefined;
-  groupId?: string | undefined;
-  name: string;
-  output?: string | undefined;
-  outputExpression?: string | undefined;
-  pipeline: string;
-  targetContext?: string | undefined;
-  final?: boolean | undefined;
-  id?: string | undefined;
-};
-
-/** @internal */
-export const RouteConf$outboundSchema: z.ZodType<
-  RouteConf$Outbound,
-  z.ZodTypeDef,
-  RouteConf
-> = z.object({
-  clones: z.array(z.record(z.string())).optional(),
-  context: z.string().optional(),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  enableOutputExpression: z.boolean().optional(),
-  filter: z.string().optional(),
-  groupId: z.string().optional(),
-  name: z.string(),
-  output: z.string().optional(),
-  outputExpression: z.string().optional(),
-  pipeline: z.string(),
-  targetContext: TargetContext$outboundSchema.optional(),
-  final: z.boolean().optional(),
-  id: z.string().optional(),
 });
 
-export function routeConfToJSON(routeConf: RouteConf): string {
-  return JSON.stringify(RouteConf$outboundSchema.parse(routeConf));
-}
 export function routeConfFromJSON(
   jsonString: string,
 ): SafeParseResult<RouteConf, SDKValidationError> {

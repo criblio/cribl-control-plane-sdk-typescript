@@ -12,22 +12,22 @@ import {
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
-  Connection,
-  Connection$inboundSchema,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$inboundSchema,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
 } from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
 import {
-  Metadata,
-  Metadata$inboundSchema,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$inboundSchema,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -66,7 +66,7 @@ export type InputSplunkHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
 };
 
 export type InputSplunkHecInput = {
@@ -99,7 +99,7 @@ export type InputSplunkHecInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -161,7 +161,7 @@ export type InputSplunkHecInput = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -261,7 +261,7 @@ export type InputSplunkHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -323,7 +323,7 @@ export type InputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -401,7 +401,7 @@ export const InputSplunkHecAuthToken$inboundSchema: z.ZodType<
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(z.array(Metadata$inboundSchema)),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
 });
 /** @internal */
 export type InputSplunkHecAuthToken$Outbound = {
@@ -411,7 +411,7 @@ export type InputSplunkHecAuthToken$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
 };
 
 /** @internal */
@@ -427,7 +427,7 @@ export const InputSplunkHecAuthToken$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
 });
 
 export function inputSplunkHecAuthTokenToJSON(
@@ -457,7 +457,7 @@ export type InputSplunkHecInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -474,7 +474,7 @@ export type InputSplunkHecInput$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -507,7 +507,7 @@ export const InputSplunkHecInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -525,7 +525,7 @@ export const InputSplunkHecInput$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
@@ -569,7 +569,9 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   criblSourceProvenance: types.optional(
     InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
   ),
-  connections: types.optional(z.array(Connection$inboundSchema)),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
   pq: types.optional(PqType$inboundSchema),
   host: types.string(),
   port: types.number(),
@@ -588,7 +590,7 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   splunkHecAPI: types.string(),
-  metadata: types.optional(z.array(Metadata$inboundSchema)),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
   splunkHecAcks: types.optional(types.boolean()),
   breakerRulesets: types.optional(z.array(types.string())),

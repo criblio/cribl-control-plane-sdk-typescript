@@ -13,17 +13,17 @@ import {
 } from "./authenticationmethodoptionssasl.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeSaslOauthParams,
-  ItemsTypeSaslOauthParams$inboundSchema,
-  ItemsTypeSaslOauthParams$Outbound,
-  ItemsTypeSaslOauthParams$outboundSchema,
-} from "./itemstypesasloauthparams.js";
+  OauthParamConfInputKafka,
+  OauthParamConfInputKafka$inboundSchema,
+  OauthParamConfInputKafka$Outbound,
+  OauthParamConfInputKafka$outboundSchema,
+} from "./oauthparamconfinputkafka.js";
 import {
-  ItemsTypeSaslSaslExtensions,
-  ItemsTypeSaslSaslExtensions$inboundSchema,
-  ItemsTypeSaslSaslExtensions$Outbound,
-  ItemsTypeSaslSaslExtensions$outboundSchema,
-} from "./itemstypesaslsaslextensions.js";
+  SaslExtensionConfInputKafka,
+  SaslExtensionConfInputKafka$inboundSchema,
+  SaslExtensionConfInputKafka$Outbound,
+  SaslExtensionConfInputKafka$outboundSchema,
+} from "./saslextensionconfinputkafka.js";
 import {
   SaslMechanismOptionsSasl,
   SaslMechanismOptionsSasl$inboundSchema,
@@ -78,11 +78,11 @@ export type AuthenticationType = {
   /**
    * Additional fields to send to the token endpoint, such as scope or audience
    */
-  oauthParams?: Array<ItemsTypeSaslOauthParams> | undefined;
+  oauthParams?: Array<OauthParamConfInputKafka> | undefined;
   /**
    * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
    */
-  saslExtensions?: Array<ItemsTypeSaslSaslExtensions> | undefined;
+  saslExtensions?: Array<SaslExtensionConfInputKafka> | undefined;
   /**
    * Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
    */
@@ -129,9 +129,9 @@ export const AuthenticationType$inboundSchema: z.ZodType<
   clientId: types.optional(types.string()),
   oauthSecretType: types.optional(types.string()),
   clientTextSecret: types.optional(types.string()),
-  oauthParams: types.optional(z.array(ItemsTypeSaslOauthParams$inboundSchema)),
+  oauthParams: types.optional(z.array(OauthParamConfInputKafka$inboundSchema)),
   saslExtensions: types.optional(
-    z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
+    z.array(SaslExtensionConfInputKafka$inboundSchema),
   ),
   __template_mechanism: types.optional(types.string()),
   __template_keytabLocation: types.optional(types.string()),
@@ -156,8 +156,8 @@ export type AuthenticationType$Outbound = {
   clientId?: string | undefined;
   oauthSecretType?: string | undefined;
   clientTextSecret?: string | undefined;
-  oauthParams?: Array<ItemsTypeSaslOauthParams$Outbound> | undefined;
-  saslExtensions?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
+  oauthParams?: Array<OauthParamConfInputKafka$Outbound> | undefined;
+  saslExtensions?: Array<SaslExtensionConfInputKafka$Outbound> | undefined;
   __template_mechanism?: string | undefined;
   __template_keytabLocation?: string | undefined;
   __template_principal?: string | undefined;
@@ -186,8 +186,8 @@ export const AuthenticationType$outboundSchema: z.ZodType<
   clientId: z.string().optional(),
   oauthSecretType: z.string().optional(),
   clientTextSecret: z.string().optional(),
-  oauthParams: z.array(ItemsTypeSaslOauthParams$outboundSchema).optional(),
-  saslExtensions: z.array(ItemsTypeSaslSaslExtensions$outboundSchema)
+  oauthParams: z.array(OauthParamConfInputKafka$outboundSchema).optional(),
+  saslExtensions: z.array(SaslExtensionConfInputKafka$outboundSchema)
     .optional(),
   __template_mechanism: z.string().optional(),
   __template_keytabLocation: z.string().optional(),

@@ -6,25 +6,20 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   DiskSpoolingType,
   DiskSpoolingType$Outbound,
   DiskSpoolingType$outboundSchema,
 } from "./diskspoolingtype.js";
 import {
-  ItemsTypeSearchFilter,
-  ItemsTypeSearchFilter$Outbound,
-  ItemsTypeSearchFilter$outboundSchema,
-} from "./itemstypesearchfilter.js";
-import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   ProtocolOptionsTargetsItems,
@@ -34,6 +29,11 @@ import {
   RecordTypeOptions,
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
+import {
+  SearchFilterConfInputPrometheus,
+  SearchFilterConfInputPrometheus$Outbound,
+  SearchFilterConfInputPrometheus$outboundSchema,
+} from "./searchfilterconfinputprometheus.js";
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -146,7 +146,7 @@ export type InputEdgePrometheusInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
@@ -172,7 +172,7 @@ export type InputEdgePrometheusInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -215,7 +215,7 @@ export type InputEdgePrometheusInput = {
   /**
    * Filter to apply when searching for EC2 instances
    */
-  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
+  searchFilter?: Array<SearchFilterConfInputPrometheus> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -405,7 +405,7 @@ export type InputEdgePrometheusInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
   fieldPerMetric?: boolean | undefined;
@@ -413,7 +413,7 @@ export type InputEdgePrometheusInput$Outbound = {
   interval: number;
   timeout?: number | undefined;
   persistence?: DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targets?: Array<InputEdgePrometheusTarget$Outbound> | undefined;
@@ -426,7 +426,7 @@ export type InputEdgePrometheusInput$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   usePublicIp?: boolean | undefined;
-  searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
+  searchFilter?: Array<SearchFilterConfInputPrometheus$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -470,7 +470,7 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
   fieldPerMetric: z.boolean().optional(),
@@ -478,7 +478,7 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
   interval: z.number(),
   timeout: z.number().optional(),
   persistence: DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.optional(),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => InputEdgePrometheusTarget$outboundSchema))
@@ -492,7 +492,8 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   usePublicIp: z.boolean().optional(),
-  searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
+  searchFilter: z.array(SearchFilterConfInputPrometheus$outboundSchema)
+    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),

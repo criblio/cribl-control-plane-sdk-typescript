@@ -4,15 +4,15 @@
 
 import * as z from "zod/v3";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   TlsSettingsServerSideType,
@@ -37,7 +37,7 @@ export type InputCriblLakeHttpAuthTokensExt = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   splunkHecMetadata?: InputCriblLakeHttpSplunkHecMetadata | undefined;
   elasticsearchMetadata?: InputCriblLakeHttpElasticsearchMetadata | undefined;
 };
@@ -72,7 +72,7 @@ export type InputCriblLakeHttpInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -147,7 +147,7 @@ export type InputCriblLakeHttpInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   authTokensExt?: Array<InputCriblLakeHttpAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
@@ -243,7 +243,7 @@ export function inputCriblLakeHttpElasticsearchMetadataToJSON(
 export type InputCriblLakeHttpAuthTokensExt$Outbound = {
   token: string;
   description?: string | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   splunkHecMetadata?: InputCriblLakeHttpSplunkHecMetadata$Outbound | undefined;
   elasticsearchMetadata?:
     | InputCriblLakeHttpElasticsearchMetadata$Outbound
@@ -258,7 +258,7 @@ export const InputCriblLakeHttpAuthTokensExt$outboundSchema: z.ZodType<
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   splunkHecMetadata: z.lazy(() =>
     InputCriblLakeHttpSplunkHecMetadata$outboundSchema
   ).optional(),
@@ -287,7 +287,7 @@ export type InputCriblLakeHttpInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -308,7 +308,7 @@ export type InputCriblLakeHttpInput$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   authTokensExt?: Array<InputCriblLakeHttpAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -335,7 +335,7 @@ export const InputCriblLakeHttpInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -356,7 +356,7 @@ export const InputCriblLakeHttpInput$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   authTokensExt: z.array(
     z.lazy(() => InputCriblLakeHttpAuthTokensExt$outboundSchema),
   ).optional(),

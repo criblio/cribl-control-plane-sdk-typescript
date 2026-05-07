@@ -8,18 +8,18 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeSerdeTypeRegexRegexList,
-  ItemsTypeSerdeTypeRegexRegexList$inboundSchema,
-  ItemsTypeSerdeTypeRegexRegexList$Outbound,
-  ItemsTypeSerdeTypeRegexRegexList$outboundSchema,
-} from "./itemstypeserdetyperegexregexlist.js";
+  RegexListConfSerdeTypeRegex,
+  RegexListConfSerdeTypeRegex$inboundSchema,
+  RegexListConfSerdeTypeRegex$Outbound,
+  RegexListConfSerdeTypeRegex$outboundSchema,
+} from "./regexlistconfserdetyperegex.js";
 
 export type PipelineFunctionRegexExtractConf = {
   /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex: string;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * Field on which to perform regex field extraction
    */
@@ -73,9 +73,7 @@ export const PipelineFunctionRegexExtractConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   regex: types.string(),
-  regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
-  ),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   source: types.optional(types.string()),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
@@ -84,7 +82,7 @@ export const PipelineFunctionRegexExtractConf$inboundSchema: z.ZodType<
 /** @internal */
 export type PipelineFunctionRegexExtractConf$Outbound = {
   regex: string;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   source?: string | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
@@ -98,8 +96,7 @@ export const PipelineFunctionRegexExtractConf$outboundSchema: z.ZodType<
   PipelineFunctionRegexExtractConf
 > = z.object({
   regex: z.string(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   source: z.string().optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),

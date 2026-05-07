@@ -6,29 +6,29 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import {
-  Connection,
-  Connection$Outbound,
-  Connection$outboundSchema,
-} from "./connection.js";
-import {
-  ItemsTypeOauthHeaders,
-  ItemsTypeOauthHeaders$Outbound,
-  ItemsTypeOauthHeaders$outboundSchema,
-} from "./itemstypeoauthheaders.js";
-import {
-  ItemsTypeOauthParams,
-  ItemsTypeOauthParams$Outbound,
-  ItemsTypeOauthParams$outboundSchema,
-} from "./itemstypeoauthparams.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   LogLevelOptions,
   LogLevelOptions$outboundSchema,
 } from "./logleveloptions.js";
 import {
-  Metadata,
-  Metadata$Outbound,
-  Metadata$outboundSchema,
-} from "./metadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
+import {
+  OauthHeaderConfInputServicenowTable,
+  OauthHeaderConfInputServicenowTable$Outbound,
+  OauthHeaderConfInputServicenowTable$outboundSchema,
+} from "./oauthheaderconfinputservicenowtable.js";
+import {
+  OauthParamConfInputServicenowTable,
+  OauthParamConfInputServicenowTable$Outbound,
+  OauthParamConfInputServicenowTable$outboundSchema,
+} from "./oauthparamconfinputservicenowtable.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   RetryRulesType,
@@ -132,7 +132,7 @@ export type InputServicenowTableInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<Connection> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
@@ -225,7 +225,7 @@ export type InputServicenowTableInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
@@ -251,11 +251,11 @@ export type InputServicenowTableInput = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<OauthParamConfInputServicenowTable> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
   clientId?: string | undefined;
   /**
    * Select or create a stored text secret for the OAuth client secret value
@@ -351,7 +351,7 @@ export type InputServicenowTableInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<Connection$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   instance: string;
   tableName: string;
@@ -375,7 +375,7 @@ export type InputServicenowTableInput$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<Metadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -383,8 +383,10 @@ export type InputServicenowTableInput$Outbound = {
   username?: string | undefined;
   textSecret?: string | undefined;
   useCustomOAuthParamsOrHeaders?: boolean | undefined;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<OauthParamConfInputServicenowTable$Outbound> | undefined;
+  oauthHeaders?:
+    | Array<OauthHeaderConfInputServicenowTable$Outbound>
+    | undefined;
   clientId?: string | undefined;
   clientTextSecret?: string | undefined;
   stateUpdateExpression?: string | undefined;
@@ -413,7 +415,7 @@ export const InputServicenowTableInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(Connection$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   instance: z.string(),
   tableName: z.string(),
@@ -437,7 +439,7 @@ export const InputServicenowTableInput$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(Metadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -445,8 +447,10 @@ export const InputServicenowTableInput$outboundSchema: z.ZodType<
   username: z.string().optional(),
   textSecret: z.string().optional(),
   useCustomOAuthParamsOrHeaders: z.boolean().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(OauthParamConfInputServicenowTable$outboundSchema)
+    .optional(),
+  oauthHeaders: z.array(OauthHeaderConfInputServicenowTable$outboundSchema)
+    .optional(),
   clientId: z.string().optional(),
   clientTextSecret: z.string().optional(),
   stateUpdateExpression: z.string().optional(),

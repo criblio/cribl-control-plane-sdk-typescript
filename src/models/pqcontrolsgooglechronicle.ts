@@ -49,7 +49,14 @@ import {
   AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret,
   AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
 } from "./authenticationtypeoptionsprometheusauthbasiccredentialssecret.js";
-import { AuthToken, AuthToken$inboundSchema } from "./authtoken.js";
+import {
+  AuthTokenConfInputCriblTcp,
+  AuthTokenConfInputCriblTcp$inboundSchema,
+} from "./authtokenconfinputcribltcp.js";
+import {
+  AuthTokenConfOutputCriblHttp,
+  AuthTokenConfOutputCriblHttp$inboundSchema,
+} from "./authtokenconfoutputcriblhttp.js";
 import {
   AuthTypeTemplatemanualApiKeyAuthType,
   AuthTypeTemplatemanualApiKeyAuthType$inboundSchema,
@@ -116,6 +123,10 @@ import {
 } from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$inboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
+import {
   FailedRequestLoggingModeOptions,
   FailedRequestLoggingModeOptions$inboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
@@ -124,46 +135,21 @@ import {
   GoogleAuthenticationMethodOptions$inboundSchema,
 } from "./googleauthenticationmethodoptions.js";
 import {
-  ItemsTypeContentConfigItemsRequestParams,
-  ItemsTypeContentConfigItemsRequestParams$inboundSchema,
-} from "./itemstypecontentconfigitemsrequestparams.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$inboundSchema,
-} from "./itemstypehosts.js";
-import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
-import {
-  ItemsTypeLogLabels,
-  ItemsTypeLogLabels$inboundSchema,
-} from "./itemstypeloglabels.js";
-import {
-  ItemsTypeOauthHeaders,
-  ItemsTypeOauthHeaders$inboundSchema,
-} from "./itemstypeoauthheaders.js";
-import {
-  ItemsTypeOauthParams,
-  ItemsTypeOauthParams$inboundSchema,
-} from "./itemstypeoauthparams.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ItemsTypeSaslSaslExtensions,
-  ItemsTypeSaslSaslExtensions$inboundSchema,
-} from "./itemstypesaslsaslextensions.js";
-import { ItemsTypeUrls, ItemsTypeUrls$inboundSchema } from "./itemstypeurls.js";
+  HostConfOutputSyslog,
+  HostConfOutputSyslog$inboundSchema,
+} from "./hostconfoutputsyslog.js";
 import {
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth,
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
 } from "./kafkaschemaregistryauthenticationtypetemplateschemaregistryurlauth.js";
+import {
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$inboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
+import {
+  LogLabelConfOutputGoogleCloudLogging,
+  LogLabelConfOutputGoogleCloudLogging$inboundSchema,
+} from "./loglabelconfoutputgooglecloudlogging.js";
 import {
   MessageFormatOptions,
   MessageFormatOptions$inboundSchema,
@@ -178,6 +164,14 @@ import {
   NotificationUnion,
   NotificationUnion$inboundSchema,
 } from "./notificationunion.js";
+import {
+  OauthHeaderConfInputServicenowTable,
+  OauthHeaderConfInputServicenowTable$inboundSchema,
+} from "./oauthheaderconfinputservicenowtable.js";
+import {
+  OauthParamConfInputServicenowTable,
+  OauthParamConfInputServicenowTable$inboundSchema,
+} from "./oauthparamconfinputservicenowtable.js";
 import {
   ObjectAclOptions,
   ObjectAclOptions$inboundSchema,
@@ -224,9 +218,21 @@ import {
   RequestFormatOptions$inboundSchema,
 } from "./requestformatoptions.js";
 import {
+  RequestParamConfInputOpenai,
+  RequestParamConfInputOpenai$inboundSchema,
+} from "./requestparamconfinputopenai.js";
+import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$inboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
+import {
   RetrySettingsType,
   RetrySettingsType$inboundSchema,
 } from "./retrysettingstype.js";
+import {
+  SaslExtensionConfInputKafka,
+  SaslExtensionConfInputKafka$inboundSchema,
+} from "./saslextensionconfinputkafka.js";
 import {
   SaslMechanismOptionsSaslOauthbearerPlain,
   SaslMechanismOptionsSaslOauthbearerPlain$inboundSchema,
@@ -272,6 +278,10 @@ import {
   TlsSettingsClientSideTypeExtended,
   TlsSettingsClientSideTypeExtended$inboundSchema,
 } from "./tlssettingsclientsidetypeextended.js";
+import {
+  UrlConfOutputCriblHttp,
+  UrlConfOutputCriblHttp$inboundSchema,
+} from "./urlconfoutputcriblhttp.js";
 
 export type OutputResponseOutputScalityS3 = {
   /**
@@ -449,7 +459,7 @@ export type OutputResponseOutputScalityS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -730,7 +740,7 @@ export type OutputResponseOutputCloudianS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -1013,7 +1023,7 @@ export type OutputResponseOutputDellS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -1276,7 +1286,7 @@ export type OutputResponseOutputAlphasocS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -1527,7 +1537,7 @@ export type OutputResponseOutputStorjS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -1786,7 +1796,7 @@ export type OutputResponseOutputNutanixObjects = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -2079,7 +2089,7 @@ export type OutputResponseOutputCloudflareR2 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -2575,7 +2585,7 @@ export type OutputResponseOutputDatabricks = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -2692,7 +2702,9 @@ export type OutputResponseOutputChronicle = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -2737,7 +2749,7 @@ export type OutputResponseOutputChronicle = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -2989,7 +3001,7 @@ export type OutputResponseOutputSentinelOneAiSiem = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -3005,7 +3017,9 @@ export type OutputResponseOutputSentinelOneAiSiem = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -3244,7 +3258,7 @@ export type OutputResponseOutputDynatraceOtlp = {
   /**
    * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
    */
-  metadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  metadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Batch event data upon dynamic metadata (whether presented or not)
    */
@@ -3314,7 +3328,7 @@ export type OutputResponseOutputDynatraceOtlp = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -3322,7 +3336,9 @@ export type OutputResponseOutputDynatraceOtlp = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -3524,7 +3540,7 @@ export type OutputResponseOutputDynatraceHttp = {
   /**
    * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -3540,7 +3556,9 @@ export type OutputResponseOutputDynatraceHttp = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -3809,7 +3827,7 @@ export type OutputResponseOutputXsiam = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -3825,7 +3843,9 @@ export type OutputResponseOutputXsiam = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -4091,7 +4111,7 @@ export type OutputResponseOutputLocalSearchStorage = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -4107,7 +4127,9 @@ export type OutputResponseOutputLocalSearchStorage = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -4358,7 +4380,7 @@ export type OutputResponseOutputClickHouse = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -4374,7 +4396,9 @@ export type OutputResponseOutputClickHouse = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -4997,7 +5021,7 @@ export type OutputResponseOutputSecurityLake = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -5335,7 +5359,7 @@ export type OutputResponseOutputDlS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -5520,7 +5544,7 @@ export type OutputResponseOutputCrowdstrikeNextGenSiem = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -5544,7 +5568,9 @@ export type OutputResponseOutputCrowdstrikeNextGenSiem = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -5694,7 +5720,7 @@ export type OutputResponseOutputHumioHec = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -5718,7 +5744,9 @@ export type OutputResponseOutputHumioHec = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -5880,7 +5908,7 @@ export type OutputResponseOutputCriblSearchEngine = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -5896,7 +5924,9 @@ export type OutputResponseOutputCriblSearchEngine = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -5905,7 +5935,7 @@ export type OutputResponseOutputCriblSearchEngine = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
-  authTokens?: Array<AuthToken> | undefined;
+  authTokens?: Array<AuthTokenConfOutputCriblHttp> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -5923,7 +5953,7 @@ export type OutputResponseOutputCriblSearchEngine = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<ItemsTypeUrls> | undefined;
+  urls?: Array<UrlConfOutputCriblHttp> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -6075,7 +6105,7 @@ export type OutputResponseOutputCriblHttp = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -6091,7 +6121,9 @@ export type OutputResponseOutputCriblHttp = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -6100,7 +6132,7 @@ export type OutputResponseOutputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
    */
-  authTokens?: Array<AuthToken> | undefined;
+  authTokens?: Array<AuthTokenConfOutputCriblHttp> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -6118,7 +6150,7 @@ export type OutputResponseOutputCriblHttp = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<ItemsTypeUrls> | undefined;
+  urls?: Array<UrlConfOutputCriblHttp> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -6254,7 +6286,7 @@ export type OutputResponseOutputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
    */
-  authTokens?: Array<AuthToken> | undefined;
+  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -6279,7 +6311,7 @@ export type OutputResponseOutputCriblTcp = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<ItemsTypeHosts> | undefined;
+  hosts?: Array<HostConfOutputSyslog> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -6472,7 +6504,9 @@ export type OutputResponseOutputDataset = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -6517,7 +6551,7 @@ export type OutputResponseOutputDataset = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -6691,7 +6725,7 @@ export type OutputResponseOutputServiceNow = {
   /**
    * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
    */
-  metadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  metadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Batch event data upon dynamic metadata (whether presented or not)
    */
@@ -6748,7 +6782,7 @@ export type OutputResponseOutputServiceNow = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -6756,7 +6790,9 @@ export type OutputResponseOutputServiceNow = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -6940,7 +6976,7 @@ export type OutputResponseOutputOpenTelemetry = {
   /**
    * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
    */
-  metadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  metadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Batch event data upon dynamic metadata (whether presented or not)
    */
@@ -7027,11 +7063,11 @@ export type OutputResponseOutputOpenTelemetry = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<OauthParamConfInputServicenowTable> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
    *
@@ -7047,7 +7083,7 @@ export type OutputResponseOutputOpenTelemetry = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -7055,7 +7091,9 @@ export type OutputResponseOutputOpenTelemetry = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -7282,7 +7320,7 @@ export type OutputResponseOutputPrometheus = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -7298,7 +7336,9 @@ export type OutputResponseOutputPrometheus = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -7441,7 +7481,7 @@ export type OutputResponseOutputLoki = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
+  labels?: Array<RequestParamConfInputOpenai> | undefined;
   authType?:
     | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
     | undefined;
@@ -7476,7 +7516,7 @@ export type OutputResponseOutputLoki = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -7492,7 +7532,9 @@ export type OutputResponseOutputLoki = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -7652,7 +7694,7 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
+  labels?: Array<RequestParamConfInputOpenai> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -7690,7 +7732,7 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -7706,7 +7748,9 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -7846,7 +7890,7 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
+  labels?: Array<RequestParamConfInputOpenai> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -7884,7 +7928,7 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -7900,7 +7944,9 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -8199,7 +8245,7 @@ export type OutputResponseOutputDatadog = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -8215,7 +8261,9 @@ export type OutputResponseOutputDatadog = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -8407,7 +8455,7 @@ export type OutputResponseOutputSumoLogic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -8423,7 +8471,9 @@ export type OutputResponseOutputSumoLogic = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -9621,7 +9671,7 @@ export type OutputResponseOutputMinio = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -10057,7 +10107,7 @@ export type OutputResponseOutputInfluxdb = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -10073,7 +10123,9 @@ export type OutputResponseOutputInfluxdb = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -10264,7 +10316,7 @@ export type OutputResponseOutputNewrelicEvents = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -10280,7 +10332,9 @@ export type OutputResponseOutputNewrelicEvents = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -10478,7 +10532,7 @@ export type OutputResponseOutputNewrelic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -10494,7 +10548,9 @@ export type OutputResponseOutputNewrelic = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -10668,7 +10724,7 @@ export type OutputResponseOutputElasticCloud = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -10680,7 +10736,7 @@ export type OutputResponseOutputElasticCloud = {
   /**
    * Extra parameters to use in HTTP requests
    */
-  extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
+  extraParams?: Array<SaslExtensionConfInputKafka> | undefined;
   auth?: AuthTypeTemplatemanualApiKeyAuthType | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
@@ -10693,7 +10749,9 @@ export type OutputResponseOutputElasticCloud = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -10913,7 +10971,7 @@ export type OutputResponseOutputElastic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -10925,13 +10983,15 @@ export type OutputResponseOutputElastic = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
+  extraParams?: Array<SaslExtensionConfInputKafka> | undefined;
   auth?: AuthTypeTemplatemanualApiKeyAuthType | undefined;
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
@@ -12083,7 +12143,7 @@ export type OutputResponseOutputGoogleCloudLogging = {
   /**
    * Labels to apply to the log entry
    */
-  logLabels?: Array<ItemsTypeLogLabels> | undefined;
+  logLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
   /**
    * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
    */
@@ -12091,7 +12151,7 @@ export type OutputResponseOutputGoogleCloudLogging = {
   /**
    * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
    */
-  resourceTypeLabels?: Array<ItemsTypeLogLabels> | undefined;
+  resourceTypeLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
   /**
    * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
    */
@@ -12565,7 +12625,7 @@ export type OutputResponseOutputGoogleCloudStorage = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -12808,7 +12868,7 @@ export const OutputResponseOutputScalityS3$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -12908,7 +12968,7 @@ export const OutputResponseOutputCloudianS3$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -13007,7 +13067,7 @@ export const OutputResponseOutputDellS3$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -13101,7 +13161,7 @@ export const OutputResponseOutputAlphasocS3$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -13192,7 +13252,7 @@ export const OutputResponseOutputStorjS3$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -13285,7 +13345,7 @@ export const OutputResponseOutputNutanixObjects$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -13393,7 +13453,7 @@ export const OutputResponseOutputCloudflareR2$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -13612,7 +13672,7 @@ export const OutputResponseOutputDatabricks$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -13705,7 +13765,7 @@ export const OutputResponseOutputChronicle$inboundSchema: z.ZodType<
     AuthenticationMethodChronicle$inboundSchema,
   ),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -13718,7 +13778,7 @@ export const OutputResponseOutputChronicle$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   failedRequestLoggingMode: types.optional(
     FailedRequestLoggingModeOptions$inboundSchema,
@@ -13829,7 +13889,7 @@ export const OutputResponseOutputSentinelOneAiSiem$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   failedRequestLoggingMode: types.optional(
     FailedRequestLoggingModeOptions$inboundSchema,
@@ -13839,7 +13899,7 @@ export const OutputResponseOutputSentinelOneAiSiem$inboundSchema: z.ZodType<
     AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   ),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -13945,7 +14005,9 @@ export const OutputResponseOutputDynatraceOtlp$inboundSchema: z.ZodType<
   httpTracesEndpointOverride: types.optional(types.string()),
   httpMetricsEndpointOverride: types.optional(types.string()),
   httpLogsEndpointOverride: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeKeyValueMetadata$inboundSchema)),
+  metadata: types.optional(
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
+  ),
   dynamicHeadersEnabled: types.optional(types.boolean()),
   dynamicHeadersField: types.optional(types.string()),
   concurrency: types.optional(types.number()),
@@ -13966,11 +14028,11 @@ export const OutputResponseOutputDynatraceOtlp$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   useRoundRobinDns: types.optional(types.boolean()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -14072,7 +14134,7 @@ export const OutputResponseOutputDynatraceHttp$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -14080,7 +14142,7 @@ export const OutputResponseOutputDynatraceHttp$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -14246,7 +14308,7 @@ export const OutputResponseOutputXsiam$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   failedRequestLoggingMode: types.optional(
     FailedRequestLoggingModeOptions$inboundSchema,
@@ -14254,7 +14316,7 @@ export const OutputResponseOutputXsiam$inboundSchema: z.ZodType<
   safeHeaders: types.optional(z.array(types.string())),
   authType: types.optional(AuthenticationMethodXsiam$inboundSchema),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -14407,7 +14469,7 @@ export const OutputResponseOutputLocalSearchStorage$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -14415,7 +14477,7 @@ export const OutputResponseOutputLocalSearchStorage$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -14552,7 +14614,7 @@ export const OutputResponseOutputClickHouse$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -14560,7 +14622,7 @@ export const OutputResponseOutputClickHouse$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -14808,7 +14870,7 @@ export const OutputResponseOutputSecurityLake$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -14921,7 +14983,7 @@ export const OutputResponseOutputDlS3$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -15000,7 +15062,7 @@ export const OutputResponseOutputCrowdstrikeNextGenSiem$inboundSchema:
       timeoutSec: types.optional(types.number()),
       flushPeriodSec: types.optional(types.number()),
       extraHttpHeaders: types.optional(
-        z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+        z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
       ),
       useRoundRobinDns: types.optional(types.boolean()),
       failedRequestLoggingMode: types.optional(
@@ -15012,7 +15074,7 @@ export const OutputResponseOutputCrowdstrikeNextGenSiem$inboundSchema:
         AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
       ),
       responseRetrySettings: types.optional(
-        z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+        z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
       ),
       timeoutRetrySettings: types.optional(
         TimeoutRetrySettingsType$inboundSchema,
@@ -15098,7 +15160,7 @@ export const OutputResponseOutputHumioHec$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -15110,7 +15172,7 @@ export const OutputResponseOutputHumioHec$inboundSchema: z.ZodType<
     AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   ),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -15189,7 +15251,7 @@ export const OutputResponseOutputCriblSearchEngine$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   failedRequestLoggingMode: types.optional(
     FailedRequestLoggingModeOptions$inboundSchema,
@@ -15197,17 +15259,19 @@ export const OutputResponseOutputCriblSearchEngine$inboundSchema: z.ZodType<
   safeHeaders: types.optional(z.array(types.string())),
   throttleRatePerSec: types.optional(types.string()),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
+  authTokens: types.optional(
+    z.array(AuthTokenConfOutputCriblHttp$inboundSchema),
+  ),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   useRoundRobinDns: types.optional(types.boolean()),
   description: types.optional(types.string()),
   url: types.optional(types.string()),
   excludeSelf: types.optional(types.boolean()),
-  urls: types.optional(z.array(ItemsTypeUrls$inboundSchema)),
+  urls: types.optional(z.array(UrlConfOutputCriblHttp$inboundSchema)),
   dnsResolvePeriodSec: types.optional(types.number()),
   loadBalanceStatsPeriodSec: types.optional(types.number()),
   pqStrictOrdering: types.optional(types.boolean()),
@@ -15284,7 +15348,7 @@ export const OutputResponseOutputCriblHttp$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   failedRequestLoggingMode: types.optional(
     FailedRequestLoggingModeOptions$inboundSchema,
@@ -15292,17 +15356,19 @@ export const OutputResponseOutputCriblHttp$inboundSchema: z.ZodType<
   safeHeaders: types.optional(z.array(types.string())),
   throttleRatePerSec: types.optional(types.string()),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
+  authTokens: types.optional(
+    z.array(AuthTokenConfOutputCriblHttp$inboundSchema),
+  ),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
   url: types.optional(types.string()),
   useRoundRobinDns: types.optional(types.boolean()),
   excludeSelf: types.optional(types.boolean()),
-  urls: types.optional(z.array(ItemsTypeUrls$inboundSchema)),
+  urls: types.optional(z.array(UrlConfOutputCriblHttp$inboundSchema)),
   dnsResolvePeriodSec: types.optional(types.number()),
   loadBalanceStatsPeriodSec: types.optional(types.number()),
   pqStrictOrdering: types.optional(types.boolean()),
@@ -15372,14 +15438,14 @@ export const OutputResponseOutputCriblTcp$inboundSchema: z.ZodType<
   connectionTimeout: types.optional(types.number()),
   writeTimeout: types.optional(types.number()),
   tokenTTLMinutes: types.optional(types.number()),
-  authTokens: types.optional(z.array(AuthToken$inboundSchema)),
+  authTokens: types.optional(z.array(AuthTokenConfInputCriblTcp$inboundSchema)),
   excludeFields: types.optional(z.array(types.string())),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
   host: types.optional(types.string()),
   port: types.optional(types.number()),
   excludeSelf: types.optional(types.boolean()),
-  hosts: types.optional(z.array(ItemsTypeHosts$inboundSchema)),
+  hosts: types.optional(z.array(HostConfOutputSyslog$inboundSchema)),
   dnsResolvePeriodSec: types.optional(types.number()),
   loadBalanceStatsPeriodSec: types.optional(types.number()),
   maxConcurrentSenders: types.optional(types.number()),
@@ -15462,7 +15528,7 @@ export const OutputResponseOutputDataset$inboundSchema: z.ZodType<
   timestampField: types.optional(types.string()),
   defaultSeverity: types.optional(SeverityDataset$inboundSchema),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -15475,7 +15541,7 @@ export const OutputResponseOutputDataset$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -15559,7 +15625,9 @@ export const OutputResponseOutputServiceNow$inboundSchema: z.ZodType<
   httpTracesEndpointOverride: types.optional(types.string()),
   httpMetricsEndpointOverride: types.optional(types.string()),
   httpLogsEndpointOverride: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeKeyValueMetadata$inboundSchema)),
+  metadata: types.optional(
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
+  ),
   dynamicHeadersEnabled: types.optional(types.boolean()),
   dynamicHeadersField: types.optional(types.string()),
   concurrency: types.optional(types.number()),
@@ -15576,11 +15644,11 @@ export const OutputResponseOutputServiceNow$inboundSchema: z.ZodType<
   rejectUnauthorized: types.optional(types.boolean()),
   useRoundRobinDns: types.optional(types.boolean()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -15669,7 +15737,9 @@ export const OutputResponseOutputOpenTelemetry$inboundSchema: z.ZodType<
   httpTracesEndpointOverride: types.optional(types.string()),
   httpMetricsEndpointOverride: types.optional(types.string()),
   httpLogsEndpointOverride: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeKeyValueMetadata$inboundSchema)),
+  metadata: types.optional(
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
+  ),
   dynamicHeadersEnabled: types.optional(types.boolean()),
   dynamicHeadersField: types.optional(types.string()),
   concurrency: types.optional(types.number()),
@@ -15695,16 +15765,20 @@ export const OutputResponseOutputOpenTelemetry$inboundSchema: z.ZodType<
   tokenAttributeName: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
+  oauthParams: types.optional(
+    z.array(OauthParamConfInputServicenowTable$inboundSchema),
+  ),
+  oauthHeaders: types.optional(
+    z.array(OauthHeaderConfInputServicenowTable$inboundSchema),
+  ),
   rejectUnauthorized: types.optional(types.boolean()),
   useRoundRobinDns: types.optional(types.boolean()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -15828,7 +15902,7 @@ export const OutputResponseOutputPrometheus$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -15836,7 +15910,7 @@ export const OutputResponseOutputPrometheus$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -15913,9 +15987,7 @@ export const OutputResponseOutputLoki$inboundSchema: z.ZodType<
   url: types.string(),
   message: types.optional(types.string()),
   messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-  labels: types.optional(
-    z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
-  ),
+  labels: types.optional(z.array(RequestParamConfInputOpenai$inboundSchema)),
   authType: types.optional(
     AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
   ),
@@ -15926,7 +15998,7 @@ export const OutputResponseOutputLoki$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -15934,7 +16006,7 @@ export const OutputResponseOutputLoki$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -16024,9 +16096,7 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud2$inboundSchema:
     prometheusUrl: types.string(),
     message: types.optional(types.string()),
     messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-    labels: types.optional(
-      z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
-    ),
+    labels: types.optional(z.array(RequestParamConfInputOpenai$inboundSchema)),
     metricRenameExpr: types.optional(types.string()),
     prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
     lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
@@ -16037,7 +16107,7 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud2$inboundSchema:
     timeoutSec: types.optional(types.number()),
     flushPeriodSec: types.optional(types.number()),
     extraHttpHeaders: types.optional(
-      z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+      z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
     ),
     useRoundRobinDns: types.optional(types.boolean()),
     failedRequestLoggingMode: types.optional(
@@ -16045,7 +16115,7 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud2$inboundSchema:
     ),
     safeHeaders: types.optional(z.array(types.string())),
     responseRetrySettings: types.optional(
-      z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+      z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
     ),
     timeoutRetrySettings: types.optional(
       TimeoutRetrySettingsType$inboundSchema,
@@ -16140,9 +16210,7 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud1$inboundSchema:
     prometheusUrl: types.optional(types.string()),
     message: types.optional(types.string()),
     messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-    labels: types.optional(
-      z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
-    ),
+    labels: types.optional(z.array(RequestParamConfInputOpenai$inboundSchema)),
     metricRenameExpr: types.optional(types.string()),
     prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
     lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
@@ -16153,7 +16221,7 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud1$inboundSchema:
     timeoutSec: types.optional(types.number()),
     flushPeriodSec: types.optional(types.number()),
     extraHttpHeaders: types.optional(
-      z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+      z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
     ),
     useRoundRobinDns: types.optional(types.boolean()),
     failedRequestLoggingMode: types.optional(
@@ -16161,7 +16229,7 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud1$inboundSchema:
     ),
     safeHeaders: types.optional(z.array(types.string())),
     responseRetrySettings: types.optional(
-      z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+      z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
     ),
     timeoutRetrySettings: types.optional(
       TimeoutRetrySettingsType$inboundSchema,
@@ -16299,7 +16367,7 @@ export const OutputResponseOutputDatadog$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -16307,7 +16375,7 @@ export const OutputResponseOutputDatadog$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -16396,7 +16464,7 @@ export const OutputResponseOutputSumoLogic$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -16404,7 +16472,7 @@ export const OutputResponseOutputSumoLogic$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -16993,7 +17061,7 @@ export const OutputResponseOutputMinio$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
@@ -17174,7 +17242,7 @@ export const OutputResponseOutputInfluxdb$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -17182,7 +17250,7 @@ export const OutputResponseOutputInfluxdb$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -17269,7 +17337,7 @@ export const OutputResponseOutputNewrelicEvents$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -17277,7 +17345,7 @@ export const OutputResponseOutputNewrelicEvents$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -17393,7 +17461,7 @@ export const OutputResponseOutputNewrelic$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   useRoundRobinDns: types.optional(types.boolean()),
   failedRequestLoggingMode: types.optional(
@@ -17401,7 +17469,7 @@ export const OutputResponseOutputNewrelic$inboundSchema: z.ZodType<
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -17483,20 +17551,20 @@ export const OutputResponseOutputElasticCloud$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   failedRequestLoggingMode: types.optional(
     FailedRequestLoggingModeOptions$inboundSchema,
   ),
   safeHeaders: types.optional(z.array(types.string())),
   extraParams: types.optional(
-    z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
+    z.array(SaslExtensionConfInputKafka$inboundSchema),
   ),
   auth: types.optional(AuthTypeTemplatemanualApiKeyAuthType$inboundSchema),
   elasticPipeline: types.optional(types.string()),
   includeDocId: types.optional(types.boolean()),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
@@ -17611,19 +17679,19 @@ export const OutputResponseOutputElastic$inboundSchema: z.ZodType<
   timeoutSec: types.optional(types.number()),
   flushPeriodSec: types.optional(types.number()),
   extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+    z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
   ),
   failedRequestLoggingMode: types.optional(
     FailedRequestLoggingModeOptions$inboundSchema,
   ),
   safeHeaders: types.optional(z.array(types.string())),
   responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+    z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   extraParams: types.optional(
-    z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
+    z.array(SaslExtensionConfInputKafka$inboundSchema),
   ),
   auth: types.optional(AuthTypeTemplatemanualApiKeyAuthType$inboundSchema),
   elasticVersion: types.optional(OutputResponseElasticVersion$inboundSchema),
@@ -18144,9 +18212,13 @@ export const OutputResponseOutputGoogleCloudLogging$inboundSchema: z.ZodType<
   logNameExpression: types.string(),
   sanitizeLogNames: types.optional(types.boolean()),
   payloadFormat: types.optional(OutputResponsePayloadFormat$inboundSchema),
-  logLabels: types.optional(z.array(ItemsTypeLogLabels$inboundSchema)),
+  logLabels: types.optional(
+    z.array(LogLabelConfOutputGoogleCloudLogging$inboundSchema),
+  ),
   resourceTypeExpression: types.optional(types.string()),
-  resourceTypeLabels: types.optional(z.array(ItemsTypeLogLabels$inboundSchema)),
+  resourceTypeLabels: types.optional(
+    z.array(LogLabelConfOutputGoogleCloudLogging$inboundSchema),
+  ),
   severityExpression: types.optional(types.string()),
   insertIdExpression: types.optional(types.string()),
   googleAuthMethod: types.optional(
@@ -18305,7 +18377,7 @@ export const OutputResponseOutputGoogleCloudStorage$inboundSchema: z.ZodType<
   parquetPageSize: types.optional(types.string()),
   shouldLogInvalidRows: types.optional(types.boolean()),
   keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
   ),
   enableStatistics: types.optional(types.boolean()),
   enableWritePageIndex: types.optional(types.boolean()),
