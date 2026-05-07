@@ -3,22 +3,16 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   DataCompressionFormatOptionsPersistence,
-  DataCompressionFormatOptionsPersistence$inboundSchema,
   DataCompressionFormatOptionsPersistence$outboundSchema,
 } from "./datacompressionformatoptionspersistence.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * Format of the output data.
@@ -91,45 +85,12 @@ export type OutputRing = {
 };
 
 /** @internal */
-export const OutputRingDataFormat$inboundSchema: z.ZodType<
-  OutputRingDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputRingDataFormat);
-/** @internal */
 export const OutputRingDataFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputRingDataFormat
 > = openEnums.outboundSchema(OutputRingDataFormat);
 
-/** @internal */
-export const OutputRing$inboundSchema: z.ZodType<
-  OutputRing,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("ring"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  format: types.optional(OutputRingDataFormat$inboundSchema),
-  partitionExpr: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(
-    DataCompressionFormatOptionsPersistence$inboundSchema,
-  ),
-  destPath: types.optional(types.string()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputRing$Outbound = {
   id?: string | undefined;
@@ -177,13 +138,4 @@ export const OutputRing$outboundSchema: z.ZodType<
 
 export function outputRingToJSON(outputRing: OutputRing): string {
   return JSON.stringify(OutputRing$outboundSchema.parse(outputRing));
-}
-export function outputRingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputRing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputRing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputRing' from JSON`,
-  );
 }

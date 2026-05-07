@@ -20,7 +20,7 @@ export type UpdateInputSystemHecTokenByPackAndIdAndTokenRequest = {
    */
   pack: string;
   /**
-   * UpdateHecTokenRequest object
+   * UpdateHecTokenRequest object.
    */
   updateHecTokenRequest: models.UpdateHecTokenRequest;
 };

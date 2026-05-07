@@ -3,78 +3,62 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
   AuthenticationMethodOptions$outboundSchema,
 } from "./authenticationmethodoptions.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
-  CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   CertificateTypeAzureBlobAuthTypeClientCert$Outbound,
   CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
 } from "./certificatetypeazureblobauthtypeclientcert.js";
 import {
   CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
   CompressionOptionsHttp,
-  CompressionOptionsHttp$inboundSchema,
   CompressionOptionsHttp$outboundSchema,
 } from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
-  DataFormatOptions$inboundSchema,
   DataFormatOptions$outboundSchema,
 } from "./dataformatoptions.js";
 import {
   DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
   DataPageVersionOptions$outboundSchema,
 } from "./datapageversionoptions.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
   ItemsTypeKeyValueMetadata$Outbound,
   ItemsTypeKeyValueMetadata$outboundSchema,
 } from "./itemstypekeyvaluemetadata.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 
-export const BlobAccessTier = {
+export const OutputAzureBlobBlobAccessTier = {
   /**
    * Default account access tier
    */
@@ -96,7 +80,9 @@ export const BlobAccessTier = {
    */
   Archive: "Archive",
 } as const;
-export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
+export type OutputAzureBlobBlobAccessTier = OpenEnum<
+  typeof OutputAzureBlobBlobAccessTier
+>;
 
 export type OutputAzureBlob = {
   /**
@@ -207,7 +193,7 @@ export type OutputAzureBlob = {
   retrySettings?: RetrySettingsType | undefined;
   orphans?: OrphanFileRecoveryType | undefined;
   authType?: AuthenticationMethodOptions | undefined;
-  storageClass?: BlobAccessTier | undefined;
+  storageClass?: OutputAzureBlobBlobAccessTier | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -373,106 +359,12 @@ export type OutputAzureBlob = {
 };
 
 /** @internal */
-export const BlobAccessTier$inboundSchema: z.ZodType<
-  BlobAccessTier,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(BlobAccessTier);
-/** @internal */
-export const BlobAccessTier$outboundSchema: z.ZodType<
+export const OutputAzureBlobBlobAccessTier$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  BlobAccessTier
-> = openEnums.outboundSchema(BlobAccessTier);
+  OutputAzureBlobBlobAccessTier
+> = openEnums.outboundSchema(OutputAzureBlobBlobAccessTier);
 
-/** @internal */
-export const OutputAzureBlob$inboundSchema: z.ZodType<
-  OutputAzureBlob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("azure_blob"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  containerName: types.string(),
-  createContainer: types.optional(types.boolean()),
-  destPath: types.optional(types.string()),
-  stagePath: types.string(),
-  addIdToStagePath: types.optional(types.boolean()),
-  maxConcurrentFileParts: types.optional(types.number()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  partitionExpr: types.optional(types.string()),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions$inboundSchema),
-  storageClass: types.optional(BlobAccessTier$inboundSchema),
-  description: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsHttp$inboundSchema),
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  connectionString: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  storageAccountName: types.optional(types.string()),
-  tenantId: types.optional(types.string()),
-  clientId: types.optional(types.string()),
-  azureCloud: types.optional(types.string()),
-  endpointSuffix: types.optional(types.string()),
-  clientTextSecret: types.optional(types.string()),
-  certificate: types.optional(
-    CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_containerName: types.optional(types.string()),
-  __template_destPath: types.optional(types.string()),
-  __template_partitionExpr: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_baseFileName: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-  __template_parquetSchema: types.optional(types.string()),
-  __template_connectionString: types.optional(types.string()),
-  __template_storageAccountName: types.optional(types.string()),
-  __template_tenantId: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-  __template_azureCloud: types.optional(types.string()),
-});
 /** @internal */
 export type OutputAzureBlob$Outbound = {
   id?: string | undefined;
@@ -587,7 +479,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   authType: AuthenticationMethodOptions$outboundSchema.optional(),
-  storageClass: BlobAccessTier$outboundSchema.optional(),
+  storageClass: OutputAzureBlobBlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
   compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
@@ -638,13 +530,4 @@ export function outputAzureBlobToJSON(
   outputAzureBlob: OutputAzureBlob,
 ): string {
   return JSON.stringify(OutputAzureBlob$outboundSchema.parse(outputAzureBlob));
-}
-export function outputAzureBlobFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureBlob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureBlob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureBlob' from JSON`,
-  );
 }

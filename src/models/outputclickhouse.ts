@@ -3,63 +3,46 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationTypeOptions,
-  AuthenticationTypeOptions$inboundSchema,
   AuthenticationTypeOptions$outboundSchema,
 } from "./authenticationtypeoptions.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
   TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
@@ -325,12 +308,6 @@ export type OutputClickHouse = {
 };
 
 /** @internal */
-export const OutputClickHouseFormat$inboundSchema: z.ZodType<
-  OutputClickHouseFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputClickHouseFormat);
-/** @internal */
 export const OutputClickHouseFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -338,28 +315,12 @@ export const OutputClickHouseFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputClickHouseFormat);
 
 /** @internal */
-export const OutputClickHouseMappingType$inboundSchema: z.ZodType<
-  OutputClickHouseMappingType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputClickHouseMappingType);
-/** @internal */
 export const OutputClickHouseMappingType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputClickHouseMappingType
 > = openEnums.outboundSchema(OutputClickHouseMappingType);
 
-/** @internal */
-export const OutputClickHouseColumnMapping$inboundSchema: z.ZodType<
-  OutputClickHouseColumnMapping,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  columnName: types.string(),
-  columnType: types.optional(types.string()),
-  columnValueExpression: types.string(),
-});
 /** @internal */
 export type OutputClickHouseColumnMapping$Outbound = {
   columnName: string;
@@ -387,22 +348,7 @@ export function outputClickHouseColumnMappingToJSON(
     ),
   );
 }
-export function outputClickHouseColumnMappingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputClickHouseColumnMapping, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputClickHouseColumnMapping$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHouseColumnMapping' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputClickHousePqControls$inboundSchema: z.ZodType<
-  OutputClickHousePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputClickHousePqControls$Outbound = {};
 
@@ -420,92 +366,7 @@ export function outputClickHousePqControlsToJSON(
     OutputClickHousePqControls$outboundSchema.parse(outputClickHousePqControls),
   );
 }
-export function outputClickHousePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputClickHousePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputClickHousePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHousePqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputClickHouse$inboundSchema: z.ZodType<
-  OutputClickHouse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("click_house"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  url: types.string(),
-  authType: types.optional(AuthenticationTypeOptions$inboundSchema),
-  database: types.string(),
-  tableName: types.string(),
-  format: types.optional(OutputClickHouseFormat$inboundSchema),
-  mappingType: types.optional(OutputClickHouseMappingType$inboundSchema),
-  asyncInserts: types.optional(types.boolean()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  dumpFormatErrorsToDisk: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
-  sqlUsername: types.optional(types.string()),
-  waitForAsyncInserts: types.optional(types.boolean()),
-  excludeMappingFields: types.optional(z.array(types.string())),
-  describeTable: types.optional(types.string()),
-  columnMappings: types.optional(
-    z.array(z.lazy(() => OutputClickHouseColumnMapping$inboundSchema)),
-  ),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputClickHousePqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-  __template_database: types.optional(types.string()),
-  __template_tableName: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputClickHouse$Outbound = {
   id?: string | undefined;
@@ -646,14 +507,5 @@ export function outputClickHouseToJSON(
 ): string {
   return JSON.stringify(
     OutputClickHouse$outboundSchema.parse(outputClickHouse),
-  );
-}
-export function outputClickHouseFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputClickHouse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputClickHouse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHouse' from JSON`,
   );
 }

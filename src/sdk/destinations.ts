@@ -40,7 +40,7 @@ export class Destinations extends ClientSDK {
   async list(
     request?: operations.ListOutputRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(destinationsList(
       this,
       request,
@@ -57,7 +57,7 @@ export class Destinations extends ClientSDK {
   async create(
     request: operations.CreateOutputRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(destinationsCreate(
       this,
       request,
@@ -74,7 +74,7 @@ export class Destinations extends ClientSDK {
   async get(
     request: operations.GetOutputByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(destinationsGet(
       this,
       request,
@@ -91,7 +91,7 @@ export class Destinations extends ClientSDK {
   async update(
     request: operations.UpdateOutputByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(destinationsUpdate(
       this,
       request,
@@ -108,7 +108,7 @@ export class Destinations extends ClientSDK {
   async delete(
     request: operations.DeleteOutputByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(destinationsDelete(
       this,
       request,

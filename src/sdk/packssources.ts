@@ -40,7 +40,7 @@ export class PacksSources extends ClientSDK {
   async list(
     request: operations.GetInputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesList(
       this,
       request,
@@ -52,12 +52,12 @@ export class PacksSources extends ClientSDK {
    * Create a Source within a Pack
    *
    * @remarks
-   * Create a new Source within the specified Pack.
+   * Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body within the specified Pack.
    */
   async create(
     request: operations.CreateInputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesCreate(
       this,
       request,
@@ -74,7 +74,7 @@ export class PacksSources extends ClientSDK {
   async get(
     request: operations.GetInputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesGet(
       this,
       request,
@@ -86,12 +86,12 @@ export class PacksSources extends ClientSDK {
    * Update a Source within a Pack
    *
    * @remarks
-   * Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+   * Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
    */
   async update(
     request: operations.UpdateInputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesUpdate(
       this,
       request,
@@ -108,7 +108,7 @@ export class PacksSources extends ClientSDK {
   async delete(
     request: operations.DeleteInputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesDelete(
       this,
       request,

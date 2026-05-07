@@ -3,52 +3,37 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -61,7 +46,7 @@ export type OutputChronicleAuthenticationMethod = OpenEnum<
   typeof OutputChronicleAuthenticationMethod
 >;
 
-export type CustomLabel = {
+export type OutputChronicleCustomLabel = {
   key: string;
   value: string;
   /**
@@ -189,7 +174,7 @@ export type OutputChronicle = {
   /**
    * Custom labels to be added to every event
    */
-  customLabels?: Array<CustomLabel> | undefined;
+  customLabels?: Array<OutputChronicleCustomLabel> | undefined;
   /**
    * Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
    */
@@ -291,12 +276,6 @@ export type OutputChronicle = {
 };
 
 /** @internal */
-export const OutputChronicleAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputChronicleAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputChronicleAuthenticationMethod);
-/** @internal */
 export const OutputChronicleAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -304,52 +283,31 @@ export const OutputChronicleAuthenticationMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputChronicleAuthenticationMethod);
 
 /** @internal */
-export const CustomLabel$inboundSchema: z.ZodType<
-  CustomLabel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: types.string(),
-  value: types.string(),
-  rbacEnabled: types.optional(types.boolean()),
-});
-/** @internal */
-export type CustomLabel$Outbound = {
+export type OutputChronicleCustomLabel$Outbound = {
   key: string;
   value: string;
   rbacEnabled?: boolean | undefined;
 };
 
 /** @internal */
-export const CustomLabel$outboundSchema: z.ZodType<
-  CustomLabel$Outbound,
+export const OutputChronicleCustomLabel$outboundSchema: z.ZodType<
+  OutputChronicleCustomLabel$Outbound,
   z.ZodTypeDef,
-  CustomLabel
+  OutputChronicleCustomLabel
 > = z.object({
   key: z.string(),
   value: z.string(),
   rbacEnabled: z.boolean().optional(),
 });
 
-export function customLabelToJSON(customLabel: CustomLabel): string {
-  return JSON.stringify(CustomLabel$outboundSchema.parse(customLabel));
-}
-export function customLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<CustomLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CustomLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CustomLabel' from JSON`,
+export function outputChronicleCustomLabelToJSON(
+  outputChronicleCustomLabel: OutputChronicleCustomLabel,
+): string {
+  return JSON.stringify(
+    OutputChronicleCustomLabel$outboundSchema.parse(outputChronicleCustomLabel),
   );
 }
 
-/** @internal */
-export const OutputChroniclePqControls$inboundSchema: z.ZodType<
-  OutputChroniclePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputChroniclePqControls$Outbound = {};
 
@@ -367,93 +325,7 @@ export function outputChroniclePqControlsToJSON(
     OutputChroniclePqControls$outboundSchema.parse(outputChroniclePqControls),
   );
 }
-export function outputChroniclePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputChroniclePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputChroniclePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputChroniclePqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputChronicle$inboundSchema: z.ZodType<
-  OutputChronicle,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("chronicle"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  apiVersion: types.optional(types.string()),
-  authenticationMethod: types.optional(
-    OutputChronicleAuthenticationMethod$inboundSchema,
-  ),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  region: types.string(),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  useRoundRobinDns: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  totalMemoryLimitKB: types.optional(types.number()),
-  ingestionMethod: types.optional(types.string()),
-  namespace: types.optional(types.string()),
-  logType: types.string(),
-  logTextField: types.optional(types.string()),
-  gcpProjectId: types.string(),
-  gcpInstance: types.string(),
-  customLabels: types.optional(
-    z.array(z.lazy(() => CustomLabel$inboundSchema)),
-  ),
-  endpoint: types.optional(types.string()),
-  description: types.optional(types.string()),
-  serviceAccountCredentials: types.optional(types.string()),
-  serviceAccountCredentialsSecret: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputChroniclePqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_namespace: types.optional(types.string()),
-  __template_logType: types.optional(types.string()),
-  __template_logTextField: types.optional(types.string()),
-  __template_gcpProjectId: types.optional(types.string()),
-  __template_gcpInstance: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-});
 /** @internal */
 export type OutputChronicle$Outbound = {
   id?: string | undefined;
@@ -489,7 +361,7 @@ export type OutputChronicle$Outbound = {
   logTextField?: string | undefined;
   gcpProjectId: string;
   gcpInstance: string;
-  customLabels?: Array<CustomLabel$Outbound> | undefined;
+  customLabels?: Array<OutputChronicleCustomLabel$Outbound> | undefined;
   endpoint?: string | undefined;
   description?: string | undefined;
   serviceAccountCredentials?: string | undefined;
@@ -559,7 +431,8 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   gcpProjectId: z.string(),
   gcpInstance: z.string(),
-  customLabels: z.array(z.lazy(() => CustomLabel$outboundSchema)).optional(),
+  customLabels: z.array(z.lazy(() => OutputChronicleCustomLabel$outboundSchema))
+    .optional(),
   endpoint: z.string().optional(),
   description: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
@@ -592,13 +465,4 @@ export function outputChronicleToJSON(
   outputChronicle: OutputChronicle,
 ): string {
   return JSON.stringify(OutputChronicle$outboundSchema.parse(outputChronicle));
-}
-export function outputChronicleFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputChronicle, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputChronicle$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputChronicle' from JSON`,
-  );
 }

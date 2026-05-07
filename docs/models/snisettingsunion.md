@@ -3,17 +3,17 @@
 
 ## Supported Types
 
-### `models.SniSettings1`
+### `models.SniSettings`
 
 ```typescript
-const value: models.SniSettings1 = {
+const value: models.SniSettings = {
   disableSNIRouting: true,
 };
 ```
 
-### `models.SniSettings2`
+### `models.EmptyObject`
 
 ```typescript
-const value: models.SniSettings2 = {};
+const value: models.EmptyObject = {};
 ```
 

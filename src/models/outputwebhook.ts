@@ -3,76 +3,57 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeOauthHeaders,
-  ItemsTypeOauthHeaders$inboundSchema,
   ItemsTypeOauthHeaders$Outbound,
   ItemsTypeOauthHeaders$outboundSchema,
 } from "./itemstypeoauthheaders.js";
 import {
   ItemsTypeOauthParams,
-  ItemsTypeOauthParams$inboundSchema,
   ItemsTypeOauthParams$Outbound,
   ItemsTypeOauthParams$outboundSchema,
 } from "./itemstypeoauthparams.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
 import {
   MethodOptions,
-  MethodOptions$inboundSchema,
   MethodOptions$outboundSchema,
 } from "./methodoptions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
   TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
@@ -798,20 +779,10 @@ export type OutputWebhookWebhook1 = {
 export type OutputWebhook = OutputWebhookWebhook1 | OutputWebhookWebhook2;
 
 /** @internal */
-export const OutputWebhookType2$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookType2
-> = z.nativeEnum(OutputWebhookType2);
-/** @internal */
 export const OutputWebhookType2$outboundSchema: z.ZodNativeEnum<
   typeof OutputWebhookType2
-> = OutputWebhookType2$inboundSchema;
+> = z.nativeEnum(OutputWebhookType2);
 
-/** @internal */
-export const OutputWebhookFormat2$inboundSchema: z.ZodType<
-  OutputWebhookFormat2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookFormat2);
 /** @internal */
 export const OutputWebhookFormat2$outboundSchema: z.ZodType<
   string,
@@ -820,24 +791,12 @@ export const OutputWebhookFormat2$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputWebhookFormat2);
 
 /** @internal */
-export const OutputWebhookAuthenticationType2$inboundSchema: z.ZodType<
-  OutputWebhookAuthenticationType2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookAuthenticationType2);
-/** @internal */
 export const OutputWebhookAuthenticationType2$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputWebhookAuthenticationType2
 > = openEnums.outboundSchema(OutputWebhookAuthenticationType2);
 
-/** @internal */
-export const OutputWebhookPqControls2$inboundSchema: z.ZodType<
-  OutputWebhookPqControls2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputWebhookPqControls2$Outbound = {};
 
@@ -855,26 +814,7 @@ export function outputWebhookPqControls2ToJSON(
     OutputWebhookPqControls2$outboundSchema.parse(outputWebhookPqControls2),
   );
 }
-export function outputWebhookPqControls2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookPqControls2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookPqControls2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookPqControls2' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWebhookUrl2$inboundSchema: z.ZodType<
-  OutputWebhookUrl2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: types.string(),
-  weight: types.optional(types.number()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputWebhookUrl2$Outbound = {
   url: string;
@@ -900,106 +840,7 @@ export function outputWebhookUrl2ToJSON(
     OutputWebhookUrl2$outboundSchema.parse(outputWebhookUrl2),
   );
 }
-export function outputWebhookUrl2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookUrl2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookUrl2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookUrl2' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWebhookWebhook2$inboundSchema: z.ZodType<
-  OutputWebhookWebhook2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: OutputWebhookType2$inboundSchema,
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  method: types.optional(MethodOptions$inboundSchema),
-  format: types.optional(OutputWebhookFormat2$inboundSchema),
-  keepAlive: types.optional(types.boolean()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(OutputWebhookAuthenticationType2$inboundSchema),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
-  totalMemoryLimitKB: types.optional(types.number()),
-  loadBalanced: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  customSourceExpression: types.optional(types.string()),
-  customDropWhenNull: types.optional(types.boolean()),
-  customEventDelimiter: types.optional(types.string()),
-  customContentType: types.optional(types.string()),
-  customPayloadExpression: types.optional(types.string()),
-  advancedContentType: types.optional(types.string()),
-  formatEventCode: types.optional(types.string()),
-  formatPayloadCode: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputWebhookPqControls2$inboundSchema),
-  ),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
-  token: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
-  url: types.optional(types.string()),
-  excludeSelf: types.optional(types.boolean()),
-  urls: z.array(z.lazy(() => OutputWebhookUrl2$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  __template_streamtags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_loginUrl: types.optional(types.string()),
-  __template_secret: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputWebhookWebhook2$Outbound = {
   id?: string | undefined;
@@ -1171,31 +1012,12 @@ export function outputWebhookWebhook2ToJSON(
     OutputWebhookWebhook2$outboundSchema.parse(outputWebhookWebhook2),
   );
 }
-export function outputWebhookWebhook2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookWebhook2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookWebhook2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookWebhook2' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWebhookType1$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookType1
-> = z.nativeEnum(OutputWebhookType1);
 /** @internal */
 export const OutputWebhookType1$outboundSchema: z.ZodNativeEnum<
   typeof OutputWebhookType1
-> = OutputWebhookType1$inboundSchema;
+> = z.nativeEnum(OutputWebhookType1);
 
-/** @internal */
-export const OutputWebhookFormat1$inboundSchema: z.ZodType<
-  OutputWebhookFormat1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookFormat1);
 /** @internal */
 export const OutputWebhookFormat1$outboundSchema: z.ZodType<
   string,
@@ -1204,24 +1026,12 @@ export const OutputWebhookFormat1$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputWebhookFormat1);
 
 /** @internal */
-export const OutputWebhookAuthenticationType1$inboundSchema: z.ZodType<
-  OutputWebhookAuthenticationType1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputWebhookAuthenticationType1);
-/** @internal */
 export const OutputWebhookAuthenticationType1$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputWebhookAuthenticationType1
 > = openEnums.outboundSchema(OutputWebhookAuthenticationType1);
 
-/** @internal */
-export const OutputWebhookPqControls1$inboundSchema: z.ZodType<
-  OutputWebhookPqControls1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputWebhookPqControls1$Outbound = {};
 
@@ -1239,26 +1049,7 @@ export function outputWebhookPqControls1ToJSON(
     OutputWebhookPqControls1$outboundSchema.parse(outputWebhookPqControls1),
   );
 }
-export function outputWebhookPqControls1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookPqControls1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookPqControls1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookPqControls1' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWebhookUrl1$inboundSchema: z.ZodType<
-  OutputWebhookUrl1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: types.string(),
-  weight: types.optional(types.number()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputWebhookUrl1$Outbound = {
   url: string;
@@ -1284,106 +1075,7 @@ export function outputWebhookUrl1ToJSON(
     OutputWebhookUrl1$outboundSchema.parse(outputWebhookUrl1),
   );
 }
-export function outputWebhookUrl1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookUrl1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookUrl1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookUrl1' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWebhookWebhook1$inboundSchema: z.ZodType<
-  OutputWebhookWebhook1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: OutputWebhookType1$inboundSchema,
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  method: types.optional(MethodOptions$inboundSchema),
-  format: types.optional(OutputWebhookFormat1$inboundSchema),
-  keepAlive: types.optional(types.boolean()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(OutputWebhookAuthenticationType1$inboundSchema),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
-  totalMemoryLimitKB: types.optional(types.number()),
-  loadBalanced: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  customSourceExpression: types.optional(types.string()),
-  customDropWhenNull: types.optional(types.boolean()),
-  customEventDelimiter: types.optional(types.string()),
-  customContentType: types.optional(types.string()),
-  customPayloadExpression: types.optional(types.string()),
-  advancedContentType: types.optional(types.string()),
-  formatEventCode: types.optional(types.string()),
-  formatPayloadCode: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputWebhookPqControls1$inboundSchema),
-  ),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
-  token: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  loginUrl: types.optional(types.string()),
-  secretParamName: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  tokenAttributeName: types.optional(types.string()),
-  authHeaderExpr: types.optional(types.string()),
-  tokenTimeoutSecs: types.optional(types.number()),
-  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
-  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
-  url: types.string(),
-  excludeSelf: types.optional(types.boolean()),
-  urls: types.optional(z.array(z.lazy(() => OutputWebhookUrl1$inboundSchema))),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  __template_streamtags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_loginUrl: types.optional(types.string()),
-  __template_secret: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputWebhookWebhook1$Outbound = {
   id?: string | undefined;
@@ -1555,25 +1247,7 @@ export function outputWebhookWebhook1ToJSON(
     OutputWebhookWebhook1$outboundSchema.parse(outputWebhookWebhook1),
   );
 }
-export function outputWebhookWebhook1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhookWebhook1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhookWebhook1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhookWebhook1' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWebhook$inboundSchema: z.ZodType<
-  OutputWebhook,
-  z.ZodTypeDef,
-  unknown
-> = smartUnion([
-  z.lazy(() => OutputWebhookWebhook1$inboundSchema),
-  z.lazy(() => OutputWebhookWebhook2$inboundSchema),
-]);
 /** @internal */
 export type OutputWebhook$Outbound =
   | OutputWebhookWebhook1$Outbound
@@ -1591,13 +1265,4 @@ export const OutputWebhook$outboundSchema: z.ZodType<
 
 export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {
   return JSON.stringify(OutputWebhook$outboundSchema.parse(outputWebhook));
-}
-export function outputWebhookFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWebhook, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWebhook$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWebhook' from JSON`,
-  );
 }

@@ -3,55 +3,39 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -218,12 +202,6 @@ export type OutputWavefront = {
 };
 
 /** @internal */
-export const OutputWavefrontPqControls$inboundSchema: z.ZodType<
-  OutputWavefrontPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputWavefrontPqControls$Outbound = {};
 
 /** @internal */
@@ -240,74 +218,7 @@ export function outputWavefrontPqControlsToJSON(
     OutputWavefrontPqControls$outboundSchema.parse(outputWavefrontPqControls),
   );
 }
-export function outputWavefrontPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWavefrontPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWavefrontPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWavefrontPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWavefront$inboundSchema: z.ZodType<
-  OutputWavefront,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("wavefront"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  domain: types.string(),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  token: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputWavefrontPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputWavefront$Outbound = {
   id?: string | undefined;
@@ -412,13 +323,4 @@ export function outputWavefrontToJSON(
   outputWavefront: OutputWavefront,
 ): string {
   return JSON.stringify(OutputWavefront$outboundSchema.parse(outputWavefront));
-}
-export function outputWavefrontFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWavefront, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWavefront$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWavefront' from JSON`,
-  );
 }

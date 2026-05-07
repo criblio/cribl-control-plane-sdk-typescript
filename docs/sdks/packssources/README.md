@@ -81,7 +81,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -92,7 +92,7 @@ run();
 
 ## create
 
-Create a new Source within the specified Pack.
+Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body within the specified Pack.
 
 ### Example Usage: InputCreateExamplesAnthropicCompliance
 
@@ -179,6 +179,75 @@ async function run() {
           jobTimeout: "300",
         },
       ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesAppleUnifiedLogs
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesAppleUnifiedLogs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
     },
   });
   if (res.ok) {
@@ -3981,9 +4050,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
 
@@ -4020,9 +4090,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
   if (res.ok) {
@@ -4917,7 +4988,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -4999,7 +5070,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -5010,7 +5081,7 @@ run();
 
 ## update
 
-Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
 
 ### Example Usage: InputCreateExamplesAnthropicCompliance
 
@@ -5099,6 +5170,77 @@ async function run() {
           jobTimeout: "300",
         },
       ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesAppleUnifiedLogs
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesAppleUnifiedLogs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
     },
   });
   if (res.ok) {
@@ -9004,9 +9146,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
 
@@ -9044,9 +9187,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
   if (res.ok) {
@@ -10103,7 +10247,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -10185,7 +10329,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 

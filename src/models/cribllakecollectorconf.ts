@@ -10,6 +10,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type CriblLakeCollectorConf = {
   /**
+   * Storage location for the Lake Dataset
+   */
+  storageLocationId: string;
+  /**
    * Lake dataset to collect data from.
    */
   dataset: string;
@@ -25,11 +29,13 @@ export const CriblLakeCollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  storageLocationId: types.string(),
   dataset: types.string(),
   __template_dataset: types.optional(types.string()),
 });
 /** @internal */
 export type CriblLakeCollectorConf$Outbound = {
+  storageLocationId: string;
   dataset: string;
   __template_dataset?: string | undefined;
 };
@@ -40,6 +46,7 @@ export const CriblLakeCollectorConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CriblLakeCollectorConf
 > = z.object({
+  storageLocationId: z.string(),
   dataset: z.string(),
   __template_dataset: z.string().optional(),
 });

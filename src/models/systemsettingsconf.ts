@@ -80,11 +80,11 @@ import {
   TlsSettingsUnion$outboundSchema,
 } from "./tlssettingsunion.js";
 import {
-  UpgradeGroupSettingsUnion,
-  UpgradeGroupSettingsUnion$inboundSchema,
-  UpgradeGroupSettingsUnion$Outbound,
-  UpgradeGroupSettingsUnion$outboundSchema,
-} from "./upgradegroupsettingsunion.js";
+  UpgradeGroupSettings,
+  UpgradeGroupSettings$inboundSchema,
+  UpgradeGroupSettings$Outbound,
+  UpgradeGroupSettings$outboundSchema,
+} from "./upgradegroupsettings.js";
 import {
   UpgradeSettings,
   UpgradeSettings$inboundSchema,
@@ -111,7 +111,7 @@ export type SystemSettingsConf = {
   support?: SupportTypeSystemSettingsConf | undefined;
   system: SystemTypeSystemSettingsConf;
   tls: TlsSettingsUnion;
-  upgradeGroupSettings: UpgradeGroupSettingsUnion;
+  upgradeGroupSettings: UpgradeGroupSettings;
   upgradeSettings: UpgradeSettings;
   workers: WorkersTypeSystemSettingsConf;
 };
@@ -134,7 +134,7 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
   support: types.optional(SupportTypeSystemSettingsConf$inboundSchema),
   system: SystemTypeSystemSettingsConf$inboundSchema,
   tls: TlsSettingsUnion$inboundSchema,
-  upgradeGroupSettings: UpgradeGroupSettingsUnion$inboundSchema,
+  upgradeGroupSettings: UpgradeGroupSettings$inboundSchema,
   upgradeSettings: UpgradeSettings$inboundSchema,
   workers: WorkersTypeSystemSettingsConf$inboundSchema,
 });
@@ -152,7 +152,7 @@ export type SystemSettingsConf$Outbound = {
   support?: SupportTypeSystemSettingsConf$Outbound | undefined;
   system: SystemTypeSystemSettingsConf$Outbound;
   tls: TlsSettingsUnion$Outbound;
-  upgradeGroupSettings: UpgradeGroupSettingsUnion$Outbound;
+  upgradeGroupSettings: UpgradeGroupSettings$Outbound;
   upgradeSettings: UpgradeSettings$Outbound;
   workers: WorkersTypeSystemSettingsConf$Outbound;
 };
@@ -175,7 +175,7 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
   support: SupportTypeSystemSettingsConf$outboundSchema.optional(),
   system: SystemTypeSystemSettingsConf$outboundSchema,
   tls: TlsSettingsUnion$outboundSchema,
-  upgradeGroupSettings: UpgradeGroupSettingsUnion$outboundSchema,
+  upgradeGroupSettings: UpgradeGroupSettings$outboundSchema,
   upgradeSettings: UpgradeSettings$outboundSchema,
   workers: WorkersTypeSystemSettingsConf$outboundSchema,
 });

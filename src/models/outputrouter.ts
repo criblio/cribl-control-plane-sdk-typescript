@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputRouterRule = {
   /**
@@ -61,17 +57,6 @@ export type OutputRouter = {
 };
 
 /** @internal */
-export const OutputRouterRule$inboundSchema: z.ZodType<
-  OutputRouterRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: types.string(),
-  output: types.string(),
-  description: types.optional(types.string()),
-  final: types.optional(types.boolean()),
-});
-/** @internal */
 export type OutputRouterRule$Outbound = {
   filter: string;
   output: string;
@@ -98,32 +83,7 @@ export function outputRouterRuleToJSON(
     OutputRouterRule$outboundSchema.parse(outputRouterRule),
   );
 }
-export function outputRouterRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputRouterRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputRouterRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputRouterRule' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputRouter$inboundSchema: z.ZodType<
-  OutputRouter,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("router"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  rules: z.array(z.lazy(() => OutputRouterRule$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-});
 /** @internal */
 export type OutputRouter$Outbound = {
   id?: string | undefined;
@@ -156,13 +116,4 @@ export const OutputRouter$outboundSchema: z.ZodType<
 
 export function outputRouterToJSON(outputRouter: OutputRouter): string {
   return JSON.stringify(OutputRouter$outboundSchema.parse(outputRouter));
-}
-export function outputRouterFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputRouter, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputRouter$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputRouter' from JSON`,
-  );
 }

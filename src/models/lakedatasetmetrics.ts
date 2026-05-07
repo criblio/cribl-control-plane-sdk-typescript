@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type LakeDatasetMetrics = {
+  /**
+   * Total current logical size of the Dataset, in bytes.
+   */
   currentSizeBytes: number;
+  /**
+   * Timestamp (ISO 8601) when the metrics snapshot was generated.
+   */
   metricsDate: string;
 };
 

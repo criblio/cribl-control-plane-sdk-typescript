@@ -3,61 +3,44 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
   TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
@@ -250,12 +233,6 @@ export type OutputWizHec = {
 };
 
 /** @internal */
-export const OutputWizHecPqControls$inboundSchema: z.ZodType<
-  OutputWizHecPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputWizHecPqControls$Outbound = {};
 
 /** @internal */
@@ -272,84 +249,7 @@ export function outputWizHecPqControlsToJSON(
     OutputWizHecPqControls$outboundSchema.parse(outputWizHecPqControls),
   );
 }
-export function outputWizHecPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWizHecPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWizHecPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWizHecPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputWizHec$inboundSchema: z.ZodType<
-  OutputWizHec,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("wiz_hec"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  nextQueue: types.optional(types.string()),
-  tcpRouting: types.optional(types.string()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  wiz_connector_id: types.string(),
-  wiz_environment: types.string(),
-  data_center: types.string(),
-  wiz_sourcetype: types.string(),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputWizHecPqControls$inboundSchema),
-  ),
-  token: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_wiz_environment: types.optional(types.string()),
-  __template_data_center: types.optional(types.string()),
-  __template_wiz_sourcetype: types.optional(types.string()),
-});
 /** @internal */
 export type OutputWizHec$Outbound = {
   id?: string | undefined;
@@ -469,13 +369,4 @@ export const OutputWizHec$outboundSchema: z.ZodType<
 
 export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
   return JSON.stringify(OutputWizHec$outboundSchema.parse(outputWizHec));
-}
-export function outputWizHecFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWizHec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWizHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWizHec' from JSON`,
-  );
 }

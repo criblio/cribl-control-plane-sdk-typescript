@@ -16,7 +16,7 @@ export type CreateInputSystemHecTokenByPackAndIdRequest = {
    */
   pack: string;
   /**
-   * AddHecTokenRequest object
+   * AddHecTokenRequest object.
    */
   addHecTokenRequest: models.AddHecTokenRequest;
 };

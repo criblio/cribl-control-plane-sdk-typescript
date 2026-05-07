@@ -12,7 +12,7 @@ export type CreateConfigGroupByProductRequest = {
    */
   product: models.ProductsCore;
   /**
-   * GroupCreateRequest object
+   * GroupCreateRequest object.
    */
   groupCreateRequest: models.GroupCreateRequest;
 };

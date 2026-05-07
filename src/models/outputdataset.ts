@@ -3,57 +3,41 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsApi,
-  AuthenticationMethodOptionsApi$inboundSchema,
   AuthenticationMethodOptionsApi$outboundSchema,
 } from "./authenticationmethodoptionsapi.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
   ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
   ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
   ItemsTypeResponseRetrySettings$Outbound,
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -99,7 +83,7 @@ export type OutputDatasetSeverity = OpenEnum<typeof OutputDatasetSeverity>;
 /**
  * DataSet site to which events should be sent
  */
-export const DataSetSite = {
+export const OutputDatasetDataSetSite = {
   /**
    * US
    */
@@ -116,7 +100,9 @@ export const DataSetSite = {
 /**
  * DataSet site to which events should be sent
  */
-export type DataSetSite = OpenEnum<typeof DataSetSite>;
+export type OutputDatasetDataSetSite = OpenEnum<
+  typeof OutputDatasetDataSetSite
+>;
 
 export type OutputDatasetPqControls = {};
 
@@ -174,7 +160,7 @@ export type OutputDataset = {
   /**
    * DataSet site to which events should be sent
    */
-  site?: DataSetSite | undefined;
+  site?: OutputDatasetDataSetSite | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -309,12 +295,6 @@ export type OutputDataset = {
 };
 
 /** @internal */
-export const OutputDatasetSeverity$inboundSchema: z.ZodType<
-  OutputDatasetSeverity,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatasetSeverity);
-/** @internal */
 export const OutputDatasetSeverity$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -322,24 +302,12 @@ export const OutputDatasetSeverity$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputDatasetSeverity);
 
 /** @internal */
-export const DataSetSite$inboundSchema: z.ZodType<
-  DataSetSite,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(DataSetSite);
-/** @internal */
-export const DataSetSite$outboundSchema: z.ZodType<
+export const OutputDatasetDataSetSite$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DataSetSite
-> = openEnums.outboundSchema(DataSetSite);
+  OutputDatasetDataSetSite
+> = openEnums.outboundSchema(OutputDatasetDataSetSite);
 
-/** @internal */
-export const OutputDatasetPqControls$inboundSchema: z.ZodType<
-  OutputDatasetPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputDatasetPqControls$Outbound = {};
 
@@ -357,80 +325,7 @@ export function outputDatasetPqControlsToJSON(
     OutputDatasetPqControls$outboundSchema.parse(outputDatasetPqControls),
   );
 }
-export function outputDatasetPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputDataset$inboundSchema: z.ZodType<
-  OutputDataset,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("dataset"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  messageField: types.optional(types.string()),
-  excludeFields: types.optional(z.array(types.string())),
-  serverHostField: types.optional(types.string()),
-  timestampField: types.optional(types.string()),
-  defaultSeverity: types.optional(OutputDatasetSeverity$inboundSchema),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  site: types.optional(DataSetSite$inboundSchema),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptionsApi$inboundSchema),
-  totalMemoryLimitKB: types.optional(types.number()),
-  description: types.optional(types.string()),
-  customUrl: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputDatasetPqControls$inboundSchema),
-  ),
-  apiKey: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_customUrl: types.optional(types.string()),
-});
 /** @internal */
 export type OutputDataset$Outbound = {
   id?: string | undefined;
@@ -507,7 +402,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  site: DataSetSite$outboundSchema.optional(),
+  site: OutputDatasetDataSetSite$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -548,13 +443,4 @@ export const OutputDataset$outboundSchema: z.ZodType<
 
 export function outputDatasetToJSON(outputDataset: OutputDataset): string {
   return JSON.stringify(OutputDataset$outboundSchema.parse(outputDataset));
-}
-export function outputDatasetFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDataset, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDataset$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDataset' from JSON`,
-  );
 }

@@ -562,6 +562,18 @@ const value: models.PipelineFunctionSampling = {
 };
 ```
 
+### `models.PipelineFunctionSearchEngineExport`
+
+```typescript
+const value: models.PipelineFunctionSearchEngineExport = {
+  id: "search_engine_export",
+  conf: {
+    searchJobId: "<id>",
+    dataset: "<value>",
+  },
+};
+```
+
 ### `models.PipelineFunctionSend`
 
 ```typescript

@@ -11,6 +11,7 @@ const value: models.SavedJobResponseCollection = {
   collector: {
     type: "cribl_lake",
     conf: {
+      storageLocationId: "<id>",
       dataset: "<value>",
     },
   },
