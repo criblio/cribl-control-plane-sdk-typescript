@@ -14,10 +14,10 @@ import {
 } from "./cacheconnection.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  FormatOptions,
-  FormatOptions$inboundSchema,
-  FormatOptions$outboundSchema,
-} from "./formatoptions.js";
+  FormatOptionsCriblLakeDataset,
+  FormatOptionsCriblLakeDataset$inboundSchema,
+  FormatOptionsCriblLakeDataset$outboundSchema,
+} from "./formatoptionscribllakedataset.js";
 import {
   LakeDatasetMetrics,
   LakeDatasetMetrics$inboundSchema,
@@ -30,20 +30,59 @@ import {
   LakeDatasetSearchConfig$Outbound,
   LakeDatasetSearchConfig$outboundSchema,
 } from "./lakedatasetsearchconfig.js";
+import {
+  StorageClassOptionsCriblLakeDataset,
+  StorageClassOptionsCriblLakeDataset$inboundSchema,
+  StorageClassOptionsCriblLakeDataset$outboundSchema,
+} from "./storageclassoptionscribllakedataset.js";
 
 export type CriblLakeDataset = {
+  /**
+   * Accelerated fields for the Dataset. Data is partitioned by these fields in storage to improve query performance.
+   */
   acceleratedFields?: Array<string> | undefined;
+  /**
+   * Name of the legacy Cribl Lake bucket that backs the Dataset. Mutually exclusive with <code>storageLocationId</code>.
+   */
   bucketName?: string | undefined;
   cacheConnection?: CacheConnection | undefined;
+  /**
+   * Timestamp (in Unix time) when Dataset deletion was initiated, in milliseconds.
+   */
   deletionStartedAt?: number | undefined;
+  /**
+   * Brief description of the Dataset.
+   */
   description?: string | undefined;
-  format?: FormatOptions | undefined;
+  /**
+   * Storage format used for data persisted in the Dataset.
+   */
+  format?: FormatOptionsCriblLakeDataset | undefined;
+  /**
+   * If <code>true</code>, the Dataset is used by Direct Access HTTP.
+   */
   httpDAUsed?: boolean | undefined;
+  /**
+   * Unique identifier for the Dataset.
+   */
   id: string;
   metrics?: LakeDatasetMetrics | undefined;
+  /**
+   * Dataset retention period, in days.
+   */
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig | undefined;
+  /**
+   * Storage class used for objects written to the Dataset.
+   */
+  storageClass?: StorageClassOptionsCriblLakeDataset | undefined;
+  /**
+   * Identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
+   */
   storageLocationId?: string | undefined;
+  /**
+   * Name of the ClickHouse view for the Dataset on the Lakehouse.
+   */
   viewName?: string | undefined;
 };
 
@@ -58,12 +97,15 @@ export const CriblLakeDataset$inboundSchema: z.ZodType<
   cacheConnection: types.optional(CacheConnection$inboundSchema),
   deletionStartedAt: types.optional(types.number()),
   description: types.optional(types.string()),
-  format: types.optional(FormatOptions$inboundSchema),
+  format: types.optional(FormatOptionsCriblLakeDataset$inboundSchema),
   httpDAUsed: types.optional(types.boolean()),
   id: types.string(),
   metrics: types.optional(LakeDatasetMetrics$inboundSchema),
   retentionPeriodInDays: types.optional(types.number()),
   searchConfig: types.optional(LakeDatasetSearchConfig$inboundSchema),
+  storageClass: types.optional(
+    StorageClassOptionsCriblLakeDataset$inboundSchema,
+  ),
   storageLocationId: types.optional(types.string()),
   viewName: types.optional(types.string()),
 });
@@ -80,6 +122,7 @@ export type CriblLakeDataset$Outbound = {
   metrics?: LakeDatasetMetrics$Outbound | undefined;
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig$Outbound | undefined;
+  storageClass?: string | undefined;
   storageLocationId?: string | undefined;
   viewName?: string | undefined;
 };
@@ -95,12 +138,13 @@ export const CriblLakeDataset$outboundSchema: z.ZodType<
   cacheConnection: CacheConnection$outboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: FormatOptions$outboundSchema.optional(),
+  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string(),
   metrics: LakeDatasetMetrics$outboundSchema.optional(),
-  retentionPeriodInDays: z.number().optional(),
+  retentionPeriodInDays: z.number().int().optional(),
   searchConfig: LakeDatasetSearchConfig$outboundSchema.optional(),
+  storageClass: StorageClassOptionsCriblLakeDataset$outboundSchema.optional(),
   storageLocationId: z.string().optional(),
   viewName: z.string().optional(),
 });

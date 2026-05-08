@@ -3,78 +3,62 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
   AuthenticationMethodOptions$outboundSchema,
 } from "./authenticationmethodoptions.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CertificateTypeAzureBlobAuthTypeClientCert,
-  CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   CertificateTypeAzureBlobAuthTypeClientCert$Outbound,
   CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema,
 } from "./certificatetypeazureblobauthtypeclientcert.js";
 import {
   CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
-  CompressionOptions2,
-  CompressionOptions2$inboundSchema,
-  CompressionOptions2$outboundSchema,
-} from "./compressionoptions2.js";
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
-  DataFormatOptions$inboundSchema,
   DataFormatOptions$outboundSchema,
 } from "./dataformatoptions.js";
 import {
   DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
   DataPageVersionOptions$outboundSchema,
 } from "./datapageversionoptions.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$Outbound,
+  KeyValueMetadataConfOutputFilesystem$outboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 
-export const BlobAccessTier = {
+export const OutputAzureBlobBlobAccessTier = {
   /**
    * Default account access tier
    */
@@ -96,7 +80,9 @@ export const BlobAccessTier = {
    */
   Archive: "Archive",
 } as const;
-export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
+export type OutputAzureBlobBlobAccessTier = OpenEnum<
+  typeof OutputAzureBlobBlobAccessTier
+>;
 
 export type OutputAzureBlob = {
   /**
@@ -191,7 +177,7 @@ export type OutputAzureBlob = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -207,12 +193,12 @@ export type OutputAzureBlob = {
   retrySettings?: RetrySettingsType | undefined;
   orphans?: OrphanFileRecoveryType | undefined;
   authType?: AuthenticationMethodOptions | undefined;
-  storageClass?: BlobAccessTier | undefined;
+  storageClass?: OutputAzureBlobBlobAccessTier | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress?: CompressionOptionsHttp | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -248,7 +234,7 @@ export type OutputAzureBlob = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -311,17 +297,53 @@ export type OutputAzureBlob = {
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
    * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
    */
   __template_containerName?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
   /**
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
   /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
    * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
    */
   __template_connectionString?: string | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
   /**
    * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
    */
@@ -330,97 +352,19 @@ export type OutputAzureBlob = {
    * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
    */
   __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
-export const BlobAccessTier$inboundSchema: z.ZodType<
-  BlobAccessTier,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(BlobAccessTier);
-/** @internal */
-export const BlobAccessTier$outboundSchema: z.ZodType<
+export const OutputAzureBlobBlobAccessTier$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  BlobAccessTier
-> = openEnums.outboundSchema(BlobAccessTier);
+  OutputAzureBlobBlobAccessTier
+> = openEnums.outboundSchema(OutputAzureBlobBlobAccessTier);
 
-/** @internal */
-export const OutputAzureBlob$inboundSchema: z.ZodType<
-  OutputAzureBlob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("azure_blob"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  containerName: types.string(),
-  createContainer: types.optional(types.boolean()),
-  destPath: types.optional(types.string()),
-  stagePath: types.string(),
-  addIdToStagePath: types.optional(types.boolean()),
-  maxConcurrentFileParts: types.optional(types.number()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  partitionExpr: types.optional(types.string()),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  authType: types.optional(AuthenticationMethodOptions$inboundSchema),
-  storageClass: types.optional(BlobAccessTier$inboundSchema),
-  description: types.optional(types.string()),
-  compress: types.optional(CompressionOptions2$inboundSchema),
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  connectionString: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  storageAccountName: types.optional(types.string()),
-  tenantId: types.optional(types.string()),
-  clientId: types.optional(types.string()),
-  azureCloud: types.optional(types.string()),
-  endpointSuffix: types.optional(types.string()),
-  clientTextSecret: types.optional(types.string()),
-  certificate: types.optional(
-    CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
-  ),
-  __template_containerName: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_connectionString: types.optional(types.string()),
-  __template_tenantId: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-});
 /** @internal */
 export type OutputAzureBlob$Outbound = {
   id?: string | undefined;
@@ -464,7 +408,9 @@ export type OutputAzureBlob$Outbound = {
   parquetRowGroupLength?: number | undefined;
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  keyValueMetadata?:
+    | Array<KeyValueMetadataConfOutputFilesystem$Outbound>
+    | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
   enablePageChecksum?: boolean | undefined;
@@ -481,11 +427,21 @@ export type OutputAzureBlob$Outbound = {
   endpointSuffix?: string | undefined;
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  __template_streamtags?: string | undefined;
   __template_containerName?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_partitionExpr?: string | undefined;
   __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
   __template_connectionString?: string | undefined;
+  __template_storageAccountName?: string | undefined;
   __template_tenantId?: string | undefined;
   __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
 };
 
 /** @internal */
@@ -517,16 +473,17 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().optional(),
   headerLine: z.string().optional(),
   writeHighWaterMark: z.number().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   authType: AuthenticationMethodOptions$outboundSchema.optional(),
-  storageClass: BlobAccessTier$outboundSchema.optional(),
+  storageClass: OutputAzureBlobBlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: CompressionOptions2$outboundSchema.optional(),
+  compress: CompressionOptionsHttp$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
   automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
@@ -535,7 +492,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+  keyValueMetadata: z.array(KeyValueMetadataConfOutputFilesystem$outboundSchema)
     .optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),
@@ -554,24 +511,25 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_streamtags: z.string().optional(),
   __template_containerName: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_partitionExpr: z.string().optional(),
   __template_format: z.string().optional(),
+  __template_baseFileName: z.string().optional(),
+  __template_fileNameSuffix: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
   __template_connectionString: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
   __template_tenantId: z.string().optional(),
   __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
 });
 
 export function outputAzureBlobToJSON(
   outputAzureBlob: OutputAzureBlob,
 ): string {
   return JSON.stringify(OutputAzureBlob$outboundSchema.parse(outputAzureBlob));
-}
-export function outputAzureBlobFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureBlob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureBlob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureBlob' from JSON`,
-  );
 }

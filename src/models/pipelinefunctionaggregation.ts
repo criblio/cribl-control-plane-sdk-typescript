@@ -6,13 +6,13 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeAdd,
-  ItemsTypeAdd$inboundSchema,
-  ItemsTypeAdd$Outbound,
-  ItemsTypeAdd$outboundSchema,
-} from "./itemstypeadd.js";
+  AddConfFunctionConfSchemaAggregation,
+  AddConfFunctionConfSchemaAggregation$inboundSchema,
+  AddConfFunctionConfSchemaAggregation$Outbound,
+  AddConfFunctionConfSchemaAggregation$outboundSchema,
+} from "./addconffunctionconfschemaaggregation.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PipelineFunctionAggregationConf = {
   /**
@@ -66,7 +66,7 @@ export type PipelineFunctionAggregationConf = {
   /**
    * Set of key-value pairs to evaluate and add/set
    */
-  add?: Array<ItemsTypeAdd> | undefined;
+  add?: Array<AddConfFunctionConfSchemaAggregation> | undefined;
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
@@ -135,7 +135,9 @@ export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   flushMemLimit: types.optional(types.string()),
   cumulative: types.optional(types.boolean()),
   searchAggMode: types.optional(types.string()),
-  add: types.optional(z.array(ItemsTypeAdd$inboundSchema)),
+  add: types.optional(
+    z.array(AddConfFunctionConfSchemaAggregation$inboundSchema),
+  ),
   shouldTreatDotsAsLiterals: types.optional(types.boolean()),
   flushOnInputClose: types.optional(types.boolean()),
   printUndefineds: types.optional(types.boolean()),
@@ -156,7 +158,7 @@ export type PipelineFunctionAggregationConf$Outbound = {
   flushMemLimit?: string | undefined;
   cumulative?: boolean | undefined;
   searchAggMode?: string | undefined;
-  add?: Array<ItemsTypeAdd$Outbound> | undefined;
+  add?: Array<AddConfFunctionConfSchemaAggregation$Outbound> | undefined;
   shouldTreatDotsAsLiterals?: boolean | undefined;
   flushOnInputClose?: boolean | undefined;
   printUndefineds?: boolean | undefined;
@@ -182,7 +184,7 @@ export const PipelineFunctionAggregationConf$outboundSchema: z.ZodType<
   flushMemLimit: z.string().optional(),
   cumulative: z.boolean().optional(),
   searchAggMode: z.string().optional(),
-  add: z.array(ItemsTypeAdd$outboundSchema).optional(),
+  add: z.array(AddConfFunctionConfSchemaAggregation$outboundSchema).optional(),
   shouldTreatDotsAsLiterals: z.boolean().optional(),
   flushOnInputClose: z.boolean().optional(),
   printUndefineds: z.boolean().optional(),

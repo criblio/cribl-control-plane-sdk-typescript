@@ -10,7 +10,7 @@ export type GetPipelinesByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to get.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };

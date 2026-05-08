@@ -7,77 +7,52 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  EmptyObject,
+  EmptyObject$inboundSchema,
+  EmptyObject$Outbound,
+  EmptyObject$outboundSchema,
+} from "./emptyobject.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type SniSettings2 = {};
-
-export type SniSettings1 = {
+export type SniSettings = {
   disableSNIRouting: boolean;
 };
 
-export type SniSettingsUnion = SniSettings1 | SniSettings2;
+export type SniSettingsUnion = SniSettings | EmptyObject;
 
 /** @internal */
-export const SniSettings2$inboundSchema: z.ZodType<
-  SniSettings2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type SniSettings2$Outbound = {};
-
-/** @internal */
-export const SniSettings2$outboundSchema: z.ZodType<
-  SniSettings2$Outbound,
-  z.ZodTypeDef,
-  SniSettings2
-> = z.object({});
-
-export function sniSettings2ToJSON(sniSettings2: SniSettings2): string {
-  return JSON.stringify(SniSettings2$outboundSchema.parse(sniSettings2));
-}
-export function sniSettings2FromJSON(
-  jsonString: string,
-): SafeParseResult<SniSettings2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SniSettings2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SniSettings2' from JSON`,
-  );
-}
-
-/** @internal */
-export const SniSettings1$inboundSchema: z.ZodType<
-  SniSettings1,
+export const SniSettings$inboundSchema: z.ZodType<
+  SniSettings,
   z.ZodTypeDef,
   unknown
 > = z.object({
   disableSNIRouting: types.boolean(),
 });
 /** @internal */
-export type SniSettings1$Outbound = {
+export type SniSettings$Outbound = {
   disableSNIRouting: boolean;
 };
 
 /** @internal */
-export const SniSettings1$outboundSchema: z.ZodType<
-  SniSettings1$Outbound,
+export const SniSettings$outboundSchema: z.ZodType<
+  SniSettings$Outbound,
   z.ZodTypeDef,
-  SniSettings1
+  SniSettings
 > = z.object({
   disableSNIRouting: z.boolean(),
 });
 
-export function sniSettings1ToJSON(sniSettings1: SniSettings1): string {
-  return JSON.stringify(SniSettings1$outboundSchema.parse(sniSettings1));
+export function sniSettingsToJSON(sniSettings: SniSettings): string {
+  return JSON.stringify(SniSettings$outboundSchema.parse(sniSettings));
 }
-export function sniSettings1FromJSON(
+export function sniSettingsFromJSON(
   jsonString: string,
-): SafeParseResult<SniSettings1, SDKValidationError> {
+): SafeParseResult<SniSettings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SniSettings1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SniSettings1' from JSON`,
+    (x) => SniSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SniSettings' from JSON`,
   );
 }
 
@@ -87,13 +62,13 @@ export const SniSettingsUnion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = smartUnion([
-  z.lazy(() => SniSettings1$inboundSchema),
-  z.lazy(() => SniSettings2$inboundSchema),
+  z.lazy(() => SniSettings$inboundSchema),
+  EmptyObject$inboundSchema,
 ]);
 /** @internal */
 export type SniSettingsUnion$Outbound =
-  | SniSettings1$Outbound
-  | SniSettings2$Outbound;
+  | SniSettings$Outbound
+  | EmptyObject$Outbound;
 
 /** @internal */
 export const SniSettingsUnion$outboundSchema: z.ZodType<
@@ -101,8 +76,8 @@ export const SniSettingsUnion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SniSettingsUnion
 > = smartUnion([
-  z.lazy(() => SniSettings1$outboundSchema),
-  z.lazy(() => SniSettings2$outboundSchema),
+  z.lazy(() => SniSettings$outboundSchema),
+  EmptyObject$outboundSchema,
 ]);
 
 export function sniSettingsUnionToJSON(

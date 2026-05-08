@@ -12,7 +12,7 @@ export type UpdateProductsWorkersRestartByProductRequest = {
    */
   product: models.ProductsBase;
   /**
-   * RestartRequest object
+   * RestartRequest object.
    */
   restartRequest: models.RestartRequest;
 };

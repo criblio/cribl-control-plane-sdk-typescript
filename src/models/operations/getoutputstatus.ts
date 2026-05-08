@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetOutputStatusRequest = {
   /**
@@ -13,12 +18,26 @@ export type GetOutputStatusRequest = {
    * Set to <code>true</code> to prefix the Destination <code>id</code> with the Destination type. Otherwise, <code>false</code> (default).
    */
   type?: boolean | undefined;
+  /**
+   * Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
+   */
+  limit?: number | undefined;
+};
+
+export type GetOutputStatusResponse = {
+  result: models.CountedOutputStatus;
 };
 
 /** @internal */
 export type GetOutputStatusRequest$Outbound = {
   metrics?: boolean | undefined;
   type?: boolean | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -29,6 +48,8 @@ export const GetOutputStatusRequest$outboundSchema: z.ZodType<
 > = z.object({
   metrics: z.boolean().optional(),
   type: z.boolean().optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getOutputStatusRequestToJSON(
@@ -36,5 +57,28 @@ export function getOutputStatusRequestToJSON(
 ): string {
   return JSON.stringify(
     GetOutputStatusRequest$outboundSchema.parse(getOutputStatusRequest),
+  );
+}
+
+/** @internal */
+export const GetOutputStatusResponse$inboundSchema: z.ZodType<
+  GetOutputStatusResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.CountedOutputStatus$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getOutputStatusResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOutputStatusResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOutputStatusResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOutputStatusResponse' from JSON`,
   );
 }

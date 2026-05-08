@@ -36,7 +36,7 @@ import { Result } from "../types/fp.js";
  */
 export function systemCapturesCreate(
   client: CriblControlPlaneCore,
-  request: models.CaptureParams,
+  request: models.CaptureParamsReq,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,7 +61,7 @@ export function systemCapturesCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.CaptureParams,
+  request: models.CaptureParamsReq,
   options?: RequestOptions,
 ): Promise<
   [
@@ -82,7 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.CaptureParams$outboundSchema.parse(value),
+    (value) => models.CaptureParamsReq$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

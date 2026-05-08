@@ -12,11 +12,11 @@ export type CreateOutputSystemTestByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to create.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**
-   * OutputTestRequest object
+   * OutputTestRequest object.
    */
   outputTestRequest: models.OutputTestRequest;
 };

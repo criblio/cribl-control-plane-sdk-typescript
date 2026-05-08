@@ -12,7 +12,7 @@ export type UpdatePacksByIdRequest = {
    */
   id: string;
   /**
-   * PackUpgradeRequest object
+   * PackUpgradeRequest object.
    */
   packUpgradeRequest: models.PackUpgradeRequest;
 };

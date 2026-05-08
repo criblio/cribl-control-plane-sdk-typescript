@@ -313,7 +313,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment for a specific product
+* [get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -434,7 +434,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 #### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
 * [list](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-* [update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+* [update](docs/sdks/cribl/README.md#update) - Update system settings
 
 ### [Versions.Branches](docs/sdks/branches/README.md)
 
@@ -524,7 +524,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nodesGet`](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
 - [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
 - [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
-- [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment for a specific product
+- [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
 - [`packsDestinationsDelete`](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
@@ -584,7 +584,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
 - [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
 - [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-- [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+- [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update system settings
 - [`systemSettingsRestart`](docs/sdks/settings/README.md#restart) - Restart the Cribl server
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 - [`versionsBranchesList`](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
@@ -666,9 +666,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.nodes.list({
-    product: "stream",
-  });
+  const result = await criblControlPlane.sources.statuses.list();
 
   for await (const page of result) {
     console.log(page);

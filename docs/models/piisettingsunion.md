@@ -3,17 +3,17 @@
 
 ## Supported Types
 
-### `models.PiiSettings1`
+### `models.PiiSettings`
 
 ```typescript
-const value: models.PiiSettings1 = {
+const value: models.PiiSettings = {
   enablePiiDetection: true,
 };
 ```
 
-### `models.PiiSettings2`
+### `models.EmptyObject`
 
 ```typescript
-const value: models.PiiSettings2 = {};
+const value: models.EmptyObject = {};
 ```
 

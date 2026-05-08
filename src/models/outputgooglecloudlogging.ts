@@ -3,45 +3,32 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   GoogleAuthenticationMethodOptions,
-  GoogleAuthenticationMethodOptions$inboundSchema,
   GoogleAuthenticationMethodOptions$outboundSchema,
 } from "./googleauthenticationmethodoptions.js";
 import {
-  ItemsTypeLogLabels,
-  ItemsTypeLogLabels$inboundSchema,
-  ItemsTypeLogLabels$Outbound,
-  ItemsTypeLogLabels$outboundSchema,
-} from "./itemstypeloglabels.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+  LogLabelConfOutputGoogleCloudLogging,
+  LogLabelConfOutputGoogleCloudLogging$Outbound,
+  LogLabelConfOutputGoogleCloudLogging$outboundSchema,
+} from "./loglabelconfoutputgooglecloudlogging.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 
-export const LogLocationType = {
+export const OutputGoogleCloudLoggingLogLocationType = {
   /**
    * Project
    */
@@ -59,12 +46,14 @@ export const LogLocationType = {
    */
   Folder: "folder",
 } as const;
-export type LogLocationType = OpenEnum<typeof LogLocationType>;
+export type OutputGoogleCloudLoggingLogLocationType = OpenEnum<
+  typeof OutputGoogleCloudLoggingLogLocationType
+>;
 
 /**
  * Format to use when sending payload. Defaults to Text.
  */
-export const PayloadFormat = {
+export const OutputGoogleCloudLoggingPayloadFormat = {
   /**
    * Text
    */
@@ -77,7 +66,9 @@ export const PayloadFormat = {
 /**
  * Format to use when sending payload. Defaults to Text.
  */
-export type PayloadFormat = OpenEnum<typeof PayloadFormat>;
+export type OutputGoogleCloudLoggingPayloadFormat = OpenEnum<
+  typeof OutputGoogleCloudLoggingPayloadFormat
+>;
 
 export type OutputGoogleCloudLoggingPqControls = {};
 
@@ -103,7 +94,7 @@ export type OutputGoogleCloudLogging = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  logLocationType: LogLocationType;
+  logLocationType: OutputGoogleCloudLoggingLogLocationType;
   /**
    * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
@@ -112,11 +103,11 @@ export type OutputGoogleCloudLogging = {
   /**
    * Format to use when sending payload. Defaults to Text.
    */
-  payloadFormat?: PayloadFormat | undefined;
+  payloadFormat?: OutputGoogleCloudLoggingPayloadFormat | undefined;
   /**
    * Labels to apply to the log entry
    */
-  logLabels?: Array<ItemsTypeLogLabels> | undefined;
+  logLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
   /**
    * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
    */
@@ -124,7 +115,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
    */
-  resourceTypeLabels?: Array<ItemsTypeLogLabels> | undefined;
+  resourceTypeLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
   /**
    * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
    */
@@ -315,7 +306,7 @@ export type OutputGoogleCloudLogging = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -342,41 +333,79 @@ export type OutputGoogleCloudLogging = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+   */
+  __template_logLocationType?: string | undefined;
+  /**
+   * Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+   */
+  __template_logNameExpression?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
+  /**
+   * Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+   */
+  __template_resourceTypeExpression?: string | undefined;
+  /**
+   * Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+   */
+  __template_severityExpression?: string | undefined;
+  /**
+   * Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+   */
+  __template_insertIdExpression?: string | undefined;
+  /**
+   * Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+   */
+  __template_traceExpression?: string | undefined;
+  /**
+   * Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+   */
+  __template_spanIdExpression?: string | undefined;
+  /**
+   * Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+   */
+  __template_traceSampledExpression?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+   */
+  __template_logLocationExpression?: string | undefined;
+  /**
+   * Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+   */
+  __template_payloadExpression?: string | undefined;
 };
 
 /** @internal */
-export const LogLocationType$inboundSchema: z.ZodType<
-  LogLocationType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(LogLocationType);
-/** @internal */
-export const LogLocationType$outboundSchema: z.ZodType<
+export const OutputGoogleCloudLoggingLogLocationType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  LogLocationType
-> = openEnums.outboundSchema(LogLocationType);
+  OutputGoogleCloudLoggingLogLocationType
+> = openEnums.outboundSchema(OutputGoogleCloudLoggingLogLocationType);
 
 /** @internal */
-export const PayloadFormat$inboundSchema: z.ZodType<
-  PayloadFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PayloadFormat);
-/** @internal */
-export const PayloadFormat$outboundSchema: z.ZodType<
+export const OutputGoogleCloudLoggingPayloadFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PayloadFormat
-> = openEnums.outboundSchema(PayloadFormat);
+  OutputGoogleCloudLoggingPayloadFormat
+> = openEnums.outboundSchema(OutputGoogleCloudLoggingPayloadFormat);
 
-/** @internal */
-export const OutputGoogleCloudLoggingPqControls$inboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputGoogleCloudLoggingPqControls$Outbound = {};
 
@@ -396,97 +425,7 @@ export function outputGoogleCloudLoggingPqControlsToJSON(
     ),
   );
 }
-export function outputGoogleCloudLoggingPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleCloudLoggingPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGoogleCloudLoggingPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleCloudLoggingPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
-  OutputGoogleCloudLogging,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("google_cloud_logging"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  logLocationType: LogLocationType$inboundSchema,
-  logNameExpression: types.string(),
-  sanitizeLogNames: types.optional(types.boolean()),
-  payloadFormat: types.optional(PayloadFormat$inboundSchema),
-  logLabels: types.optional(z.array(ItemsTypeLogLabels$inboundSchema)),
-  resourceTypeExpression: types.optional(types.string()),
-  resourceTypeLabels: types.optional(z.array(ItemsTypeLogLabels$inboundSchema)),
-  severityExpression: types.optional(types.string()),
-  insertIdExpression: types.optional(types.string()),
-  googleAuthMethod: types.optional(
-    GoogleAuthenticationMethodOptions$inboundSchema,
-  ),
-  serviceAccountCredentials: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  concurrency: types.optional(types.number()),
-  connectionTimeout: types.optional(types.number()),
-  timeoutSec: types.optional(types.number()),
-  throttleRateReqPerSec: types.optional(types.number()),
-  requestMethodExpression: types.optional(types.string()),
-  requestUrlExpression: types.optional(types.string()),
-  requestSizeExpression: types.optional(types.string()),
-  statusExpression: types.optional(types.string()),
-  responseSizeExpression: types.optional(types.string()),
-  userAgentExpression: types.optional(types.string()),
-  remoteIpExpression: types.optional(types.string()),
-  serverIpExpression: types.optional(types.string()),
-  refererExpression: types.optional(types.string()),
-  latencyExpression: types.optional(types.string()),
-  cacheLookupExpression: types.optional(types.string()),
-  cacheHitExpression: types.optional(types.string()),
-  cacheValidatedExpression: types.optional(types.string()),
-  cacheFillBytesExpression: types.optional(types.string()),
-  protocolExpression: types.optional(types.string()),
-  idExpression: types.optional(types.string()),
-  producerExpression: types.optional(types.string()),
-  firstExpression: types.optional(types.string()),
-  lastExpression: types.optional(types.string()),
-  fileExpression: types.optional(types.string()),
-  lineExpression: types.optional(types.string()),
-  functionExpression: types.optional(types.string()),
-  uidExpression: types.optional(types.string()),
-  indexExpression: types.optional(types.string()),
-  totalSplitsExpression: types.optional(types.string()),
-  traceExpression: types.optional(types.string()),
-  spanIdExpression: types.optional(types.string()),
-  traceSampledExpression: types.optional(types.string()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  totalMemoryLimitKB: types.optional(types.number()),
-  description: types.optional(types.string()),
-  logLocationExpression: types.string(),
-  payloadExpression: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqControls: types.optional(
-    z.lazy(() => OutputGoogleCloudLoggingPqControls$inboundSchema),
-  ),
-});
 /** @internal */
 export type OutputGoogleCloudLogging$Outbound = {
   id?: string | undefined;
@@ -499,9 +438,11 @@ export type OutputGoogleCloudLogging$Outbound = {
   logNameExpression: string;
   sanitizeLogNames?: boolean | undefined;
   payloadFormat?: string | undefined;
-  logLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
+  logLabels?: Array<LogLabelConfOutputGoogleCloudLogging$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
-  resourceTypeLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
+  resourceTypeLabels?:
+    | Array<LogLabelConfOutputGoogleCloudLogging$Outbound>
+    | undefined;
   severityExpression?: string | undefined;
   insertIdExpression?: string | undefined;
   googleAuthMethod?: string | undefined;
@@ -557,7 +498,21 @@ export type OutputGoogleCloudLogging$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_logLocationType?: string | undefined;
+  __template_logNameExpression?: string | undefined;
+  __template_payloadFormat?: string | undefined;
+  __template_resourceTypeExpression?: string | undefined;
+  __template_severityExpression?: string | undefined;
+  __template_insertIdExpression?: string | undefined;
+  __template_traceExpression?: string | undefined;
+  __template_spanIdExpression?: string | undefined;
+  __template_traceSampledExpression?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_logLocationExpression?: string | undefined;
+  __template_payloadExpression?: string | undefined;
 };
 
 /** @internal */
@@ -572,13 +527,17 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  logLocationType: LogLocationType$outboundSchema,
+  logLocationType: OutputGoogleCloudLoggingLogLocationType$outboundSchema,
   logNameExpression: z.string(),
   sanitizeLogNames: z.boolean().optional(),
-  payloadFormat: PayloadFormat$outboundSchema.optional(),
-  logLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
+  payloadFormat: OutputGoogleCloudLoggingPayloadFormat$outboundSchema
+    .optional(),
+  logLabels: z.array(LogLabelConfOutputGoogleCloudLogging$outboundSchema)
+    .optional(),
   resourceTypeExpression: z.string().optional(),
-  resourceTypeLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
+  resourceTypeLabels: z.array(
+    LogLabelConfOutputGoogleCloudLogging$outboundSchema,
+  ).optional(),
   severityExpression: z.string().optional(),
   insertIdExpression: z.string().optional(),
   googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.optional(),
@@ -634,8 +593,22 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_logLocationType: z.string().optional(),
+  __template_logNameExpression: z.string().optional(),
+  __template_payloadFormat: z.string().optional(),
+  __template_resourceTypeExpression: z.string().optional(),
+  __template_severityExpression: z.string().optional(),
+  __template_insertIdExpression: z.string().optional(),
+  __template_traceExpression: z.string().optional(),
+  __template_spanIdExpression: z.string().optional(),
+  __template_traceSampledExpression: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_logLocationExpression: z.string().optional(),
+  __template_payloadExpression: z.string().optional(),
 });
 
 export function outputGoogleCloudLoggingToJSON(
@@ -643,14 +616,5 @@ export function outputGoogleCloudLoggingToJSON(
 ): string {
   return JSON.stringify(
     OutputGoogleCloudLogging$outboundSchema.parse(outputGoogleCloudLogging),
-  );
-}
-export function outputGoogleCloudLoggingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleCloudLogging, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGoogleCloudLogging$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleCloudLogging' from JSON`,
   );
 }

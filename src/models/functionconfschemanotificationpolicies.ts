@@ -11,11 +11,11 @@ import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypePoliciesItemsTemplateTargetPairs,
-  ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
-  ItemsTypePoliciesItemsTemplateTargetPairs$Outbound,
-  ItemsTypePoliciesItemsTemplateTargetPairs$outboundSchema,
-} from "./itemstypepoliciesitemstemplatetargetpairs.js";
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies,
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$Outbound,
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$outboundSchema,
+} from "./templatetargetpairconffunctionconfschemanotificationpolicies.js";
 
 /**
  * Comparison operator
@@ -75,7 +75,9 @@ export type Policy = {
   /**
    * List of targets to route to and the templates to use
    */
-  templateTargetPairs: Array<ItemsTypePoliciesItemsTemplateTargetPairs>;
+  templateTargetPairs: Array<
+    TemplateTargetPairConfFunctionConfSchemaNotificationPolicies
+  >;
   /**
    * If true, stop evaluating further policies after this one matches
    */
@@ -184,7 +186,7 @@ export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
       z.array(z.array(z.lazy(() => Condition$inboundSchema))),
     ),
     templateTargetPairs: z.array(
-      ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
+      TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
     ),
     final: types.optional(types.boolean()),
     order: types.number(),
@@ -197,7 +199,7 @@ export type Policy$Outbound = {
   groupByLabels?: Array<string> | undefined;
   conditions?: Array<Array<Condition$Outbound>> | undefined;
   templateTargetPairs: Array<
-    ItemsTypePoliciesItemsTemplateTargetPairs$Outbound
+    TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$Outbound
   >;
   final?: boolean | undefined;
   order: number;
@@ -216,7 +218,7 @@ export const Policy$outboundSchema: z.ZodType<
   conditions: z.array(z.array(z.lazy(() => Condition$outboundSchema)))
     .optional(),
   templateTargetPairs: z.array(
-    ItemsTypePoliciesItemsTemplateTargetPairs$outboundSchema,
+    TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$outboundSchema,
   ),
   final: z.boolean().optional(),
   order: z.number(),

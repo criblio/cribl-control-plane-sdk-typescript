@@ -10,7 +10,7 @@ export type DeleteOutputSystemPqByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to clear.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };

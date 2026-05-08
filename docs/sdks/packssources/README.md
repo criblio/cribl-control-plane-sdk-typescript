@@ -81,7 +81,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -92,8 +92,174 @@ run();
 
 ## create
 
-Create a new Source within the specified Pack.
+Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body within the specified Pack.
 
+### Example Usage: InputCreateExamplesAnthropicCompliance
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesAnthropicCompliance" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "anthropic-compliance-source",
+      type: "anthropic_compliance",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "anthropic-api-key-secret",
+      contentConfig: [
+        {
+          contentType: "activities",
+          contentDescription: "Compliance Activities",
+          enabled: true,
+          stateTracking: true,
+          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+          cronSchedule: "*/5 * * * *",
+          earliest: "-7d@d",
+          latest: "now",
+          jobTimeout: "300",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "anthropic-compliance-source",
+      type: "anthropic_compliance",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "anthropic-api-key-secret",
+      contentConfig: [
+        {
+          contentType: "activities",
+          contentDescription: "Compliance Activities",
+          enabled: true,
+          stateTracking: true,
+          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+          cronSchedule: "*/5 * * * *",
+          earliest: "-7d@d",
+          latest: "now",
+          jobTimeout: "300",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesAppleUnifiedLogs
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesAppleUnifiedLogs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesAppscope
 
 <!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesAppscope" -->
@@ -1108,6 +1274,77 @@ async function run() {
       topics: [
         "logs",
       ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesEventhubAmqp
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesEventhubAmqp" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "eventhub-amqp-source",
+      type: "eventhub_amqp",
+      sendToRoutes: true,
+      pqEnabled: false,
+      eventHubName: "my-event-hub",
+      consumerGroup: "$Default",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "eventhub-amqp-source",
+      type: "eventhub_amqp",
+      sendToRoutes: true,
+      pqEnabled: false,
+      eventHubName: "my-event-hub",
+      consumerGroup: "$Default",
     },
   });
   if (res.ok) {
@@ -2698,6 +2935,83 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesOkta
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesOkta" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesOpenAI
 
 <!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesOpenAI" -->
@@ -2801,6 +3115,93 @@ async function run() {
         },
       ],
       textSecret: "openai-api-key-secret",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesOpenAIComplianceLogs
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesOpenAIComplianceLogs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "openai-compliance-logs-source",
+      type: "openai_compliance_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "openai-api-key-secret",
+      accountType: "workspace",
+      cronSchedule: "*/15 * * * *",
+      earliest: "-1h",
+      latest: "now",
+      workspaceId: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      workspaceEventTypes: [
+        "AUDIT_LOG",
+        "AUTH_LOG",
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "openai-compliance-logs-source",
+      type: "openai_compliance_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "openai-api-key-secret",
+      accountType: "workspace",
+      cronSchedule: "*/15 * * * *",
+      earliest: "-1h",
+      latest: "now",
+      workspaceId: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      workspaceEventTypes: [
+        "AUDIT_LOG",
+        "AUTH_LOG",
+      ],
     },
   });
   if (res.ok) {
@@ -3320,6 +3721,95 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesServiceNowTable" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesSnmp
 
 <!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesSnmp" -->
@@ -3558,9 +4048,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
 
@@ -3597,9 +4088,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
   if (res.ok) {
@@ -4494,7 +4986,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -4576,7 +5068,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -4587,8 +5079,178 @@ run();
 
 ## update
 
-Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
 
+### Example Usage: InputCreateExamplesAnthropicCompliance
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesAnthropicCompliance" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "anthropic-compliance-source",
+      type: "anthropic_compliance",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "anthropic-api-key-secret",
+      contentConfig: [
+        {
+          contentType: "activities",
+          contentDescription: "Compliance Activities",
+          enabled: true,
+          stateTracking: true,
+          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+          cronSchedule: "*/5 * * * *",
+          earliest: "-7d@d",
+          latest: "now",
+          jobTimeout: "300",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "anthropic-compliance-source",
+      type: "anthropic_compliance",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "anthropic-api-key-secret",
+      contentConfig: [
+        {
+          contentType: "activities",
+          contentDescription: "Compliance Activities",
+          enabled: true,
+          stateTracking: true,
+          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
+          cronSchedule: "*/5 * * * *",
+          earliest: "-7d@d",
+          latest: "now",
+          jobTimeout: "300",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesAppleUnifiedLogs
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesAppleUnifiedLogs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "apple-unified-logs-source",
+      type: "apple_unified_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      predicate: "subsystem == \"com.apple.security\"",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesAppscope
 
 <!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesAppscope" -->
@@ -5631,6 +6293,79 @@ async function run() {
       topics: [
         "logs",
       ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesEventhubAmqp
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesEventhubAmqp" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "eventhub-amqp-source",
+      type: "eventhub_amqp",
+      sendToRoutes: true,
+      pqEnabled: false,
+      eventHubName: "my-event-hub",
+      consumerGroup: "$Default",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "eventhub-amqp-source",
+      type: "eventhub_amqp",
+      sendToRoutes: true,
+      pqEnabled: false,
+      eventHubName: "my-event-hub",
+      consumerGroup: "$Default",
     },
   });
   if (res.ok) {
@@ -7265,6 +8000,85 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesOkta
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesOkta" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "okta-source",
+      type: "okta",
+      sendToRoutes: true,
+      pqEnabled: false,
+      oktaDomain: "your-org",
+      textSecret: "okta-api-token-secret",
+      cronSchedule: "*/5 * * * *",
+      earliest: "-7d@d",
+      latest: "now",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesOpenAI
 
 <!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesOpenAI" -->
@@ -7370,6 +8184,95 @@ async function run() {
         },
       ],
       textSecret: "openai-api-key-secret",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputCreateExamplesOpenAIComplianceLogs
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesOpenAIComplianceLogs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "openai-compliance-logs-source",
+      type: "openai_compliance_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "openai-api-key-secret",
+      accountType: "workspace",
+      cronSchedule: "*/15 * * * *",
+      earliest: "-1h",
+      latest: "now",
+      workspaceId: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      workspaceEventTypes: [
+        "AUDIT_LOG",
+        "AUTH_LOG",
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "openai-compliance-logs-source",
+      type: "openai_compliance_logs",
+      sendToRoutes: true,
+      pqEnabled: false,
+      textSecret: "openai-api-key-secret",
+      accountType: "workspace",
+      cronSchedule: "*/15 * * * *",
+      earliest: "-1h",
+      latest: "now",
+      workspaceId: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      workspaceEventTypes: [
+        "AUDIT_LOG",
+        "AUTH_LOG",
+      ],
     },
   });
   if (res.ok) {
@@ -7903,6 +8806,97 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesServiceNowTable
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesServiceNowTable" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "servicenow-table-source",
+      type: "servicenow_table",
+      sendToRoutes: true,
+      pqEnabled: false,
+      instance: "https://example.service-now.com",
+      tableName: "incident",
+      fields: [
+        "sys_id",
+        "number",
+        "short_description",
+      ],
+      pageSize: 10000,
+      cronSchedule: "0 * * * *",
+      earliest: "-1d",
+      latest: "now",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesSnmp
 
 <!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="InputCreateExamplesSnmp" -->
@@ -8148,9 +9142,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
 
@@ -8188,9 +9183,10 @@ async function run() {
       pqEnabled: false,
       searchHead: "https://localhost:8089",
       search: "index=main",
-      cronSchedule: "0 * * * *",
-      endpoint: "/services/search/jobs/export",
+      cronSchedule: "*/15 * * * *",
+      endpoint: "/services/search/v2/jobs/export",
       outputMode: "json",
+      authType: "basic",
     },
   });
   if (res.ok) {
@@ -9247,7 +10243,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -9329,7 +10325,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 

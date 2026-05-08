@@ -12,7 +12,7 @@ export type UpdateDatabaseConnectionConfigByIdRequest = {
    */
   id: string;
   /**
-   * DatabaseConnectionConfig object
+   * DatabaseConnectionConfig object.
    */
   databaseConnectionConfig: models.DatabaseConnectionConfig;
 };

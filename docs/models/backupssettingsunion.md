@@ -3,18 +3,18 @@
 
 ## Supported Types
 
-### `models.BackupsSettings1`
+### `models.BackupsSettings`
 
 ```typescript
-const value: models.BackupsSettings1 = {
+const value: models.BackupsSettings = {
   backupPersistence: "<value>",
   backupsDirectory: "<value>",
 };
 ```
 
-### `models.BackupsSettings2`
+### `models.EmptyObject`
 
 ```typescript
-const value: models.BackupsSettings2 = {};
+const value: models.EmptyObject = {};
 ```
 

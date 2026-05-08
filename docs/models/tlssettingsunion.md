@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.TlsSettings1`
+### `models.TlsSettings`
 
 ```typescript
-const value: models.TlsSettings1 = {
+const value: models.TlsSettings = {
   defaultCipherList: "<value>",
   defaultEcdhCurve: "<value>",
   maxVersion: "<value>",
@@ -15,9 +15,9 @@ const value: models.TlsSettings1 = {
 };
 ```
 
-### `models.TlsSettings2`
+### `models.EmptyObject`
 
 ```typescript
-const value: models.TlsSettings2 = {};
+const value: models.EmptyObject = {};
 ```
 
