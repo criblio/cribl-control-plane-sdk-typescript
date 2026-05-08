@@ -26,13 +26,13 @@ import {
   NotificationUnion$inboundSchema,
 } from "./notificationunion.js";
 import {
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
+import {
   ScheduleTypeSavedJobResponseCollection,
   ScheduleTypeSavedJobResponseCollection$inboundSchema,
 } from "./scheduletypesavedjobresponsecollection.js";
-import {
-  TypeCollectionWithBreakerRulesetsConstraint,
-  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 export type SavedJobResponseScheduledSearch = {
   /**
@@ -73,6 +73,10 @@ export type SavedJobResponseScheduledSearch = {
    * Identifies which search query to run
    */
   savedQueryId: string;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Runtime collection state.
    */
@@ -121,6 +125,10 @@ export type SavedJobResponseExecutor = {
    */
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Runtime collection state.
    */
@@ -176,7 +184,13 @@ export type SavedJobResponseCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
+    | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
   /**
    * Runtime collection state.
    */
@@ -213,6 +227,7 @@ export const SavedJobResponseScheduledSearch$inboundSchema: z.ZodType<
   ),
   streamtags: types.optional(z.array(types.string())),
   savedQueryId: types.string(),
+  __template_streamtags: types.optional(types.string()),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),
@@ -248,6 +263,7 @@ export const SavedJobResponseExecutor$inboundSchema: z.ZodType<
   ),
   streamtags: types.optional(z.array(types.string())),
   executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
+  __template_streamtags: types.optional(types.string()),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),
@@ -285,8 +301,9 @@ export const SavedJobResponseCollection$inboundSchema: z.ZodType<
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
   input: types.optional(
-    TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
+  __template_streamtags: types.optional(types.string()),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),
   ),

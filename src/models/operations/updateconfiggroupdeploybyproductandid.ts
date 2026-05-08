@@ -16,7 +16,7 @@ export type UpdateConfigGroupDeployByProductAndIdRequest = {
    */
   id: string;
   /**
-   * DeployRequest object
+   * DeployRequest object.
    */
   deployRequest: models.DeployRequest;
 };

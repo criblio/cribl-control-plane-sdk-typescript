@@ -11,13 +11,13 @@ import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$inboundSchema,
-} from "./itemstypemetadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$inboundSchema,
+} from "./metadataconfinputcollection.js";
 import {
-  ItemsTypePoliciesItemsTemplateTargetPairs,
-  ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
-} from "./itemstypepoliciesitemstemplatetargetpairs.js";
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies,
+  TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
+} from "./templatetargetpairconffunctionconfschemanotificationpolicies.js";
 
 /**
  * Notification mode: direct or policy-based
@@ -65,31 +65,57 @@ export type TargetConfig3 = {
 
 export type TargetConfigUnion3 = TargetConfig3;
 
-export type ConditionSpecificConfigs3 = {};
+/**
+ * Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+ */
+export type ConditionSpecificConfigurations3 = {};
 
 export type Notification3 = {
   /**
    * Notification mode: direct or policy-based
    */
   mode?: NotificationMode3 | undefined;
+  /**
+   * Unique identifier for the Notification.
+   */
   id: string;
+  /**
+   * If true, the Notification is disabled and the specified condition will not trigger it.
+   */
   disabled?: boolean | undefined;
+  /**
+   * The condition that triggers the Notification.
+   */
   condition: string;
   /**
-   * Targets to send any Notifications to
+   * List of the IDs for the Notification targets to send the Notification to.
    */
   targets?: Array<string> | undefined;
+  /**
+   * Override settings to apply for each referenced Notification target.
+   */
   targetConfigs?: Array<TargetConfig3> | undefined;
-  conf?: ConditionSpecificConfigs3 | undefined;
+  /**
+   * Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+   */
+  conf?: ConditionSpecificConfigurations3 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * The worker group/fleet this notification belongs to
+   */
+  group?: string | undefined;
+  /**
+   * The pack this notification belongs to
+   */
+  pack?: string | undefined;
   /**
    * Pairs of templates and targets for notification routing
    */
   templateTargetPairs?:
-    | Array<ItemsTypePoliciesItemsTemplateTargetPairs>
+    | Array<TemplateTargetPairConfFunctionConfSchemaNotificationPolicies>
     | undefined;
 };
 
@@ -139,7 +165,10 @@ export type TargetConfig2 = {
 
 export type TargetConfigUnion2 = TargetConfig2;
 
-export type ConditionSpecificConfigs2 = {};
+/**
+ * Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+ */
+export type ConditionSpecificConfigurations2 = {};
 
 export type Notification2 = {
   /**
@@ -150,21 +179,44 @@ export type Notification2 = {
    * Pairs of templates and targets for notification routing
    */
   templateTargetPairs?:
-    | Array<ItemsTypePoliciesItemsTemplateTargetPairs>
+    | Array<TemplateTargetPairConfFunctionConfSchemaNotificationPolicies>
     | undefined;
+  /**
+   * Unique identifier for the Notification.
+   */
   id: string;
+  /**
+   * If true, the Notification is disabled and the specified condition will not trigger it.
+   */
   disabled?: boolean | undefined;
+  /**
+   * The condition that triggers the Notification.
+   */
   condition: string;
   /**
-   * Targets to send any Notifications to
+   * List of the IDs for the Notification targets to send the Notification to.
    */
   targets?: Array<string> | undefined;
+  /**
+   * Override settings to apply for each referenced Notification target.
+   */
   targetConfigs?: Array<TargetConfig2> | undefined;
-  conf?: ConditionSpecificConfigs2 | undefined;
+  /**
+   * Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+   */
+  conf?: ConditionSpecificConfigurations2 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * The worker group/fleet this notification belongs to
+   */
+  group?: string | undefined;
+  /**
+   * The pack this notification belongs to
+   */
+  pack?: string | undefined;
 };
 
 /**
@@ -213,7 +265,10 @@ export type TargetConfig1 = {
 
 export type TargetConfigUnion1 = TargetConfig1;
 
-export type ConditionSpecificConfigs1 = {};
+/**
+ * Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+ */
+export type ConditionSpecificConfigurations1 = {};
 
 export type Notification1 = {
   /**
@@ -223,20 +278,45 @@ export type Notification1 = {
   /**
    * Pairs of templates and targets for notification routing
    */
-  templateTargetPairs: Array<ItemsTypePoliciesItemsTemplateTargetPairs>;
+  templateTargetPairs: Array<
+    TemplateTargetPairConfFunctionConfSchemaNotificationPolicies
+  >;
+  /**
+   * Unique identifier for the Notification.
+   */
   id: string;
+  /**
+   * If true, the Notification is disabled and the specified condition will not trigger it.
+   */
   disabled?: boolean | undefined;
+  /**
+   * The condition that triggers the Notification.
+   */
   condition: string;
   /**
-   * Targets to send any Notifications to
+   * List of the IDs for the Notification targets to send the Notification to.
    */
   targets?: Array<string> | undefined;
+  /**
+   * Override settings to apply for each referenced Notification target.
+   */
   targetConfigs?: Array<TargetConfig1> | undefined;
-  conf?: ConditionSpecificConfigs1 | undefined;
+  /**
+   * Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
+   */
+  conf?: ConditionSpecificConfigurations1 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * The worker group/fleet this notification belongs to
+   */
+  group?: string | undefined;
+  /**
+   * The pack this notification belongs to
+   */
+  pack?: string | undefined;
 };
 
 export type NotificationUnion = Notification1 | Notification2 | Notification3;
@@ -330,19 +410,19 @@ export function targetConfigUnion3FromJSON(
 }
 
 /** @internal */
-export const ConditionSpecificConfigs3$inboundSchema: z.ZodType<
-  ConditionSpecificConfigs3,
+export const ConditionSpecificConfigurations3$inboundSchema: z.ZodType<
+  ConditionSpecificConfigurations3,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 
-export function conditionSpecificConfigs3FromJSON(
+export function conditionSpecificConfigurations3FromJSON(
   jsonString: string,
-): SafeParseResult<ConditionSpecificConfigs3, SDKValidationError> {
+): SafeParseResult<ConditionSpecificConfigurations3, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ConditionSpecificConfigs3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ConditionSpecificConfigs3' from JSON`,
+    (x) => ConditionSpecificConfigurations3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ConditionSpecificConfigurations3' from JSON`,
   );
 }
 
@@ -360,10 +440,16 @@ export const Notification3$inboundSchema: z.ZodType<
   targetConfigs: types.optional(
     z.array(z.lazy(() => TargetConfig3$inboundSchema)),
   ),
-  conf: types.optional(z.lazy(() => ConditionSpecificConfigs3$inboundSchema)),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  conf: types.optional(
+    z.lazy(() => ConditionSpecificConfigurations3$inboundSchema),
+  ),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  group: types.optional(types.string()),
+  pack: types.optional(types.string()),
   templateTargetPairs: types.optional(
-    z.array(ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema),
+    z.array(
+      TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
+    ),
   ),
 });
 
@@ -466,19 +552,19 @@ export function targetConfigUnion2FromJSON(
 }
 
 /** @internal */
-export const ConditionSpecificConfigs2$inboundSchema: z.ZodType<
-  ConditionSpecificConfigs2,
+export const ConditionSpecificConfigurations2$inboundSchema: z.ZodType<
+  ConditionSpecificConfigurations2,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 
-export function conditionSpecificConfigs2FromJSON(
+export function conditionSpecificConfigurations2FromJSON(
   jsonString: string,
-): SafeParseResult<ConditionSpecificConfigs2, SDKValidationError> {
+): SafeParseResult<ConditionSpecificConfigurations2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ConditionSpecificConfigs2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ConditionSpecificConfigs2' from JSON`,
+    (x) => ConditionSpecificConfigurations2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ConditionSpecificConfigurations2' from JSON`,
   );
 }
 
@@ -490,7 +576,9 @@ export const Notification2$inboundSchema: z.ZodType<
 > = z.object({
   mode: NotificationMode2$inboundSchema,
   templateTargetPairs: types.optional(
-    z.array(ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema),
+    z.array(
+      TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
+    ),
   ),
   id: types.string(),
   disabled: types.optional(types.boolean()),
@@ -499,8 +587,12 @@ export const Notification2$inboundSchema: z.ZodType<
   targetConfigs: types.optional(
     z.array(z.lazy(() => TargetConfig2$inboundSchema)),
   ),
-  conf: types.optional(z.lazy(() => ConditionSpecificConfigs2$inboundSchema)),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  conf: types.optional(
+    z.lazy(() => ConditionSpecificConfigurations2$inboundSchema),
+  ),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  group: types.optional(types.string()),
+  pack: types.optional(types.string()),
 });
 
 export function notification2FromJSON(
@@ -602,19 +694,19 @@ export function targetConfigUnion1FromJSON(
 }
 
 /** @internal */
-export const ConditionSpecificConfigs1$inboundSchema: z.ZodType<
-  ConditionSpecificConfigs1,
+export const ConditionSpecificConfigurations1$inboundSchema: z.ZodType<
+  ConditionSpecificConfigurations1,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 
-export function conditionSpecificConfigs1FromJSON(
+export function conditionSpecificConfigurations1FromJSON(
   jsonString: string,
-): SafeParseResult<ConditionSpecificConfigs1, SDKValidationError> {
+): SafeParseResult<ConditionSpecificConfigurations1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ConditionSpecificConfigs1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ConditionSpecificConfigs1' from JSON`,
+    (x) => ConditionSpecificConfigurations1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ConditionSpecificConfigurations1' from JSON`,
   );
 }
 
@@ -626,7 +718,7 @@ export const Notification1$inboundSchema: z.ZodType<
 > = z.object({
   mode: NotificationMode1$inboundSchema,
   templateTargetPairs: z.array(
-    ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
+    TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$inboundSchema,
   ),
   id: types.string(),
   disabled: types.optional(types.boolean()),
@@ -635,8 +727,12 @@ export const Notification1$inboundSchema: z.ZodType<
   targetConfigs: types.optional(
     z.array(z.lazy(() => TargetConfig1$inboundSchema)),
   ),
-  conf: types.optional(z.lazy(() => ConditionSpecificConfigs1$inboundSchema)),
-  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
+  conf: types.optional(
+    z.lazy(() => ConditionSpecificConfigurations1$inboundSchema),
+  ),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  group: types.optional(types.string()),
+  pack: types.optional(types.string()),
 });
 
 export function notification1FromJSON(

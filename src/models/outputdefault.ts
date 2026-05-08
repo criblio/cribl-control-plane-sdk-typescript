@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputDefault = {
   /**
@@ -34,22 +30,12 @@ export type OutputDefault = {
    * ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
    */
   defaultId: string | null;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
-/** @internal */
-export const OutputDefault$inboundSchema: z.ZodType<
-  OutputDefault,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("default"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  defaultId: types.nullable(types.string()),
-});
 /** @internal */
 export type OutputDefault$Outbound = {
   id?: string | undefined;
@@ -59,6 +45,7 @@ export type OutputDefault$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   defaultId: string | null;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -74,17 +61,9 @@ export const OutputDefault$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   defaultId: z.nullable(z.string()),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputDefaultToJSON(outputDefault: OutputDefault): string {
   return JSON.stringify(OutputDefault$outboundSchema.parse(outputDefault));
-}
-export function outputDefaultFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDefault, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDefault$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDefault' from JSON`,
-  );
 }

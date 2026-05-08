@@ -12,15 +12,15 @@ export type UpdateInputSystemHecTokenByPackAndIdAndTokenRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the HEC token to update.
+   * The HEC token value to update.
    */
   token: string;
   /**
-   * The <code>id</code> of the Pack to update.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**
-   * UpdateHecTokenRequest object
+   * UpdateHecTokenRequest object.
    */
   updateHecTokenRequest: models.UpdateHecTokenRequest;
 };

@@ -8,15 +8,15 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
+  MaximumTlsVersionOptionsTls,
+  MaximumTlsVersionOptionsTls$inboundSchema,
+  MaximumTlsVersionOptionsTls$outboundSchema,
+} from "./maximumtlsversionoptionstls.js";
 import {
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
-} from "./minimumtlsversionoptionskafkaschemaregistrytls.js";
+  MinimumTlsVersionOptionsTls,
+  MinimumTlsVersionOptionsTls$inboundSchema,
+  MinimumTlsVersionOptionsTls$outboundSchema,
+} from "./minimumtlsversionoptionstls.js";
 
 export type TlsSettingsServerSideType = {
   disabled?: boolean | undefined;
@@ -52,8 +52,8 @@ export type TlsSettingsServerSideType = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  minVersion?: MinimumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
-  maxVersion?: MaximumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
+  minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: MaximumTlsVersionOptionsTls | undefined;
 };
 
 /** @internal */
@@ -71,12 +71,8 @@ export const TlsSettingsServerSideType$inboundSchema: z.ZodType<
   passphrase: types.optional(types.string()),
   certPath: types.optional(types.string()),
   caPath: types.optional(types.string()),
-  minVersion: types.optional(
-    MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
-  maxVersion: types.optional(
-    MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
-  ),
+  minVersion: types.optional(MinimumTlsVersionOptionsTls$inboundSchema),
+  maxVersion: types.optional(MaximumTlsVersionOptionsTls$inboundSchema),
 });
 /** @internal */
 export type TlsSettingsServerSideType$Outbound = {
@@ -108,10 +104,8 @@ export const TlsSettingsServerSideType$outboundSchema: z.ZodType<
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
-  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
-    .optional(),
+  minVersion: MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: MaximumTlsVersionOptionsTls$outboundSchema.optional(),
 });
 
 export function tlsSettingsServerSideTypeToJSON(

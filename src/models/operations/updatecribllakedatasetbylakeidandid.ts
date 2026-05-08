@@ -16,7 +16,7 @@ export type UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
    */
   id: string;
   /**
-   * CriblLakeDatasetUpdate object
+   * CriblLakeDatasetUpdate object.
    */
   criblLakeDatasetUpdate: models.CriblLakeDatasetUpdate;
 };

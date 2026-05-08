@@ -12,7 +12,7 @@ export type CreateRoutesAppendByIdRequest = {
    */
   id: string;
   /**
-   * RouteDefinitions object
+   * RouteDefinitions object.
    */
   requestBody: Array<models.RouteConfInput>;
 };

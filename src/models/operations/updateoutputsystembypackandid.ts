@@ -12,11 +12,11 @@ export type UpdateOutputSystemByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to update.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**
-   * Output object
+   * Output object.
    */
   output: models.Output;
 };

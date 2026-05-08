@@ -17,10 +17,8 @@ const value: models.RestAuthenticationBasicSecretRestPaginationTypeNone = {
 const value:
   models.RestAuthenticationBasicSecretRestPaginationTypeResponseBody = {
     type: "response_body",
-    attribute: [
-      "<value 1>",
-    ],
-    maxPages: 1772.28,
+    attribute: [],
+    maxPages: 3813.63,
   };
 ```
 
@@ -30,11 +28,7 @@ const value:
 const value:
   models.RestAuthenticationBasicSecretRestPaginationTypeResponseHeader = {
     type: "response_header",
-    attribute: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+    attribute: "<value>",
     maxPages: 1068.32,
   };
 ```

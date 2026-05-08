@@ -3,17 +3,17 @@
 
 ## Supported Types
 
-### `models.RollbackSettings1`
+### `models.RollbackSettings`
 
 ```typescript
-const value: models.RollbackSettings1 = {
+const value: models.RollbackSettings = {
   rollbackEnabled: false,
 };
 ```
 
-### `models.RollbackSettings2`
+### `models.EmptyObject`
 
 ```typescript
-const value: models.RollbackSettings2 = {};
+const value: models.EmptyObject = {};
 ```
 

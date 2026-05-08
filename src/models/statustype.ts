@@ -8,41 +8,34 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ErrorTypeStatus,
-  ErrorTypeStatus$inboundSchema,
-} from "./errortypestatus.js";
-import {
-  HealthCountType,
-  HealthCountType$inboundSchema,
-} from "./healthcounttype.js";
-import {
   HealthStringType,
   HealthStringType$inboundSchema,
 } from "./healthstringtype.js";
-import { PqTypeStatus, PqTypeStatus$inboundSchema } from "./pqtypestatus.js";
+import { StatusError, StatusError$inboundSchema } from "./statuserror.js";
+import {
+  WorkerPQStatus,
+  WorkerPQStatus$inboundSchema,
+} from "./workerpqstatus.js";
 
 /**
- * Status information for the Source or Destination, aggregated across all Worker Processes.
+ * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
  */
 export type StatusType = {
+  error?: StatusError | undefined;
+  health?: HealthStringType | undefined;
   /**
-   * Error information, if applicable.
-   */
-  error?: ErrorTypeStatus | undefined;
-  health: HealthStringType;
-  healthCounts: HealthCountType;
-  /**
-   * Metrics data for the Source or Destination, including base metrics, aggregated across all Worker Processes. For load-balanced Destinations, includes item-level metrics.
+   * Metrics data for the Source or Destination.
    */
   metrics?: { [k: string]: any } | undefined;
-  /**
-   * Persistent queue status information (if persistent queue is enabled).
-   */
-  pq?: PqTypeStatus | undefined;
+  pq?: WorkerPQStatus | undefined;
   /**
    * Timestamp (in Unix time) when the status was last updated.
    */
-  timestamp: number;
+  timestamp?: number | undefined;
+  /**
+   * Set to prefer status from the LB process, not from the worker process.
+   */
+  useStatusFromLB?: boolean | undefined;
 };
 
 /** @internal */
@@ -51,12 +44,12 @@ export const StatusType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  error: types.optional(ErrorTypeStatus$inboundSchema),
-  health: HealthStringType$inboundSchema,
-  healthCounts: HealthCountType$inboundSchema,
+  error: types.optional(StatusError$inboundSchema),
+  health: types.optional(HealthStringType$inboundSchema),
   metrics: types.optional(z.record(z.any())),
-  pq: types.optional(PqTypeStatus$inboundSchema),
-  timestamp: types.number(),
+  pq: types.optional(WorkerPQStatus$inboundSchema),
+  timestamp: types.optional(types.number()),
+  useStatusFromLB: types.optional(types.boolean()),
 });
 
 export function statusTypeFromJSON(

@@ -7,77 +7,52 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  EmptyObject,
+  EmptyObject$inboundSchema,
+  EmptyObject$Outbound,
+  EmptyObject$outboundSchema,
+} from "./emptyobject.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type PiiSettings2 = {};
-
-export type PiiSettings1 = {
+export type PiiSettings = {
   enablePiiDetection: boolean;
 };
 
-export type PiiSettingsUnion = PiiSettings1 | PiiSettings2;
+export type PiiSettingsUnion = PiiSettings | EmptyObject;
 
 /** @internal */
-export const PiiSettings2$inboundSchema: z.ZodType<
-  PiiSettings2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type PiiSettings2$Outbound = {};
-
-/** @internal */
-export const PiiSettings2$outboundSchema: z.ZodType<
-  PiiSettings2$Outbound,
-  z.ZodTypeDef,
-  PiiSettings2
-> = z.object({});
-
-export function piiSettings2ToJSON(piiSettings2: PiiSettings2): string {
-  return JSON.stringify(PiiSettings2$outboundSchema.parse(piiSettings2));
-}
-export function piiSettings2FromJSON(
-  jsonString: string,
-): SafeParseResult<PiiSettings2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PiiSettings2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PiiSettings2' from JSON`,
-  );
-}
-
-/** @internal */
-export const PiiSettings1$inboundSchema: z.ZodType<
-  PiiSettings1,
+export const PiiSettings$inboundSchema: z.ZodType<
+  PiiSettings,
   z.ZodTypeDef,
   unknown
 > = z.object({
   enablePiiDetection: types.boolean(),
 });
 /** @internal */
-export type PiiSettings1$Outbound = {
+export type PiiSettings$Outbound = {
   enablePiiDetection: boolean;
 };
 
 /** @internal */
-export const PiiSettings1$outboundSchema: z.ZodType<
-  PiiSettings1$Outbound,
+export const PiiSettings$outboundSchema: z.ZodType<
+  PiiSettings$Outbound,
   z.ZodTypeDef,
-  PiiSettings1
+  PiiSettings
 > = z.object({
   enablePiiDetection: z.boolean(),
 });
 
-export function piiSettings1ToJSON(piiSettings1: PiiSettings1): string {
-  return JSON.stringify(PiiSettings1$outboundSchema.parse(piiSettings1));
+export function piiSettingsToJSON(piiSettings: PiiSettings): string {
+  return JSON.stringify(PiiSettings$outboundSchema.parse(piiSettings));
 }
-export function piiSettings1FromJSON(
+export function piiSettingsFromJSON(
   jsonString: string,
-): SafeParseResult<PiiSettings1, SDKValidationError> {
+): SafeParseResult<PiiSettings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PiiSettings1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PiiSettings1' from JSON`,
+    (x) => PiiSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PiiSettings' from JSON`,
   );
 }
 
@@ -87,13 +62,13 @@ export const PiiSettingsUnion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = smartUnion([
-  z.lazy(() => PiiSettings1$inboundSchema),
-  z.lazy(() => PiiSettings2$inboundSchema),
+  z.lazy(() => PiiSettings$inboundSchema),
+  EmptyObject$inboundSchema,
 ]);
 /** @internal */
 export type PiiSettingsUnion$Outbound =
-  | PiiSettings1$Outbound
-  | PiiSettings2$Outbound;
+  | PiiSettings$Outbound
+  | EmptyObject$Outbound;
 
 /** @internal */
 export const PiiSettingsUnion$outboundSchema: z.ZodType<
@@ -101,8 +76,8 @@ export const PiiSettingsUnion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PiiSettingsUnion
 > = smartUnion([
-  z.lazy(() => PiiSettings1$outboundSchema),
-  z.lazy(() => PiiSettings2$outboundSchema),
+  z.lazy(() => PiiSettings$outboundSchema),
+  EmptyObject$outboundSchema,
 ]);
 
 export function piiSettingsUnionToJSON(
