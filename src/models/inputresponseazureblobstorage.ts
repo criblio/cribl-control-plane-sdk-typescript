@@ -3255,6 +3255,10 @@ export type InputResponseInputFile = {
    */
   breakerRulesets?: Array<string> | undefined;
   /**
+   * When enabled, no Event Breaker channel flush timeout applies and the timeout below is ignored. Prefer this option when using header-based breakers for file types such as CSV or IIS.
+   */
+  disableStaleChannelFlush?: boolean | undefined;
+  /**
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
@@ -9729,6 +9733,7 @@ export const InputResponseInputFile$inboundSchema: z.ZodType<
   hashLen: types.optional(types.number()),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
+  disableStaleChannelFlush: types.optional(types.boolean()),
   staleChannelFlushMs: types.optional(types.number()),
   description: types.optional(types.string()),
   path: types.optional(types.string()),
