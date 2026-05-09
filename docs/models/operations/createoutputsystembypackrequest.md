@@ -9,7 +9,7 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "cribl_lake",
+    type: "disk_spool",
   },
 };
 ```

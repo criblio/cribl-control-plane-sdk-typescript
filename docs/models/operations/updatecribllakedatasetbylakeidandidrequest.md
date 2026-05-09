@@ -8,7 +8,20 @@ import { UpdateCriblLakeDatasetByLakeIdAndIdRequest } from "cribl-control-plane/
 let value: UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
   lakeId: "<id>",
   id: "<id>",
-  criblLakeDatasetUpdate: {},
+  criblLakeDatasetUpdate: {
+    searchConfig: {
+      metadata: {
+        earliest: "-30d",
+        enableAcceleration: false,
+        fieldList: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        scanMode: "quick",
+      },
+    },
+  },
 };
 ```
 

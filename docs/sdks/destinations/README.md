@@ -4782,6 +4782,69 @@ async function run() {
 
 run();
 ```
+### Example Usage: OutputCreateExamplesalibabaCloudS3
+
+<!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesalibabaCloudS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.create({
+    id: "alibaba-oss-output",
+    type: "alibaba_cloud_s3",
+    bucket: "my-bucket",
+    stagePath: "/tmp/staging",
+    endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsCreate } from "cribl-control-plane/funcs/destinationsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsCreate(criblControlPlane, {
+    id: "alibaba-oss-output",
+    type: "alibaba_cloud_s3",
+    bucket: "my-bucket",
+    stagePath: "/tmp/staging",
+    endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: OutputCreateExamplescloudianS3
 
 <!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplescloudianS3" -->
@@ -10186,6 +10249,75 @@ async function run() {
     output: {
       id: "xsiam-output",
       type: "xsiam",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputCreateExamplesalibabaCloudS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesalibabaCloudS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.update({
+    id: "<id>",
+    output: {
+      id: "alibaba-oss-output",
+      type: "alibaba_cloud_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsUpdate } from "cribl-control-plane/funcs/destinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    output: {
+      id: "alibaba-oss-output",
+      type: "alibaba_cloud_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
     },
   });
   if (res.ok) {

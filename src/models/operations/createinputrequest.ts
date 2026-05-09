@@ -1211,7 +1211,7 @@ export type CreateInputInputEdgePrometheus = {
    */
   dimensionList?: Array<string> | undefined;
   /**
-   * Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+   * When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
    */
   fieldPerMetric?: boolean | undefined;
   /**
@@ -1460,7 +1460,7 @@ export type CreateInputInputPrometheus = {
    */
   dimensionList?: Array<string> | undefined;
   /**
-   * When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+   * When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
    */
   fieldPerMetric?: boolean | undefined;
   /**

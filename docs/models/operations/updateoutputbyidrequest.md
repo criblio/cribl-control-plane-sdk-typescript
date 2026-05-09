@@ -8,9 +8,7 @@ import { UpdateOutputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateOutputByIdRequest = {
   id: "<id>",
   output: {
-    type: "elastic_cloud",
-    url: "https://unused-duster.info/",
-    index: "<value>",
+    type: "newrelic",
   },
 };
 ```

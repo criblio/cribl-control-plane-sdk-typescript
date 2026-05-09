@@ -5,7 +5,20 @@
 ```typescript
 import { CriblLakeDatasetUpdate } from "cribl-control-plane/models";
 
-let value: CriblLakeDatasetUpdate = {};
+let value: CriblLakeDatasetUpdate = {
+  searchConfig: {
+    metadata: {
+      earliest: "-30d",
+      enableAcceleration: false,
+      fieldList: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      scanMode: "quick",
+    },
+  },
+};
 ```
 
 ## Fields

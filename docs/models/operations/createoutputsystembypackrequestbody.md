@@ -870,3 +870,15 @@ const value: operations.CreateOutputSystemByPackOutputScalityS3 = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputAlibabaCloudS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputAlibabaCloudS3 = {
+  id: "<id>",
+  type: "alibaba_cloud_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
