@@ -306,10 +306,10 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [count](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
-* [get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
-* [list](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
-* [restart](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
+* [count](docs/sdks/nodes/README.md#count) - Get a count of Worker, Edge, or Outpost Nodes
+* [get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
+* [list](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker, Edge, or Outpost Nodes
+* [restart](docs/sdks/nodes/README.md#restart) - Restart Worker, Edge, or Outpost Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
@@ -520,10 +520,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`lakesDatasetsGet`](docs/sdks/datasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)
 - [`lakesDatasetsList`](docs/sdks/datasets/README.md#list) - List all Lake Datasets (Cribl.Cloud only)
 - [`lakesDatasetsUpdate`](docs/sdks/datasets/README.md#update) - Update a Lake Dataset (Cribl.Cloud only)
-- [`nodesCount`](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
-- [`nodesGet`](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
-- [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
-- [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
+- [`nodesCount`](docs/sdks/nodes/README.md#count) - Get a count of Worker, Edge, or Outpost Nodes
+- [`nodesGet`](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
+- [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker, Edge, or Outpost Nodes
+- [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker, Edge, or Outpost Nodes
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack

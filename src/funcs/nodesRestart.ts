@@ -28,10 +28,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Restart Worker or Edge Nodes
+ * Restart Worker, Edge, or Outpost Nodes
  *
  * @remarks
- * Restart all Worker or Edge Nodes for the specified Cribl product.
+ * Restart all Worker, Edge, or Outpost Nodes for the specified Cribl product.
  */
 export function nodesRestart(
   client: CriblControlPlaneCore,

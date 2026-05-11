@@ -4,14 +4,14 @@
 
 ### Available Operations
 
-* [count](#count) - Get a count of Worker or Edge Nodes
-* [get](#get) - Get detailed metadata for a Worker or Edge Node
-* [list](#list) - Get detailed metadata for Worker or Edge Nodes
-* [restart](#restart) - Restart Worker or Edge Nodes
+* [count](#count) - Get a count of Worker, Edge, or Outpost Nodes
+* [get](#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
+* [list](#list) - Get detailed metadata for Worker, Edge, or Outpost Nodes
+* [restart](#restart) - Restart Worker, Edge, or Outpost Nodes
 
 ## count
 
-Get a count of all Worker or Edge Nodes for the specified Cribl product.
+Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl product.
 
 ### Example Usage
 
@@ -91,7 +91,7 @@ run();
 
 ## get
 
-Get detailed metadata for the specified Worker or Edge Node for the specified Cribl product.
+Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
 
 ### Example Usage
 
@@ -173,7 +173,7 @@ run();
 
 ## list
 
-Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
+Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl product.
 
 ### Example Usage
 
@@ -257,7 +257,7 @@ run();
 
 ## restart
 
-Restart all Worker or Edge Nodes for the specified Cribl product.
+Restart all Worker, Edge, or Outpost Nodes for the specified Cribl product.
 
 ### Example Usage
 
