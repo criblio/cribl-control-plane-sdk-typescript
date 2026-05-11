@@ -8,9 +8,9 @@ import * as models from "../index.js";
 
 export type UpdateProductsWorkersRestartByProductRequest = {
   /**
-   * Name of the Cribl product whose Worker or Edge Nodes you want to restart.
+   * Name of the Cribl product whose Worker, Edge, or Outpost Nodes you want to restart.
    */
-  product: models.ProductsBase;
+  product: models.ProductsCore;
   /**
    * RestartRequest object.
    */
@@ -30,7 +30,7 @@ export const UpdateProductsWorkersRestartByProductRequest$outboundSchema:
     z.ZodTypeDef,
     UpdateProductsWorkersRestartByProductRequest
   > = z.object({
-    product: models.ProductsBase$outboundSchema,
+    product: models.ProductsCore$outboundSchema,
     restartRequest: models.RestartRequest$outboundSchema,
   }).transform((v) => {
     return remap$(v, {

@@ -7,9 +7,9 @@ import * as models from "../index.js";
 
 export type GetProductsSummaryWorkersByProductRequest = {
   /**
-   * Name of the Cribl product to get the count of Worker or Edge Nodes for.
+   * Name of the Cribl product to get the count of Worker, Edge, or Outpost Nodes for.
    */
-  product: models.ProductsBase;
+  product: models.ProductsCore;
   /**
    * Filter expression to evaluate against Nodes for inclusion in the response.
    */
@@ -29,7 +29,7 @@ export const GetProductsSummaryWorkersByProductRequest$outboundSchema:
     z.ZodTypeDef,
     GetProductsSummaryWorkersByProductRequest
   > = z.object({
-    product: models.ProductsBase$outboundSchema,
+    product: models.ProductsCore$outboundSchema,
     filterExp: z.string().optional(),
   });
 
