@@ -4,6 +4,11 @@
 
 import * as z from "zod/v3";
 import {
+  OutputAlibabaCloudS3,
+  OutputAlibabaCloudS3$Outbound,
+  OutputAlibabaCloudS3$outboundSchema,
+} from "./outputalibabaclouds3.js";
+import {
   OutputAlphasocS3,
   OutputAlphasocS3$Outbound,
   OutputAlphasocS3$outboundSchema,
@@ -466,7 +471,8 @@ export type Output =
   | OutputAlphasocS3
   | OutputDellS3
   | OutputCloudianS3
-  | OutputScalityS3;
+  | OutputScalityS3
+  | OutputAlibabaCloudS3;
 
 /** @internal */
 export type Output$Outbound =
@@ -546,7 +552,8 @@ export type Output$Outbound =
   | OutputAlphasocS3$Outbound
   | OutputDellS3$Outbound
   | OutputCloudianS3$Outbound
-  | OutputScalityS3$Outbound;
+  | OutputScalityS3$Outbound
+  | OutputAlibabaCloudS3$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -633,6 +640,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputDellS3$outboundSchema,
   OutputCloudianS3$outboundSchema,
   OutputScalityS3$outboundSchema,
+  OutputAlibabaCloudS3$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {

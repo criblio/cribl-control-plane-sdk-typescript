@@ -16,6 +16,9 @@ import {
   CreateOutputSystemByPackExtraLogType,
   CreateOutputSystemByPackExtraLogType$Outbound,
   CreateOutputSystemByPackExtraLogType$outboundSchema,
+  CreateOutputSystemByPackOutputAlibabaCloudS3,
+  CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound,
+  CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
   CreateOutputSystemByPackOutputAlphasocS3,
   CreateOutputSystemByPackOutputAlphasocS3$Outbound,
   CreateOutputSystemByPackOutputAlphasocS3$outboundSchema,
@@ -184,14 +187,13 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-  CreateOutputSystemByPackPqControlsGoogleChronicle,
-  CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
-  CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema,
   CreateOutputSystemByPackSendEventsAs,
   CreateOutputSystemByPackSendEventsAs$outboundSchema,
   CreateOutputSystemByPackUDMType,
   CreateOutputSystemByPackUDMType$outboundSchema,
-} from "./createoutputsystembypackpqcontrolsgooglechronicle.js";
+} from "./createoutputsystembypackudmtype.js";
+
+export type CreateOutputSystemByPackPqControlsGoogleChronicle = {};
 
 export type CreateOutputSystemByPackOutputGoogleChronicle = {
   /**
@@ -5342,7 +5344,8 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputAlphasocS3
   | CreateOutputSystemByPackOutputDellS3
   | CreateOutputSystemByPackOutputCloudianS3
-  | CreateOutputSystemByPackOutputScalityS3;
+  | CreateOutputSystemByPackOutputScalityS3
+  | CreateOutputSystemByPackOutputAlibabaCloudS3;
 
 export type CreateOutputSystemByPackRequest = {
   /**
@@ -5434,8 +5437,31 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputAlphasocS3
     | CreateOutputSystemByPackOutputDellS3
     | CreateOutputSystemByPackOutputCloudianS3
-    | CreateOutputSystemByPackOutputScalityS3;
+    | CreateOutputSystemByPackOutputScalityS3
+    | CreateOutputSystemByPackOutputAlibabaCloudS3;
 };
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGoogleChronicle
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsGoogleChronicleToJSON(
+  createOutputSystemByPackPqControlsGoogleChronicle:
+    CreateOutputSystemByPackPqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGoogleChronicle,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputSystemByPackOutputGoogleChronicle$Outbound = {
@@ -5575,8 +5601,9 @@ export const CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema:
     pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
     pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
     pqMaxBufferSizeBytes: z.string().optional(),
-    pqControls: CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
-      .optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
+    ).optional(),
     __template_streamtags: z.string().optional(),
     __template_apiVersion: z.string().optional(),
     __template_region: z.string().optional(),
@@ -9363,7 +9390,8 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputAlphasocS3$Outbound
   | CreateOutputSystemByPackOutputDellS3$Outbound
   | CreateOutputSystemByPackOutputCloudianS3$Outbound
-  | CreateOutputSystemByPackOutputScalityS3$Outbound;
+  | CreateOutputSystemByPackOutputScalityS3$Outbound
+  | CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound;
 
 /** @internal */
 export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
@@ -9453,6 +9481,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputDellS3$outboundSchema,
   CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
   CreateOutputSystemByPackOutputScalityS3$outboundSchema,
+  CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
 ]);
 
 export function createOutputSystemByPackRequestBodyToJSON(
@@ -9552,7 +9581,8 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputAlphasocS3$Outbound
     | CreateOutputSystemByPackOutputDellS3$Outbound
     | CreateOutputSystemByPackOutputCloudianS3$Outbound
-    | CreateOutputSystemByPackOutputScalityS3$Outbound;
+    | CreateOutputSystemByPackOutputScalityS3$Outbound
+    | CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound;
 };
 
 /** @internal */
@@ -9651,6 +9681,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputDellS3$outboundSchema,
     CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
     CreateOutputSystemByPackOutputScalityS3$outboundSchema,
+    CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
   ]),
 }).transform((v) => {
   return remap$(v, {

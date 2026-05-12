@@ -233,6 +233,11 @@ const value: models.InputEventhubInput = {
 const value: models.InputEventhubAmqpInput = {
   type: "eventhub_amqp",
   consumerGroup: "<value>",
+  checkpointing: {
+    blobStore: {
+      containerName: "<value>",
+    },
+  },
 };
 ```
 

@@ -15,6 +15,9 @@ import {
   CreateOutputExtraLogType,
   CreateOutputExtraLogType$Outbound,
   CreateOutputExtraLogType$outboundSchema,
+  CreateOutputOutputAlibabaCloudS3,
+  CreateOutputOutputAlibabaCloudS3$Outbound,
+  CreateOutputOutputAlibabaCloudS3$outboundSchema,
   CreateOutputOutputAlphasocS3,
   CreateOutputOutputAlphasocS3$Outbound,
   CreateOutputOutputAlphasocS3$outboundSchema,
@@ -183,14 +186,13 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-  CreateOutputPqControlsGoogleChronicle,
-  CreateOutputPqControlsGoogleChronicle$Outbound,
-  CreateOutputPqControlsGoogleChronicle$outboundSchema,
   CreateOutputSendEventsAs,
   CreateOutputSendEventsAs$outboundSchema,
   CreateOutputUDMType,
   CreateOutputUDMType$outboundSchema,
-} from "./createoutputpqcontrolsgooglechronicle.js";
+} from "./createoutputudmtype.js";
+
+export type CreateOutputPqControlsGoogleChronicle = {};
 
 export type CreateOutputOutputGoogleChronicle = {
   /**
@@ -5321,7 +5323,28 @@ export type CreateOutputRequest =
   | CreateOutputOutputAlphasocS3
   | CreateOutputOutputDellS3
   | CreateOutputOutputCloudianS3
-  | CreateOutputOutputScalityS3;
+  | CreateOutputOutputScalityS3
+  | CreateOutputOutputAlibabaCloudS3;
+
+/** @internal */
+export type CreateOutputPqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGoogleChronicle$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGoogleChronicle$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGoogleChronicle
+> = z.object({});
+
+export function createOutputPqControlsGoogleChronicleToJSON(
+  createOutputPqControlsGoogleChronicle: CreateOutputPqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGoogleChronicle$outboundSchema.parse(
+      createOutputPqControlsGoogleChronicle,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputOutputGoogleChronicle$Outbound = {
@@ -5453,7 +5476,8 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: CreateOutputPqControlsGoogleChronicle$outboundSchema.optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsGoogleChronicle$outboundSchema)
+    .optional(),
   __template_streamtags: z.string().optional(),
   __template_apiVersion: z.string().optional(),
   __template_region: z.string().optional(),
@@ -9082,7 +9106,8 @@ export type CreateOutputRequest$Outbound =
   | CreateOutputOutputAlphasocS3$Outbound
   | CreateOutputOutputDellS3$Outbound
   | CreateOutputOutputCloudianS3$Outbound
-  | CreateOutputOutputScalityS3$Outbound;
+  | CreateOutputOutputScalityS3$Outbound
+  | CreateOutputOutputAlibabaCloudS3$Outbound;
 
 /** @internal */
 export const CreateOutputRequest$outboundSchema: z.ZodType<
@@ -9172,6 +9197,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   CreateOutputOutputDellS3$outboundSchema,
   CreateOutputOutputCloudianS3$outboundSchema,
   CreateOutputOutputScalityS3$outboundSchema,
+  CreateOutputOutputAlibabaCloudS3$outboundSchema,
 ]);
 
 export function createOutputRequestToJSON(

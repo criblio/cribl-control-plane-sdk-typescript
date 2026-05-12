@@ -1209,6 +1209,11 @@ async function run() {
     pqEnabled: false,
     eventHubName: "my-event-hub",
     consumerGroup: "$Default",
+    checkpointing: {
+      blobStore: {
+        containerName: "my-container",
+      },
+    },
   });
 
   console.log(result);
@@ -1242,6 +1247,11 @@ async function run() {
     pqEnabled: false,
     eventHubName: "my-event-hub",
     consumerGroup: "$Default",
+    checkpointing: {
+      blobStore: {
+        containerName: "my-container",
+      },
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -5896,6 +5906,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
 
@@ -5932,6 +5947,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
   if (res.ok) {
