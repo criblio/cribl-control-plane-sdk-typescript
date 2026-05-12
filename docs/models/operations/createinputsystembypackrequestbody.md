@@ -263,6 +263,11 @@ const value: operations.CreateInputSystemByPackInputEventhubAmqp = {
   id: "<id>",
   type: "eventhub_amqp",
   consumerGroup: "<value>",
+  checkpointing: {
+    blobStore: {
+      containerName: "<value>",
+    },
+  },
 };
 ```
 

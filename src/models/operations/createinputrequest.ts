@@ -11,11 +11,9 @@ import {
   CreateInputAuth,
   CreateInputAuth$Outbound,
   CreateInputAuth$outboundSchema,
-  CreateInputAzureBlobStorage,
-  CreateInputAzureBlobStorage$Outbound,
-  CreateInputAzureBlobStorage$outboundSchema,
-  CreateInputCheckpointStore,
-  CreateInputCheckpointStore$outboundSchema,
+  CreateInputCheckpointing,
+  CreateInputCheckpointing$Outbound,
+  CreateInputCheckpointing$outboundSchema,
   CreateInputInputAnthropicCompliance,
   CreateInputInputAnthropicCompliance$Outbound,
   CreateInputInputAnthropicCompliance$outboundSchema,
@@ -157,15 +155,7 @@ import {
   CreateInputInputZscalerHec,
   CreateInputInputZscalerHec$Outbound,
   CreateInputInputZscalerHec$outboundSchema,
-} from "./createinputazureblobstorage.js";
-
-export type CreateInputCheckpointing = {
-  /**
-   * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-   */
-  checkpointStoreType?: CreateInputCheckpointStore | undefined;
-  blobStore?: CreateInputAzureBlobStorage | undefined;
-};
+} from "./createinputcheckpointing.js";
 
 export type CreateInputInputEventhubAmqp = {
   /**
@@ -208,7 +198,7 @@ export type CreateInputInputEventhubAmqp = {
    */
   consumerGroup: string;
   auth?: CreateInputAuth | undefined;
-  checkpointing?: CreateInputCheckpointing | undefined;
+  checkpointing: CreateInputCheckpointing;
   /**
    * Start reading from earliest available data; relevant only during initial subscription
    */
@@ -4098,30 +4088,6 @@ export type CreateInputRequest =
   | CreateInputInputOkta;
 
 /** @internal */
-export type CreateInputCheckpointing$Outbound = {
-  checkpointStoreType?: string | undefined;
-  blobStore?: CreateInputAzureBlobStorage$Outbound | undefined;
-};
-
-/** @internal */
-export const CreateInputCheckpointing$outboundSchema: z.ZodType<
-  CreateInputCheckpointing$Outbound,
-  z.ZodTypeDef,
-  CreateInputCheckpointing
-> = z.object({
-  checkpointStoreType: CreateInputCheckpointStore$outboundSchema.optional(),
-  blobStore: CreateInputAzureBlobStorage$outboundSchema.optional(),
-});
-
-export function createInputCheckpointingToJSON(
-  createInputCheckpointing: CreateInputCheckpointing,
-): string {
-  return JSON.stringify(
-    CreateInputCheckpointing$outboundSchema.parse(createInputCheckpointing),
-  );
-}
-
-/** @internal */
 export type CreateInputInputEventhubAmqp$Outbound = {
   id: string;
   type: "eventhub_amqp";
@@ -4138,7 +4104,7 @@ export type CreateInputInputEventhubAmqp$Outbound = {
   eventHubName?: string | undefined;
   consumerGroup: string;
   auth?: CreateInputAuth$Outbound | undefined;
-  checkpointing?: CreateInputCheckpointing$Outbound | undefined;
+  checkpointing: CreateInputCheckpointing$Outbound;
   fromBeginning?: boolean | undefined;
   maxBatchSize?: number | undefined;
   maxWaitTimeInSeconds?: number | undefined;
@@ -4176,8 +4142,7 @@ export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
   auth: CreateInputAuth$outboundSchema.optional(),
-  checkpointing: z.lazy(() => CreateInputCheckpointing$outboundSchema)
-    .optional(),
+  checkpointing: CreateInputCheckpointing$outboundSchema,
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
   maxWaitTimeInSeconds: z.number().int().optional(),

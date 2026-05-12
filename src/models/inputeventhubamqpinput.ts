@@ -90,26 +90,6 @@ export type InputEventhubAmqpAuth = {
   __template_fullyQualifiedNamespace?: string | undefined;
 };
 
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export const InputEventhubAmqpCheckpointStore = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Azure Blob Storage
-   */
-  AzureBlob: "azureBlob",
-} as const;
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export type InputEventhubAmqpCheckpointStore = OpenEnum<
-  typeof InputEventhubAmqpCheckpointStore
->;
-
 export const InputEventhubAmqpAuthenticationMethod = {
   Secret: "secret",
   ClientSecret: "clientSecret",
@@ -175,11 +155,7 @@ export type InputEventhubAmqpAzureBlobStorage = {
 };
 
 export type InputEventhubAmqpCheckpointing = {
-  /**
-   * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-   */
-  checkpointStoreType?: InputEventhubAmqpCheckpointStore | undefined;
-  blobStore?: InputEventhubAmqpAzureBlobStorage | undefined;
+  blobStore: InputEventhubAmqpAzureBlobStorage;
 };
 
 export type InputEventhubAmqpInput = {
@@ -223,7 +199,7 @@ export type InputEventhubAmqpInput = {
    */
   consumerGroup: string;
   auth?: InputEventhubAmqpAuth | undefined;
-  checkpointing?: InputEventhubAmqpCheckpointing | undefined;
+  checkpointing: InputEventhubAmqpCheckpointing;
   /**
    * Start reading from earliest available data; relevant only during initial subscription
    */
@@ -340,13 +316,6 @@ export function inputEventhubAmqpAuthToJSON(
 }
 
 /** @internal */
-export const InputEventhubAmqpCheckpointStore$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputEventhubAmqpCheckpointStore
-> = openEnums.outboundSchema(InputEventhubAmqpCheckpointStore);
-
-/** @internal */
 export const InputEventhubAmqpAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -406,8 +375,7 @@ export function inputEventhubAmqpAzureBlobStorageToJSON(
 
 /** @internal */
 export type InputEventhubAmqpCheckpointing$Outbound = {
-  checkpointStoreType?: string | undefined;
-  blobStore?: InputEventhubAmqpAzureBlobStorage$Outbound | undefined;
+  blobStore: InputEventhubAmqpAzureBlobStorage$Outbound;
 };
 
 /** @internal */
@@ -416,10 +384,7 @@ export const InputEventhubAmqpCheckpointing$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputEventhubAmqpCheckpointing
 > = z.object({
-  checkpointStoreType: InputEventhubAmqpCheckpointStore$outboundSchema
-    .optional(),
-  blobStore: z.lazy(() => InputEventhubAmqpAzureBlobStorage$outboundSchema)
-    .optional(),
+  blobStore: z.lazy(() => InputEventhubAmqpAzureBlobStorage$outboundSchema),
 });
 
 export function inputEventhubAmqpCheckpointingToJSON(
@@ -447,7 +412,7 @@ export type InputEventhubAmqpInput$Outbound = {
   eventHubName?: string | undefined;
   consumerGroup: string;
   auth?: InputEventhubAmqpAuth$Outbound | undefined;
-  checkpointing?: InputEventhubAmqpCheckpointing$Outbound | undefined;
+  checkpointing: InputEventhubAmqpCheckpointing$Outbound;
   fromBeginning?: boolean | undefined;
   maxBatchSize?: number | undefined;
   maxWaitTimeInSeconds?: number | undefined;
@@ -484,8 +449,7 @@ export const InputEventhubAmqpInput$outboundSchema: z.ZodType<
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
   auth: z.lazy(() => InputEventhubAmqpAuth$outboundSchema).optional(),
-  checkpointing: z.lazy(() => InputEventhubAmqpCheckpointing$outboundSchema)
-    .optional(),
+  checkpointing: z.lazy(() => InputEventhubAmqpCheckpointing$outboundSchema),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
   maxWaitTimeInSeconds: z.number().int().optional(),

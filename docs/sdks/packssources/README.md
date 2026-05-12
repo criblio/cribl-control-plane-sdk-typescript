@@ -1309,6 +1309,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
 
@@ -1345,6 +1350,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
   if (res.ok) {
@@ -6329,6 +6339,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
 
@@ -6366,6 +6381,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
   if (res.ok) {

@@ -4164,7 +4164,7 @@ export type CreateOutputFormatClickHouse = OpenEnum<
 >;
 
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to ClickHouse columns
  */
 export const CreateOutputMappingTypeClickHouse = {
   /**
@@ -4177,7 +4177,7 @@ export const CreateOutputMappingTypeClickHouse = {
   Custom: "custom",
 } as const;
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to ClickHouse columns
  */
 export type CreateOutputMappingTypeClickHouse = OpenEnum<
   typeof CreateOutputMappingTypeClickHouse
@@ -4237,11 +4237,11 @@ export type CreateOutputOutputClickHouse = {
    */
   format?: CreateOutputFormatClickHouse | undefined;
   /**
-   * How event fields are mapped to ClickHouse columns.
+   * How event fields are mapped to ClickHouse columns
    */
   mappingType?: CreateOutputMappingTypeClickHouse | undefined;
   /**
-   * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+   * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
    */
   asyncInserts?: boolean | undefined;
   tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
@@ -4324,7 +4324,7 @@ export type CreateOutputOutputClickHouse = {
    */
   sqlUsername?: string | undefined;
   /**
-   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
    */
   waitForAsyncInserts?: boolean | undefined;
   /**

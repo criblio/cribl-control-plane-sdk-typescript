@@ -1324,10 +1324,6 @@ export type InputResponseInputSecurityLake = {
    */
   numReceivers?: number | undefined;
   /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
-  /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
   socketTimeout?: number | undefined;
@@ -4413,10 +4409,6 @@ export type InputResponseInputS3Inventory = {
    */
   numReceivers?: number | undefined;
   /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
-  /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
   socketTimeout?: number | undefined;
@@ -4634,10 +4626,6 @@ export type InputResponseInputS3 = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -5631,10 +5619,6 @@ export type InputResponseInputCrowdstrike = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -7977,26 +7961,6 @@ export type InputResponseAuth = {
   __template_fullyQualifiedNamespace?: string | undefined;
 };
 
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export const InputResponseCheckpointStore = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Azure Blob Storage
-   */
-  AzureBlob: "azureBlob",
-} as const;
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export type InputResponseCheckpointStore = OpenEnum<
-  typeof InputResponseCheckpointStore
->;
-
 export const AuthenticationMethodEventhubAmqp = {
   Secret: "secret",
   ClientSecret: "clientSecret",
@@ -8059,6 +8023,10 @@ export type InputResponseAzureBlobStorage = {
    * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
    */
   __template_azureCloud?: string | undefined;
+};
+
+export type InputResponseCheckpointing = {
+  blobStore: InputResponseAzureBlobStorage;
 };
 
 /** @internal */
@@ -8688,7 +8656,6 @@ export const InputResponseInputSecurityLake$inboundSchema: z.ZodType<
   maxMessages: types.optional(types.number()),
   visibilityTimeout: types.optional(types.number()),
   numReceivers: types.optional(types.number()),
-  fileConcurrency: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   skipOnError: types.optional(types.boolean()),
   includeSqsMetadata: types.optional(types.boolean()),
@@ -10301,7 +10268,6 @@ export const InputResponseInputS3Inventory$inboundSchema: z.ZodType<
   maxMessages: types.optional(types.number()),
   visibilityTimeout: types.optional(types.number()),
   numReceivers: types.optional(types.number()),
-  fileConcurrency: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   skipOnError: types.optional(types.boolean()),
   includeSqsMetadata: types.optional(types.boolean()),
@@ -10384,7 +10350,6 @@ export const InputResponseInputS3$inboundSchema: z.ZodType<
   maxMessages: types.optional(types.number()),
   visibilityTimeout: types.optional(types.number()),
   numReceivers: types.optional(types.number()),
-  fileConcurrency: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   skipOnError: types.optional(types.boolean()),
   includeSqsMetadata: types.optional(types.boolean()),
@@ -10853,7 +10818,6 @@ export const InputResponseInputCrowdstrike$inboundSchema: z.ZodType<
   maxMessages: types.optional(types.number()),
   visibilityTimeout: types.optional(types.number()),
   numReceivers: types.optional(types.number()),
-  fileConcurrency: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   skipOnError: types.optional(types.boolean()),
   includeSqsMetadata: types.optional(types.boolean()),
@@ -12519,13 +12483,6 @@ export function inputResponseAuthFromJSON(
 }
 
 /** @internal */
-export const InputResponseCheckpointStore$inboundSchema: z.ZodType<
-  InputResponseCheckpointStore,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseCheckpointStore);
-
-/** @internal */
 export const AuthenticationMethodEventhubAmqp$inboundSchema: z.ZodType<
   AuthenticationMethodEventhubAmqp,
   z.ZodTypeDef,
@@ -12563,5 +12520,24 @@ export function inputResponseAzureBlobStorageFromJSON(
     jsonString,
     (x) => InputResponseAzureBlobStorage$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'InputResponseAzureBlobStorage' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseCheckpointing$inboundSchema: z.ZodType<
+  InputResponseCheckpointing,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  blobStore: z.lazy(() => InputResponseAzureBlobStorage$inboundSchema),
+});
+
+export function inputResponseCheckpointingFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseCheckpointing, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseCheckpointing$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseCheckpointing' from JSON`,
   );
 }
