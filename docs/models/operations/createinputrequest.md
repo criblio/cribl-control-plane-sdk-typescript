@@ -258,6 +258,11 @@ const value: operations.CreateInputInputEventhubAmqp = {
   id: "<id>",
   type: "eventhub_amqp",
   consumerGroup: "<value>",
+  checkpointing: {
+    blobStore: {
+      containerName: "<value>",
+    },
+  },
 };
 ```
 

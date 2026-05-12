@@ -75,10 +75,8 @@ import {
 import {
   InputResponseAuth,
   InputResponseAuth$inboundSchema,
-  InputResponseAzureBlobStorage,
-  InputResponseAzureBlobStorage$inboundSchema,
-  InputResponseCheckpointStore,
-  InputResponseCheckpointStore$inboundSchema,
+  InputResponseCheckpointing,
+  InputResponseCheckpointing$inboundSchema,
   InputResponseInputAnthropicCompliance,
   InputResponseInputAnthropicCompliance$inboundSchema,
   InputResponseInputAppleUnifiedLogs,
@@ -173,7 +171,7 @@ import {
   InputResponseInputWizWebhook$inboundSchema,
   InputResponseInputZscalerHec,
   InputResponseInputZscalerHec$inboundSchema,
-} from "./inputresponseazureblobstorage.js";
+} from "./inputresponsecheckpointing.js";
 import {
   KafkaSchemaRegistryAuthenticationType,
   KafkaSchemaRegistryAuthenticationType$inboundSchema,
@@ -245,14 +243,6 @@ import {
   TlsSettingsServerSideType$inboundSchema,
 } from "./tlssettingsserversidetype.js";
 
-export type InputResponseCheckpointing = {
-  /**
-   * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-   */
-  checkpointStoreType?: InputResponseCheckpointStore | undefined;
-  blobStore?: InputResponseAzureBlobStorage | undefined;
-};
-
 export type InputResponseInputEventhubAmqp = {
   /**
    * Unique ID for this input
@@ -300,7 +290,7 @@ export type InputResponseInputEventhubAmqp = {
    */
   consumerGroup: string;
   auth?: InputResponseAuth | undefined;
-  checkpointing?: InputResponseCheckpointing | undefined;
+  checkpointing: InputResponseCheckpointing;
   /**
    * Start reading from earliest available data; relevant only during initial subscription
    */
@@ -1387,7 +1377,7 @@ export type InputResponseInputEdgePrometheus = {
    */
   dimensionList?: Array<string> | undefined;
   /**
-   * Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+   * When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
    */
   fieldPerMetric?: boolean | undefined;
   /**
@@ -1648,7 +1638,7 @@ export type InputResponseInputPrometheus = {
    */
   dimensionList?: Array<string> | undefined;
   /**
-   * When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+   * When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
    */
   fieldPerMetric?: boolean | undefined;
   /**
@@ -4485,28 +4475,6 @@ export type InputResponse =
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
-export const InputResponseCheckpointing$inboundSchema: z.ZodType<
-  InputResponseCheckpointing,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  checkpointStoreType: types.optional(
-    InputResponseCheckpointStore$inboundSchema,
-  ),
-  blobStore: types.optional(InputResponseAzureBlobStorage$inboundSchema),
-});
-
-export function inputResponseCheckpointingFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseCheckpointing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseCheckpointing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseCheckpointing' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputResponseInputEventhubAmqp$inboundSchema: z.ZodType<
   InputResponseInputEventhubAmqp,
   z.ZodTypeDef,
@@ -4530,9 +4498,7 @@ export const InputResponseInputEventhubAmqp$inboundSchema: z.ZodType<
   eventHubName: types.optional(types.string()),
   consumerGroup: types.string(),
   auth: types.optional(InputResponseAuth$inboundSchema),
-  checkpointing: types.optional(
-    z.lazy(() => InputResponseCheckpointing$inboundSchema),
-  ),
+  checkpointing: InputResponseCheckpointing$inboundSchema,
   fromBeginning: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
   maxWaitTimeInSeconds: types.optional(types.number()),

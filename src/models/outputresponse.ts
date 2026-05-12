@@ -127,16 +127,14 @@ import {
   OrphanFileRecoveryType$inboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
-  ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
-} from "./parquetversionoptions.js";
-import {
   AuthenticationMethodGoogleChronicle,
   AuthenticationMethodGoogleChronicle$inboundSchema,
   OutputResponseAPIVersion,
   OutputResponseAPIVersion$inboundSchema,
   OutputResponseExtraLogType,
   OutputResponseExtraLogType$inboundSchema,
+  OutputResponseOutputAlibabaCloudS3,
+  OutputResponseOutputAlibabaCloudS3$inboundSchema,
   OutputResponseOutputAlphasocS3,
   OutputResponseOutputAlphasocS3$inboundSchema,
   OutputResponseOutputChronicle,
@@ -253,9 +251,11 @@ import {
   OutputResponseSendEventsAs$inboundSchema,
   OutputResponseUDMType,
   OutputResponseUDMType$inboundSchema,
-  PqControlsGoogleChronicle,
-  PqControlsGoogleChronicle$inboundSchema,
-} from "./pqcontrolsgooglechronicle.js";
+} from "./outputresponseudmtype.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+} from "./parquetversionoptions.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$inboundSchema,
@@ -297,6 +297,8 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
   TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
+
+export type PqControlsGoogleChronicle = {};
 
 export type OutputResponseOutputGoogleChronicle = {
   /**
@@ -5592,7 +5594,25 @@ export type OutputResponse =
   | OutputResponseOutputDellS3
   | OutputResponseOutputCloudianS3
   | OutputResponseOutputScalityS3
+  | OutputResponseOutputAlibabaCloudS3
   | discriminatedUnionTypes.Unknown<"type">;
+
+/** @internal */
+export const PqControlsGoogleChronicle$inboundSchema: z.ZodType<
+  PqControlsGoogleChronicle,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+export function pqControlsGoogleChronicleFromJSON(
+  jsonString: string,
+): SafeParseResult<PqControlsGoogleChronicle, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PqControlsGoogleChronicle$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqControlsGoogleChronicle' from JSON`,
+  );
+}
 
 /** @internal */
 export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
@@ -5661,7 +5681,9 @@ export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(PqControlsGoogleChronicle$inboundSchema),
+  pqControls: types.optional(
+    z.lazy(() => PqControlsGoogleChronicle$inboundSchema),
+  ),
   __template_streamtags: types.optional(types.string()),
   __template_apiVersion: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -8055,6 +8077,7 @@ export const OutputResponse$inboundSchema: z.ZodType<
   dell_s3: OutputResponseOutputDellS3$inboundSchema,
   cloudian_s3: OutputResponseOutputCloudianS3$inboundSchema,
   scality_s3: OutputResponseOutputScalityS3$inboundSchema,
+  alibaba_cloud_s3: OutputResponseOutputAlibabaCloudS3$inboundSchema,
 });
 
 export function outputResponseFromJSON(

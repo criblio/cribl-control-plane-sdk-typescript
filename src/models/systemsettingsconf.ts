@@ -13,6 +13,12 @@ import {
   ApiTypeSystemSettingsConf$outboundSchema,
 } from "./apitypesystemsettingsconf.js";
 import {
+  AppsTypeSystemSettingsConf,
+  AppsTypeSystemSettingsConf$inboundSchema,
+  AppsTypeSystemSettingsConf$Outbound,
+  AppsTypeSystemSettingsConf$outboundSchema,
+} from "./appstypesystemsettingsconf.js";
+import {
   BackupsSettingsUnion,
   BackupsSettingsUnion$inboundSchema,
   BackupsSettingsUnion$Outbound,
@@ -100,6 +106,7 @@ import {
 
 export type SystemSettingsConf = {
   api: ApiTypeSystemSettingsConf;
+  apps?: AppsTypeSystemSettingsConf | undefined;
   backups: BackupsSettingsUnion;
   customLogo?: CustomLogoTypeSystemSettingsConf | undefined;
   pii: PiiSettingsUnion;
@@ -123,6 +130,7 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   api: ApiTypeSystemSettingsConf$inboundSchema,
+  apps: types.optional(AppsTypeSystemSettingsConf$inboundSchema),
   backups: BackupsSettingsUnion$inboundSchema,
   customLogo: types.optional(CustomLogoTypeSystemSettingsConf$inboundSchema),
   pii: PiiSettingsUnion$inboundSchema,
@@ -141,6 +149,7 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
 /** @internal */
 export type SystemSettingsConf$Outbound = {
   api: ApiTypeSystemSettingsConf$Outbound;
+  apps?: AppsTypeSystemSettingsConf$Outbound | undefined;
   backups: BackupsSettingsUnion$Outbound;
   customLogo?: CustomLogoTypeSystemSettingsConf$Outbound | undefined;
   pii: PiiSettingsUnion$Outbound;
@@ -164,6 +173,7 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
   SystemSettingsConf
 > = z.object({
   api: ApiTypeSystemSettingsConf$outboundSchema,
+  apps: AppsTypeSystemSettingsConf$outboundSchema.optional(),
   backups: BackupsSettingsUnion$outboundSchema,
   customLogo: CustomLogoTypeSystemSettingsConf$outboundSchema.optional(),
   pii: PiiSettingsUnion$outboundSchema,

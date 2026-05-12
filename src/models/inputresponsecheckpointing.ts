@@ -3255,6 +3255,10 @@ export type InputResponseInputFile = {
    */
   breakerRulesets?: Array<string> | undefined;
   /**
+   * When enabled, no Event Breaker channel flush timeout applies and the timeout below is ignored. Prefer this option when using header-based breakers for file types such as CSV or IIS.
+   */
+  disableStaleChannelFlush?: boolean | undefined;
+  /**
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
@@ -6303,6 +6307,14 @@ export type InputResponseInputKubeMetrics = {
    */
   interval?: number | undefined;
   /**
+   * Enable to scrape kubelet metrics from https://<nodeIP>:10250/metrics. Requires Edge to run as a DaemonSet with direct network access to the node.
+   */
+  scrapeKubelet?: boolean | undefined;
+  /**
+   * Scrape cAdvisor container metrics from https://<nodeIP>:10250/metrics/cadvisor. Requires Edge to run as a DaemonSet with direct network access to the Node.
+   */
+  scrapeCadvisor?: boolean | undefined;
+  /**
    * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
    */
   rules?: Array<RuleConfInputKubeMetrics> | undefined;
@@ -7965,26 +7977,6 @@ export type InputResponseAuth = {
   __template_fullyQualifiedNamespace?: string | undefined;
 };
 
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export const InputResponseCheckpointStore = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Azure Blob Storage
-   */
-  AzureBlob: "azureBlob",
-} as const;
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export type InputResponseCheckpointStore = OpenEnum<
-  typeof InputResponseCheckpointStore
->;
-
 export const AuthenticationMethodEventhubAmqp = {
   Secret: "secret",
   ClientSecret: "clientSecret",
@@ -8047,6 +8039,10 @@ export type InputResponseAzureBlobStorage = {
    * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
    */
   __template_azureCloud?: string | undefined;
+};
+
+export type InputResponseCheckpointing = {
+  blobStore: InputResponseAzureBlobStorage;
 };
 
 /** @internal */
@@ -9721,6 +9717,7 @@ export const InputResponseInputFile$inboundSchema: z.ZodType<
   hashLen: types.optional(types.number()),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
+  disableStaleChannelFlush: types.optional(types.boolean()),
   staleChannelFlushMs: types.optional(types.number()),
   description: types.optional(types.string()),
   path: types.optional(types.string()),
@@ -11296,6 +11293,8 @@ export const InputResponseInputKubeMetrics$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
+  scrapeKubelet: types.optional(types.boolean()),
+  scrapeCadvisor: types.optional(types.boolean()),
   rules: types.optional(z.array(RuleConfInputKubeMetrics$inboundSchema)),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   persistence: types.optional(
@@ -12504,13 +12503,6 @@ export function inputResponseAuthFromJSON(
 }
 
 /** @internal */
-export const InputResponseCheckpointStore$inboundSchema: z.ZodType<
-  InputResponseCheckpointStore,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseCheckpointStore);
-
-/** @internal */
 export const AuthenticationMethodEventhubAmqp$inboundSchema: z.ZodType<
   AuthenticationMethodEventhubAmqp,
   z.ZodTypeDef,
@@ -12548,5 +12540,24 @@ export function inputResponseAzureBlobStorageFromJSON(
     jsonString,
     (x) => InputResponseAzureBlobStorage$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'InputResponseAzureBlobStorage' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseCheckpointing$inboundSchema: z.ZodType<
+  InputResponseCheckpointing,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  blobStore: z.lazy(() => InputResponseAzureBlobStorage$inboundSchema),
+});
+
+export function inputResponseCheckpointingFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseCheckpointing, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseCheckpointing$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseCheckpointing' from JSON`,
   );
 }

@@ -9,6 +9,18 @@ let value: CreateCriblLakeDatasetByLakeIdRequest = {
   lakeId: "<id>",
   criblLakeDataset: {
     id: "<id>",
+    searchConfig: {
+      metadata: {
+        earliest: "-30d",
+        enableAcceleration: false,
+        fieldList: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        scanMode: "quick",
+      },
+    },
   },
 };
 ```

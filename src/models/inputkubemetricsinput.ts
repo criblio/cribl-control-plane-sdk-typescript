@@ -85,6 +85,14 @@ export type InputKubeMetricsInput = {
    */
   interval?: number | undefined;
   /**
+   * Enable to scrape kubelet metrics from https://<nodeIP>:10250/metrics. Requires Edge to run as a DaemonSet with direct network access to the node.
+   */
+  scrapeKubelet?: boolean | undefined;
+  /**
+   * Scrape cAdvisor container metrics from https://<nodeIP>:10250/metrics/cadvisor. Requires Edge to run as a DaemonSet with direct network access to the Node.
+   */
+  scrapeCadvisor?: boolean | undefined;
+  /**
    * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
    */
   rules?: Array<RuleConfInputKubeMetrics> | undefined;
@@ -151,6 +159,8 @@ export type InputKubeMetricsInput$Outbound = {
   connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   interval?: number | undefined;
+  scrapeKubelet?: boolean | undefined;
+  scrapeCadvisor?: boolean | undefined;
   rules?: Array<RuleConfInputKubeMetrics$Outbound> | undefined;
   metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
@@ -176,6 +186,8 @@ export const InputKubeMetricsInput$outboundSchema: z.ZodType<
   connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   interval: z.number().optional(),
+  scrapeKubelet: z.boolean().optional(),
+  scrapeCadvisor: z.boolean().optional(),
   rules: z.array(RuleConfInputKubeMetrics$outboundSchema).optional(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
