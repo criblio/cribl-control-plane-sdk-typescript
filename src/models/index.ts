@@ -337,7 +337,7 @@ export * from "./inputprometheusinput.js";
 export * from "./inputprometheusrwinput.js";
 export * from "./inputrawudpinput.js";
 export * from "./inputresponse.js";
-export * from "./inputresponseazureblobstorage.js";
+export * from "./inputresponsecheckpointing.js";
 export * from "./inputs3input.js";
 export * from "./inputs3inventoryinput.js";
 export * from "./inputsecuritylakeinput.js";

@@ -115,10 +115,6 @@ export type InputSecurityLakeInput = {
    */
   numReceivers?: number | undefined;
   /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
-  /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
   socketTimeout?: number | undefined;
@@ -255,7 +251,6 @@ export type InputSecurityLakeInput$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -319,7 +314,6 @@ export const InputSecurityLakeInput$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),

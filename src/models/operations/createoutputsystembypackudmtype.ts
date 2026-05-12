@@ -4174,7 +4174,7 @@ export type CreateOutputSystemByPackFormatClickHouse = OpenEnum<
 >;
 
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to ClickHouse columns
  */
 export const CreateOutputSystemByPackMappingTypeClickHouse = {
   /**
@@ -4187,7 +4187,7 @@ export const CreateOutputSystemByPackMappingTypeClickHouse = {
   Custom: "custom",
 } as const;
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to ClickHouse columns
  */
 export type CreateOutputSystemByPackMappingTypeClickHouse = OpenEnum<
   typeof CreateOutputSystemByPackMappingTypeClickHouse
@@ -4247,11 +4247,11 @@ export type CreateOutputSystemByPackOutputClickHouse = {
    */
   format?: CreateOutputSystemByPackFormatClickHouse | undefined;
   /**
-   * How event fields are mapped to ClickHouse columns.
+   * How event fields are mapped to ClickHouse columns
    */
   mappingType?: CreateOutputSystemByPackMappingTypeClickHouse | undefined;
   /**
-   * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+   * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
    */
   asyncInserts?: boolean | undefined;
   tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
@@ -4334,7 +4334,7 @@ export type CreateOutputSystemByPackOutputClickHouse = {
    */
   sqlUsername?: string | undefined;
   /**
-   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
    */
   waitForAsyncInserts?: boolean | undefined;
   /**

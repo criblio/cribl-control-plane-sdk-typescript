@@ -8,7 +8,7 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 
-export type CreateInputSystemByPackInputOkta = {
+export type CreateInputInputOkta = {
   /**
    * Unique ID for this input
    */
@@ -108,9 +108,9 @@ export type CreateInputSystemByPackInputOkta = {
   __template_oktaDomain?: string | undefined;
 };
 
-export type CreateInputSystemByPackManageStateAnthropicCompliance = {};
+export type CreateInputManageStateAnthropicCompliance = {};
 
-export type CreateInputSystemByPackContentConfigAnthropicCompliance = {
+export type CreateInputContentConfigAnthropicCompliance = {
   contentType: string;
   contentDescription?: string | undefined;
   enabled?: boolean | undefined;
@@ -126,9 +126,7 @@ export type CreateInputSystemByPackContentConfigAnthropicCompliance = {
    * JavaScript expression that defines which state to keep when merging task state
    */
   stateMergeExpression?: string | undefined;
-  manageState?:
-    | CreateInputSystemByPackManageStateAnthropicCompliance
-    | undefined;
+  manageState?: CreateInputManageStateAnthropicCompliance | undefined;
   /**
    * Schedule on which to run this collection job
    */
@@ -147,7 +145,7 @@ export type CreateInputSystemByPackContentConfigAnthropicCompliance = {
   jobTimeout?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputAnthropicCompliance = {
+export type CreateInputInputAnthropicCompliance = {
   /**
    * Unique ID for this input
    */
@@ -184,7 +182,7 @@ export type CreateInputSystemByPackInputAnthropicCompliance = {
    * Select or create a stored Anthropic API key
    */
   textSecret: string;
-  contentConfig: Array<CreateInputSystemByPackContentConfigAnthropicCompliance>;
+  contentConfig: Array<CreateInputContentConfigAnthropicCompliance>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -221,7 +219,7 @@ export type CreateInputSystemByPackInputAnthropicCompliance = {
   __template_streamtags?: string | undefined;
 };
 
-export const CreateInputSystemByPackAccountType = {
+export const CreateInputAccountType = {
   /**
    * Workspace
    */
@@ -231,13 +229,11 @@ export const CreateInputSystemByPackAccountType = {
    */
   Organization: "organization",
 } as const;
-export type CreateInputSystemByPackAccountType = OpenEnum<
-  typeof CreateInputSystemByPackAccountType
->;
+export type CreateInputAccountType = OpenEnum<typeof CreateInputAccountType>;
 
-export type CreateInputSystemByPackManageStateOpenaiComplianceLogs = {};
+export type CreateInputManageStateOpenaiComplianceLogs = {};
 
-export type CreateInputSystemByPackInputOpenaiComplianceLogs = {
+export type CreateInputInputOpenaiComplianceLogs = {
   /**
    * Unique ID for this input
    */
@@ -274,7 +270,7 @@ export type CreateInputSystemByPackInputOpenaiComplianceLogs = {
    * Select or create a stored text secret
    */
   textSecret: string;
-  accountType: CreateInputSystemByPackAccountType;
+  accountType: CreateInputAccountType;
   cronSchedule: string;
   /**
    * Relative to the current time. Format: [+|-]<time_integer><time_unit>
@@ -358,9 +354,7 @@ export type CreateInputSystemByPackInputOpenaiComplianceLogs = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?:
-    | CreateInputSystemByPackManageStateOpenaiComplianceLogs
-    | undefined;
+  manageState?: CreateInputManageStateOpenaiComplianceLogs | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
@@ -382,21 +376,21 @@ export type CreateInputSystemByPackInputOpenaiComplianceLogs = {
 /**
  * Select Secret to use a text secret to authenticate
  */
-export const CreateInputSystemByPackAuthTokenAuthenticationMethod = {
+export const CreateInputAuthTokenAuthenticationMethod = {
   Secret: "secret",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
  */
-export type CreateInputSystemByPackAuthTokenAuthenticationMethod = OpenEnum<
-  typeof CreateInputSystemByPackAuthTokenAuthenticationMethod
+export type CreateInputAuthTokenAuthenticationMethod = OpenEnum<
+  typeof CreateInputAuthTokenAuthenticationMethod
 >;
 
-export type CreateInputSystemByPackAuthTokenCloudflareHec = {
+export type CreateInputAuthTokenCloudflareHec = {
   /**
    * Select Secret to use a text secret to authenticate
    */
-  authType?: CreateInputSystemByPackAuthTokenAuthenticationMethod | undefined;
+  authType?: CreateInputAuthTokenAuthenticationMethod | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -413,7 +407,7 @@ export type CreateInputSystemByPackAuthTokenCloudflareHec = {
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
 };
 
-export type CreateInputSystemByPackTLSSettingsServerSide = {
+export type CreateInputTLSSettingsServerSide = {
   /**
    * Enable or disable TLS. Defaults to enabled for Cloudflare sources.
    */
@@ -454,7 +448,7 @@ export type CreateInputSystemByPackTLSSettingsServerSide = {
   maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
 };
 
-export type CreateInputSystemByPackInputCloudflareHec = {
+export type CreateInputInputCloudflareHec = {
   /**
    * Unique ID for this input
    */
@@ -497,8 +491,8 @@ export type CreateInputSystemByPackInputCloudflareHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<CreateInputSystemByPackAuthTokenCloudflareHec> | undefined;
-  tls?: CreateInputSystemByPackTLSSettingsServerSide | undefined;
+  authTokens?: Array<CreateInputAuthTokenCloudflareHec> | undefined;
+  tls?: CreateInputTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -606,7 +600,7 @@ export type CreateInputSystemByPackInputCloudflareHec = {
   __template_accessControlAllowHeaders?: string | undefined;
 };
 
-export type CreateInputSystemByPackAuthTokenZscalerHec = {
+export type CreateInputAuthTokenZscalerHec = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -631,7 +625,7 @@ export type CreateInputSystemByPackAuthTokenZscalerHec = {
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
 };
 
-export type CreateInputSystemByPackInputZscalerHec = {
+export type CreateInputInputZscalerHec = {
   /**
    * Unique ID for this input
    */
@@ -674,7 +668,7 @@ export type CreateInputSystemByPackInputZscalerHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<CreateInputSystemByPackAuthTokenZscalerHec> | undefined;
+  authTokens?: Array<CreateInputAuthTokenZscalerHec> | undefined;
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -770,7 +764,7 @@ export type CreateInputSystemByPackInputZscalerHec = {
 /**
  * Used only when Sort by field is set.
  */
-export const CreateInputSystemByPackSortDirection = {
+export const CreateInputSortDirection = {
   /**
    * Ascending
    */
@@ -783,14 +777,14 @@ export const CreateInputSystemByPackSortDirection = {
 /**
  * Used only when Sort by field is set.
  */
-export type CreateInputSystemByPackSortDirection = OpenEnum<
-  typeof CreateInputSystemByPackSortDirection
+export type CreateInputSortDirection = OpenEnum<
+  typeof CreateInputSortDirection
 >;
 
 /**
  * ServiceNow Table API authentication method
  */
-export const CreateInputSystemByPackAuthenticationTypeServicenowTable = {
+export const CreateInputAuthenticationTypeServicenowTable = {
   /**
    * None
    */
@@ -807,14 +801,14 @@ export const CreateInputSystemByPackAuthenticationTypeServicenowTable = {
 /**
  * ServiceNow Table API authentication method
  */
-export type CreateInputSystemByPackAuthenticationTypeServicenowTable = OpenEnum<
-  typeof CreateInputSystemByPackAuthenticationTypeServicenowTable
+export type CreateInputAuthenticationTypeServicenowTable = OpenEnum<
+  typeof CreateInputAuthenticationTypeServicenowTable
 >;
 
 /**
  * ServiceNow OAuth grant type used for token requests
  */
-export const CreateInputSystemByPackGrantType = {
+export const CreateInputGrantType = {
   /**
    * Password
    */
@@ -827,13 +821,11 @@ export const CreateInputSystemByPackGrantType = {
 /**
  * ServiceNow OAuth grant type used for token requests
  */
-export type CreateInputSystemByPackGrantType = OpenEnum<
-  typeof CreateInputSystemByPackGrantType
->;
+export type CreateInputGrantType = OpenEnum<typeof CreateInputGrantType>;
 
-export type CreateInputSystemByPackManageStateServicenowTable = {};
+export type CreateInputManageStateServicenowTable = {};
 
-export type CreateInputSystemByPackInputServicenowTable = {
+export type CreateInputInputServicenowTable = {
   /**
    * Unique ID for this input
    */
@@ -884,7 +876,7 @@ export type CreateInputSystemByPackInputServicenowTable = {
   /**
    * Used only when Sort by field is set.
    */
-  orderByDirection?: CreateInputSystemByPackSortDirection | undefined;
+  orderByDirection?: CreateInputSortDirection | undefined;
   /**
    * Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
    */
@@ -904,9 +896,7 @@ export type CreateInputSystemByPackInputServicenowTable = {
   /**
    * ServiceNow Table API authentication method
    */
-  authType?:
-    | CreateInputSystemByPackAuthenticationTypeServicenowTable
-    | undefined;
+  authType?: CreateInputAuthenticationTypeServicenowTable | undefined;
   /**
    * Cron schedule on which to run this job
    */
@@ -968,7 +958,7 @@ export type CreateInputSystemByPackInputServicenowTable = {
   /**
    * ServiceNow OAuth grant type used for token requests
    */
-  oauthGrantType?: CreateInputSystemByPackGrantType | undefined;
+  oauthGrantType?: CreateInputGrantType | undefined;
   /**
    * ServiceNow username for the password grant type
    */
@@ -1002,7 +992,7 @@ export type CreateInputSystemByPackInputServicenowTable = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputSystemByPackManageStateServicenowTable | undefined;
+  manageState?: CreateInputManageStateServicenowTable | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
@@ -1033,7 +1023,7 @@ export type CreateInputSystemByPackInputServicenowTable = {
   __template_clientId?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputSecurityLake = {
+export type CreateInputInputSecurityLake = {
   /**
    * Unique ID for this input
    */
@@ -1118,10 +1108,6 @@ export type CreateInputSystemByPackInputSecurityLake = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -1233,7 +1219,7 @@ export type CreateInputSystemByPackInputSecurityLake = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputNetflow = {
+export type CreateInputInputNetflow = {
   /**
    * Unique ID for this input
    */
@@ -1328,7 +1314,7 @@ export type CreateInputSystemByPackInputNetflow = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputWizWebhook = {
+export type CreateInputInputWizWebhook = {
   /**
    * Unique ID for this input
    */
@@ -1468,9 +1454,9 @@ export type CreateInputSystemByPackInputWizWebhook = {
   __template_allowedPaths?: string | undefined;
 };
 
-export type CreateInputSystemByPackManageStateOpenai = {};
+export type CreateInputManageStateOpenai = {};
 
-export const CreateInputSystemByPackPaginationType = {
+export const CreateInputPaginationType = {
   /**
    * None
    */
@@ -1488,14 +1474,14 @@ export const CreateInputSystemByPackPaginationType = {
    */
   ResponseHeaderLink: "response_header_link",
 } as const;
-export type CreateInputSystemByPackPaginationType = OpenEnum<
-  typeof CreateInputSystemByPackPaginationType
+export type CreateInputPaginationType = OpenEnum<
+  typeof CreateInputPaginationType
 >;
 
 /**
  * Collector runtime log level.
  */
-export const CreateInputSystemByPackContentConfigLogLevel = {
+export const CreateInputContentConfigLogLevel = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -1505,11 +1491,11 @@ export const CreateInputSystemByPackContentConfigLogLevel = {
 /**
  * Collector runtime log level.
  */
-export type CreateInputSystemByPackContentConfigLogLevel = OpenEnum<
-  typeof CreateInputSystemByPackContentConfigLogLevel
+export type CreateInputContentConfigLogLevel = OpenEnum<
+  typeof CreateInputContentConfigLogLevel
 >;
 
-export type CreateInputSystemByPackContentConfigInput = {
+export type CreateInputContentConfigInput = {
   disabled?: boolean | undefined;
   /**
    * Track collection progress between consecutive scheduled executions.
@@ -1523,12 +1509,12 @@ export type CreateInputSystemByPackContentConfigInput = {
    * JavaScript expression that defines which state to keep when merging task state
    */
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputSystemByPackManageStateOpenai | undefined;
+  manageState?: CreateInputManageStateOpenai | undefined;
   /**
    * Query-string parameters to send with this endpoint
    */
   requestParams: Array<models.RequestParamConfInputOpenai>;
-  paginationType: CreateInputSystemByPackPaginationType;
+  paginationType: CreateInputPaginationType;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
   /**
@@ -1562,14 +1548,14 @@ export type CreateInputSystemByPackContentConfigInput = {
   /**
    * Collector runtime log level.
    */
-  logLevel?: CreateInputSystemByPackContentConfigLogLevel | undefined;
+  logLevel?: CreateInputContentConfigLogLevel | undefined;
   /**
    * Fields automatically added to events from this Content Type
    */
   endpointMetadata?: Array<models.MetadataConfInputCollection> | undefined;
 };
 
-export type CreateInputSystemByPackInputOpenai = {
+export type CreateInputInputOpenai = {
   /**
    * Unique ID for this input
    */
@@ -1609,7 +1595,7 @@ export type CreateInputSystemByPackInputOpenai = {
    * Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
    */
   openaiProject?: string | undefined;
-  contentConfig: Array<CreateInputSystemByPackContentConfigInput>;
+  contentConfig: Array<CreateInputContentConfigInput>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -1659,9 +1645,9 @@ export type CreateInputSystemByPackInputOpenai = {
   __template_openaiProject?: string | undefined;
 };
 
-export type CreateInputSystemByPackManageStateWiz = {};
+export type CreateInputManageStateWiz = {};
 
-export type CreateInputSystemByPackContentConfigWiz = {
+export type CreateInputContentConfigWiz = {
   /**
    * The name of the Wiz query
    */
@@ -1680,7 +1666,7 @@ export type CreateInputSystemByPackContentConfigWiz = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputSystemByPackManageStateWiz | undefined;
+  manageState?: CreateInputManageStateWiz | undefined;
   /**
    * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
    */
@@ -1711,7 +1697,7 @@ export type CreateInputSystemByPackContentConfigWiz = {
   maxPages?: number | undefined;
 };
 
-export type CreateInputSystemByPackInputWiz = {
+export type CreateInputInputWiz = {
   /**
    * Unique ID for this input
    */
@@ -1759,7 +1745,7 @@ export type CreateInputSystemByPackInputWiz = {
    * The client ID of the Wiz application
    */
   clientId: string;
-  contentConfig: Array<CreateInputSystemByPackContentConfigWiz>;
+  contentConfig: Array<CreateInputContentConfigWiz>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -1828,7 +1814,7 @@ export type CreateInputSystemByPackInputWiz = {
   __template_clientId?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputJournalFilesRule = {
+export type CreateInputInputJournalFilesRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
    */
@@ -1839,7 +1825,7 @@ export type CreateInputSystemByPackInputJournalFilesRule = {
   description?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputJournalFiles = {
+export type CreateInputInputJournalFiles = {
   /**
    * Unique ID for this input
    */
@@ -1886,7 +1872,7 @@ export type CreateInputSystemByPackInputJournalFiles = {
   /**
    * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<CreateInputSystemByPackInputJournalFilesRule> | undefined;
+  rules?: Array<CreateInputInputJournalFilesRule> | undefined;
   /**
    * Skip log messages that are not part of the current boot session.
    */
@@ -1911,7 +1897,7 @@ export type CreateInputSystemByPackInputJournalFiles = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputRawUdp = {
+export type CreateInputInputRawUdp = {
   /**
    * Unique ID for this input
    */
@@ -1997,7 +1983,7 @@ export type CreateInputSystemByPackInputRawUdp = {
 /**
  * Read all log entries (historical and upcoming), or only upcoming, from the last entry
  */
-export const CreateInputSystemByPackReadModeAppleUnifiedLogs = {
+export const CreateInputReadModeAppleUnifiedLogs = {
   /**
    * Entire log
    */
@@ -2010,11 +1996,11 @@ export const CreateInputSystemByPackReadModeAppleUnifiedLogs = {
 /**
  * Read all log entries (historical and upcoming), or only upcoming, from the last entry
  */
-export type CreateInputSystemByPackReadModeAppleUnifiedLogs = OpenEnum<
-  typeof CreateInputSystemByPackReadModeAppleUnifiedLogs
+export type CreateInputReadModeAppleUnifiedLogs = OpenEnum<
+  typeof CreateInputReadModeAppleUnifiedLogs
 >;
 
-export type CreateInputSystemByPackInputAppleUnifiedLogs = {
+export type CreateInputInputAppleUnifiedLogs = {
   /**
    * Unique ID for this input
    */
@@ -2053,7 +2039,7 @@ export type CreateInputSystemByPackInputAppleUnifiedLogs = {
   /**
    * Read all log entries (historical and upcoming), or only upcoming, from the last entry
    */
-  readMode?: CreateInputSystemByPackReadModeAppleUnifiedLogs | undefined;
+  readMode?: CreateInputReadModeAppleUnifiedLogs | undefined;
   /**
    * Time, in seconds, between checking for new entries
    */
@@ -2080,7 +2066,7 @@ export type CreateInputSystemByPackInputAppleUnifiedLogs = {
 /**
  * Read all stored and future event logs, or only future events
  */
-export const CreateInputSystemByPackReadModeWinEventLogs = {
+export const CreateInputReadModeWinEventLogs = {
   /**
    * Entire log
    */
@@ -2093,14 +2079,14 @@ export const CreateInputSystemByPackReadModeWinEventLogs = {
 /**
  * Read all stored and future event logs, or only future events
  */
-export type CreateInputSystemByPackReadModeWinEventLogs = OpenEnum<
-  typeof CreateInputSystemByPackReadModeWinEventLogs
+export type CreateInputReadModeWinEventLogs = OpenEnum<
+  typeof CreateInputReadModeWinEventLogs
 >;
 
 /**
  * Format of individual events
  */
-export const CreateInputSystemByPackEventFormat = {
+export const CreateInputEventFormat = {
   /**
    * JSON
    */
@@ -2113,11 +2099,9 @@ export const CreateInputSystemByPackEventFormat = {
 /**
  * Format of individual events
  */
-export type CreateInputSystemByPackEventFormat = OpenEnum<
-  typeof CreateInputSystemByPackEventFormat
->;
+export type CreateInputEventFormat = OpenEnum<typeof CreateInputEventFormat>;
 
-export type CreateInputSystemByPackInputWinEventLogs = {
+export type CreateInputInputWinEventLogs = {
   /**
    * Unique ID for this input
    */
@@ -2156,11 +2140,11 @@ export type CreateInputSystemByPackInputWinEventLogs = {
   /**
    * Read all stored and future event logs, or only future events
    */
-  readMode?: CreateInputSystemByPackReadModeWinEventLogs | undefined;
+  readMode?: CreateInputReadModeWinEventLogs | undefined;
   /**
    * Format of individual events
    */
-  eventFormat?: CreateInputSystemByPackEventFormat | undefined;
+  eventFormat?: CreateInputEventFormat | undefined;
   /**
    * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
    */
@@ -2203,7 +2187,7 @@ export type CreateInputSystemByPackInputWinEventLogs = {
 /**
  * How to authenticate incoming client connections
  */
-export const CreateInputSystemByPackAuthMethodAuthenticationMethod = {
+export const CreateInputAuthMethodAuthenticationMethod = {
   /**
    * Client certificate
    */
@@ -2216,11 +2200,11 @@ export const CreateInputSystemByPackAuthMethodAuthenticationMethod = {
 /**
  * How to authenticate incoming client connections
  */
-export type CreateInputSystemByPackAuthMethodAuthenticationMethod = OpenEnum<
-  typeof CreateInputSystemByPackAuthMethodAuthenticationMethod
+export type CreateInputAuthMethodAuthenticationMethod = OpenEnum<
+  typeof CreateInputAuthMethodAuthenticationMethod
 >;
 
-export type CreateInputSystemByPackMTLSSettings = {
+export type CreateInputMTLSSettings = {
   /**
    * Enable TLS
    */
@@ -2272,26 +2256,24 @@ export type CreateInputSystemByPackMTLSSettings = {
 /**
  * Content format in which the endpoint should deliver events
  */
-export const CreateInputSystemByPackFormat = {
+export const CreateInputFormat = {
   Raw: "Raw",
   RenderedText: "RenderedText",
 } as const;
 /**
  * Content format in which the endpoint should deliver events
  */
-export type CreateInputSystemByPackFormat = OpenEnum<
-  typeof CreateInputSystemByPackFormat
->;
+export type CreateInputFormat = OpenEnum<typeof CreateInputFormat>;
 
-export const CreateInputSystemByPackQueryBuilderMode = {
+export const CreateInputQueryBuilderMode = {
   Simple: "simple",
   Xml: "xml",
 } as const;
-export type CreateInputSystemByPackQueryBuilderMode = OpenEnum<
-  typeof CreateInputSystemByPackQueryBuilderMode
+export type CreateInputQueryBuilderMode = OpenEnum<
+  typeof CreateInputQueryBuilderMode
 >;
 
-export type CreateInputSystemByPackQuery = {
+export type CreateInputQuery = {
   /**
    * The Path attribute from the relevant XML Select element
    */
@@ -2302,7 +2284,7 @@ export type CreateInputSystemByPackQuery = {
   queryExpression: string;
 };
 
-export type CreateInputSystemByPackSubscription = {
+export type CreateInputSubscription = {
   subscriptionName: string;
   /**
    * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
@@ -2311,7 +2293,7 @@ export type CreateInputSystemByPackSubscription = {
   /**
    * Content format in which the endpoint should deliver events
    */
-  contentFormat: CreateInputSystemByPackFormat;
+  contentFormat: CreateInputFormat;
   /**
    * Maximum time (in seconds) between endpoint checkins before considering it unavailable
    */
@@ -2340,19 +2322,19 @@ export type CreateInputSystemByPackSubscription = {
    * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
    */
   locale?: string | undefined;
-  querySelector?: CreateInputSystemByPackQueryBuilderMode | undefined;
+  querySelector?: CreateInputQueryBuilderMode | undefined;
   /**
    * Fields to add to events ingested under this subscription
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  queries?: Array<CreateInputSystemByPackQuery> | undefined;
+  queries?: Array<CreateInputQuery> | undefined;
   /**
    * The XPath query to use for selecting events
    */
   xmlQuery?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputWef = {
+export type CreateInputInputWef = {
   /**
    * Unique ID for this input
    */
@@ -2395,10 +2377,8 @@ export type CreateInputSystemByPackInputWef = {
   /**
    * How to authenticate incoming client connections
    */
-  authMethod?:
-    | CreateInputSystemByPackAuthMethodAuthenticationMethod
-    | undefined;
-  tls?: CreateInputSystemByPackMTLSSettings | undefined;
+  authMethod?: CreateInputAuthMethodAuthenticationMethod | undefined;
+  tls?: CreateInputMTLSSettings | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -2454,7 +2434,7 @@ export type CreateInputSystemByPackInputWef = {
   /**
    * Subscriptions to events on forwarding endpoints
    */
-  subscriptions: Array<CreateInputSystemByPackSubscription>;
+  subscriptions: Array<CreateInputSubscription>;
   /**
    * Fields to add to events from this input
    */
@@ -2490,7 +2470,7 @@ export type CreateInputSystemByPackInputWef = {
   __template_principal?: string | undefined;
 };
 
-export type CreateInputSystemByPackAllow = {
+export type CreateInputAllow = {
   /**
    * Specify the name of a process or family of processes.
    */
@@ -2505,18 +2485,18 @@ export type CreateInputSystemByPackAllow = {
   config: string;
 };
 
-export type CreateInputSystemByPackFilterAppscope = {
+export type CreateInputFilterAppscope = {
   /**
    * Specify processes that AppScope should be loaded into, and the config to use.
    */
-  allow?: Array<CreateInputSystemByPackAllow> | undefined;
+  allow?: Array<CreateInputAllow> | undefined;
   /**
    * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
    */
   transportURL?: string | undefined;
 };
 
-export type CreateInputSystemByPackPersistenceAppscope = {
+export type CreateInputPersistenceAppscope = {
   /**
    * Spool events and metrics on disk for Cribl Edge and Search
    */
@@ -2543,9 +2523,9 @@ export type CreateInputSystemByPackPersistenceAppscope = {
 /**
  * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
  */
-export type CreateInputSystemByPackUNIXSocketPermissions = string | number;
+export type CreateInputUNIXSocketPermissions = string | number;
 
-export type CreateInputSystemByPackInputAppscope = {
+export type CreateInputInputAppscope = {
   /**
    * Unique ID for this input
    */
@@ -2617,8 +2597,8 @@ export type CreateInputSystemByPackInputAppscope = {
    * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
    */
   enableUnixPath?: boolean | undefined;
-  filter?: CreateInputSystemByPackFilterAppscope | undefined;
-  persistence?: CreateInputSystemByPackPersistenceAppscope | undefined;
+  filter?: CreateInputFilterAppscope | undefined;
+  persistence?: CreateInputPersistenceAppscope | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -2667,7 +2647,7 @@ export type CreateInputSystemByPackInputAppscope = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputTcp = {
+export type CreateInputInputTcp = {
   /**
    * Unique ID for this input
    */
@@ -2783,7 +2763,7 @@ export type CreateInputSystemByPackInputTcp = {
 /**
  * Choose how to discover files to monitor
  */
-export const CreateInputSystemByPackInputFileMode = {
+export const CreateInputInputFileMode = {
   /**
    * Manual
    */
@@ -2796,11 +2776,11 @@ export const CreateInputSystemByPackInputFileMode = {
 /**
  * Choose how to discover files to monitor
  */
-export type CreateInputSystemByPackInputFileMode = OpenEnum<
-  typeof CreateInputSystemByPackInputFileMode
+export type CreateInputInputFileMode = OpenEnum<
+  typeof CreateInputInputFileMode
 >;
 
-export type CreateInputSystemByPackInputFile = {
+export type CreateInputInputFile = {
   /**
    * Unique ID for this input
    */
@@ -2835,7 +2815,7 @@ export type CreateInputSystemByPackInputFile = {
   /**
    * Choose how to discover files to monitor
    */
-  mode?: CreateInputSystemByPackInputFileMode | undefined;
+  mode?: CreateInputInputFileMode | undefined;
   /**
    * Time, in seconds, between scanning for files
    */
@@ -2928,19 +2908,19 @@ export type CreateInputSystemByPackInputFile = {
   __template_streamtags?: string | undefined;
 };
 
-export const CreateInputSystemByPackInputSyslogType2 = {
+export const CreateInputInputSyslogType2 = {
   Syslog: "syslog",
 } as const;
-export type CreateInputSystemByPackInputSyslogType2 = ClosedEnum<
-  typeof CreateInputSystemByPackInputSyslogType2
+export type CreateInputInputSyslogType2 = ClosedEnum<
+  typeof CreateInputInputSyslogType2
 >;
 
-export type CreateInputSystemByPackInputSyslogSyslog2 = {
+export type CreateInputInputSyslogSyslog2 = {
   /**
    * Unique ID for this input
    */
   id: string;
-  type: CreateInputSystemByPackInputSyslogType2;
+  type: CreateInputInputSyslogType2;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3079,19 +3059,19 @@ export type CreateInputSystemByPackInputSyslogSyslog2 = {
   __template_timestampTimezone?: string | undefined;
 };
 
-export const CreateInputSystemByPackInputSyslogType1 = {
+export const CreateInputInputSyslogType1 = {
   Syslog: "syslog",
 } as const;
-export type CreateInputSystemByPackInputSyslogType1 = ClosedEnum<
-  typeof CreateInputSystemByPackInputSyslogType1
+export type CreateInputInputSyslogType1 = ClosedEnum<
+  typeof CreateInputInputSyslogType1
 >;
 
-export type CreateInputSystemByPackInputSyslogSyslog1 = {
+export type CreateInputInputSyslogSyslog1 = {
   /**
    * Unique ID for this input
    */
   id: string;
-  type: CreateInputSystemByPackInputSyslogType1;
+  type: CreateInputInputSyslogType1;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3230,14 +3210,14 @@ export type CreateInputSystemByPackInputSyslogSyslog1 = {
   __template_timestampTimezone?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputSyslogUnion =
-  | CreateInputSystemByPackInputSyslogSyslog1
-  | CreateInputSystemByPackInputSyslogSyslog2;
+export type CreateInputInputSyslogUnion =
+  | CreateInputInputSyslogSyslog1
+  | CreateInputInputSyslogSyslog2;
 
 /**
  * The queue type used (or created)
  */
-export const CreateInputSystemByPackQueueType = {
+export const CreateInputQueueType = {
   /**
    * Standard
    */
@@ -3250,11 +3230,9 @@ export const CreateInputSystemByPackQueueType = {
 /**
  * The queue type used (or created)
  */
-export type CreateInputSystemByPackQueueType = OpenEnum<
-  typeof CreateInputSystemByPackQueueType
->;
+export type CreateInputQueueType = OpenEnum<typeof CreateInputQueueType>;
 
-export type CreateInputSystemByPackInputSqs = {
+export type CreateInputInputSqs = {
   /**
    * Unique ID for this input
    */
@@ -3293,7 +3271,7 @@ export type CreateInputSystemByPackInputSqs = {
   /**
    * The queue type used (or created)
    */
-  queueType: CreateInputSystemByPackQueueType;
+  queueType: CreateInputQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -3411,7 +3389,7 @@ export type CreateInputSystemByPackInputSqs = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputModelDrivenTelemetry = {
+export type CreateInputInputModelDrivenTelemetry = {
   /**
    * Unique ID for this input
    */
@@ -3486,7 +3464,7 @@ export type CreateInputSystemByPackInputModelDrivenTelemetry = {
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
-export const CreateInputSystemByPackProtocol = {
+export const CreateInputProtocol = {
   /**
    * gRPC
    */
@@ -3499,14 +3477,12 @@ export const CreateInputSystemByPackProtocol = {
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
-export type CreateInputSystemByPackProtocol = OpenEnum<
-  typeof CreateInputSystemByPackProtocol
->;
+export type CreateInputProtocol = OpenEnum<typeof CreateInputProtocol>;
 
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
-export const CreateInputSystemByPackOTLPVersion = {
+export const CreateInputOTLPVersion = {
   /**
    * 0.10.0
    */
@@ -3519,14 +3495,12 @@ export const CreateInputSystemByPackOTLPVersion = {
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
-export type CreateInputSystemByPackOTLPVersion = OpenEnum<
-  typeof CreateInputSystemByPackOTLPVersion
->;
+export type CreateInputOTLPVersion = OpenEnum<typeof CreateInputOTLPVersion>;
 
 /**
  * OpenTelemetry authentication type
  */
-export const CreateInputSystemByPackAuthenticationTypeOpenTelemetry = {
+export const CreateInputAuthenticationTypeOpenTelemetry = {
   /**
    * None
    */
@@ -3551,11 +3525,11 @@ export const CreateInputSystemByPackAuthenticationTypeOpenTelemetry = {
 /**
  * OpenTelemetry authentication type
  */
-export type CreateInputSystemByPackAuthenticationTypeOpenTelemetry = OpenEnum<
-  typeof CreateInputSystemByPackAuthenticationTypeOpenTelemetry
+export type CreateInputAuthenticationTypeOpenTelemetry = OpenEnum<
+  typeof CreateInputAuthenticationTypeOpenTelemetry
 >;
 
-export const CreateInputSystemByPackAuthMethodsExtAuthenticationType = {
+export const CreateInputAuthMethodsExtAuthenticationType = {
   /**
    * Token
    */
@@ -3573,12 +3547,12 @@ export const CreateInputSystemByPackAuthMethodsExtAuthenticationType = {
    */
   BasicSecret: "basicSecret",
 } as const;
-export type CreateInputSystemByPackAuthMethodsExtAuthenticationType = OpenEnum<
-  typeof CreateInputSystemByPackAuthMethodsExtAuthenticationType
+export type CreateInputAuthMethodsExtAuthenticationType = OpenEnum<
+  typeof CreateInputAuthMethodsExtAuthenticationType
 >;
 
-export type CreateInputSystemByPackAuthMethodsExt = {
-  authType: CreateInputSystemByPackAuthMethodsExtAuthenticationType;
+export type CreateInputAuthMethodsExt = {
+  authType: CreateInputAuthMethodsExtAuthenticationType;
   /**
    * Bearer token for Authorization header
    */
@@ -3601,7 +3575,7 @@ export type CreateInputSystemByPackAuthMethodsExt = {
   credentialsSecret?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputOpenTelemetry = {
+export type CreateInputInputOpenTelemetry = {
   /**
    * Unique ID for this input
    */
@@ -3677,7 +3651,7 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
   /**
    * Select whether to leverage gRPC or HTTP for OpenTelemetry
    */
-  protocol?: CreateInputSystemByPackProtocol | undefined;
+  protocol?: CreateInputProtocol | undefined;
   /**
    * Enable to extract each incoming span to a separate event
    */
@@ -3689,15 +3663,15 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
   /**
    * The version of OTLP Protobuf definitions to use when interpreting received data
    */
-  otlpVersion?: CreateInputSystemByPackOTLPVersion | undefined;
+  otlpVersion?: CreateInputOTLPVersion | undefined;
   /**
    * OpenTelemetry authentication type
    */
-  authType?: CreateInputSystemByPackAuthenticationTypeOpenTelemetry | undefined;
+  authType?: CreateInputAuthenticationTypeOpenTelemetry | undefined;
   /**
    * Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
    */
-  authMethodsExt?: Array<CreateInputSystemByPackAuthMethodsExt> | undefined;
+  authMethodsExt?: Array<CreateInputAuthMethodsExt> | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -3751,7 +3725,7 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
   __template_otlpVersion?: string | undefined;
 };
 
-export type CreateInputSystemByPackV3User = {
+export type CreateInputV3User = {
   name: string;
   authProtocol?: string | undefined;
   authKey?: string | undefined;
@@ -3764,7 +3738,7 @@ export type CreateInputSystemByPackV3User = {
 /**
  * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
  */
-export type CreateInputSystemByPackSNMPv3Authentication = {
+export type CreateInputSNMPv3Authentication = {
   v3AuthEnabled: boolean;
   /**
    * Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
@@ -3773,10 +3747,10 @@ export type CreateInputSystemByPackSNMPv3Authentication = {
   /**
    * User credentials for receiving v3 traps
    */
-  v3Users?: Array<CreateInputSystemByPackV3User> | undefined;
+  v3Users?: Array<CreateInputV3User> | undefined;
 };
 
-export type CreateInputSystemByPackInputSnmp = {
+export type CreateInputInputSnmp = {
   /**
    * Unique ID for this input
    */
@@ -3819,7 +3793,7 @@ export type CreateInputSystemByPackInputSnmp = {
   /**
    * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
    */
-  snmpV3Auth?: CreateInputSystemByPackSNMPv3Authentication | undefined;
+  snmpV3Auth?: CreateInputSNMPv3Authentication | undefined;
   /**
    * Maximum number of events to buffer when downstream is blocking.
    */
@@ -3863,7 +3837,7 @@ export type CreateInputSystemByPackInputSnmp = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputS3Inventory = {
+export type CreateInputInputS3Inventory = {
   /**
    * Unique ID for this input
    */
@@ -3948,10 +3922,6 @@ export type CreateInputSystemByPackInputS3Inventory = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -4071,7 +4041,7 @@ export type CreateInputSystemByPackInputS3Inventory = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputS3 = {
+export type CreateInputInputS3 = {
   /**
    * Unique ID for this input
    */
@@ -4156,10 +4126,6 @@ export type CreateInputSystemByPackInputS3 = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -4274,7 +4240,7 @@ export type CreateInputSystemByPackInputS3 = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputMetrics = {
+export type CreateInputInputMetrics = {
   /**
    * Unique ID for this input
    */
@@ -4362,7 +4328,7 @@ export type CreateInputSystemByPackInputMetrics = {
   __template_tcpPort?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputCriblmetrics = {
+export type CreateInputInputCriblmetrics = {
   /**
    * Unique ID for this input
    */
@@ -4420,7 +4386,7 @@ export type CreateInputSystemByPackInputCriblmetrics = {
 /**
  * Location at which to start reading a shard for the first time
  */
-export const CreateInputSystemByPackShardIteratorStart = {
+export const CreateInputShardIteratorStart = {
   /**
    * Earliest record
    */
@@ -4433,14 +4399,14 @@ export const CreateInputSystemByPackShardIteratorStart = {
 /**
  * Location at which to start reading a shard for the first time
  */
-export type CreateInputSystemByPackShardIteratorStart = OpenEnum<
-  typeof CreateInputSystemByPackShardIteratorStart
+export type CreateInputShardIteratorStart = OpenEnum<
+  typeof CreateInputShardIteratorStart
 >;
 
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export const CreateInputSystemByPackRecordDataFormat = {
+export const CreateInputRecordDataFormat = {
   /**
    * Cribl
    */
@@ -4461,14 +4427,14 @@ export const CreateInputSystemByPackRecordDataFormat = {
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type CreateInputSystemByPackRecordDataFormat = OpenEnum<
-  typeof CreateInputSystemByPackRecordDataFormat
+export type CreateInputRecordDataFormat = OpenEnum<
+  typeof CreateInputRecordDataFormat
 >;
 
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export const CreateInputSystemByPackShardLoadBalancing = {
+export const CreateInputShardLoadBalancing = {
   /**
    * Consistent Hashing
    */
@@ -4481,11 +4447,11 @@ export const CreateInputSystemByPackShardLoadBalancing = {
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export type CreateInputSystemByPackShardLoadBalancing = OpenEnum<
-  typeof CreateInputSystemByPackShardLoadBalancing
+export type CreateInputShardLoadBalancing = OpenEnum<
+  typeof CreateInputShardLoadBalancing
 >;
 
-export type CreateInputSystemByPackInputKinesis = {
+export type CreateInputInputKinesis = {
   /**
    * Unique ID for this input
    */
@@ -4532,11 +4498,11 @@ export type CreateInputSystemByPackInputKinesis = {
   /**
    * Location at which to start reading a shard for the first time
    */
-  shardIteratorType?: CreateInputSystemByPackShardIteratorStart | undefined;
+  shardIteratorType?: CreateInputShardIteratorStart | undefined;
   /**
    * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
    */
-  payloadFormat?: CreateInputSystemByPackRecordDataFormat | undefined;
+  payloadFormat?: CreateInputRecordDataFormat | undefined;
   /**
    * Maximum number of records per getRecords call
    */
@@ -4548,9 +4514,7 @@ export type CreateInputSystemByPackInputKinesis = {
   /**
    * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
    */
-  loadBalancingAlgorithm?:
-    | CreateInputSystemByPackShardLoadBalancing
-    | undefined;
+  loadBalancingAlgorithm?: CreateInputShardLoadBalancing | undefined;
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
@@ -4652,7 +4616,7 @@ export type CreateInputSystemByPackInputKinesis = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputHttpRaw = {
+export type CreateInputInputHttpRaw = {
   /**
    * Unique ID for this input
    */
@@ -4792,7 +4756,7 @@ export type CreateInputSystemByPackInputHttpRaw = {
   __template_allowedPaths?: string | undefined;
 };
 
-export type CreateInputSystemByPackSample = {
+export type CreateInputSample = {
   sample: string;
   /**
    * Maximum number of events to generate per second per Worker Node. Defaults to 10.
@@ -4800,7 +4764,7 @@ export type CreateInputSystemByPackSample = {
   eventsPerSec: number;
 };
 
-export type CreateInputSystemByPackInputDatagen = {
+export type CreateInputInputDatagen = {
   /**
    * Unique ID for this input
    */
@@ -4832,7 +4796,7 @@ export type CreateInputSystemByPackInputDatagen = {
    */
   connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
-  samples: Array<CreateInputSystemByPackSample>;
+  samples: Array<CreateInputSample>;
   /**
    * Fields to add to events from this input
    */
@@ -4848,7 +4812,7 @@ export type CreateInputSystemByPackInputDatagen = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateInputSystemByPackProxyModeDatadogAgent = {
+export type CreateInputProxyModeDatadogAgent = {
   /**
    * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
    */
@@ -4859,7 +4823,7 @@ export type CreateInputSystemByPackProxyModeDatadogAgent = {
   rejectUnauthorized?: boolean | undefined;
 };
 
-export type CreateInputSystemByPackInputDatadogAgent = {
+export type CreateInputInputDatadogAgent = {
   /**
    * Unique ID for this input
    */
@@ -4952,7 +4916,7 @@ export type CreateInputSystemByPackInputDatadogAgent = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  proxyMode?: CreateInputSystemByPackProxyModeDatadogAgent | undefined;
+  proxyMode?: CreateInputProxyModeDatadogAgent | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -4972,7 +4936,7 @@ export type CreateInputSystemByPackInputDatadogAgent = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputCrowdstrike = {
+export type CreateInputInputCrowdstrike = {
   /**
    * Unique ID for this input
    */
@@ -5057,10 +5021,6 @@ export type CreateInputSystemByPackInputCrowdstrike = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -5167,7 +5127,7 @@ export type CreateInputSystemByPackInputCrowdstrike = {
 /**
  * Select the level of details for system metrics
  */
-export const CreateInputSystemByPackSystemModeWindowsMetrics = {
+export const CreateInputSystemModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5188,15 +5148,15 @@ export const CreateInputSystemByPackSystemModeWindowsMetrics = {
 /**
  * Select the level of details for system metrics
  */
-export type CreateInputSystemByPackSystemModeWindowsMetrics = OpenEnum<
-  typeof CreateInputSystemByPackSystemModeWindowsMetrics
+export type CreateInputSystemModeWindowsMetrics = OpenEnum<
+  typeof CreateInputSystemModeWindowsMetrics
 >;
 
-export type CreateInputSystemByPackSystemWindowsMetrics = {
+export type CreateInputSystemWindowsMetrics = {
   /**
    * Select the level of details for system metrics
    */
-  mode?: CreateInputSystemByPackSystemModeWindowsMetrics | undefined;
+  mode?: CreateInputSystemModeWindowsMetrics | undefined;
   /**
    * Generate metrics for all system information
    */
@@ -5206,7 +5166,7 @@ export type CreateInputSystemByPackSystemWindowsMetrics = {
 /**
  * Select the level of details for CPU metrics
  */
-export const CreateInputSystemByPackCpuModeWindowsMetrics = {
+export const CreateInputCpuModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5227,15 +5187,15 @@ export const CreateInputSystemByPackCpuModeWindowsMetrics = {
 /**
  * Select the level of details for CPU metrics
  */
-export type CreateInputSystemByPackCpuModeWindowsMetrics = OpenEnum<
-  typeof CreateInputSystemByPackCpuModeWindowsMetrics
+export type CreateInputCpuModeWindowsMetrics = OpenEnum<
+  typeof CreateInputCpuModeWindowsMetrics
 >;
 
-export type CreateInputSystemByPackCpuWindowsMetrics = {
+export type CreateInputCpuWindowsMetrics = {
   /**
    * Select the level of details for CPU metrics
    */
-  mode?: CreateInputSystemByPackCpuModeWindowsMetrics | undefined;
+  mode?: CreateInputCpuModeWindowsMetrics | undefined;
   /**
    * Generate metrics for each CPU
    */
@@ -5253,7 +5213,7 @@ export type CreateInputSystemByPackCpuWindowsMetrics = {
 /**
  * Select the level of details for memory metrics
  */
-export const CreateInputSystemByPackMemoryModeWindowsMetrics = {
+export const CreateInputMemoryModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5274,15 +5234,15 @@ export const CreateInputSystemByPackMemoryModeWindowsMetrics = {
 /**
  * Select the level of details for memory metrics
  */
-export type CreateInputSystemByPackMemoryModeWindowsMetrics = OpenEnum<
-  typeof CreateInputSystemByPackMemoryModeWindowsMetrics
+export type CreateInputMemoryModeWindowsMetrics = OpenEnum<
+  typeof CreateInputMemoryModeWindowsMetrics
 >;
 
-export type CreateInputSystemByPackMemoryWindowsMetrics = {
+export type CreateInputMemoryWindowsMetrics = {
   /**
    * Select the level of details for memory metrics
    */
-  mode?: CreateInputSystemByPackMemoryModeWindowsMetrics | undefined;
+  mode?: CreateInputMemoryModeWindowsMetrics | undefined;
   /**
    * Generate metrics for all memory states
    */
@@ -5292,7 +5252,7 @@ export type CreateInputSystemByPackMemoryWindowsMetrics = {
 /**
  * Select the level of details for network metrics
  */
-export const CreateInputSystemByPackNetworkModeWindowsMetrics = {
+export const CreateInputNetworkModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5313,15 +5273,15 @@ export const CreateInputSystemByPackNetworkModeWindowsMetrics = {
 /**
  * Select the level of details for network metrics
  */
-export type CreateInputSystemByPackNetworkModeWindowsMetrics = OpenEnum<
-  typeof CreateInputSystemByPackNetworkModeWindowsMetrics
+export type CreateInputNetworkModeWindowsMetrics = OpenEnum<
+  typeof CreateInputNetworkModeWindowsMetrics
 >;
 
-export type CreateInputSystemByPackNetworkWindowsMetrics = {
+export type CreateInputNetworkWindowsMetrics = {
   /**
    * Select the level of details for network metrics
    */
-  mode?: CreateInputSystemByPackNetworkModeWindowsMetrics | undefined;
+  mode?: CreateInputNetworkModeWindowsMetrics | undefined;
   /**
    * Generate full network metrics
    */
@@ -5343,7 +5303,7 @@ export type CreateInputSystemByPackNetworkWindowsMetrics = {
 /**
  * Select the level of details for disk metrics
  */
-export const CreateInputSystemByPackDiskModeWindowsMetrics = {
+export const CreateInputDiskModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5364,15 +5324,15 @@ export const CreateInputSystemByPackDiskModeWindowsMetrics = {
 /**
  * Select the level of details for disk metrics
  */
-export type CreateInputSystemByPackDiskModeWindowsMetrics = OpenEnum<
-  typeof CreateInputSystemByPackDiskModeWindowsMetrics
+export type CreateInputDiskModeWindowsMetrics = OpenEnum<
+  typeof CreateInputDiskModeWindowsMetrics
 >;
 
-export type CreateInputSystemByPackDiskWindowsMetrics = {
+export type CreateInputDiskWindowsMetrics = {
   /**
    * Select the level of details for disk metrics
    */
-  mode?: CreateInputSystemByPackDiskModeWindowsMetrics | undefined;
+  mode?: CreateInputDiskModeWindowsMetrics | undefined;
   /**
    * Generate separate metrics for each volume
    */
@@ -5387,23 +5347,23 @@ export type CreateInputSystemByPackDiskWindowsMetrics = {
   volumes?: Array<string> | undefined;
 };
 
-export type CreateInputSystemByPackCustomWindowsMetrics = {
-  system?: CreateInputSystemByPackSystemWindowsMetrics | undefined;
-  cpu?: CreateInputSystemByPackCpuWindowsMetrics | undefined;
-  memory?: CreateInputSystemByPackMemoryWindowsMetrics | undefined;
-  network?: CreateInputSystemByPackNetworkWindowsMetrics | undefined;
-  disk?: CreateInputSystemByPackDiskWindowsMetrics | undefined;
+export type CreateInputCustomWindowsMetrics = {
+  system?: CreateInputSystemWindowsMetrics | undefined;
+  cpu?: CreateInputCpuWindowsMetrics | undefined;
+  memory?: CreateInputMemoryWindowsMetrics | undefined;
+  network?: CreateInputNetworkWindowsMetrics | undefined;
+  disk?: CreateInputDiskWindowsMetrics | undefined;
 };
 
-export type CreateInputSystemByPackHostWindowsMetrics = {
+export type CreateInputHostWindowsMetrics = {
   /**
    * Select level of detail for host metrics
    */
   mode?: models.ModeOptionsHost | undefined;
-  custom?: CreateInputSystemByPackCustomWindowsMetrics | undefined;
+  custom?: CreateInputCustomWindowsMetrics | undefined;
 };
 
-export type CreateInputSystemByPackPersistenceWindowsMetrics = {
+export type CreateInputPersistenceWindowsMetrics = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -5427,7 +5387,7 @@ export type CreateInputSystemByPackPersistenceWindowsMetrics = {
   destPath?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputWindowsMetrics = {
+export type CreateInputInputWindowsMetrics = {
   /**
    * Unique ID for this input
    */
@@ -5463,14 +5423,14 @@ export type CreateInputSystemByPackInputWindowsMetrics = {
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
-  host?: CreateInputSystemByPackHostWindowsMetrics | undefined;
+  host?: CreateInputHostWindowsMetrics | undefined;
   process?: models.ProcessType | undefined;
   gpu?: models.GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  persistence?: CreateInputSystemByPackPersistenceWindowsMetrics | undefined;
+  persistence?: CreateInputPersistenceWindowsMetrics | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
    */
@@ -5486,7 +5446,7 @@ export type CreateInputSystemByPackInputWindowsMetrics = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputKubeEvents = {
+export type CreateInputInputKubeEvents = {
   /**
    * Unique ID for this input
    */
@@ -5537,7 +5497,7 @@ export type CreateInputSystemByPackInputKubeEvents = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateInputSystemByPackRuleKubeLogs = {
+export type CreateInputRuleKubeLogs = {
   /**
    * JavaScript expression applied to Pod objects. Return 'true' to include it.
    */
@@ -5548,7 +5508,7 @@ export type CreateInputSystemByPackRuleKubeLogs = {
   description?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputKubeLogs = {
+export type CreateInputInputKubeLogs = {
   /**
    * Unique ID for this input
    */
@@ -5587,7 +5547,7 @@ export type CreateInputSystemByPackInputKubeLogs = {
   /**
    * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<CreateInputSystemByPackRuleKubeLogs> | undefined;
+  rules?: Array<CreateInputRuleKubeLogs> | undefined;
   /**
    * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
    */
@@ -5620,7 +5580,7 @@ export type CreateInputSystemByPackInputKubeLogs = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateInputSystemByPackPersistenceKubeMetrics = {
+export type CreateInputPersistenceKubeMetrics = {
   /**
    * Spool metrics on disk for Cribl Search
    */
@@ -5644,7 +5604,7 @@ export type CreateInputSystemByPackPersistenceKubeMetrics = {
   destPath?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputKubeMetrics = {
+export type CreateInputInputKubeMetrics = {
   /**
    * Unique ID for this input
    */
@@ -5696,7 +5656,7 @@ export type CreateInputSystemByPackInputKubeMetrics = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  persistence?: CreateInputSystemByPackPersistenceKubeMetrics | undefined;
+  persistence?: CreateInputPersistenceKubeMetrics | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5711,128 +5671,128 @@ export type CreateInputSystemByPackInputKubeMetrics = {
 /**
  * Creates events based on entries collected from the hosts file
  */
-export type CreateInputSystemByPackHostsFile = {
+export type CreateInputHostsFile = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for each of the host’s network interfaces
  */
-export type CreateInputSystemByPackInterfaces = {
+export type CreateInputInterfaces = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for physical disks, partitions, and file systems
  */
-export type CreateInputSystemByPackDisksAndFileSystems = {
+export type CreateInputDisksAndFileSystems = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on the host system’s current state
  */
-export type CreateInputSystemByPackHostInfo = {
+export type CreateInputHostInfo = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on entries collected from the host’s network routes
  */
-export type CreateInputSystemByPackRoutes = {
+export type CreateInputRoutes = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for DNS resolvers and search entries
  */
-export type CreateInputSystemByPackDNS = {
+export type CreateInputDNS = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for local users and groups
  */
-export type CreateInputSystemByPackUsersAndGroups = {
+export type CreateInputUsersAndGroups = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for Firewall rules entries
  */
-export type CreateInputSystemByPackFirewall = {
+export type CreateInputFirewall = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from the list of services
  */
-export type CreateInputSystemByPackServices = {
+export type CreateInputServices = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of listening ports
  */
-export type CreateInputSystemByPackListeningPorts = {
+export type CreateInputListeningPorts = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of logged-in users
  */
-export type CreateInputSystemByPackLoggedInUsers = {
+export type CreateInputLoggedInUsers = {
   enable?: boolean | undefined;
 };
 
-export type CreateInputSystemByPackCollectors = {
+export type CreateInputCollectors = {
   /**
    * Creates events based on entries collected from the hosts file
    */
-  hostsfile?: CreateInputSystemByPackHostsFile | undefined;
+  hostsfile?: CreateInputHostsFile | undefined;
   /**
    * Creates events for each of the host’s network interfaces
    */
-  interfaces?: CreateInputSystemByPackInterfaces | undefined;
+  interfaces?: CreateInputInterfaces | undefined;
   /**
    * Creates events for physical disks, partitions, and file systems
    */
-  disk?: CreateInputSystemByPackDisksAndFileSystems | undefined;
+  disk?: CreateInputDisksAndFileSystems | undefined;
   /**
    * Creates events based on the host system’s current state
    */
-  metadata?: CreateInputSystemByPackHostInfo | undefined;
+  metadata?: CreateInputHostInfo | undefined;
   /**
    * Creates events based on entries collected from the host’s network routes
    */
-  routes?: CreateInputSystemByPackRoutes | undefined;
+  routes?: CreateInputRoutes | undefined;
   /**
    * Creates events for DNS resolvers and search entries
    */
-  dns?: CreateInputSystemByPackDNS | undefined;
+  dns?: CreateInputDNS | undefined;
   /**
    * Creates events for local users and groups
    */
-  user?: CreateInputSystemByPackUsersAndGroups | undefined;
+  user?: CreateInputUsersAndGroups | undefined;
   /**
    * Creates events for Firewall rules entries
    */
-  firewall?: CreateInputSystemByPackFirewall | undefined;
+  firewall?: CreateInputFirewall | undefined;
   /**
    * Creates events from the list of services
    */
-  services?: CreateInputSystemByPackServices | undefined;
+  services?: CreateInputServices | undefined;
   /**
    * Creates events from list of listening ports
    */
-  ports?: CreateInputSystemByPackListeningPorts | undefined;
+  ports?: CreateInputListeningPorts | undefined;
   /**
    * Creates events from list of logged-in users
    */
-  loginUsers?: CreateInputSystemByPackLoggedInUsers | undefined;
+  loginUsers?: CreateInputLoggedInUsers | undefined;
 };
 
-export type CreateInputSystemByPackPersistenceSystemState = {
+export type CreateInputPersistenceSystemState = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -5856,7 +5816,7 @@ export type CreateInputSystemByPackPersistenceSystemState = {
   destPath?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputSystemState = {
+export type CreateInputInputSystemState = {
   /**
    * Unique ID for this input
    */
@@ -5896,8 +5856,8 @@ export type CreateInputSystemByPackInputSystemState = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  collectors?: CreateInputSystemByPackCollectors | undefined;
-  persistence?: CreateInputSystemByPackPersistenceSystemState | undefined;
+  collectors?: CreateInputCollectors | undefined;
+  persistence?: CreateInputPersistenceSystemState | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
@@ -5920,7 +5880,7 @@ export type CreateInputSystemByPackInputSystemState = {
 /**
  * Select the level of detail for system metrics
  */
-export const CreateInputSystemByPackSystemModeSystemMetrics = {
+export const CreateInputSystemModeSystemMetrics = {
   /**
    * Basic
    */
@@ -5941,15 +5901,15 @@ export const CreateInputSystemByPackSystemModeSystemMetrics = {
 /**
  * Select the level of detail for system metrics
  */
-export type CreateInputSystemByPackSystemModeSystemMetrics = OpenEnum<
-  typeof CreateInputSystemByPackSystemModeSystemMetrics
+export type CreateInputSystemModeSystemMetrics = OpenEnum<
+  typeof CreateInputSystemModeSystemMetrics
 >;
 
-export type CreateInputSystemByPackSystemSystemMetrics = {
+export type CreateInputSystemSystemMetrics = {
   /**
    * Select the level of detail for system metrics
    */
-  mode?: CreateInputSystemByPackSystemModeSystemMetrics | undefined;
+  mode?: CreateInputSystemModeSystemMetrics | undefined;
   /**
    * Generate metrics for the numbers of processes in various states
    */
@@ -5959,7 +5919,7 @@ export type CreateInputSystemByPackSystemSystemMetrics = {
 /**
  * Select the level of detail for CPU metrics
  */
-export const CreateInputSystemByPackCpuModeSystemMetrics = {
+export const CreateInputCpuModeSystemMetrics = {
   /**
    * Basic
    */
@@ -5980,15 +5940,15 @@ export const CreateInputSystemByPackCpuModeSystemMetrics = {
 /**
  * Select the level of detail for CPU metrics
  */
-export type CreateInputSystemByPackCpuModeSystemMetrics = OpenEnum<
-  typeof CreateInputSystemByPackCpuModeSystemMetrics
+export type CreateInputCpuModeSystemMetrics = OpenEnum<
+  typeof CreateInputCpuModeSystemMetrics
 >;
 
-export type CreateInputSystemByPackCpuSystemMetrics = {
+export type CreateInputCpuSystemMetrics = {
   /**
    * Select the level of detail for CPU metrics
    */
-  mode?: CreateInputSystemByPackCpuModeSystemMetrics | undefined;
+  mode?: CreateInputCpuModeSystemMetrics | undefined;
   /**
    * Generate metrics for each CPU
    */
@@ -6006,7 +5966,7 @@ export type CreateInputSystemByPackCpuSystemMetrics = {
 /**
  * Select the level of detail for memory metrics
  */
-export const CreateInputSystemByPackMemoryModeSystemMetrics = {
+export const CreateInputMemoryModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6027,15 +5987,15 @@ export const CreateInputSystemByPackMemoryModeSystemMetrics = {
 /**
  * Select the level of detail for memory metrics
  */
-export type CreateInputSystemByPackMemoryModeSystemMetrics = OpenEnum<
-  typeof CreateInputSystemByPackMemoryModeSystemMetrics
+export type CreateInputMemoryModeSystemMetrics = OpenEnum<
+  typeof CreateInputMemoryModeSystemMetrics
 >;
 
-export type CreateInputSystemByPackMemorySystemMetrics = {
+export type CreateInputMemorySystemMetrics = {
   /**
    * Select the level of detail for memory metrics
    */
-  mode?: CreateInputSystemByPackMemoryModeSystemMetrics | undefined;
+  mode?: CreateInputMemoryModeSystemMetrics | undefined;
   /**
    * Generate metrics for all memory states
    */
@@ -6045,7 +6005,7 @@ export type CreateInputSystemByPackMemorySystemMetrics = {
 /**
  * Select the level of detail for network metrics
  */
-export const CreateInputSystemByPackNetworkModeSystemMetrics = {
+export const CreateInputNetworkModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6066,15 +6026,15 @@ export const CreateInputSystemByPackNetworkModeSystemMetrics = {
 /**
  * Select the level of detail for network metrics
  */
-export type CreateInputSystemByPackNetworkModeSystemMetrics = OpenEnum<
-  typeof CreateInputSystemByPackNetworkModeSystemMetrics
+export type CreateInputNetworkModeSystemMetrics = OpenEnum<
+  typeof CreateInputNetworkModeSystemMetrics
 >;
 
-export type CreateInputSystemByPackNetworkSystemMetrics = {
+export type CreateInputNetworkSystemMetrics = {
   /**
    * Select the level of detail for network metrics
    */
-  mode?: CreateInputSystemByPackNetworkModeSystemMetrics | undefined;
+  mode?: CreateInputNetworkModeSystemMetrics | undefined;
   /**
    * Generate full network metrics
    */
@@ -6096,7 +6056,7 @@ export type CreateInputSystemByPackNetworkSystemMetrics = {
 /**
  * Select the level of detail for disk metrics
  */
-export const CreateInputSystemByPackDiskModeSystemMetrics = {
+export const CreateInputDiskModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6117,15 +6077,15 @@ export const CreateInputSystemByPackDiskModeSystemMetrics = {
 /**
  * Select the level of detail for disk metrics
  */
-export type CreateInputSystemByPackDiskModeSystemMetrics = OpenEnum<
-  typeof CreateInputSystemByPackDiskModeSystemMetrics
+export type CreateInputDiskModeSystemMetrics = OpenEnum<
+  typeof CreateInputDiskModeSystemMetrics
 >;
 
-export type CreateInputSystemByPackDiskSystemMetrics = {
+export type CreateInputDiskSystemMetrics = {
   /**
    * Select the level of detail for disk metrics
    */
-  mode?: CreateInputSystemByPackDiskModeSystemMetrics | undefined;
+  mode?: CreateInputDiskModeSystemMetrics | undefined;
   /**
    * Generate full disk metrics
    */
@@ -6152,26 +6112,26 @@ export type CreateInputSystemByPackDiskSystemMetrics = {
   perDevice?: boolean | undefined;
 };
 
-export type CreateInputSystemByPackCustomSystemMetrics = {
-  system?: CreateInputSystemByPackSystemSystemMetrics | undefined;
-  cpu?: CreateInputSystemByPackCpuSystemMetrics | undefined;
-  memory?: CreateInputSystemByPackMemorySystemMetrics | undefined;
-  network?: CreateInputSystemByPackNetworkSystemMetrics | undefined;
-  disk?: CreateInputSystemByPackDiskSystemMetrics | undefined;
+export type CreateInputCustomSystemMetrics = {
+  system?: CreateInputSystemSystemMetrics | undefined;
+  cpu?: CreateInputCpuSystemMetrics | undefined;
+  memory?: CreateInputMemorySystemMetrics | undefined;
+  network?: CreateInputNetworkSystemMetrics | undefined;
+  disk?: CreateInputDiskSystemMetrics | undefined;
 };
 
-export type CreateInputSystemByPackHostSystemMetrics = {
+export type CreateInputHostSystemMetrics = {
   /**
    * Select level of detail for host metrics
    */
   mode?: models.ModeOptionsHost | undefined;
-  custom?: CreateInputSystemByPackCustomSystemMetrics | undefined;
+  custom?: CreateInputCustomSystemMetrics | undefined;
 };
 
 /**
  * Select the level of detail for container metrics
  */
-export const CreateInputSystemByPackContainerMode = {
+export const CreateInputContainerMode = {
   /**
    * Basic
    */
@@ -6192,19 +6152,19 @@ export const CreateInputSystemByPackContainerMode = {
 /**
  * Select the level of detail for container metrics
  */
-export type CreateInputSystemByPackContainerMode = OpenEnum<
-  typeof CreateInputSystemByPackContainerMode
+export type CreateInputContainerMode = OpenEnum<
+  typeof CreateInputContainerMode
 >;
 
-export type CreateInputSystemByPackContainerFilter = {
+export type CreateInputContainerFilter = {
   expr: string;
 };
 
-export type CreateInputSystemByPackContainer = {
+export type CreateInputContainer = {
   /**
    * Select the level of detail for container metrics
    */
-  mode?: CreateInputSystemByPackContainerMode | undefined;
+  mode?: CreateInputContainerMode | undefined;
   /**
    * Full paths for Docker's UNIX-domain socket
    */
@@ -6216,7 +6176,7 @@ export type CreateInputSystemByPackContainer = {
   /**
    * Containers matching any of these will be included. All are included if no filters are added.
    */
-  filters?: Array<CreateInputSystemByPackContainerFilter> | undefined;
+  filters?: Array<CreateInputContainerFilter> | undefined;
   /**
    * Include stopped and paused containers
    */
@@ -6231,7 +6191,7 @@ export type CreateInputSystemByPackContainer = {
   detail?: boolean | undefined;
 };
 
-export type CreateInputSystemByPackPersistenceSystemMetrics = {
+export type CreateInputPersistenceSystemMetrics = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -6255,7 +6215,7 @@ export type CreateInputSystemByPackPersistenceSystemMetrics = {
   destPath?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputSystemMetrics = {
+export type CreateInputInputSystemMetrics = {
   /**
    * Unique ID for this input
    */
@@ -6291,15 +6251,15 @@ export type CreateInputSystemByPackInputSystemMetrics = {
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
-  host?: CreateInputSystemByPackHostSystemMetrics | undefined;
+  host?: CreateInputHostSystemMetrics | undefined;
   process?: models.ProcessType | undefined;
-  container?: CreateInputSystemByPackContainer | undefined;
+  container?: CreateInputContainer | undefined;
   gpu?: models.GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  persistence?: CreateInputSystemByPackPersistenceSystemMetrics | undefined;
+  persistence?: CreateInputPersistenceSystemMetrics | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6311,7 +6271,7 @@ export type CreateInputSystemByPackInputSystemMetrics = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputTcpjson = {
+export type CreateInputInputTcpjson = {
   /**
    * Unique ID for this input
    */
@@ -6415,31 +6375,29 @@ export type CreateInputSystemByPackInputTcpjson = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackSplunkHecMetadata = {
+export type CreateInputSplunkHecMetadata = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
 };
 
-export type CreateInputSystemByPackElasticsearchMetadata = {
+export type CreateInputElasticsearchMetadata = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
 };
 
-export type CreateInputSystemByPackAuthTokensExt = {
+export type CreateInputAuthTokensExt = {
   token: string;
   description?: string | undefined;
   /**
    * Fields to add to events referencing this token
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  splunkHecMetadata?: CreateInputSystemByPackSplunkHecMetadata | undefined;
-  elasticsearchMetadata?:
-    | CreateInputSystemByPackElasticsearchMetadata
-    | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata | undefined;
 };
 
-export type CreateInputSystemByPackInputCriblLakeHttp = {
+export type CreateInputInputCriblLakeHttp = {
   /**
    * Unique ID for this input
    */
@@ -6545,7 +6503,7 @@ export type CreateInputSystemByPackInputCriblLakeHttp = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
-  authTokensExt?: Array<CreateInputSystemByPackAuthTokensExt> | undefined;
+  authTokensExt?: Array<CreateInputAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6581,7 +6539,7 @@ export type CreateInputSystemByPackInputCriblLakeHttp = {
   __template_splunkHecAPI?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputCriblHttp = {
+export type CreateInputInputCriblHttp = {
   /**
    * Unique ID for this input
    */
@@ -6693,7 +6651,7 @@ export type CreateInputSystemByPackInputCriblHttp = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputCriblTcp = {
+export type CreateInputInputCriblTcp = {
   /**
    * Unique ID for this input
    */
@@ -6785,7 +6743,7 @@ export type CreateInputSystemByPackInputCriblTcp = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputCribl = {
+export type CreateInputInputCribl = {
   /**
    * Unique ID for this input
    */
@@ -6833,7 +6791,7 @@ export type CreateInputSystemByPackInputCribl = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputGooglePubsub = {
+export type CreateInputInputGooglePubsub = {
   /**
    * Unique ID for this input
    */
@@ -6944,7 +6902,7 @@ export type CreateInputSystemByPackInputGooglePubsub = {
   __template_region?: string | undefined;
 };
 
-export type CreateInputSystemByPackInputFirehose = {
+export type CreateInputInputFirehose = {
   /**
    * Unique ID for this input
    */
@@ -7063,18 +7021,16 @@ export type CreateInputSystemByPackInputFirehose = {
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export const CreateInputSystemByPackScheduleType = {
+export const CreateInputScheduleType = {
   Interval: "interval",
   CronSchedule: "cronSchedule",
 } as const;
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export type CreateInputSystemByPackScheduleType = OpenEnum<
-  typeof CreateInputSystemByPackScheduleType
->;
+export type CreateInputScheduleType = OpenEnum<typeof CreateInputScheduleType>;
 
-export type CreateInputSystemByPackInputExec = {
+export type CreateInputInputExec = {
   /**
    * Unique ID for this input
    */
@@ -7121,7 +7077,7 @@ export type CreateInputSystemByPackInputExec = {
   /**
    * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
    */
-  scheduleType?: CreateInputSystemByPackScheduleType | undefined;
+  scheduleType?: CreateInputScheduleType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -7153,7 +7109,7 @@ export type CreateInputSystemByPackInputExec = {
   __template_streamtags?: string | undefined;
 };
 
-export const CreateInputSystemByPackAuthenticationMechanism = {
+export const CreateInputAuthenticationMechanism = {
   /**
    * Connection String
    */
@@ -7163,12 +7119,12 @@ export const CreateInputSystemByPackAuthenticationMechanism = {
    */
   OauthBearer: "oauth-bearer",
 } as const;
-export type CreateInputSystemByPackAuthenticationMechanism = OpenEnum<
-  typeof CreateInputSystemByPackAuthenticationMechanism
+export type CreateInputAuthenticationMechanism = OpenEnum<
+  typeof CreateInputAuthenticationMechanism
 >;
 
-export type CreateInputSystemByPackAuth = {
-  mechanism: CreateInputSystemByPackAuthenticationMechanism;
+export type CreateInputAuth = {
+  mechanism: CreateInputAuthenticationMechanism;
   /**
    * Select or create a stored text secret
    */
@@ -7215,43 +7171,23 @@ export type CreateInputSystemByPackAuth = {
   __template_fullyQualifiedNamespace?: string | undefined;
 };
 
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export const CreateInputSystemByPackCheckpointStore = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Azure Blob Storage
-   */
-  AzureBlob: "azureBlob",
-} as const;
-/**
- * The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
- */
-export type CreateInputSystemByPackCheckpointStore = OpenEnum<
-  typeof CreateInputSystemByPackCheckpointStore
->;
-
-export const CreateInputSystemByPackBlobStoreAuthenticationMethod = {
+export const CreateInputBlobStoreAuthenticationMethod = {
   Secret: "secret",
   ClientSecret: "clientSecret",
   ClientCert: "clientCert",
   ClientAssertion: "clientAssertion",
   ClientAssertionRpc: "clientAssertion_rpc",
 } as const;
-export type CreateInputSystemByPackBlobStoreAuthenticationMethod = OpenEnum<
-  typeof CreateInputSystemByPackBlobStoreAuthenticationMethod
+export type CreateInputBlobStoreAuthenticationMethod = OpenEnum<
+  typeof CreateInputBlobStoreAuthenticationMethod
 >;
 
-export type CreateInputSystemByPackAzureBlobStorage = {
+export type CreateInputAzureBlobStorage = {
   /**
    * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
    */
   containerName: string;
-  authType?: CreateInputSystemByPackBlobStoreAuthenticationMethod | undefined;
+  authType?: CreateInputBlobStoreAuthenticationMethod | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -7299,8 +7235,12 @@ export type CreateInputSystemByPackAzureBlobStorage = {
   __template_azureCloud?: string | undefined;
 };
 
+export type CreateInputCheckpointing = {
+  blobStore: CreateInputAzureBlobStorage;
+};
+
 /** @internal */
-export type CreateInputSystemByPackInputOkta$Outbound = {
+export type CreateInputInputOkta$Outbound = {
   id: string;
   type: "okta";
   disabled?: boolean | undefined;
@@ -7334,10 +7274,10 @@ export type CreateInputSystemByPackInputOkta$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputOkta$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputOkta$Outbound,
+export const CreateInputInputOkta$outboundSchema: z.ZodType<
+  CreateInputInputOkta$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputOkta
+  CreateInputInputOkta
 > = z.object({
   id: z.string(),
   type: z.literal("okta"),
@@ -7371,49 +7311,45 @@ export const CreateInputSystemByPackInputOkta$outboundSchema: z.ZodType<
   __template_oktaDomain: z.string().optional(),
 });
 
-export function createInputSystemByPackInputOktaToJSON(
-  createInputSystemByPackInputOkta: CreateInputSystemByPackInputOkta,
+export function createInputInputOktaToJSON(
+  createInputInputOkta: CreateInputInputOkta,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputOkta$outboundSchema.parse(
-      createInputSystemByPackInputOkta,
-    ),
+    CreateInputInputOkta$outboundSchema.parse(createInputInputOkta),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackManageStateAnthropicCompliance$Outbound = {};
+export type CreateInputManageStateAnthropicCompliance$Outbound = {};
 
 /** @internal */
-export const CreateInputSystemByPackManageStateAnthropicCompliance$outboundSchema:
+export const CreateInputManageStateAnthropicCompliance$outboundSchema:
   z.ZodType<
-    CreateInputSystemByPackManageStateAnthropicCompliance$Outbound,
+    CreateInputManageStateAnthropicCompliance$Outbound,
     z.ZodTypeDef,
-    CreateInputSystemByPackManageStateAnthropicCompliance
+    CreateInputManageStateAnthropicCompliance
   > = z.object({});
 
-export function createInputSystemByPackManageStateAnthropicComplianceToJSON(
-  createInputSystemByPackManageStateAnthropicCompliance:
-    CreateInputSystemByPackManageStateAnthropicCompliance,
+export function createInputManageStateAnthropicComplianceToJSON(
+  createInputManageStateAnthropicCompliance:
+    CreateInputManageStateAnthropicCompliance,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackManageStateAnthropicCompliance$outboundSchema.parse(
-      createInputSystemByPackManageStateAnthropicCompliance,
+    CreateInputManageStateAnthropicCompliance$outboundSchema.parse(
+      createInputManageStateAnthropicCompliance,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackContentConfigAnthropicCompliance$Outbound = {
+export type CreateInputContentConfigAnthropicCompliance$Outbound = {
   contentType: string;
   contentDescription?: string | undefined;
   enabled?: boolean | undefined;
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?:
-    | CreateInputSystemByPackManageStateAnthropicCompliance$Outbound
-    | undefined;
+  manageState?: CreateInputManageStateAnthropicCompliance$Outbound | undefined;
   cronSchedule: string;
   earliest: string;
   latest: string;
@@ -7421,11 +7357,11 @@ export type CreateInputSystemByPackContentConfigAnthropicCompliance$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackContentConfigAnthropicCompliance$outboundSchema:
+export const CreateInputContentConfigAnthropicCompliance$outboundSchema:
   z.ZodType<
-    CreateInputSystemByPackContentConfigAnthropicCompliance$Outbound,
+    CreateInputContentConfigAnthropicCompliance$Outbound,
     z.ZodTypeDef,
-    CreateInputSystemByPackContentConfigAnthropicCompliance
+    CreateInputContentConfigAnthropicCompliance
   > = z.object({
     contentType: z.string(),
     contentDescription: z.string().optional(),
@@ -7434,7 +7370,7 @@ export const CreateInputSystemByPackContentConfigAnthropicCompliance$outboundSch
     stateUpdateExpression: z.string().optional(),
     stateMergeExpression: z.string().optional(),
     manageState: z.lazy(() =>
-      CreateInputSystemByPackManageStateAnthropicCompliance$outboundSchema
+      CreateInputManageStateAnthropicCompliance$outboundSchema
     ).optional(),
     cronSchedule: z.string(),
     earliest: z.string(),
@@ -7442,18 +7378,19 @@ export const CreateInputSystemByPackContentConfigAnthropicCompliance$outboundSch
     jobTimeout: z.string().optional(),
   });
 
-export function createInputSystemByPackContentConfigAnthropicComplianceToJSON(
-  createInputSystemByPackContentConfigAnthropicCompliance:
-    CreateInputSystemByPackContentConfigAnthropicCompliance,
+export function createInputContentConfigAnthropicComplianceToJSON(
+  createInputContentConfigAnthropicCompliance:
+    CreateInputContentConfigAnthropicCompliance,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackContentConfigAnthropicCompliance$outboundSchema
-      .parse(createInputSystemByPackContentConfigAnthropicCompliance),
+    CreateInputContentConfigAnthropicCompliance$outboundSchema.parse(
+      createInputContentConfigAnthropicCompliance,
+    ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputAnthropicCompliance$Outbound = {
+export type CreateInputInputAnthropicCompliance$Outbound = {
   id: string;
   type: "anthropic_compliance";
   disabled?: boolean | undefined;
@@ -7468,9 +7405,7 @@ export type CreateInputSystemByPackInputAnthropicCompliance$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret: string;
-  contentConfig: Array<
-    CreateInputSystemByPackContentConfigAnthropicCompliance$Outbound
-  >;
+  contentConfig: Array<CreateInputContentConfigAnthropicCompliance$Outbound>;
   requestTimeout?: number | undefined;
   keepAliveTime?: number | undefined;
   maxMissedKeepAlives?: number | undefined;
@@ -7484,86 +7419,81 @@ export type CreateInputSystemByPackInputAnthropicCompliance$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputAnthropicCompliance$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputAnthropicCompliance$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputAnthropicCompliance
-  > = z.object({
-    id: z.string(),
-    type: z.literal("anthropic_compliance"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    apiKey: z.string().optional(),
-    textSecret: z.string(),
-    contentConfig: z.array(
-      z.lazy(() =>
-        CreateInputSystemByPackContentConfigAnthropicCompliance$outboundSchema
-      ),
-    ),
-    requestTimeout: z.number().optional(),
-    keepAliveTime: z.number().optional(),
-    maxMissedKeepAlives: z.number().optional(),
-    ttl: z.string().optional(),
-    ignoreGroupJobsLimit: z.boolean().optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    retryRules: models.RetryRulesType$outboundSchema.optional(),
-    description: z.string().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-  });
+export const CreateInputInputAnthropicCompliance$outboundSchema: z.ZodType<
+  CreateInputInputAnthropicCompliance$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputAnthropicCompliance
+> = z.object({
+  id: z.string(),
+  type: z.literal("anthropic_compliance"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+  contentConfig: z.array(
+    z.lazy(() => CreateInputContentConfigAnthropicCompliance$outboundSchema),
+  ),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
 
-export function createInputSystemByPackInputAnthropicComplianceToJSON(
-  createInputSystemByPackInputAnthropicCompliance:
-    CreateInputSystemByPackInputAnthropicCompliance,
+export function createInputInputAnthropicComplianceToJSON(
+  createInputInputAnthropicCompliance: CreateInputInputAnthropicCompliance,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputAnthropicCompliance$outboundSchema.parse(
-      createInputSystemByPackInputAnthropicCompliance,
+    CreateInputInputAnthropicCompliance$outboundSchema.parse(
+      createInputInputAnthropicCompliance,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackAccountType$outboundSchema: z.ZodType<
+export const CreateInputAccountType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackAccountType
-> = openEnums.outboundSchema(CreateInputSystemByPackAccountType);
+  CreateInputAccountType
+> = openEnums.outboundSchema(CreateInputAccountType);
 
 /** @internal */
-export type CreateInputSystemByPackManageStateOpenaiComplianceLogs$Outbound =
-  {};
+export type CreateInputManageStateOpenaiComplianceLogs$Outbound = {};
 
 /** @internal */
-export const CreateInputSystemByPackManageStateOpenaiComplianceLogs$outboundSchema:
+export const CreateInputManageStateOpenaiComplianceLogs$outboundSchema:
   z.ZodType<
-    CreateInputSystemByPackManageStateOpenaiComplianceLogs$Outbound,
+    CreateInputManageStateOpenaiComplianceLogs$Outbound,
     z.ZodTypeDef,
-    CreateInputSystemByPackManageStateOpenaiComplianceLogs
+    CreateInputManageStateOpenaiComplianceLogs
   > = z.object({});
 
-export function createInputSystemByPackManageStateOpenaiComplianceLogsToJSON(
-  createInputSystemByPackManageStateOpenaiComplianceLogs:
-    CreateInputSystemByPackManageStateOpenaiComplianceLogs,
+export function createInputManageStateOpenaiComplianceLogsToJSON(
+  createInputManageStateOpenaiComplianceLogs:
+    CreateInputManageStateOpenaiComplianceLogs,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackManageStateOpenaiComplianceLogs$outboundSchema.parse(
-      createInputSystemByPackManageStateOpenaiComplianceLogs,
+    CreateInputManageStateOpenaiComplianceLogs$outboundSchema.parse(
+      createInputManageStateOpenaiComplianceLogs,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound = {
+export type CreateInputInputOpenaiComplianceLogs$Outbound = {
   id: string;
   type: "openai_compliance_logs";
   disabled?: boolean | undefined;
@@ -7602,9 +7532,7 @@ export type CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound = {
   organizationEventTypes?: Array<string> | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?:
-    | CreateInputSystemByPackManageStateOpenaiComplianceLogs$Outbound
-    | undefined;
+  manageState?: CreateInputManageStateOpenaiComplianceLogs$Outbound | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
   __template_workspaceId?: string | undefined;
@@ -7612,83 +7540,78 @@ export type CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputOpenaiComplianceLogs
-  > = z.object({
-    id: z.string(),
-    type: z.literal("openai_compliance_logs"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    apiKey: z.string().optional(),
-    textSecret: z.string(),
-    accountType: CreateInputSystemByPackAccountType$outboundSchema,
-    cronSchedule: z.string(),
-    earliest: z.string().optional(),
-    latest: z.string().optional(),
-    jobTimeout: z.string().optional(),
-    logLevel: models.LogLevelOptionsContentConfigItemsDebugError$outboundSchema
-      .optional(),
-    maxPages: z.number().optional(),
-    stateTracking: z.boolean().optional(),
-    requestTimeout: z.number().optional(),
-    keepAliveTime: z.number().optional(),
-    maxMissedKeepAlives: z.number().optional(),
-    ttl: z.string().optional(),
-    ignoreGroupJobsLimit: z.boolean().optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    retryRules: models.RetryRulesType$outboundSchema.optional(),
-    description: z.string().optional(),
-    workspaceId: z.string().optional(),
-    workspaceEventTypes: z.array(z.string()).optional(),
-    organizationId: z.string().optional(),
-    organizationEventTypes: z.array(z.string()).optional(),
-    stateUpdateExpression: z.string().optional(),
-    stateMergeExpression: z.string().optional(),
-    manageState: z.lazy(() =>
-      CreateInputSystemByPackManageStateOpenaiComplianceLogs$outboundSchema
-    ).optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_workspaceId: z.string().optional(),
-    __template_organizationId: z.string().optional(),
-  });
+export const CreateInputInputOpenaiComplianceLogs$outboundSchema: z.ZodType<
+  CreateInputInputOpenaiComplianceLogs$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputOpenaiComplianceLogs
+> = z.object({
+  id: z.string(),
+  type: z.literal("openai_compliance_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+  accountType: CreateInputAccountType$outboundSchema,
+  cronSchedule: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  logLevel: models.LogLevelOptionsContentConfigItemsDebugError$outboundSchema
+    .optional(),
+  maxPages: z.number().optional(),
+  stateTracking: z.boolean().optional(),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  workspaceId: z.string().optional(),
+  workspaceEventTypes: z.array(z.string()).optional(),
+  organizationId: z.string().optional(),
+  organizationEventTypes: z.array(z.string()).optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    CreateInputManageStateOpenaiComplianceLogs$outboundSchema
+  ).optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_workspaceId: z.string().optional(),
+  __template_organizationId: z.string().optional(),
+});
 
-export function createInputSystemByPackInputOpenaiComplianceLogsToJSON(
-  createInputSystemByPackInputOpenaiComplianceLogs:
-    CreateInputSystemByPackInputOpenaiComplianceLogs,
+export function createInputInputOpenaiComplianceLogsToJSON(
+  createInputInputOpenaiComplianceLogs: CreateInputInputOpenaiComplianceLogs,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema.parse(
-      createInputSystemByPackInputOpenaiComplianceLogs,
+    CreateInputInputOpenaiComplianceLogs$outboundSchema.parse(
+      createInputInputOpenaiComplianceLogs,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackAuthTokenAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthTokenAuthenticationMethod
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackAuthTokenAuthenticationMethod,
-  );
+export const CreateInputAuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthTokenAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputAuthTokenAuthenticationMethod);
 
 /** @internal */
-export type CreateInputSystemByPackAuthTokenCloudflareHec$Outbound = {
+export type CreateInputAuthTokenCloudflareHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
   enabled?: boolean | undefined;
@@ -7698,36 +7621,32 @@ export type CreateInputSystemByPackAuthTokenCloudflareHec$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackAuthTokenCloudflareHec$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthTokenCloudflareHec
-  > = z.object({
-    authType:
-      CreateInputSystemByPackAuthTokenAuthenticationMethod$outboundSchema
-        .optional(),
-    tokenSecret: z.string().optional(),
-    enabled: z.boolean().optional(),
-    description: z.string().optional(),
-    allowedIndexesAtToken: z.array(z.string()).optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-  });
+export const CreateInputAuthTokenCloudflareHec$outboundSchema: z.ZodType<
+  CreateInputAuthTokenCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokenCloudflareHec
+> = z.object({
+  authType: CreateInputAuthTokenAuthenticationMethod$outboundSchema.optional(),
+  tokenSecret: z.string().optional(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+});
 
-export function createInputSystemByPackAuthTokenCloudflareHecToJSON(
-  createInputSystemByPackAuthTokenCloudflareHec:
-    CreateInputSystemByPackAuthTokenCloudflareHec,
+export function createInputAuthTokenCloudflareHecToJSON(
+  createInputAuthTokenCloudflareHec: CreateInputAuthTokenCloudflareHec,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema.parse(
-      createInputSystemByPackAuthTokenCloudflareHec,
+    CreateInputAuthTokenCloudflareHec$outboundSchema.parse(
+      createInputAuthTokenCloudflareHec,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackTLSSettingsServerSide$Outbound = {
+export type CreateInputTLSSettingsServerSide$Outbound = {
   disabled?: boolean | undefined;
   requestCert?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
@@ -7742,38 +7661,36 @@ export type CreateInputSystemByPackTLSSettingsServerSide$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackTLSSettingsServerSide$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackTLSSettingsServerSide$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackTLSSettingsServerSide
-  > = z.object({
-    disabled: z.boolean().optional(),
-    requestCert: z.boolean().optional(),
-    rejectUnauthorized: z.boolean().optional(),
-    commonNameRegex: z.string().optional(),
-    certificateName: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    certPath: z.string().optional(),
-    caPath: z.string().optional(),
-    minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
-    maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
-  });
+export const CreateInputTLSSettingsServerSide$outboundSchema: z.ZodType<
+  CreateInputTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  CreateInputTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  commonNameRegex: z.string().optional(),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
+});
 
-export function createInputSystemByPackTLSSettingsServerSideToJSON(
-  createInputSystemByPackTLSSettingsServerSide:
-    CreateInputSystemByPackTLSSettingsServerSide,
+export function createInputTLSSettingsServerSideToJSON(
+  createInputTLSSettingsServerSide: CreateInputTLSSettingsServerSide,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackTLSSettingsServerSide$outboundSchema.parse(
-      createInputSystemByPackTLSSettingsServerSide,
+    CreateInputTLSSettingsServerSide$outboundSchema.parse(
+      createInputTLSSettingsServerSide,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
+export type CreateInputInputCloudflareHec$Outbound = {
   id: string;
   type: "cloudflare_hec";
   disabled?: boolean | undefined;
@@ -7788,10 +7705,8 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?:
-    | Array<CreateInputSystemByPackAuthTokenCloudflareHec$Outbound>
-    | undefined;
-  tls?: CreateInputSystemByPackTLSSettingsServerSide$Outbound | undefined;
+  authTokens?: Array<CreateInputAuthTokenCloudflareHec$Outbound> | undefined;
+  tls?: CreateInputTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: boolean | undefined;
@@ -7822,76 +7737,70 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputCloudflareHec$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputCloudflareHec$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputCloudflareHec
-  > = z.object({
-    id: z.string(),
-    type: z.literal("cloudflare_hec"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(
-      z.lazy(() =>
-        CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema
-      ),
-    ).optional(),
-    tls: z.lazy(() =>
-      CreateInputSystemByPackTLSSettingsServerSide$outboundSchema
-    ).optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    hecAPI: z.string(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    accessControlAllowOrigin: z.array(z.string()).optional(),
-    accessControlAllowHeaders: z.array(z.string()).optional(),
-    emitTokenMetrics: z.boolean().optional(),
-    description: z.string().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_host: z.string().optional(),
-    __template_port: z.string().optional(),
-    __template_hecAPI: z.string().optional(),
-    __template_allowedIndexes: z.string().optional(),
-    __template_accessControlAllowOrigin: z.string().optional(),
-    __template_accessControlAllowHeaders: z.string().optional(),
-  });
+export const CreateInputInputCloudflareHec$outboundSchema: z.ZodType<
+  CreateInputInputCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCloudflareHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("cloudflare_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(
+    z.lazy(() => CreateInputAuthTokenCloudflareHec$outboundSchema),
+  ).optional(),
+  tls: z.lazy(() => CreateInputTLSSettingsServerSide$outboundSchema).optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_hecAPI: z.string().optional(),
+  __template_allowedIndexes: z.string().optional(),
+  __template_accessControlAllowOrigin: z.string().optional(),
+  __template_accessControlAllowHeaders: z.string().optional(),
+});
 
-export function createInputSystemByPackInputCloudflareHecToJSON(
-  createInputSystemByPackInputCloudflareHec:
-    CreateInputSystemByPackInputCloudflareHec,
+export function createInputInputCloudflareHecToJSON(
+  createInputInputCloudflareHec: CreateInputInputCloudflareHec,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputCloudflareHec$outboundSchema.parse(
-      createInputSystemByPackInputCloudflareHec,
+    CreateInputInputCloudflareHec$outboundSchema.parse(
+      createInputInputCloudflareHec,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackAuthTokenZscalerHec$Outbound = {
+export type CreateInputAuthTokenZscalerHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
   token: string;
@@ -7902,36 +7811,34 @@ export type CreateInputSystemByPackAuthTokenZscalerHec$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackAuthTokenZscalerHec$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackAuthTokenZscalerHec$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthTokenZscalerHec
-  > = z.object({
-    authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-      .optional(),
-    tokenSecret: z.string().optional(),
-    token: z.string(),
-    enabled: z.boolean().optional(),
-    description: z.string().optional(),
-    allowedIndexesAtToken: z.array(z.string()).optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-  });
+export const CreateInputAuthTokenZscalerHec$outboundSchema: z.ZodType<
+  CreateInputAuthTokenZscalerHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokenZscalerHec
+> = z.object({
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+});
 
-export function createInputSystemByPackAuthTokenZscalerHecToJSON(
-  createInputSystemByPackAuthTokenZscalerHec:
-    CreateInputSystemByPackAuthTokenZscalerHec,
+export function createInputAuthTokenZscalerHecToJSON(
+  createInputAuthTokenZscalerHec: CreateInputAuthTokenZscalerHec,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackAuthTokenZscalerHec$outboundSchema.parse(
-      createInputSystemByPackAuthTokenZscalerHec,
+    CreateInputAuthTokenZscalerHec$outboundSchema.parse(
+      createInputAuthTokenZscalerHec,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputZscalerHec$Outbound = {
+export type CreateInputInputZscalerHec$Outbound = {
   id: string;
   type: "zscaler_hec";
   disabled?: boolean | undefined;
@@ -7946,9 +7853,7 @@ export type CreateInputSystemByPackInputZscalerHec$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?:
-    | Array<CreateInputSystemByPackAuthTokenZscalerHec$Outbound>
-    | undefined;
+  authTokens?: Array<CreateInputAuthTokenZscalerHec$Outbound> | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
@@ -7976,10 +7881,10 @@ export type CreateInputSystemByPackInputZscalerHec$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputZscalerHec$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputZscalerHec$Outbound,
+export const CreateInputInputZscalerHec$outboundSchema: z.ZodType<
+  CreateInputInputZscalerHec$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputZscalerHec
+  CreateInputInputZscalerHec
 > = z.object({
   id: z.string(),
   type: z.literal("zscaler_hec"),
@@ -7995,7 +7900,7 @@ export const CreateInputSystemByPackInputZscalerHec$outboundSchema: z.ZodType<
   host: z.string(),
   port: z.number(),
   authTokens: z.array(
-    z.lazy(() => CreateInputSystemByPackAuthTokenZscalerHec$outboundSchema),
+    z.lazy(() => CreateInputAuthTokenZscalerHec$outboundSchema),
   ).optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().optional(),
@@ -8024,65 +7929,58 @@ export const CreateInputSystemByPackInputZscalerHec$outboundSchema: z.ZodType<
   __template_hecAPI: z.string().optional(),
 });
 
-export function createInputSystemByPackInputZscalerHecToJSON(
-  createInputSystemByPackInputZscalerHec:
-    CreateInputSystemByPackInputZscalerHec,
+export function createInputInputZscalerHecToJSON(
+  createInputInputZscalerHec: CreateInputInputZscalerHec,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputZscalerHec$outboundSchema.parse(
-      createInputSystemByPackInputZscalerHec,
-    ),
+    CreateInputInputZscalerHec$outboundSchema.parse(createInputInputZscalerHec),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackSortDirection$outboundSchema: z.ZodType<
+export const CreateInputSortDirection$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackSortDirection
-> = openEnums.outboundSchema(CreateInputSystemByPackSortDirection);
+  CreateInputSortDirection
+> = openEnums.outboundSchema(CreateInputSortDirection);
 
 /** @internal */
-export const CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema:
+export const CreateInputAuthenticationTypeServicenowTable$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    CreateInputSystemByPackAuthenticationTypeServicenowTable
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackAuthenticationTypeServicenowTable,
-  );
+    CreateInputAuthenticationTypeServicenowTable
+  > = openEnums.outboundSchema(CreateInputAuthenticationTypeServicenowTable);
 
 /** @internal */
-export const CreateInputSystemByPackGrantType$outboundSchema: z.ZodType<
+export const CreateInputGrantType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackGrantType
-> = openEnums.outboundSchema(CreateInputSystemByPackGrantType);
+  CreateInputGrantType
+> = openEnums.outboundSchema(CreateInputGrantType);
 
 /** @internal */
-export type CreateInputSystemByPackManageStateServicenowTable$Outbound = {};
+export type CreateInputManageStateServicenowTable$Outbound = {};
 
 /** @internal */
-export const CreateInputSystemByPackManageStateServicenowTable$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackManageStateServicenowTable$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackManageStateServicenowTable
-  > = z.object({});
+export const CreateInputManageStateServicenowTable$outboundSchema: z.ZodType<
+  CreateInputManageStateServicenowTable$Outbound,
+  z.ZodTypeDef,
+  CreateInputManageStateServicenowTable
+> = z.object({});
 
-export function createInputSystemByPackManageStateServicenowTableToJSON(
-  createInputSystemByPackManageStateServicenowTable:
-    CreateInputSystemByPackManageStateServicenowTable,
+export function createInputManageStateServicenowTableToJSON(
+  createInputManageStateServicenowTable: CreateInputManageStateServicenowTable,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackManageStateServicenowTable$outboundSchema.parse(
-      createInputSystemByPackManageStateServicenowTable,
+    CreateInputManageStateServicenowTable$outboundSchema.parse(
+      createInputManageStateServicenowTable,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputServicenowTable$Outbound = {
+export type CreateInputInputServicenowTable$Outbound = {
   id: string;
   type: "servicenow_table";
   disabled?: boolean | undefined;
@@ -8135,9 +8033,7 @@ export type CreateInputSystemByPackInputServicenowTable$Outbound = {
   clientTextSecret?: string | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?:
-    | CreateInputSystemByPackManageStateServicenowTable$Outbound
-    | undefined;
+  manageState?: CreateInputManageStateServicenowTable$Outbound | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
   __template_instance?: string | undefined;
@@ -8148,92 +8044,87 @@ export type CreateInputSystemByPackInputServicenowTable$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputServicenowTable$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputServicenowTable$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputServicenowTable
-  > = z.object({
-    id: z.string(),
-    type: z.literal("servicenow_table"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    instance: z.string(),
-    tableName: z.string(),
-    fields: z.array(z.string()).optional(),
-    orderByField: z.string().optional(),
-    orderByDirection: CreateInputSystemByPackSortDirection$outboundSchema
-      .optional(),
-    query: z.string().optional(),
-    pageSize: z.number().int().optional(),
-    maxPages: z.number().int().optional(),
-    rejectUnauthorized: z.boolean().optional(),
-    authType:
-      CreateInputSystemByPackAuthenticationTypeServicenowTable$outboundSchema
-        .optional(),
-    cronSchedule: z.string(),
-    earliest: z.string(),
-    latest: z.string(),
-    stateTracking: z.boolean().optional(),
-    logLevel: models.LogLevelOptions$outboundSchema.optional(),
-    requestTimeout: z.number().optional(),
-    useRoundRobinDns: z.boolean().optional(),
-    keepAliveTime: z.number().optional(),
-    jobTimeout: z.string().optional(),
-    maxMissedKeepAlives: z.number().optional(),
-    ttl: z.string().optional(),
-    ignoreGroupJobsLimit: z.boolean().optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    retryRules: models.RetryRulesType$outboundSchema.optional(),
-    description: z.string().optional(),
-    credentialsSecret: z.string().optional(),
-    oauthGrantType: CreateInputSystemByPackGrantType$outboundSchema.optional(),
-    username: z.string().optional(),
-    textSecret: z.string().optional(),
-    useCustomOAuthParamsOrHeaders: z.boolean().optional(),
-    oauthParams: z.array(
-      models.OauthParamConfInputServicenowTable$outboundSchema,
-    ).optional(),
-    oauthHeaders: z.array(
-      models.OauthHeaderConfInputServicenowTable$outboundSchema,
-    ).optional(),
-    clientId: z.string().optional(),
-    clientTextSecret: z.string().optional(),
-    stateUpdateExpression: z.string().optional(),
-    stateMergeExpression: z.string().optional(),
-    manageState: z.lazy(() =>
-      CreateInputSystemByPackManageStateServicenowTable$outboundSchema
-    ).optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_instance: z.string().optional(),
-    __template_orderByField: z.string().optional(),
-    __template_query: z.string().optional(),
-    __template_username: z.string().optional(),
-    __template_clientId: z.string().optional(),
-  });
+export const CreateInputInputServicenowTable$outboundSchema: z.ZodType<
+  CreateInputInputServicenowTable$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputServicenowTable
+> = z.object({
+  id: z.string(),
+  type: z.literal("servicenow_table"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  instance: z.string(),
+  tableName: z.string(),
+  fields: z.array(z.string()).optional(),
+  orderByField: z.string().optional(),
+  orderByDirection: CreateInputSortDirection$outboundSchema.optional(),
+  query: z.string().optional(),
+  pageSize: z.number().int().optional(),
+  maxPages: z.number().int().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  authType: CreateInputAuthenticationTypeServicenowTable$outboundSchema
+    .optional(),
+  cronSchedule: z.string(),
+  earliest: z.string(),
+  latest: z.string(),
+  stateTracking: z.boolean().optional(),
+  logLevel: models.LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  oauthGrantType: CreateInputGrantType$outboundSchema.optional(),
+  username: z.string().optional(),
+  textSecret: z.string().optional(),
+  useCustomOAuthParamsOrHeaders: z.boolean().optional(),
+  oauthParams: z.array(models.OauthParamConfInputServicenowTable$outboundSchema)
+    .optional(),
+  oauthHeaders: z.array(
+    models.OauthHeaderConfInputServicenowTable$outboundSchema,
+  ).optional(),
+  clientId: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    CreateInputManageStateServicenowTable$outboundSchema
+  ).optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_instance: z.string().optional(),
+  __template_orderByField: z.string().optional(),
+  __template_query: z.string().optional(),
+  __template_username: z.string().optional(),
+  __template_clientId: z.string().optional(),
+});
 
-export function createInputSystemByPackInputServicenowTableToJSON(
-  createInputSystemByPackInputServicenowTable:
-    CreateInputSystemByPackInputServicenowTable,
+export function createInputInputServicenowTableToJSON(
+  createInputInputServicenowTable: CreateInputInputServicenowTable,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputServicenowTable$outboundSchema.parse(
-      createInputSystemByPackInputServicenowTable,
+    CreateInputInputServicenowTable$outboundSchema.parse(
+      createInputInputServicenowTable,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputSecurityLake$Outbound = {
+export type CreateInputInputSecurityLake$Outbound = {
   id: string;
   type: "security_lake";
   disabled?: boolean | undefined;
@@ -8260,7 +8151,6 @@ export type CreateInputSystemByPackInputSecurityLake$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -8295,10 +8185,10 @@ export type CreateInputSystemByPackInputSecurityLake$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputSecurityLake$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputSecurityLake$Outbound,
+export const CreateInputInputSecurityLake$outboundSchema: z.ZodType<
+  CreateInputInputSecurityLake$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputSecurityLake
+  CreateInputInputSecurityLake
 > = z.object({
   id: z.string(),
   type: z.literal("security_lake"),
@@ -8325,7 +8215,6 @@ export const CreateInputSystemByPackInputSecurityLake$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -8361,19 +8250,18 @@ export const CreateInputSystemByPackInputSecurityLake$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createInputSystemByPackInputSecurityLakeToJSON(
-  createInputSystemByPackInputSecurityLake:
-    CreateInputSystemByPackInputSecurityLake,
+export function createInputInputSecurityLakeToJSON(
+  createInputInputSecurityLake: CreateInputInputSecurityLake,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSecurityLake$outboundSchema.parse(
-      createInputSystemByPackInputSecurityLake,
+    CreateInputInputSecurityLake$outboundSchema.parse(
+      createInputInputSecurityLake,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputNetflow$Outbound = {
+export type CreateInputInputNetflow$Outbound = {
   id: string;
   type: "netflow";
   disabled?: boolean | undefined;
@@ -8405,10 +8293,10 @@ export type CreateInputSystemByPackInputNetflow$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputNetflow$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputNetflow$Outbound,
+export const CreateInputInputNetflow$outboundSchema: z.ZodType<
+  CreateInputInputNetflow$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputNetflow
+  CreateInputInputNetflow
 > = z.object({
   id: z.string(),
   type: z.literal("netflow"),
@@ -8440,18 +8328,16 @@ export const CreateInputSystemByPackInputNetflow$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputNetflowToJSON(
-  createInputSystemByPackInputNetflow: CreateInputSystemByPackInputNetflow,
+export function createInputInputNetflowToJSON(
+  createInputInputNetflow: CreateInputInputNetflow,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputNetflow$outboundSchema.parse(
-      createInputSystemByPackInputNetflow,
-    ),
+    CreateInputInputNetflow$outboundSchema.parse(createInputInputNetflow),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputWizWebhook$Outbound = {
+export type CreateInputInputWizWebhook$Outbound = {
   id: string;
   type: "wiz_webhook";
   disabled?: boolean | undefined;
@@ -8495,10 +8381,10 @@ export type CreateInputSystemByPackInputWizWebhook$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputWizWebhook$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputWizWebhook$Outbound,
+export const CreateInputInputWizWebhook$outboundSchema: z.ZodType<
+  CreateInputInputWizWebhook$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputWizWebhook
+  CreateInputInputWizWebhook
 > = z.object({
   id: z.string(),
   type: z.literal("wiz_webhook"),
@@ -8543,60 +8429,55 @@ export const CreateInputSystemByPackInputWizWebhook$outboundSchema: z.ZodType<
   __template_allowedPaths: z.string().optional(),
 });
 
-export function createInputSystemByPackInputWizWebhookToJSON(
-  createInputSystemByPackInputWizWebhook:
-    CreateInputSystemByPackInputWizWebhook,
+export function createInputInputWizWebhookToJSON(
+  createInputInputWizWebhook: CreateInputInputWizWebhook,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputWizWebhook$outboundSchema.parse(
-      createInputSystemByPackInputWizWebhook,
-    ),
+    CreateInputInputWizWebhook$outboundSchema.parse(createInputInputWizWebhook),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackManageStateOpenai$Outbound = {};
+export type CreateInputManageStateOpenai$Outbound = {};
 
 /** @internal */
-export const CreateInputSystemByPackManageStateOpenai$outboundSchema: z.ZodType<
-  CreateInputSystemByPackManageStateOpenai$Outbound,
+export const CreateInputManageStateOpenai$outboundSchema: z.ZodType<
+  CreateInputManageStateOpenai$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackManageStateOpenai
+  CreateInputManageStateOpenai
 > = z.object({});
 
-export function createInputSystemByPackManageStateOpenaiToJSON(
-  createInputSystemByPackManageStateOpenai:
-    CreateInputSystemByPackManageStateOpenai,
+export function createInputManageStateOpenaiToJSON(
+  createInputManageStateOpenai: CreateInputManageStateOpenai,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackManageStateOpenai$outboundSchema.parse(
-      createInputSystemByPackManageStateOpenai,
+    CreateInputManageStateOpenai$outboundSchema.parse(
+      createInputManageStateOpenai,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackPaginationType$outboundSchema: z.ZodType<
+export const CreateInputPaginationType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackPaginationType
-> = openEnums.outboundSchema(CreateInputSystemByPackPaginationType);
+  CreateInputPaginationType
+> = openEnums.outboundSchema(CreateInputPaginationType);
 
 /** @internal */
-export const CreateInputSystemByPackContentConfigLogLevel$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackContentConfigLogLevel
-  > = openEnums.outboundSchema(CreateInputSystemByPackContentConfigLogLevel);
+export const CreateInputContentConfigLogLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputContentConfigLogLevel
+> = openEnums.outboundSchema(CreateInputContentConfigLogLevel);
 
 /** @internal */
-export type CreateInputSystemByPackContentConfigInput$Outbound = {
+export type CreateInputContentConfigInput$Outbound = {
   disabled?: boolean | undefined;
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputSystemByPackManageStateOpenai$Outbound | undefined;
+  manageState?: CreateInputManageStateOpenai$Outbound | undefined;
   requestParams: Array<models.RequestParamConfInputOpenai$Outbound>;
   paginationType: string;
   paginationAttribute?: Array<string> | undefined;
@@ -8615,49 +8496,45 @@ export type CreateInputSystemByPackContentConfigInput$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackContentConfigInput$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackContentConfigInput$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackContentConfigInput
-  > = z.object({
-    disabled: z.boolean().optional(),
-    stateTracking: z.boolean().optional(),
-    stateUpdateExpression: z.string().optional(),
-    stateMergeExpression: z.string().optional(),
-    manageState: z.lazy(() =>
-      CreateInputSystemByPackManageStateOpenai$outboundSchema
-    ).optional(),
-    requestParams: z.array(models.RequestParamConfInputOpenai$outboundSchema),
-    paginationType: CreateInputSystemByPackPaginationType$outboundSchema,
-    paginationAttribute: z.array(z.string()).optional(),
-    paginationLastPageExpr: z.string().optional(),
-    maxPages: z.number().optional(),
-    paginationNextRelationAttribute: z.string().optional(),
-    paginationCurRelationAttribute: z.string().optional(),
-    cronSchedule: z.string(),
-    earliest: z.string(),
-    latest: z.string(),
-    jobTimeout: z.string().optional(),
-    logLevel: CreateInputSystemByPackContentConfigLogLevel$outboundSchema
-      .optional(),
-    endpointMetadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-  });
+export const CreateInputContentConfigInput$outboundSchema: z.ZodType<
+  CreateInputContentConfigInput$Outbound,
+  z.ZodTypeDef,
+  CreateInputContentConfigInput
+> = z.object({
+  disabled: z.boolean().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() => CreateInputManageStateOpenai$outboundSchema)
+    .optional(),
+  requestParams: z.array(models.RequestParamConfInputOpenai$outboundSchema),
+  paginationType: CreateInputPaginationType$outboundSchema,
+  paginationAttribute: z.array(z.string()).optional(),
+  paginationLastPageExpr: z.string().optional(),
+  maxPages: z.number().optional(),
+  paginationNextRelationAttribute: z.string().optional(),
+  paginationCurRelationAttribute: z.string().optional(),
+  cronSchedule: z.string(),
+  earliest: z.string(),
+  latest: z.string(),
+  jobTimeout: z.string().optional(),
+  logLevel: CreateInputContentConfigLogLevel$outboundSchema.optional(),
+  endpointMetadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+});
 
-export function createInputSystemByPackContentConfigInputToJSON(
-  createInputSystemByPackContentConfigInput:
-    CreateInputSystemByPackContentConfigInput,
+export function createInputContentConfigInputToJSON(
+  createInputContentConfigInput: CreateInputContentConfigInput,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackContentConfigInput$outboundSchema.parse(
-      createInputSystemByPackContentConfigInput,
+    CreateInputContentConfigInput$outboundSchema.parse(
+      createInputContentConfigInput,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputOpenai$Outbound = {
+export type CreateInputInputOpenai$Outbound = {
   id: string;
   type: "openai";
   disabled?: boolean | undefined;
@@ -8672,7 +8549,7 @@ export type CreateInputSystemByPackInputOpenai$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   openaiOrganization?: string | undefined;
   openaiProject?: string | undefined;
-  contentConfig: Array<CreateInputSystemByPackContentConfigInput$Outbound>;
+  contentConfig: Array<CreateInputContentConfigInput$Outbound>;
   requestTimeout?: number | undefined;
   apiKey?: string | undefined;
   textSecret: string;
@@ -8690,10 +8567,10 @@ export type CreateInputSystemByPackInputOpenai$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputOpenai$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputOpenai$Outbound,
+export const CreateInputInputOpenai$outboundSchema: z.ZodType<
+  CreateInputInputOpenai$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputOpenai
+  CreateInputInputOpenai
 > = z.object({
   id: z.string(),
   type: z.literal("openai"),
@@ -8709,7 +8586,7 @@ export const CreateInputSystemByPackInputOpenai$outboundSchema: z.ZodType<
   openaiOrganization: z.string().optional(),
   openaiProject: z.string().optional(),
   contentConfig: z.array(
-    z.lazy(() => CreateInputSystemByPackContentConfigInput$outboundSchema),
+    z.lazy(() => CreateInputContentConfigInput$outboundSchema),
   ),
   requestTimeout: z.number().optional(),
   apiKey: z.string().optional(),
@@ -8728,45 +8605,41 @@ export const CreateInputSystemByPackInputOpenai$outboundSchema: z.ZodType<
   __template_openaiProject: z.string().optional(),
 });
 
-export function createInputSystemByPackInputOpenaiToJSON(
-  createInputSystemByPackInputOpenai: CreateInputSystemByPackInputOpenai,
+export function createInputInputOpenaiToJSON(
+  createInputInputOpenai: CreateInputInputOpenai,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputOpenai$outboundSchema.parse(
-      createInputSystemByPackInputOpenai,
-    ),
+    CreateInputInputOpenai$outboundSchema.parse(createInputInputOpenai),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackManageStateWiz$Outbound = {};
+export type CreateInputManageStateWiz$Outbound = {};
 
 /** @internal */
-export const CreateInputSystemByPackManageStateWiz$outboundSchema: z.ZodType<
-  CreateInputSystemByPackManageStateWiz$Outbound,
+export const CreateInputManageStateWiz$outboundSchema: z.ZodType<
+  CreateInputManageStateWiz$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackManageStateWiz
+  CreateInputManageStateWiz
 > = z.object({});
 
-export function createInputSystemByPackManageStateWizToJSON(
-  createInputSystemByPackManageStateWiz: CreateInputSystemByPackManageStateWiz,
+export function createInputManageStateWizToJSON(
+  createInputManageStateWiz: CreateInputManageStateWiz,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackManageStateWiz$outboundSchema.parse(
-      createInputSystemByPackManageStateWiz,
-    ),
+    CreateInputManageStateWiz$outboundSchema.parse(createInputManageStateWiz),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackContentConfigWiz$Outbound = {
+export type CreateInputContentConfigWiz$Outbound = {
   contentType: string;
   contentDescription?: string | undefined;
   enabled?: boolean | undefined;
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputSystemByPackManageStateWiz$Outbound | undefined;
+  manageState?: CreateInputManageStateWiz$Outbound | undefined;
   contentQuery: string;
   cronSchedule: string;
   earliest: string;
@@ -8777,10 +8650,10 @@ export type CreateInputSystemByPackContentConfigWiz$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackContentConfigWiz$outboundSchema: z.ZodType<
-  CreateInputSystemByPackContentConfigWiz$Outbound,
+export const CreateInputContentConfigWiz$outboundSchema: z.ZodType<
+  CreateInputContentConfigWiz$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackContentConfigWiz
+  CreateInputContentConfigWiz
 > = z.object({
   contentType: z.string(),
   contentDescription: z.string().optional(),
@@ -8788,9 +8661,8 @@ export const CreateInputSystemByPackContentConfigWiz$outboundSchema: z.ZodType<
   stateTracking: z.boolean().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
-  manageState: z.lazy(() =>
-    CreateInputSystemByPackManageStateWiz$outboundSchema
-  ).optional(),
+  manageState: z.lazy(() => CreateInputManageStateWiz$outboundSchema)
+    .optional(),
   contentQuery: z.string(),
   cronSchedule: z.string(),
   earliest: z.string(),
@@ -8801,19 +8673,18 @@ export const CreateInputSystemByPackContentConfigWiz$outboundSchema: z.ZodType<
   maxPages: z.number().optional(),
 });
 
-export function createInputSystemByPackContentConfigWizToJSON(
-  createInputSystemByPackContentConfigWiz:
-    CreateInputSystemByPackContentConfigWiz,
+export function createInputContentConfigWizToJSON(
+  createInputContentConfigWiz: CreateInputContentConfigWiz,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackContentConfigWiz$outboundSchema.parse(
-      createInputSystemByPackContentConfigWiz,
+    CreateInputContentConfigWiz$outboundSchema.parse(
+      createInputContentConfigWiz,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputWiz$Outbound = {
+export type CreateInputInputWiz$Outbound = {
   id: string;
   type: "wiz";
   disabled?: boolean | undefined;
@@ -8830,7 +8701,7 @@ export type CreateInputSystemByPackInputWiz$Outbound = {
   authUrl: string;
   authAudienceOverride?: string | undefined;
   clientId: string;
-  contentConfig: Array<CreateInputSystemByPackContentConfigWiz$Outbound>;
+  contentConfig: Array<CreateInputContentConfigWiz$Outbound>;
   requestTimeout?: number | undefined;
   keepAliveTime?: number | undefined;
   maxMissedKeepAlives?: number | undefined;
@@ -8852,10 +8723,10 @@ export type CreateInputSystemByPackInputWiz$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputWiz$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputWiz$Outbound,
+export const CreateInputInputWiz$outboundSchema: z.ZodType<
+  CreateInputInputWiz$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputWiz
+  CreateInputInputWiz
 > = z.object({
   id: z.string(),
   type: z.literal("wiz"),
@@ -8873,7 +8744,7 @@ export const CreateInputSystemByPackInputWiz$outboundSchema: z.ZodType<
   authAudienceOverride: z.string().optional(),
   clientId: z.string(),
   contentConfig: z.array(
-    z.lazy(() => CreateInputSystemByPackContentConfigWiz$outboundSchema),
+    z.lazy(() => CreateInputContentConfigWiz$outboundSchema),
   ),
   requestTimeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
@@ -8897,46 +8768,42 @@ export const CreateInputSystemByPackInputWiz$outboundSchema: z.ZodType<
   __template_clientId: z.string().optional(),
 });
 
-export function createInputSystemByPackInputWizToJSON(
-  createInputSystemByPackInputWiz: CreateInputSystemByPackInputWiz,
+export function createInputInputWizToJSON(
+  createInputInputWiz: CreateInputInputWiz,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputWiz$outboundSchema.parse(
-      createInputSystemByPackInputWiz,
-    ),
+    CreateInputInputWiz$outboundSchema.parse(createInputInputWiz),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputJournalFilesRule$Outbound = {
+export type CreateInputInputJournalFilesRule$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputJournalFilesRule$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputJournalFilesRule$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputJournalFilesRule
-  > = z.object({
-    filter: z.string(),
-    description: z.string().optional(),
-  });
+export const CreateInputInputJournalFilesRule$outboundSchema: z.ZodType<
+  CreateInputInputJournalFilesRule$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputJournalFilesRule
+> = z.object({
+  filter: z.string(),
+  description: z.string().optional(),
+});
 
-export function createInputSystemByPackInputJournalFilesRuleToJSON(
-  createInputSystemByPackInputJournalFilesRule:
-    CreateInputSystemByPackInputJournalFilesRule,
+export function createInputInputJournalFilesRuleToJSON(
+  createInputInputJournalFilesRule: CreateInputInputJournalFilesRule,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputJournalFilesRule$outboundSchema.parse(
-      createInputSystemByPackInputJournalFilesRule,
+    CreateInputInputJournalFilesRule$outboundSchema.parse(
+      createInputInputJournalFilesRule,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputJournalFiles$Outbound = {
+export type CreateInputInputJournalFiles$Outbound = {
   id: string;
   type: "journal_files";
   disabled?: boolean | undefined;
@@ -8952,9 +8819,7 @@ export type CreateInputSystemByPackInputJournalFiles$Outbound = {
   path: string;
   interval?: number | undefined;
   journals: Array<string>;
-  rules?:
-    | Array<CreateInputSystemByPackInputJournalFilesRule$Outbound>
-    | undefined;
+  rules?: Array<CreateInputInputJournalFilesRule$Outbound> | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
   suppressMissingPathErrors?: boolean | undefined;
@@ -8965,10 +8830,10 @@ export type CreateInputSystemByPackInputJournalFiles$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputJournalFiles$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputJournalFiles$Outbound,
+export const CreateInputInputJournalFiles$outboundSchema: z.ZodType<
+  CreateInputInputJournalFiles$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputJournalFiles
+  CreateInputInputJournalFiles
 > = z.object({
   id: z.string(),
   type: z.literal("journal_files"),
@@ -8984,9 +8849,8 @@ export const CreateInputSystemByPackInputJournalFiles$outboundSchema: z.ZodType<
   path: z.string(),
   interval: z.number().optional(),
   journals: z.array(z.string()),
-  rules: z.array(
-    z.lazy(() => CreateInputSystemByPackInputJournalFilesRule$outboundSchema),
-  ).optional(),
+  rules: z.array(z.lazy(() => CreateInputInputJournalFilesRule$outboundSchema))
+    .optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
   suppressMissingPathErrors: z.boolean().optional(),
@@ -8997,19 +8861,18 @@ export const CreateInputSystemByPackInputJournalFiles$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputJournalFilesToJSON(
-  createInputSystemByPackInputJournalFiles:
-    CreateInputSystemByPackInputJournalFiles,
+export function createInputInputJournalFilesToJSON(
+  createInputInputJournalFiles: CreateInputInputJournalFiles,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputJournalFiles$outboundSchema.parse(
-      createInputSystemByPackInputJournalFiles,
+    CreateInputInputJournalFiles$outboundSchema.parse(
+      createInputInputJournalFiles,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputRawUdp$Outbound = {
+export type CreateInputInputRawUdp$Outbound = {
   id: string;
   type: "raw_udp";
   disabled?: boolean | undefined;
@@ -9038,10 +8901,10 @@ export type CreateInputSystemByPackInputRawUdp$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputRawUdp$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputRawUdp$Outbound,
+export const CreateInputInputRawUdp$outboundSchema: z.ZodType<
+  CreateInputInputRawUdp$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputRawUdp
+  CreateInputInputRawUdp
 > = z.object({
   id: z.string(),
   type: z.literal("raw_udp"),
@@ -9070,26 +8933,23 @@ export const CreateInputSystemByPackInputRawUdp$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputRawUdpToJSON(
-  createInputSystemByPackInputRawUdp: CreateInputSystemByPackInputRawUdp,
+export function createInputInputRawUdpToJSON(
+  createInputInputRawUdp: CreateInputInputRawUdp,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputRawUdp$outboundSchema.parse(
-      createInputSystemByPackInputRawUdp,
-    ),
+    CreateInputInputRawUdp$outboundSchema.parse(createInputInputRawUdp),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackReadModeAppleUnifiedLogs$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackReadModeAppleUnifiedLogs
-  > = openEnums.outboundSchema(CreateInputSystemByPackReadModeAppleUnifiedLogs);
+export const CreateInputReadModeAppleUnifiedLogs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputReadModeAppleUnifiedLogs
+> = openEnums.outboundSchema(CreateInputReadModeAppleUnifiedLogs);
 
 /** @internal */
-export type CreateInputSystemByPackInputAppleUnifiedLogs$Outbound = {
+export type CreateInputInputAppleUnifiedLogs$Outbound = {
   id: string;
   type: "apple_unified_logs";
   disabled?: boolean | undefined;
@@ -9113,60 +8973,59 @@ export type CreateInputSystemByPackInputAppleUnifiedLogs$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputAppleUnifiedLogs$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputAppleUnifiedLogs$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputAppleUnifiedLogs
-  > = z.object({
-    id: z.string(),
-    type: z.literal("apple_unified_logs"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    predicate: z.string(),
-    readMode: CreateInputSystemByPackReadModeAppleUnifiedLogs$outboundSchema
-      .optional(),
-    interval: z.number().optional(),
-    batchSize: z.number().optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    description: z.string().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-  });
+export const CreateInputInputAppleUnifiedLogs$outboundSchema: z.ZodType<
+  CreateInputInputAppleUnifiedLogs$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputAppleUnifiedLogs
+> = z.object({
+  id: z.string(),
+  type: z.literal("apple_unified_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  predicate: z.string(),
+  readMode: CreateInputReadModeAppleUnifiedLogs$outboundSchema.optional(),
+  interval: z.number().optional(),
+  batchSize: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
 
-export function createInputSystemByPackInputAppleUnifiedLogsToJSON(
-  createInputSystemByPackInputAppleUnifiedLogs:
-    CreateInputSystemByPackInputAppleUnifiedLogs,
+export function createInputInputAppleUnifiedLogsToJSON(
+  createInputInputAppleUnifiedLogs: CreateInputInputAppleUnifiedLogs,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputAppleUnifiedLogs$outboundSchema.parse(
-      createInputSystemByPackInputAppleUnifiedLogs,
+    CreateInputInputAppleUnifiedLogs$outboundSchema.parse(
+      createInputInputAppleUnifiedLogs,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackReadModeWinEventLogs$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateInputSystemByPackReadModeWinEventLogs> =
-    openEnums.outboundSchema(CreateInputSystemByPackReadModeWinEventLogs);
-
-/** @internal */
-export const CreateInputSystemByPackEventFormat$outboundSchema: z.ZodType<
+export const CreateInputReadModeWinEventLogs$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackEventFormat
-> = openEnums.outboundSchema(CreateInputSystemByPackEventFormat);
+  CreateInputReadModeWinEventLogs
+> = openEnums.outboundSchema(CreateInputReadModeWinEventLogs);
 
 /** @internal */
-export type CreateInputSystemByPackInputWinEventLogs$Outbound = {
+export const CreateInputEventFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputEventFormat
+> = openEnums.outboundSchema(CreateInputEventFormat);
+
+/** @internal */
+export type CreateInputInputWinEventLogs$Outbound = {
   id: string;
   type: "win_event_logs";
   disabled?: boolean | undefined;
@@ -9195,10 +9054,10 @@ export type CreateInputSystemByPackInputWinEventLogs$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputWinEventLogs$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputWinEventLogs$Outbound,
+export const CreateInputInputWinEventLogs$outboundSchema: z.ZodType<
+  CreateInputInputWinEventLogs$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputWinEventLogs
+  CreateInputInputWinEventLogs
 > = z.object({
   id: z.string(),
   type: z.literal("win_event_logs"),
@@ -9212,9 +9071,8 @@ export const CreateInputSystemByPackInputWinEventLogs$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   logNames: z.array(z.string()),
-  readMode: CreateInputSystemByPackReadModeWinEventLogs$outboundSchema
-    .optional(),
-  eventFormat: CreateInputSystemByPackEventFormat$outboundSchema.optional(),
+  readMode: CreateInputReadModeWinEventLogs$outboundSchema.optional(),
+  eventFormat: CreateInputEventFormat$outboundSchema.optional(),
   disableNativeModule: z.boolean().optional(),
   interval: z.number().optional(),
   batchSize: z.number().optional(),
@@ -9228,29 +9086,23 @@ export const CreateInputSystemByPackInputWinEventLogs$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputWinEventLogsToJSON(
-  createInputSystemByPackInputWinEventLogs:
-    CreateInputSystemByPackInputWinEventLogs,
+export function createInputInputWinEventLogsToJSON(
+  createInputInputWinEventLogs: CreateInputInputWinEventLogs,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputWinEventLogs$outboundSchema.parse(
-      createInputSystemByPackInputWinEventLogs,
+    CreateInputInputWinEventLogs$outboundSchema.parse(
+      createInputInputWinEventLogs,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackAuthMethodAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthMethodAuthenticationMethod
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackAuthMethodAuthenticationMethod,
-  );
+export const CreateInputAuthMethodAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthMethodAuthenticationMethod> =
+    openEnums.outboundSchema(CreateInputAuthMethodAuthenticationMethod);
 
 /** @internal */
-export type CreateInputSystemByPackMTLSSettings$Outbound = {
+export type CreateInputMTLSSettings$Outbound = {
   disabled?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   requestCert?: boolean | undefined;
@@ -9267,10 +9119,10 @@ export type CreateInputSystemByPackMTLSSettings$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackMTLSSettings$outboundSchema: z.ZodType<
-  CreateInputSystemByPackMTLSSettings$Outbound,
+export const CreateInputMTLSSettings$outboundSchema: z.ZodType<
+  CreateInputMTLSSettings$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackMTLSSettings
+  CreateInputMTLSSettings
 > = z.object({
   disabled: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
@@ -9287,58 +9139,54 @@ export const CreateInputSystemByPackMTLSSettings$outboundSchema: z.ZodType<
   ocspCheckFailClose: z.boolean().optional(),
 });
 
-export function createInputSystemByPackMTLSSettingsToJSON(
-  createInputSystemByPackMTLSSettings: CreateInputSystemByPackMTLSSettings,
+export function createInputMTLSSettingsToJSON(
+  createInputMTLSSettings: CreateInputMTLSSettings,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackMTLSSettings$outboundSchema.parse(
-      createInputSystemByPackMTLSSettings,
-    ),
+    CreateInputMTLSSettings$outboundSchema.parse(createInputMTLSSettings),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackFormat$outboundSchema: z.ZodType<
+export const CreateInputFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackFormat
-> = openEnums.outboundSchema(CreateInputSystemByPackFormat);
+  CreateInputFormat
+> = openEnums.outboundSchema(CreateInputFormat);
 
 /** @internal */
-export const CreateInputSystemByPackQueryBuilderMode$outboundSchema: z.ZodType<
+export const CreateInputQueryBuilderMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackQueryBuilderMode
-> = openEnums.outboundSchema(CreateInputSystemByPackQueryBuilderMode);
+  CreateInputQueryBuilderMode
+> = openEnums.outboundSchema(CreateInputQueryBuilderMode);
 
 /** @internal */
-export type CreateInputSystemByPackQuery$Outbound = {
+export type CreateInputQuery$Outbound = {
   path: string;
   queryExpression: string;
 };
 
 /** @internal */
-export const CreateInputSystemByPackQuery$outboundSchema: z.ZodType<
-  CreateInputSystemByPackQuery$Outbound,
+export const CreateInputQuery$outboundSchema: z.ZodType<
+  CreateInputQuery$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackQuery
+  CreateInputQuery
 > = z.object({
   path: z.string(),
   queryExpression: z.string(),
 });
 
-export function createInputSystemByPackQueryToJSON(
-  createInputSystemByPackQuery: CreateInputSystemByPackQuery,
+export function createInputQueryToJSON(
+  createInputQuery: CreateInputQuery,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackQuery$outboundSchema.parse(
-      createInputSystemByPackQuery,
-    ),
+    CreateInputQuery$outboundSchema.parse(createInputQuery),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackSubscription$Outbound = {
+export type CreateInputSubscription$Outbound = {
   subscriptionName: string;
   version?: string | undefined;
   contentFormat: string;
@@ -9351,19 +9199,19 @@ export type CreateInputSystemByPackSubscription$Outbound = {
   locale?: string | undefined;
   querySelector?: string | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  queries?: Array<CreateInputSystemByPackQuery$Outbound> | undefined;
+  queries?: Array<CreateInputQuery$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackSubscription$outboundSchema: z.ZodType<
-  CreateInputSystemByPackSubscription$Outbound,
+export const CreateInputSubscription$outboundSchema: z.ZodType<
+  CreateInputSubscription$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackSubscription
+  CreateInputSubscription
 > = z.object({
   subscriptionName: z.string(),
   version: z.string().optional(),
-  contentFormat: CreateInputSystemByPackFormat$outboundSchema,
+  contentFormat: CreateInputFormat$outboundSchema,
   heartbeatInterval: z.number(),
   batchTimeout: z.number(),
   readExistingEvents: z.boolean().optional(),
@@ -9371,27 +9219,23 @@ export const CreateInputSystemByPackSubscription$outboundSchema: z.ZodType<
   compress: z.boolean().optional(),
   targets: z.array(z.string()),
   locale: z.string().optional(),
-  querySelector: CreateInputSystemByPackQueryBuilderMode$outboundSchema
-    .optional(),
+  querySelector: CreateInputQueryBuilderMode$outboundSchema.optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
-  queries: z.array(z.lazy(() => CreateInputSystemByPackQuery$outboundSchema))
-    .optional(),
+  queries: z.array(z.lazy(() => CreateInputQuery$outboundSchema)).optional(),
   xmlQuery: z.string().optional(),
 });
 
-export function createInputSystemByPackSubscriptionToJSON(
-  createInputSystemByPackSubscription: CreateInputSystemByPackSubscription,
+export function createInputSubscriptionToJSON(
+  createInputSubscription: CreateInputSubscription,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackSubscription$outboundSchema.parse(
-      createInputSystemByPackSubscription,
-    ),
+    CreateInputSubscription$outboundSchema.parse(createInputSubscription),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputWef$Outbound = {
+export type CreateInputInputWef$Outbound = {
   id: string;
   type: "wef";
   disabled?: boolean | undefined;
@@ -9407,7 +9251,7 @@ export type CreateInputSystemByPackInputWef$Outbound = {
   host: string;
   port: number;
   authMethod?: string | undefined;
-  tls?: CreateInputSystemByPackMTLSSettings$Outbound | undefined;
+  tls?: CreateInputMTLSSettings$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: boolean | undefined;
@@ -9421,7 +9265,7 @@ export type CreateInputSystemByPackInputWef$Outbound = {
   keytab?: string | undefined;
   principal?: string | undefined;
   allowMachineIdMismatch?: boolean | undefined;
-  subscriptions: Array<CreateInputSystemByPackSubscription$Outbound>;
+  subscriptions: Array<CreateInputSubscription$Outbound>;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
@@ -9434,10 +9278,10 @@ export type CreateInputSystemByPackInputWef$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputWef$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputWef$Outbound,
+export const CreateInputInputWef$outboundSchema: z.ZodType<
+  CreateInputInputWef$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputWef
+  CreateInputInputWef
 > = z.object({
   id: z.string(),
   type: z.literal("wef"),
@@ -9452,11 +9296,9 @@ export const CreateInputSystemByPackInputWef$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  authMethod:
-    CreateInputSystemByPackAuthMethodAuthenticationMethod$outboundSchema
-      .optional(),
-  tls: z.lazy(() => CreateInputSystemByPackMTLSSettings$outboundSchema)
+  authMethod: CreateInputAuthMethodAuthenticationMethod$outboundSchema
     .optional(),
+  tls: z.lazy(() => CreateInputMTLSSettings$outboundSchema).optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
   enableProxyHeader: z.boolean().optional(),
@@ -9470,9 +9312,7 @@ export const CreateInputSystemByPackInputWef$outboundSchema: z.ZodType<
   keytab: z.string().optional(),
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().optional(),
-  subscriptions: z.array(
-    z.lazy(() => CreateInputSystemByPackSubscription$outboundSchema),
-  ),
+  subscriptions: z.array(z.lazy(() => CreateInputSubscription$outboundSchema)),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
   description: z.string().optional(),
@@ -9485,73 +9325,66 @@ export const CreateInputSystemByPackInputWef$outboundSchema: z.ZodType<
   __template_principal: z.string().optional(),
 });
 
-export function createInputSystemByPackInputWefToJSON(
-  createInputSystemByPackInputWef: CreateInputSystemByPackInputWef,
+export function createInputInputWefToJSON(
+  createInputInputWef: CreateInputInputWef,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputWef$outboundSchema.parse(
-      createInputSystemByPackInputWef,
-    ),
+    CreateInputInputWef$outboundSchema.parse(createInputInputWef),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackAllow$Outbound = {
+export type CreateInputAllow$Outbound = {
   procname: string;
   arg?: string | undefined;
   config: string;
 };
 
 /** @internal */
-export const CreateInputSystemByPackAllow$outboundSchema: z.ZodType<
-  CreateInputSystemByPackAllow$Outbound,
+export const CreateInputAllow$outboundSchema: z.ZodType<
+  CreateInputAllow$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackAllow
+  CreateInputAllow
 > = z.object({
   procname: z.string(),
   arg: z.string().optional(),
   config: z.string(),
 });
 
-export function createInputSystemByPackAllowToJSON(
-  createInputSystemByPackAllow: CreateInputSystemByPackAllow,
+export function createInputAllowToJSON(
+  createInputAllow: CreateInputAllow,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackAllow$outboundSchema.parse(
-      createInputSystemByPackAllow,
-    ),
+    CreateInputAllow$outboundSchema.parse(createInputAllow),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackFilterAppscope$Outbound = {
-  allow?: Array<CreateInputSystemByPackAllow$Outbound> | undefined;
+export type CreateInputFilterAppscope$Outbound = {
+  allow?: Array<CreateInputAllow$Outbound> | undefined;
   transportURL?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackFilterAppscope$outboundSchema: z.ZodType<
-  CreateInputSystemByPackFilterAppscope$Outbound,
+export const CreateInputFilterAppscope$outboundSchema: z.ZodType<
+  CreateInputFilterAppscope$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackFilterAppscope
+  CreateInputFilterAppscope
 > = z.object({
-  allow: z.array(z.lazy(() => CreateInputSystemByPackAllow$outboundSchema))
-    .optional(),
+  allow: z.array(z.lazy(() => CreateInputAllow$outboundSchema)).optional(),
   transportURL: z.string().optional(),
 });
 
-export function createInputSystemByPackFilterAppscopeToJSON(
-  createInputSystemByPackFilterAppscope: CreateInputSystemByPackFilterAppscope,
+export function createInputFilterAppscopeToJSON(
+  createInputFilterAppscope: CreateInputFilterAppscope,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackFilterAppscope$outboundSchema.parse(
-      createInputSystemByPackFilterAppscope,
-    ),
+    CreateInputFilterAppscope$outboundSchema.parse(createInputFilterAppscope),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackPersistenceAppscope$Outbound = {
+export type CreateInputPersistenceAppscope$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -9561,58 +9394,52 @@ export type CreateInputSystemByPackPersistenceAppscope$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackPersistenceAppscope$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackPersistenceAppscope$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackPersistenceAppscope
-  > = z.object({
-    enable: z.boolean().optional(),
-    timeWindow: z.string().optional(),
-    maxDataSize: z.string().optional(),
-    maxDataTime: z.string().optional(),
-    compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-      .optional(),
-    destPath: z.string().optional(),
-  });
+export const CreateInputPersistenceAppscope$outboundSchema: z.ZodType<
+  CreateInputPersistenceAppscope$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceAppscope
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
 
-export function createInputSystemByPackPersistenceAppscopeToJSON(
-  createInputSystemByPackPersistenceAppscope:
-    CreateInputSystemByPackPersistenceAppscope,
+export function createInputPersistenceAppscopeToJSON(
+  createInputPersistenceAppscope: CreateInputPersistenceAppscope,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackPersistenceAppscope$outboundSchema.parse(
-      createInputSystemByPackPersistenceAppscope,
+    CreateInputPersistenceAppscope$outboundSchema.parse(
+      createInputPersistenceAppscope,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackUNIXSocketPermissions$Outbound =
-  | string
-  | number;
+export type CreateInputUNIXSocketPermissions$Outbound = string | number;
 
 /** @internal */
-export const CreateInputSystemByPackUNIXSocketPermissions$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackUNIXSocketPermissions$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackUNIXSocketPermissions
-  > = smartUnion([z.string(), z.number()]);
+export const CreateInputUNIXSocketPermissions$outboundSchema: z.ZodType<
+  CreateInputUNIXSocketPermissions$Outbound,
+  z.ZodTypeDef,
+  CreateInputUNIXSocketPermissions
+> = smartUnion([z.string(), z.number()]);
 
-export function createInputSystemByPackUNIXSocketPermissionsToJSON(
-  createInputSystemByPackUNIXSocketPermissions:
-    CreateInputSystemByPackUNIXSocketPermissions,
+export function createInputUNIXSocketPermissionsToJSON(
+  createInputUNIXSocketPermissions: CreateInputUNIXSocketPermissions,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackUNIXSocketPermissions$outboundSchema.parse(
-      createInputSystemByPackUNIXSocketPermissions,
+    CreateInputUNIXSocketPermissions$outboundSchema.parse(
+      createInputUNIXSocketPermissions,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputAppscope$Outbound = {
+export type CreateInputInputAppscope$Outbound = {
   id: string;
   type: "appscope";
   disabled?: boolean | undefined;
@@ -9635,8 +9462,8 @@ export type CreateInputSystemByPackInputAppscope$Outbound = {
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableUnixPath?: boolean | undefined;
-  filter?: CreateInputSystemByPackFilterAppscope$Outbound | undefined;
-  persistence?: CreateInputSystemByPackPersistenceAppscope$Outbound | undefined;
+  filter?: CreateInputFilterAppscope$Outbound | undefined;
+  persistence?: CreateInputPersistenceAppscope$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
@@ -9653,10 +9480,10 @@ export type CreateInputSystemByPackInputAppscope$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputAppscope$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputAppscope$Outbound,
+export const CreateInputInputAppscope$outboundSchema: z.ZodType<
+  CreateInputInputAppscope$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputAppscope
+  CreateInputInputAppscope
 > = z.object({
   id: z.string(),
   type: z.literal("appscope"),
@@ -9680,11 +9507,9 @@ export const CreateInputSystemByPackInputAppscope$outboundSchema: z.ZodType<
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableUnixPath: z.boolean().optional(),
-  filter: z.lazy(() => CreateInputSystemByPackFilterAppscope$outboundSchema)
+  filter: z.lazy(() => CreateInputFilterAppscope$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceAppscope$outboundSchema)
     .optional(),
-  persistence: z.lazy(() =>
-    CreateInputSystemByPackPersistenceAppscope$outboundSchema
-  ).optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   description: z.string().optional(),
@@ -9701,18 +9526,16 @@ export const CreateInputSystemByPackInputAppscope$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputAppscopeToJSON(
-  createInputSystemByPackInputAppscope: CreateInputSystemByPackInputAppscope,
+export function createInputInputAppscopeToJSON(
+  createInputInputAppscope: CreateInputInputAppscope,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputAppscope$outboundSchema.parse(
-      createInputSystemByPackInputAppscope,
-    ),
+    CreateInputInputAppscope$outboundSchema.parse(createInputInputAppscope),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputTcp$Outbound = {
+export type CreateInputInputTcp$Outbound = {
   id: string;
   type: "tcp";
   disabled?: boolean | undefined;
@@ -9750,10 +9573,10 @@ export type CreateInputSystemByPackInputTcp$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputTcp$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputTcp$Outbound,
+export const CreateInputInputTcp$outboundSchema: z.ZodType<
+  CreateInputInputTcp$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputTcp
+  CreateInputInputTcp
 > = z.object({
   id: z.string(),
   type: z.literal("tcp"),
@@ -9792,25 +9615,23 @@ export const CreateInputSystemByPackInputTcp$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputTcpToJSON(
-  createInputSystemByPackInputTcp: CreateInputSystemByPackInputTcp,
+export function createInputInputTcpToJSON(
+  createInputInputTcp: CreateInputInputTcp,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputTcp$outboundSchema.parse(
-      createInputSystemByPackInputTcp,
-    ),
+    CreateInputInputTcp$outboundSchema.parse(createInputInputTcp),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackInputFileMode$outboundSchema: z.ZodType<
+export const CreateInputInputFileMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputFileMode
-> = openEnums.outboundSchema(CreateInputSystemByPackInputFileMode);
+  CreateInputInputFileMode
+> = openEnums.outboundSchema(CreateInputInputFileMode);
 
 /** @internal */
-export type CreateInputSystemByPackInputFile$Outbound = {
+export type CreateInputInputFile$Outbound = {
   id: string;
   type: "file";
   disabled?: boolean | undefined;
@@ -9851,10 +9672,10 @@ export type CreateInputSystemByPackInputFile$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputFile$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputFile$Outbound,
+export const CreateInputInputFile$outboundSchema: z.ZodType<
+  CreateInputInputFile$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputFile
+  CreateInputInputFile
 > = z.object({
   id: z.string(),
   type: z.literal("file"),
@@ -9867,7 +9688,7 @@ export const CreateInputSystemByPackInputFile$outboundSchema: z.ZodType<
   connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
-  mode: CreateInputSystemByPackInputFileMode$outboundSchema.optional(),
+  mode: CreateInputInputFileMode$outboundSchema.optional(),
   interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
   filterArchivedFiles: z.boolean().optional(),
@@ -9895,23 +9716,21 @@ export const CreateInputSystemByPackInputFile$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputFileToJSON(
-  createInputSystemByPackInputFile: CreateInputSystemByPackInputFile,
+export function createInputInputFileToJSON(
+  createInputInputFile: CreateInputInputFile,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputFile$outboundSchema.parse(
-      createInputSystemByPackInputFile,
-    ),
+    CreateInputInputFile$outboundSchema.parse(createInputInputFile),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackInputSyslogType2$outboundSchema:
-  z.ZodNativeEnum<typeof CreateInputSystemByPackInputSyslogType2> = z
-    .nativeEnum(CreateInputSystemByPackInputSyslogType2);
+export const CreateInputInputSyslogType2$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType2
+> = z.nativeEnum(CreateInputInputSyslogType2);
 
 /** @internal */
-export type CreateInputSystemByPackInputSyslogSyslog2$Outbound = {
+export type CreateInputInputSyslogSyslog2$Outbound = {
   id: string;
   type: string;
   disabled?: boolean | undefined;
@@ -9956,73 +9775,71 @@ export type CreateInputSystemByPackInputSyslogSyslog2$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputSyslogSyslog2$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputSyslogSyslog2$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputSyslogSyslog2
-  > = z.object({
-    id: z.string(),
-    type: CreateInputSystemByPackInputSyslogType2$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    host: z.string(),
-    udpPort: z.number().optional(),
-    tcpPort: z.number(),
-    maxBufferSize: z.number().optional(),
-    ipWhitelistRegex: z.string().optional(),
-    timestampTimezone: z.string().optional(),
-    singleMsgUdpPackets: z.boolean().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    keepFieldsList: z.array(z.string()).optional(),
-    octetCounting: z.boolean().optional(),
-    inferFraming: z.boolean().optional(),
-    strictlyInferOctetCounting: z.boolean().optional(),
-    allowNonStandardAppName: z.boolean().optional(),
-    maxActiveCxn: z.number().optional(),
-    socketIdleTimeout: z.number().optional(),
-    socketEndingMaxWait: z.number().optional(),
-    socketMaxLifespan: z.number().optional(),
-    tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    udpSocketRxBufSize: z.number().optional(),
-    enableLoadBalancing: z.boolean().optional(),
-    description: z.string().optional(),
-    enableEnhancedProxyHeaderParsing: z.boolean().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_host: z.string().optional(),
-    __template_udpPort: z.string().optional(),
-    __template_tcpPort: z.string().optional(),
-    __template_timestampTimezone: z.string().optional(),
-  });
+export const CreateInputInputSyslogSyslog2$outboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog2$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputSyslogSyslog2
+> = z.object({
+  id: z.string(),
+  type: CreateInputInputSyslogType2$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number().optional(),
+  tcpPort: z.number(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
+  __template_timestampTimezone: z.string().optional(),
+});
 
-export function createInputSystemByPackInputSyslogSyslog2ToJSON(
-  createInputSystemByPackInputSyslogSyslog2:
-    CreateInputSystemByPackInputSyslogSyslog2,
+export function createInputInputSyslogSyslog2ToJSON(
+  createInputInputSyslogSyslog2: CreateInputInputSyslogSyslog2,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSyslogSyslog2$outboundSchema.parse(
-      createInputSystemByPackInputSyslogSyslog2,
+    CreateInputInputSyslogSyslog2$outboundSchema.parse(
+      createInputInputSyslogSyslog2,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackInputSyslogType1$outboundSchema:
-  z.ZodNativeEnum<typeof CreateInputSystemByPackInputSyslogType1> = z
-    .nativeEnum(CreateInputSystemByPackInputSyslogType1);
+export const CreateInputInputSyslogType1$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType1
+> = z.nativeEnum(CreateInputInputSyslogType1);
 
 /** @internal */
-export type CreateInputSystemByPackInputSyslogSyslog1$Outbound = {
+export type CreateInputInputSyslogSyslog1$Outbound = {
   id: string;
   type: string;
   disabled?: boolean | undefined;
@@ -10067,101 +9884,98 @@ export type CreateInputSystemByPackInputSyslogSyslog1$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputSyslogSyslog1$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputSyslogSyslog1$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputSyslogSyslog1
-  > = z.object({
-    id: z.string(),
-    type: CreateInputSystemByPackInputSyslogType1$outboundSchema,
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    host: z.string(),
-    udpPort: z.number(),
-    tcpPort: z.number().optional(),
-    maxBufferSize: z.number().optional(),
-    ipWhitelistRegex: z.string().optional(),
-    timestampTimezone: z.string().optional(),
-    singleMsgUdpPackets: z.boolean().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    keepFieldsList: z.array(z.string()).optional(),
-    octetCounting: z.boolean().optional(),
-    inferFraming: z.boolean().optional(),
-    strictlyInferOctetCounting: z.boolean().optional(),
-    allowNonStandardAppName: z.boolean().optional(),
-    maxActiveCxn: z.number().optional(),
-    socketIdleTimeout: z.number().optional(),
-    socketEndingMaxWait: z.number().optional(),
-    socketMaxLifespan: z.number().optional(),
-    tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    udpSocketRxBufSize: z.number().optional(),
-    enableLoadBalancing: z.boolean().optional(),
-    description: z.string().optional(),
-    enableEnhancedProxyHeaderParsing: z.boolean().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_host: z.string().optional(),
-    __template_udpPort: z.string().optional(),
-    __template_tcpPort: z.string().optional(),
-    __template_timestampTimezone: z.string().optional(),
-  });
+export const CreateInputInputSyslogSyslog1$outboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog1$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputSyslogSyslog1
+> = z.object({
+  id: z.string(),
+  type: CreateInputInputSyslogType1$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
+  __template_timestampTimezone: z.string().optional(),
+});
 
-export function createInputSystemByPackInputSyslogSyslog1ToJSON(
-  createInputSystemByPackInputSyslogSyslog1:
-    CreateInputSystemByPackInputSyslogSyslog1,
+export function createInputInputSyslogSyslog1ToJSON(
+  createInputInputSyslogSyslog1: CreateInputInputSyslogSyslog1,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSyslogSyslog1$outboundSchema.parse(
-      createInputSystemByPackInputSyslogSyslog1,
+    CreateInputInputSyslogSyslog1$outboundSchema.parse(
+      createInputInputSyslogSyslog1,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputSyslogUnion$Outbound =
-  | CreateInputSystemByPackInputSyslogSyslog1$Outbound
-  | CreateInputSystemByPackInputSyslogSyslog2$Outbound;
+export type CreateInputInputSyslogUnion$Outbound =
+  | CreateInputInputSyslogSyslog1$Outbound
+  | CreateInputInputSyslogSyslog2$Outbound;
 
 /** @internal */
-export const CreateInputSystemByPackInputSyslogUnion$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputSyslogUnion$Outbound,
+export const CreateInputInputSyslogUnion$outboundSchema: z.ZodType<
+  CreateInputInputSyslogUnion$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputSyslogUnion
+  CreateInputInputSyslogUnion
 > = smartUnion([
-  z.lazy(() => CreateInputSystemByPackInputSyslogSyslog1$outboundSchema),
-  z.lazy(() => CreateInputSystemByPackInputSyslogSyslog2$outboundSchema),
+  z.lazy(() => CreateInputInputSyslogSyslog1$outboundSchema),
+  z.lazy(() => CreateInputInputSyslogSyslog2$outboundSchema),
 ]);
 
-export function createInputSystemByPackInputSyslogUnionToJSON(
-  createInputSystemByPackInputSyslogUnion:
-    CreateInputSystemByPackInputSyslogUnion,
+export function createInputInputSyslogUnionToJSON(
+  createInputInputSyslogUnion: CreateInputInputSyslogUnion,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSyslogUnion$outboundSchema.parse(
-      createInputSystemByPackInputSyslogUnion,
+    CreateInputInputSyslogUnion$outboundSchema.parse(
+      createInputInputSyslogUnion,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackQueueType$outboundSchema: z.ZodType<
+export const CreateInputQueueType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackQueueType
-> = openEnums.outboundSchema(CreateInputSystemByPackQueueType);
+  CreateInputQueueType
+> = openEnums.outboundSchema(CreateInputQueueType);
 
 /** @internal */
-export type CreateInputSystemByPackInputSqs$Outbound = {
+export type CreateInputInputSqs$Outbound = {
   id: string;
   type: "sqs";
   disabled?: boolean | undefined;
@@ -10210,10 +10024,10 @@ export type CreateInputSystemByPackInputSqs$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputSqs$Outbound,
+export const CreateInputInputSqs$outboundSchema: z.ZodType<
+  CreateInputInputSqs$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputSqs
+  CreateInputInputSqs
 > = z.object({
   id: z.string(),
   type: z.literal("sqs"),
@@ -10227,7 +10041,7 @@ export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   queueName: z.string(),
-  queueType: CreateInputSystemByPackQueueType$outboundSchema,
+  queueType: CreateInputQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().optional(),
   awsAuthenticationMethod: z.string().optional(),
@@ -10262,18 +10076,16 @@ export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createInputSystemByPackInputSqsToJSON(
-  createInputSystemByPackInputSqs: CreateInputSystemByPackInputSqs,
+export function createInputInputSqsToJSON(
+  createInputInputSqs: CreateInputInputSqs,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSqs$outboundSchema.parse(
-      createInputSystemByPackInputSqs,
-    ),
+    CreateInputInputSqs$outboundSchema.parse(createInputInputSqs),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputModelDrivenTelemetry$Outbound = {
+export type CreateInputInputModelDrivenTelemetry$Outbound = {
   id: string;
   type: "model_driven_telemetry";
   disabled?: boolean | undefined;
@@ -10300,84 +10112,72 @@ export type CreateInputSystemByPackInputModelDrivenTelemetry$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputModelDrivenTelemetry$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputModelDrivenTelemetry$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputModelDrivenTelemetry
-  > = z.object({
-    id: z.string(),
-    type: z.literal("model_driven_telemetry"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    maxActiveCxn: z.number().optional(),
-    shutdownTimeoutMs: z.number().optional(),
-    description: z.string().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_host: z.string().optional(),
-    __template_port: z.string().optional(),
-  });
+export const CreateInputInputModelDrivenTelemetry$outboundSchema: z.ZodType<
+  CreateInputInputModelDrivenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputModelDrivenTelemetry
+> = z.object({
+  id: z.string(),
+  type: z.literal("model_driven_telemetry"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  maxActiveCxn: z.number().optional(),
+  shutdownTimeoutMs: z.number().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
 
-export function createInputSystemByPackInputModelDrivenTelemetryToJSON(
-  createInputSystemByPackInputModelDrivenTelemetry:
-    CreateInputSystemByPackInputModelDrivenTelemetry,
+export function createInputInputModelDrivenTelemetryToJSON(
+  createInputInputModelDrivenTelemetry: CreateInputInputModelDrivenTelemetry,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputModelDrivenTelemetry$outboundSchema.parse(
-      createInputSystemByPackInputModelDrivenTelemetry,
+    CreateInputInputModelDrivenTelemetry$outboundSchema.parse(
+      createInputInputModelDrivenTelemetry,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackProtocol$outboundSchema: z.ZodType<
+export const CreateInputProtocol$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackProtocol
-> = openEnums.outboundSchema(CreateInputSystemByPackProtocol);
+  CreateInputProtocol
+> = openEnums.outboundSchema(CreateInputProtocol);
 
 /** @internal */
-export const CreateInputSystemByPackOTLPVersion$outboundSchema: z.ZodType<
+export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackOTLPVersion
-> = openEnums.outboundSchema(CreateInputSystemByPackOTLPVersion);
+  CreateInputOTLPVersion
+> = openEnums.outboundSchema(CreateInputOTLPVersion);
 
 /** @internal */
-export const CreateInputSystemByPackAuthenticationTypeOpenTelemetry$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthenticationTypeOpenTelemetry
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackAuthenticationTypeOpenTelemetry,
-  );
+export const CreateInputAuthenticationTypeOpenTelemetry$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthenticationTypeOpenTelemetry> =
+    openEnums.outboundSchema(CreateInputAuthenticationTypeOpenTelemetry);
 
 /** @internal */
-export const CreateInputSystemByPackAuthMethodsExtAuthenticationType$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthMethodsExtAuthenticationType
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackAuthMethodsExtAuthenticationType,
-  );
+export const CreateInputAuthMethodsExtAuthenticationType$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthMethodsExtAuthenticationType> =
+    openEnums.outboundSchema(CreateInputAuthMethodsExtAuthenticationType);
 
 /** @internal */
-export type CreateInputSystemByPackAuthMethodsExt$Outbound = {
+export type CreateInputAuthMethodsExt$Outbound = {
   authType: string;
   token?: string | undefined;
   description?: string | undefined;
@@ -10390,13 +10190,12 @@ export type CreateInputSystemByPackAuthMethodsExt$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackAuthMethodsExt$outboundSchema: z.ZodType<
-  CreateInputSystemByPackAuthMethodsExt$Outbound,
+export const CreateInputAuthMethodsExt$outboundSchema: z.ZodType<
+  CreateInputAuthMethodsExt$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackAuthMethodsExt
+  CreateInputAuthMethodsExt
 > = z.object({
-  authType:
-    CreateInputSystemByPackAuthMethodsExtAuthenticationType$outboundSchema,
+  authType: CreateInputAuthMethodsExtAuthenticationType$outboundSchema,
   token: z.string().optional(),
   description: z.string().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
@@ -10408,18 +10207,16 @@ export const CreateInputSystemByPackAuthMethodsExt$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-export function createInputSystemByPackAuthMethodsExtToJSON(
-  createInputSystemByPackAuthMethodsExt: CreateInputSystemByPackAuthMethodsExt,
+export function createInputAuthMethodsExtToJSON(
+  createInputAuthMethodsExt: CreateInputAuthMethodsExt,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackAuthMethodsExt$outboundSchema.parse(
-      createInputSystemByPackAuthMethodsExt,
-    ),
+    CreateInputAuthMethodsExt$outboundSchema.parse(createInputAuthMethodsExt),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
+export type CreateInputInputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
   disabled?: boolean | undefined;
@@ -10448,9 +10245,7 @@ export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
-  authMethodsExt?:
-    | Array<CreateInputSystemByPackAuthMethodsExt$Outbound>
-    | undefined;
+  authMethodsExt?: Array<CreateInputAuthMethodsExt$Outbound> | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
@@ -10469,75 +10264,72 @@ export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputOpenTelemetry$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputOpenTelemetry$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputOpenTelemetry
-  > = z.object({
-    id: z.string(),
-    type: z.literal("open_telemetry"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.boolean().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    protocol: CreateInputSystemByPackProtocol$outboundSchema.optional(),
-    extractSpans: z.boolean().optional(),
-    extractMetrics: z.boolean().optional(),
-    otlpVersion: CreateInputSystemByPackOTLPVersion$outboundSchema.optional(),
-    authType:
-      CreateInputSystemByPackAuthenticationTypeOpenTelemetry$outboundSchema
-        .optional(),
-    authMethodsExt: z.array(
-      z.lazy(() => CreateInputSystemByPackAuthMethodsExt$outboundSchema),
-    ).optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    maxActiveCxn: z.number().optional(),
-    description: z.string().optional(),
-    username: z.string().optional(),
-    password: z.string().optional(),
-    token: z.string().optional(),
-    credentialsSecret: z.string().optional(),
-    textSecret: z.string().optional(),
-    extractLogs: z.boolean().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_host: z.string().optional(),
-    __template_port: z.string().optional(),
-    __template_protocol: z.string().optional(),
-    __template_otlpVersion: z.string().optional(),
-  });
+export const CreateInputInputOpenTelemetry$outboundSchema: z.ZodType<
+  CreateInputInputOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputOpenTelemetry
+> = z.object({
+  id: z.string(),
+  type: z.literal("open_telemetry"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  protocol: CreateInputProtocol$outboundSchema.optional(),
+  extractSpans: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  otlpVersion: CreateInputOTLPVersion$outboundSchema.optional(),
+  authType: CreateInputAuthenticationTypeOpenTelemetry$outboundSchema
+    .optional(),
+  authMethodsExt: z.array(
+    z.lazy(() => CreateInputAuthMethodsExt$outboundSchema),
+  ).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  maxActiveCxn: z.number().optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  extractLogs: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_protocol: z.string().optional(),
+  __template_otlpVersion: z.string().optional(),
+});
 
-export function createInputSystemByPackInputOpenTelemetryToJSON(
-  createInputSystemByPackInputOpenTelemetry:
-    CreateInputSystemByPackInputOpenTelemetry,
+export function createInputInputOpenTelemetryToJSON(
+  createInputInputOpenTelemetry: CreateInputInputOpenTelemetry,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputOpenTelemetry$outboundSchema.parse(
-      createInputSystemByPackInputOpenTelemetry,
+    CreateInputInputOpenTelemetry$outboundSchema.parse(
+      createInputInputOpenTelemetry,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackV3User$Outbound = {
+export type CreateInputV3User$Outbound = {
   name: string;
   authProtocol?: string | undefined;
   authKey?: string | undefined;
@@ -10546,10 +10338,10 @@ export type CreateInputSystemByPackV3User$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackV3User$outboundSchema: z.ZodType<
-  CreateInputSystemByPackV3User$Outbound,
+export const CreateInputV3User$outboundSchema: z.ZodType<
+  CreateInputV3User$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackV3User
+  CreateInputV3User
 > = z.object({
   name: z.string(),
   authProtocol: z.string().optional(),
@@ -10560,49 +10352,44 @@ export const CreateInputSystemByPackV3User$outboundSchema: z.ZodType<
   privKey: z.string().optional(),
 });
 
-export function createInputSystemByPackV3UserToJSON(
-  createInputSystemByPackV3User: CreateInputSystemByPackV3User,
+export function createInputV3UserToJSON(
+  createInputV3User: CreateInputV3User,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackV3User$outboundSchema.parse(
-      createInputSystemByPackV3User,
-    ),
+    CreateInputV3User$outboundSchema.parse(createInputV3User),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackSNMPv3Authentication$Outbound = {
+export type CreateInputSNMPv3Authentication$Outbound = {
   v3AuthEnabled: boolean;
   allowUnmatchedTrap?: boolean | undefined;
-  v3Users?: Array<CreateInputSystemByPackV3User$Outbound> | undefined;
+  v3Users?: Array<CreateInputV3User$Outbound> | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackSNMPv3Authentication$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackSNMPv3Authentication$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackSNMPv3Authentication
-  > = z.object({
-    v3AuthEnabled: z.boolean(),
-    allowUnmatchedTrap: z.boolean().optional(),
-    v3Users: z.array(z.lazy(() => CreateInputSystemByPackV3User$outboundSchema))
-      .optional(),
-  });
+export const CreateInputSNMPv3Authentication$outboundSchema: z.ZodType<
+  CreateInputSNMPv3Authentication$Outbound,
+  z.ZodTypeDef,
+  CreateInputSNMPv3Authentication
+> = z.object({
+  v3AuthEnabled: z.boolean(),
+  allowUnmatchedTrap: z.boolean().optional(),
+  v3Users: z.array(z.lazy(() => CreateInputV3User$outboundSchema)).optional(),
+});
 
-export function createInputSystemByPackSNMPv3AuthenticationToJSON(
-  createInputSystemByPackSNMPv3Authentication:
-    CreateInputSystemByPackSNMPv3Authentication,
+export function createInputSNMPv3AuthenticationToJSON(
+  createInputSNMPv3Authentication: CreateInputSNMPv3Authentication,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackSNMPv3Authentication$outboundSchema.parse(
-      createInputSystemByPackSNMPv3Authentication,
+    CreateInputSNMPv3Authentication$outboundSchema.parse(
+      createInputSNMPv3Authentication,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputSnmp$Outbound = {
+export type CreateInputInputSnmp$Outbound = {
   id: string;
   type: "snmp";
   disabled?: boolean | undefined;
@@ -10617,7 +10404,7 @@ export type CreateInputSystemByPackInputSnmp$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
-  snmpV3Auth?: CreateInputSystemByPackSNMPv3Authentication$Outbound | undefined;
+  snmpV3Auth?: CreateInputSNMPv3Authentication$Outbound | undefined;
   maxBufferSize?: number | undefined;
   ipWhitelistRegex?: string | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
@@ -10632,10 +10419,10 @@ export type CreateInputSystemByPackInputSnmp$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputSnmp$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputSnmp$Outbound,
+export const CreateInputInputSnmp$outboundSchema: z.ZodType<
+  CreateInputInputSnmp$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputSnmp
+  CreateInputInputSnmp
 > = z.object({
   id: z.string(),
   type: z.literal("snmp"),
@@ -10650,9 +10437,8 @@ export const CreateInputSystemByPackInputSnmp$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  snmpV3Auth: z.lazy(() =>
-    CreateInputSystemByPackSNMPv3Authentication$outboundSchema
-  ).optional(),
+  snmpV3Auth: z.lazy(() => CreateInputSNMPv3Authentication$outboundSchema)
+    .optional(),
   maxBufferSize: z.number().optional(),
   ipWhitelistRegex: z.string().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
@@ -10667,18 +10453,16 @@ export const CreateInputSystemByPackInputSnmp$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputSnmpToJSON(
-  createInputSystemByPackInputSnmp: CreateInputSystemByPackInputSnmp,
+export function createInputInputSnmpToJSON(
+  createInputInputSnmp: CreateInputInputSnmp,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSnmp$outboundSchema.parse(
-      createInputSystemByPackInputSnmp,
-    ),
+    CreateInputInputSnmp$outboundSchema.parse(createInputInputSnmp),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputS3Inventory$Outbound = {
+export type CreateInputInputS3Inventory$Outbound = {
   id: string;
   type: "s3_inventory";
   disabled?: boolean | undefined;
@@ -10705,7 +10489,6 @@ export type CreateInputSystemByPackInputS3Inventory$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -10742,10 +10525,10 @@ export type CreateInputSystemByPackInputS3Inventory$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputS3Inventory$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputS3Inventory$Outbound,
+export const CreateInputInputS3Inventory$outboundSchema: z.ZodType<
+  CreateInputInputS3Inventory$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputS3Inventory
+  CreateInputInputS3Inventory
 > = z.object({
   id: z.string(),
   type: z.literal("s3_inventory"),
@@ -10772,7 +10555,6 @@ export const CreateInputSystemByPackInputS3Inventory$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -10810,19 +10592,18 @@ export const CreateInputSystemByPackInputS3Inventory$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createInputSystemByPackInputS3InventoryToJSON(
-  createInputSystemByPackInputS3Inventory:
-    CreateInputSystemByPackInputS3Inventory,
+export function createInputInputS3InventoryToJSON(
+  createInputInputS3Inventory: CreateInputInputS3Inventory,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputS3Inventory$outboundSchema.parse(
-      createInputSystemByPackInputS3Inventory,
+    CreateInputInputS3Inventory$outboundSchema.parse(
+      createInputInputS3Inventory,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputS3$Outbound = {
+export type CreateInputInputS3$Outbound = {
   id: string;
   type: "s3";
   disabled?: boolean | undefined;
@@ -10849,7 +10630,6 @@ export type CreateInputSystemByPackInputS3$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -10884,10 +10664,10 @@ export type CreateInputSystemByPackInputS3$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputS3$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputS3$Outbound,
+export const CreateInputInputS3$outboundSchema: z.ZodType<
+  CreateInputInputS3$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputS3
+  CreateInputInputS3
 > = z.object({
   id: z.string(),
   type: z.literal("s3"),
@@ -10914,7 +10694,6 @@ export const CreateInputSystemByPackInputS3$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -10949,18 +10728,16 @@ export const CreateInputSystemByPackInputS3$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createInputSystemByPackInputS3ToJSON(
-  createInputSystemByPackInputS3: CreateInputSystemByPackInputS3,
+export function createInputInputS3ToJSON(
+  createInputInputS3: CreateInputInputS3,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputS3$outboundSchema.parse(
-      createInputSystemByPackInputS3,
-    ),
+    CreateInputInputS3$outboundSchema.parse(createInputInputS3),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputMetrics$Outbound = {
+export type CreateInputInputMetrics$Outbound = {
   id: string;
   type: "metrics";
   disabled?: boolean | undefined;
@@ -10991,10 +10768,10 @@ export type CreateInputSystemByPackInputMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputMetrics$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputMetrics$Outbound,
+export const CreateInputInputMetrics$outboundSchema: z.ZodType<
+  CreateInputInputMetrics$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputMetrics
+  CreateInputInputMetrics
 > = z.object({
   id: z.string(),
   type: z.literal("metrics"),
@@ -11025,18 +10802,16 @@ export const CreateInputSystemByPackInputMetrics$outboundSchema: z.ZodType<
   __template_tcpPort: z.string().optional(),
 });
 
-export function createInputSystemByPackInputMetricsToJSON(
-  createInputSystemByPackInputMetrics: CreateInputSystemByPackInputMetrics,
+export function createInputInputMetricsToJSON(
+  createInputInputMetrics: CreateInputInputMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputMetrics$outboundSchema.parse(
-      createInputSystemByPackInputMetrics,
-    ),
+    CreateInputInputMetrics$outboundSchema.parse(createInputInputMetrics),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputCriblmetrics$Outbound = {
+export type CreateInputInputCriblmetrics$Outbound = {
   id: string;
   type: "criblmetrics";
   disabled?: boolean | undefined;
@@ -11058,10 +10833,10 @@ export type CreateInputSystemByPackInputCriblmetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputCriblmetrics$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputCriblmetrics$Outbound,
+export const CreateInputInputCriblmetrics$outboundSchema: z.ZodType<
+  CreateInputInputCriblmetrics$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputCriblmetrics
+  CreateInputInputCriblmetrics
 > = z.object({
   id: z.string(),
   type: z.literal("criblmetrics"),
@@ -11083,36 +10858,39 @@ export const CreateInputSystemByPackInputCriblmetrics$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputCriblmetricsToJSON(
-  createInputSystemByPackInputCriblmetrics:
-    CreateInputSystemByPackInputCriblmetrics,
+export function createInputInputCriblmetricsToJSON(
+  createInputInputCriblmetrics: CreateInputInputCriblmetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputCriblmetrics$outboundSchema.parse(
-      createInputSystemByPackInputCriblmetrics,
+    CreateInputInputCriblmetrics$outboundSchema.parse(
+      createInputInputCriblmetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackShardIteratorStart$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateInputSystemByPackShardIteratorStart> =
-    openEnums.outboundSchema(CreateInputSystemByPackShardIteratorStart);
-
-/** @internal */
-export const CreateInputSystemByPackRecordDataFormat$outboundSchema: z.ZodType<
+export const CreateInputShardIteratorStart$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackRecordDataFormat
-> = openEnums.outboundSchema(CreateInputSystemByPackRecordDataFormat);
+  CreateInputShardIteratorStart
+> = openEnums.outboundSchema(CreateInputShardIteratorStart);
 
 /** @internal */
-export const CreateInputSystemByPackShardLoadBalancing$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateInputSystemByPackShardLoadBalancing> =
-    openEnums.outboundSchema(CreateInputSystemByPackShardLoadBalancing);
+export const CreateInputRecordDataFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputRecordDataFormat
+> = openEnums.outboundSchema(CreateInputRecordDataFormat);
 
 /** @internal */
-export type CreateInputSystemByPackInputKinesis$Outbound = {
+export const CreateInputShardLoadBalancing$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputShardLoadBalancing
+> = openEnums.outboundSchema(CreateInputShardLoadBalancing);
+
+/** @internal */
+export type CreateInputInputKinesis$Outbound = {
   id: string;
   type: "kinesis";
   disabled?: boolean | undefined;
@@ -11163,10 +10941,10 @@ export type CreateInputSystemByPackInputKinesis$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputKinesis$Outbound,
+export const CreateInputInputKinesis$outboundSchema: z.ZodType<
+  CreateInputInputKinesis$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputKinesis
+  CreateInputInputKinesis
 > = z.object({
   id: z.string(),
   type: z.literal("kinesis"),
@@ -11182,14 +10960,12 @@ export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
   streamName: z.string(),
   serviceInterval: z.number().optional(),
   shardExpr: z.string().optional(),
-  shardIteratorType: CreateInputSystemByPackShardIteratorStart$outboundSchema
-    .optional(),
-  payloadFormat: CreateInputSystemByPackRecordDataFormat$outboundSchema
-    .optional(),
+  shardIteratorType: CreateInputShardIteratorStart$outboundSchema.optional(),
+  payloadFormat: CreateInputRecordDataFormat$outboundSchema.optional(),
   getRecordsLimit: z.number().optional(),
   getRecordsLimitTotal: z.number().optional(),
-  loadBalancingAlgorithm:
-    CreateInputSystemByPackShardLoadBalancing$outboundSchema.optional(),
+  loadBalancingAlgorithm: CreateInputShardLoadBalancing$outboundSchema
+    .optional(),
   awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
@@ -11220,18 +10996,16 @@ export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createInputSystemByPackInputKinesisToJSON(
-  createInputSystemByPackInputKinesis: CreateInputSystemByPackInputKinesis,
+export function createInputInputKinesisToJSON(
+  createInputInputKinesis: CreateInputInputKinesis,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputKinesis$outboundSchema.parse(
-      createInputSystemByPackInputKinesis,
-    ),
+    CreateInputInputKinesis$outboundSchema.parse(createInputInputKinesis),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputHttpRaw$Outbound = {
+export type CreateInputInputHttpRaw$Outbound = {
   id: string;
   type: "http_raw";
   disabled?: boolean | undefined;
@@ -11275,10 +11049,10 @@ export type CreateInputSystemByPackInputHttpRaw$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputHttpRaw$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputHttpRaw$Outbound,
+export const CreateInputInputHttpRaw$outboundSchema: z.ZodType<
+  CreateInputInputHttpRaw$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputHttpRaw
+  CreateInputInputHttpRaw
 > = z.object({
   id: z.string(),
   type: z.literal("http_raw"),
@@ -11323,44 +11097,40 @@ export const CreateInputSystemByPackInputHttpRaw$outboundSchema: z.ZodType<
   __template_allowedPaths: z.string().optional(),
 });
 
-export function createInputSystemByPackInputHttpRawToJSON(
-  createInputSystemByPackInputHttpRaw: CreateInputSystemByPackInputHttpRaw,
+export function createInputInputHttpRawToJSON(
+  createInputInputHttpRaw: CreateInputInputHttpRaw,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputHttpRaw$outboundSchema.parse(
-      createInputSystemByPackInputHttpRaw,
-    ),
+    CreateInputInputHttpRaw$outboundSchema.parse(createInputInputHttpRaw),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackSample$Outbound = {
+export type CreateInputSample$Outbound = {
   sample: string;
   eventsPerSec: number;
 };
 
 /** @internal */
-export const CreateInputSystemByPackSample$outboundSchema: z.ZodType<
-  CreateInputSystemByPackSample$Outbound,
+export const CreateInputSample$outboundSchema: z.ZodType<
+  CreateInputSample$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackSample
+  CreateInputSample
 > = z.object({
   sample: z.string(),
   eventsPerSec: z.number(),
 });
 
-export function createInputSystemByPackSampleToJSON(
-  createInputSystemByPackSample: CreateInputSystemByPackSample,
+export function createInputSampleToJSON(
+  createInputSample: CreateInputSample,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackSample$outboundSchema.parse(
-      createInputSystemByPackSample,
-    ),
+    CreateInputSample$outboundSchema.parse(createInputSample),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputDatagen$Outbound = {
+export type CreateInputInputDatagen$Outbound = {
   id: string;
   type: "datagen";
   disabled?: boolean | undefined;
@@ -11373,7 +11143,7 @@ export type CreateInputSystemByPackInputDatagen$Outbound = {
     | Array<models.ConnectionConfInputCollection$Outbound>
     | undefined;
   pq?: models.PqType$Outbound | undefined;
-  samples: Array<CreateInputSystemByPackSample$Outbound>;
+  samples: Array<CreateInputSample$Outbound>;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -11381,10 +11151,10 @@ export type CreateInputSystemByPackInputDatagen$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputDatagen$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputDatagen$Outbound,
+export const CreateInputInputDatagen$outboundSchema: z.ZodType<
+  CreateInputInputDatagen$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputDatagen
+  CreateInputInputDatagen
 > = z.object({
   id: z.string(),
   type: z.literal("datagen"),
@@ -11397,7 +11167,7 @@ export const CreateInputSystemByPackInputDatagen$outboundSchema: z.ZodType<
   connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
-  samples: z.array(z.lazy(() => CreateInputSystemByPackSample$outboundSchema)),
+  samples: z.array(z.lazy(() => CreateInputSample$outboundSchema)),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
   description: z.string().optional(),
@@ -11405,46 +11175,42 @@ export const CreateInputSystemByPackInputDatagen$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputDatagenToJSON(
-  createInputSystemByPackInputDatagen: CreateInputSystemByPackInputDatagen,
+export function createInputInputDatagenToJSON(
+  createInputInputDatagen: CreateInputInputDatagen,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputDatagen$outboundSchema.parse(
-      createInputSystemByPackInputDatagen,
-    ),
+    CreateInputInputDatagen$outboundSchema.parse(createInputInputDatagen),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackProxyModeDatadogAgent$Outbound = {
+export type CreateInputProxyModeDatadogAgent$Outbound = {
   enabled: boolean;
   rejectUnauthorized?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackProxyModeDatadogAgent$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackProxyModeDatadogAgent$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackProxyModeDatadogAgent
-  > = z.object({
-    enabled: z.boolean(),
-    rejectUnauthorized: z.boolean().optional(),
-  });
+export const CreateInputProxyModeDatadogAgent$outboundSchema: z.ZodType<
+  CreateInputProxyModeDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  CreateInputProxyModeDatadogAgent
+> = z.object({
+  enabled: z.boolean(),
+  rejectUnauthorized: z.boolean().optional(),
+});
 
-export function createInputSystemByPackProxyModeDatadogAgentToJSON(
-  createInputSystemByPackProxyModeDatadogAgent:
-    CreateInputSystemByPackProxyModeDatadogAgent,
+export function createInputProxyModeDatadogAgentToJSON(
+  createInputProxyModeDatadogAgent: CreateInputProxyModeDatadogAgent,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackProxyModeDatadogAgent$outboundSchema.parse(
-      createInputSystemByPackProxyModeDatadogAgent,
+    CreateInputProxyModeDatadogAgent$outboundSchema.parse(
+      createInputProxyModeDatadogAgent,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputDatadogAgent$Outbound = {
+export type CreateInputInputDatadogAgent$Outbound = {
   id: string;
   type: "datadog_agent";
   disabled?: boolean | undefined;
@@ -11473,7 +11239,7 @@ export type CreateInputSystemByPackInputDatadogAgent$Outbound = {
   ipDenylistRegex?: string | undefined;
   extractMetrics?: boolean | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  proxyMode?: CreateInputSystemByPackProxyModeDatadogAgent$Outbound | undefined;
+  proxyMode?: CreateInputProxyModeDatadogAgent$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -11482,10 +11248,10 @@ export type CreateInputSystemByPackInputDatadogAgent$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputDatadogAgent$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputDatadogAgent$Outbound,
+export const CreateInputInputDatadogAgent$outboundSchema: z.ZodType<
+  CreateInputInputDatadogAgent$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputDatadogAgent
+  CreateInputInputDatadogAgent
 > = z.object({
   id: z.string(),
   type: z.literal("datadog_agent"),
@@ -11515,9 +11281,8 @@ export const CreateInputSystemByPackInputDatadogAgent$outboundSchema: z.ZodType<
   extractMetrics: z.boolean().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
-  proxyMode: z.lazy(() =>
-    CreateInputSystemByPackProxyModeDatadogAgent$outboundSchema
-  ).optional(),
+  proxyMode: z.lazy(() => CreateInputProxyModeDatadogAgent$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -11525,19 +11290,18 @@ export const CreateInputSystemByPackInputDatadogAgent$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputDatadogAgentToJSON(
-  createInputSystemByPackInputDatadogAgent:
-    CreateInputSystemByPackInputDatadogAgent,
+export function createInputInputDatadogAgentToJSON(
+  createInputInputDatadogAgent: CreateInputInputDatadogAgent,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputDatadogAgent$outboundSchema.parse(
-      createInputSystemByPackInputDatadogAgent,
+    CreateInputInputDatadogAgent$outboundSchema.parse(
+      createInputInputDatadogAgent,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputCrowdstrike$Outbound = {
+export type CreateInputInputCrowdstrike$Outbound = {
   id: string;
   type: "crowdstrike";
   disabled?: boolean | undefined;
@@ -11564,7 +11328,6 @@ export type CreateInputSystemByPackInputCrowdstrike$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -11597,10 +11360,10 @@ export type CreateInputSystemByPackInputCrowdstrike$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputCrowdstrike$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputCrowdstrike$Outbound,
+export const CreateInputInputCrowdstrike$outboundSchema: z.ZodType<
+  CreateInputInputCrowdstrike$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputCrowdstrike
+  CreateInputInputCrowdstrike
 > = z.object({
   id: z.string(),
   type: z.literal("crowdstrike"),
@@ -11627,7 +11390,6 @@ export const CreateInputSystemByPackInputCrowdstrike$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -11661,64 +11423,58 @@ export const CreateInputSystemByPackInputCrowdstrike$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createInputSystemByPackInputCrowdstrikeToJSON(
-  createInputSystemByPackInputCrowdstrike:
-    CreateInputSystemByPackInputCrowdstrike,
+export function createInputInputCrowdstrikeToJSON(
+  createInputInputCrowdstrike: CreateInputInputCrowdstrike,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputCrowdstrike$outboundSchema.parse(
-      createInputSystemByPackInputCrowdstrike,
+    CreateInputInputCrowdstrike$outboundSchema.parse(
+      createInputInputCrowdstrike,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackSystemModeWindowsMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackSystemModeWindowsMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackSystemModeWindowsMetrics);
+export const CreateInputSystemModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputSystemModeWindowsMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackSystemWindowsMetrics$Outbound = {
+export type CreateInputSystemWindowsMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackSystemWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackSystemWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackSystemWindowsMetrics
-  > = z.object({
-    mode: CreateInputSystemByPackSystemModeWindowsMetrics$outboundSchema
-      .optional(),
-    detail: z.boolean().optional(),
-  });
+export const CreateInputSystemWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputSystemWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemWindowsMetrics
+> = z.object({
+  mode: CreateInputSystemModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
 
-export function createInputSystemByPackSystemWindowsMetricsToJSON(
-  createInputSystemByPackSystemWindowsMetrics:
-    CreateInputSystemByPackSystemWindowsMetrics,
+export function createInputSystemWindowsMetricsToJSON(
+  createInputSystemWindowsMetrics: CreateInputSystemWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackSystemWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackSystemWindowsMetrics,
+    CreateInputSystemWindowsMetrics$outboundSchema.parse(
+      createInputSystemWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackCpuModeWindowsMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackCpuModeWindowsMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackCpuModeWindowsMetrics);
+export const CreateInputCpuModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputCpuModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputCpuModeWindowsMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackCpuWindowsMetrics$Outbound = {
+export type CreateInputCpuWindowsMetrics$Outbound = {
   mode?: string | undefined;
   perCpu?: boolean | undefined;
   detail?: boolean | undefined;
@@ -11726,77 +11482,69 @@ export type CreateInputSystemByPackCpuWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackCpuWindowsMetrics$outboundSchema: z.ZodType<
-  CreateInputSystemByPackCpuWindowsMetrics$Outbound,
+export const CreateInputCpuWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputCpuWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackCpuWindowsMetrics
+  CreateInputCpuWindowsMetrics
 > = z.object({
-  mode: CreateInputSystemByPackCpuModeWindowsMetrics$outboundSchema.optional(),
+  mode: CreateInputCpuModeWindowsMetrics$outboundSchema.optional(),
   perCpu: z.boolean().optional(),
   detail: z.boolean().optional(),
   time: z.boolean().optional(),
 });
 
-export function createInputSystemByPackCpuWindowsMetricsToJSON(
-  createInputSystemByPackCpuWindowsMetrics:
-    CreateInputSystemByPackCpuWindowsMetrics,
+export function createInputCpuWindowsMetricsToJSON(
+  createInputCpuWindowsMetrics: CreateInputCpuWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackCpuWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackCpuWindowsMetrics,
+    CreateInputCpuWindowsMetrics$outboundSchema.parse(
+      createInputCpuWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackMemoryModeWindowsMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackMemoryModeWindowsMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackMemoryModeWindowsMetrics);
+export const CreateInputMemoryModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMemoryModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputMemoryModeWindowsMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackMemoryWindowsMetrics$Outbound = {
+export type CreateInputMemoryWindowsMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackMemoryWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackMemoryWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackMemoryWindowsMetrics
-  > = z.object({
-    mode: CreateInputSystemByPackMemoryModeWindowsMetrics$outboundSchema
-      .optional(),
-    detail: z.boolean().optional(),
-  });
+export const CreateInputMemoryWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputMemoryWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputMemoryWindowsMetrics
+> = z.object({
+  mode: CreateInputMemoryModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
 
-export function createInputSystemByPackMemoryWindowsMetricsToJSON(
-  createInputSystemByPackMemoryWindowsMetrics:
-    CreateInputSystemByPackMemoryWindowsMetrics,
+export function createInputMemoryWindowsMetricsToJSON(
+  createInputMemoryWindowsMetrics: CreateInputMemoryWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackMemoryWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackMemoryWindowsMetrics,
+    CreateInputMemoryWindowsMetrics$outboundSchema.parse(
+      createInputMemoryWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackNetworkModeWindowsMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackNetworkModeWindowsMetrics
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackNetworkModeWindowsMetrics,
-  );
+export const CreateInputNetworkModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputNetworkModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputNetworkModeWindowsMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackNetworkWindowsMetrics$Outbound = {
+export type CreateInputNetworkWindowsMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
   protocols?: boolean | undefined;
@@ -11805,41 +11553,37 @@ export type CreateInputSystemByPackNetworkWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackNetworkWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackNetworkWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackNetworkWindowsMetrics
-  > = z.object({
-    mode: CreateInputSystemByPackNetworkModeWindowsMetrics$outboundSchema
-      .optional(),
-    detail: z.boolean().optional(),
-    protocols: z.boolean().optional(),
-    devices: z.array(z.string()).optional(),
-    perInterface: z.boolean().optional(),
-  });
+export const CreateInputNetworkWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputNetworkWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputNetworkWindowsMetrics
+> = z.object({
+  mode: CreateInputNetworkModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().optional(),
+});
 
-export function createInputSystemByPackNetworkWindowsMetricsToJSON(
-  createInputSystemByPackNetworkWindowsMetrics:
-    CreateInputSystemByPackNetworkWindowsMetrics,
+export function createInputNetworkWindowsMetricsToJSON(
+  createInputNetworkWindowsMetrics: CreateInputNetworkWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackNetworkWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackNetworkWindowsMetrics,
+    CreateInputNetworkWindowsMetrics$outboundSchema.parse(
+      createInputNetworkWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackDiskModeWindowsMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackDiskModeWindowsMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackDiskModeWindowsMetrics);
+export const CreateInputDiskModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputDiskModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputDiskModeWindowsMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackDiskWindowsMetrics$Outbound = {
+export type CreateInputDiskWindowsMetrics$Outbound = {
   mode?: string | undefined;
   perVolume?: boolean | undefined;
   detail?: boolean | undefined;
@@ -11847,104 +11591,91 @@ export type CreateInputSystemByPackDiskWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackDiskWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackDiskWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackDiskWindowsMetrics
-  > = z.object({
-    mode: CreateInputSystemByPackDiskModeWindowsMetrics$outboundSchema
-      .optional(),
-    perVolume: z.boolean().optional(),
-    detail: z.boolean().optional(),
-    volumes: z.array(z.string()).optional(),
-  });
+export const CreateInputDiskWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputDiskWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputDiskWindowsMetrics
+> = z.object({
+  mode: CreateInputDiskModeWindowsMetrics$outboundSchema.optional(),
+  perVolume: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  volumes: z.array(z.string()).optional(),
+});
 
-export function createInputSystemByPackDiskWindowsMetricsToJSON(
-  createInputSystemByPackDiskWindowsMetrics:
-    CreateInputSystemByPackDiskWindowsMetrics,
+export function createInputDiskWindowsMetricsToJSON(
+  createInputDiskWindowsMetrics: CreateInputDiskWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackDiskWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackDiskWindowsMetrics,
+    CreateInputDiskWindowsMetrics$outboundSchema.parse(
+      createInputDiskWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackCustomWindowsMetrics$Outbound = {
-  system?: CreateInputSystemByPackSystemWindowsMetrics$Outbound | undefined;
-  cpu?: CreateInputSystemByPackCpuWindowsMetrics$Outbound | undefined;
-  memory?: CreateInputSystemByPackMemoryWindowsMetrics$Outbound | undefined;
-  network?: CreateInputSystemByPackNetworkWindowsMetrics$Outbound | undefined;
-  disk?: CreateInputSystemByPackDiskWindowsMetrics$Outbound | undefined;
+export type CreateInputCustomWindowsMetrics$Outbound = {
+  system?: CreateInputSystemWindowsMetrics$Outbound | undefined;
+  cpu?: CreateInputCpuWindowsMetrics$Outbound | undefined;
+  memory?: CreateInputMemoryWindowsMetrics$Outbound | undefined;
+  network?: CreateInputNetworkWindowsMetrics$Outbound | undefined;
+  disk?: CreateInputDiskWindowsMetrics$Outbound | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackCustomWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackCustomWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackCustomWindowsMetrics
-  > = z.object({
-    system: z.lazy(() =>
-      CreateInputSystemByPackSystemWindowsMetrics$outboundSchema
-    ).optional(),
-    cpu: z.lazy(() => CreateInputSystemByPackCpuWindowsMetrics$outboundSchema)
-      .optional(),
-    memory: z.lazy(() =>
-      CreateInputSystemByPackMemoryWindowsMetrics$outboundSchema
-    ).optional(),
-    network: z.lazy(() =>
-      CreateInputSystemByPackNetworkWindowsMetrics$outboundSchema
-    ).optional(),
-    disk: z.lazy(() => CreateInputSystemByPackDiskWindowsMetrics$outboundSchema)
-      .optional(),
-  });
+export const CreateInputCustomWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputCustomWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputCustomWindowsMetrics
+> = z.object({
+  system: z.lazy(() => CreateInputSystemWindowsMetrics$outboundSchema)
+    .optional(),
+  cpu: z.lazy(() => CreateInputCpuWindowsMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => CreateInputMemoryWindowsMetrics$outboundSchema)
+    .optional(),
+  network: z.lazy(() => CreateInputNetworkWindowsMetrics$outboundSchema)
+    .optional(),
+  disk: z.lazy(() => CreateInputDiskWindowsMetrics$outboundSchema).optional(),
+});
 
-export function createInputSystemByPackCustomWindowsMetricsToJSON(
-  createInputSystemByPackCustomWindowsMetrics:
-    CreateInputSystemByPackCustomWindowsMetrics,
+export function createInputCustomWindowsMetricsToJSON(
+  createInputCustomWindowsMetrics: CreateInputCustomWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackCustomWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackCustomWindowsMetrics,
+    CreateInputCustomWindowsMetrics$outboundSchema.parse(
+      createInputCustomWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackHostWindowsMetrics$Outbound = {
+export type CreateInputHostWindowsMetrics$Outbound = {
   mode?: string | undefined;
-  custom?: CreateInputSystemByPackCustomWindowsMetrics$Outbound | undefined;
+  custom?: CreateInputCustomWindowsMetrics$Outbound | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackHostWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackHostWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackHostWindowsMetrics
-  > = z.object({
-    mode: models.ModeOptionsHost$outboundSchema.optional(),
-    custom: z.lazy(() =>
-      CreateInputSystemByPackCustomWindowsMetrics$outboundSchema
-    ).optional(),
-  });
+export const CreateInputHostWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputHostWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputHostWindowsMetrics
+> = z.object({
+  mode: models.ModeOptionsHost$outboundSchema.optional(),
+  custom: z.lazy(() => CreateInputCustomWindowsMetrics$outboundSchema)
+    .optional(),
+});
 
-export function createInputSystemByPackHostWindowsMetricsToJSON(
-  createInputSystemByPackHostWindowsMetrics:
-    CreateInputSystemByPackHostWindowsMetrics,
+export function createInputHostWindowsMetricsToJSON(
+  createInputHostWindowsMetrics: CreateInputHostWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackHostWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackHostWindowsMetrics,
+    CreateInputHostWindowsMetrics$outboundSchema.parse(
+      createInputHostWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackPersistenceWindowsMetrics$Outbound = {
+export type CreateInputPersistenceWindowsMetrics$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -11954,34 +11685,32 @@ export type CreateInputSystemByPackPersistenceWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackPersistenceWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackPersistenceWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackPersistenceWindowsMetrics
-  > = z.object({
-    enable: z.boolean().optional(),
-    timeWindow: z.string().optional(),
-    maxDataSize: z.string().optional(),
-    maxDataTime: z.string().optional(),
-    compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-      .optional(),
-    destPath: z.string().optional(),
-  });
+export const CreateInputPersistenceWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceWindowsMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
 
-export function createInputSystemByPackPersistenceWindowsMetricsToJSON(
-  createInputSystemByPackPersistenceWindowsMetrics:
-    CreateInputSystemByPackPersistenceWindowsMetrics,
+export function createInputPersistenceWindowsMetricsToJSON(
+  createInputPersistenceWindowsMetrics: CreateInputPersistenceWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackPersistenceWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackPersistenceWindowsMetrics,
+    CreateInputPersistenceWindowsMetrics$outboundSchema.parse(
+      createInputPersistenceWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputWindowsMetrics$Outbound = {
+export type CreateInputInputWindowsMetrics$Outbound = {
   id: string;
   type: "windows_metrics";
   disabled?: boolean | undefined;
@@ -11995,13 +11724,11 @@ export type CreateInputSystemByPackInputWindowsMetrics$Outbound = {
     | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  host?: CreateInputSystemByPackHostWindowsMetrics$Outbound | undefined;
+  host?: CreateInputHostWindowsMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
   gpu?: models.GpuType$Outbound | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  persistence?:
-    | CreateInputSystemByPackPersistenceWindowsMetrics$Outbound
-    | undefined;
+  persistence?: CreateInputPersistenceWindowsMetrics$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -12009,52 +11736,48 @@ export type CreateInputSystemByPackInputWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputWindowsMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputWindowsMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputWindowsMetrics
-  > = z.object({
-    id: z.string(),
-    type: z.literal("windows_metrics"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => CreateInputSystemByPackHostWindowsMetrics$outboundSchema)
-      .optional(),
-    process: models.ProcessType$outboundSchema.optional(),
-    gpu: models.GpuType$outboundSchema.optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    persistence: z.lazy(() =>
-      CreateInputSystemByPackPersistenceWindowsMetrics$outboundSchema
-    ).optional(),
-    disableNativeModule: z.boolean().optional(),
-    description: z.string().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-  });
+export const CreateInputInputWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputInputWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputWindowsMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("windows_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => CreateInputHostWindowsMetrics$outboundSchema).optional(),
+  process: models.ProcessType$outboundSchema.optional(),
+  gpu: models.GpuType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => CreateInputPersistenceWindowsMetrics$outboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
 
-export function createInputSystemByPackInputWindowsMetricsToJSON(
-  createInputSystemByPackInputWindowsMetrics:
-    CreateInputSystemByPackInputWindowsMetrics,
+export function createInputInputWindowsMetricsToJSON(
+  createInputInputWindowsMetrics: CreateInputInputWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputWindowsMetrics$outboundSchema.parse(
-      createInputSystemByPackInputWindowsMetrics,
+    CreateInputInputWindowsMetrics$outboundSchema.parse(
+      createInputInputWindowsMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputKubeEvents$Outbound = {
+export type CreateInputInputKubeEvents$Outbound = {
   id: string;
   type: "kube_events";
   disabled?: boolean | undefined;
@@ -12075,10 +11798,10 @@ export type CreateInputSystemByPackInputKubeEvents$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputKubeEvents$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputKubeEvents$Outbound,
+export const CreateInputInputKubeEvents$outboundSchema: z.ZodType<
+  CreateInputInputKubeEvents$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputKubeEvents
+  CreateInputInputKubeEvents
 > = z.object({
   id: z.string(),
   type: z.literal("kube_events"),
@@ -12099,45 +11822,40 @@ export const CreateInputSystemByPackInputKubeEvents$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputKubeEventsToJSON(
-  createInputSystemByPackInputKubeEvents:
-    CreateInputSystemByPackInputKubeEvents,
+export function createInputInputKubeEventsToJSON(
+  createInputInputKubeEvents: CreateInputInputKubeEvents,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputKubeEvents$outboundSchema.parse(
-      createInputSystemByPackInputKubeEvents,
-    ),
+    CreateInputInputKubeEvents$outboundSchema.parse(createInputInputKubeEvents),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackRuleKubeLogs$Outbound = {
+export type CreateInputRuleKubeLogs$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackRuleKubeLogs$outboundSchema: z.ZodType<
-  CreateInputSystemByPackRuleKubeLogs$Outbound,
+export const CreateInputRuleKubeLogs$outboundSchema: z.ZodType<
+  CreateInputRuleKubeLogs$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackRuleKubeLogs
+  CreateInputRuleKubeLogs
 > = z.object({
   filter: z.string(),
   description: z.string().optional(),
 });
 
-export function createInputSystemByPackRuleKubeLogsToJSON(
-  createInputSystemByPackRuleKubeLogs: CreateInputSystemByPackRuleKubeLogs,
+export function createInputRuleKubeLogsToJSON(
+  createInputRuleKubeLogs: CreateInputRuleKubeLogs,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackRuleKubeLogs$outboundSchema.parse(
-      createInputSystemByPackRuleKubeLogs,
-    ),
+    CreateInputRuleKubeLogs$outboundSchema.parse(createInputRuleKubeLogs),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputKubeLogs$Outbound = {
+export type CreateInputInputKubeLogs$Outbound = {
   id: string;
   type: "kube_logs";
   disabled?: boolean | undefined;
@@ -12151,7 +11869,7 @@ export type CreateInputSystemByPackInputKubeLogs$Outbound = {
     | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  rules?: Array<CreateInputSystemByPackRuleKubeLogs$Outbound> | undefined;
+  rules?: Array<CreateInputRuleKubeLogs$Outbound> | undefined;
   timestamps?: boolean | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
@@ -12164,10 +11882,10 @@ export type CreateInputSystemByPackInputKubeLogs$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputKubeLogs$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputKubeLogs$Outbound,
+export const CreateInputInputKubeLogs$outboundSchema: z.ZodType<
+  CreateInputInputKubeLogs$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputKubeLogs
+  CreateInputInputKubeLogs
 > = z.object({
   id: z.string(),
   type: z.literal("kube_logs"),
@@ -12181,9 +11899,8 @@ export const CreateInputSystemByPackInputKubeLogs$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  rules: z.array(
-    z.lazy(() => CreateInputSystemByPackRuleKubeLogs$outboundSchema),
-  ).optional(),
+  rules: z.array(z.lazy(() => CreateInputRuleKubeLogs$outboundSchema))
+    .optional(),
   timestamps: z.boolean().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
@@ -12196,18 +11913,16 @@ export const CreateInputSystemByPackInputKubeLogs$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputKubeLogsToJSON(
-  createInputSystemByPackInputKubeLogs: CreateInputSystemByPackInputKubeLogs,
+export function createInputInputKubeLogsToJSON(
+  createInputInputKubeLogs: CreateInputInputKubeLogs,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputKubeLogs$outboundSchema.parse(
-      createInputSystemByPackInputKubeLogs,
-    ),
+    CreateInputInputKubeLogs$outboundSchema.parse(createInputInputKubeLogs),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackPersistenceKubeMetrics$Outbound = {
+export type CreateInputPersistenceKubeMetrics$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -12217,34 +11932,32 @@ export type CreateInputSystemByPackPersistenceKubeMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackPersistenceKubeMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackPersistenceKubeMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackPersistenceKubeMetrics
-  > = z.object({
-    enable: z.boolean().optional(),
-    timeWindow: z.string().optional(),
-    maxDataSize: z.string().optional(),
-    maxDataTime: z.string().optional(),
-    compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-      .optional(),
-    destPath: z.string().optional(),
-  });
+export const CreateInputPersistenceKubeMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceKubeMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
 
-export function createInputSystemByPackPersistenceKubeMetricsToJSON(
-  createInputSystemByPackPersistenceKubeMetrics:
-    CreateInputSystemByPackPersistenceKubeMetrics,
+export function createInputPersistenceKubeMetricsToJSON(
+  createInputPersistenceKubeMetrics: CreateInputPersistenceKubeMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackPersistenceKubeMetrics$outboundSchema.parse(
-      createInputSystemByPackPersistenceKubeMetrics,
+    CreateInputPersistenceKubeMetrics$outboundSchema.parse(
+      createInputPersistenceKubeMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputKubeMetrics$Outbound = {
+export type CreateInputInputKubeMetrics$Outbound = {
   id: string;
   type: "kube_metrics";
   disabled?: boolean | undefined;
@@ -12262,19 +11975,17 @@ export type CreateInputSystemByPackInputKubeMetrics$Outbound = {
   scrapeCadvisor?: boolean | undefined;
   rules?: Array<models.RuleConfInputKubeMetrics$Outbound> | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  persistence?:
-    | CreateInputSystemByPackPersistenceKubeMetrics$Outbound
-    | undefined;
+  persistence?: CreateInputPersistenceKubeMetrics$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputKubeMetrics$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputKubeMetrics$Outbound,
+export const CreateInputInputKubeMetrics$outboundSchema: z.ZodType<
+  CreateInputInputKubeMetrics$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputKubeMetrics
+  CreateInputInputKubeMetrics
 > = z.object({
   id: z.string(),
   type: z.literal("kube_metrics"),
@@ -12293,344 +12004,307 @@ export const CreateInputSystemByPackInputKubeMetrics$outboundSchema: z.ZodType<
   rules: z.array(models.RuleConfInputKubeMetrics$outboundSchema).optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
-  persistence: z.lazy(() =>
-    CreateInputSystemByPackPersistenceKubeMetrics$outboundSchema
-  ).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceKubeMetrics$outboundSchema)
+    .optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputKubeMetricsToJSON(
-  createInputSystemByPackInputKubeMetrics:
-    CreateInputSystemByPackInputKubeMetrics,
+export function createInputInputKubeMetricsToJSON(
+  createInputInputKubeMetrics: CreateInputInputKubeMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputKubeMetrics$outboundSchema.parse(
-      createInputSystemByPackInputKubeMetrics,
+    CreateInputInputKubeMetrics$outboundSchema.parse(
+      createInputInputKubeMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackHostsFile$Outbound = {
+export type CreateInputHostsFile$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackHostsFile$outboundSchema: z.ZodType<
-  CreateInputSystemByPackHostsFile$Outbound,
+export const CreateInputHostsFile$outboundSchema: z.ZodType<
+  CreateInputHostsFile$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackHostsFile
+  CreateInputHostsFile
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackHostsFileToJSON(
-  createInputSystemByPackHostsFile: CreateInputSystemByPackHostsFile,
+export function createInputHostsFileToJSON(
+  createInputHostsFile: CreateInputHostsFile,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackHostsFile$outboundSchema.parse(
-      createInputSystemByPackHostsFile,
-    ),
+    CreateInputHostsFile$outboundSchema.parse(createInputHostsFile),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInterfaces$Outbound = {
+export type CreateInputInterfaces$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackInterfaces$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInterfaces$Outbound,
+export const CreateInputInterfaces$outboundSchema: z.ZodType<
+  CreateInputInterfaces$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInterfaces
+  CreateInputInterfaces
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackInterfacesToJSON(
-  createInputSystemByPackInterfaces: CreateInputSystemByPackInterfaces,
+export function createInputInterfacesToJSON(
+  createInputInterfaces: CreateInputInterfaces,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInterfaces$outboundSchema.parse(
-      createInputSystemByPackInterfaces,
-    ),
+    CreateInputInterfaces$outboundSchema.parse(createInputInterfaces),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackDisksAndFileSystems$Outbound = {
+export type CreateInputDisksAndFileSystems$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackDisksAndFileSystems$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackDisksAndFileSystems$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackDisksAndFileSystems
-  > = z.object({
-    enable: z.boolean().optional(),
-  });
-
-export function createInputSystemByPackDisksAndFileSystemsToJSON(
-  createInputSystemByPackDisksAndFileSystems:
-    CreateInputSystemByPackDisksAndFileSystems,
-): string {
-  return JSON.stringify(
-    CreateInputSystemByPackDisksAndFileSystems$outboundSchema.parse(
-      createInputSystemByPackDisksAndFileSystems,
-    ),
-  );
-}
-
-/** @internal */
-export type CreateInputSystemByPackHostInfo$Outbound = {
-  enable?: boolean | undefined;
-};
-
-/** @internal */
-export const CreateInputSystemByPackHostInfo$outboundSchema: z.ZodType<
-  CreateInputSystemByPackHostInfo$Outbound,
+export const CreateInputDisksAndFileSystems$outboundSchema: z.ZodType<
+  CreateInputDisksAndFileSystems$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackHostInfo
+  CreateInputDisksAndFileSystems
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackHostInfoToJSON(
-  createInputSystemByPackHostInfo: CreateInputSystemByPackHostInfo,
+export function createInputDisksAndFileSystemsToJSON(
+  createInputDisksAndFileSystems: CreateInputDisksAndFileSystems,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackHostInfo$outboundSchema.parse(
-      createInputSystemByPackHostInfo,
+    CreateInputDisksAndFileSystems$outboundSchema.parse(
+      createInputDisksAndFileSystems,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackRoutes$Outbound = {
+export type CreateInputHostInfo$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackRoutes$outboundSchema: z.ZodType<
-  CreateInputSystemByPackRoutes$Outbound,
+export const CreateInputHostInfo$outboundSchema: z.ZodType<
+  CreateInputHostInfo$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackRoutes
+  CreateInputHostInfo
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackRoutesToJSON(
-  createInputSystemByPackRoutes: CreateInputSystemByPackRoutes,
+export function createInputHostInfoToJSON(
+  createInputHostInfo: CreateInputHostInfo,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackRoutes$outboundSchema.parse(
-      createInputSystemByPackRoutes,
-    ),
+    CreateInputHostInfo$outboundSchema.parse(createInputHostInfo),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackDNS$Outbound = {
+export type CreateInputRoutes$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackDNS$outboundSchema: z.ZodType<
-  CreateInputSystemByPackDNS$Outbound,
+export const CreateInputRoutes$outboundSchema: z.ZodType<
+  CreateInputRoutes$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackDNS
+  CreateInputRoutes
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackDNSToJSON(
-  createInputSystemByPackDNS: CreateInputSystemByPackDNS,
+export function createInputRoutesToJSON(
+  createInputRoutes: CreateInputRoutes,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackDNS$outboundSchema.parse(createInputSystemByPackDNS),
+    CreateInputRoutes$outboundSchema.parse(createInputRoutes),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackUsersAndGroups$Outbound = {
+export type CreateInputDNS$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackUsersAndGroups$outboundSchema: z.ZodType<
-  CreateInputSystemByPackUsersAndGroups$Outbound,
+export const CreateInputDNS$outboundSchema: z.ZodType<
+  CreateInputDNS$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackUsersAndGroups
+  CreateInputDNS
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackUsersAndGroupsToJSON(
-  createInputSystemByPackUsersAndGroups: CreateInputSystemByPackUsersAndGroups,
-): string {
-  return JSON.stringify(
-    CreateInputSystemByPackUsersAndGroups$outboundSchema.parse(
-      createInputSystemByPackUsersAndGroups,
-    ),
-  );
+export function createInputDNSToJSON(createInputDNS: CreateInputDNS): string {
+  return JSON.stringify(CreateInputDNS$outboundSchema.parse(createInputDNS));
 }
 
 /** @internal */
-export type CreateInputSystemByPackFirewall$Outbound = {
+export type CreateInputUsersAndGroups$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackFirewall$outboundSchema: z.ZodType<
-  CreateInputSystemByPackFirewall$Outbound,
+export const CreateInputUsersAndGroups$outboundSchema: z.ZodType<
+  CreateInputUsersAndGroups$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackFirewall
+  CreateInputUsersAndGroups
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackFirewallToJSON(
-  createInputSystemByPackFirewall: CreateInputSystemByPackFirewall,
+export function createInputUsersAndGroupsToJSON(
+  createInputUsersAndGroups: CreateInputUsersAndGroups,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackFirewall$outboundSchema.parse(
-      createInputSystemByPackFirewall,
-    ),
+    CreateInputUsersAndGroups$outboundSchema.parse(createInputUsersAndGroups),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackServices$Outbound = {
+export type CreateInputFirewall$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackServices$outboundSchema: z.ZodType<
-  CreateInputSystemByPackServices$Outbound,
+export const CreateInputFirewall$outboundSchema: z.ZodType<
+  CreateInputFirewall$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackServices
+  CreateInputFirewall
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackServicesToJSON(
-  createInputSystemByPackServices: CreateInputSystemByPackServices,
+export function createInputFirewallToJSON(
+  createInputFirewall: CreateInputFirewall,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackServices$outboundSchema.parse(
-      createInputSystemByPackServices,
-    ),
+    CreateInputFirewall$outboundSchema.parse(createInputFirewall),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackListeningPorts$Outbound = {
+export type CreateInputServices$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackListeningPorts$outboundSchema: z.ZodType<
-  CreateInputSystemByPackListeningPorts$Outbound,
+export const CreateInputServices$outboundSchema: z.ZodType<
+  CreateInputServices$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackListeningPorts
+  CreateInputServices
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackListeningPortsToJSON(
-  createInputSystemByPackListeningPorts: CreateInputSystemByPackListeningPorts,
+export function createInputServicesToJSON(
+  createInputServices: CreateInputServices,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackListeningPorts$outboundSchema.parse(
-      createInputSystemByPackListeningPorts,
-    ),
+    CreateInputServices$outboundSchema.parse(createInputServices),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackLoggedInUsers$Outbound = {
+export type CreateInputListeningPorts$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackLoggedInUsers$outboundSchema: z.ZodType<
-  CreateInputSystemByPackLoggedInUsers$Outbound,
+export const CreateInputListeningPorts$outboundSchema: z.ZodType<
+  CreateInputListeningPorts$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackLoggedInUsers
+  CreateInputListeningPorts
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackLoggedInUsersToJSON(
-  createInputSystemByPackLoggedInUsers: CreateInputSystemByPackLoggedInUsers,
+export function createInputListeningPortsToJSON(
+  createInputListeningPorts: CreateInputListeningPorts,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackLoggedInUsers$outboundSchema.parse(
-      createInputSystemByPackLoggedInUsers,
-    ),
+    CreateInputListeningPorts$outboundSchema.parse(createInputListeningPorts),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackCollectors$Outbound = {
-  hostsfile?: CreateInputSystemByPackHostsFile$Outbound | undefined;
-  interfaces?: CreateInputSystemByPackInterfaces$Outbound | undefined;
-  disk?: CreateInputSystemByPackDisksAndFileSystems$Outbound | undefined;
-  metadata?: CreateInputSystemByPackHostInfo$Outbound | undefined;
-  routes?: CreateInputSystemByPackRoutes$Outbound | undefined;
-  dns?: CreateInputSystemByPackDNS$Outbound | undefined;
-  user?: CreateInputSystemByPackUsersAndGroups$Outbound | undefined;
-  firewall?: CreateInputSystemByPackFirewall$Outbound | undefined;
-  services?: CreateInputSystemByPackServices$Outbound | undefined;
-  ports?: CreateInputSystemByPackListeningPorts$Outbound | undefined;
-  loginUsers?: CreateInputSystemByPackLoggedInUsers$Outbound | undefined;
+export type CreateInputLoggedInUsers$Outbound = {
+  enable?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackCollectors$outboundSchema: z.ZodType<
-  CreateInputSystemByPackCollectors$Outbound,
+export const CreateInputLoggedInUsers$outboundSchema: z.ZodType<
+  CreateInputLoggedInUsers$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackCollectors
+  CreateInputLoggedInUsers
 > = z.object({
-  hostsfile: z.lazy(() => CreateInputSystemByPackHostsFile$outboundSchema)
-    .optional(),
-  interfaces: z.lazy(() => CreateInputSystemByPackInterfaces$outboundSchema)
-    .optional(),
-  disk: z.lazy(() => CreateInputSystemByPackDisksAndFileSystems$outboundSchema)
-    .optional(),
-  metadata: z.lazy(() => CreateInputSystemByPackHostInfo$outboundSchema)
-    .optional(),
-  routes: z.lazy(() => CreateInputSystemByPackRoutes$outboundSchema).optional(),
-  dns: z.lazy(() => CreateInputSystemByPackDNS$outboundSchema).optional(),
-  user: z.lazy(() => CreateInputSystemByPackUsersAndGroups$outboundSchema)
-    .optional(),
-  firewall: z.lazy(() => CreateInputSystemByPackFirewall$outboundSchema)
-    .optional(),
-  services: z.lazy(() => CreateInputSystemByPackServices$outboundSchema)
-    .optional(),
-  ports: z.lazy(() => CreateInputSystemByPackListeningPorts$outboundSchema)
-    .optional(),
-  loginUsers: z.lazy(() => CreateInputSystemByPackLoggedInUsers$outboundSchema)
-    .optional(),
+  enable: z.boolean().optional(),
 });
 
-export function createInputSystemByPackCollectorsToJSON(
-  createInputSystemByPackCollectors: CreateInputSystemByPackCollectors,
+export function createInputLoggedInUsersToJSON(
+  createInputLoggedInUsers: CreateInputLoggedInUsers,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackCollectors$outboundSchema.parse(
-      createInputSystemByPackCollectors,
-    ),
+    CreateInputLoggedInUsers$outboundSchema.parse(createInputLoggedInUsers),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackPersistenceSystemState$Outbound = {
+export type CreateInputCollectors$Outbound = {
+  hostsfile?: CreateInputHostsFile$Outbound | undefined;
+  interfaces?: CreateInputInterfaces$Outbound | undefined;
+  disk?: CreateInputDisksAndFileSystems$Outbound | undefined;
+  metadata?: CreateInputHostInfo$Outbound | undefined;
+  routes?: CreateInputRoutes$Outbound | undefined;
+  dns?: CreateInputDNS$Outbound | undefined;
+  user?: CreateInputUsersAndGroups$Outbound | undefined;
+  firewall?: CreateInputFirewall$Outbound | undefined;
+  services?: CreateInputServices$Outbound | undefined;
+  ports?: CreateInputListeningPorts$Outbound | undefined;
+  loginUsers?: CreateInputLoggedInUsers$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputCollectors$outboundSchema: z.ZodType<
+  CreateInputCollectors$Outbound,
+  z.ZodTypeDef,
+  CreateInputCollectors
+> = z.object({
+  hostsfile: z.lazy(() => CreateInputHostsFile$outboundSchema).optional(),
+  interfaces: z.lazy(() => CreateInputInterfaces$outboundSchema).optional(),
+  disk: z.lazy(() => CreateInputDisksAndFileSystems$outboundSchema).optional(),
+  metadata: z.lazy(() => CreateInputHostInfo$outboundSchema).optional(),
+  routes: z.lazy(() => CreateInputRoutes$outboundSchema).optional(),
+  dns: z.lazy(() => CreateInputDNS$outboundSchema).optional(),
+  user: z.lazy(() => CreateInputUsersAndGroups$outboundSchema).optional(),
+  firewall: z.lazy(() => CreateInputFirewall$outboundSchema).optional(),
+  services: z.lazy(() => CreateInputServices$outboundSchema).optional(),
+  ports: z.lazy(() => CreateInputListeningPorts$outboundSchema).optional(),
+  loginUsers: z.lazy(() => CreateInputLoggedInUsers$outboundSchema).optional(),
+});
+
+export function createInputCollectorsToJSON(
+  createInputCollectors: CreateInputCollectors,
+): string {
+  return JSON.stringify(
+    CreateInputCollectors$outboundSchema.parse(createInputCollectors),
+  );
+}
+
+/** @internal */
+export type CreateInputPersistenceSystemState$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -12640,34 +12314,32 @@ export type CreateInputSystemByPackPersistenceSystemState$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackPersistenceSystemState$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackPersistenceSystemState$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackPersistenceSystemState
-  > = z.object({
-    enable: z.boolean().optional(),
-    timeWindow: z.string().optional(),
-    maxDataSize: z.string().optional(),
-    maxDataTime: z.string().optional(),
-    compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-      .optional(),
-    destPath: z.string().optional(),
-  });
+export const CreateInputPersistenceSystemState$outboundSchema: z.ZodType<
+  CreateInputPersistenceSystemState$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceSystemState
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
 
-export function createInputSystemByPackPersistenceSystemStateToJSON(
-  createInputSystemByPackPersistenceSystemState:
-    CreateInputSystemByPackPersistenceSystemState,
+export function createInputPersistenceSystemStateToJSON(
+  createInputPersistenceSystemState: CreateInputPersistenceSystemState,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackPersistenceSystemState$outboundSchema.parse(
-      createInputSystemByPackPersistenceSystemState,
+    CreateInputPersistenceSystemState$outboundSchema.parse(
+      createInputPersistenceSystemState,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputSystemState$Outbound = {
+export type CreateInputInputSystemState$Outbound = {
   id: string;
   type: "system_state";
   disabled?: boolean | undefined;
@@ -12682,10 +12354,8 @@ export type CreateInputSystemByPackInputSystemState$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  collectors?: CreateInputSystemByPackCollectors$Outbound | undefined;
-  persistence?:
-    | CreateInputSystemByPackPersistenceSystemState$Outbound
-    | undefined;
+  collectors?: CreateInputCollectors$Outbound | undefined;
+  persistence?: CreateInputPersistenceSystemState$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
@@ -12694,10 +12364,10 @@ export type CreateInputSystemByPackInputSystemState$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputSystemState$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputSystemState$Outbound,
+export const CreateInputInputSystemState$outboundSchema: z.ZodType<
+  CreateInputInputSystemState$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputSystemState
+  CreateInputInputSystemState
 > = z.object({
   id: z.string(),
   type: z.literal("system_state"),
@@ -12713,11 +12383,9 @@ export const CreateInputSystemByPackInputSystemState$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
-  collectors: z.lazy(() => CreateInputSystemByPackCollectors$outboundSchema)
+  collectors: z.lazy(() => CreateInputCollectors$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceSystemState$outboundSchema)
     .optional(),
-  persistence: z.lazy(() =>
-    CreateInputSystemByPackPersistenceSystemState$outboundSchema
-  ).optional(),
   disableNativeModule: z.boolean().optional(),
   disableNativeLastLogModule: z.boolean().optional(),
   description: z.string().optional(),
@@ -12725,61 +12393,58 @@ export const CreateInputSystemByPackInputSystemState$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputSystemStateToJSON(
-  createInputSystemByPackInputSystemState:
-    CreateInputSystemByPackInputSystemState,
+export function createInputInputSystemStateToJSON(
+  createInputInputSystemState: CreateInputInputSystemState,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSystemState$outboundSchema.parse(
-      createInputSystemByPackInputSystemState,
+    CreateInputInputSystemState$outboundSchema.parse(
+      createInputInputSystemState,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackSystemModeSystemMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackSystemModeSystemMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackSystemModeSystemMetrics);
+export const CreateInputSystemModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputSystemModeSystemMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackSystemSystemMetrics$Outbound = {
+export type CreateInputSystemSystemMetrics$Outbound = {
   mode?: string | undefined;
   processes?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackSystemSystemMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackSystemSystemMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackSystemSystemMetrics
-  > = z.object({
-    mode: CreateInputSystemByPackSystemModeSystemMetrics$outboundSchema
-      .optional(),
-    processes: z.boolean().optional(),
-  });
+export const CreateInputSystemSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputSystemSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemSystemMetrics
+> = z.object({
+  mode: CreateInputSystemModeSystemMetrics$outboundSchema.optional(),
+  processes: z.boolean().optional(),
+});
 
-export function createInputSystemByPackSystemSystemMetricsToJSON(
-  createInputSystemByPackSystemSystemMetrics:
-    CreateInputSystemByPackSystemSystemMetrics,
+export function createInputSystemSystemMetricsToJSON(
+  createInputSystemSystemMetrics: CreateInputSystemSystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackSystemSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackSystemSystemMetrics,
+    CreateInputSystemSystemMetrics$outboundSchema.parse(
+      createInputSystemSystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackCpuModeSystemMetrics$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateInputSystemByPackCpuModeSystemMetrics> =
-    openEnums.outboundSchema(CreateInputSystemByPackCpuModeSystemMetrics);
+export const CreateInputCpuModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputCpuModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputCpuModeSystemMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackCpuSystemMetrics$Outbound = {
+export type CreateInputCpuSystemMetrics$Outbound = {
   mode?: string | undefined;
   perCpu?: boolean | undefined;
   detail?: boolean | undefined;
@@ -12787,75 +12452,69 @@ export type CreateInputSystemByPackCpuSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackCpuSystemMetrics$outboundSchema: z.ZodType<
-  CreateInputSystemByPackCpuSystemMetrics$Outbound,
+export const CreateInputCpuSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputCpuSystemMetrics$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackCpuSystemMetrics
+  CreateInputCpuSystemMetrics
 > = z.object({
-  mode: CreateInputSystemByPackCpuModeSystemMetrics$outboundSchema.optional(),
+  mode: CreateInputCpuModeSystemMetrics$outboundSchema.optional(),
   perCpu: z.boolean().optional(),
   detail: z.boolean().optional(),
   time: z.boolean().optional(),
 });
 
-export function createInputSystemByPackCpuSystemMetricsToJSON(
-  createInputSystemByPackCpuSystemMetrics:
-    CreateInputSystemByPackCpuSystemMetrics,
+export function createInputCpuSystemMetricsToJSON(
+  createInputCpuSystemMetrics: CreateInputCpuSystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackCpuSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackCpuSystemMetrics,
+    CreateInputCpuSystemMetrics$outboundSchema.parse(
+      createInputCpuSystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackMemoryModeSystemMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackMemoryModeSystemMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackMemoryModeSystemMetrics);
+export const CreateInputMemoryModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMemoryModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputMemoryModeSystemMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackMemorySystemMetrics$Outbound = {
+export type CreateInputMemorySystemMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackMemorySystemMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackMemorySystemMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackMemorySystemMetrics
-  > = z.object({
-    mode: CreateInputSystemByPackMemoryModeSystemMetrics$outboundSchema
-      .optional(),
-    detail: z.boolean().optional(),
-  });
+export const CreateInputMemorySystemMetrics$outboundSchema: z.ZodType<
+  CreateInputMemorySystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputMemorySystemMetrics
+> = z.object({
+  mode: CreateInputMemoryModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
 
-export function createInputSystemByPackMemorySystemMetricsToJSON(
-  createInputSystemByPackMemorySystemMetrics:
-    CreateInputSystemByPackMemorySystemMetrics,
+export function createInputMemorySystemMetricsToJSON(
+  createInputMemorySystemMetrics: CreateInputMemorySystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackMemorySystemMetrics$outboundSchema.parse(
-      createInputSystemByPackMemorySystemMetrics,
+    CreateInputMemorySystemMetrics$outboundSchema.parse(
+      createInputMemorySystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackNetworkModeSystemMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackNetworkModeSystemMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackNetworkModeSystemMetrics);
+export const CreateInputNetworkModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputNetworkModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputNetworkModeSystemMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackNetworkSystemMetrics$Outbound = {
+export type CreateInputNetworkSystemMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
   protocols?: boolean | undefined;
@@ -12864,41 +12523,37 @@ export type CreateInputSystemByPackNetworkSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackNetworkSystemMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackNetworkSystemMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackNetworkSystemMetrics
-  > = z.object({
-    mode: CreateInputSystemByPackNetworkModeSystemMetrics$outboundSchema
-      .optional(),
-    detail: z.boolean().optional(),
-    protocols: z.boolean().optional(),
-    devices: z.array(z.string()).optional(),
-    perInterface: z.boolean().optional(),
-  });
+export const CreateInputNetworkSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputNetworkSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputNetworkSystemMetrics
+> = z.object({
+  mode: CreateInputNetworkModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().optional(),
+});
 
-export function createInputSystemByPackNetworkSystemMetricsToJSON(
-  createInputSystemByPackNetworkSystemMetrics:
-    CreateInputSystemByPackNetworkSystemMetrics,
+export function createInputNetworkSystemMetricsToJSON(
+  createInputNetworkSystemMetrics: CreateInputNetworkSystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackNetworkSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackNetworkSystemMetrics,
+    CreateInputNetworkSystemMetrics$outboundSchema.parse(
+      createInputNetworkSystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackDiskModeSystemMetrics$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackDiskModeSystemMetrics
-  > = openEnums.outboundSchema(CreateInputSystemByPackDiskModeSystemMetrics);
+export const CreateInputDiskModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputDiskModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputDiskModeSystemMetrics);
 
 /** @internal */
-export type CreateInputSystemByPackDiskSystemMetrics$Outbound = {
+export type CreateInputDiskSystemMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
   inodes?: boolean | undefined;
@@ -12909,12 +12564,12 @@ export type CreateInputSystemByPackDiskSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackDiskSystemMetrics$outboundSchema: z.ZodType<
-  CreateInputSystemByPackDiskSystemMetrics$Outbound,
+export const CreateInputDiskSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputDiskSystemMetrics$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackDiskSystemMetrics
+  CreateInputDiskSystemMetrics
 > = z.object({
-  mode: CreateInputSystemByPackDiskModeSystemMetrics$outboundSchema.optional(),
+  mode: CreateInputDiskModeSystemMetrics$outboundSchema.optional(),
   detail: z.boolean().optional(),
   inodes: z.boolean().optional(),
   devices: z.array(z.string()).optional(),
@@ -12923,160 +12578,144 @@ export const CreateInputSystemByPackDiskSystemMetrics$outboundSchema: z.ZodType<
   perDevice: z.boolean().optional(),
 });
 
-export function createInputSystemByPackDiskSystemMetricsToJSON(
-  createInputSystemByPackDiskSystemMetrics:
-    CreateInputSystemByPackDiskSystemMetrics,
+export function createInputDiskSystemMetricsToJSON(
+  createInputDiskSystemMetrics: CreateInputDiskSystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackDiskSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackDiskSystemMetrics,
+    CreateInputDiskSystemMetrics$outboundSchema.parse(
+      createInputDiskSystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackCustomSystemMetrics$Outbound = {
-  system?: CreateInputSystemByPackSystemSystemMetrics$Outbound | undefined;
-  cpu?: CreateInputSystemByPackCpuSystemMetrics$Outbound | undefined;
-  memory?: CreateInputSystemByPackMemorySystemMetrics$Outbound | undefined;
-  network?: CreateInputSystemByPackNetworkSystemMetrics$Outbound | undefined;
-  disk?: CreateInputSystemByPackDiskSystemMetrics$Outbound | undefined;
+export type CreateInputCustomSystemMetrics$Outbound = {
+  system?: CreateInputSystemSystemMetrics$Outbound | undefined;
+  cpu?: CreateInputCpuSystemMetrics$Outbound | undefined;
+  memory?: CreateInputMemorySystemMetrics$Outbound | undefined;
+  network?: CreateInputNetworkSystemMetrics$Outbound | undefined;
+  disk?: CreateInputDiskSystemMetrics$Outbound | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackCustomSystemMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackCustomSystemMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackCustomSystemMetrics
-  > = z.object({
-    system: z.lazy(() =>
-      CreateInputSystemByPackSystemSystemMetrics$outboundSchema
-    ).optional(),
-    cpu: z.lazy(() => CreateInputSystemByPackCpuSystemMetrics$outboundSchema)
-      .optional(),
-    memory: z.lazy(() =>
-      CreateInputSystemByPackMemorySystemMetrics$outboundSchema
-    ).optional(),
-    network: z.lazy(() =>
-      CreateInputSystemByPackNetworkSystemMetrics$outboundSchema
-    ).optional(),
-    disk: z.lazy(() => CreateInputSystemByPackDiskSystemMetrics$outboundSchema)
-      .optional(),
-  });
-
-export function createInputSystemByPackCustomSystemMetricsToJSON(
-  createInputSystemByPackCustomSystemMetrics:
-    CreateInputSystemByPackCustomSystemMetrics,
-): string {
-  return JSON.stringify(
-    CreateInputSystemByPackCustomSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackCustomSystemMetrics,
-    ),
-  );
-}
-
-/** @internal */
-export type CreateInputSystemByPackHostSystemMetrics$Outbound = {
-  mode?: string | undefined;
-  custom?: CreateInputSystemByPackCustomSystemMetrics$Outbound | undefined;
-};
-
-/** @internal */
-export const CreateInputSystemByPackHostSystemMetrics$outboundSchema: z.ZodType<
-  CreateInputSystemByPackHostSystemMetrics$Outbound,
+export const CreateInputCustomSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputCustomSystemMetrics$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackHostSystemMetrics
+  CreateInputCustomSystemMetrics
 > = z.object({
-  mode: models.ModeOptionsHost$outboundSchema.optional(),
-  custom: z.lazy(() =>
-    CreateInputSystemByPackCustomSystemMetrics$outboundSchema
-  ).optional(),
+  system: z.lazy(() => CreateInputSystemSystemMetrics$outboundSchema)
+    .optional(),
+  cpu: z.lazy(() => CreateInputCpuSystemMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => CreateInputMemorySystemMetrics$outboundSchema)
+    .optional(),
+  network: z.lazy(() => CreateInputNetworkSystemMetrics$outboundSchema)
+    .optional(),
+  disk: z.lazy(() => CreateInputDiskSystemMetrics$outboundSchema).optional(),
 });
 
-export function createInputSystemByPackHostSystemMetricsToJSON(
-  createInputSystemByPackHostSystemMetrics:
-    CreateInputSystemByPackHostSystemMetrics,
+export function createInputCustomSystemMetricsToJSON(
+  createInputCustomSystemMetrics: CreateInputCustomSystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackHostSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackHostSystemMetrics,
+    CreateInputCustomSystemMetrics$outboundSchema.parse(
+      createInputCustomSystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackContainerMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateInputSystemByPackContainerMode
-> = openEnums.outboundSchema(CreateInputSystemByPackContainerMode);
+export type CreateInputHostSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  custom?: CreateInputCustomSystemMetrics$Outbound | undefined;
+};
 
 /** @internal */
-export type CreateInputSystemByPackContainerFilter$Outbound = {
+export const CreateInputHostSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputHostSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputHostSystemMetrics
+> = z.object({
+  mode: models.ModeOptionsHost$outboundSchema.optional(),
+  custom: z.lazy(() => CreateInputCustomSystemMetrics$outboundSchema)
+    .optional(),
+});
+
+export function createInputHostSystemMetricsToJSON(
+  createInputHostSystemMetrics: CreateInputHostSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputHostSystemMetrics$outboundSchema.parse(
+      createInputHostSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputContainerMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputContainerMode
+> = openEnums.outboundSchema(CreateInputContainerMode);
+
+/** @internal */
+export type CreateInputContainerFilter$Outbound = {
   expr: string;
 };
 
 /** @internal */
-export const CreateInputSystemByPackContainerFilter$outboundSchema: z.ZodType<
-  CreateInputSystemByPackContainerFilter$Outbound,
+export const CreateInputContainerFilter$outboundSchema: z.ZodType<
+  CreateInputContainerFilter$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackContainerFilter
+  CreateInputContainerFilter
 > = z.object({
   expr: z.string(),
 });
 
-export function createInputSystemByPackContainerFilterToJSON(
-  createInputSystemByPackContainerFilter:
-    CreateInputSystemByPackContainerFilter,
+export function createInputContainerFilterToJSON(
+  createInputContainerFilter: CreateInputContainerFilter,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackContainerFilter$outboundSchema.parse(
-      createInputSystemByPackContainerFilter,
-    ),
+    CreateInputContainerFilter$outboundSchema.parse(createInputContainerFilter),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackContainer$Outbound = {
+export type CreateInputContainer$Outbound = {
   mode?: string | undefined;
   dockerSocket?: Array<string> | undefined;
   dockerTimeout?: number | undefined;
-  filters?: Array<CreateInputSystemByPackContainerFilter$Outbound> | undefined;
+  filters?: Array<CreateInputContainerFilter$Outbound> | undefined;
   allContainers?: boolean | undefined;
   perDevice?: boolean | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackContainer$outboundSchema: z.ZodType<
-  CreateInputSystemByPackContainer$Outbound,
+export const CreateInputContainer$outboundSchema: z.ZodType<
+  CreateInputContainer$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackContainer
+  CreateInputContainer
 > = z.object({
-  mode: CreateInputSystemByPackContainerMode$outboundSchema.optional(),
+  mode: CreateInputContainerMode$outboundSchema.optional(),
   dockerSocket: z.array(z.string()).optional(),
   dockerTimeout: z.number().optional(),
-  filters: z.array(
-    z.lazy(() => CreateInputSystemByPackContainerFilter$outboundSchema),
-  ).optional(),
+  filters: z.array(z.lazy(() => CreateInputContainerFilter$outboundSchema))
+    .optional(),
   allContainers: z.boolean().optional(),
   perDevice: z.boolean().optional(),
   detail: z.boolean().optional(),
 });
 
-export function createInputSystemByPackContainerToJSON(
-  createInputSystemByPackContainer: CreateInputSystemByPackContainer,
+export function createInputContainerToJSON(
+  createInputContainer: CreateInputContainer,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackContainer$outboundSchema.parse(
-      createInputSystemByPackContainer,
-    ),
+    CreateInputContainer$outboundSchema.parse(createInputContainer),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackPersistenceSystemMetrics$Outbound = {
+export type CreateInputPersistenceSystemMetrics$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -13086,34 +12725,32 @@ export type CreateInputSystemByPackPersistenceSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackPersistenceSystemMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackPersistenceSystemMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackPersistenceSystemMetrics
-  > = z.object({
-    enable: z.boolean().optional(),
-    timeWindow: z.string().optional(),
-    maxDataSize: z.string().optional(),
-    maxDataTime: z.string().optional(),
-    compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-      .optional(),
-    destPath: z.string().optional(),
-  });
+export const CreateInputPersistenceSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceSystemMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
 
-export function createInputSystemByPackPersistenceSystemMetricsToJSON(
-  createInputSystemByPackPersistenceSystemMetrics:
-    CreateInputSystemByPackPersistenceSystemMetrics,
+export function createInputPersistenceSystemMetricsToJSON(
+  createInputPersistenceSystemMetrics: CreateInputPersistenceSystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackPersistenceSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackPersistenceSystemMetrics,
+    CreateInputPersistenceSystemMetrics$outboundSchema.parse(
+      createInputPersistenceSystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputSystemMetrics$Outbound = {
+export type CreateInputInputSystemMetrics$Outbound = {
   id: string;
   type: "system_metrics";
   disabled?: boolean | undefined;
@@ -13127,67 +12764,60 @@ export type CreateInputSystemByPackInputSystemMetrics$Outbound = {
     | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  host?: CreateInputSystemByPackHostSystemMetrics$Outbound | undefined;
+  host?: CreateInputHostSystemMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
-  container?: CreateInputSystemByPackContainer$Outbound | undefined;
+  container?: CreateInputContainer$Outbound | undefined;
   gpu?: models.GpuType$Outbound | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  persistence?:
-    | CreateInputSystemByPackPersistenceSystemMetrics$Outbound
-    | undefined;
+  persistence?: CreateInputPersistenceSystemMetrics$Outbound | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputSystemMetrics$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputSystemMetrics$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputSystemMetrics
-  > = z.object({
-    id: z.string(),
-    type: z.literal("system_metrics"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    interval: z.number().optional(),
-    host: z.lazy(() => CreateInputSystemByPackHostSystemMetrics$outboundSchema)
-      .optional(),
-    process: models.ProcessType$outboundSchema.optional(),
-    container: z.lazy(() => CreateInputSystemByPackContainer$outboundSchema)
-      .optional(),
-    gpu: models.GpuType$outboundSchema.optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    persistence: z.lazy(() =>
-      CreateInputSystemByPackPersistenceSystemMetrics$outboundSchema
-    ).optional(),
-    description: z.string().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-  });
+export const CreateInputInputSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputInputSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputSystemMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("system_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => CreateInputHostSystemMetrics$outboundSchema).optional(),
+  process: models.ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => CreateInputContainer$outboundSchema).optional(),
+  gpu: models.GpuType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => CreateInputPersistenceSystemMetrics$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
 
-export function createInputSystemByPackInputSystemMetricsToJSON(
-  createInputSystemByPackInputSystemMetrics:
-    CreateInputSystemByPackInputSystemMetrics,
+export function createInputInputSystemMetricsToJSON(
+  createInputInputSystemMetrics: CreateInputInputSystemMetrics,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputSystemMetrics$outboundSchema.parse(
-      createInputSystemByPackInputSystemMetrics,
+    CreateInputInputSystemMetrics$outboundSchema.parse(
+      createInputInputSystemMetrics,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputTcpjson$Outbound = {
+export type CreateInputInputTcpjson$Outbound = {
   id: string;
   type: "tcpjson";
   disabled?: boolean | undefined;
@@ -13222,10 +12852,10 @@ export type CreateInputSystemByPackInputTcpjson$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputTcpjson$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputTcpjson$Outbound,
+export const CreateInputInputTcpjson$outboundSchema: z.ZodType<
+  CreateInputInputTcpjson$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputTcpjson
+  CreateInputInputTcpjson
 > = z.object({
   id: z.string(),
   type: z.literal("tcpjson"),
@@ -13261,116 +12891,104 @@ export const CreateInputSystemByPackInputTcpjson$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputTcpjsonToJSON(
-  createInputSystemByPackInputTcpjson: CreateInputSystemByPackInputTcpjson,
+export function createInputInputTcpjsonToJSON(
+  createInputInputTcpjson: CreateInputInputTcpjson,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputTcpjson$outboundSchema.parse(
-      createInputSystemByPackInputTcpjson,
-    ),
+    CreateInputInputTcpjson$outboundSchema.parse(createInputInputTcpjson),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackSplunkHecMetadata$Outbound = {
+export type CreateInputSplunkHecMetadata$Outbound = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackSplunkHecMetadata$outboundSchema: z.ZodType<
-  CreateInputSystemByPackSplunkHecMetadata$Outbound,
+export const CreateInputSplunkHecMetadata$outboundSchema: z.ZodType<
+  CreateInputSplunkHecMetadata$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackSplunkHecMetadata
+  CreateInputSplunkHecMetadata
 > = z.object({
   enabled: z.boolean().optional(),
   defaultDataset: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
 });
 
-export function createInputSystemByPackSplunkHecMetadataToJSON(
-  createInputSystemByPackSplunkHecMetadata:
-    CreateInputSystemByPackSplunkHecMetadata,
+export function createInputSplunkHecMetadataToJSON(
+  createInputSplunkHecMetadata: CreateInputSplunkHecMetadata,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackSplunkHecMetadata$outboundSchema.parse(
-      createInputSystemByPackSplunkHecMetadata,
+    CreateInputSplunkHecMetadata$outboundSchema.parse(
+      createInputSplunkHecMetadata,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackElasticsearchMetadata$Outbound = {
+export type CreateInputElasticsearchMetadata$Outbound = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackElasticsearchMetadata$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackElasticsearchMetadata$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackElasticsearchMetadata
-  > = z.object({
-    enabled: z.boolean().optional(),
-    defaultDataset: z.string().optional(),
-  });
+export const CreateInputElasticsearchMetadata$outboundSchema: z.ZodType<
+  CreateInputElasticsearchMetadata$Outbound,
+  z.ZodTypeDef,
+  CreateInputElasticsearchMetadata
+> = z.object({
+  enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
+});
 
-export function createInputSystemByPackElasticsearchMetadataToJSON(
-  createInputSystemByPackElasticsearchMetadata:
-    CreateInputSystemByPackElasticsearchMetadata,
+export function createInputElasticsearchMetadataToJSON(
+  createInputElasticsearchMetadata: CreateInputElasticsearchMetadata,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackElasticsearchMetadata$outboundSchema.parse(
-      createInputSystemByPackElasticsearchMetadata,
+    CreateInputElasticsearchMetadata$outboundSchema.parse(
+      createInputElasticsearchMetadata,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackAuthTokensExt$Outbound = {
+export type CreateInputAuthTokensExt$Outbound = {
   token: string;
   description?: string | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  splunkHecMetadata?:
-    | CreateInputSystemByPackSplunkHecMetadata$Outbound
-    | undefined;
-  elasticsearchMetadata?:
-    | CreateInputSystemByPackElasticsearchMetadata$Outbound
-    | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata$Outbound | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata$Outbound | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackAuthTokensExt$outboundSchema: z.ZodType<
-  CreateInputSystemByPackAuthTokensExt$Outbound,
+export const CreateInputAuthTokensExt$outboundSchema: z.ZodType<
+  CreateInputAuthTokensExt$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackAuthTokensExt
+  CreateInputAuthTokensExt
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
-  splunkHecMetadata: z.lazy(() =>
-    CreateInputSystemByPackSplunkHecMetadata$outboundSchema
-  ).optional(),
+  splunkHecMetadata: z.lazy(() => CreateInputSplunkHecMetadata$outboundSchema)
+    .optional(),
   elasticsearchMetadata: z.lazy(() =>
-    CreateInputSystemByPackElasticsearchMetadata$outboundSchema
+    CreateInputElasticsearchMetadata$outboundSchema
   ).optional(),
 });
 
-export function createInputSystemByPackAuthTokensExtToJSON(
-  createInputSystemByPackAuthTokensExt: CreateInputSystemByPackAuthTokensExt,
+export function createInputAuthTokensExtToJSON(
+  createInputAuthTokensExt: CreateInputAuthTokensExt,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackAuthTokensExt$outboundSchema.parse(
-      createInputSystemByPackAuthTokensExt,
-    ),
+    CreateInputAuthTokensExt$outboundSchema.parse(createInputAuthTokensExt),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputCriblLakeHttp$Outbound = {
+export type CreateInputInputCriblLakeHttp$Outbound = {
   id: string;
   type: "cribl_lake_http";
   disabled?: boolean | undefined;
@@ -13403,9 +13021,7 @@ export type CreateInputSystemByPackInputCriblLakeHttp$Outbound = {
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
-  authTokensExt?:
-    | Array<CreateInputSystemByPackAuthTokensExt$Outbound>
-    | undefined;
+  authTokensExt?: Array<CreateInputAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -13418,71 +13034,68 @@ export type CreateInputSystemByPackInputCriblLakeHttp$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputCriblLakeHttp$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackInputCriblLakeHttp$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackInputCriblLakeHttp
-  > = z.object({
-    id: z.string(),
-    type: z.literal("cribl_lake_http"),
-    disabled: z.boolean().optional(),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
-      .optional(),
-    pq: models.PqType$outboundSchema.optional(),
-    host: z.string(),
-    port: z.number(),
-    authTokens: z.array(z.string()).optional(),
-    tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    maxActiveReq: z.number().optional(),
-    maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.boolean().optional(),
-    captureHeaders: z.boolean().optional(),
-    activityLogSampleRate: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    socketTimeout: z.number().optional(),
-    keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.boolean().optional(),
-    ipAllowlistRegex: z.string().optional(),
-    ipDenylistRegex: z.string().optional(),
-    criblAPI: z.string().optional(),
-    elasticAPI: z.string().optional(),
-    splunkHecAPI: z.string().optional(),
-    splunkHecAcks: z.boolean().optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-    authTokensExt: z.array(
-      z.lazy(() => CreateInputSystemByPackAuthTokensExt$outboundSchema),
-    ).optional(),
-    description: z.string().optional(),
-    __template_environment: z.string().optional(),
-    __template_streamtags: z.string().optional(),
-    __template_host: z.string().optional(),
-    __template_port: z.string().optional(),
-    __template_authTokens: z.string().optional(),
-    __template_criblAPI: z.string().optional(),
-    __template_elasticAPI: z.string().optional(),
-    __template_splunkHecAPI: z.string().optional(),
-  });
+export const CreateInputInputCriblLakeHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblLakeHttp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblLakeHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_lake_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  criblAPI: z.string().optional(),
+  elasticAPI: z.string().optional(),
+  splunkHecAPI: z.string().optional(),
+  splunkHecAcks: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  authTokensExt: z.array(z.lazy(() => CreateInputAuthTokensExt$outboundSchema))
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+  __template_criblAPI: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
+});
 
-export function createInputSystemByPackInputCriblLakeHttpToJSON(
-  createInputSystemByPackInputCriblLakeHttp:
-    CreateInputSystemByPackInputCriblLakeHttp,
+export function createInputInputCriblLakeHttpToJSON(
+  createInputInputCriblLakeHttp: CreateInputInputCriblLakeHttp,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputCriblLakeHttp$outboundSchema.parse(
-      createInputSystemByPackInputCriblLakeHttp,
+    CreateInputInputCriblLakeHttp$outboundSchema.parse(
+      createInputInputCriblLakeHttp,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputCriblHttp$Outbound = {
+export type CreateInputInputCriblHttp$Outbound = {
   id: string;
   type: "cribl_http";
   disabled?: boolean | undefined;
@@ -13519,10 +13132,10 @@ export type CreateInputSystemByPackInputCriblHttp$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputCriblHttp$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputCriblHttp$Outbound,
+export const CreateInputInputCriblHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblHttp$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputCriblHttp
+  CreateInputInputCriblHttp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_http"),
@@ -13560,18 +13173,16 @@ export const CreateInputSystemByPackInputCriblHttp$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputCriblHttpToJSON(
-  createInputSystemByPackInputCriblHttp: CreateInputSystemByPackInputCriblHttp,
+export function createInputInputCriblHttpToJSON(
+  createInputInputCriblHttp: CreateInputInputCriblHttp,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputCriblHttp$outboundSchema.parse(
-      createInputSystemByPackInputCriblHttp,
-    ),
+    CreateInputInputCriblHttp$outboundSchema.parse(createInputInputCriblHttp),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputCriblTcp$Outbound = {
+export type CreateInputInputCriblTcp$Outbound = {
   id: string;
   type: "cribl_tcp";
   disabled?: boolean | undefined;
@@ -13603,10 +13214,10 @@ export type CreateInputSystemByPackInputCriblTcp$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputCriblTcp$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputCriblTcp$Outbound,
+export const CreateInputInputCriblTcp$outboundSchema: z.ZodType<
+  CreateInputInputCriblTcp$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputCriblTcp
+  CreateInputInputCriblTcp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_tcp"),
@@ -13639,18 +13250,16 @@ export const CreateInputSystemByPackInputCriblTcp$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createInputSystemByPackInputCriblTcpToJSON(
-  createInputSystemByPackInputCriblTcp: CreateInputSystemByPackInputCriblTcp,
+export function createInputInputCriblTcpToJSON(
+  createInputInputCriblTcp: CreateInputInputCriblTcp,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputCriblTcp$outboundSchema.parse(
-      createInputSystemByPackInputCriblTcp,
-    ),
+    CreateInputInputCriblTcp$outboundSchema.parse(createInputInputCriblTcp),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputCribl$Outbound = {
+export type CreateInputInputCribl$Outbound = {
   id: string;
   type: "cribl";
   disabled?: boolean | undefined;
@@ -13671,10 +13280,10 @@ export type CreateInputSystemByPackInputCribl$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputCribl$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputCribl$Outbound,
+export const CreateInputInputCribl$outboundSchema: z.ZodType<
+  CreateInputInputCribl$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputCribl
+  CreateInputInputCribl
 > = z.object({
   id: z.string(),
   type: z.literal("cribl"),
@@ -13695,18 +13304,16 @@ export const CreateInputSystemByPackInputCribl$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputCriblToJSON(
-  createInputSystemByPackInputCribl: CreateInputSystemByPackInputCribl,
+export function createInputInputCriblToJSON(
+  createInputInputCribl: CreateInputInputCribl,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputCribl$outboundSchema.parse(
-      createInputSystemByPackInputCribl,
-    ),
+    CreateInputInputCribl$outboundSchema.parse(createInputInputCribl),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputGooglePubsub$Outbound = {
+export type CreateInputInputGooglePubsub$Outbound = {
   id: string;
   type: "google_pubsub";
   disabled?: boolean | undefined;
@@ -13742,10 +13349,10 @@ export type CreateInputSystemByPackInputGooglePubsub$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputGooglePubsub$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputGooglePubsub$Outbound,
+export const CreateInputInputGooglePubsub$outboundSchema: z.ZodType<
+  CreateInputInputGooglePubsub$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputGooglePubsub
+  CreateInputInputGooglePubsub
 > = z.object({
   id: z.string(),
   type: z.literal("google_pubsub"),
@@ -13782,19 +13389,18 @@ export const CreateInputSystemByPackInputGooglePubsub$outboundSchema: z.ZodType<
   __template_region: z.string().optional(),
 });
 
-export function createInputSystemByPackInputGooglePubsubToJSON(
-  createInputSystemByPackInputGooglePubsub:
-    CreateInputSystemByPackInputGooglePubsub,
+export function createInputInputGooglePubsubToJSON(
+  createInputInputGooglePubsub: CreateInputInputGooglePubsub,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputGooglePubsub$outboundSchema.parse(
-      createInputSystemByPackInputGooglePubsub,
+    CreateInputInputGooglePubsub$outboundSchema.parse(
+      createInputInputGooglePubsub,
     ),
   );
 }
 
 /** @internal */
-export type CreateInputSystemByPackInputFirehose$Outbound = {
+export type CreateInputInputFirehose$Outbound = {
   id: string;
   type: "firehose";
   disabled?: boolean | undefined;
@@ -13832,10 +13438,10 @@ export type CreateInputSystemByPackInputFirehose$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputFirehose$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputFirehose$Outbound,
+export const CreateInputInputFirehose$outboundSchema: z.ZodType<
+  CreateInputInputFirehose$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputFirehose
+  CreateInputInputFirehose
 > = z.object({
   id: z.string(),
   type: z.literal("firehose"),
@@ -13873,25 +13479,23 @@ export const CreateInputSystemByPackInputFirehose$outboundSchema: z.ZodType<
   __template_authTokens: z.string().optional(),
 });
 
-export function createInputSystemByPackInputFirehoseToJSON(
-  createInputSystemByPackInputFirehose: CreateInputSystemByPackInputFirehose,
+export function createInputInputFirehoseToJSON(
+  createInputInputFirehose: CreateInputInputFirehose,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputFirehose$outboundSchema.parse(
-      createInputSystemByPackInputFirehose,
-    ),
+    CreateInputInputFirehose$outboundSchema.parse(createInputInputFirehose),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackScheduleType$outboundSchema: z.ZodType<
+export const CreateInputScheduleType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackScheduleType
-> = openEnums.outboundSchema(CreateInputSystemByPackScheduleType);
+  CreateInputScheduleType
+> = openEnums.outboundSchema(CreateInputScheduleType);
 
 /** @internal */
-export type CreateInputSystemByPackInputExec$Outbound = {
+export type CreateInputInputExec$Outbound = {
   id: string;
   type: "exec";
   disabled?: boolean | undefined;
@@ -13919,10 +13523,10 @@ export type CreateInputSystemByPackInputExec$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackInputExec$outboundSchema: z.ZodType<
-  CreateInputSystemByPackInputExec$Outbound,
+export const CreateInputInputExec$outboundSchema: z.ZodType<
+  CreateInputInputExec$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackInputExec
+  CreateInputInputExec
 > = z.object({
   id: z.string(),
   type: z.literal("exec"),
@@ -13938,7 +13542,7 @@ export const CreateInputSystemByPackInputExec$outboundSchema: z.ZodType<
   command: z.string(),
   script: z.string().optional(),
   retries: z.number().optional(),
-  scheduleType: CreateInputSystemByPackScheduleType$outboundSchema.optional(),
+  scheduleType: CreateInputScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
@@ -13950,26 +13554,23 @@ export const CreateInputSystemByPackInputExec$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createInputSystemByPackInputExecToJSON(
-  createInputSystemByPackInputExec: CreateInputSystemByPackInputExec,
+export function createInputInputExecToJSON(
+  createInputInputExec: CreateInputInputExec,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackInputExec$outboundSchema.parse(
-      createInputSystemByPackInputExec,
-    ),
+    CreateInputInputExec$outboundSchema.parse(createInputInputExec),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackAuthenticationMechanism$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthenticationMechanism
-  > = openEnums.outboundSchema(CreateInputSystemByPackAuthenticationMechanism);
+export const CreateInputAuthenticationMechanism$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMechanism
+> = openEnums.outboundSchema(CreateInputAuthenticationMechanism);
 
 /** @internal */
-export type CreateInputSystemByPackAuth$Outbound = {
+export type CreateInputAuth$Outbound = {
   mechanism: string;
   textSecret?: string | undefined;
   clientSecretAuthType?: string | undefined;
@@ -13988,12 +13589,12 @@ export type CreateInputSystemByPackAuth$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackAuth$outboundSchema: z.ZodType<
-  CreateInputSystemByPackAuth$Outbound,
+export const CreateInputAuth$outboundSchema: z.ZodType<
+  CreateInputAuth$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackAuth
+  CreateInputAuth
 > = z.object({
-  mechanism: CreateInputSystemByPackAuthenticationMechanism$outboundSchema,
+  mechanism: CreateInputAuthenticationMechanism$outboundSchema,
   textSecret: z.string().optional(),
   clientSecretAuthType: models.AuthenticationMethodOptionsAuth$outboundSchema
     .optional(),
@@ -14012,35 +13613,21 @@ export const CreateInputSystemByPackAuth$outboundSchema: z.ZodType<
   __template_fullyQualifiedNamespace: z.string().optional(),
 });
 
-export function createInputSystemByPackAuthToJSON(
-  createInputSystemByPackAuth: CreateInputSystemByPackAuth,
+export function createInputAuthToJSON(
+  createInputAuth: CreateInputAuth,
 ): string {
-  return JSON.stringify(
-    CreateInputSystemByPackAuth$outboundSchema.parse(
-      createInputSystemByPackAuth,
-    ),
-  );
+  return JSON.stringify(CreateInputAuth$outboundSchema.parse(createInputAuth));
 }
 
 /** @internal */
-export const CreateInputSystemByPackCheckpointStore$outboundSchema: z.ZodType<
+export const CreateInputBlobStoreAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputSystemByPackCheckpointStore
-> = openEnums.outboundSchema(CreateInputSystemByPackCheckpointStore);
+  CreateInputBlobStoreAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputBlobStoreAuthenticationMethod);
 
 /** @internal */
-export const CreateInputSystemByPackBlobStoreAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackBlobStoreAuthenticationMethod
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackBlobStoreAuthenticationMethod,
-  );
-
-/** @internal */
-export type CreateInputSystemByPackAzureBlobStorage$Outbound = {
+export type CreateInputAzureBlobStorage$Outbound = {
   containerName: string;
   authType?: string | undefined;
   textSecret?: string | undefined;
@@ -14060,14 +13647,13 @@ export type CreateInputSystemByPackAzureBlobStorage$Outbound = {
 };
 
 /** @internal */
-export const CreateInputSystemByPackAzureBlobStorage$outboundSchema: z.ZodType<
-  CreateInputSystemByPackAzureBlobStorage$Outbound,
+export const CreateInputAzureBlobStorage$outboundSchema: z.ZodType<
+  CreateInputAzureBlobStorage$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackAzureBlobStorage
+  CreateInputAzureBlobStorage
 > = z.object({
   containerName: z.string(),
-  authType: CreateInputSystemByPackBlobStoreAuthenticationMethod$outboundSchema
-    .optional(),
+  authType: CreateInputBlobStoreAuthenticationMethod$outboundSchema.optional(),
   textSecret: z.string().optional(),
   storageAccountName: z.string().optional(),
   tenantId: z.string().optional(),
@@ -14083,13 +13669,34 @@ export const CreateInputSystemByPackAzureBlobStorage$outboundSchema: z.ZodType<
   __template_azureCloud: z.string().optional(),
 });
 
-export function createInputSystemByPackAzureBlobStorageToJSON(
-  createInputSystemByPackAzureBlobStorage:
-    CreateInputSystemByPackAzureBlobStorage,
+export function createInputAzureBlobStorageToJSON(
+  createInputAzureBlobStorage: CreateInputAzureBlobStorage,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackAzureBlobStorage$outboundSchema.parse(
-      createInputSystemByPackAzureBlobStorage,
+    CreateInputAzureBlobStorage$outboundSchema.parse(
+      createInputAzureBlobStorage,
     ),
+  );
+}
+
+/** @internal */
+export type CreateInputCheckpointing$Outbound = {
+  blobStore: CreateInputAzureBlobStorage$Outbound;
+};
+
+/** @internal */
+export const CreateInputCheckpointing$outboundSchema: z.ZodType<
+  CreateInputCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputCheckpointing
+> = z.object({
+  blobStore: z.lazy(() => CreateInputAzureBlobStorage$outboundSchema),
+});
+
+export function createInputCheckpointingToJSON(
+  createInputCheckpointing: CreateInputCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputCheckpointing$outboundSchema.parse(createInputCheckpointing),
   );
 }
