@@ -1109,10 +1109,6 @@ export type CreateInputInputSecurityLake = {
    */
   numReceivers?: number | undefined;
   /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
-  /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
   socketTimeout?: number | undefined;
@@ -3927,10 +3923,6 @@ export type CreateInputInputS3Inventory = {
    */
   numReceivers?: number | undefined;
   /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
-  /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
   socketTimeout?: number | undefined;
@@ -4134,10 +4126,6 @@ export type CreateInputInputS3 = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -5033,10 +5021,6 @@ export type CreateInputInputCrowdstrike = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
-  /**
-   * The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-   */
-  fileConcurrency?: number | undefined;
   /**
    * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
    */
@@ -8167,7 +8151,6 @@ export type CreateInputInputSecurityLake$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -8232,7 +8215,6 @@ export const CreateInputInputSecurityLake$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -10507,7 +10489,6 @@ export type CreateInputInputS3Inventory$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -10574,7 +10555,6 @@ export const CreateInputInputS3Inventory$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -10650,7 +10630,6 @@ export type CreateInputInputS3$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -10715,7 +10694,6 @@ export const CreateInputInputS3$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
@@ -11350,7 +11328,6 @@ export type CreateInputInputCrowdstrike$Outbound = {
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
   numReceivers?: number | undefined;
-  fileConcurrency?: number | undefined;
   socketTimeout?: number | undefined;
   skipOnError?: boolean | undefined;
   includeSqsMetadata?: boolean | undefined;
@@ -11413,7 +11390,6 @@ export const CreateInputInputCrowdstrike$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
   numReceivers: z.number().optional(),
-  fileConcurrency: z.number().int().optional(),
   socketTimeout: z.number().optional(),
   skipOnError: z.boolean().optional(),
   includeSqsMetadata: z.boolean().optional(),
