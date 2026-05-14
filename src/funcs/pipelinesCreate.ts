@@ -169,7 +169,7 @@ async function $do(
   >(
     M.json(200, models.CountedPipeline$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 401, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

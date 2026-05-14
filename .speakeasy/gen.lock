@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: c1097625dcfc912b0ae3054422303b44
-  docVersion: 4.19.0-alpha.1778626998914-1c859afa
-  speakeasyVersion: 1.762.0
-  generationVersion: 2.882.0
-  releaseVersion: 0.8.0-beta.13
-  configChecksum: 4db5e94bf240ae3605faca26ca4685f8
+  docChecksum: 2b0fd4418030d72f8e929692bf355672
+  docVersion: 4.19.0-alpha.1778713400891-8baa39b9
+  speakeasyVersion: 1.763.0
+  generationVersion: 2.884.0
+  releaseVersion: 0.8.0-beta.14
+  configChecksum: 1470f7267a5117ab0921b9cd5594fb46
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: e64b7be7-7a88-43bf-bb37-66fdb7f2a582
-  pristine_commit_hash: 5cde4f33783e742be9996b2d362d70c9fdfa55fd
-  pristine_tree_hash: 2191a49b93c632c7115fb9aa0bf91703c8df2d4a
+  generation_id: 662a6ec1-a8a2-4dd6-af02-bdd62fad7754
+  pristine_commit_hash: 2ec201aed72f8a9ee25b5f2b412d0f496d37acff
+  pristine_tree_hash: ddd1f2c88c227dd7e6f0fc043dcc6575c52d5500
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -13254,12 +13254,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:b60b1ef11691af106674e61a251d38fb07ee888f
-    pristine_git_object: bebc9af45981f34fce772dfb47f955f67bce7332
+    last_write_checksum: sha1:2e774a171e098caec37c3e683273e926028a9147
+    pristine_git_object: c28477738e3b9181214392f5a4cf0ac59c312a5d
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:f9569d48bc10dbe0309470b95a307fe018708852
-    pristine_git_object: 89810591b5e637328886391227527b17cac87373
+    last_write_checksum: sha1:a24274669d7b0b7d9cafaa68abfaca8fcf247a38
+    pristine_git_object: b700f7130445876f283ced39f4b2786eda05b999
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13498,8 +13498,8 @@ trackedFiles:
     pristine_git_object: 985993cb32f015d374ff96bdf018564e3d718514
   src/funcs/packsPipelinesCreate.ts:
     id: edfc14ce4933
-    last_write_checksum: sha1:8d58c68268c244a194c40fb660d5e4b9b4188d9e
-    pristine_git_object: 06e32a113ce92c0922bbc9b92b1090e3bc49bada
+    last_write_checksum: sha1:e62a99793893ca2441dd4550e983850edca828a6
+    pristine_git_object: 5a02f3f4aaf99db7fc1694c6e56b404609a38877
   src/funcs/packsPipelinesDelete.ts:
     id: 46578eef7df4
     last_write_checksum: sha1:93b33317c9db158e1f7d6a85d939e6e9d3fe3873
@@ -13514,8 +13514,8 @@ trackedFiles:
     pristine_git_object: e915b1d47e946572eccaff0977de60180b55196f
   src/funcs/packsPipelinesUpdate.ts:
     id: e50c253d3cd2
-    last_write_checksum: sha1:24a2d9c2478d2e05b18f5e4a0eeef5bf14f7ff28
-    pristine_git_object: 7a76a78676888d010048ebcf71b33d93ca99bc08
+    last_write_checksum: sha1:1f3f686ba8ac36dfb45bc8cffa48954ba7b8e58b
+    pristine_git_object: 96d9156ae5197e9c1f260959c709dd18301b571c
   src/funcs/packsRoutesAppend.ts:
     id: d9e7b161dc1d
     last_write_checksum: sha1:dd0262ac11087b079a939ac9e18058922b8f7fba
@@ -13530,8 +13530,8 @@ trackedFiles:
     pristine_git_object: aa62ccee618960871d2107de0bef2b6008ab6ac6
   src/funcs/packsRoutesUpdate.ts:
     id: 093d083c91a5
-    last_write_checksum: sha1:c86e356e4ccfa392bb8e8dd7535962d7f4c1dd00
-    pristine_git_object: e1d68acef0ad159476c59b9c70860b530534a739
+    last_write_checksum: sha1:bd12e6ee8567b92a5a01c097c9713e0b06acd6c1
+    pristine_git_object: 2fc295f1dc1f0171a2f2f8c6aa988f1ed16b139a
   src/funcs/packsSourcesCreate.ts:
     id: 31796fa8357e
     last_write_checksum: sha1:08f8c8f627b6624afa6f4d50f037158f94866d10
@@ -13586,8 +13586,8 @@ trackedFiles:
     pristine_git_object: d650a9b816ec3277c628ec59e3a54ce0f9aa5556
   src/funcs/pipelinesCreate.ts:
     id: d8aec19cee19
-    last_write_checksum: sha1:c39b6070e1282b9b28bf01a9c78981ec2496b7b1
-    pristine_git_object: 9ec512327c4d55221e0f7cb282fd0f2459e575a2
+    last_write_checksum: sha1:611c279e3d8ecab9069f03d4cec707090cae1e02
+    pristine_git_object: c9b254041ca672da85e81b214d7d17deb7e97a93
   src/funcs/pipelinesDelete.ts:
     id: f828d0895e03
     last_write_checksum: sha1:3019bcf8ca4c02156df55bc52418727ff3eb983b
@@ -13602,8 +13602,8 @@ trackedFiles:
     pristine_git_object: 29c77d2a6f042a5c5d692c647f8aeafa995fd164
   src/funcs/pipelinesUpdate.ts:
     id: 4e495bca3902
-    last_write_checksum: sha1:7989fd09f853aba597b4ebc161c17b051c7b8fbc
-    pristine_git_object: 2376dbea94bc4d09a41a037bbba166f4b94b959b
+    last_write_checksum: sha1:0e79e4bc0226ab377e8fdb9ee645e21a2fc40947
+    pristine_git_object: 40f818a96ad840c761f85a6053b3b4e97cb74d0e
   src/funcs/routesAppend.ts:
     id: 30c450e3e442
     last_write_checksum: sha1:3dce9dc68a2ff399bf3a2ad439885f98e38f58eb
@@ -13618,8 +13618,8 @@ trackedFiles:
     pristine_git_object: 7dd47b16b1334e2fad552581030160ec533998b4
   src/funcs/routesUpdate.ts:
     id: aa44fb4e71b9
-    last_write_checksum: sha1:df551db92bdedcc572c1c119ace5202f506c5a87
-    pristine_git_object: c2703665fe6be92f8829e706ea20db27ff233f51
+    last_write_checksum: sha1:8f2f055db8513d9a968ed0133d97195a32205a67
+    pristine_git_object: ef7fa78cfda2e4b6552e74586c8b23db05f0fe31
   src/funcs/sourcesCreate.ts:
     id: 8c2db9bd475a
     last_write_checksum: sha1:858e2b018a7afb97387bd146701955196eabc790
@@ -13758,8 +13758,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:925eddcb64e5e76827479f685d8dddb9594daa3c
-    pristine_git_object: 03e580be72fc3718d0c6b42fc06fc593b30c1567
+    last_write_checksum: sha1:fb26c4cf35c1cfb2395a3140e488e516a2065dc2
+    pristine_git_object: ec40c1f9c85fb3225c3edd4c3a719a09820cfae8
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -28356,6 +28356,14 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `criblcontrolplane.packs.pipelines.create()`:  `error.status[400]` **Added**
+  * `criblcontrolplane.packs.pipelines.update()`:  `error.status[400]` **Added**
+  * `criblcontrolplane.packs.routes.update()`:  `error.status[400]` **Added**
+  * `criblcontrolplane.pipelines.create()`:  `error.status[400]` **Added**
+  * `criblcontrolplane.pipelines.update()`:  `error.status[400]` **Added**
+  * `criblcontrolplane.routes.update()`:  `error.status[400]` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

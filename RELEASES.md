@@ -2529,3 +2529,13 @@ Based on:
 - [typescript v0.8.0-beta.13] .
 ### Releases
 - [NPM v0.8.0-beta.13] https://www.npmjs.com/package/cribl-control-plane/v/0.8.0-beta.13 - .
+
+## 2026-05-14 03:29:53
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.763.0 (2.884.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.8.0-beta.14] .
+### Releases
+- [NPM v0.8.0-beta.14] https://www.npmjs.com/package/cribl-control-plane/v/0.8.0-beta.14 - .
