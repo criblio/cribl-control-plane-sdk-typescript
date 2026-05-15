@@ -2051,14 +2051,6 @@ export type CreateInputSystemByPackInputAppleUnifiedLogs = {
    */
   readMode?: CreateInputSystemByPackReadModeAppleUnifiedLogs | undefined;
   /**
-   * Time, in seconds, between checking for new entries
-   */
-  interval?: number | undefined;
-  /**
-   * [TO BE REMOVED BEFORE RELEASE] Maximum number of entries to read in each native module call
-   */
-  batchSize?: number | undefined;
-  /**
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
@@ -9070,8 +9062,6 @@ export type CreateInputSystemByPackInputAppleUnifiedLogs$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   predicate: string;
   readMode?: string | undefined;
-  interval?: number | undefined;
-  batchSize?: number | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -9099,8 +9089,6 @@ export const CreateInputSystemByPackInputAppleUnifiedLogs$outboundSchema:
     predicate: z.string(),
     readMode: CreateInputSystemByPackReadModeAppleUnifiedLogs$outboundSchema
       .optional(),
-    interval: z.number().optional(),
-    batchSize: z.number().optional(),
     metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
       .optional(),
     description: z.string().optional(),

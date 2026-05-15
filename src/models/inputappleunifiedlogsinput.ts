@@ -78,14 +78,6 @@ export type InputAppleUnifiedLogsInput = {
    */
   readMode?: InputAppleUnifiedLogsReadMode | undefined;
   /**
-   * Time, in seconds, between checking for new entries
-   */
-  interval?: number | undefined;
-  /**
-   * [TO BE REMOVED BEFORE RELEASE] Maximum number of entries to read in each native module call
-   */
-  batchSize?: number | undefined;
-  /**
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
@@ -121,8 +113,6 @@ export type InputAppleUnifiedLogsInput$Outbound = {
   pq?: PqType$Outbound | undefined;
   predicate: string;
   readMode?: string | undefined;
-  interval?: number | undefined;
-  batchSize?: number | undefined;
   metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -147,8 +137,6 @@ export const InputAppleUnifiedLogsInput$outboundSchema: z.ZodType<
   pq: PqType$outboundSchema.optional(),
   predicate: z.string(),
   readMode: InputAppleUnifiedLogsReadMode$outboundSchema.optional(),
-  interval: z.number().optional(),
-  batchSize: z.number().optional(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
