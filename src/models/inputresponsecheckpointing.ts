@@ -2359,14 +2359,6 @@ export type InputResponseInputAppleUnifiedLogs = {
    */
   readMode?: ReadModeAppleUnifiedLogs | undefined;
   /**
-   * Time, in seconds, between checking for new entries
-   */
-  interval?: number | undefined;
-  /**
-   * [TO BE REMOVED BEFORE RELEASE] Maximum number of entries to read in each native module call
-   */
-  batchSize?: number | undefined;
-  /**
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
@@ -9200,8 +9192,6 @@ export const InputResponseInputAppleUnifiedLogs$inboundSchema: z.ZodType<
   pq: types.optional(PqType$inboundSchema),
   predicate: types.string(),
   readMode: types.optional(ReadModeAppleUnifiedLogs$inboundSchema),
-  interval: types.optional(types.number()),
-  batchSize: types.optional(types.number()),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
