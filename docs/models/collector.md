@@ -29,7 +29,6 @@ const value: models.CollectorAzureBlob = {
 const value: models.CollectorCriblLake = {
   type: "cribl_lake",
   conf: {
-    storageLocationId: "<id>",
     dataset: "<value>",
   },
 };

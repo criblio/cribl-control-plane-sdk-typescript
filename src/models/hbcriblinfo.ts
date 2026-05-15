@@ -16,6 +16,10 @@ import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
  */
 export type Config = {
   /**
+   * Current API credentials revision string. Only used in leader <> leader universal subscription.
+   */
+  apiCredentialsRev?: string | undefined;
+  /**
    * Feature flags or feature revision string for the bundle.
    */
   featuresRev?: string | undefined;
@@ -124,6 +128,7 @@ export type HBCriblInfo = {
 /** @internal */
 export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
   .object({
+    apiCredentialsRev: types.optional(types.string()),
     featuresRev: types.optional(types.string()),
     hbPeriodSeconds: types.optional(types.number()),
     logStreamEnv: types.optional(types.string()),
