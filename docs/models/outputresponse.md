@@ -622,6 +622,17 @@ const value: models.OutputResponseOutputClickHouse = {
 };
 ```
 
+### `models.OutputResponseOutputCustomerMetricsStorage`
+
+```typescript
+const value: models.OutputResponseOutputCustomerMetricsStorage = {
+  type: "customer_metrics_storage",
+  url: "https://favorable-singing.biz/",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `models.OutputResponseOutputLocalSearchStorage`
 
 ```typescript

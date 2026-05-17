@@ -70,6 +70,10 @@ import {
   BackpressureBehaviorOptionsBlockDrop$inboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
+  ColumnMappingConfOutputClickHouse,
+  ColumnMappingConfOutputClickHouse$inboundSchema,
+} from "./columnmappingconfoutputclickhouse.js";
+import {
   CompressionLevelOptions,
   CompressionLevelOptions$inboundSchema,
 } from "./compressionleveloptions.js";
@@ -130,6 +134,7 @@ import {
   FailedRequestLoggingModeOptions,
   FailedRequestLoggingModeOptions$inboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
+import { FormatOptions, FormatOptions$inboundSchema } from "./formatoptions.js";
 import {
   GoogleAuthenticationMethodOptions,
   GoogleAuthenticationMethodOptions$inboundSchema,
@@ -150,6 +155,10 @@ import {
   LogLabelConfOutputGoogleCloudLogging,
   LogLabelConfOutputGoogleCloudLogging$inboundSchema,
 } from "./loglabelconfoutputgooglecloudlogging.js";
+import {
+  MappingTypeOptions,
+  MappingTypeOptions$inboundSchema,
+} from "./mappingtypeoptions.js";
 import {
   MessageFormatOptions,
   MessageFormatOptions$inboundSchema,
@@ -4250,7 +4259,7 @@ export type FormatLocalSearchStorage = OpenEnum<
 /**
  * How event fields are mapped to columns.
  */
-export const MappingTypeLocalSearchStorage = {
+export const OutputResponseMappingType = {
   /**
    * Automatic
    */
@@ -4263,8 +4272,8 @@ export const MappingTypeLocalSearchStorage = {
 /**
  * How event fields are mapped to columns.
  */
-export type MappingTypeLocalSearchStorage = OpenEnum<
-  typeof MappingTypeLocalSearchStorage
+export type OutputResponseMappingType = OpenEnum<
+  typeof OutputResponseMappingType
 >;
 
 export type OutputResponseStatsDestination = {
@@ -4277,7 +4286,7 @@ export type OutputResponseStatsDestination = {
   password?: string | undefined;
 };
 
-export type ColumnMappingLocalSearchStorage = {
+export type OutputResponseColumnMapping = {
   /**
    * Name of the column that will store field value
    */
@@ -4333,7 +4342,7 @@ export type OutputResponseOutputLocalSearchStorage = {
   /**
    * How event fields are mapped to columns.
    */
-  mappingType?: MappingTypeLocalSearchStorage | undefined;
+  mappingType?: OutputResponseMappingType | undefined;
   /**
    * Collect data into batches for later processing. Disable to write to a table immediately.
    */
@@ -4430,7 +4439,7 @@ export type OutputResponseOutputLocalSearchStorage = {
    * Retrieves the table schema and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?: Array<ColumnMappingLocalSearchStorage> | undefined;
+  columnMappings?: Array<OutputResponseColumnMapping> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4510,65 +4519,14 @@ export type OutputResponseOutputLocalSearchStorage = {
   status?: StatusType | undefined;
 };
 
-/**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
- */
-export const FormatClickHouse = {
-  /**
-   * JSONCompactEachRowWithNames
-   */
-  JsonCompactEachRowWithNames: "json-compact-each-row-with-names",
-  /**
-   * JSONEachRow
-   */
-  JsonEachRow: "json-each-row",
-} as const;
-/**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
- */
-export type FormatClickHouse = OpenEnum<typeof FormatClickHouse>;
+export type PqControlsCustomerMetricsStorage = {};
 
-/**
- * How event fields are mapped to ClickHouse columns
- */
-export const MappingTypeClickHouse = {
-  /**
-   * Automatic
-   */
-  Automatic: "automatic",
-  /**
-   * Custom
-   */
-  Custom: "custom",
-} as const;
-/**
- * How event fields are mapped to ClickHouse columns
- */
-export type MappingTypeClickHouse = OpenEnum<typeof MappingTypeClickHouse>;
-
-export type ColumnMappingClickHouse = {
-  /**
-   * Name of the column in ClickHouse that will store field value
-   */
-  columnName: string;
-  /**
-   * Type of the column in the ClickHouse database
-   */
-  columnType?: string | undefined;
-  /**
-   * JavaScript expression to compute value to be inserted into ClickHouse table
-   */
-  columnValueExpression: string;
-};
-
-export type PqControlsClickHouse = {};
-
-export type OutputResponseOutputClickHouse = {
+export type OutputResponseOutputCustomerMetricsStorage = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: "click_house";
+  type: "customer_metrics_storage";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -4598,11 +4556,11 @@ export type OutputResponseOutputClickHouse = {
   /**
    * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
    */
-  format?: FormatClickHouse | undefined;
+  format?: FormatOptions | undefined;
   /**
    * How event fields are mapped to ClickHouse columns
    */
-  mappingType?: MappingTypeClickHouse | undefined;
+  mappingType?: MappingTypeOptions | undefined;
   /**
    * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
    */
@@ -4698,7 +4656,224 @@ export type OutputResponseOutputClickHouse = {
    * Retrieves the table schema from ClickHouse and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?: Array<ColumnMappingClickHouse> | undefined;
+  columnMappings?: Array<ColumnMappingConfOutputClickHouse> | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: PqControlsCustomerMetricsStorage | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+   */
+  __template_database?: string | undefined;
+  /**
+   * Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
+   */
+  __template_tableName?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Notifications attached to the Destination.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export type PqControlsClickHouse = {};
+
+export type OutputResponseOutputClickHouse = {
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: "click_house";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of the ClickHouse instance. Example: http://localhost:8123/
+   */
+  url: string;
+  authType?: AuthenticationTypeOptions | undefined;
+  database: string;
+  /**
+   * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+   */
+  tableName: string;
+  /**
+   * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+   */
+  format?: FormatOptions | undefined;
+  /**
+   * How event fields are mapped to ClickHouse columns
+   */
+  mappingType?: MappingTypeOptions | undefined;
+  /**
+   * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
+   */
+  asyncInserts?: boolean | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Log the most recent event that fails to match the table schema
+   */
+  dumpFormatErrorsToDisk?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Username for certificate authentication
+   */
+  sqlUsername?: string | undefined;
+  /**
+   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
+   */
+  waitForAsyncInserts?: boolean | undefined;
+  /**
+   * Fields to exclude from sending to ClickHouse
+   */
+  excludeMappingFields?: Array<string> | undefined;
+  /**
+   * Retrieves the table schema from ClickHouse and populates the Column Mapping table
+   */
+  describeTable?: string | undefined;
+  columnMappings?: Array<ColumnMappingConfOutputClickHouse> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -13070,6 +13245,8 @@ export const OutputResponseUDMType = {
  */
 export type OutputResponseUDMType = OpenEnum<typeof OutputResponseUDMType>;
 
+export type PqControlsGoogleChronicle = {};
+
 /** @internal */
 export const OutputResponseOutputAlibabaCloudS3$inboundSchema: z.ZodType<
   OutputResponseOutputAlibabaCloudS3,
@@ -14726,11 +14903,11 @@ export const FormatLocalSearchStorage$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(FormatLocalSearchStorage);
 
 /** @internal */
-export const MappingTypeLocalSearchStorage$inboundSchema: z.ZodType<
-  MappingTypeLocalSearchStorage,
+export const OutputResponseMappingType$inboundSchema: z.ZodType<
+  OutputResponseMappingType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(MappingTypeLocalSearchStorage);
+> = openEnums.inboundSchema(OutputResponseMappingType);
 
 /** @internal */
 export const OutputResponseStatsDestination$inboundSchema: z.ZodType<
@@ -14758,8 +14935,8 @@ export function outputResponseStatsDestinationFromJSON(
 }
 
 /** @internal */
-export const ColumnMappingLocalSearchStorage$inboundSchema: z.ZodType<
-  ColumnMappingLocalSearchStorage,
+export const OutputResponseColumnMapping$inboundSchema: z.ZodType<
+  OutputResponseColumnMapping,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -14768,13 +14945,13 @@ export const ColumnMappingLocalSearchStorage$inboundSchema: z.ZodType<
   columnValueExpression: types.string(),
 });
 
-export function columnMappingLocalSearchStorageFromJSON(
+export function outputResponseColumnMappingFromJSON(
   jsonString: string,
-): SafeParseResult<ColumnMappingLocalSearchStorage, SDKValidationError> {
+): SafeParseResult<OutputResponseColumnMapping, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ColumnMappingLocalSearchStorage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ColumnMappingLocalSearchStorage' from JSON`,
+    (x) => OutputResponseColumnMapping$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseColumnMapping' from JSON`,
   );
 }
 
@@ -14812,7 +14989,7 @@ export const OutputResponseOutputLocalSearchStorage$inboundSchema: z.ZodType<
   database: types.string(),
   tableName: types.string(),
   format: types.optional(FormatLocalSearchStorage$inboundSchema),
-  mappingType: types.optional(MappingTypeLocalSearchStorage$inboundSchema),
+  mappingType: types.optional(OutputResponseMappingType$inboundSchema),
   asyncInserts: types.optional(types.boolean()),
   tls: types.optional(
     TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
@@ -14851,7 +15028,7 @@ export const OutputResponseOutputLocalSearchStorage$inboundSchema: z.ZodType<
   excludeMappingFields: types.optional(z.array(types.string())),
   describeTable: types.optional(types.string()),
   columnMappings: types.optional(
-    z.array(z.lazy(() => ColumnMappingLocalSearchStorage$inboundSchema)),
+    z.array(z.lazy(() => OutputResponseColumnMapping$inboundSchema)),
   ),
   pqStrictOrdering: types.optional(types.boolean()),
   pqRatePerSec: types.optional(types.number()),
@@ -14889,37 +15066,114 @@ export function outputResponseOutputLocalSearchStorageFromJSON(
 }
 
 /** @internal */
-export const FormatClickHouse$inboundSchema: z.ZodType<
-  FormatClickHouse,
+export const PqControlsCustomerMetricsStorage$inboundSchema: z.ZodType<
+  PqControlsCustomerMetricsStorage,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(FormatClickHouse);
+> = z.object({});
 
-/** @internal */
-export const MappingTypeClickHouse$inboundSchema: z.ZodType<
-  MappingTypeClickHouse,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(MappingTypeClickHouse);
-
-/** @internal */
-export const ColumnMappingClickHouse$inboundSchema: z.ZodType<
-  ColumnMappingClickHouse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  columnName: types.string(),
-  columnType: types.optional(types.string()),
-  columnValueExpression: types.string(),
-});
-
-export function columnMappingClickHouseFromJSON(
+export function pqControlsCustomerMetricsStorageFromJSON(
   jsonString: string,
-): SafeParseResult<ColumnMappingClickHouse, SDKValidationError> {
+): SafeParseResult<PqControlsCustomerMetricsStorage, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ColumnMappingClickHouse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ColumnMappingClickHouse' from JSON`,
+    (x) => PqControlsCustomerMetricsStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqControlsCustomerMetricsStorage' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputResponseOutputCustomerMetricsStorage$inboundSchema:
+  z.ZodType<OutputResponseOutputCustomerMetricsStorage, z.ZodTypeDef, unknown> =
+    z.object({
+      id: types.optional(types.string()),
+      type: types.literal("customer_metrics_storage"),
+      pipeline: types.optional(types.string()),
+      systemFields: types.optional(z.array(types.string())),
+      environment: types.optional(types.string()),
+      streamtags: types.optional(z.array(types.string())),
+      url: types.string(),
+      authType: types.optional(AuthenticationTypeOptions$inboundSchema),
+      database: types.string(),
+      tableName: types.string(),
+      format: types.optional(FormatOptions$inboundSchema),
+      mappingType: types.optional(MappingTypeOptions$inboundSchema),
+      asyncInserts: types.optional(types.boolean()),
+      tls: types.optional(
+        TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
+      ),
+      concurrency: types.optional(types.number()),
+      maxPayloadSizeKB: types.optional(types.number()),
+      maxPayloadEvents: types.optional(types.number()),
+      compress: types.optional(types.boolean()),
+      rejectUnauthorized: types.optional(types.boolean()),
+      timeoutSec: types.optional(types.number()),
+      flushPeriodSec: types.optional(types.number()),
+      extraHttpHeaders: types.optional(
+        z.array(ExtraHttpHeaderConfInputElastic$inboundSchema),
+      ),
+      useRoundRobinDns: types.optional(types.boolean()),
+      failedRequestLoggingMode: types.optional(
+        FailedRequestLoggingModeOptions$inboundSchema,
+      ),
+      safeHeaders: types.optional(z.array(types.string())),
+      responseRetrySettings: types.optional(
+        z.array(ResponseRetrySettingConfOutputWebhook$inboundSchema),
+      ),
+      timeoutRetrySettings: types.optional(
+        TimeoutRetrySettingsType$inboundSchema,
+      ),
+      responseHonorRetryAfterHeader: types.optional(types.boolean()),
+      dumpFormatErrorsToDisk: types.optional(types.boolean()),
+      onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+      description: types.optional(types.string()),
+      username: types.optional(types.string()),
+      password: types.optional(types.string()),
+      credentialsSecret: types.optional(types.string()),
+      sqlUsername: types.optional(types.string()),
+      waitForAsyncInserts: types.optional(types.boolean()),
+      excludeMappingFields: types.optional(z.array(types.string())),
+      describeTable: types.optional(types.string()),
+      columnMappings: types.optional(
+        z.array(ColumnMappingConfOutputClickHouse$inboundSchema),
+      ),
+      pqStrictOrdering: types.optional(types.boolean()),
+      pqRatePerSec: types.optional(types.number()),
+      pqMode: types.optional(ModeOptions$inboundSchema),
+      pqMaxBufferSize: types.optional(types.number()),
+      pqMaxBackpressureSec: types.optional(types.number()),
+      pqMaxFileSize: types.optional(types.string()),
+      pqMaxSize: types.optional(types.string()),
+      pqPath: types.optional(types.string()),
+      pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
+      pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+      pqMaxBufferSizeBytes: types.optional(types.string()),
+      pqControls: types.optional(
+        z.lazy(() => PqControlsCustomerMetricsStorage$inboundSchema),
+      ),
+      __template_streamtags: types.optional(types.string()),
+      __template_url: types.optional(types.string()),
+      __template_database: types.optional(types.string()),
+      __template_tableName: types.optional(types.string()),
+      __template_failedRequestLoggingMode: types.optional(types.string()),
+      __template_onBackpressure: types.optional(types.string()),
+      notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+      status: types.optional(StatusType$inboundSchema),
+    });
+
+export function outputResponseOutputCustomerMetricsStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputResponseOutputCustomerMetricsStorage,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputResponseOutputCustomerMetricsStorage$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputResponseOutputCustomerMetricsStorage' from JSON`,
   );
 }
 
@@ -14956,8 +15210,8 @@ export const OutputResponseOutputClickHouse$inboundSchema: z.ZodType<
   authType: types.optional(AuthenticationTypeOptions$inboundSchema),
   database: types.string(),
   tableName: types.string(),
-  format: types.optional(FormatClickHouse$inboundSchema),
-  mappingType: types.optional(MappingTypeClickHouse$inboundSchema),
+  format: types.optional(FormatOptions$inboundSchema),
+  mappingType: types.optional(MappingTypeOptions$inboundSchema),
   asyncInserts: types.optional(types.boolean()),
   tls: types.optional(
     TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
@@ -14993,7 +15247,7 @@ export const OutputResponseOutputClickHouse$inboundSchema: z.ZodType<
   excludeMappingFields: types.optional(z.array(types.string())),
   describeTable: types.optional(types.string()),
   columnMappings: types.optional(
-    z.array(z.lazy(() => ColumnMappingClickHouse$inboundSchema)),
+    z.array(ColumnMappingConfOutputClickHouse$inboundSchema),
   ),
   pqStrictOrdering: types.optional(types.boolean()),
   pqRatePerSec: types.optional(types.number()),
@@ -18823,3 +19077,20 @@ export const OutputResponseUDMType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(OutputResponseUDMType);
+
+/** @internal */
+export const PqControlsGoogleChronicle$inboundSchema: z.ZodType<
+  PqControlsGoogleChronicle,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+export function pqControlsGoogleChronicleFromJSON(
+  jsonString: string,
+): SafeParseResult<PqControlsGoogleChronicle, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PqControlsGoogleChronicle$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqControlsGoogleChronicle' from JSON`,
+  );
+}

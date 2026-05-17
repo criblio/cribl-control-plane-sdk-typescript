@@ -8,7 +8,10 @@ import { UpdateOutputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateOutputByIdRequest = {
   id: "<id>",
   output: {
-    type: "newrelic",
+    type: "nutanix_objects",
+    bucket: "<value>",
+    stagePath: "<value>",
+    endpoint: "<value>",
   },
 };
 ```

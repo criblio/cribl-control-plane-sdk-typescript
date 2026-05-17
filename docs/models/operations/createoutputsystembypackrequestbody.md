@@ -674,6 +674,18 @@ const value: operations.CreateOutputSystemByPackOutputClickHouse = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputCustomerMetricsStorage`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputCustomerMetricsStorage = {
+  id: "<id>",
+  type: "customer_metrics_storage",
+  url: "https://fussy-vestment.info/",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `operations.CreateOutputSystemByPackOutputLocalSearchStorage`
 
 ```typescript

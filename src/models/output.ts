@@ -89,6 +89,11 @@ import {
   OutputCrowdstrikeNextGenSiem$outboundSchema,
 } from "./outputcrowdstrikenextgensiem.js";
 import {
+  OutputCustomerMetricsStorage,
+  OutputCustomerMetricsStorage$Outbound,
+  OutputCustomerMetricsStorage$outboundSchema,
+} from "./outputcustomermetricsstorage.js";
+import {
   OutputDatabricks,
   OutputDatabricks$Outbound,
   OutputDatabricks$outboundSchema,
@@ -456,6 +461,7 @@ export type Output =
   | OutputCriblLake
   | OutputDiskSpool
   | OutputClickHouse
+  | OutputCustomerMetricsStorage
   | OutputLocalSearchStorage
   | OutputXsiam
   | OutputNetflow
@@ -537,6 +543,7 @@ export type Output$Outbound =
   | OutputCriblLake$Outbound
   | OutputDiskSpool$Outbound
   | OutputClickHouse$Outbound
+  | OutputCustomerMetricsStorage$Outbound
   | OutputLocalSearchStorage$Outbound
   | OutputXsiam$Outbound
   | OutputNetflow$Outbound
@@ -624,6 +631,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputCriblLake$outboundSchema,
   OutputDiskSpool$outboundSchema,
   OutputClickHouse$outboundSchema,
+  OutputCustomerMetricsStorage$outboundSchema,
   OutputLocalSearchStorage$outboundSchema,
   OutputXsiam$outboundSchema,
   OutputNetflow$outboundSchema,

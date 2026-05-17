@@ -618,6 +618,17 @@ const value: models.OutputClickHouse = {
 };
 ```
 
+### `models.OutputCustomerMetricsStorage`
+
+```typescript
+const value: models.OutputCustomerMetricsStorage = {
+  type: "customer_metrics_storage",
+  url: "https://broken-goodwill.com",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `models.OutputLocalSearchStorage`
 
 ```typescript

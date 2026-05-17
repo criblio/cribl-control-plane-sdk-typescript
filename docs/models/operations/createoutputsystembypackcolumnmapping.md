@@ -1,11 +1,11 @@
-# ColumnMappingLocalSearchStorage
+# CreateOutputSystemByPackColumnMapping
 
 ## Example Usage
 
 ```typescript
-import { ColumnMappingLocalSearchStorage } from "cribl-control-plane/models";
+import { CreateOutputSystemByPackColumnMapping } from "cribl-control-plane/models/operations";
 
-let value: ColumnMappingLocalSearchStorage = {
+let value: CreateOutputSystemByPackColumnMapping = {
   columnName: "<value>",
   columnValueExpression: "<value>",
 };
