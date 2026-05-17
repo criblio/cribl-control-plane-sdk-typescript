@@ -55,6 +55,9 @@ import {
   CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem,
   CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem$Outbound,
   CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem$outboundSchema,
+  CreateOutputSystemByPackOutputCustomerMetricsStorage,
+  CreateOutputSystemByPackOutputCustomerMetricsStorage$Outbound,
+  CreateOutputSystemByPackOutputCustomerMetricsStorage$outboundSchema,
   CreateOutputSystemByPackOutputDatabricks,
   CreateOutputSystemByPackOutputDatabricks$Outbound,
   CreateOutputSystemByPackOutputDatabricks$outboundSchema,
@@ -187,13 +190,14 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
+  CreateOutputSystemByPackPqControlsGoogleChronicle,
+  CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
+  CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema,
   CreateOutputSystemByPackSendEventsAs,
   CreateOutputSystemByPackSendEventsAs$outboundSchema,
   CreateOutputSystemByPackUDMType,
   CreateOutputSystemByPackUDMType$outboundSchema,
-} from "./createoutputsystembypackudmtype.js";
-
-export type CreateOutputSystemByPackPqControlsGoogleChronicle = {};
+} from "./createoutputsystembypackpqcontrolsgooglechronicle.js";
 
 export type CreateOutputSystemByPackOutputGoogleChronicle = {
   /**
@@ -5329,6 +5333,7 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputCriblLake
   | CreateOutputSystemByPackOutputDiskSpool
   | CreateOutputSystemByPackOutputClickHouse
+  | CreateOutputSystemByPackOutputCustomerMetricsStorage
   | CreateOutputSystemByPackOutputLocalSearchStorage
   | CreateOutputSystemByPackOutputXsiam
   | CreateOutputSystemByPackOutputNetflow
@@ -5422,6 +5427,7 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputCriblLake
     | CreateOutputSystemByPackOutputDiskSpool
     | CreateOutputSystemByPackOutputClickHouse
+    | CreateOutputSystemByPackOutputCustomerMetricsStorage
     | CreateOutputSystemByPackOutputLocalSearchStorage
     | CreateOutputSystemByPackOutputXsiam
     | CreateOutputSystemByPackOutputNetflow
@@ -5440,28 +5446,6 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputScalityS3
     | CreateOutputSystemByPackOutputAlibabaCloudS3;
 };
-
-/** @internal */
-export type CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound = {};
-
-/** @internal */
-export const CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema:
-  z.ZodType<
-    CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
-    z.ZodTypeDef,
-    CreateOutputSystemByPackPqControlsGoogleChronicle
-  > = z.object({});
-
-export function createOutputSystemByPackPqControlsGoogleChronicleToJSON(
-  createOutputSystemByPackPqControlsGoogleChronicle:
-    CreateOutputSystemByPackPqControlsGoogleChronicle,
-): string {
-  return JSON.stringify(
-    CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema.parse(
-      createOutputSystemByPackPqControlsGoogleChronicle,
-    ),
-  );
-}
 
 /** @internal */
 export type CreateOutputSystemByPackOutputGoogleChronicle$Outbound = {
@@ -5601,9 +5585,8 @@ export const CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema:
     pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
     pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
     pqMaxBufferSizeBytes: z.string().optional(),
-    pqControls: z.lazy(() =>
-      CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
-    ).optional(),
+    pqControls: CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
+      .optional(),
     __template_streamtags: z.string().optional(),
     __template_apiVersion: z.string().optional(),
     __template_region: z.string().optional(),
@@ -9375,6 +9358,7 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputCriblLake$Outbound
   | CreateOutputSystemByPackOutputDiskSpool$Outbound
   | CreateOutputSystemByPackOutputClickHouse$Outbound
+  | CreateOutputSystemByPackOutputCustomerMetricsStorage$Outbound
   | CreateOutputSystemByPackOutputLocalSearchStorage$Outbound
   | CreateOutputSystemByPackOutputXsiam$Outbound
   | CreateOutputSystemByPackOutputNetflow$Outbound
@@ -9465,6 +9449,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputCriblLake$outboundSchema,
   CreateOutputSystemByPackOutputDiskSpool$outboundSchema,
   CreateOutputSystemByPackOutputClickHouse$outboundSchema,
+  CreateOutputSystemByPackOutputCustomerMetricsStorage$outboundSchema,
   CreateOutputSystemByPackOutputLocalSearchStorage$outboundSchema,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
   CreateOutputSystemByPackOutputNetflow$outboundSchema,
@@ -9566,6 +9551,7 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputCriblLake$Outbound
     | CreateOutputSystemByPackOutputDiskSpool$Outbound
     | CreateOutputSystemByPackOutputClickHouse$Outbound
+    | CreateOutputSystemByPackOutputCustomerMetricsStorage$Outbound
     | CreateOutputSystemByPackOutputLocalSearchStorage$Outbound
     | CreateOutputSystemByPackOutputXsiam$Outbound
     | CreateOutputSystemByPackOutputNetflow$Outbound
@@ -9665,6 +9651,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputCriblLake$outboundSchema,
     CreateOutputSystemByPackOutputDiskSpool$outboundSchema,
     CreateOutputSystemByPackOutputClickHouse$outboundSchema,
+    CreateOutputSystemByPackOutputCustomerMetricsStorage$outboundSchema,
     CreateOutputSystemByPackOutputLocalSearchStorage$outboundSchema,
     CreateOutputSystemByPackOutputXsiam$outboundSchema,
     CreateOutputSystemByPackOutputNetflow$outboundSchema,

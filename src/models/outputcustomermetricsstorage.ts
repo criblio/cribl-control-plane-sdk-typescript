@@ -58,14 +58,14 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
 
-export type OutputClickHousePqControls = {};
+export type OutputCustomerMetricsStoragePqControls = {};
 
-export type OutputClickHouse = {
+export type OutputCustomerMetricsStorage = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: "click_house";
+  type: "customer_metrics_storage";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -240,7 +240,7 @@ export type OutputClickHouse = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: OutputClickHousePqControls | undefined;
+  pqControls?: OutputCustomerMetricsStoragePqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -268,27 +268,30 @@ export type OutputClickHouse = {
 };
 
 /** @internal */
-export type OutputClickHousePqControls$Outbound = {};
+export type OutputCustomerMetricsStoragePqControls$Outbound = {};
 
 /** @internal */
-export const OutputClickHousePqControls$outboundSchema: z.ZodType<
-  OutputClickHousePqControls$Outbound,
+export const OutputCustomerMetricsStoragePqControls$outboundSchema: z.ZodType<
+  OutputCustomerMetricsStoragePqControls$Outbound,
   z.ZodTypeDef,
-  OutputClickHousePqControls
+  OutputCustomerMetricsStoragePqControls
 > = z.object({});
 
-export function outputClickHousePqControlsToJSON(
-  outputClickHousePqControls: OutputClickHousePqControls,
+export function outputCustomerMetricsStoragePqControlsToJSON(
+  outputCustomerMetricsStoragePqControls:
+    OutputCustomerMetricsStoragePqControls,
 ): string {
   return JSON.stringify(
-    OutputClickHousePqControls$outboundSchema.parse(outputClickHousePqControls),
+    OutputCustomerMetricsStoragePqControls$outboundSchema.parse(
+      outputCustomerMetricsStoragePqControls,
+    ),
   );
 }
 
 /** @internal */
-export type OutputClickHouse$Outbound = {
+export type OutputCustomerMetricsStorage$Outbound = {
   id?: string | undefined;
-  type: "click_house";
+  type: "customer_metrics_storage";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -343,7 +346,7 @@ export type OutputClickHouse$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: OutputClickHousePqControls$Outbound | undefined;
+  pqControls?: OutputCustomerMetricsStoragePqControls$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
@@ -353,13 +356,13 @@ export type OutputClickHouse$Outbound = {
 };
 
 /** @internal */
-export const OutputClickHouse$outboundSchema: z.ZodType<
-  OutputClickHouse$Outbound,
+export const OutputCustomerMetricsStorage$outboundSchema: z.ZodType<
+  OutputCustomerMetricsStorage$Outbound,
   z.ZodTypeDef,
-  OutputClickHouse
+  OutputCustomerMetricsStorage
 > = z.object({
   id: z.string().optional(),
-  type: z.literal("click_house"),
+  type: z.literal("customer_metrics_storage"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -414,8 +417,9 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => OutputClickHousePqControls$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    OutputCustomerMetricsStoragePqControls$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
@@ -424,10 +428,12 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function outputClickHouseToJSON(
-  outputClickHouse: OutputClickHouse,
+export function outputCustomerMetricsStorageToJSON(
+  outputCustomerMetricsStorage: OutputCustomerMetricsStorage,
 ): string {
   return JSON.stringify(
-    OutputClickHouse$outboundSchema.parse(outputClickHouse),
+    OutputCustomerMetricsStorage$outboundSchema.parse(
+      outputCustomerMetricsStorage,
+    ),
   );
 }

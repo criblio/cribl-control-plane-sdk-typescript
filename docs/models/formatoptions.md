@@ -1,13 +1,13 @@
-# FormatClickHouse
+# FormatOptions
 
 Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
 
 ## Example Usage
 
 ```typescript
-import { FormatClickHouse } from "cribl-control-plane/models";
+import { FormatOptions } from "cribl-control-plane/models";
 
-let value: FormatClickHouse = "json-compact-each-row-with-names";
+let value: FormatOptions = "json-compact-each-row-with-names";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

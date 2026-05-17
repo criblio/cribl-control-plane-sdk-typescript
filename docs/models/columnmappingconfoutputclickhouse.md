@@ -1,11 +1,11 @@
-# CreateOutputSystemByPackColumnMappingClickHouse
+# ColumnMappingConfOutputClickHouse
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputSystemByPackColumnMappingClickHouse } from "cribl-control-plane/models/operations";
+import { ColumnMappingConfOutputClickHouse } from "cribl-control-plane/models";
 
-let value: CreateOutputSystemByPackColumnMappingClickHouse = {
+let value: ColumnMappingConfOutputClickHouse = {
   columnName: "<value>",
   columnValueExpression: "<value>",
 };

@@ -127,6 +127,10 @@ import {
   OrphanFileRecoveryType$inboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+} from "./parquetversionoptions.js";
+import {
   AuthenticationMethodGoogleChronicle,
   AuthenticationMethodGoogleChronicle$inboundSchema,
   OutputResponseAPIVersion,
@@ -159,6 +163,8 @@ import {
   OutputResponseOutputCriblTcp$inboundSchema,
   OutputResponseOutputCrowdstrikeNextGenSiem,
   OutputResponseOutputCrowdstrikeNextGenSiem$inboundSchema,
+  OutputResponseOutputCustomerMetricsStorage,
+  OutputResponseOutputCustomerMetricsStorage$inboundSchema,
   OutputResponseOutputDatabricks,
   OutputResponseOutputDatabricks$inboundSchema,
   OutputResponseOutputDatadog,
@@ -251,11 +257,9 @@ import {
   OutputResponseSendEventsAs$inboundSchema,
   OutputResponseUDMType,
   OutputResponseUDMType$inboundSchema,
-} from "./outputresponseudmtype.js";
-import {
-  ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
-} from "./parquetversionoptions.js";
+  PqControlsGoogleChronicle,
+  PqControlsGoogleChronicle$inboundSchema,
+} from "./pqcontrolsgooglechronicle.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$inboundSchema,
@@ -297,8 +301,6 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
   TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
-
-export type PqControlsGoogleChronicle = {};
 
 export type OutputResponseOutputGoogleChronicle = {
   /**
@@ -5578,6 +5580,7 @@ export type OutputResponse =
   | OutputResponseOutputCriblLake
   | OutputResponseOutputDiskSpool
   | OutputResponseOutputClickHouse
+  | OutputResponseOutputCustomerMetricsStorage
   | OutputResponseOutputLocalSearchStorage
   | OutputResponseOutputXsiam
   | OutputResponseOutputNetflow
@@ -5596,23 +5599,6 @@ export type OutputResponse =
   | OutputResponseOutputScalityS3
   | OutputResponseOutputAlibabaCloudS3
   | discriminatedUnionTypes.Unknown<"type">;
-
-/** @internal */
-export const PqControlsGoogleChronicle$inboundSchema: z.ZodType<
-  PqControlsGoogleChronicle,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function pqControlsGoogleChronicleFromJSON(
-  jsonString: string,
-): SafeParseResult<PqControlsGoogleChronicle, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PqControlsGoogleChronicle$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PqControlsGoogleChronicle' from JSON`,
-  );
-}
 
 /** @internal */
 export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
@@ -5681,9 +5667,7 @@ export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => PqControlsGoogleChronicle$inboundSchema),
-  ),
+  pqControls: types.optional(PqControlsGoogleChronicle$inboundSchema),
   __template_streamtags: types.optional(types.string()),
   __template_apiVersion: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -8061,6 +8045,8 @@ export const OutputResponse$inboundSchema: z.ZodType<
   cribl_lake: OutputResponseOutputCriblLake$inboundSchema,
   disk_spool: OutputResponseOutputDiskSpool$inboundSchema,
   click_house: OutputResponseOutputClickHouse$inboundSchema,
+  customer_metrics_storage:
+    OutputResponseOutputCustomerMetricsStorage$inboundSchema,
   local_search_storage: OutputResponseOutputLocalSearchStorage$inboundSchema,
   xsiam: OutputResponseOutputXsiam$inboundSchema,
   netflow: OutputResponseOutputNetflow$inboundSchema,

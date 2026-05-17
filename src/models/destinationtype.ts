@@ -72,6 +72,7 @@ export const DestinationType = {
   Exabeam: "exabeam",
   DiskSpool: "disk_spool",
   ClickHouse: "click_house",
+  CustomerMetricsStorage: "customer_metrics_storage",
   LocalSearchStorage: "local_search_storage",
   Xsiam: "xsiam",
   Netflow: "netflow",

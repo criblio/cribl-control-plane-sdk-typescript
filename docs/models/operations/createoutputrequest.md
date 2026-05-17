@@ -673,6 +673,18 @@ const value: operations.CreateOutputOutputClickHouse = {
 };
 ```
 
+### `operations.CreateOutputOutputCustomerMetricsStorage`
+
+```typescript
+const value: operations.CreateOutputOutputCustomerMetricsStorage = {
+  id: "<id>",
+  type: "customer_metrics_storage",
+  url: "https://enlightened-march.com",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `operations.CreateOutputOutputLocalSearchStorage`
 
 ```typescript

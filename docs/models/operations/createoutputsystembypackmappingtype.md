@@ -1,13 +1,13 @@
-# MappingTypeLocalSearchStorage
+# CreateOutputSystemByPackMappingType
 
 How event fields are mapped to columns.
 
 ## Example Usage
 
 ```typescript
-import { MappingTypeLocalSearchStorage } from "cribl-control-plane/models";
+import { CreateOutputSystemByPackMappingType } from "cribl-control-plane/models/operations";
 
-let value: MappingTypeLocalSearchStorage = "custom";
+let value: CreateOutputSystemByPackMappingType = "automatic";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

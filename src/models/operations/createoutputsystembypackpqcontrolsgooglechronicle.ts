@@ -8,7 +8,7 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 
-export type CreateOutputOutputAlibabaCloudS3 = {
+export type CreateOutputSystemByPackOutputAlibabaCloudS3 = {
   /**
    * Unique ID for this output
    */
@@ -267,7 +267,7 @@ export type CreateOutputOutputAlibabaCloudS3 = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputOutputScalityS3 = {
+export type CreateOutputSystemByPackOutputScalityS3 = {
   /**
    * Unique ID for this output
    */
@@ -526,7 +526,7 @@ export type CreateOutputOutputScalityS3 = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputOutputCloudianS3 = {
+export type CreateOutputSystemByPackOutputCloudianS3 = {
   /**
    * Unique ID for this output
    */
@@ -819,7 +819,7 @@ export type CreateOutputOutputCloudianS3 = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputOutputDellS3 = {
+export type CreateOutputSystemByPackOutputDellS3 = {
   /**
    * Unique ID for this output
    */
@@ -1086,7 +1086,7 @@ export type CreateOutputOutputDellS3 = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputOutputAlphasocS3 = {
+export type CreateOutputSystemByPackOutputAlphasocS3 = {
   /**
    * Unique ID for this output
    */
@@ -1333,7 +1333,7 @@ export type CreateOutputOutputAlphasocS3 = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputOutputStorjS3 = {
+export type CreateOutputSystemByPackOutputStorjS3 = {
   /**
    * Unique ID for this output
    */
@@ -1584,7 +1584,7 @@ export type CreateOutputOutputStorjS3 = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputOutputNutanixObjects = {
+export type CreateOutputSystemByPackOutputNutanixObjects = {
   /**
    * Unique ID for this output
    */
@@ -1846,7 +1846,7 @@ export type CreateOutputOutputNutanixObjects = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export const CreateOutputAuthenticationMethodCloudflareR2 = {
+export const CreateOutputSystemByPackAuthenticationMethodCloudflareR2 = {
   /**
    * Auto
    */
@@ -1859,11 +1859,11 @@ export const CreateOutputAuthenticationMethodCloudflareR2 = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type CreateOutputAuthenticationMethodCloudflareR2 = OpenEnum<
-  typeof CreateOutputAuthenticationMethodCloudflareR2
+export type CreateOutputSystemByPackAuthenticationMethodCloudflareR2 = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationMethodCloudflareR2
 >;
 
-export type CreateOutputOutputCloudflareR2 = {
+export type CreateOutputSystemByPackOutputCloudflareR2 = {
   /**
    * Unique ID for this output
    */
@@ -1889,7 +1889,7 @@ export type CreateOutputOutputCloudflareR2 = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?:
-    | CreateOutputAuthenticationMethodCloudflareR2
+    | CreateOutputSystemByPackAuthenticationMethodCloudflareR2
     | undefined;
   /**
    * Reuse connections between requests, which can improve performance
@@ -2141,7 +2141,7 @@ export type CreateOutputOutputCloudflareR2 = {
 /**
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
  */
-export type CreateOutputAuthentication = {
+export type CreateOutputSystemByPackAuthentication = {
   disabled: boolean;
   mechanism?: models.SaslMechanismOptionsSaslOauthbearerPlain | undefined;
   /**
@@ -2204,9 +2204,9 @@ export type CreateOutputAuthentication = {
   __template_scope?: string | undefined;
 };
 
-export type CreateOutputPqControlsMicrosoftFabric = {};
+export type CreateOutputSystemByPackPqControlsMicrosoftFabric = {};
 
-export type CreateOutputOutputMicrosoftFabric = {
+export type CreateOutputSystemByPackOutputMicrosoftFabric = {
   /**
    * Unique ID for this output
    */
@@ -2287,7 +2287,7 @@ export type CreateOutputOutputMicrosoftFabric = {
   /**
    * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
    */
-  sasl?: CreateOutputAuthentication | undefined;
+  sasl?: CreateOutputSystemByPackAuthentication | undefined;
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
@@ -2342,7 +2342,7 @@ export type CreateOutputOutputMicrosoftFabric = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsMicrosoftFabric | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsMicrosoftFabric | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -2365,7 +2365,7 @@ export type CreateOutputOutputMicrosoftFabric = {
   __template_bootstrap_server?: string | undefined;
 };
 
-export type CreateOutputOutputDatabricks = {
+export type CreateOutputSystemByPackOutputDatabricks = {
   /**
    * Unique ID for this output
    */
@@ -2602,15 +2602,15 @@ export type CreateOutputOutputDatabricks = {
   __template_parquetSchema?: string | undefined;
 };
 
-export const CreateOutputAuthenticationMethodChronicle = {
+export const CreateOutputSystemByPackAuthenticationMethodChronicle = {
   ServiceAccount: "serviceAccount",
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
-export type CreateOutputAuthenticationMethodChronicle = OpenEnum<
-  typeof CreateOutputAuthenticationMethodChronicle
+export type CreateOutputSystemByPackAuthenticationMethodChronicle = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationMethodChronicle
 >;
 
-export type CreateOutputCustomLabel = {
+export type CreateOutputSystemByPackCustomLabel = {
   key: string;
   value: string;
   /**
@@ -2619,9 +2619,9 @@ export type CreateOutputCustomLabel = {
   rbacEnabled?: boolean | undefined;
 };
 
-export type CreateOutputPqControlsChronicle = {};
+export type CreateOutputSystemByPackPqControlsChronicle = {};
 
-export type CreateOutputOutputChronicle = {
+export type CreateOutputSystemByPackOutputChronicle = {
   /**
    * Unique ID for this output
    */
@@ -2644,7 +2644,9 @@ export type CreateOutputOutputChronicle = {
    */
   streamtags?: Array<string> | undefined;
   apiVersion?: string | undefined;
-  authenticationMethod?: CreateOutputAuthenticationMethodChronicle | undefined;
+  authenticationMethod?:
+    | CreateOutputSystemByPackAuthenticationMethodChronicle
+    | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -2740,7 +2742,7 @@ export type CreateOutputOutputChronicle = {
   /**
    * Custom labels to be added to every event
    */
-  customLabels?: Array<CreateOutputCustomLabel> | undefined;
+  customLabels?: Array<CreateOutputSystemByPackCustomLabel> | undefined;
   /**
    * Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
    */
@@ -2798,7 +2800,7 @@ export type CreateOutputOutputChronicle = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsChronicle | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsChronicle | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -2844,7 +2846,7 @@ export type CreateOutputOutputChronicle = {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export const CreateOutputRegion = {
+export const CreateOutputSystemByPackRegion = {
   Us: "US",
   Ca: "CA",
   Emea: "EMEA",
@@ -2856,25 +2858,27 @@ export const CreateOutputRegion = {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export type CreateOutputRegion = OpenEnum<typeof CreateOutputRegion>;
+export type CreateOutputSystemByPackRegion = OpenEnum<
+  typeof CreateOutputSystemByPackRegion
+>;
 
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export const CreateOutputAISIEMEndpointPath = {
+export const CreateOutputSystemByPackAISIEMEndpointPath = {
   RootServicesCollectorEvent: "/services/collector/event",
   RootServicesCollectorRaw: "/services/collector/raw",
 } as const;
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export type CreateOutputAISIEMEndpointPath = OpenEnum<
-  typeof CreateOutputAISIEMEndpointPath
+export type CreateOutputSystemByPackAISIEMEndpointPath = OpenEnum<
+  typeof CreateOutputSystemByPackAISIEMEndpointPath
 >;
 
-export type CreateOutputPqControlsSentinelOneAiSiem = {};
+export type CreateOutputSystemByPackPqControlsSentinelOneAiSiem = {};
 
-export type CreateOutputOutputSentinelOneAiSiem = {
+export type CreateOutputSystemByPackOutputSentinelOneAiSiem = {
   /**
    * Unique ID for this output
    */
@@ -2899,11 +2903,11 @@ export type CreateOutputOutputSentinelOneAiSiem = {
   /**
    * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
    */
-  region: CreateOutputRegion;
+  region: CreateOutputSystemByPackRegion;
   /**
    * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
    */
-  endpoint: CreateOutputAISIEMEndpointPath;
+  endpoint: CreateOutputSystemByPackAISIEMEndpointPath;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -3080,7 +3084,7 @@ export type CreateOutputOutputSentinelOneAiSiem = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSentinelOneAiSiem | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsSentinelOneAiSiem | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -3098,7 +3102,7 @@ export type CreateOutputOutputSentinelOneAiSiem = {
 /**
  * Select a transport option for Dynatrace
  */
-export const CreateOutputProtocolDynatraceOtlp = {
+export const CreateOutputSystemByPackProtocolDynatraceOtlp = {
   /**
    * HTTP
    */
@@ -3107,14 +3111,14 @@ export const CreateOutputProtocolDynatraceOtlp = {
 /**
  * Select a transport option for Dynatrace
  */
-export type CreateOutputProtocolDynatraceOtlp = OpenEnum<
-  typeof CreateOutputProtocolDynatraceOtlp
+export type CreateOutputSystemByPackProtocolDynatraceOtlp = OpenEnum<
+  typeof CreateOutputSystemByPackProtocolDynatraceOtlp
 >;
 
 /**
  * Select the type of Dynatrace endpoint configured
  */
-export const CreateOutputEndpointType = {
+export const CreateOutputSystemByPackEndpointType = {
   /**
    * SaaS
    */
@@ -3127,13 +3131,13 @@ export const CreateOutputEndpointType = {
 /**
  * Select the type of Dynatrace endpoint configured
  */
-export type CreateOutputEndpointType = OpenEnum<
-  typeof CreateOutputEndpointType
+export type CreateOutputSystemByPackEndpointType = OpenEnum<
+  typeof CreateOutputSystemByPackEndpointType
 >;
 
-export type CreateOutputPqControlsDynatraceOtlp = {};
+export type CreateOutputSystemByPackPqControlsDynatraceOtlp = {};
 
-export type CreateOutputOutputDynatraceOtlp = {
+export type CreateOutputSystemByPackOutputDynatraceOtlp = {
   /**
    * Unique ID for this output
    */
@@ -3158,7 +3162,7 @@ export type CreateOutputOutputDynatraceOtlp = {
   /**
    * Select a transport option for Dynatrace
    */
-  protocol: CreateOutputProtocolDynatraceOtlp;
+  protocol: CreateOutputSystemByPackProtocolDynatraceOtlp;
   /**
    * The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
    */
@@ -3234,7 +3238,7 @@ export type CreateOutputOutputDynatraceOtlp = {
   /**
    * Select the type of Dynatrace endpoint configured
    */
-  endpointType: CreateOutputEndpointType;
+  endpointType: CreateOutputSystemByPackEndpointType;
   /**
    * Select or create a stored text secret
    */
@@ -3320,7 +3324,7 @@ export type CreateOutputOutputDynatraceOtlp = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDynatraceOtlp | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsDynatraceOtlp | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -3335,7 +3339,7 @@ export type CreateOutputOutputDynatraceOtlp = {
   __template_onBackpressure?: string | undefined;
 };
 
-export const CreateOutputAuthenticationTypeDynatraceHTTP = {
+export const CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP = {
   /**
    * Auth token
    */
@@ -3345,14 +3349,14 @@ export const CreateOutputAuthenticationTypeDynatraceHTTP = {
    */
   TextSecret: "textSecret",
 } as const;
-export type CreateOutputAuthenticationTypeDynatraceHTTP = OpenEnum<
-  typeof CreateOutputAuthenticationTypeDynatraceHTTP
+export type CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP
 >;
 
 /**
  * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
  */
-export const CreateOutputFormatDynatraceHTTP = {
+export const CreateOutputSystemByPackFormatDynatraceHTTP = {
   /**
    * JSON
    */
@@ -3365,11 +3369,11 @@ export const CreateOutputFormatDynatraceHTTP = {
 /**
  * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
  */
-export type CreateOutputFormatDynatraceHTTP = OpenEnum<
-  typeof CreateOutputFormatDynatraceHTTP
+export type CreateOutputSystemByPackFormatDynatraceHTTP = OpenEnum<
+  typeof CreateOutputSystemByPackFormatDynatraceHTTP
 >;
 
-export const CreateOutputEndpoint = {
+export const CreateOutputSystemByPackEndpoint = {
   /**
    * Cloud
    */
@@ -3383,9 +3387,11 @@ export const CreateOutputEndpoint = {
    */
   Manual: "manual",
 } as const;
-export type CreateOutputEndpoint = OpenEnum<typeof CreateOutputEndpoint>;
+export type CreateOutputSystemByPackEndpoint = OpenEnum<
+  typeof CreateOutputSystemByPackEndpoint
+>;
 
-export const CreateOutputTelemetryType = {
+export const CreateOutputSystemByPackTelemetryType = {
   /**
    * Logs
    */
@@ -3395,13 +3401,13 @@ export const CreateOutputTelemetryType = {
    */
   Metrics: "metrics",
 } as const;
-export type CreateOutputTelemetryType = OpenEnum<
-  typeof CreateOutputTelemetryType
+export type CreateOutputSystemByPackTelemetryType = OpenEnum<
+  typeof CreateOutputSystemByPackTelemetryType
 >;
 
-export type CreateOutputPqControlsDynatraceHTTP = {};
+export type CreateOutputSystemByPackPqControlsDynatraceHTTP = {};
 
-export type CreateOutputOutputDynatraceHttp = {
+export type CreateOutputSystemByPackOutputDynatraceHttp = {
   /**
    * Unique ID for this output
    */
@@ -3494,13 +3500,15 @@ export type CreateOutputOutputDynatraceHttp = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  authType?: CreateOutputAuthenticationTypeDynatraceHTTP | undefined;
+  authType?:
+    | CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP
+    | undefined;
   /**
    * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
    */
-  format: CreateOutputFormatDynatraceHTTP;
-  endpoint: CreateOutputEndpoint;
-  telemetryType: CreateOutputTelemetryType;
+  format: CreateOutputSystemByPackFormatDynatraceHTTP;
+  endpoint: CreateOutputSystemByPackEndpoint;
+  telemetryType: CreateOutputSystemByPackTelemetryType;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -3550,7 +3558,7 @@ export type CreateOutputOutputDynatraceHttp = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDynatraceHTTP | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsDynatraceHTTP | undefined;
   /**
    * Bearer token to include in the authorization header
    */
@@ -3589,7 +3597,7 @@ export type CreateOutputOutputDynatraceHttp = {
   __template_url?: string | undefined;
 };
 
-export type CreateOutputHostNetflow = {
+export type CreateOutputSystemByPackHostNetflow = {
   /**
    * Destination host
    */
@@ -3608,7 +3616,7 @@ export type CreateOutputHostNetflow = {
   __template_port?: string | undefined;
 };
 
-export type CreateOutputOutputNetflow = {
+export type CreateOutputSystemByPackOutputNetflow = {
   /**
    * Unique ID for this output
    */
@@ -3633,7 +3641,7 @@ export type CreateOutputOutputNetflow = {
   /**
    * One or more NetFlow Destinations to forward events to
    */
-  hosts: Array<CreateOutputHostNetflow>;
+  hosts: Array<CreateOutputSystemByPackHostNetflow>;
   /**
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
    */
@@ -3656,27 +3664,27 @@ export type CreateOutputOutputNetflow = {
 /**
  * Enter a token directly, or provide a secret referencing a token
  */
-export const CreateOutputAuthenticationMethodXsiam = {
+export const CreateOutputSystemByPackAuthenticationMethodXsiam = {
   Token: "token",
   Secret: "secret",
 } as const;
 /**
  * Enter a token directly, or provide a secret referencing a token
  */
-export type CreateOutputAuthenticationMethodXsiam = OpenEnum<
-  typeof CreateOutputAuthenticationMethodXsiam
+export type CreateOutputSystemByPackAuthenticationMethodXsiam = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationMethodXsiam
 >;
 
-export type CreateOutputUrlXsiam = {
+export type CreateOutputSystemByPackUrlXsiam = {
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
 };
 
-export type CreateOutputPqControlsXsiam = {};
+export type CreateOutputSystemByPackPqControlsXsiam = {};
 
-export type CreateOutputOutputXsiam = {
+export type CreateOutputSystemByPackOutputXsiam = {
   /**
    * Unique ID for this output
    */
@@ -3749,7 +3757,7 @@ export type CreateOutputOutputXsiam = {
   /**
    * Enter a token directly, or provide a secret referencing a token
    */
-  authType?: CreateOutputAuthenticationMethodXsiam | undefined;
+  authType?: CreateOutputSystemByPackAuthenticationMethodXsiam | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -3786,7 +3794,7 @@ export type CreateOutputOutputXsiam = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<CreateOutputUrlXsiam> | undefined;
+  urls?: Array<CreateOutputSystemByPackUrlXsiam> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -3847,7 +3855,7 @@ export type CreateOutputOutputXsiam = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsXsiam | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsXsiam | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -3869,7 +3877,7 @@ export type CreateOutputOutputXsiam = {
 /**
  * Data format to use when sending data. Defaults to JSON Compact.
  */
-export const CreateOutputFormatLocalSearchStorage = {
+export const CreateOutputSystemByPackFormatLocalSearchStorage = {
   /**
    * JSONCompactEachRowWithNames
    */
@@ -3882,14 +3890,14 @@ export const CreateOutputFormatLocalSearchStorage = {
 /**
  * Data format to use when sending data. Defaults to JSON Compact.
  */
-export type CreateOutputFormatLocalSearchStorage = OpenEnum<
-  typeof CreateOutputFormatLocalSearchStorage
+export type CreateOutputSystemByPackFormatLocalSearchStorage = OpenEnum<
+  typeof CreateOutputSystemByPackFormatLocalSearchStorage
 >;
 
 /**
  * How event fields are mapped to columns.
  */
-export const CreateOutputMappingTypeLocalSearchStorage = {
+export const CreateOutputSystemByPackMappingType = {
   /**
    * Automatic
    */
@@ -3902,11 +3910,11 @@ export const CreateOutputMappingTypeLocalSearchStorage = {
 /**
  * How event fields are mapped to columns.
  */
-export type CreateOutputMappingTypeLocalSearchStorage = OpenEnum<
-  typeof CreateOutputMappingTypeLocalSearchStorage
+export type CreateOutputSystemByPackMappingType = OpenEnum<
+  typeof CreateOutputSystemByPackMappingType
 >;
 
-export type CreateOutputStatsDestination = {
+export type CreateOutputSystemByPackStatsDestination = {
   url?: string | undefined;
   database?: string | undefined;
   tableName?: string | undefined;
@@ -3916,7 +3924,7 @@ export type CreateOutputStatsDestination = {
   password?: string | undefined;
 };
 
-export type CreateOutputColumnMappingLocalSearchStorage = {
+export type CreateOutputSystemByPackColumnMapping = {
   /**
    * Name of the column that will store field value
    */
@@ -3931,9 +3939,9 @@ export type CreateOutputColumnMappingLocalSearchStorage = {
   columnValueExpression: string;
 };
 
-export type CreateOutputPqControlsLocalSearchStorage = {};
+export type CreateOutputSystemByPackPqControlsLocalSearchStorage = {};
 
-export type CreateOutputOutputLocalSearchStorage = {
+export type CreateOutputSystemByPackOutputLocalSearchStorage = {
   /**
    * Unique ID for this output
    */
@@ -3968,11 +3976,11 @@ export type CreateOutputOutputLocalSearchStorage = {
   /**
    * Data format to use when sending data. Defaults to JSON Compact.
    */
-  format?: CreateOutputFormatLocalSearchStorage | undefined;
+  format?: CreateOutputSystemByPackFormatLocalSearchStorage | undefined;
   /**
    * How event fields are mapped to columns.
    */
-  mappingType?: CreateOutputMappingTypeLocalSearchStorage | undefined;
+  mappingType?: CreateOutputSystemByPackMappingType | undefined;
   /**
    * Collect data into batches for later processing. Disable to write to a table immediately.
    */
@@ -4045,7 +4053,7 @@ export type CreateOutputOutputLocalSearchStorage = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  statsDestination?: CreateOutputStatsDestination | undefined;
+  statsDestination?: CreateOutputSystemByPackStatsDestination | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -4069,9 +4077,7 @@ export type CreateOutputOutputLocalSearchStorage = {
    * Retrieves the table schema and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?:
-    | Array<CreateOutputColumnMappingLocalSearchStorage>
-    | undefined;
+  columnMappings?: Array<CreateOutputSystemByPackColumnMapping> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4116,7 +4122,7 @@ export type CreateOutputOutputLocalSearchStorage = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsLocalSearchStorage | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsLocalSearchStorage | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -4143,69 +4149,14 @@ export type CreateOutputOutputLocalSearchStorage = {
   __template_onBackpressure?: string | undefined;
 };
 
-/**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
- */
-export const CreateOutputFormatClickHouse = {
-  /**
-   * JSONCompactEachRowWithNames
-   */
-  JsonCompactEachRowWithNames: "json-compact-each-row-with-names",
-  /**
-   * JSONEachRow
-   */
-  JsonEachRow: "json-each-row",
-} as const;
-/**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
- */
-export type CreateOutputFormatClickHouse = OpenEnum<
-  typeof CreateOutputFormatClickHouse
->;
+export type CreateOutputSystemByPackPqControlsCustomerMetricsStorage = {};
 
-/**
- * How event fields are mapped to ClickHouse columns
- */
-export const CreateOutputMappingTypeClickHouse = {
-  /**
-   * Automatic
-   */
-  Automatic: "automatic",
-  /**
-   * Custom
-   */
-  Custom: "custom",
-} as const;
-/**
- * How event fields are mapped to ClickHouse columns
- */
-export type CreateOutputMappingTypeClickHouse = OpenEnum<
-  typeof CreateOutputMappingTypeClickHouse
->;
-
-export type CreateOutputColumnMappingClickHouse = {
-  /**
-   * Name of the column in ClickHouse that will store field value
-   */
-  columnName: string;
-  /**
-   * Type of the column in the ClickHouse database
-   */
-  columnType?: string | undefined;
-  /**
-   * JavaScript expression to compute value to be inserted into ClickHouse table
-   */
-  columnValueExpression: string;
-};
-
-export type CreateOutputPqControlsClickHouse = {};
-
-export type CreateOutputOutputClickHouse = {
+export type CreateOutputSystemByPackOutputCustomerMetricsStorage = {
   /**
    * Unique ID for this output
    */
   id: string;
-  type: "click_house";
+  type: "customer_metrics_storage";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -4235,11 +4186,11 @@ export type CreateOutputOutputClickHouse = {
   /**
    * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
    */
-  format?: CreateOutputFormatClickHouse | undefined;
+  format?: models.FormatOptions | undefined;
   /**
    * How event fields are mapped to ClickHouse columns
    */
-  mappingType?: CreateOutputMappingTypeClickHouse | undefined;
+  mappingType?: models.MappingTypeOptions | undefined;
   /**
    * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
    */
@@ -4335,7 +4286,7 @@ export type CreateOutputOutputClickHouse = {
    * Retrieves the table schema from ClickHouse and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?: Array<CreateOutputColumnMappingClickHouse> | undefined;
+  columnMappings?: Array<models.ColumnMappingConfOutputClickHouse> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4380,7 +4331,9 @@ export type CreateOutputOutputClickHouse = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsClickHouse | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsCustomerMetricsStorage
+    | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -4407,7 +4360,216 @@ export type CreateOutputOutputClickHouse = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputOutputDiskSpool = {
+export type CreateOutputSystemByPackPqControlsClickHouse = {};
+
+export type CreateOutputSystemByPackOutputClickHouse = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "click_house";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of the ClickHouse instance. Example: http://localhost:8123/
+   */
+  url: string;
+  authType?: models.AuthenticationTypeOptions | undefined;
+  database: string;
+  /**
+   * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+   */
+  tableName: string;
+  /**
+   * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+   */
+  format?: models.FormatOptions | undefined;
+  /**
+   * How event fields are mapped to ClickHouse columns
+   */
+  mappingType?: models.MappingTypeOptions | undefined;
+  /**
+   * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
+   */
+  asyncInserts?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Log the most recent event that fails to match the table schema
+   */
+  dumpFormatErrorsToDisk?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Username for certificate authentication
+   */
+  sqlUsername?: string | undefined;
+  /**
+   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
+   */
+  waitForAsyncInserts?: boolean | undefined;
+  /**
+   * Fields to exclude from sending to ClickHouse
+   */
+  excludeMappingFields?: Array<string> | undefined;
+  /**
+   * Retrieves the table schema from ClickHouse and populates the Column Mapping table
+   */
+  describeTable?: string | undefined;
+  columnMappings?: Array<models.ColumnMappingConfOutputClickHouse> | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsClickHouse | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+   */
+  __template_database?: string | undefined;
+  /**
+   * Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
+   */
+  __template_tableName?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+};
+
+export type CreateOutputSystemByPackOutputDiskSpool = {
   /**
    * Unique ID for this output
    */
@@ -4456,25 +4618,25 @@ export type CreateOutputOutputDiskSpool = {
   __template_streamtags?: string | undefined;
 };
 
-export const CreateOutputAwsAuthenticationMethod = {
+export const CreateOutputSystemByPackAwsAuthenticationMethod = {
   Auto: "auto",
   AutoRpc: "auto_rpc",
   Manual: "manual",
 } as const;
-export type CreateOutputAwsAuthenticationMethod = OpenEnum<
-  typeof CreateOutputAwsAuthenticationMethod
+export type CreateOutputSystemByPackAwsAuthenticationMethod = OpenEnum<
+  typeof CreateOutputSystemByPackAwsAuthenticationMethod
 >;
 
-export const CreateOutputFormatCriblLake = {
+export const CreateOutputSystemByPackFormatCriblLake = {
   Json: "json",
   Parquet: "parquet",
   Ddss: "ddss",
 } as const;
-export type CreateOutputFormatCriblLake = OpenEnum<
-  typeof CreateOutputFormatCriblLake
+export type CreateOutputSystemByPackFormatCriblLake = OpenEnum<
+  typeof CreateOutputSystemByPackFormatCriblLake
 >;
 
-export type CreateOutputOutputCriblLake = {
+export type CreateOutputSystemByPackOutputCriblLake = {
   /**
    * Unique ID for this output
    */
@@ -4628,8 +4790,10 @@ export type CreateOutputOutputCriblLake = {
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
   kmsKeyId?: string | undefined;
-  awsAuthenticationMethod?: CreateOutputAwsAuthenticationMethod | undefined;
-  format?: CreateOutputFormatCriblLake | undefined;
+  awsAuthenticationMethod?:
+    | CreateOutputSystemByPackAwsAuthenticationMethod
+    | undefined;
+  format?: CreateOutputSystemByPackFormatCriblLake | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
    */
@@ -4713,7 +4877,7 @@ export type CreateOutputOutputCriblLake = {
   __template_kmsKeyId?: string | undefined;
 };
 
-export type CreateOutputOutputSecurityLake = {
+export type CreateOutputSystemByPackOutputSecurityLake = {
   /**
    * Unique ID for this output
    */
@@ -5013,7 +5177,7 @@ export type CreateOutputOutputSecurityLake = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputOutputDlS3 = {
+export type CreateOutputSystemByPackOutputDlS3 = {
   /**
    * Unique ID for this output
    */
@@ -5344,9 +5508,9 @@ export type CreateOutputOutputDlS3 = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputPqControlsCrowdstrikeNextGenSiem = {};
+export type CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem = {};
 
-export type CreateOutputOutputCrowdstrikeNextGenSiem = {
+export type CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem = {
   /**
    * Unique ID for this output
    */
@@ -5496,7 +5660,9 @@ export type CreateOutputOutputCrowdstrikeNextGenSiem = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCrowdstrikeNextGenSiem | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem
+    | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -5515,9 +5681,9 @@ export type CreateOutputOutputCrowdstrikeNextGenSiem = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsHumioHec = {};
+export type CreateOutputSystemByPackPqControlsHumioHec = {};
 
-export type CreateOutputOutputHumioHec = {
+export type CreateOutputSystemByPackOutputHumioHec = {
   /**
    * Unique ID for this output
    */
@@ -5667,7 +5833,7 @@ export type CreateOutputOutputHumioHec = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsHumioHec | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsHumioHec | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -5686,9 +5852,9 @@ export type CreateOutputOutputHumioHec = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsCriblSearchEngine = {};
+export type CreateOutputSystemByPackPqControlsCriblSearchEngine = {};
 
-export type CreateOutputOutputCriblSearchEngine = {
+export type CreateOutputSystemByPackOutputCriblSearchEngine = {
   /**
    * Unique ID for this output
    */
@@ -5856,7 +6022,7 @@ export type CreateOutputOutputCriblSearchEngine = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCriblSearchEngine | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsCriblSearchEngine | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -5875,9 +6041,9 @@ export type CreateOutputOutputCriblSearchEngine = {
   __template_url?: string | undefined;
 };
 
-export type CreateOutputPqControlsCriblHTTP = {};
+export type CreateOutputSystemByPackPqControlsCriblHTTP = {};
 
-export type CreateOutputOutputCriblHttp = {
+export type CreateOutputSystemByPackOutputCriblHttp = {
   /**
    * Unique ID for this output
    */
@@ -6045,7 +6211,7 @@ export type CreateOutputOutputCriblHttp = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCriblHTTP | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsCriblHTTP | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -6064,9 +6230,9 @@ export type CreateOutputOutputCriblHttp = {
   __template_url?: string | undefined;
 };
 
-export type CreateOutputPqControlsCriblTCP = {};
+export type CreateOutputSystemByPackPqControlsCriblTCP = {};
 
-export type CreateOutputOutputCriblTcp = {
+export type CreateOutputSystemByPackOutputCriblTcp = {
   /**
    * Unique ID for this output
    */
@@ -6202,7 +6368,7 @@ export type CreateOutputOutputCriblTcp = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCriblTCP | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsCriblTCP | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -6224,7 +6390,7 @@ export type CreateOutputOutputCriblTcp = {
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export const CreateOutputDefaultSeveritySeverity = {
+export const CreateOutputSystemByPackDefaultSeveritySeverity = {
   /**
    * 0 - finest
    */
@@ -6257,14 +6423,14 @@ export const CreateOutputDefaultSeveritySeverity = {
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export type CreateOutputDefaultSeveritySeverity = OpenEnum<
-  typeof CreateOutputDefaultSeveritySeverity
+export type CreateOutputSystemByPackDefaultSeveritySeverity = OpenEnum<
+  typeof CreateOutputSystemByPackDefaultSeveritySeverity
 >;
 
 /**
  * DataSet site to which events should be sent
  */
-export const CreateOutputDataSetSite = {
+export const CreateOutputSystemByPackDataSetSite = {
   /**
    * US
    */
@@ -6281,11 +6447,13 @@ export const CreateOutputDataSetSite = {
 /**
  * DataSet site to which events should be sent
  */
-export type CreateOutputDataSetSite = OpenEnum<typeof CreateOutputDataSetSite>;
+export type CreateOutputSystemByPackDataSetSite = OpenEnum<
+  typeof CreateOutputSystemByPackDataSetSite
+>;
 
-export type CreateOutputPqControlsDataset = {};
+export type CreateOutputSystemByPackPqControlsDataset = {};
 
-export type CreateOutputOutputDataset = {
+export type CreateOutputSystemByPackOutputDataset = {
   /**
    * Unique ID for this output
    */
@@ -6326,7 +6494,7 @@ export type CreateOutputOutputDataset = {
   /**
    * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
    */
-  defaultSeverity?: CreateOutputDefaultSeveritySeverity | undefined;
+  defaultSeverity?: CreateOutputSystemByPackDefaultSeveritySeverity | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -6341,7 +6509,7 @@ export type CreateOutputOutputDataset = {
   /**
    * DataSet site to which events should be sent
    */
-  site?: CreateOutputDataSetSite | undefined;
+  site?: CreateOutputSystemByPackDataSetSite | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -6448,7 +6616,7 @@ export type CreateOutputOutputDataset = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDataset | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsDataset | undefined;
   /**
    * A 'Log Write Access' API key for the DataSet account
    */
@@ -6475,9 +6643,9 @@ export type CreateOutputOutputDataset = {
   __template_customUrl?: string | undefined;
 };
 
-export type CreateOutputPqControlsServiceNow = {};
+export type CreateOutputSystemByPackPqControlsServiceNow = {};
 
-export type CreateOutputOutputServiceNow = {
+export type CreateOutputSystemByPackOutputServiceNow = {
   /**
    * Unique ID for this output
    */
@@ -6661,7 +6829,7 @@ export type CreateOutputOutputServiceNow = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsServiceNow | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsServiceNow | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -6679,7 +6847,7 @@ export type CreateOutputOutputServiceNow = {
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
-export const CreateOutputOTLPVersion = {
+export const CreateOutputSystemByPackOTLPVersion = {
   /**
    * 0.10.0
    */
@@ -6692,9 +6860,11 @@ export const CreateOutputOTLPVersion = {
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
-export type CreateOutputOTLPVersion = OpenEnum<typeof CreateOutputOTLPVersion>;
+export type CreateOutputSystemByPackOTLPVersion = OpenEnum<
+  typeof CreateOutputSystemByPackOTLPVersion
+>;
 
-export const CreateOutputAuthenticationTypeOpenTelemetry = {
+export const CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = {
   /**
    * None
    */
@@ -6720,13 +6890,13 @@ export const CreateOutputAuthenticationTypeOpenTelemetry = {
    */
   OauthSecret: "oauthSecret",
 } as const;
-export type CreateOutputAuthenticationTypeOpenTelemetry = OpenEnum<
-  typeof CreateOutputAuthenticationTypeOpenTelemetry
+export type CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationTypeOpenTelemetry
 >;
 
-export type CreateOutputPqControlsOpenTelemetry = {};
+export type CreateOutputSystemByPackPqControlsOpenTelemetry = {};
 
-export type CreateOutputOutputOpenTelemetry = {
+export type CreateOutputSystemByPackOutputOpenTelemetry = {
   /**
    * Unique ID for this output
    */
@@ -6759,7 +6929,7 @@ export type CreateOutputOutputOpenTelemetry = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion?: CreateOutputOTLPVersion | undefined;
+  otlpVersion?: CreateOutputSystemByPackOTLPVersion | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
@@ -6768,7 +6938,9 @@ export type CreateOutputOutputOpenTelemetry = {
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
   httpCompress?: models.CompressionOptionsMessages | undefined;
-  authType?: CreateOutputAuthenticationTypeOpenTelemetry | undefined;
+  authType?:
+    | CreateOutputSystemByPackAuthenticationTypeOpenTelemetry
+    | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -6952,7 +7124,7 @@ export type CreateOutputOutputOpenTelemetry = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsOpenTelemetry | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsOpenTelemetry | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -6974,18 +7146,18 @@ export type CreateOutputOutputOpenTelemetry = {
 /**
  * Format of the output data.
  */
-export const CreateOutputDataFormatRing = {
+export const CreateOutputSystemByPackDataFormatRing = {
   Json: "json",
   Raw: "raw",
 } as const;
 /**
  * Format of the output data.
  */
-export type CreateOutputDataFormatRing = OpenEnum<
-  typeof CreateOutputDataFormatRing
+export type CreateOutputSystemByPackDataFormatRing = OpenEnum<
+  typeof CreateOutputSystemByPackDataFormatRing
 >;
 
-export type CreateOutputOutputRing = {
+export type CreateOutputSystemByPackOutputRing = {
   /**
    * Unique ID for this output
    */
@@ -7010,7 +7182,7 @@ export type CreateOutputOutputRing = {
   /**
    * Format of the output data.
    */
-  format?: CreateOutputDataFormatRing | undefined;
+  format?: CreateOutputSystemByPackDataFormatRing | undefined;
   /**
    * JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
    */
@@ -7043,9 +7215,9 @@ export type CreateOutputOutputRing = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsPrometheus = {};
+export type CreateOutputSystemByPackPqControlsPrometheus = {};
 
-export type CreateOutputOutputPrometheus = {
+export type CreateOutputSystemByPackOutputPrometheus = {
   /**
    * Unique ID for this output
    */
@@ -7195,7 +7367,7 @@ export type CreateOutputOutputPrometheus = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsPrometheus | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsPrometheus | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -7228,9 +7400,9 @@ export type CreateOutputOutputPrometheus = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsLoki = {};
+export type CreateOutputSystemByPackPqControlsLoki = {};
 
-export type CreateOutputOutputLoki = {
+export type CreateOutputSystemByPackOutputLoki = {
   /**
    * Unique ID for this output
    */
@@ -7407,7 +7579,7 @@ export type CreateOutputOutputLoki = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsLoki | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsLoki | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -7422,21 +7594,21 @@ export type CreateOutputOutputLoki = {
   __template_onBackpressure?: string | undefined;
 };
 
-export const CreateOutputOutputGrafanaCloudType2 = {
+export const CreateOutputSystemByPackOutputGrafanaCloudType2 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
-export type CreateOutputOutputGrafanaCloudType2 = ClosedEnum<
-  typeof CreateOutputOutputGrafanaCloudType2
+export type CreateOutputSystemByPackOutputGrafanaCloudType2 = ClosedEnum<
+  typeof CreateOutputSystemByPackOutputGrafanaCloudType2
 >;
 
-export type CreateOutputOutputGrafanaCloudPqControls2 = {};
+export type CreateOutputSystemByPackOutputGrafanaCloudPqControls2 = {};
 
-export type CreateOutputOutputGrafanaCloudGrafanaCloud2 = {
+export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Unique ID for this output
    */
   id: string;
-  type: CreateOutputOutputGrafanaCloudType2;
+  type: CreateOutputSystemByPackOutputGrafanaCloudType2;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -7587,7 +7759,9 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2 = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputOutputGrafanaCloudPqControls2 | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackOutputGrafanaCloudPqControls2
+    | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -7610,21 +7784,21 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2 = {
   __template_onBackpressure?: string | undefined;
 };
 
-export const CreateOutputOutputGrafanaCloudType1 = {
+export const CreateOutputSystemByPackOutputGrafanaCloudType1 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
-export type CreateOutputOutputGrafanaCloudType1 = ClosedEnum<
-  typeof CreateOutputOutputGrafanaCloudType1
+export type CreateOutputSystemByPackOutputGrafanaCloudType1 = ClosedEnum<
+  typeof CreateOutputSystemByPackOutputGrafanaCloudType1
 >;
 
-export type CreateOutputOutputGrafanaCloudPqControls1 = {};
+export type CreateOutputSystemByPackOutputGrafanaCloudPqControls1 = {};
 
-export type CreateOutputOutputGrafanaCloudGrafanaCloud1 = {
+export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Unique ID for this output
    */
   id: string;
-  type: CreateOutputOutputGrafanaCloudType1;
+  type: CreateOutputSystemByPackOutputGrafanaCloudType1;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -7775,7 +7949,9 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1 = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputOutputGrafanaCloudPqControls1 | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackOutputGrafanaCloudPqControls1
+    | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -7798,14 +7974,14 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1 = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputOutputGrafanaCloudUnion =
-  | CreateOutputOutputGrafanaCloudGrafanaCloud1
-  | CreateOutputOutputGrafanaCloudGrafanaCloud2;
+export type CreateOutputSystemByPackOutputGrafanaCloudUnion =
+  | CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1
+  | CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2;
 
 /**
  * The content type to use when sending logs
  */
-export const CreateOutputSendLogsAs = {
+export const CreateOutputSystemByPackSendLogsAs = {
   /**
    * text/plain
    */
@@ -7818,12 +7994,14 @@ export const CreateOutputSendLogsAs = {
 /**
  * The content type to use when sending logs
  */
-export type CreateOutputSendLogsAs = OpenEnum<typeof CreateOutputSendLogsAs>;
+export type CreateOutputSystemByPackSendLogsAs = OpenEnum<
+  typeof CreateOutputSystemByPackSendLogsAs
+>;
 
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export const CreateOutputSeverityDatadog = {
+export const CreateOutputSystemByPackSeverityDatadog = {
   /**
    * emergency
    */
@@ -7860,14 +8038,14 @@ export const CreateOutputSeverityDatadog = {
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export type CreateOutputSeverityDatadog = OpenEnum<
-  typeof CreateOutputSeverityDatadog
+export type CreateOutputSystemByPackSeverityDatadog = OpenEnum<
+  typeof CreateOutputSystemByPackSeverityDatadog
 >;
 
 /**
  * Datadog site to which events should be sent
  */
-export const CreateOutputDatadogSite = {
+export const CreateOutputSystemByPackDatadogSite = {
   /**
    * US
    */
@@ -7900,11 +8078,13 @@ export const CreateOutputDatadogSite = {
 /**
  * Datadog site to which events should be sent
  */
-export type CreateOutputDatadogSite = OpenEnum<typeof CreateOutputDatadogSite>;
+export type CreateOutputSystemByPackDatadogSite = OpenEnum<
+  typeof CreateOutputSystemByPackDatadogSite
+>;
 
-export type CreateOutputPqControlsDatadog = {};
+export type CreateOutputSystemByPackPqControlsDatadog = {};
 
-export type CreateOutputOutputDatadog = {
+export type CreateOutputSystemByPackOutputDatadog = {
   /**
    * Unique ID for this output
    */
@@ -7929,7 +8109,7 @@ export type CreateOutputOutputDatadog = {
   /**
    * The content type to use when sending logs
    */
-  contentType?: CreateOutputSendLogsAs | undefined;
+  contentType?: CreateOutputSystemByPackSendLogsAs | undefined;
   /**
    * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
    */
@@ -7961,11 +8141,11 @@ export type CreateOutputOutputDatadog = {
   /**
    * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
    */
-  severity?: CreateOutputSeverityDatadog | undefined;
+  severity?: CreateOutputSystemByPackSeverityDatadog | undefined;
   /**
    * Datadog site to which events should be sent
    */
-  site?: CreateOutputDatadogSite | undefined;
+  site?: CreateOutputSystemByPackDatadogSite | undefined;
   /**
    * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
    */
@@ -8087,7 +8267,7 @@ export type CreateOutputOutputDatadog = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDatadog | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsDatadog | undefined;
   /**
    * Organization's API key in Datadog
    */
@@ -8117,7 +8297,7 @@ export type CreateOutputOutputDatadog = {
 /**
  * Preserve the raw event format instead of JSONifying it
  */
-export const CreateOutputDataFormatSumoLogic = {
+export const CreateOutputSystemByPackDataFormatSumoLogic = {
   /**
    * JSON
    */
@@ -8130,13 +8310,13 @@ export const CreateOutputDataFormatSumoLogic = {
 /**
  * Preserve the raw event format instead of JSONifying it
  */
-export type CreateOutputDataFormatSumoLogic = OpenEnum<
-  typeof CreateOutputDataFormatSumoLogic
+export type CreateOutputSystemByPackDataFormatSumoLogic = OpenEnum<
+  typeof CreateOutputSystemByPackDataFormatSumoLogic
 >;
 
-export type CreateOutputPqControlsSumoLogic = {};
+export type CreateOutputSystemByPackPqControlsSumoLogic = {};
 
-export type CreateOutputOutputSumoLogic = {
+export type CreateOutputSystemByPackOutputSumoLogic = {
   /**
    * Unique ID for this output
    */
@@ -8173,7 +8353,7 @@ export type CreateOutputOutputSumoLogic = {
   /**
    * Preserve the raw event format instead of JSONifying it
    */
-  format?: CreateOutputDataFormatSumoLogic | undefined;
+  format?: CreateOutputSystemByPackDataFormatSumoLogic | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -8286,7 +8466,7 @@ export type CreateOutputOutputSumoLogic = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSumoLogic | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsSumoLogic | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -8305,7 +8485,7 @@ export type CreateOutputOutputSumoLogic = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputHostSnmp = {
+export type CreateOutputSystemByPackHostSnmp = {
   /**
    * Destination host
    */
@@ -8324,7 +8504,7 @@ export type CreateOutputHostSnmp = {
   __template_port?: string | undefined;
 };
 
-export type CreateOutputOutputSnmp = {
+export type CreateOutputSystemByPackOutputSnmp = {
   /**
    * Unique ID for this output
    */
@@ -8349,7 +8529,7 @@ export type CreateOutputOutputSnmp = {
   /**
    * One or more SNMP destinations to forward traps to
    */
-  hosts: Array<CreateOutputHostSnmp>;
+  hosts: Array<CreateOutputSystemByPackHostSnmp>;
   /**
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
    */
@@ -8364,7 +8544,7 @@ export type CreateOutputOutputSnmp = {
 /**
  * The queue type used (or created). Defaults to Standard.
  */
-export const CreateOutputQueueType = {
+export const CreateOutputSystemByPackQueueType = {
   /**
    * Standard
    */
@@ -8377,11 +8557,13 @@ export const CreateOutputQueueType = {
 /**
  * The queue type used (or created). Defaults to Standard.
  */
-export type CreateOutputQueueType = OpenEnum<typeof CreateOutputQueueType>;
+export type CreateOutputSystemByPackQueueType = OpenEnum<
+  typeof CreateOutputSystemByPackQueueType
+>;
 
-export type CreateOutputPqControlsSqs = {};
+export type CreateOutputSystemByPackPqControlsSqs = {};
 
-export type CreateOutputOutputSqs = {
+export type CreateOutputSystemByPackOutputSqs = {
   /**
    * Unique ID for this output
    */
@@ -8410,7 +8592,7 @@ export type CreateOutputOutputSqs = {
   /**
    * The queue type used (or created). Defaults to Standard.
    */
-  queueType: CreateOutputQueueType;
+  queueType: CreateOutputSystemByPackQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -8530,7 +8712,7 @@ export type CreateOutputOutputSqs = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSqs | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsSqs | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -8581,9 +8763,9 @@ export type CreateOutputOutputSqs = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateOutputPqControlsSns = {};
+export type CreateOutputSystemByPackPqControlsSns = {};
 
-export type CreateOutputOutputSns = {
+export type CreateOutputSystemByPackOutputSns = {
   /**
    * Unique ID for this output
    */
@@ -8708,7 +8890,7 @@ export type CreateOutputOutputSns = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSns | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsSns | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -8751,7 +8933,7 @@ export type CreateOutputOutputSns = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateOutputRule = {
+export type CreateOutputSystemByPackRule = {
   /**
    * JavaScript expression to select events to send to output
    */
@@ -8770,7 +8952,7 @@ export type CreateOutputRule = {
   final?: boolean | undefined;
 };
 
-export type CreateOutputOutputRouter = {
+export type CreateOutputSystemByPackOutputRouter = {
   /**
    * Unique ID for this output
    */
@@ -8795,7 +8977,7 @@ export type CreateOutputOutputRouter = {
   /**
    * Event routing rules
    */
-  rules: Array<CreateOutputRule>;
+  rules: Array<CreateOutputSystemByPackRule>;
   description?: string | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -8803,9 +8985,9 @@ export type CreateOutputOutputRouter = {
   __template_streamtags?: string | undefined;
 };
 
-export type CreateOutputPqControlsGraphite = {};
+export type CreateOutputSystemByPackPqControlsGraphite = {};
 
-export type CreateOutputOutputGraphite = {
+export type CreateOutputSystemByPackOutputGraphite = {
   /**
    * Unique ID for this output
    */
@@ -8912,7 +9094,7 @@ export type CreateOutputOutputGraphite = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGraphite | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsGraphite | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -8923,9 +9105,9 @@ export type CreateOutputOutputGraphite = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsStatsdExt = {};
+export type CreateOutputSystemByPackPqControlsStatsdExt = {};
 
-export type CreateOutputOutputStatsdExt = {
+export type CreateOutputSystemByPackOutputStatsdExt = {
   /**
    * Unique ID for this output
    */
@@ -9032,7 +9214,7 @@ export type CreateOutputOutputStatsdExt = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsStatsdExt | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsStatsdExt | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -9043,9 +9225,9 @@ export type CreateOutputOutputStatsdExt = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsStatsd = {};
+export type CreateOutputSystemByPackPqControlsStatsd = {};
 
-export type CreateOutputOutputStatsd = {
+export type CreateOutputSystemByPackOutputStatsd = {
   /**
    * Unique ID for this output
    */
@@ -9152,7 +9334,7 @@ export type CreateOutputOutputStatsd = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsStatsd | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsStatsd | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -9163,7 +9345,7 @@ export type CreateOutputOutputStatsd = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputOutputMinio = {
+export type CreateOutputSystemByPackOutputMinio = {
   /**
    * Unique ID for this output
    */
@@ -9460,9 +9642,9 @@ export type CreateOutputOutputMinio = {
   __template_parquetSchema?: string | undefined;
 };
 
-export type CreateOutputPqControlsCloudwatch = {};
+export type CreateOutputSystemByPackPqControlsCloudwatch = {};
 
-export type CreateOutputOutputCloudwatch = {
+export type CreateOutputSystemByPackOutputCloudwatch = {
   /**
    * Unique ID for this output
    */
@@ -9595,7 +9777,7 @@ export type CreateOutputOutputCloudwatch = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCloudwatch | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsCloudwatch | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -9641,7 +9823,7 @@ export type CreateOutputOutputCloudwatch = {
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export const CreateOutputTimestampPrecision = {
+export const CreateOutputSystemByPackTimestampPrecision = {
   /**
    * Nanoseconds
    */
@@ -9670,14 +9852,14 @@ export const CreateOutputTimestampPrecision = {
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export type CreateOutputTimestampPrecision = OpenEnum<
-  typeof CreateOutputTimestampPrecision
+export type CreateOutputSystemByPackTimestampPrecision = OpenEnum<
+  typeof CreateOutputSystemByPackTimestampPrecision
 >;
 
 /**
  * InfluxDB authentication type
  */
-export const CreateOutputAuthenticationTypeInfluxdb = {
+export const CreateOutputSystemByPackAuthenticationTypeInfluxdb = {
   /**
    * None
    */
@@ -9702,13 +9884,13 @@ export const CreateOutputAuthenticationTypeInfluxdb = {
 /**
  * InfluxDB authentication type
  */
-export type CreateOutputAuthenticationTypeInfluxdb = OpenEnum<
-  typeof CreateOutputAuthenticationTypeInfluxdb
+export type CreateOutputSystemByPackAuthenticationTypeInfluxdb = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationTypeInfluxdb
 >;
 
-export type CreateOutputPqControlsInfluxdb = {};
+export type CreateOutputSystemByPackPqControlsInfluxdb = {};
 
-export type CreateOutputOutputInfluxdb = {
+export type CreateOutputSystemByPackOutputInfluxdb = {
   /**
    * Unique ID for this output
    */
@@ -9741,7 +9923,7 @@ export type CreateOutputOutputInfluxdb = {
   /**
    * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
    */
-  timestampPrecision?: CreateOutputTimestampPrecision | undefined;
+  timestampPrecision?: CreateOutputSystemByPackTimestampPrecision | undefined;
   /**
    * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
    */
@@ -9816,7 +9998,7 @@ export type CreateOutputOutputInfluxdb = {
   /**
    * InfluxDB authentication type
    */
-  authType?: CreateOutputAuthenticationTypeInfluxdb | undefined;
+  authType?: CreateOutputSystemByPackAuthenticationTypeInfluxdb | undefined;
   description?: string | undefined;
   /**
    * Database to write to.
@@ -9874,7 +10056,7 @@ export type CreateOutputOutputInfluxdb = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsInfluxdb | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsInfluxdb | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -9915,9 +10097,9 @@ export type CreateOutputOutputInfluxdb = {
   __template_bucket?: string | undefined;
 };
 
-export type CreateOutputPqControlsNewrelicEvents = {};
+export type CreateOutputSystemByPackPqControlsNewrelicEvents = {};
 
-export type CreateOutputOutputNewrelicEvents = {
+export type CreateOutputSystemByPackOutputNewrelicEvents = {
   /**
    * Unique ID for this output
    */
@@ -10064,7 +10246,7 @@ export type CreateOutputOutputNewrelicEvents = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsNewrelicEvents | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsNewrelicEvents | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
    */
@@ -10103,25 +10285,27 @@ export type CreateOutputOutputNewrelicEvents = {
   __template_customUrl?: string | undefined;
 };
 
-export const CreateOutputFieldName = {
+export const CreateOutputSystemByPackFieldName = {
   Service: "service",
   Hostname: "hostname",
   Timestamp: "timestamp",
   AuditId: "auditId",
 } as const;
-export type CreateOutputFieldName = OpenEnum<typeof CreateOutputFieldName>;
+export type CreateOutputSystemByPackFieldName = OpenEnum<
+  typeof CreateOutputSystemByPackFieldName
+>;
 
-export type CreateOutputMetadatum = {
-  name: CreateOutputFieldName;
+export type CreateOutputSystemByPackMetadatum = {
+  name: CreateOutputSystemByPackFieldName;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
    */
   value: string;
 };
 
-export type CreateOutputPqControlsNewrelic = {};
+export type CreateOutputSystemByPackPqControlsNewrelic = {};
 
-export type CreateOutputOutputNewrelic = {
+export type CreateOutputSystemByPackOutputNewrelic = {
   /**
    * Unique ID for this output
    */
@@ -10158,7 +10342,7 @@ export type CreateOutputOutputNewrelic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<CreateOutputMetadatum> | undefined;
+  metadata?: Array<CreateOutputSystemByPackMetadatum> | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -10276,7 +10460,7 @@ export type CreateOutputOutputNewrelic = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsNewrelic | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsNewrelic | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
    */
@@ -10311,9 +10495,9 @@ export type CreateOutputOutputNewrelic = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsElasticCloud = {};
+export type CreateOutputSystemByPackPqControlsElasticCloud = {};
 
-export type CreateOutputOutputElasticCloud = {
+export type CreateOutputSystemByPackOutputElasticCloud = {
   /**
    * Unique ID for this output
    */
@@ -10460,7 +10644,7 @@ export type CreateOutputOutputElasticCloud = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsElasticCloud | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsElasticCloud | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -10490,7 +10674,7 @@ export type CreateOutputOutputElasticCloud = {
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
  */
-export const CreateOutputElasticVersion = {
+export const CreateOutputSystemByPackElasticVersion = {
   /**
    * Auto
    */
@@ -10507,14 +10691,14 @@ export const CreateOutputElasticVersion = {
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
  */
-export type CreateOutputElasticVersion = OpenEnum<
-  typeof CreateOutputElasticVersion
+export type CreateOutputSystemByPackElasticVersion = OpenEnum<
+  typeof CreateOutputSystemByPackElasticVersion
 >;
 
 /**
  * Action to use when writing events. Must be set to `Create` when writing to a data stream.
  */
-export const CreateOutputWriteAction = {
+export const CreateOutputSystemByPackWriteAction = {
   /**
    * Index
    */
@@ -10527,9 +10711,11 @@ export const CreateOutputWriteAction = {
 /**
  * Action to use when writing events. Must be set to `Create` when writing to a data stream.
  */
-export type CreateOutputWriteAction = OpenEnum<typeof CreateOutputWriteAction>;
+export type CreateOutputSystemByPackWriteAction = OpenEnum<
+  typeof CreateOutputSystemByPackWriteAction
+>;
 
-export type CreateOutputUrlElastic = {
+export type CreateOutputSystemByPackUrlElastic = {
   /**
    * The URL to an Elastic node to send events to. Example: http://elastic:9200/_bulk
    */
@@ -10544,9 +10730,9 @@ export type CreateOutputUrlElastic = {
   __template_url?: string | undefined;
 };
 
-export type CreateOutputPqControlsElastic = {};
+export type CreateOutputSystemByPackPqControlsElastic = {};
 
-export type CreateOutputOutputElastic = {
+export type CreateOutputSystemByPackOutputElastic = {
   /**
    * Unique ID for this output
    */
@@ -10640,7 +10826,7 @@ export type CreateOutputOutputElastic = {
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
-  elasticVersion?: CreateOutputElasticVersion | undefined;
+  elasticVersion?: CreateOutputSystemByPackElasticVersion | undefined;
   /**
    * Optional Elasticsearch destination pipeline
    */
@@ -10652,7 +10838,7 @@ export type CreateOutputOutputElastic = {
   /**
    * Action to use when writing events. Must be set to `Create` when writing to a data stream.
    */
-  writeAction?: CreateOutputWriteAction | undefined;
+  writeAction?: CreateOutputSystemByPackWriteAction | undefined;
   /**
    * Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
    */
@@ -10674,7 +10860,7 @@ export type CreateOutputOutputElastic = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<CreateOutputUrlElastic> | undefined;
+  urls?: Array<CreateOutputSystemByPackUrlElastic> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -10727,7 +10913,7 @@ export type CreateOutputOutputElastic = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsElastic | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsElastic | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -10758,9 +10944,9 @@ export type CreateOutputOutputElastic = {
   __template_url?: string | undefined;
 };
 
-export type CreateOutputPqControlsMsk = {};
+export type CreateOutputSystemByPackPqControlsMsk = {};
 
-export type CreateOutputOutputMsk = {
+export type CreateOutputSystemByPackOutputMsk = {
   /**
    * Unique ID for this output
    */
@@ -10949,7 +11135,7 @@ export type CreateOutputOutputMsk = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsMsk | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsMsk | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -10996,9 +11182,9 @@ export type CreateOutputOutputMsk = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type CreateOutputPqControlsConfluentCloud = {};
+export type CreateOutputSystemByPackPqControlsConfluentCloud = {};
 
-export type CreateOutputOutputConfluentCloud = {
+export type CreateOutputSystemByPackOutputConfluentCloud = {
   /**
    * Unique ID for this output
    */
@@ -11149,7 +11335,7 @@ export type CreateOutputOutputConfluentCloud = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsConfluentCloud | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsConfluentCloud | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -11176,9 +11362,9 @@ export type CreateOutputOutputConfluentCloud = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsKafka = {};
+export type CreateOutputSystemByPackPqControlsKafka = {};
 
-export type CreateOutputOutputKafka = {
+export type CreateOutputSystemByPackOutputKafka = {
   /**
    * Unique ID for this output
    */
@@ -11329,7 +11515,7 @@ export type CreateOutputOutputKafka = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsKafka | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsKafka | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -11352,7 +11538,7 @@ export type CreateOutputOutputKafka = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputOutputExabeam = {
+export type CreateOutputSystemByPackOutputExabeam = {
   /**
    * Unique ID for this output
    */
@@ -11516,9 +11702,9 @@ export type CreateOutputOutputExabeam = {
   __template_onBackpressure?: string | undefined;
 };
 
-export type CreateOutputPqControlsGooglePubsub = {};
+export type CreateOutputSystemByPackPqControlsGooglePubsub = {};
 
-export type CreateOutputOutputGooglePubsub = {
+export type CreateOutputSystemByPackOutputGooglePubsub = {
   /**
    * Unique ID for this output
    */
@@ -11641,7 +11827,7 @@ export type CreateOutputOutputGooglePubsub = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGooglePubsub | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsGooglePubsub | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -11660,7 +11846,7 @@ export type CreateOutputOutputGooglePubsub = {
   __template_onBackpressure?: string | undefined;
 };
 
-export const CreateOutputLogLocationType = {
+export const CreateOutputSystemByPackLogLocationType = {
   /**
    * Project
    */
@@ -11678,14 +11864,14 @@ export const CreateOutputLogLocationType = {
    */
   Folder: "folder",
 } as const;
-export type CreateOutputLogLocationType = OpenEnum<
-  typeof CreateOutputLogLocationType
+export type CreateOutputSystemByPackLogLocationType = OpenEnum<
+  typeof CreateOutputSystemByPackLogLocationType
 >;
 
 /**
  * Format to use when sending payload. Defaults to Text.
  */
-export const CreateOutputPayloadFormat = {
+export const CreateOutputSystemByPackPayloadFormat = {
   /**
    * Text
    */
@@ -11698,13 +11884,13 @@ export const CreateOutputPayloadFormat = {
 /**
  * Format to use when sending payload. Defaults to Text.
  */
-export type CreateOutputPayloadFormat = OpenEnum<
-  typeof CreateOutputPayloadFormat
+export type CreateOutputSystemByPackPayloadFormat = OpenEnum<
+  typeof CreateOutputSystemByPackPayloadFormat
 >;
 
-export type CreateOutputPqControlsGoogleCloudLogging = {};
+export type CreateOutputSystemByPackPqControlsGoogleCloudLogging = {};
 
-export type CreateOutputOutputGoogleCloudLogging = {
+export type CreateOutputSystemByPackOutputGoogleCloudLogging = {
   /**
    * Unique ID for this output
    */
@@ -11726,7 +11912,7 @@ export type CreateOutputOutputGoogleCloudLogging = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  logLocationType: CreateOutputLogLocationType;
+  logLocationType: CreateOutputSystemByPackLogLocationType;
   /**
    * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
@@ -11735,7 +11921,7 @@ export type CreateOutputOutputGoogleCloudLogging = {
   /**
    * Format to use when sending payload. Defaults to Text.
    */
-  payloadFormat?: CreateOutputPayloadFormat | undefined;
+  payloadFormat?: CreateOutputSystemByPackPayloadFormat | undefined;
   /**
    * Labels to apply to the log entry
    */
@@ -11971,7 +12157,7 @@ export type CreateOutputOutputGoogleCloudLogging = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGoogleCloudLogging | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsGoogleCloudLogging | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -12026,7 +12212,7 @@ export type CreateOutputOutputGoogleCloudLogging = {
   __template_payloadExpression?: string | undefined;
 };
 
-export const CreateOutputAuthenticationMethodGoogleCloudStorage = {
+export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage = {
   /**
    * auto
    */
@@ -12040,11 +12226,12 @@ export const CreateOutputAuthenticationMethodGoogleCloudStorage = {
    */
   Secret: "secret",
 } as const;
-export type CreateOutputAuthenticationMethodGoogleCloudStorage = OpenEnum<
-  typeof CreateOutputAuthenticationMethodGoogleCloudStorage
->;
+export type CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage =
+  OpenEnum<
+    typeof CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+  >;
 
-export type CreateOutputOutputGoogleCloudStorage = {
+export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
   /**
    * Unique ID for this output
    */
@@ -12079,7 +12266,7 @@ export type CreateOutputOutputGoogleCloudStorage = {
    */
   endpoint: string;
   awsAuthenticationMethod?:
-    | CreateOutputAuthenticationMethodGoogleCloudStorage
+    | CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
     | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
@@ -12326,7 +12513,7 @@ export type CreateOutputOutputGoogleCloudStorage = {
   __template_awsSecretKey?: string | undefined;
 };
 
-export const CreateOutputAPIVersion = {
+export const CreateOutputSystemByPackAPIVersion = {
   /**
    * V1
    */
@@ -12336,9 +12523,11 @@ export const CreateOutputAPIVersion = {
    */
   V2: "v2",
 } as const;
-export type CreateOutputAPIVersion = OpenEnum<typeof CreateOutputAPIVersion>;
+export type CreateOutputSystemByPackAPIVersion = OpenEnum<
+  typeof CreateOutputSystemByPackAPIVersion
+>;
 
-export const CreateOutputAuthenticationMethodGoogleChronicle = {
+export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle = {
   /**
    * API key
    */
@@ -12356,11 +12545,10 @@ export const CreateOutputAuthenticationMethodGoogleChronicle = {
    */
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
-export type CreateOutputAuthenticationMethodGoogleChronicle = OpenEnum<
-  typeof CreateOutputAuthenticationMethodGoogleChronicle
->;
+export type CreateOutputSystemByPackAuthenticationMethodGoogleChronicle =
+  OpenEnum<typeof CreateOutputSystemByPackAuthenticationMethodGoogleChronicle>;
 
-export const CreateOutputSendEventsAs = {
+export const CreateOutputSystemByPackSendEventsAs = {
   /**
    * Unstructured
    */
@@ -12370,11 +12558,11 @@ export const CreateOutputSendEventsAs = {
    */
   Udm: "udm",
 } as const;
-export type CreateOutputSendEventsAs = OpenEnum<
-  typeof CreateOutputSendEventsAs
+export type CreateOutputSystemByPackSendEventsAs = OpenEnum<
+  typeof CreateOutputSystemByPackSendEventsAs
 >;
 
-export type CreateOutputExtraLogType = {
+export type CreateOutputSystemByPackExtraLogType = {
   logType: string;
   description?: string | undefined;
 };
@@ -12382,17 +12570,21 @@ export type CreateOutputExtraLogType = {
 /**
  * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
-export const CreateOutputUDMType = {
+export const CreateOutputSystemByPackUDMType = {
   Entities: "entities",
   Logs: "logs",
 } as const;
 /**
  * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
-export type CreateOutputUDMType = OpenEnum<typeof CreateOutputUDMType>;
+export type CreateOutputSystemByPackUDMType = OpenEnum<
+  typeof CreateOutputSystemByPackUDMType
+>;
+
+export type CreateOutputSystemByPackPqControlsGoogleChronicle = {};
 
 /** @internal */
-export type CreateOutputOutputAlibabaCloudS3$Outbound = {
+export type CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound = {
   id: string;
   type: "alibaba_cloud_s3";
   pipeline?: string | undefined;
@@ -12464,97 +12656,99 @@ export type CreateOutputOutputAlibabaCloudS3$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputAlibabaCloudS3$outboundSchema: z.ZodType<
-  CreateOutputOutputAlibabaCloudS3$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputAlibabaCloudS3
-> = z.object({
-  id: z.string(),
-  type: z.literal("alibaba_cloud_s3"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod: models
-    .AuthenticationMethodOptionsSecret$outboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  bucket: z.string(),
-  destPath: z.string().optional(),
-  maxConcurrentFileParts: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
-  stagePath: z.string(),
-  addIdToStagePath: z.boolean().optional(),
-  removeEmptyDirs: z.boolean().optional(),
-  partitionExpr: z.string().optional(),
-  format: models.DataFormatOptions$outboundSchema.optional(),
-  baseFileName: z.string().optional(),
-  fileNameSuffix: z.string().optional(),
-  maxFileSizeMB: z.number().optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxOpenFiles: z.number().optional(),
-  headerLine: z.string().optional(),
-  writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
-  deadletterEnabled: z.boolean().optional(),
-  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .optional(),
-  forceCloseOnShutdown: z.boolean().optional(),
-  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  endpoint: z.string(),
-  description: z.string().optional(),
-  awsSecret: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
-  automaticSchema: z.boolean().optional(),
-  parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
-    .optional(),
-  parquetRowGroupLength: z.number().optional(),
-  parquetPageSize: z.string().optional(),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
-  ).optional(),
-  enableStatistics: z.boolean().optional(),
-  enableWritePageIndex: z.boolean().optional(),
-  enablePageChecksum: z.boolean().optional(),
-  emptyDirCleanupSec: z.number().optional(),
-  directoryBatchSize: z.number().optional(),
-  deadletterPath: z.string().optional(),
-  maxRetryNum: z.number().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_destPath: z.string().optional(),
-  __template_partitionExpr: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_fileNameSuffix: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_objectACL: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_compress: z.string().optional(),
-  __template_parquetSchema: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputAlibabaCloudS3
+  > = z.object({
+    id: z.string(),
+    type: z.literal("alibaba_cloud_s3"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    awsAuthenticationMethod: models
+      .AuthenticationMethodOptionsSecret$outboundSchema.optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    bucket: z.string(),
+    destPath: z.string().optional(),
+    maxConcurrentFileParts: z.number().optional(),
+    verifyPermissions: z.boolean().optional(),
+    maxClosingFilesToBackpressure: z.number().optional(),
+    stagePath: z.string(),
+    addIdToStagePath: z.boolean().optional(),
+    removeEmptyDirs: z.boolean().optional(),
+    partitionExpr: z.string().optional(),
+    format: models.DataFormatOptions$outboundSchema.optional(),
+    baseFileName: z.string().optional(),
+    fileNameSuffix: z.string().optional(),
+    maxFileSizeMB: z.number().optional(),
+    maxFileOpenTimeSec: z.number().optional(),
+    maxFileIdleTimeSec: z.number().optional(),
+    maxOpenFiles: z.number().optional(),
+    headerLine: z.string().optional(),
+    writeHighWaterMark: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+      .optional(),
+    deadletterEnabled: z.boolean().optional(),
+    onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+      .optional(),
+    forceCloseOnShutdown: z.boolean().optional(),
+    retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+    objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+    endpoint: z.string(),
+    description: z.string().optional(),
+    awsSecret: z.string().optional(),
+    compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+    compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+    automaticSchema: z.boolean().optional(),
+    parquetSchema: z.string().optional(),
+    parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+    parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+      .optional(),
+    parquetRowGroupLength: z.number().optional(),
+    parquetPageSize: z.string().optional(),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    enableStatistics: z.boolean().optional(),
+    enableWritePageIndex: z.boolean().optional(),
+    enablePageChecksum: z.boolean().optional(),
+    emptyDirCleanupSec: z.number().optional(),
+    directoryBatchSize: z.number().optional(),
+    deadletterPath: z.string().optional(),
+    maxRetryNum: z.number().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_bucket: z.string().optional(),
+    __template_destPath: z.string().optional(),
+    __template_partitionExpr: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_baseFileName: z.string().optional(),
+    __template_fileNameSuffix: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_objectACL: z.string().optional(),
+    __template_endpoint: z.string().optional(),
+    __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+  });
 
-export function createOutputOutputAlibabaCloudS3ToJSON(
-  createOutputOutputAlibabaCloudS3: CreateOutputOutputAlibabaCloudS3,
+export function createOutputSystemByPackOutputAlibabaCloudS3ToJSON(
+  createOutputSystemByPackOutputAlibabaCloudS3:
+    CreateOutputSystemByPackOutputAlibabaCloudS3,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputAlibabaCloudS3$outboundSchema.parse(
-      createOutputOutputAlibabaCloudS3,
+    CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema.parse(
+      createOutputSystemByPackOutputAlibabaCloudS3,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputScalityS3$Outbound = {
+export type CreateOutputSystemByPackOutputScalityS3$Outbound = {
   id: string;
   type: "scality_s3";
   pipeline?: string | undefined;
@@ -12626,10 +12820,10 @@ export type CreateOutputOutputScalityS3$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputScalityS3$outboundSchema: z.ZodType<
-  CreateOutputOutputScalityS3$Outbound,
+export const CreateOutputSystemByPackOutputScalityS3$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputScalityS3$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputScalityS3
+  CreateOutputSystemByPackOutputScalityS3
 > = z.object({
   id: z.string(),
   type: z.literal("scality_s3"),
@@ -12705,18 +12899,19 @@ export const CreateOutputOutputScalityS3$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputScalityS3ToJSON(
-  createOutputOutputScalityS3: CreateOutputOutputScalityS3,
+export function createOutputSystemByPackOutputScalityS3ToJSON(
+  createOutputSystemByPackOutputScalityS3:
+    CreateOutputSystemByPackOutputScalityS3,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputScalityS3$outboundSchema.parse(
-      createOutputOutputScalityS3,
+    CreateOutputSystemByPackOutputScalityS3$outboundSchema.parse(
+      createOutputSystemByPackOutputScalityS3,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputCloudianS3$Outbound = {
+export type CreateOutputSystemByPackOutputCloudianS3$Outbound = {
   id: string;
   type: "cloudian_s3";
   pipeline?: string | undefined;
@@ -12796,10 +12991,10 @@ export type CreateOutputOutputCloudianS3$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCloudianS3$outboundSchema: z.ZodType<
-  CreateOutputOutputCloudianS3$Outbound,
+export const CreateOutputSystemByPackOutputCloudianS3$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputCloudianS3$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputCloudianS3
+  CreateOutputSystemByPackOutputCloudianS3
 > = z.object({
   id: z.string(),
   type: z.literal("cloudian_s3"),
@@ -12884,18 +13079,19 @@ export const CreateOutputOutputCloudianS3$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputCloudianS3ToJSON(
-  createOutputOutputCloudianS3: CreateOutputOutputCloudianS3,
+export function createOutputSystemByPackOutputCloudianS3ToJSON(
+  createOutputSystemByPackOutputCloudianS3:
+    CreateOutputSystemByPackOutputCloudianS3,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCloudianS3$outboundSchema.parse(
-      createOutputOutputCloudianS3,
+    CreateOutputSystemByPackOutputCloudianS3$outboundSchema.parse(
+      createOutputSystemByPackOutputCloudianS3,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputDellS3$Outbound = {
+export type CreateOutputSystemByPackOutputDellS3$Outbound = {
   id: string;
   type: "dell_s3";
   pipeline?: string | undefined;
@@ -12969,10 +13165,10 @@ export type CreateOutputOutputDellS3$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputDellS3$outboundSchema: z.ZodType<
-  CreateOutputOutputDellS3$Outbound,
+export const CreateOutputSystemByPackOutputDellS3$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputDellS3$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputDellS3
+  CreateOutputSystemByPackOutputDellS3
 > = z.object({
   id: z.string(),
   type: z.literal("dell_s3"),
@@ -13050,16 +13246,18 @@ export const CreateOutputOutputDellS3$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputDellS3ToJSON(
-  createOutputOutputDellS3: CreateOutputOutputDellS3,
+export function createOutputSystemByPackOutputDellS3ToJSON(
+  createOutputSystemByPackOutputDellS3: CreateOutputSystemByPackOutputDellS3,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDellS3$outboundSchema.parse(createOutputOutputDellS3),
+    CreateOutputSystemByPackOutputDellS3$outboundSchema.parse(
+      createOutputSystemByPackOutputDellS3,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputAlphasocS3$Outbound = {
+export type CreateOutputSystemByPackOutputAlphasocS3$Outbound = {
   id: string;
   type: "alphasoc_s3";
   pipeline?: string | undefined;
@@ -13128,10 +13326,10 @@ export type CreateOutputOutputAlphasocS3$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputAlphasocS3$outboundSchema: z.ZodType<
-  CreateOutputOutputAlphasocS3$Outbound,
+export const CreateOutputSystemByPackOutputAlphasocS3$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputAlphasocS3$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputAlphasocS3
+  CreateOutputSystemByPackOutputAlphasocS3
 > = z.object({
   id: z.string(),
   type: z.literal("alphasoc_s3"),
@@ -13204,18 +13402,19 @@ export const CreateOutputOutputAlphasocS3$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputAlphasocS3ToJSON(
-  createOutputOutputAlphasocS3: CreateOutputOutputAlphasocS3,
+export function createOutputSystemByPackOutputAlphasocS3ToJSON(
+  createOutputSystemByPackOutputAlphasocS3:
+    CreateOutputSystemByPackOutputAlphasocS3,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputAlphasocS3$outboundSchema.parse(
-      createOutputOutputAlphasocS3,
+    CreateOutputSystemByPackOutputAlphasocS3$outboundSchema.parse(
+      createOutputSystemByPackOutputAlphasocS3,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputStorjS3$Outbound = {
+export type CreateOutputSystemByPackOutputStorjS3$Outbound = {
   id: string;
   type: "storj_s3";
   pipeline?: string | undefined;
@@ -13285,10 +13484,10 @@ export type CreateOutputOutputStorjS3$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputStorjS3$outboundSchema: z.ZodType<
-  CreateOutputOutputStorjS3$Outbound,
+export const CreateOutputSystemByPackOutputStorjS3$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputStorjS3$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputStorjS3
+  CreateOutputSystemByPackOutputStorjS3
 > = z.object({
   id: z.string(),
   type: z.literal("storj_s3"),
@@ -13362,16 +13561,18 @@ export const CreateOutputOutputStorjS3$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputStorjS3ToJSON(
-  createOutputOutputStorjS3: CreateOutputOutputStorjS3,
+export function createOutputSystemByPackOutputStorjS3ToJSON(
+  createOutputSystemByPackOutputStorjS3: CreateOutputSystemByPackOutputStorjS3,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputStorjS3$outboundSchema.parse(createOutputOutputStorjS3),
+    CreateOutputSystemByPackOutputStorjS3$outboundSchema.parse(
+      createOutputSystemByPackOutputStorjS3,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputNutanixObjects$Outbound = {
+export type CreateOutputSystemByPackOutputNutanixObjects$Outbound = {
   id: string;
   type: "nutanix_objects";
   pipeline?: string | undefined;
@@ -13443,105 +13644,109 @@ export type CreateOutputOutputNutanixObjects$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputNutanixObjects$outboundSchema: z.ZodType<
-  CreateOutputOutputNutanixObjects$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputNutanixObjects
-> = z.object({
-  id: z.string(),
-  type: z.literal("nutanix_objects"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod: models
-    .AuthenticationMethodOptionsSecret$outboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  bucket: z.string(),
-  region: z.string().optional(),
-  destPath: z.string().optional(),
-  maxConcurrentFileParts: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
-  stagePath: z.string(),
-  addIdToStagePath: z.boolean().optional(),
-  removeEmptyDirs: z.boolean().optional(),
-  partitionExpr: z.string().optional(),
-  format: models.DataFormatOptions$outboundSchema.optional(),
-  baseFileName: z.string().optional(),
-  fileNameSuffix: z.string().optional(),
-  maxFileSizeMB: z.number().optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxOpenFiles: z.number().optional(),
-  headerLine: z.string().optional(),
-  writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
-  deadletterEnabled: z.boolean().optional(),
-  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .optional(),
-  forceCloseOnShutdown: z.boolean().optional(),
-  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
-  endpoint: z.string(),
-  description: z.string().optional(),
-  awsSecret: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
-  automaticSchema: z.boolean().optional(),
-  parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
-    .optional(),
-  parquetRowGroupLength: z.number().optional(),
-  parquetPageSize: z.string().optional(),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
-  ).optional(),
-  enableStatistics: z.boolean().optional(),
-  enableWritePageIndex: z.boolean().optional(),
-  enablePageChecksum: z.boolean().optional(),
-  emptyDirCleanupSec: z.number().optional(),
-  directoryBatchSize: z.number().optional(),
-  deadletterPath: z.string().optional(),
-  maxRetryNum: z.number().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_destPath: z.string().optional(),
-  __template_partitionExpr: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_fileNameSuffix: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_compress: z.string().optional(),
-  __template_parquetSchema: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputNutanixObjects$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputNutanixObjects$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputNutanixObjects
+  > = z.object({
+    id: z.string(),
+    type: z.literal("nutanix_objects"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    awsAuthenticationMethod: models
+      .AuthenticationMethodOptionsSecret$outboundSchema.optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    bucket: z.string(),
+    region: z.string().optional(),
+    destPath: z.string().optional(),
+    maxConcurrentFileParts: z.number().optional(),
+    verifyPermissions: z.boolean().optional(),
+    maxClosingFilesToBackpressure: z.number().optional(),
+    stagePath: z.string(),
+    addIdToStagePath: z.boolean().optional(),
+    removeEmptyDirs: z.boolean().optional(),
+    partitionExpr: z.string().optional(),
+    format: models.DataFormatOptions$outboundSchema.optional(),
+    baseFileName: z.string().optional(),
+    fileNameSuffix: z.string().optional(),
+    maxFileSizeMB: z.number().optional(),
+    maxFileOpenTimeSec: z.number().optional(),
+    maxFileIdleTimeSec: z.number().optional(),
+    maxOpenFiles: z.number().optional(),
+    headerLine: z.string().optional(),
+    writeHighWaterMark: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+      .optional(),
+    deadletterEnabled: z.boolean().optional(),
+    onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+      .optional(),
+    forceCloseOnShutdown: z.boolean().optional(),
+    retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+    endpoint: z.string(),
+    description: z.string().optional(),
+    awsSecret: z.string().optional(),
+    compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+    compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+    automaticSchema: z.boolean().optional(),
+    parquetSchema: z.string().optional(),
+    parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+    parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+      .optional(),
+    parquetRowGroupLength: z.number().optional(),
+    parquetPageSize: z.string().optional(),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    enableStatistics: z.boolean().optional(),
+    enableWritePageIndex: z.boolean().optional(),
+    enablePageChecksum: z.boolean().optional(),
+    emptyDirCleanupSec: z.number().optional(),
+    directoryBatchSize: z.number().optional(),
+    deadletterPath: z.string().optional(),
+    maxRetryNum: z.number().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_bucket: z.string().optional(),
+    __template_region: z.string().optional(),
+    __template_destPath: z.string().optional(),
+    __template_partitionExpr: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_baseFileName: z.string().optional(),
+    __template_fileNameSuffix: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_endpoint: z.string().optional(),
+    __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+  });
 
-export function createOutputOutputNutanixObjectsToJSON(
-  createOutputOutputNutanixObjects: CreateOutputOutputNutanixObjects,
+export function createOutputSystemByPackOutputNutanixObjectsToJSON(
+  createOutputSystemByPackOutputNutanixObjects:
+    CreateOutputSystemByPackOutputNutanixObjects,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputNutanixObjects$outboundSchema.parse(
-      createOutputOutputNutanixObjects,
+    CreateOutputSystemByPackOutputNutanixObjects$outboundSchema.parse(
+      createOutputSystemByPackOutputNutanixObjects,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputAuthenticationMethodCloudflareR2$outboundSchema:
+export const CreateOutputSystemByPackAuthenticationMethodCloudflareR2$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    CreateOutputAuthenticationMethodCloudflareR2
-  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodCloudflareR2);
+    CreateOutputSystemByPackAuthenticationMethodCloudflareR2
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodCloudflareR2,
+  );
 
 /** @internal */
-export type CreateOutputOutputCloudflareR2$Outbound = {
+export type CreateOutputSystemByPackOutputCloudflareR2$Outbound = {
   id: string;
   type: "cloudflare_r2";
   pipeline?: string | undefined;
@@ -13616,103 +13821,106 @@ export type CreateOutputOutputCloudflareR2$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
-  CreateOutputOutputCloudflareR2$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputCloudflareR2
-> = z.object({
-  id: z.string(),
-  type: z.literal("cloudflare_r2"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod:
-    CreateOutputAuthenticationMethodCloudflareR2$outboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  bucket: z.string(),
-  destPath: z.string().optional(),
-  maxConcurrentFileParts: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
-  stagePath: z.string(),
-  addIdToStagePath: z.boolean().optional(),
-  removeEmptyDirs: z.boolean().optional(),
-  partitionExpr: z.string().optional(),
-  format: models.DataFormatOptions$outboundSchema.optional(),
-  baseFileName: z.string().optional(),
-  fileNameSuffix: z.string().optional(),
-  maxFileSizeMB: z.number().optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxOpenFiles: z.number().optional(),
-  headerLine: z.string().optional(),
-  writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
-  deadletterEnabled: z.boolean().optional(),
-  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .optional(),
-  forceCloseOnShutdown: z.boolean().optional(),
-  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
-  awsSecretKey: z.string().optional(),
-  endpoint: z.string(),
-  storageClass: models
-    .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
-  serverSideEncryption: models
-    .ServerSideEncryptionForUploadedObjectsOptionsAes256$outboundSchema
-    .optional(),
-  description: z.string().optional(),
-  awsSecret: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
-  automaticSchema: z.boolean().optional(),
-  parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
-    .optional(),
-  parquetRowGroupLength: z.number().optional(),
-  parquetPageSize: z.string().optional(),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
-  ).optional(),
-  enableStatistics: z.boolean().optional(),
-  enableWritePageIndex: z.boolean().optional(),
-  enablePageChecksum: z.boolean().optional(),
-  emptyDirCleanupSec: z.number().optional(),
-  directoryBatchSize: z.number().optional(),
-  deadletterPath: z.string().optional(),
-  maxRetryNum: z.number().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_destPath: z.string().optional(),
-  __template_partitionExpr: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_fileNameSuffix: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_storageClass: z.string().optional(),
-  __template_serverSideEncryption: z.string().optional(),
-  __template_compress: z.string().optional(),
-  __template_parquetSchema: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputCloudflareR2$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputCloudflareR2$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputCloudflareR2
+  > = z.object({
+    id: z.string(),
+    type: z.literal("cloudflare_r2"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    awsAuthenticationMethod:
+      CreateOutputSystemByPackAuthenticationMethodCloudflareR2$outboundSchema
+        .optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    bucket: z.string(),
+    destPath: z.string().optional(),
+    maxConcurrentFileParts: z.number().optional(),
+    verifyPermissions: z.boolean().optional(),
+    maxClosingFilesToBackpressure: z.number().optional(),
+    stagePath: z.string(),
+    addIdToStagePath: z.boolean().optional(),
+    removeEmptyDirs: z.boolean().optional(),
+    partitionExpr: z.string().optional(),
+    format: models.DataFormatOptions$outboundSchema.optional(),
+    baseFileName: z.string().optional(),
+    fileNameSuffix: z.string().optional(),
+    maxFileSizeMB: z.number().optional(),
+    maxFileOpenTimeSec: z.number().optional(),
+    maxFileIdleTimeSec: z.number().optional(),
+    maxOpenFiles: z.number().optional(),
+    headerLine: z.string().optional(),
+    writeHighWaterMark: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+      .optional(),
+    deadletterEnabled: z.boolean().optional(),
+    onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+      .optional(),
+    forceCloseOnShutdown: z.boolean().optional(),
+    retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+    awsSecretKey: z.string().optional(),
+    endpoint: z.string(),
+    storageClass: models
+      .StorageClassOptionsReducedredundancyStandard$outboundSchema.optional(),
+    serverSideEncryption: models
+      .ServerSideEncryptionForUploadedObjectsOptionsAes256$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    awsSecret: z.string().optional(),
+    compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+    compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+    automaticSchema: z.boolean().optional(),
+    parquetSchema: z.string().optional(),
+    parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+    parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+      .optional(),
+    parquetRowGroupLength: z.number().optional(),
+    parquetPageSize: z.string().optional(),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    enableStatistics: z.boolean().optional(),
+    enableWritePageIndex: z.boolean().optional(),
+    enablePageChecksum: z.boolean().optional(),
+    emptyDirCleanupSec: z.number().optional(),
+    directoryBatchSize: z.number().optional(),
+    deadletterPath: z.string().optional(),
+    maxRetryNum: z.number().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_bucket: z.string().optional(),
+    __template_destPath: z.string().optional(),
+    __template_partitionExpr: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_baseFileName: z.string().optional(),
+    __template_fileNameSuffix: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_awsSecretKey: z.string().optional(),
+    __template_storageClass: z.string().optional(),
+    __template_serverSideEncryption: z.string().optional(),
+    __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+  });
 
-export function createOutputOutputCloudflareR2ToJSON(
-  createOutputOutputCloudflareR2: CreateOutputOutputCloudflareR2,
+export function createOutputSystemByPackOutputCloudflareR2ToJSON(
+  createOutputSystemByPackOutputCloudflareR2:
+    CreateOutputSystemByPackOutputCloudflareR2,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCloudflareR2$outboundSchema.parse(
-      createOutputOutputCloudflareR2,
+    CreateOutputSystemByPackOutputCloudflareR2$outboundSchema.parse(
+      createOutputSystemByPackOutputCloudflareR2,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputAuthentication$Outbound = {
+export type CreateOutputSystemByPackAuthentication$Outbound = {
   disabled: boolean;
   mechanism?: string | undefined;
   username?: string | undefined;
@@ -13735,10 +13943,10 @@ export type CreateOutputAuthentication$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputAuthentication$outboundSchema: z.ZodType<
-  CreateOutputAuthentication$Outbound,
+export const CreateOutputSystemByPackAuthentication$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackAuthentication$Outbound,
   z.ZodTypeDef,
-  CreateOutputAuthentication
+  CreateOutputSystemByPackAuthentication
 > = z.object({
   disabled: z.boolean(),
   mechanism: models.SaslMechanismOptionsSaslOauthbearerPlain$outboundSchema
@@ -13765,36 +13973,41 @@ export const CreateOutputAuthentication$outboundSchema: z.ZodType<
   __template_scope: z.string().optional(),
 });
 
-export function createOutputAuthenticationToJSON(
-  createOutputAuthentication: CreateOutputAuthentication,
+export function createOutputSystemByPackAuthenticationToJSON(
+  createOutputSystemByPackAuthentication:
+    CreateOutputSystemByPackAuthentication,
 ): string {
   return JSON.stringify(
-    CreateOutputAuthentication$outboundSchema.parse(createOutputAuthentication),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsMicrosoftFabric$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsMicrosoftFabric$outboundSchema: z.ZodType<
-  CreateOutputPqControlsMicrosoftFabric$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsMicrosoftFabric
-> = z.object({});
-
-export function createOutputPqControlsMicrosoftFabricToJSON(
-  createOutputPqControlsMicrosoftFabric: CreateOutputPqControlsMicrosoftFabric,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsMicrosoftFabric$outboundSchema.parse(
-      createOutputPqControlsMicrosoftFabric,
+    CreateOutputSystemByPackAuthentication$outboundSchema.parse(
+      createOutputSystemByPackAuthentication,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputMicrosoftFabric$Outbound = {
+export type CreateOutputSystemByPackPqControlsMicrosoftFabric$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsMicrosoftFabric$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsMicrosoftFabric$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsMicrosoftFabric
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsMicrosoftFabricToJSON(
+  createOutputSystemByPackPqControlsMicrosoftFabric:
+    CreateOutputSystemByPackPqControlsMicrosoftFabric,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsMicrosoftFabric$outboundSchema.parse(
+      createOutputSystemByPackPqControlsMicrosoftFabric,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputMicrosoftFabric$Outbound = {
   id: string;
   type: "microsoft_fabric";
   pipeline?: string | undefined;
@@ -13815,7 +14028,7 @@ export type CreateOutputOutputMicrosoftFabric$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: CreateOutputAuthentication$Outbound | undefined;
+  sasl?: CreateOutputSystemByPackAuthentication$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
   onBackpressure?: string | undefined;
   bootstrap_server: string;
@@ -13831,7 +14044,9 @@ export type CreateOutputOutputMicrosoftFabric$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsMicrosoftFabric$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsMicrosoftFabric$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
@@ -13840,68 +14055,73 @@ export type CreateOutputOutputMicrosoftFabric$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputMicrosoftFabric$outboundSchema: z.ZodType<
-  CreateOutputOutputMicrosoftFabric$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputMicrosoftFabric
-> = z.object({
-  id: z.string(),
-  type: z.literal("microsoft_fabric"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  topic: z.string(),
-  ack: models.AcknowledgmentsOptions$outboundSchema.optional(),
-  format: models.RecordDataFormatOptions$outboundSchema.optional(),
-  maxRecordSizeKB: z.number().optional(),
-  flushEventCount: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  maxBackOff: z.number().optional(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  authenticationTimeout: z.number().optional(),
-  reauthenticationThreshold: z.number().optional(),
-  sasl: z.lazy(() => CreateOutputAuthentication$outboundSchema).optional(),
-  tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  bootstrap_server: z.string(),
-  description: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsMicrosoftFabric$outboundSchema)
-    .optional(),
-  __template_streamtags: z.string().optional(),
-  __template_topic: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_bootstrap_server: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputMicrosoftFabric$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputMicrosoftFabric
+  > = z.object({
+    id: z.string(),
+    type: z.literal("microsoft_fabric"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    topic: z.string(),
+    ack: models.AcknowledgmentsOptions$outboundSchema.optional(),
+    format: models.RecordDataFormatOptions$outboundSchema.optional(),
+    maxRecordSizeKB: z.number().optional(),
+    flushEventCount: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    connectionTimeout: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    maxRetries: z.number().optional(),
+    maxBackOff: z.number().optional(),
+    initialBackoff: z.number().optional(),
+    backoffRate: z.number().optional(),
+    authenticationTimeout: z.number().optional(),
+    reauthenticationThreshold: z.number().optional(),
+    sasl: z.lazy(() => CreateOutputSystemByPackAuthentication$outboundSchema)
+      .optional(),
+    tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    bootstrap_server: z.string(),
+    description: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsMicrosoftFabric$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_topic: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_bootstrap_server: z.string().optional(),
+  });
 
-export function createOutputOutputMicrosoftFabricToJSON(
-  createOutputOutputMicrosoftFabric: CreateOutputOutputMicrosoftFabric,
+export function createOutputSystemByPackOutputMicrosoftFabricToJSON(
+  createOutputSystemByPackOutputMicrosoftFabric:
+    CreateOutputSystemByPackOutputMicrosoftFabric,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputMicrosoftFabric$outboundSchema.parse(
-      createOutputOutputMicrosoftFabric,
+    CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema.parse(
+      createOutputSystemByPackOutputMicrosoftFabric,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputDatabricks$Outbound = {
+export type CreateOutputSystemByPackOutputDatabricks$Outbound = {
   id: string;
   type: "databricks";
   pipeline?: string | undefined;
@@ -13968,10 +14188,10 @@ export type CreateOutputOutputDatabricks$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputDatabricks$outboundSchema: z.ZodType<
-  CreateOutputOutputDatabricks$Outbound,
+export const CreateOutputSystemByPackOutputDatabricks$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputDatabricks$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputDatabricks
+  CreateOutputSystemByPackOutputDatabricks
 > = z.object({
   id: z.string(),
   type: z.literal("databricks"),
@@ -14041,69 +14261,79 @@ export const CreateOutputOutputDatabricks$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputDatabricksToJSON(
-  createOutputOutputDatabricks: CreateOutputOutputDatabricks,
+export function createOutputSystemByPackOutputDatabricksToJSON(
+  createOutputSystemByPackOutputDatabricks:
+    CreateOutputSystemByPackOutputDatabricks,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDatabricks$outboundSchema.parse(
-      createOutputOutputDatabricks,
+    CreateOutputSystemByPackOutputDatabricks$outboundSchema.parse(
+      createOutputSystemByPackOutputDatabricks,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputAuthenticationMethodChronicle$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationMethodChronicle> =
-    openEnums.outboundSchema(CreateOutputAuthenticationMethodChronicle);
+export const CreateOutputSystemByPackAuthenticationMethodChronicle$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationMethodChronicle
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodChronicle,
+  );
 
 /** @internal */
-export type CreateOutputCustomLabel$Outbound = {
+export type CreateOutputSystemByPackCustomLabel$Outbound = {
   key: string;
   value: string;
   rbacEnabled?: boolean | undefined;
 };
 
 /** @internal */
-export const CreateOutputCustomLabel$outboundSchema: z.ZodType<
-  CreateOutputCustomLabel$Outbound,
+export const CreateOutputSystemByPackCustomLabel$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackCustomLabel$Outbound,
   z.ZodTypeDef,
-  CreateOutputCustomLabel
+  CreateOutputSystemByPackCustomLabel
 > = z.object({
   key: z.string(),
   value: z.string(),
   rbacEnabled: z.boolean().optional(),
 });
 
-export function createOutputCustomLabelToJSON(
-  createOutputCustomLabel: CreateOutputCustomLabel,
+export function createOutputSystemByPackCustomLabelToJSON(
+  createOutputSystemByPackCustomLabel: CreateOutputSystemByPackCustomLabel,
 ): string {
   return JSON.stringify(
-    CreateOutputCustomLabel$outboundSchema.parse(createOutputCustomLabel),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsChronicle$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsChronicle$outboundSchema: z.ZodType<
-  CreateOutputPqControlsChronicle$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsChronicle
-> = z.object({});
-
-export function createOutputPqControlsChronicleToJSON(
-  createOutputPqControlsChronicle: CreateOutputPqControlsChronicle,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsChronicle$outboundSchema.parse(
-      createOutputPqControlsChronicle,
+    CreateOutputSystemByPackCustomLabel$outboundSchema.parse(
+      createOutputSystemByPackCustomLabel,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputChronicle$Outbound = {
+export type CreateOutputSystemByPackPqControlsChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsChronicle$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsChronicle$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsChronicle
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsChronicleToJSON(
+  createOutputSystemByPackPqControlsChronicle:
+    CreateOutputSystemByPackPqControlsChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsChronicle$outboundSchema.parse(
+      createOutputSystemByPackPqControlsChronicle,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputChronicle$Outbound = {
   id: string;
   type: "chronicle";
   pipeline?: string | undefined;
@@ -14139,7 +14369,9 @@ export type CreateOutputOutputChronicle$Outbound = {
   logTextField?: string | undefined;
   gcpProjectId: string;
   gcpInstance: string;
-  customLabels?: Array<CreateOutputCustomLabel$Outbound> | undefined;
+  customLabels?:
+    | Array<CreateOutputSystemByPackCustomLabel$Outbound>
+    | undefined;
   endpoint?: string | undefined;
   description?: string | undefined;
   serviceAccountCredentials?: string | undefined;
@@ -14155,7 +14387,7 @@ export type CreateOutputOutputChronicle$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsChronicle$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsChronicle$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_region?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -14169,10 +14401,10 @@ export type CreateOutputOutputChronicle$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputChronicle$outboundSchema: z.ZodType<
-  CreateOutputOutputChronicle$Outbound,
+export const CreateOutputSystemByPackOutputChronicle$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputChronicle$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputChronicle
+  CreateOutputSystemByPackOutputChronicle
 > = z.object({
   id: z.string(),
   type: z.literal("chronicle"),
@@ -14181,8 +14413,9 @@ export const CreateOutputOutputChronicle$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   apiVersion: z.string().optional(),
-  authenticationMethod: CreateOutputAuthenticationMethodChronicle$outboundSchema
-    .optional(),
+  authenticationMethod:
+    CreateOutputSystemByPackAuthenticationMethodChronicle$outboundSchema
+      .optional(),
   responseRetrySettings: z.array(
     models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
@@ -14212,8 +14445,9 @@ export const CreateOutputOutputChronicle$outboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   gcpProjectId: z.string(),
   gcpInstance: z.string(),
-  customLabels: z.array(z.lazy(() => CreateOutputCustomLabel$outboundSchema))
-    .optional(),
+  customLabels: z.array(
+    z.lazy(() => CreateOutputSystemByPackCustomLabel$outboundSchema),
+  ).optional(),
   endpoint: z.string().optional(),
   description: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
@@ -14229,8 +14463,9 @@ export const CreateOutputOutputChronicle$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsChronicle$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsChronicle$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_region: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
@@ -14243,53 +14478,53 @@ export const CreateOutputOutputChronicle$outboundSchema: z.ZodType<
   __template_endpoint: z.string().optional(),
 });
 
-export function createOutputOutputChronicleToJSON(
-  createOutputOutputChronicle: CreateOutputOutputChronicle,
+export function createOutputSystemByPackOutputChronicleToJSON(
+  createOutputSystemByPackOutputChronicle:
+    CreateOutputSystemByPackOutputChronicle,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputChronicle$outboundSchema.parse(
-      createOutputOutputChronicle,
+    CreateOutputSystemByPackOutputChronicle$outboundSchema.parse(
+      createOutputSystemByPackOutputChronicle,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputRegion$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackRegion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputRegion
-> = openEnums.outboundSchema(CreateOutputRegion);
+  CreateOutputSystemByPackRegion
+> = openEnums.outboundSchema(CreateOutputSystemByPackRegion);
 
 /** @internal */
-export const CreateOutputAISIEMEndpointPath$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputAISIEMEndpointPath
-> = openEnums.outboundSchema(CreateOutputAISIEMEndpointPath);
+export const CreateOutputSystemByPackAISIEMEndpointPath$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputSystemByPackAISIEMEndpointPath> =
+    openEnums.outboundSchema(CreateOutputSystemByPackAISIEMEndpointPath);
 
 /** @internal */
-export type CreateOutputPqControlsSentinelOneAiSiem$Outbound = {};
+export type CreateOutputSystemByPackPqControlsSentinelOneAiSiem$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsSentinelOneAiSiem$outboundSchema: z.ZodType<
-  CreateOutputPqControlsSentinelOneAiSiem$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsSentinelOneAiSiem
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsSentinelOneAiSiem$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsSentinelOneAiSiem$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsSentinelOneAiSiem
+  > = z.object({});
 
-export function createOutputPqControlsSentinelOneAiSiemToJSON(
-  createOutputPqControlsSentinelOneAiSiem:
-    CreateOutputPqControlsSentinelOneAiSiem,
+export function createOutputSystemByPackPqControlsSentinelOneAiSiemToJSON(
+  createOutputSystemByPackPqControlsSentinelOneAiSiem:
+    CreateOutputSystemByPackPqControlsSentinelOneAiSiem,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsSentinelOneAiSiem$outboundSchema.parse(
-      createOutputPqControlsSentinelOneAiSiem,
+    CreateOutputSystemByPackPqControlsSentinelOneAiSiem$outboundSchema.parse(
+      createOutputSystemByPackPqControlsSentinelOneAiSiem,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputSentinelOneAiSiem$Outbound = {
+export type CreateOutputSystemByPackOutputSentinelOneAiSiem$Outbound = {
   id: string;
   type: "sentinel_one_ai_siem";
   pipeline?: string | undefined;
@@ -14346,131 +14581,139 @@ export type CreateOutputOutputSentinelOneAiSiem$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSentinelOneAiSiem$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsSentinelOneAiSiem$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputSentinelOneAiSiem$outboundSchema: z.ZodType<
-  CreateOutputOutputSentinelOneAiSiem$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputSentinelOneAiSiem
-> = z.object({
-  id: z.string(),
-  type: z.literal("sentinel_one_ai_siem"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  region: CreateOutputRegion$outboundSchema,
-  endpoint: CreateOutputAISIEMEndpointPath$outboundSchema,
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  baseUrl: z.string().optional(),
-  hostExpression: z.string().optional(),
-  sourceExpression: z.string().optional(),
-  sourceTypeExpression: z.string().optional(),
-  dataSourceCategoryExpression: z.string().optional(),
-  dataSourceNameExpression: z.string().optional(),
-  dataSourceVendorExpression: z.string().optional(),
-  eventTypeExpression: z.string().optional(),
-  host: z.string().optional(),
-  source: z.string().optional(),
-  sourceType: z.string().optional(),
-  dataSourceCategory: z.string().optional(),
-  dataSourceName: z.string().optional(),
-  dataSourceVendor: z.string().optional(),
-  eventType: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() =>
-    CreateOutputPqControlsSentinelOneAiSiem$outboundSchema
-  ).optional(),
-  __template_streamtags: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputSentinelOneAiSiem$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputSentinelOneAiSiem$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputSentinelOneAiSiem
+  > = z.object({
+    id: z.string(),
+    type: z.literal("sentinel_one_ai_siem"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: CreateOutputSystemByPackRegion$outboundSchema,
+    endpoint: CreateOutputSystemByPackAISIEMEndpointPath$outboundSchema,
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    compress: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+      .optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().optional(),
+    hostExpression: z.string().optional(),
+    sourceExpression: z.string().optional(),
+    sourceTypeExpression: z.string().optional(),
+    dataSourceCategoryExpression: z.string().optional(),
+    dataSourceNameExpression: z.string().optional(),
+    dataSourceVendorExpression: z.string().optional(),
+    eventTypeExpression: z.string().optional(),
+    host: z.string().optional(),
+    source: z.string().optional(),
+    sourceType: z.string().optional(),
+    dataSourceCategory: z.string().optional(),
+    dataSourceName: z.string().optional(),
+    dataSourceVendor: z.string().optional(),
+    eventType: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsSentinelOneAiSiem$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputOutputSentinelOneAiSiemToJSON(
-  createOutputOutputSentinelOneAiSiem: CreateOutputOutputSentinelOneAiSiem,
+export function createOutputSystemByPackOutputSentinelOneAiSiemToJSON(
+  createOutputSystemByPackOutputSentinelOneAiSiem:
+    CreateOutputSystemByPackOutputSentinelOneAiSiem,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputSentinelOneAiSiem$outboundSchema.parse(
-      createOutputOutputSentinelOneAiSiem,
+    CreateOutputSystemByPackOutputSentinelOneAiSiem$outboundSchema.parse(
+      createOutputSystemByPackOutputSentinelOneAiSiem,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputProtocolDynatraceOtlp$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackProtocolDynatraceOtlp$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackProtocolDynatraceOtlp
+  > = openEnums.outboundSchema(CreateOutputSystemByPackProtocolDynatraceOtlp);
+
+/** @internal */
+export const CreateOutputSystemByPackEndpointType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputProtocolDynatraceOtlp
-> = openEnums.outboundSchema(CreateOutputProtocolDynatraceOtlp);
+  CreateOutputSystemByPackEndpointType
+> = openEnums.outboundSchema(CreateOutputSystemByPackEndpointType);
 
 /** @internal */
-export const CreateOutputEndpointType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputEndpointType
-> = openEnums.outboundSchema(CreateOutputEndpointType);
+export type CreateOutputSystemByPackPqControlsDynatraceOtlp$Outbound = {};
 
 /** @internal */
-export type CreateOutputPqControlsDynatraceOtlp$Outbound = {};
+export const CreateOutputSystemByPackPqControlsDynatraceOtlp$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsDynatraceOtlp$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsDynatraceOtlp
+  > = z.object({});
 
-/** @internal */
-export const CreateOutputPqControlsDynatraceOtlp$outboundSchema: z.ZodType<
-  CreateOutputPqControlsDynatraceOtlp$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsDynatraceOtlp
-> = z.object({});
-
-export function createOutputPqControlsDynatraceOtlpToJSON(
-  createOutputPqControlsDynatraceOtlp: CreateOutputPqControlsDynatraceOtlp,
+export function createOutputSystemByPackPqControlsDynatraceOtlpToJSON(
+  createOutputSystemByPackPqControlsDynatraceOtlp:
+    CreateOutputSystemByPackPqControlsDynatraceOtlp,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsDynatraceOtlp$outboundSchema.parse(
-      createOutputPqControlsDynatraceOtlp,
+    CreateOutputSystemByPackPqControlsDynatraceOtlp$outboundSchema.parse(
+      createOutputSystemByPackPqControlsDynatraceOtlp,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputDynatraceOtlp$Outbound = {
+export type CreateOutputSystemByPackOutputDynatraceOtlp$Outbound = {
   id: string;
   type: "dynatrace_otlp";
   pipeline?: string | undefined;
@@ -14525,138 +14768,150 @@ export type CreateOutputOutputDynatraceOtlp$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDynatraceOtlp$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsDynatraceOtlp$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputDynatraceOtlp$outboundSchema: z.ZodType<
-  CreateOutputOutputDynatraceOtlp$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputDynatraceOtlp
-> = z.object({
-  id: z.string(),
-  type: z.literal("dynatrace_otlp"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  protocol: CreateOutputProtocolDynatraceOtlp$outboundSchema,
-  endpoint: z.string(),
-  otlpVersion: models.OtlpVersionOptions131$outboundSchema,
-  compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
-  httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
-  httpTracesEndpointOverride: z.string().optional(),
-  httpMetricsEndpointOverride: z.string().optional(),
-  httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(models.KeyValueMetadataConfOutputFilesystem$outboundSchema)
-    .optional(),
-  dynamicHeadersEnabled: z.boolean().optional(),
-  dynamicHeadersField: z.string().optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  connectionTimeout: z.number().optional(),
-  keepAliveTime: z.number().optional(),
-  keepAlive: z.boolean().optional(),
-  endpointType: CreateOutputEndpointType$outboundSchema,
-  tokenSecret: z.string(),
-  authTokenName: z.string().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsDynatraceOtlp$outboundSchema)
-    .optional(),
-  __template_streamtags: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputDynatraceOtlp$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputDynatraceOtlp$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputDynatraceOtlp
+  > = z.object({
+    id: z.string(),
+    type: z.literal("dynatrace_otlp"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    protocol: CreateOutputSystemByPackProtocolDynatraceOtlp$outboundSchema,
+    endpoint: z.string(),
+    otlpVersion: models.OtlpVersionOptions131$outboundSchema,
+    compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
+    httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
+    httpTracesEndpointOverride: z.string().optional(),
+    httpMetricsEndpointOverride: z.string().optional(),
+    httpLogsEndpointOverride: z.string().optional(),
+    metadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    dynamicHeadersEnabled: z.boolean().optional(),
+    dynamicHeadersField: z.string().optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    connectionTimeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    keepAlive: z.boolean().optional(),
+    endpointType: CreateOutputSystemByPackEndpointType$outboundSchema,
+    tokenSecret: z.string(),
+    authTokenName: z.string().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsDynatraceOtlp$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputOutputDynatraceOtlpToJSON(
-  createOutputOutputDynatraceOtlp: CreateOutputOutputDynatraceOtlp,
+export function createOutputSystemByPackOutputDynatraceOtlpToJSON(
+  createOutputSystemByPackOutputDynatraceOtlp:
+    CreateOutputSystemByPackOutputDynatraceOtlp,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDynatraceOtlp$outboundSchema.parse(
-      createOutputOutputDynatraceOtlp,
+    CreateOutputSystemByPackOutputDynatraceOtlp$outboundSchema.parse(
+      createOutputSystemByPackOutputDynatraceOtlp,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputAuthenticationTypeDynatraceHTTP$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationTypeDynatraceHTTP> =
-    openEnums.outboundSchema(CreateOutputAuthenticationTypeDynatraceHTTP);
+export const CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP,
+  );
 
 /** @internal */
-export const CreateOutputFormatDynatraceHTTP$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackFormatDynatraceHTTP$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputSystemByPackFormatDynatraceHTTP> =
+    openEnums.outboundSchema(CreateOutputSystemByPackFormatDynatraceHTTP);
+
+/** @internal */
+export const CreateOutputSystemByPackEndpoint$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputFormatDynatraceHTTP
-> = openEnums.outboundSchema(CreateOutputFormatDynatraceHTTP);
+  CreateOutputSystemByPackEndpoint
+> = openEnums.outboundSchema(CreateOutputSystemByPackEndpoint);
 
 /** @internal */
-export const CreateOutputEndpoint$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackTelemetryType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputEndpoint
-> = openEnums.outboundSchema(CreateOutputEndpoint);
+  CreateOutputSystemByPackTelemetryType
+> = openEnums.outboundSchema(CreateOutputSystemByPackTelemetryType);
 
 /** @internal */
-export const CreateOutputTelemetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputTelemetryType
-> = openEnums.outboundSchema(CreateOutputTelemetryType);
+export type CreateOutputSystemByPackPqControlsDynatraceHTTP$Outbound = {};
 
 /** @internal */
-export type CreateOutputPqControlsDynatraceHTTP$Outbound = {};
+export const CreateOutputSystemByPackPqControlsDynatraceHTTP$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsDynatraceHTTP$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsDynatraceHTTP
+  > = z.object({});
 
-/** @internal */
-export const CreateOutputPqControlsDynatraceHTTP$outboundSchema: z.ZodType<
-  CreateOutputPqControlsDynatraceHTTP$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsDynatraceHTTP
-> = z.object({});
-
-export function createOutputPqControlsDynatraceHTTPToJSON(
-  createOutputPqControlsDynatraceHTTP: CreateOutputPqControlsDynatraceHTTP,
+export function createOutputSystemByPackPqControlsDynatraceHTTPToJSON(
+  createOutputSystemByPackPqControlsDynatraceHTTP:
+    CreateOutputSystemByPackPqControlsDynatraceHTTP,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsDynatraceHTTP$outboundSchema.parse(
-      createOutputPqControlsDynatraceHTTP,
+    CreateOutputSystemByPackPqControlsDynatraceHTTP$outboundSchema.parse(
+      createOutputSystemByPackPqControlsDynatraceHTTP,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputDynatraceHttp$Outbound = {
+export type CreateOutputSystemByPackOutputDynatraceHttp$Outbound = {
   id: string;
   type: "dynatrace_http";
   pipeline?: string | undefined;
@@ -14701,7 +14956,9 @@ export type CreateOutputOutputDynatraceHttp$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDynatraceHTTP$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsDynatraceHTTP$Outbound
+    | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
   environmentId?: string | undefined;
@@ -14714,83 +14971,88 @@ export type CreateOutputOutputDynatraceHttp$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputDynatraceHttp$outboundSchema: z.ZodType<
-  CreateOutputOutputDynatraceHttp$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputDynatraceHttp
-> = z.object({
-  id: z.string(),
-  type: z.literal("dynatrace_http"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  method: models.MethodOptions$outboundSchema.optional(),
-  keepAlive: z.boolean().optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: CreateOutputAuthenticationTypeDynatraceHTTP$outboundSchema
-    .optional(),
-  format: CreateOutputFormatDynatraceHTTP$outboundSchema,
-  endpoint: CreateOutputEndpoint$outboundSchema,
-  telemetryType: CreateOutputTelemetryType$outboundSchema,
-  totalMemoryLimitKB: z.number().optional(),
-  description: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsDynatraceHTTP$outboundSchema)
-    .optional(),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  environmentId: z.string().optional(),
-  activeGateDomain: z.string().optional(),
-  url: z.string().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_url: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputDynatraceHttp$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputDynatraceHttp$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputDynatraceHttp
+  > = z.object({
+    id: z.string(),
+    type: z.literal("dynatrace_http"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    method: models.MethodOptions$outboundSchema.optional(),
+    keepAlive: z.boolean().optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    compress: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    authType:
+      CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP$outboundSchema
+        .optional(),
+    format: CreateOutputSystemByPackFormatDynatraceHTTP$outboundSchema,
+    endpoint: CreateOutputSystemByPackEndpoint$outboundSchema,
+    telemetryType: CreateOutputSystemByPackTelemetryType$outboundSchema,
+    totalMemoryLimitKB: z.number().optional(),
+    description: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsDynatraceHTTP$outboundSchema
+    ).optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    environmentId: z.string().optional(),
+    activeGateDomain: z.string().optional(),
+    url: z.string().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_url: z.string().optional(),
+  });
 
-export function createOutputOutputDynatraceHttpToJSON(
-  createOutputOutputDynatraceHttp: CreateOutputOutputDynatraceHttp,
+export function createOutputSystemByPackOutputDynatraceHttpToJSON(
+  createOutputSystemByPackOutputDynatraceHttp:
+    CreateOutputSystemByPackOutputDynatraceHttp,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDynatraceHttp$outboundSchema.parse(
-      createOutputOutputDynatraceHttp,
+    CreateOutputSystemByPackOutputDynatraceHttp$outboundSchema.parse(
+      createOutputSystemByPackOutputDynatraceHttp,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputHostNetflow$Outbound = {
+export type CreateOutputSystemByPackHostNetflow$Outbound = {
   host: string;
   port: number;
   __template_host?: string | undefined;
@@ -14798,10 +15060,10 @@ export type CreateOutputHostNetflow$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputHostNetflow$outboundSchema: z.ZodType<
-  CreateOutputHostNetflow$Outbound,
+export const CreateOutputSystemByPackHostNetflow$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackHostNetflow$Outbound,
   z.ZodTypeDef,
-  CreateOutputHostNetflow
+  CreateOutputSystemByPackHostNetflow
 > = z.object({
   host: z.string(),
   port: z.number(),
@@ -14809,23 +15071,25 @@ export const CreateOutputHostNetflow$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createOutputHostNetflowToJSON(
-  createOutputHostNetflow: CreateOutputHostNetflow,
+export function createOutputSystemByPackHostNetflowToJSON(
+  createOutputSystemByPackHostNetflow: CreateOutputSystemByPackHostNetflow,
 ): string {
   return JSON.stringify(
-    CreateOutputHostNetflow$outboundSchema.parse(createOutputHostNetflow),
+    CreateOutputSystemByPackHostNetflow$outboundSchema.parse(
+      createOutputSystemByPackHostNetflow,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputNetflow$Outbound = {
+export type CreateOutputSystemByPackOutputNetflow$Outbound = {
   id: string;
   type: "netflow";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  hosts: Array<CreateOutputHostNetflow$Outbound>;
+  hosts: Array<CreateOutputSystemByPackHostNetflow$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
@@ -14834,10 +15098,10 @@ export type CreateOutputOutputNetflow$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputNetflow$outboundSchema: z.ZodType<
-  CreateOutputOutputNetflow$Outbound,
+export const CreateOutputSystemByPackOutputNetflow$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputNetflow$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputNetflow
+  CreateOutputSystemByPackOutputNetflow
 > = z.object({
   id: z.string(),
   type: z.literal("netflow"),
@@ -14845,7 +15109,9 @@ export const CreateOutputOutputNetflow$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  hosts: z.array(z.lazy(() => CreateOutputHostNetflow$outboundSchema)),
+  hosts: z.array(
+    z.lazy(() => CreateOutputSystemByPackHostNetflow$outboundSchema),
+  ),
   dnsResolvePeriodSec: z.number().optional(),
   enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
@@ -14853,65 +15119,73 @@ export const CreateOutputOutputNetflow$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createOutputOutputNetflowToJSON(
-  createOutputOutputNetflow: CreateOutputOutputNetflow,
+export function createOutputSystemByPackOutputNetflowToJSON(
+  createOutputSystemByPackOutputNetflow: CreateOutputSystemByPackOutputNetflow,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputNetflow$outboundSchema.parse(createOutputOutputNetflow),
-  );
-}
-
-/** @internal */
-export const CreateOutputAuthenticationMethodXsiam$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputAuthenticationMethodXsiam
-> = openEnums.outboundSchema(CreateOutputAuthenticationMethodXsiam);
-
-/** @internal */
-export type CreateOutputUrlXsiam$Outbound = {
-  weight?: number | undefined;
-};
-
-/** @internal */
-export const CreateOutputUrlXsiam$outboundSchema: z.ZodType<
-  CreateOutputUrlXsiam$Outbound,
-  z.ZodTypeDef,
-  CreateOutputUrlXsiam
-> = z.object({
-  weight: z.number().optional(),
-});
-
-export function createOutputUrlXsiamToJSON(
-  createOutputUrlXsiam: CreateOutputUrlXsiam,
-): string {
-  return JSON.stringify(
-    CreateOutputUrlXsiam$outboundSchema.parse(createOutputUrlXsiam),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsXsiam$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsXsiam$outboundSchema: z.ZodType<
-  CreateOutputPqControlsXsiam$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsXsiam
-> = z.object({});
-
-export function createOutputPqControlsXsiamToJSON(
-  createOutputPqControlsXsiam: CreateOutputPqControlsXsiam,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsXsiam$outboundSchema.parse(
-      createOutputPqControlsXsiam,
+    CreateOutputSystemByPackOutputNetflow$outboundSchema.parse(
+      createOutputSystemByPackOutputNetflow,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputXsiam$Outbound = {
+export const CreateOutputSystemByPackAuthenticationMethodXsiam$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationMethodXsiam
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodXsiam,
+  );
+
+/** @internal */
+export type CreateOutputSystemByPackUrlXsiam$Outbound = {
+  weight?: number | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackUrlXsiam$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackUrlXsiam$Outbound,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackUrlXsiam
+> = z.object({
+  weight: z.number().optional(),
+});
+
+export function createOutputSystemByPackUrlXsiamToJSON(
+  createOutputSystemByPackUrlXsiam: CreateOutputSystemByPackUrlXsiam,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackUrlXsiam$outboundSchema.parse(
+      createOutputSystemByPackUrlXsiam,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsXsiam$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsXsiam$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackPqControlsXsiam$Outbound,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackPqControlsXsiam
+> = z.object({});
+
+export function createOutputSystemByPackPqControlsXsiamToJSON(
+  createOutputSystemByPackPqControlsXsiam:
+    CreateOutputSystemByPackPqControlsXsiam,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsXsiam$outboundSchema.parse(
+      createOutputSystemByPackPqControlsXsiam,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputXsiam$Outbound = {
   id: string;
   type: "xsiam";
   pipeline?: string | undefined;
@@ -14944,7 +15218,7 @@ export type CreateOutputOutputXsiam$Outbound = {
   url?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<CreateOutputUrlXsiam$Outbound> | undefined;
+  urls?: Array<CreateOutputSystemByPackUrlXsiam$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
@@ -14960,7 +15234,7 @@ export type CreateOutputOutputXsiam$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsXsiam$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsXsiam$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -14968,10 +15242,10 @@ export type CreateOutputOutputXsiam$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputXsiam$outboundSchema: z.ZodType<
-  CreateOutputOutputXsiam$Outbound,
+export const CreateOutputSystemByPackOutputXsiam$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputXsiam$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputXsiam
+  CreateOutputSystemByPackOutputXsiam
 > = z.object({
   id: z.string(),
   type: z.literal("xsiam"),
@@ -14993,7 +15267,8 @@ export const CreateOutputOutputXsiam$outboundSchema: z.ZodType<
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: CreateOutputAuthenticationMethodXsiam$outboundSchema.optional(),
+  authType: CreateOutputSystemByPackAuthenticationMethodXsiam$outboundSchema
+    .optional(),
   responseRetrySettings: z.array(
     models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
@@ -15007,7 +15282,8 @@ export const CreateOutputOutputXsiam$outboundSchema: z.ZodType<
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => CreateOutputUrlXsiam$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputSystemByPackUrlXsiam$outboundSchema))
+    .optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
@@ -15023,36 +15299,44 @@ export const CreateOutputOutputXsiam$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsXsiam$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsXsiam$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
-export function createOutputOutputXsiamToJSON(
-  createOutputOutputXsiam: CreateOutputOutputXsiam,
+export function createOutputSystemByPackOutputXsiamToJSON(
+  createOutputSystemByPackOutputXsiam: CreateOutputSystemByPackOutputXsiam,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputXsiam$outboundSchema.parse(createOutputOutputXsiam),
+    CreateOutputSystemByPackOutputXsiam$outboundSchema.parse(
+      createOutputSystemByPackOutputXsiam,
+    ),
   );
 }
 
 /** @internal */
-export const CreateOutputFormatLocalSearchStorage$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackFormatLocalSearchStorage$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackFormatLocalSearchStorage
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackFormatLocalSearchStorage,
+  );
+
+/** @internal */
+export const CreateOutputSystemByPackMappingType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputFormatLocalSearchStorage
-> = openEnums.outboundSchema(CreateOutputFormatLocalSearchStorage);
+  CreateOutputSystemByPackMappingType
+> = openEnums.outboundSchema(CreateOutputSystemByPackMappingType);
 
 /** @internal */
-export const CreateOutputMappingTypeLocalSearchStorage$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateOutputMappingTypeLocalSearchStorage> =
-    openEnums.outboundSchema(CreateOutputMappingTypeLocalSearchStorage);
-
-/** @internal */
-export type CreateOutputStatsDestination$Outbound = {
+export type CreateOutputSystemByPackStatsDestination$Outbound = {
   url?: string | undefined;
   database?: string | undefined;
   tableName?: string | undefined;
@@ -15063,10 +15347,10 @@ export type CreateOutputStatsDestination$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputStatsDestination$outboundSchema: z.ZodType<
-  CreateOutputStatsDestination$Outbound,
+export const CreateOutputSystemByPackStatsDestination$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackStatsDestination$Outbound,
   z.ZodTypeDef,
-  CreateOutputStatsDestination
+  CreateOutputSystemByPackStatsDestination
 > = z.object({
   url: z.string().optional(),
   database: z.string().optional(),
@@ -15077,69 +15361,69 @@ export const CreateOutputStatsDestination$outboundSchema: z.ZodType<
   password: z.string().optional(),
 });
 
-export function createOutputStatsDestinationToJSON(
-  createOutputStatsDestination: CreateOutputStatsDestination,
+export function createOutputSystemByPackStatsDestinationToJSON(
+  createOutputSystemByPackStatsDestination:
+    CreateOutputSystemByPackStatsDestination,
 ): string {
   return JSON.stringify(
-    CreateOutputStatsDestination$outboundSchema.parse(
-      createOutputStatsDestination,
+    CreateOutputSystemByPackStatsDestination$outboundSchema.parse(
+      createOutputSystemByPackStatsDestination,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputColumnMappingLocalSearchStorage$Outbound = {
+export type CreateOutputSystemByPackColumnMapping$Outbound = {
   columnName: string;
   columnType?: string | undefined;
   columnValueExpression: string;
 };
 
 /** @internal */
-export const CreateOutputColumnMappingLocalSearchStorage$outboundSchema:
-  z.ZodType<
-    CreateOutputColumnMappingLocalSearchStorage$Outbound,
-    z.ZodTypeDef,
-    CreateOutputColumnMappingLocalSearchStorage
-  > = z.object({
-    columnName: z.string(),
-    columnType: z.string().optional(),
-    columnValueExpression: z.string(),
-  });
-
-export function createOutputColumnMappingLocalSearchStorageToJSON(
-  createOutputColumnMappingLocalSearchStorage:
-    CreateOutputColumnMappingLocalSearchStorage,
-): string {
-  return JSON.stringify(
-    CreateOutputColumnMappingLocalSearchStorage$outboundSchema.parse(
-      createOutputColumnMappingLocalSearchStorage,
-    ),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsLocalSearchStorage$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsLocalSearchStorage$outboundSchema: z.ZodType<
-  CreateOutputPqControlsLocalSearchStorage$Outbound,
+export const CreateOutputSystemByPackColumnMapping$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackColumnMapping$Outbound,
   z.ZodTypeDef,
-  CreateOutputPqControlsLocalSearchStorage
-> = z.object({});
+  CreateOutputSystemByPackColumnMapping
+> = z.object({
+  columnName: z.string(),
+  columnType: z.string().optional(),
+  columnValueExpression: z.string(),
+});
 
-export function createOutputPqControlsLocalSearchStorageToJSON(
-  createOutputPqControlsLocalSearchStorage:
-    CreateOutputPqControlsLocalSearchStorage,
+export function createOutputSystemByPackColumnMappingToJSON(
+  createOutputSystemByPackColumnMapping: CreateOutputSystemByPackColumnMapping,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsLocalSearchStorage$outboundSchema.parse(
-      createOutputPqControlsLocalSearchStorage,
+    CreateOutputSystemByPackColumnMapping$outboundSchema.parse(
+      createOutputSystemByPackColumnMapping,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputLocalSearchStorage$Outbound = {
+export type CreateOutputSystemByPackPqControlsLocalSearchStorage$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsLocalSearchStorage$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsLocalSearchStorage$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsLocalSearchStorage
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsLocalSearchStorageToJSON(
+  createOutputSystemByPackPqControlsLocalSearchStorage:
+    CreateOutputSystemByPackPqControlsLocalSearchStorage,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsLocalSearchStorage$outboundSchema.parse(
+      createOutputSystemByPackPqControlsLocalSearchStorage,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputLocalSearchStorage$Outbound = {
   id: string;
   type: "local_search_storage";
   pipeline?: string | undefined;
@@ -15176,7 +15460,9 @@ export type CreateOutputOutputLocalSearchStorage$Outbound = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
   onBackpressure?: string | undefined;
-  statsDestination?: CreateOutputStatsDestination$Outbound | undefined;
+  statsDestination?:
+    | CreateOutputSystemByPackStatsDestination$Outbound
+    | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -15186,7 +15472,7 @@ export type CreateOutputOutputLocalSearchStorage$Outbound = {
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
   columnMappings?:
-    | Array<CreateOutputColumnMappingLocalSearchStorage$Outbound>
+    | Array<CreateOutputSystemByPackColumnMapping$Outbound>
     | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
@@ -15199,7 +15485,9 @@ export type CreateOutputOutputLocalSearchStorage$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsLocalSearchStorage$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsLocalSearchStorage$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
@@ -15209,158 +15497,304 @@ export type CreateOutputOutputLocalSearchStorage$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputLocalSearchStorage$outboundSchema: z.ZodType<
-  CreateOutputOutputLocalSearchStorage$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputLocalSearchStorage
-> = z.object({
-  id: z.string(),
-  type: z.literal("local_search_storage"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  url: z.string(),
-  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
-  database: z.string(),
-  tableName: z.string(),
-  format: CreateOutputFormatLocalSearchStorage$outboundSchema.optional(),
-  mappingType: CreateOutputMappingTypeLocalSearchStorage$outboundSchema
-    .optional(),
-  asyncInserts: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
-    .optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  dumpFormatErrorsToDisk: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  statsDestination: z.lazy(() => CreateOutputStatsDestination$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  sqlUsername: z.string().optional(),
-  waitForAsyncInserts: z.boolean().optional(),
-  excludeMappingFields: z.array(z.string()).optional(),
-  describeTable: z.string().optional(),
-  columnMappings: z.array(
-    z.lazy(() => CreateOutputColumnMappingLocalSearchStorage$outboundSchema),
-  ).optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() =>
-    CreateOutputPqControlsLocalSearchStorage$outboundSchema
-  ).optional(),
-  __template_streamtags: z.string().optional(),
-  __template_url: z.string().optional(),
-  __template_database: z.string().optional(),
-  __template_tableName: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputLocalSearchStorage$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputLocalSearchStorage$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputLocalSearchStorage
+  > = z.object({
+    id: z.string(),
+    type: z.literal("local_search_storage"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    url: z.string(),
+    authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
+    database: z.string(),
+    tableName: z.string(),
+    format: CreateOutputSystemByPackFormatLocalSearchStorage$outboundSchema
+      .optional(),
+    mappingType: CreateOutputSystemByPackMappingType$outboundSchema.optional(),
+    asyncInserts: z.boolean().optional(),
+    tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+      .optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    compress: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    dumpFormatErrorsToDisk: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    statsDestination: z.lazy(() =>
+      CreateOutputSystemByPackStatsDestination$outboundSchema
+    ).optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    sqlUsername: z.string().optional(),
+    waitForAsyncInserts: z.boolean().optional(),
+    excludeMappingFields: z.array(z.string()).optional(),
+    describeTable: z.string().optional(),
+    columnMappings: z.array(
+      z.lazy(() => CreateOutputSystemByPackColumnMapping$outboundSchema),
+    ).optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsLocalSearchStorage$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_url: z.string().optional(),
+    __template_database: z.string().optional(),
+    __template_tableName: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputOutputLocalSearchStorageToJSON(
-  createOutputOutputLocalSearchStorage: CreateOutputOutputLocalSearchStorage,
+export function createOutputSystemByPackOutputLocalSearchStorageToJSON(
+  createOutputSystemByPackOutputLocalSearchStorage:
+    CreateOutputSystemByPackOutputLocalSearchStorage,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputLocalSearchStorage$outboundSchema.parse(
-      createOutputOutputLocalSearchStorage,
+    CreateOutputSystemByPackOutputLocalSearchStorage$outboundSchema.parse(
+      createOutputSystemByPackOutputLocalSearchStorage,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputFormatClickHouse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputFormatClickHouse
-> = openEnums.outboundSchema(CreateOutputFormatClickHouse);
+export type CreateOutputSystemByPackPqControlsCustomerMetricsStorage$Outbound =
+  {};
 
 /** @internal */
-export const CreateOutputMappingTypeClickHouse$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputMappingTypeClickHouse
-> = openEnums.outboundSchema(CreateOutputMappingTypeClickHouse);
+export const CreateOutputSystemByPackPqControlsCustomerMetricsStorage$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsCustomerMetricsStorage$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsCustomerMetricsStorage
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsCustomerMetricsStorageToJSON(
+  createOutputSystemByPackPqControlsCustomerMetricsStorage:
+    CreateOutputSystemByPackPqControlsCustomerMetricsStorage,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsCustomerMetricsStorage$outboundSchema
+      .parse(createOutputSystemByPackPqControlsCustomerMetricsStorage),
+  );
+}
 
 /** @internal */
-export type CreateOutputColumnMappingClickHouse$Outbound = {
-  columnName: string;
-  columnType?: string | undefined;
-  columnValueExpression: string;
+export type CreateOutputSystemByPackOutputCustomerMetricsStorage$Outbound = {
+  id: string;
+  type: "customer_metrics_storage";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  authType?: string | undefined;
+  database: string;
+  tableName: string;
+  format?: string | undefined;
+  mappingType?: string | undefined;
+  asyncInserts?: boolean | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
+    | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  dumpFormatErrorsToDisk?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  sqlUsername?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  excludeMappingFields?: Array<string> | undefined;
+  describeTable?: string | undefined;
+  columnMappings?:
+    | Array<models.ColumnMappingConfOutputClickHouse$Outbound>
+    | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsCustomerMetricsStorage$Outbound
+    | undefined;
+  __template_streamtags?: string | undefined;
+  __template_url?: string | undefined;
+  __template_database?: string | undefined;
+  __template_tableName?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputColumnMappingClickHouse$outboundSchema: z.ZodType<
-  CreateOutputColumnMappingClickHouse$Outbound,
-  z.ZodTypeDef,
-  CreateOutputColumnMappingClickHouse
-> = z.object({
-  columnName: z.string(),
-  columnType: z.string().optional(),
-  columnValueExpression: z.string(),
-});
+export const CreateOutputSystemByPackOutputCustomerMetricsStorage$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputCustomerMetricsStorage$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputCustomerMetricsStorage
+  > = z.object({
+    id: z.string(),
+    type: z.literal("customer_metrics_storage"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    url: z.string(),
+    authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
+    database: z.string(),
+    tableName: z.string(),
+    format: models.FormatOptions$outboundSchema.optional(),
+    mappingType: models.MappingTypeOptions$outboundSchema.optional(),
+    asyncInserts: z.boolean().optional(),
+    tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
+      .optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    compress: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    dumpFormatErrorsToDisk: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    sqlUsername: z.string().optional(),
+    waitForAsyncInserts: z.boolean().optional(),
+    excludeMappingFields: z.array(z.string()).optional(),
+    describeTable: z.string().optional(),
+    columnMappings: z.array(
+      models.ColumnMappingConfOutputClickHouse$outboundSchema,
+    ).optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsCustomerMetricsStorage$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_url: z.string().optional(),
+    __template_database: z.string().optional(),
+    __template_tableName: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputColumnMappingClickHouseToJSON(
-  createOutputColumnMappingClickHouse: CreateOutputColumnMappingClickHouse,
+export function createOutputSystemByPackOutputCustomerMetricsStorageToJSON(
+  createOutputSystemByPackOutputCustomerMetricsStorage:
+    CreateOutputSystemByPackOutputCustomerMetricsStorage,
 ): string {
   return JSON.stringify(
-    CreateOutputColumnMappingClickHouse$outboundSchema.parse(
-      createOutputColumnMappingClickHouse,
+    CreateOutputSystemByPackOutputCustomerMetricsStorage$outboundSchema.parse(
+      createOutputSystemByPackOutputCustomerMetricsStorage,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsClickHouse$Outbound = {};
+export type CreateOutputSystemByPackPqControlsClickHouse$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsClickHouse$outboundSchema: z.ZodType<
-  CreateOutputPqControlsClickHouse$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsClickHouse
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsClickHouse$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsClickHouse$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsClickHouse
+  > = z.object({});
 
-export function createOutputPqControlsClickHouseToJSON(
-  createOutputPqControlsClickHouse: CreateOutputPqControlsClickHouse,
+export function createOutputSystemByPackPqControlsClickHouseToJSON(
+  createOutputSystemByPackPqControlsClickHouse:
+    CreateOutputSystemByPackPqControlsClickHouse,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsClickHouse$outboundSchema.parse(
-      createOutputPqControlsClickHouse,
+    CreateOutputSystemByPackPqControlsClickHouse$outboundSchema.parse(
+      createOutputSystemByPackPqControlsClickHouse,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputClickHouse$Outbound = {
+export type CreateOutputSystemByPackOutputClickHouse$Outbound = {
   id: string;
   type: "click_house";
   pipeline?: string | undefined;
@@ -15406,7 +15840,7 @@ export type CreateOutputOutputClickHouse$Outbound = {
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
   columnMappings?:
-    | Array<CreateOutputColumnMappingClickHouse$Outbound>
+    | Array<models.ColumnMappingConfOutputClickHouse$Outbound>
     | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
@@ -15419,7 +15853,9 @@ export type CreateOutputOutputClickHouse$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsClickHouse$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsClickHouse$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
@@ -15429,10 +15865,10 @@ export type CreateOutputOutputClickHouse$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
-  CreateOutputOutputClickHouse$Outbound,
+export const CreateOutputSystemByPackOutputClickHouse$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputClickHouse$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputClickHouse
+  CreateOutputSystemByPackOutputClickHouse
 > = z.object({
   id: z.string(),
   type: z.literal("click_house"),
@@ -15444,8 +15880,8 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
-  format: CreateOutputFormatClickHouse$outboundSchema.optional(),
-  mappingType: CreateOutputMappingTypeClickHouse$outboundSchema.optional(),
+  format: models.FormatOptions$outboundSchema.optional(),
+  mappingType: models.MappingTypeOptions$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
   tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
     .optional(),
@@ -15480,7 +15916,7 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
   columnMappings: z.array(
-    z.lazy(() => CreateOutputColumnMappingClickHouse$outboundSchema),
+    models.ColumnMappingConfOutputClickHouse$outboundSchema,
   ).optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
@@ -15493,8 +15929,9 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsClickHouse$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsClickHouse$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
@@ -15503,18 +15940,19 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputClickHouseToJSON(
-  createOutputOutputClickHouse: CreateOutputOutputClickHouse,
+export function createOutputSystemByPackOutputClickHouseToJSON(
+  createOutputSystemByPackOutputClickHouse:
+    CreateOutputSystemByPackOutputClickHouse,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputClickHouse$outboundSchema.parse(
-      createOutputOutputClickHouse,
+    CreateOutputSystemByPackOutputClickHouse$outboundSchema.parse(
+      createOutputSystemByPackOutputClickHouse,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputDiskSpool$Outbound = {
+export type CreateOutputSystemByPackOutputDiskSpool$Outbound = {
   id: string;
   type: "disk_spool";
   pipeline?: string | undefined;
@@ -15531,10 +15969,10 @@ export type CreateOutputOutputDiskSpool$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputDiskSpool$outboundSchema: z.ZodType<
-  CreateOutputOutputDiskSpool$Outbound,
+export const CreateOutputSystemByPackOutputDiskSpool$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputDiskSpool$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputDiskSpool
+  CreateOutputSystemByPackOutputDiskSpool
 > = z.object({
   id: z.string(),
   type: z.literal("disk_spool"),
@@ -15551,32 +15989,34 @@ export const CreateOutputOutputDiskSpool$outboundSchema: z.ZodType<
   __template_streamtags: z.string().optional(),
 });
 
-export function createOutputOutputDiskSpoolToJSON(
-  createOutputOutputDiskSpool: CreateOutputOutputDiskSpool,
+export function createOutputSystemByPackOutputDiskSpoolToJSON(
+  createOutputSystemByPackOutputDiskSpool:
+    CreateOutputSystemByPackOutputDiskSpool,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDiskSpool$outboundSchema.parse(
-      createOutputOutputDiskSpool,
+    CreateOutputSystemByPackOutputDiskSpool$outboundSchema.parse(
+      createOutputSystemByPackOutputDiskSpool,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputAwsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputAwsAuthenticationMethod
-> = openEnums.outboundSchema(CreateOutputAwsAuthenticationMethod);
+export const CreateOutputSystemByPackAwsAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAwsAuthenticationMethod
+  > = openEnums.outboundSchema(CreateOutputSystemByPackAwsAuthenticationMethod);
 
 /** @internal */
-export const CreateOutputFormatCriblLake$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackFormatCriblLake$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputFormatCriblLake
-> = openEnums.outboundSchema(CreateOutputFormatCriblLake);
+  CreateOutputSystemByPackFormatCriblLake
+> = openEnums.outboundSchema(CreateOutputSystemByPackFormatCriblLake);
 
 /** @internal */
-export type CreateOutputOutputCriblLake$Outbound = {
+export type CreateOutputSystemByPackOutputCriblLake$Outbound = {
   id: string;
   type: "cribl_lake";
   pipeline?: string | undefined;
@@ -15643,10 +16083,10 @@ export type CreateOutputOutputCriblLake$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
-  CreateOutputOutputCriblLake$Outbound,
+export const CreateOutputSystemByPackOutputCriblLake$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputCriblLake$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputCriblLake
+  CreateOutputSystemByPackOutputCriblLake
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_lake"),
@@ -15691,9 +16131,9 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
   serverSideEncryption: models
     .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  awsAuthenticationMethod: CreateOutputAwsAuthenticationMethod$outboundSchema
-    .optional(),
-  format: CreateOutputFormatCriblLake$outboundSchema.optional(),
+  awsAuthenticationMethod:
+    CreateOutputSystemByPackAwsAuthenticationMethod$outboundSchema.optional(),
+  format: CreateOutputSystemByPackFormatCriblLake$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().optional(),
@@ -15717,18 +16157,19 @@ export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
   __template_kmsKeyId: z.string().optional(),
 });
 
-export function createOutputOutputCriblLakeToJSON(
-  createOutputOutputCriblLake: CreateOutputOutputCriblLake,
+export function createOutputSystemByPackOutputCriblLakeToJSON(
+  createOutputSystemByPackOutputCriblLake:
+    CreateOutputSystemByPackOutputCriblLake,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCriblLake$outboundSchema.parse(
-      createOutputOutputCriblLake,
+    CreateOutputSystemByPackOutputCriblLake$outboundSchema.parse(
+      createOutputSystemByPackOutputCriblLake,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputSecurityLake$Outbound = {
+export type CreateOutputSystemByPackOutputSecurityLake$Outbound = {
   id: string;
   type: "security_lake";
   pipeline?: string | undefined;
@@ -15811,108 +16252,110 @@ export type CreateOutputOutputSecurityLake$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputSecurityLake$outboundSchema: z.ZodType<
-  CreateOutputOutputSecurityLake$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputSecurityLake
-> = z.object({
-  id: z.string(),
-  type: z.literal("security_lake"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  endpoint: z.string().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  bucket: z.string(),
-  region: z.string(),
-  maxConcurrentFileParts: z.number().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
-  stagePath: z.string(),
-  addIdToStagePath: z.boolean().optional(),
-  removeEmptyDirs: z.boolean().optional(),
-  baseFileName: z.string().optional(),
-  maxFileSizeMB: z.number().optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxOpenFiles: z.number().optional(),
-  headerLine: z.string().optional(),
-  writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
-  deadletterEnabled: z.boolean().optional(),
-  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .optional(),
-  forceCloseOnShutdown: z.boolean().optional(),
-  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
-  awsSecretKey: z.string().optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
-  storageClass: models.StorageClassOptions$outboundSchema.optional(),
-  serverSideEncryption: models
-    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
-  kmsKeyId: z.string().optional(),
-  accountId: z.string(),
-  customSource: z.string(),
-  automaticSchema: z.boolean().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
-    .optional(),
-  parquetRowGroupLength: z.number().optional(),
-  parquetPageSize: z.string().optional(),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
-  ).optional(),
-  enableStatistics: z.boolean().optional(),
-  enableWritePageIndex: z.boolean().optional(),
-  enablePageChecksum: z.boolean().optional(),
-  description: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  emptyDirCleanupSec: z.number().optional(),
-  directoryBatchSize: z.number().optional(),
-  parquetSchema: z.string().optional(),
-  deadletterPath: z.string().optional(),
-  maxRetryNum: z.number().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_objectACL: z.string().optional(),
-  __template_storageClass: z.string().optional(),
-  __template_serverSideEncryption: z.string().optional(),
-  __template_kmsKeyId: z.string().optional(),
-  __template_accountId: z.string().optional(),
-  __template_customSource: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-  __template_parquetSchema: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputSecurityLake$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputSecurityLake$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputSecurityLake
+  > = z.object({
+    id: z.string(),
+    type: z.literal("security_lake"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    endpoint: z.string().optional(),
+    enableAssumeRole: z.boolean().optional(),
+    assumeRoleArn: z.string(),
+    assumeRoleExternalId: z.string().optional(),
+    durationSeconds: z.number().optional(),
+    awsAuthenticationMethod: z.string().optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    bucket: z.string(),
+    region: z.string(),
+    maxConcurrentFileParts: z.number().optional(),
+    verifyPermissions: z.boolean().optional(),
+    maxClosingFilesToBackpressure: z.number().optional(),
+    stagePath: z.string(),
+    addIdToStagePath: z.boolean().optional(),
+    removeEmptyDirs: z.boolean().optional(),
+    baseFileName: z.string().optional(),
+    maxFileSizeMB: z.number().optional(),
+    maxFileOpenTimeSec: z.number().optional(),
+    maxFileIdleTimeSec: z.number().optional(),
+    maxOpenFiles: z.number().optional(),
+    headerLine: z.string().optional(),
+    writeHighWaterMark: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+      .optional(),
+    deadletterEnabled: z.boolean().optional(),
+    onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+      .optional(),
+    forceCloseOnShutdown: z.boolean().optional(),
+    retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+    awsSecretKey: z.string().optional(),
+    objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+    storageClass: models.StorageClassOptions$outboundSchema.optional(),
+    serverSideEncryption: models
+      .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+    kmsKeyId: z.string().optional(),
+    accountId: z.string(),
+    customSource: z.string(),
+    automaticSchema: z.boolean().optional(),
+    parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+    parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+      .optional(),
+    parquetRowGroupLength: z.number().optional(),
+    parquetPageSize: z.string().optional(),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    enableStatistics: z.boolean().optional(),
+    enableWritePageIndex: z.boolean().optional(),
+    enablePageChecksum: z.boolean().optional(),
+    description: z.string().optional(),
+    awsApiKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    emptyDirCleanupSec: z.number().optional(),
+    directoryBatchSize: z.number().optional(),
+    parquetSchema: z.string().optional(),
+    deadletterPath: z.string().optional(),
+    maxRetryNum: z.number().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_endpoint: z.string().optional(),
+    __template_assumeRoleArn: z.string().optional(),
+    __template_assumeRoleExternalId: z.string().optional(),
+    __template_bucket: z.string().optional(),
+    __template_region: z.string().optional(),
+    __template_baseFileName: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_awsSecretKey: z.string().optional(),
+    __template_objectACL: z.string().optional(),
+    __template_storageClass: z.string().optional(),
+    __template_serverSideEncryption: z.string().optional(),
+    __template_kmsKeyId: z.string().optional(),
+    __template_accountId: z.string().optional(),
+    __template_customSource: z.string().optional(),
+    __template_awsApiKey: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+  });
 
-export function createOutputOutputSecurityLakeToJSON(
-  createOutputOutputSecurityLake: CreateOutputOutputSecurityLake,
+export function createOutputSystemByPackOutputSecurityLakeToJSON(
+  createOutputSystemByPackOutputSecurityLake:
+    CreateOutputSystemByPackOutputSecurityLake,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputSecurityLake$outboundSchema.parse(
-      createOutputOutputSecurityLake,
+    CreateOutputSystemByPackOutputSecurityLake$outboundSchema.parse(
+      createOutputSystemByPackOutputSecurityLake,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputDlS3$Outbound = {
+export type CreateOutputSystemByPackOutputDlS3$Outbound = {
   id: string;
   type: "dl_s3";
   pipeline?: string | undefined;
@@ -16002,10 +16445,10 @@ export type CreateOutputOutputDlS3$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
-  CreateOutputOutputDlS3$Outbound,
+export const CreateOutputSystemByPackOutputDlS3$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputDlS3$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputDlS3
+  CreateOutputSystemByPackOutputDlS3
 > = z.object({
   id: z.string(),
   type: z.literal("dl_s3"),
@@ -16099,38 +16542,40 @@ export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputDlS3ToJSON(
-  createOutputOutputDlS3: CreateOutputOutputDlS3,
+export function createOutputSystemByPackOutputDlS3ToJSON(
+  createOutputSystemByPackOutputDlS3: CreateOutputSystemByPackOutputDlS3,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDlS3$outboundSchema.parse(createOutputOutputDlS3),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsCrowdstrikeNextGenSiem$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsCrowdstrikeNextGenSiem$outboundSchema:
-  z.ZodType<
-    CreateOutputPqControlsCrowdstrikeNextGenSiem$Outbound,
-    z.ZodTypeDef,
-    CreateOutputPqControlsCrowdstrikeNextGenSiem
-  > = z.object({});
-
-export function createOutputPqControlsCrowdstrikeNextGenSiemToJSON(
-  createOutputPqControlsCrowdstrikeNextGenSiem:
-    CreateOutputPqControlsCrowdstrikeNextGenSiem,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsCrowdstrikeNextGenSiem$outboundSchema.parse(
-      createOutputPqControlsCrowdstrikeNextGenSiem,
+    CreateOutputSystemByPackOutputDlS3$outboundSchema.parse(
+      createOutputSystemByPackOutputDlS3,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputCrowdstrikeNextGenSiem$Outbound = {
+export type CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem$Outbound =
+  {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsCrowdstrikeNextGenSiemToJSON(
+  createOutputSystemByPackPqControlsCrowdstrikeNextGenSiem:
+    CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem$outboundSchema
+      .parse(createOutputSystemByPackPqControlsCrowdstrikeNextGenSiem),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem$Outbound = {
   id: string;
   type: "crowdstrike_next_gen_siem";
   pipeline?: string | undefined;
@@ -16174,7 +16619,7 @@ export type CreateOutputOutputCrowdstrikeNextGenSiem$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?:
-    | CreateOutputPqControlsCrowdstrikeNextGenSiem$Outbound
+    | CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem$Outbound
     | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
@@ -16183,98 +16628,102 @@ export type CreateOutputOutputCrowdstrikeNextGenSiem$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
-  CreateOutputOutputCrowdstrikeNextGenSiem$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputCrowdstrikeNextGenSiem
-> = z.object({
-  id: z.string(),
-  type: z.literal("crowdstrike_next_gen_siem"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  url: z.string(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  format: models.RequestFormatOptions$outboundSchema,
-  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() =>
-    CreateOutputPqControlsCrowdstrikeNextGenSiem$outboundSchema
-  ).optional(),
-  __template_streamtags: z.string().optional(),
-  __template_url: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem
+  > = z.object({
+    id: z.string(),
+    type: z.literal("crowdstrike_next_gen_siem"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    url: z.string(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    compress: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    format: models.RequestFormatOptions$outboundSchema,
+    authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+      .optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_url: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputOutputCrowdstrikeNextGenSiemToJSON(
-  createOutputOutputCrowdstrikeNextGenSiem:
-    CreateOutputOutputCrowdstrikeNextGenSiem,
+export function createOutputSystemByPackOutputCrowdstrikeNextGenSiemToJSON(
+  createOutputSystemByPackOutputCrowdstrikeNextGenSiem:
+    CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema.parse(
-      createOutputOutputCrowdstrikeNextGenSiem,
+    CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem$outboundSchema.parse(
+      createOutputSystemByPackOutputCrowdstrikeNextGenSiem,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsHumioHec$Outbound = {};
+export type CreateOutputSystemByPackPqControlsHumioHec$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsHumioHec$outboundSchema: z.ZodType<
-  CreateOutputPqControlsHumioHec$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsHumioHec
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsHumioHec$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsHumioHec$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsHumioHec
+  > = z.object({});
 
-export function createOutputPqControlsHumioHecToJSON(
-  createOutputPqControlsHumioHec: CreateOutputPqControlsHumioHec,
+export function createOutputSystemByPackPqControlsHumioHecToJSON(
+  createOutputSystemByPackPqControlsHumioHec:
+    CreateOutputSystemByPackPqControlsHumioHec,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsHumioHec$outboundSchema.parse(
-      createOutputPqControlsHumioHec,
+    CreateOutputSystemByPackPqControlsHumioHec$outboundSchema.parse(
+      createOutputSystemByPackPqControlsHumioHec,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputHumioHec$Outbound = {
+export type CreateOutputSystemByPackOutputHumioHec$Outbound = {
   id: string;
   type: "humio_hec";
   pipeline?: string | undefined;
@@ -16317,7 +16766,7 @@ export type CreateOutputOutputHumioHec$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsHumioHec$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsHumioHec$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -16325,10 +16774,10 @@ export type CreateOutputOutputHumioHec$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputHumioHec$outboundSchema: z.ZodType<
-  CreateOutputOutputHumioHec$Outbound,
+export const CreateOutputSystemByPackOutputHumioHec$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputHumioHec$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputHumioHec
+  CreateOutputSystemByPackOutputHumioHec
 > = z.object({
   id: z.string(),
   type: z.literal("humio_hec"),
@@ -16375,45 +16824,50 @@ export const CreateOutputOutputHumioHec$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsHumioHec$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsHumioHec$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputHumioHecToJSON(
-  createOutputOutputHumioHec: CreateOutputOutputHumioHec,
+export function createOutputSystemByPackOutputHumioHecToJSON(
+  createOutputSystemByPackOutputHumioHec:
+    CreateOutputSystemByPackOutputHumioHec,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputHumioHec$outboundSchema.parse(createOutputOutputHumioHec),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsCriblSearchEngine$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsCriblSearchEngine$outboundSchema: z.ZodType<
-  CreateOutputPqControlsCriblSearchEngine$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsCriblSearchEngine
-> = z.object({});
-
-export function createOutputPqControlsCriblSearchEngineToJSON(
-  createOutputPqControlsCriblSearchEngine:
-    CreateOutputPqControlsCriblSearchEngine,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsCriblSearchEngine$outboundSchema.parse(
-      createOutputPqControlsCriblSearchEngine,
+    CreateOutputSystemByPackOutputHumioHec$outboundSchema.parse(
+      createOutputSystemByPackOutputHumioHec,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputCriblSearchEngine$Outbound = {
+export type CreateOutputSystemByPackPqControlsCriblSearchEngine$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsCriblSearchEngine$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsCriblSearchEngine$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsCriblSearchEngine
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsCriblSearchEngineToJSON(
+  createOutputSystemByPackPqControlsCriblSearchEngine:
+    CreateOutputSystemByPackPqControlsCriblSearchEngine,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsCriblSearchEngine$outboundSchema.parse(
+      createOutputSystemByPackPqControlsCriblSearchEngine,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputCriblSearchEngine$Outbound = {
   id: string;
   type: "cribl_search_engine";
   pipeline?: string | undefined;
@@ -16462,7 +16916,9 @@ export type CreateOutputOutputCriblSearchEngine$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCriblSearchEngine$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsCriblSearchEngine$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -16470,103 +16926,109 @@ export type CreateOutputOutputCriblSearchEngine$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCriblSearchEngine$outboundSchema: z.ZodType<
-  CreateOutputOutputCriblSearchEngine$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputCriblSearchEngine
-> = z.object({
-  id: z.string(),
-  type: z.literal("cribl_search_engine"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
-  tokenTTLMinutes: z.number().optional(),
-  excludeFields: z.array(z.string()).optional(),
-  compression: models.CompressionOptionsGzipNone$outboundSchema.optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  throttleRatePerSec: z.string().optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  authTokens: z.array(models.AuthTokenConfOutputCriblHttp$outboundSchema)
-    .optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  description: z.string().optional(),
-  url: z.string().optional(),
-  excludeSelf: z.boolean().optional(),
-  urls: z.array(models.UrlConfOutputCriblHttp$outboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().optional(),
-  loadBalanceStatsPeriodSec: z.number().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() =>
-    CreateOutputPqControlsCriblSearchEngine$outboundSchema
-  ).optional(),
-  __template_streamtags: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_url: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputCriblSearchEngine$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputCriblSearchEngine$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputCriblSearchEngine
+  > = z.object({
+    id: z.string(),
+    type: z.literal("cribl_search_engine"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    loadBalanced: z.boolean().optional(),
+    tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema
+      .optional(),
+    tokenTTLMinutes: z.number().optional(),
+    excludeFields: z.array(z.string()).optional(),
+    compression: models.CompressionOptionsGzipNone$outboundSchema.optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    throttleRatePerSec: z.string().optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    authTokens: z.array(models.AuthTokenConfOutputCriblHttp$outboundSchema)
+      .optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    description: z.string().optional(),
+    url: z.string().optional(),
+    excludeSelf: z.boolean().optional(),
+    urls: z.array(models.UrlConfOutputCriblHttp$outboundSchema).optional(),
+    dnsResolvePeriodSec: z.number().optional(),
+    loadBalanceStatsPeriodSec: z.number().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsCriblSearchEngine$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_url: z.string().optional(),
+  });
 
-export function createOutputOutputCriblSearchEngineToJSON(
-  createOutputOutputCriblSearchEngine: CreateOutputOutputCriblSearchEngine,
+export function createOutputSystemByPackOutputCriblSearchEngineToJSON(
+  createOutputSystemByPackOutputCriblSearchEngine:
+    CreateOutputSystemByPackOutputCriblSearchEngine,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCriblSearchEngine$outboundSchema.parse(
-      createOutputOutputCriblSearchEngine,
+    CreateOutputSystemByPackOutputCriblSearchEngine$outboundSchema.parse(
+      createOutputSystemByPackOutputCriblSearchEngine,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsCriblHTTP$Outbound = {};
+export type CreateOutputSystemByPackPqControlsCriblHTTP$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsCriblHTTP$outboundSchema: z.ZodType<
-  CreateOutputPqControlsCriblHTTP$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsCriblHTTP
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsCriblHTTP$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsCriblHTTP$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsCriblHTTP
+  > = z.object({});
 
-export function createOutputPqControlsCriblHTTPToJSON(
-  createOutputPqControlsCriblHTTP: CreateOutputPqControlsCriblHTTP,
+export function createOutputSystemByPackPqControlsCriblHTTPToJSON(
+  createOutputSystemByPackPqControlsCriblHTTP:
+    CreateOutputSystemByPackPqControlsCriblHTTP,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsCriblHTTP$outboundSchema.parse(
-      createOutputPqControlsCriblHTTP,
+    CreateOutputSystemByPackPqControlsCriblHTTP$outboundSchema.parse(
+      createOutputSystemByPackPqControlsCriblHTTP,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputCriblHttp$Outbound = {
+export type CreateOutputSystemByPackOutputCriblHttp$Outbound = {
   id: string;
   type: "cribl_http";
   pipeline?: string | undefined;
@@ -16615,7 +17077,7 @@ export type CreateOutputOutputCriblHttp$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCriblHTTP$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsCriblHTTP$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -16623,10 +17085,10 @@ export type CreateOutputOutputCriblHttp$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCriblHttp$outboundSchema: z.ZodType<
-  CreateOutputOutputCriblHttp$Outbound,
+export const CreateOutputSystemByPackOutputCriblHttp$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputCriblHttp$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputCriblHttp
+  CreateOutputSystemByPackOutputCriblHttp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_http"),
@@ -16679,46 +17141,50 @@ export const CreateOutputOutputCriblHttp$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsCriblHTTP$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsCriblHTTP$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
-export function createOutputOutputCriblHttpToJSON(
-  createOutputOutputCriblHttp: CreateOutputOutputCriblHttp,
+export function createOutputSystemByPackOutputCriblHttpToJSON(
+  createOutputSystemByPackOutputCriblHttp:
+    CreateOutputSystemByPackOutputCriblHttp,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCriblHttp$outboundSchema.parse(
-      createOutputOutputCriblHttp,
+    CreateOutputSystemByPackOutputCriblHttp$outboundSchema.parse(
+      createOutputSystemByPackOutputCriblHttp,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsCriblTCP$Outbound = {};
+export type CreateOutputSystemByPackPqControlsCriblTCP$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsCriblTCP$outboundSchema: z.ZodType<
-  CreateOutputPqControlsCriblTCP$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsCriblTCP
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsCriblTCP$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsCriblTCP$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsCriblTCP
+  > = z.object({});
 
-export function createOutputPqControlsCriblTCPToJSON(
-  createOutputPqControlsCriblTCP: CreateOutputPqControlsCriblTCP,
+export function createOutputSystemByPackPqControlsCriblTCPToJSON(
+  createOutputSystemByPackPqControlsCriblTCP:
+    CreateOutputSystemByPackPqControlsCriblTCP,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsCriblTCP$outboundSchema.parse(
-      createOutputPqControlsCriblTCP,
+    CreateOutputSystemByPackPqControlsCriblTCP$outboundSchema.parse(
+      createOutputSystemByPackPqControlsCriblTCP,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputCriblTcp$Outbound = {
+export type CreateOutputSystemByPackOutputCriblTcp$Outbound = {
   id: string;
   type: "cribl_tcp";
   pipeline?: string | undefined;
@@ -16755,7 +17221,7 @@ export type CreateOutputOutputCriblTcp$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCriblTCP$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsCriblTCP$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
   __template_host?: string | undefined;
@@ -16763,10 +17229,10 @@ export type CreateOutputOutputCriblTcp$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCriblTcp$outboundSchema: z.ZodType<
-  CreateOutputOutputCriblTcp$Outbound,
+export const CreateOutputSystemByPackOutputCriblTcp$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputCriblTcp$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputCriblTcp
+  CreateOutputSystemByPackOutputCriblTcp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_tcp"),
@@ -16805,58 +17271,65 @@ export const CreateOutputOutputCriblTcp$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsCriblTCP$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsCriblTCP$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
 
-export function createOutputOutputCriblTcpToJSON(
-  createOutputOutputCriblTcp: CreateOutputOutputCriblTcp,
+export function createOutputSystemByPackOutputCriblTcpToJSON(
+  createOutputSystemByPackOutputCriblTcp:
+    CreateOutputSystemByPackOutputCriblTcp,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCriblTcp$outboundSchema.parse(createOutputOutputCriblTcp),
-  );
-}
-
-/** @internal */
-export const CreateOutputDefaultSeveritySeverity$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputDefaultSeveritySeverity
-> = openEnums.outboundSchema(CreateOutputDefaultSeveritySeverity);
-
-/** @internal */
-export const CreateOutputDataSetSite$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputDataSetSite
-> = openEnums.outboundSchema(CreateOutputDataSetSite);
-
-/** @internal */
-export type CreateOutputPqControlsDataset$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsDataset$outboundSchema: z.ZodType<
-  CreateOutputPqControlsDataset$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsDataset
-> = z.object({});
-
-export function createOutputPqControlsDatasetToJSON(
-  createOutputPqControlsDataset: CreateOutputPqControlsDataset,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsDataset$outboundSchema.parse(
-      createOutputPqControlsDataset,
+    CreateOutputSystemByPackOutputCriblTcp$outboundSchema.parse(
+      createOutputSystemByPackOutputCriblTcp,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputDataset$Outbound = {
+export const CreateOutputSystemByPackDefaultSeveritySeverity$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackDefaultSeveritySeverity
+  > = openEnums.outboundSchema(CreateOutputSystemByPackDefaultSeveritySeverity);
+
+/** @internal */
+export const CreateOutputSystemByPackDataSetSite$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackDataSetSite
+> = openEnums.outboundSchema(CreateOutputSystemByPackDataSetSite);
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsDataset$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsDataset$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsDataset$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsDataset
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsDatasetToJSON(
+  createOutputSystemByPackPqControlsDataset:
+    CreateOutputSystemByPackPqControlsDataset,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsDataset$outboundSchema.parse(
+      createOutputSystemByPackPqControlsDataset,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputDataset$Outbound = {
   id: string;
   type: "dataset";
   pipeline?: string | undefined;
@@ -16903,7 +17376,7 @@ export type CreateOutputOutputDataset$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDataset$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsDataset$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -16913,10 +17386,10 @@ export type CreateOutputOutputDataset$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
-  CreateOutputOutputDataset$Outbound,
+export const CreateOutputSystemByPackOutputDataset$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputDataset$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputDataset
+  CreateOutputSystemByPackOutputDataset
 > = z.object({
   id: z.string(),
   type: z.literal("dataset"),
@@ -16928,15 +17401,15 @@ export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
   excludeFields: z.array(z.string()).optional(),
   serverHostField: z.string().optional(),
   timestampField: z.string().optional(),
-  defaultSeverity: CreateOutputDefaultSeveritySeverity$outboundSchema
-    .optional(),
+  defaultSeverity:
+    CreateOutputSystemByPackDefaultSeveritySeverity$outboundSchema.optional(),
   responseRetrySettings: z.array(
     models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  site: CreateOutputDataSetSite$outboundSchema.optional(),
+  site: CreateOutputSystemByPackDataSetSite$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -16967,8 +17440,9 @@ export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsDataset$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsDataset$outboundSchema
+  ).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -16977,36 +17451,40 @@ export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
   __template_customUrl: z.string().optional(),
 });
 
-export function createOutputOutputDatasetToJSON(
-  createOutputOutputDataset: CreateOutputOutputDataset,
+export function createOutputSystemByPackOutputDatasetToJSON(
+  createOutputSystemByPackOutputDataset: CreateOutputSystemByPackOutputDataset,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDataset$outboundSchema.parse(createOutputOutputDataset),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsServiceNow$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsServiceNow$outboundSchema: z.ZodType<
-  CreateOutputPqControlsServiceNow$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsServiceNow
-> = z.object({});
-
-export function createOutputPqControlsServiceNowToJSON(
-  createOutputPqControlsServiceNow: CreateOutputPqControlsServiceNow,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsServiceNow$outboundSchema.parse(
-      createOutputPqControlsServiceNow,
+    CreateOutputSystemByPackOutputDataset$outboundSchema.parse(
+      createOutputSystemByPackOutputDataset,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputServiceNow$Outbound = {
+export type CreateOutputSystemByPackPqControlsServiceNow$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsServiceNow$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsServiceNow$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsServiceNow
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsServiceNowToJSON(
+  createOutputSystemByPackPqControlsServiceNow:
+    CreateOutputSystemByPackPqControlsServiceNow,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsServiceNow$outboundSchema.parse(
+      createOutputSystemByPackPqControlsServiceNow,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputServiceNow$Outbound = {
   id: string;
   type: "service_now";
   pipeline?: string | undefined;
@@ -17061,17 +17539,19 @@ export type CreateOutputOutputServiceNow$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsServiceNow$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsServiceNow$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputServiceNow$outboundSchema: z.ZodType<
-  CreateOutputOutputServiceNow$Outbound,
+export const CreateOutputSystemByPackOutputServiceNow$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputServiceNow$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputServiceNow
+  CreateOutputSystemByPackOutputServiceNow
 > = z.object({
   id: z.string(),
   type: z.literal("service_now"),
@@ -17128,57 +17608,66 @@ export const CreateOutputOutputServiceNow$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsServiceNow$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsServiceNow$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputServiceNowToJSON(
-  createOutputOutputServiceNow: CreateOutputOutputServiceNow,
+export function createOutputSystemByPackOutputServiceNowToJSON(
+  createOutputSystemByPackOutputServiceNow:
+    CreateOutputSystemByPackOutputServiceNow,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputServiceNow$outboundSchema.parse(
-      createOutputOutputServiceNow,
+    CreateOutputSystemByPackOutputServiceNow$outboundSchema.parse(
+      createOutputSystemByPackOutputServiceNow,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputOTLPVersion$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackOTLPVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputOTLPVersion
-> = openEnums.outboundSchema(CreateOutputOTLPVersion);
+  CreateOutputSystemByPackOTLPVersion
+> = openEnums.outboundSchema(CreateOutputSystemByPackOTLPVersion);
 
 /** @internal */
-export const CreateOutputAuthenticationTypeOpenTelemetry$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationTypeOpenTelemetry> =
-    openEnums.outboundSchema(CreateOutputAuthenticationTypeOpenTelemetry);
+export const CreateOutputSystemByPackAuthenticationTypeOpenTelemetry$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationTypeOpenTelemetry
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationTypeOpenTelemetry,
+  );
 
 /** @internal */
-export type CreateOutputPqControlsOpenTelemetry$Outbound = {};
+export type CreateOutputSystemByPackPqControlsOpenTelemetry$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsOpenTelemetry$outboundSchema: z.ZodType<
-  CreateOutputPqControlsOpenTelemetry$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsOpenTelemetry
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsOpenTelemetry$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsOpenTelemetry$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsOpenTelemetry
+  > = z.object({});
 
-export function createOutputPqControlsOpenTelemetryToJSON(
-  createOutputPqControlsOpenTelemetry: CreateOutputPqControlsOpenTelemetry,
+export function createOutputSystemByPackPqControlsOpenTelemetryToJSON(
+  createOutputSystemByPackPqControlsOpenTelemetry:
+    CreateOutputSystemByPackPqControlsOpenTelemetry,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsOpenTelemetry$outboundSchema.parse(
-      createOutputPqControlsOpenTelemetry,
+    CreateOutputSystemByPackPqControlsOpenTelemetry$outboundSchema.parse(
+      createOutputSystemByPackPqControlsOpenTelemetry,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputOpenTelemetry$Outbound = {
+export type CreateOutputSystemByPackOutputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
   pipeline?: string | undefined;
@@ -17249,7 +17738,9 @@ export type CreateOutputOutputOpenTelemetry$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsOpenTelemetry$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsOpenTelemetry$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
@@ -17257,109 +17748,116 @@ export type CreateOutputOutputOpenTelemetry$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
-  CreateOutputOutputOpenTelemetry$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputOpenTelemetry
-> = z.object({
-  id: z.string(),
-  type: z.literal("open_telemetry"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  protocol: models.ProtocolOptions$outboundSchema.optional(),
-  endpoint: z.string(),
-  otlpVersion: CreateOutputOTLPVersion$outboundSchema.optional(),
-  compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
-  httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
-  authType: CreateOutputAuthenticationTypeOpenTelemetry$outboundSchema
-    .optional(),
-  httpTracesEndpointOverride: z.string().optional(),
-  httpMetricsEndpointOverride: z.string().optional(),
-  httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(models.KeyValueMetadataConfOutputFilesystem$outboundSchema)
-    .optional(),
-  dynamicHeadersEnabled: z.boolean().optional(),
-  dynamicHeadersField: z.string().optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  connectionTimeout: z.number().optional(),
-  keepAliveTime: z.number().optional(),
-  keepAlive: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  oauthTextSecret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.OauthParamConfInputServicenowTable$outboundSchema)
-    .optional(),
-  oauthHeaders: z.array(
-    models.OauthHeaderConfInputServicenowTable$outboundSchema,
-  ).optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  tls: models.TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsOpenTelemetry$outboundSchema)
-    .optional(),
-  __template_streamtags: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputOpenTelemetry$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputOpenTelemetry$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputOpenTelemetry
+  > = z.object({
+    id: z.string(),
+    type: z.literal("open_telemetry"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    protocol: models.ProtocolOptions$outboundSchema.optional(),
+    endpoint: z.string(),
+    otlpVersion: CreateOutputSystemByPackOTLPVersion$outboundSchema.optional(),
+    compress: models.CompressionOptionsDeflateGzip$outboundSchema.optional(),
+    httpCompress: models.CompressionOptionsMessages$outboundSchema.optional(),
+    authType:
+      CreateOutputSystemByPackAuthenticationTypeOpenTelemetry$outboundSchema
+        .optional(),
+    httpTracesEndpointOverride: z.string().optional(),
+    httpMetricsEndpointOverride: z.string().optional(),
+    httpLogsEndpointOverride: z.string().optional(),
+    metadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    dynamicHeadersEnabled: z.boolean().optional(),
+    dynamicHeadersField: z.string().optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    connectionTimeout: z.number().optional(),
+    keepAliveTime: z.number().optional(),
+    keepAlive: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    token: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    loginUrl: z.string().optional(),
+    secretParamName: z.string().optional(),
+    oauthTextSecret: z.string().optional(),
+    tokenAttributeName: z.string().optional(),
+    authHeaderExpr: z.string().optional(),
+    tokenTimeoutSecs: z.number().optional(),
+    oauthParams: z.array(
+      models.OauthParamConfInputServicenowTable$outboundSchema,
+    ).optional(),
+    oauthHeaders: z.array(
+      models.OauthHeaderConfInputServicenowTable$outboundSchema,
+    ).optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    tls: models.TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsOpenTelemetry$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_loginUrl: z.string().optional(),
+  });
 
-export function createOutputOutputOpenTelemetryToJSON(
-  createOutputOutputOpenTelemetry: CreateOutputOutputOpenTelemetry,
+export function createOutputSystemByPackOutputOpenTelemetryToJSON(
+  createOutputSystemByPackOutputOpenTelemetry:
+    CreateOutputSystemByPackOutputOpenTelemetry,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputOpenTelemetry$outboundSchema.parse(
-      createOutputOutputOpenTelemetry,
+    CreateOutputSystemByPackOutputOpenTelemetry$outboundSchema.parse(
+      createOutputSystemByPackOutputOpenTelemetry,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputDataFormatRing$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackDataFormatRing$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputDataFormatRing
-> = openEnums.outboundSchema(CreateOutputDataFormatRing);
+  CreateOutputSystemByPackDataFormatRing
+> = openEnums.outboundSchema(CreateOutputSystemByPackDataFormatRing);
 
 /** @internal */
-export type CreateOutputOutputRing$Outbound = {
+export type CreateOutputSystemByPackOutputRing$Outbound = {
   id: string;
   type: "ring";
   pipeline?: string | undefined;
@@ -17379,10 +17877,10 @@ export type CreateOutputOutputRing$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputRing$outboundSchema: z.ZodType<
-  CreateOutputOutputRing$Outbound,
+export const CreateOutputSystemByPackOutputRing$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputRing$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputRing
+  CreateOutputSystemByPackOutputRing
 > = z.object({
   id: z.string(),
   type: z.literal("ring"),
@@ -17390,7 +17888,7 @@ export const CreateOutputOutputRing$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: CreateOutputDataFormatRing$outboundSchema.optional(),
+  format: CreateOutputSystemByPackDataFormatRing$outboundSchema.optional(),
   partitionExpr: z.string().optional(),
   maxDataSize: z.string().optional(),
   maxDataTime: z.string().optional(),
@@ -17404,36 +17902,40 @@ export const CreateOutputOutputRing$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputRingToJSON(
-  createOutputOutputRing: CreateOutputOutputRing,
+export function createOutputSystemByPackOutputRingToJSON(
+  createOutputSystemByPackOutputRing: CreateOutputSystemByPackOutputRing,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputRing$outboundSchema.parse(createOutputOutputRing),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsPrometheus$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsPrometheus$outboundSchema: z.ZodType<
-  CreateOutputPqControlsPrometheus$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsPrometheus
-> = z.object({});
-
-export function createOutputPqControlsPrometheusToJSON(
-  createOutputPqControlsPrometheus: CreateOutputPqControlsPrometheus,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsPrometheus$outboundSchema.parse(
-      createOutputPqControlsPrometheus,
+    CreateOutputSystemByPackOutputRing$outboundSchema.parse(
+      createOutputSystemByPackOutputRing,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputPrometheus$Outbound = {
+export type CreateOutputSystemByPackPqControlsPrometheus$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsPrometheus$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsPrometheus$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsPrometheus
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsPrometheusToJSON(
+  createOutputSystemByPackPqControlsPrometheus:
+    CreateOutputSystemByPackPqControlsPrometheus,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsPrometheus$outboundSchema.parse(
+      createOutputSystemByPackPqControlsPrometheus,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputPrometheus$Outbound = {
   id: string;
   type: "prometheus";
   pipeline?: string | undefined;
@@ -17476,7 +17978,9 @@ export type CreateOutputOutputPrometheus$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsPrometheus$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsPrometheus$Outbound
+    | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
@@ -17489,10 +17993,10 @@ export type CreateOutputOutputPrometheus$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputPrometheus$outboundSchema: z.ZodType<
-  CreateOutputOutputPrometheus$Outbound,
+export const CreateOutputSystemByPackOutputPrometheus$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputPrometheus$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputPrometheus
+  CreateOutputSystemByPackOutputPrometheus
 > = z.object({
   id: z.string(),
   type: z.literal("prometheus"),
@@ -17539,8 +18043,9 @@ export const CreateOutputOutputPrometheus$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsPrometheus$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsPrometheus$outboundSchema
+  ).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -17552,36 +18057,40 @@ export const CreateOutputOutputPrometheus$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputPrometheusToJSON(
-  createOutputOutputPrometheus: CreateOutputOutputPrometheus,
+export function createOutputSystemByPackOutputPrometheusToJSON(
+  createOutputSystemByPackOutputPrometheus:
+    CreateOutputSystemByPackOutputPrometheus,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputPrometheus$outboundSchema.parse(
-      createOutputOutputPrometheus,
+    CreateOutputSystemByPackOutputPrometheus$outboundSchema.parse(
+      createOutputSystemByPackOutputPrometheus,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsLoki$Outbound = {};
+export type CreateOutputSystemByPackPqControlsLoki$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsLoki$outboundSchema: z.ZodType<
-  CreateOutputPqControlsLoki$Outbound,
+export const CreateOutputSystemByPackPqControlsLoki$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackPqControlsLoki$Outbound,
   z.ZodTypeDef,
-  CreateOutputPqControlsLoki
+  CreateOutputSystemByPackPqControlsLoki
 > = z.object({});
 
-export function createOutputPqControlsLokiToJSON(
-  createOutputPqControlsLoki: CreateOutputPqControlsLoki,
+export function createOutputSystemByPackPqControlsLokiToJSON(
+  createOutputSystemByPackPqControlsLoki:
+    CreateOutputSystemByPackPqControlsLoki,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsLoki$outboundSchema.parse(createOutputPqControlsLoki),
+    CreateOutputSystemByPackPqControlsLoki$outboundSchema.parse(
+      createOutputSystemByPackPqControlsLoki,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputLoki$Outbound = {
+export type CreateOutputSystemByPackOutputLoki$Outbound = {
   id: string;
   type: "loki";
   pipeline?: string | undefined;
@@ -17631,17 +18140,17 @@ export type CreateOutputOutputLoki$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsLoki$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsLoki$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputLoki$outboundSchema: z.ZodType<
-  CreateOutputOutputLoki$Outbound,
+export const CreateOutputSystemByPackOutputLoki$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputLoki$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputLoki
+  CreateOutputSystemByPackOutputLoki
 > = z.object({
   id: z.string(),
   type: z.literal("loki"),
@@ -17696,51 +18205,53 @@ export const CreateOutputOutputLoki$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsLoki$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsLoki$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputLokiToJSON(
-  createOutputOutputLoki: CreateOutputOutputLoki,
+export function createOutputSystemByPackOutputLokiToJSON(
+  createOutputSystemByPackOutputLoki: CreateOutputSystemByPackOutputLoki,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputLoki$outboundSchema.parse(createOutputOutputLoki),
-  );
-}
-
-/** @internal */
-export const CreateOutputOutputGrafanaCloudType2$outboundSchema:
-  z.ZodNativeEnum<typeof CreateOutputOutputGrafanaCloudType2> = z.nativeEnum(
-    CreateOutputOutputGrafanaCloudType2,
-  );
-
-/** @internal */
-export type CreateOutputOutputGrafanaCloudPqControls2$Outbound = {};
-
-/** @internal */
-export const CreateOutputOutputGrafanaCloudPqControls2$outboundSchema:
-  z.ZodType<
-    CreateOutputOutputGrafanaCloudPqControls2$Outbound,
-    z.ZodTypeDef,
-    CreateOutputOutputGrafanaCloudPqControls2
-  > = z.object({});
-
-export function createOutputOutputGrafanaCloudPqControls2ToJSON(
-  createOutputOutputGrafanaCloudPqControls2:
-    CreateOutputOutputGrafanaCloudPqControls2,
-): string {
-  return JSON.stringify(
-    CreateOutputOutputGrafanaCloudPqControls2$outboundSchema.parse(
-      createOutputOutputGrafanaCloudPqControls2,
+    CreateOutputSystemByPackOutputLoki$outboundSchema.parse(
+      createOutputSystemByPackOutputLoki,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound = {
+export const CreateOutputSystemByPackOutputGrafanaCloudType2$outboundSchema:
+  z.ZodNativeEnum<typeof CreateOutputSystemByPackOutputGrafanaCloudType2> = z
+    .nativeEnum(CreateOutputSystemByPackOutputGrafanaCloudType2);
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGrafanaCloudPqControls2$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackOutputGrafanaCloudPqControls2$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls2$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls2
+  > = z.object({});
+
+export function createOutputSystemByPackOutputGrafanaCloudPqControls2ToJSON(
+  createOutputSystemByPackOutputGrafanaCloudPqControls2:
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls2,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls2$outboundSchema.parse(
+      createOutputSystemByPackOutputGrafanaCloudPqControls2,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$Outbound = {
   id: string;
   type: string;
   pipeline?: string | undefined;
@@ -17786,7 +18297,9 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputOutputGrafanaCloudPqControls2$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackOutputGrafanaCloudPqControls2$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
@@ -17795,14 +18308,14 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema:
+export const CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$outboundSchema:
   z.ZodType<
-    CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound,
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$Outbound,
     z.ZodTypeDef,
-    CreateOutputOutputGrafanaCloudGrafanaCloud2
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2
   > = z.object({
     id: z.string(),
-    type: CreateOutputOutputGrafanaCloudType2$outboundSchema,
+    type: CreateOutputSystemByPackOutputGrafanaCloudType2$outboundSchema,
     pipeline: z.string().optional(),
     systemFields: z.array(z.string()).optional(),
     environment: z.string().optional(),
@@ -17851,7 +18364,7 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema:
     pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
     pqMaxBufferSizeBytes: z.string().optional(),
     pqControls: z.lazy(() =>
-      CreateOutputOutputGrafanaCloudPqControls2$outboundSchema
+      CreateOutputSystemByPackOutputGrafanaCloudPqControls2$outboundSchema
     ).optional(),
     __template_streamtags: z.string().optional(),
     __template_lokiUrl: z.string().optional(),
@@ -17860,47 +18373,45 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema:
     __template_onBackpressure: z.string().optional(),
   });
 
-export function createOutputOutputGrafanaCloudGrafanaCloud2ToJSON(
-  createOutputOutputGrafanaCloudGrafanaCloud2:
-    CreateOutputOutputGrafanaCloudGrafanaCloud2,
+export function createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2ToJSON(
+  createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2:
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema.parse(
-      createOutputOutputGrafanaCloudGrafanaCloud2,
-    ),
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$outboundSchema
+      .parse(createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2),
   );
 }
 
 /** @internal */
-export const CreateOutputOutputGrafanaCloudType1$outboundSchema:
-  z.ZodNativeEnum<typeof CreateOutputOutputGrafanaCloudType1> = z.nativeEnum(
-    CreateOutputOutputGrafanaCloudType1,
-  );
+export const CreateOutputSystemByPackOutputGrafanaCloudType1$outboundSchema:
+  z.ZodNativeEnum<typeof CreateOutputSystemByPackOutputGrafanaCloudType1> = z
+    .nativeEnum(CreateOutputSystemByPackOutputGrafanaCloudType1);
 
 /** @internal */
-export type CreateOutputOutputGrafanaCloudPqControls1$Outbound = {};
+export type CreateOutputSystemByPackOutputGrafanaCloudPqControls1$Outbound = {};
 
 /** @internal */
-export const CreateOutputOutputGrafanaCloudPqControls1$outboundSchema:
+export const CreateOutputSystemByPackOutputGrafanaCloudPqControls1$outboundSchema:
   z.ZodType<
-    CreateOutputOutputGrafanaCloudPqControls1$Outbound,
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls1$Outbound,
     z.ZodTypeDef,
-    CreateOutputOutputGrafanaCloudPqControls1
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls1
   > = z.object({});
 
-export function createOutputOutputGrafanaCloudPqControls1ToJSON(
-  createOutputOutputGrafanaCloudPqControls1:
-    CreateOutputOutputGrafanaCloudPqControls1,
+export function createOutputSystemByPackOutputGrafanaCloudPqControls1ToJSON(
+  createOutputSystemByPackOutputGrafanaCloudPqControls1:
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls1,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGrafanaCloudPqControls1$outboundSchema.parse(
-      createOutputOutputGrafanaCloudPqControls1,
+    CreateOutputSystemByPackOutputGrafanaCloudPqControls1$outboundSchema.parse(
+      createOutputSystemByPackOutputGrafanaCloudPqControls1,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound = {
+export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$Outbound = {
   id: string;
   type: string;
   pipeline?: string | undefined;
@@ -17946,7 +18457,9 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputOutputGrafanaCloudPqControls1$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackOutputGrafanaCloudPqControls1$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
@@ -17955,14 +18468,14 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema:
+export const CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$outboundSchema:
   z.ZodType<
-    CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound,
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$Outbound,
     z.ZodTypeDef,
-    CreateOutputOutputGrafanaCloudGrafanaCloud1
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1
   > = z.object({
     id: z.string(),
-    type: CreateOutputOutputGrafanaCloudType1$outboundSchema,
+    type: CreateOutputSystemByPackOutputGrafanaCloudType1$outboundSchema,
     pipeline: z.string().optional(),
     systemFields: z.array(z.string()).optional(),
     environment: z.string().optional(),
@@ -18011,7 +18524,7 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema:
     pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
     pqMaxBufferSizeBytes: z.string().optional(),
     pqControls: z.lazy(() =>
-      CreateOutputOutputGrafanaCloudPqControls1$outboundSchema
+      CreateOutputSystemByPackOutputGrafanaCloudPqControls1$outboundSchema
     ).optional(),
     __template_streamtags: z.string().optional(),
     __template_lokiUrl: z.string().optional(),
@@ -18020,85 +18533,92 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema:
     __template_onBackpressure: z.string().optional(),
   });
 
-export function createOutputOutputGrafanaCloudGrafanaCloud1ToJSON(
-  createOutputOutputGrafanaCloudGrafanaCloud1:
-    CreateOutputOutputGrafanaCloudGrafanaCloud1,
+export function createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1ToJSON(
+  createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1:
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema.parse(
-      createOutputOutputGrafanaCloudGrafanaCloud1,
+    CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$outboundSchema
+      .parse(createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGrafanaCloudUnion$Outbound =
+  | CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$Outbound
+  | CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$Outbound;
+
+/** @internal */
+export const CreateOutputSystemByPackOutputGrafanaCloudUnion$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGrafanaCloudUnion$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGrafanaCloudUnion
+  > = smartUnion([
+    z.lazy(() =>
+      CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$outboundSchema
+    ),
+    z.lazy(() =>
+      CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$outboundSchema
+    ),
+  ]);
+
+export function createOutputSystemByPackOutputGrafanaCloudUnionToJSON(
+  createOutputSystemByPackOutputGrafanaCloudUnion:
+    CreateOutputSystemByPackOutputGrafanaCloudUnion,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputGrafanaCloudUnion$outboundSchema.parse(
+      createOutputSystemByPackOutputGrafanaCloudUnion,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputGrafanaCloudUnion$Outbound =
-  | CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound
-  | CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound;
+export const CreateOutputSystemByPackSendLogsAs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackSendLogsAs
+> = openEnums.outboundSchema(CreateOutputSystemByPackSendLogsAs);
 
 /** @internal */
-export const CreateOutputOutputGrafanaCloudUnion$outboundSchema: z.ZodType<
-  CreateOutputOutputGrafanaCloudUnion$Outbound,
+export const CreateOutputSystemByPackSeverityDatadog$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  CreateOutputOutputGrafanaCloudUnion
-> = smartUnion([
-  z.lazy(() => CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema),
-  z.lazy(() => CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema),
-]);
+  CreateOutputSystemByPackSeverityDatadog
+> = openEnums.outboundSchema(CreateOutputSystemByPackSeverityDatadog);
 
-export function createOutputOutputGrafanaCloudUnionToJSON(
-  createOutputOutputGrafanaCloudUnion: CreateOutputOutputGrafanaCloudUnion,
+/** @internal */
+export const CreateOutputSystemByPackDatadogSite$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackDatadogSite
+> = openEnums.outboundSchema(CreateOutputSystemByPackDatadogSite);
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsDatadog$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsDatadog$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsDatadog$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsDatadog
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsDatadogToJSON(
+  createOutputSystemByPackPqControlsDatadog:
+    CreateOutputSystemByPackPqControlsDatadog,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGrafanaCloudUnion$outboundSchema.parse(
-      createOutputOutputGrafanaCloudUnion,
+    CreateOutputSystemByPackPqControlsDatadog$outboundSchema.parse(
+      createOutputSystemByPackPqControlsDatadog,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputSendLogsAs$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputSendLogsAs
-> = openEnums.outboundSchema(CreateOutputSendLogsAs);
-
-/** @internal */
-export const CreateOutputSeverityDatadog$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputSeverityDatadog
-> = openEnums.outboundSchema(CreateOutputSeverityDatadog);
-
-/** @internal */
-export const CreateOutputDatadogSite$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputDatadogSite
-> = openEnums.outboundSchema(CreateOutputDatadogSite);
-
-/** @internal */
-export type CreateOutputPqControlsDatadog$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsDatadog$outboundSchema: z.ZodType<
-  CreateOutputPqControlsDatadog$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsDatadog
-> = z.object({});
-
-export function createOutputPqControlsDatadogToJSON(
-  createOutputPqControlsDatadog: CreateOutputPqControlsDatadog,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsDatadog$outboundSchema.parse(
-      createOutputPqControlsDatadog,
-    ),
-  );
-}
-
-/** @internal */
-export type CreateOutputOutputDatadog$Outbound = {
+export type CreateOutputSystemByPackOutputDatadog$Outbound = {
   id: string;
   type: "datadog";
   pipeline?: string | undefined;
@@ -18150,7 +18670,7 @@ export type CreateOutputOutputDatadog$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsDatadog$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsDatadog$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -18160,10 +18680,10 @@ export type CreateOutputOutputDatadog$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
-  CreateOutputOutputDatadog$Outbound,
+export const CreateOutputSystemByPackOutputDatadog$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputDatadog$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputDatadog
+  CreateOutputSystemByPackOutputDatadog
 > = z.object({
   id: z.string(),
   type: z.literal("datadog"),
@@ -18171,7 +18691,7 @@ export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  contentType: CreateOutputSendLogsAs$outboundSchema.optional(),
+  contentType: CreateOutputSystemByPackSendLogsAs$outboundSchema.optional(),
   message: z.string().optional(),
   source: z.string().optional(),
   host: z.string().optional(),
@@ -18179,8 +18699,8 @@ export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
   tags: z.array(z.string()).optional(),
   batchByTags: z.boolean().optional(),
   allowApiKeyFromEvents: z.boolean().optional(),
-  severity: CreateOutputSeverityDatadog$outboundSchema.optional(),
-  site: CreateOutputDatadogSite$outboundSchema.optional(),
+  severity: CreateOutputSystemByPackSeverityDatadog$outboundSchema.optional(),
+  site: CreateOutputSystemByPackDatadogSite$outboundSchema.optional(),
   sendCountersAsCount: z.boolean().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -18218,8 +18738,9 @@ export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsDatadog$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsDatadog$outboundSchema
+  ).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -18228,43 +18749,45 @@ export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputDatadogToJSON(
-  createOutputOutputDatadog: CreateOutputOutputDatadog,
+export function createOutputSystemByPackOutputDatadogToJSON(
+  createOutputSystemByPackOutputDatadog: CreateOutputSystemByPackOutputDatadog,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputDatadog$outboundSchema.parse(createOutputOutputDatadog),
-  );
-}
-
-/** @internal */
-export const CreateOutputDataFormatSumoLogic$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputDataFormatSumoLogic
-> = openEnums.outboundSchema(CreateOutputDataFormatSumoLogic);
-
-/** @internal */
-export type CreateOutputPqControlsSumoLogic$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsSumoLogic$outboundSchema: z.ZodType<
-  CreateOutputPqControlsSumoLogic$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsSumoLogic
-> = z.object({});
-
-export function createOutputPqControlsSumoLogicToJSON(
-  createOutputPqControlsSumoLogic: CreateOutputPqControlsSumoLogic,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsSumoLogic$outboundSchema.parse(
-      createOutputPqControlsSumoLogic,
+    CreateOutputSystemByPackOutputDatadog$outboundSchema.parse(
+      createOutputSystemByPackOutputDatadog,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputSumoLogic$Outbound = {
+export const CreateOutputSystemByPackDataFormatSumoLogic$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputSystemByPackDataFormatSumoLogic> =
+    openEnums.outboundSchema(CreateOutputSystemByPackDataFormatSumoLogic);
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsSumoLogic$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsSumoLogic$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsSumoLogic$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsSumoLogic
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsSumoLogicToJSON(
+  createOutputSystemByPackPqControlsSumoLogic:
+    CreateOutputSystemByPackPqControlsSumoLogic,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsSumoLogic$outboundSchema.parse(
+      createOutputSystemByPackPqControlsSumoLogic,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputSumoLogic$Outbound = {
   id: string;
   type: "sumo_logic";
   pipeline?: string | undefined;
@@ -18307,7 +18830,7 @@ export type CreateOutputOutputSumoLogic$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSumoLogic$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsSumoLogic$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
@@ -18315,10 +18838,10 @@ export type CreateOutputOutputSumoLogic$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputSumoLogic$outboundSchema: z.ZodType<
-  CreateOutputOutputSumoLogic$Outbound,
+export const CreateOutputSystemByPackOutputSumoLogic$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputSumoLogic$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputSumoLogic
+  CreateOutputSystemByPackOutputSumoLogic
 > = z.object({
   id: z.string(),
   type: z.literal("sumo_logic"),
@@ -18329,7 +18852,7 @@ export const CreateOutputOutputSumoLogic$outboundSchema: z.ZodType<
   url: z.string(),
   customSource: z.string().optional(),
   customCategory: z.string().optional(),
-  format: CreateOutputDataFormatSumoLogic$outboundSchema.optional(),
+  format: CreateOutputSystemByPackDataFormatSumoLogic$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -18364,26 +18887,28 @@ export const CreateOutputOutputSumoLogic$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsSumoLogic$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsSumoLogic$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputSumoLogicToJSON(
-  createOutputOutputSumoLogic: CreateOutputOutputSumoLogic,
+export function createOutputSystemByPackOutputSumoLogicToJSON(
+  createOutputSystemByPackOutputSumoLogic:
+    CreateOutputSystemByPackOutputSumoLogic,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputSumoLogic$outboundSchema.parse(
-      createOutputOutputSumoLogic,
+    CreateOutputSystemByPackOutputSumoLogic$outboundSchema.parse(
+      createOutputSystemByPackOutputSumoLogic,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputHostSnmp$Outbound = {
+export type CreateOutputSystemByPackHostSnmp$Outbound = {
   host: string;
   port: number;
   __template_host?: string | undefined;
@@ -18391,10 +18916,10 @@ export type CreateOutputHostSnmp$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputHostSnmp$outboundSchema: z.ZodType<
-  CreateOutputHostSnmp$Outbound,
+export const CreateOutputSystemByPackHostSnmp$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackHostSnmp$Outbound,
   z.ZodTypeDef,
-  CreateOutputHostSnmp
+  CreateOutputSystemByPackHostSnmp
 > = z.object({
   host: z.string(),
   port: z.number(),
@@ -18402,33 +18927,35 @@ export const CreateOutputHostSnmp$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function createOutputHostSnmpToJSON(
-  createOutputHostSnmp: CreateOutputHostSnmp,
+export function createOutputSystemByPackHostSnmpToJSON(
+  createOutputSystemByPackHostSnmp: CreateOutputSystemByPackHostSnmp,
 ): string {
   return JSON.stringify(
-    CreateOutputHostSnmp$outboundSchema.parse(createOutputHostSnmp),
+    CreateOutputSystemByPackHostSnmp$outboundSchema.parse(
+      createOutputSystemByPackHostSnmp,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputSnmp$Outbound = {
+export type CreateOutputSystemByPackOutputSnmp$Outbound = {
   id: string;
   type: "snmp";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  hosts: Array<CreateOutputHostSnmp$Outbound>;
+  hosts: Array<CreateOutputSystemByPackHostSnmp$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
   __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputSnmp$outboundSchema: z.ZodType<
-  CreateOutputOutputSnmp$Outbound,
+export const CreateOutputSystemByPackOutputSnmp$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputSnmp$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputSnmp
+  CreateOutputSystemByPackOutputSnmp
 > = z.object({
   id: z.string(),
   type: z.literal("snmp"),
@@ -18436,47 +18963,51 @@ export const CreateOutputOutputSnmp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  hosts: z.array(z.lazy(() => CreateOutputHostSnmp$outboundSchema)),
+  hosts: z.array(z.lazy(() => CreateOutputSystemByPackHostSnmp$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
   __template_streamtags: z.string().optional(),
 });
 
-export function createOutputOutputSnmpToJSON(
-  createOutputOutputSnmp: CreateOutputOutputSnmp,
+export function createOutputSystemByPackOutputSnmpToJSON(
+  createOutputSystemByPackOutputSnmp: CreateOutputSystemByPackOutputSnmp,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputSnmp$outboundSchema.parse(createOutputOutputSnmp),
+    CreateOutputSystemByPackOutputSnmp$outboundSchema.parse(
+      createOutputSystemByPackOutputSnmp,
+    ),
   );
 }
 
 /** @internal */
-export const CreateOutputQueueType$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackQueueType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputQueueType
-> = openEnums.outboundSchema(CreateOutputQueueType);
+  CreateOutputSystemByPackQueueType
+> = openEnums.outboundSchema(CreateOutputSystemByPackQueueType);
 
 /** @internal */
-export type CreateOutputPqControlsSqs$Outbound = {};
+export type CreateOutputSystemByPackPqControlsSqs$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsSqs$outboundSchema: z.ZodType<
-  CreateOutputPqControlsSqs$Outbound,
+export const CreateOutputSystemByPackPqControlsSqs$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackPqControlsSqs$Outbound,
   z.ZodTypeDef,
-  CreateOutputPqControlsSqs
+  CreateOutputSystemByPackPqControlsSqs
 > = z.object({});
 
-export function createOutputPqControlsSqsToJSON(
-  createOutputPqControlsSqs: CreateOutputPqControlsSqs,
+export function createOutputSystemByPackPqControlsSqsToJSON(
+  createOutputSystemByPackPqControlsSqs: CreateOutputSystemByPackPqControlsSqs,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsSqs$outboundSchema.parse(createOutputPqControlsSqs),
+    CreateOutputSystemByPackPqControlsSqs$outboundSchema.parse(
+      createOutputSystemByPackPqControlsSqs,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputSqs$Outbound = {
+export type CreateOutputSystemByPackOutputSqs$Outbound = {
   id: string;
   type: "sqs";
   pipeline?: string | undefined;
@@ -18517,7 +19048,7 @@ export type CreateOutputOutputSqs$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSqs$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsSqs$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_queueName?: string | undefined;
   __template_queueType?: string | undefined;
@@ -18533,10 +19064,10 @@ export type CreateOutputOutputSqs$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputSqs$outboundSchema: z.ZodType<
-  CreateOutputOutputSqs$Outbound,
+export const CreateOutputSystemByPackOutputSqs$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputSqs$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputSqs
+  CreateOutputSystemByPackOutputSqs
 > = z.object({
   id: z.string(),
   type: z.literal("sqs"),
@@ -18545,7 +19076,7 @@ export const CreateOutputOutputSqs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   queueName: z.string(),
-  queueType: CreateOutputQueueType$outboundSchema,
+  queueType: CreateOutputSystemByPackQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().optional(),
   createQueue: z.boolean().optional(),
@@ -18578,7 +19109,8 @@ export const CreateOutputOutputSqs$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsSqs$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputSystemByPackPqControlsSqs$outboundSchema)
+    .optional(),
   __template_streamtags: z.string().optional(),
   __template_queueName: z.string().optional(),
   __template_queueType: z.string().optional(),
@@ -18593,34 +19125,38 @@ export const CreateOutputOutputSqs$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createOutputOutputSqsToJSON(
-  createOutputOutputSqs: CreateOutputOutputSqs,
+export function createOutputSystemByPackOutputSqsToJSON(
+  createOutputSystemByPackOutputSqs: CreateOutputSystemByPackOutputSqs,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputSqs$outboundSchema.parse(createOutputOutputSqs),
+    CreateOutputSystemByPackOutputSqs$outboundSchema.parse(
+      createOutputSystemByPackOutputSqs,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsSns$Outbound = {};
+export type CreateOutputSystemByPackPqControlsSns$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsSns$outboundSchema: z.ZodType<
-  CreateOutputPqControlsSns$Outbound,
+export const CreateOutputSystemByPackPqControlsSns$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackPqControlsSns$Outbound,
   z.ZodTypeDef,
-  CreateOutputPqControlsSns
+  CreateOutputSystemByPackPqControlsSns
 > = z.object({});
 
-export function createOutputPqControlsSnsToJSON(
-  createOutputPqControlsSns: CreateOutputPqControlsSns,
+export function createOutputSystemByPackPqControlsSnsToJSON(
+  createOutputSystemByPackPqControlsSns: CreateOutputSystemByPackPqControlsSns,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsSns$outboundSchema.parse(createOutputPqControlsSns),
+    CreateOutputSystemByPackPqControlsSns$outboundSchema.parse(
+      createOutputSystemByPackPqControlsSns,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputSns$Outbound = {
+export type CreateOutputSystemByPackOutputSns$Outbound = {
   id: string;
   type: "sns";
   pipeline?: string | undefined;
@@ -18655,7 +19191,7 @@ export type CreateOutputOutputSns$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsSns$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsSns$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_topicArn?: string | undefined;
   __template_messageGroupId?: string | undefined;
@@ -18669,10 +19205,10 @@ export type CreateOutputOutputSns$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputSns$outboundSchema: z.ZodType<
-  CreateOutputOutputSns$Outbound,
+export const CreateOutputSystemByPackOutputSns$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputSns$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputSns
+  CreateOutputSystemByPackOutputSns
 > = z.object({
   id: z.string(),
   type: z.literal("sns"),
@@ -18708,7 +19244,8 @@ export const CreateOutputOutputSns$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsSns$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputSystemByPackPqControlsSns$outboundSchema)
+    .optional(),
   __template_streamtags: z.string().optional(),
   __template_topicArn: z.string().optional(),
   __template_messageGroupId: z.string().optional(),
@@ -18721,16 +19258,18 @@ export const CreateOutputOutputSns$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createOutputOutputSnsToJSON(
-  createOutputOutputSns: CreateOutputOutputSns,
+export function createOutputSystemByPackOutputSnsToJSON(
+  createOutputSystemByPackOutputSns: CreateOutputSystemByPackOutputSns,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputSns$outboundSchema.parse(createOutputOutputSns),
+    CreateOutputSystemByPackOutputSns$outboundSchema.parse(
+      createOutputSystemByPackOutputSns,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputRule$Outbound = {
+export type CreateOutputSystemByPackRule$Outbound = {
   filter: string;
   output: string;
   description?: string | undefined;
@@ -18738,10 +19277,10 @@ export type CreateOutputRule$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputRule$outboundSchema: z.ZodType<
-  CreateOutputRule$Outbound,
+export const CreateOutputSystemByPackRule$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackRule$Outbound,
   z.ZodTypeDef,
-  CreateOutputRule
+  CreateOutputSystemByPackRule
 > = z.object({
   filter: z.string(),
   output: z.string(),
@@ -18749,32 +19288,34 @@ export const CreateOutputRule$outboundSchema: z.ZodType<
   final: z.boolean().optional(),
 });
 
-export function createOutputRuleToJSON(
-  createOutputRule: CreateOutputRule,
+export function createOutputSystemByPackRuleToJSON(
+  createOutputSystemByPackRule: CreateOutputSystemByPackRule,
 ): string {
   return JSON.stringify(
-    CreateOutputRule$outboundSchema.parse(createOutputRule),
+    CreateOutputSystemByPackRule$outboundSchema.parse(
+      createOutputSystemByPackRule,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputRouter$Outbound = {
+export type CreateOutputSystemByPackOutputRouter$Outbound = {
   id: string;
   type: "router";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  rules: Array<CreateOutputRule$Outbound>;
+  rules: Array<CreateOutputSystemByPackRule$Outbound>;
   description?: string | undefined;
   __template_streamtags?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputRouter$outboundSchema: z.ZodType<
-  CreateOutputOutputRouter$Outbound,
+export const CreateOutputSystemByPackOutputRouter$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputRouter$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputRouter
+  CreateOutputSystemByPackOutputRouter
 > = z.object({
   id: z.string(),
   type: z.literal("router"),
@@ -18782,41 +19323,45 @@ export const CreateOutputOutputRouter$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  rules: z.array(z.lazy(() => CreateOutputRule$outboundSchema)),
+  rules: z.array(z.lazy(() => CreateOutputSystemByPackRule$outboundSchema)),
   description: z.string().optional(),
   __template_streamtags: z.string().optional(),
 });
 
-export function createOutputOutputRouterToJSON(
-  createOutputOutputRouter: CreateOutputOutputRouter,
+export function createOutputSystemByPackOutputRouterToJSON(
+  createOutputSystemByPackOutputRouter: CreateOutputSystemByPackOutputRouter,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputRouter$outboundSchema.parse(createOutputOutputRouter),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsGraphite$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsGraphite$outboundSchema: z.ZodType<
-  CreateOutputPqControlsGraphite$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsGraphite
-> = z.object({});
-
-export function createOutputPqControlsGraphiteToJSON(
-  createOutputPqControlsGraphite: CreateOutputPqControlsGraphite,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsGraphite$outboundSchema.parse(
-      createOutputPqControlsGraphite,
+    CreateOutputSystemByPackOutputRouter$outboundSchema.parse(
+      createOutputSystemByPackOutputRouter,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputGraphite$Outbound = {
+export type CreateOutputSystemByPackPqControlsGraphite$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsGraphite$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGraphite$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGraphite
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsGraphiteToJSON(
+  createOutputSystemByPackPqControlsGraphite:
+    CreateOutputSystemByPackPqControlsGraphite,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsGraphite$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGraphite,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGraphite$Outbound = {
   id: string;
   type: "graphite";
   pipeline?: string | undefined;
@@ -18845,16 +19390,16 @@ export type CreateOutputOutputGraphite$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGraphite$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsGraphite$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputGraphite$outboundSchema: z.ZodType<
-  CreateOutputOutputGraphite$Outbound,
+export const CreateOutputSystemByPackOutputGraphite$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputGraphite$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputGraphite
+  CreateOutputSystemByPackOutputGraphite
 > = z.object({
   id: z.string(),
   type: z.literal("graphite"),
@@ -18884,42 +19429,48 @@ export const CreateOutputOutputGraphite$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsGraphite$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsGraphite$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputGraphiteToJSON(
-  createOutputOutputGraphite: CreateOutputOutputGraphite,
+export function createOutputSystemByPackOutputGraphiteToJSON(
+  createOutputSystemByPackOutputGraphite:
+    CreateOutputSystemByPackOutputGraphite,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGraphite$outboundSchema.parse(createOutputOutputGraphite),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsStatsdExt$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsStatsdExt$outboundSchema: z.ZodType<
-  CreateOutputPqControlsStatsdExt$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsStatsdExt
-> = z.object({});
-
-export function createOutputPqControlsStatsdExtToJSON(
-  createOutputPqControlsStatsdExt: CreateOutputPqControlsStatsdExt,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsStatsdExt$outboundSchema.parse(
-      createOutputPqControlsStatsdExt,
+    CreateOutputSystemByPackOutputGraphite$outboundSchema.parse(
+      createOutputSystemByPackOutputGraphite,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputStatsdExt$Outbound = {
+export type CreateOutputSystemByPackPqControlsStatsdExt$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsStatsdExt$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsStatsdExt$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsStatsdExt
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsStatsdExtToJSON(
+  createOutputSystemByPackPqControlsStatsdExt:
+    CreateOutputSystemByPackPqControlsStatsdExt,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsStatsdExt$outboundSchema.parse(
+      createOutputSystemByPackPqControlsStatsdExt,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputStatsdExt$Outbound = {
   id: string;
   type: "statsd_ext";
   pipeline?: string | undefined;
@@ -18948,16 +19499,16 @@ export type CreateOutputOutputStatsdExt$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsStatsdExt$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsStatsdExt$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputStatsdExt$outboundSchema: z.ZodType<
-  CreateOutputOutputStatsdExt$Outbound,
+export const CreateOutputSystemByPackOutputStatsdExt$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputStatsdExt$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputStatsdExt
+  CreateOutputSystemByPackOutputStatsdExt
 > = z.object({
   id: z.string(),
   type: z.literal("statsd_ext"),
@@ -18987,44 +19538,47 @@ export const CreateOutputOutputStatsdExt$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsStatsdExt$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsStatsdExt$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputStatsdExtToJSON(
-  createOutputOutputStatsdExt: CreateOutputOutputStatsdExt,
+export function createOutputSystemByPackOutputStatsdExtToJSON(
+  createOutputSystemByPackOutputStatsdExt:
+    CreateOutputSystemByPackOutputStatsdExt,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputStatsdExt$outboundSchema.parse(
-      createOutputOutputStatsdExt,
+    CreateOutputSystemByPackOutputStatsdExt$outboundSchema.parse(
+      createOutputSystemByPackOutputStatsdExt,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsStatsd$Outbound = {};
+export type CreateOutputSystemByPackPqControlsStatsd$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsStatsd$outboundSchema: z.ZodType<
-  CreateOutputPqControlsStatsd$Outbound,
+export const CreateOutputSystemByPackPqControlsStatsd$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackPqControlsStatsd$Outbound,
   z.ZodTypeDef,
-  CreateOutputPqControlsStatsd
+  CreateOutputSystemByPackPqControlsStatsd
 > = z.object({});
 
-export function createOutputPqControlsStatsdToJSON(
-  createOutputPqControlsStatsd: CreateOutputPqControlsStatsd,
+export function createOutputSystemByPackPqControlsStatsdToJSON(
+  createOutputSystemByPackPqControlsStatsd:
+    CreateOutputSystemByPackPqControlsStatsd,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsStatsd$outboundSchema.parse(
-      createOutputPqControlsStatsd,
+    CreateOutputSystemByPackPqControlsStatsd$outboundSchema.parse(
+      createOutputSystemByPackPqControlsStatsd,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputStatsd$Outbound = {
+export type CreateOutputSystemByPackOutputStatsd$Outbound = {
   id: string;
   type: "statsd";
   pipeline?: string | undefined;
@@ -19053,16 +19607,16 @@ export type CreateOutputOutputStatsd$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsStatsd$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsStatsd$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputOutputStatsd$outboundSchema: z.ZodType<
-  CreateOutputOutputStatsd$Outbound,
+export const CreateOutputSystemByPackOutputStatsd$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputStatsd$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputStatsd
+  CreateOutputSystemByPackOutputStatsd
 > = z.object({
   id: z.string(),
   type: z.literal("statsd"),
@@ -19092,22 +19646,25 @@ export const CreateOutputOutputStatsd$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsStatsd$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsStatsd$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputStatsdToJSON(
-  createOutputOutputStatsd: CreateOutputOutputStatsd,
+export function createOutputSystemByPackOutputStatsdToJSON(
+  createOutputSystemByPackOutputStatsd: CreateOutputSystemByPackOutputStatsd,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputStatsd$outboundSchema.parse(createOutputOutputStatsd),
+    CreateOutputSystemByPackOutputStatsd$outboundSchema.parse(
+      createOutputSystemByPackOutputStatsd,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputMinio$Outbound = {
+export type CreateOutputSystemByPackOutputMinio$Outbound = {
   id: string;
   type: "minio";
   pipeline?: string | undefined;
@@ -19188,10 +19745,10 @@ export type CreateOutputOutputMinio$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
-  CreateOutputOutputMinio$Outbound,
+export const CreateOutputSystemByPackOutputMinio$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputMinio$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputMinio
+  CreateOutputSystemByPackOutputMinio
 > = z.object({
   id: z.string(),
   type: z.literal("minio"),
@@ -19278,36 +19835,40 @@ export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
   __template_parquetSchema: z.string().optional(),
 });
 
-export function createOutputOutputMinioToJSON(
-  createOutputOutputMinio: CreateOutputOutputMinio,
+export function createOutputSystemByPackOutputMinioToJSON(
+  createOutputSystemByPackOutputMinio: CreateOutputSystemByPackOutputMinio,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputMinio$outboundSchema.parse(createOutputOutputMinio),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsCloudwatch$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsCloudwatch$outboundSchema: z.ZodType<
-  CreateOutputPqControlsCloudwatch$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsCloudwatch
-> = z.object({});
-
-export function createOutputPqControlsCloudwatchToJSON(
-  createOutputPqControlsCloudwatch: CreateOutputPqControlsCloudwatch,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsCloudwatch$outboundSchema.parse(
-      createOutputPqControlsCloudwatch,
+    CreateOutputSystemByPackOutputMinio$outboundSchema.parse(
+      createOutputSystemByPackOutputMinio,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputCloudwatch$Outbound = {
+export type CreateOutputSystemByPackPqControlsCloudwatch$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsCloudwatch$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsCloudwatch$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsCloudwatch
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsCloudwatchToJSON(
+  createOutputSystemByPackPqControlsCloudwatch:
+    CreateOutputSystemByPackPqControlsCloudwatch,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsCloudwatch$outboundSchema.parse(
+      createOutputSystemByPackPqControlsCloudwatch,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputCloudwatch$Outbound = {
   id: string;
   type: "cloudwatch";
   pipeline?: string | undefined;
@@ -19344,7 +19905,9 @@ export type CreateOutputOutputCloudwatch$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsCloudwatch$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsCloudwatch$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_logGroupName?: string | undefined;
   __template_logStreamName?: string | undefined;
@@ -19358,10 +19921,10 @@ export type CreateOutputOutputCloudwatch$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputCloudwatch$outboundSchema: z.ZodType<
-  CreateOutputOutputCloudwatch$Outbound,
+export const CreateOutputSystemByPackOutputCloudwatch$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputCloudwatch$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputCloudwatch
+  CreateOutputSystemByPackOutputCloudwatch
 > = z.object({
   id: z.string(),
   type: z.literal("cloudwatch"),
@@ -19399,8 +19962,9 @@ export const CreateOutputOutputCloudwatch$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsCloudwatch$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsCloudwatch$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_logGroupName: z.string().optional(),
   __template_logStreamName: z.string().optional(),
@@ -19413,52 +19977,56 @@ export const CreateOutputOutputCloudwatch$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createOutputOutputCloudwatchToJSON(
-  createOutputOutputCloudwatch: CreateOutputOutputCloudwatch,
+export function createOutputSystemByPackOutputCloudwatchToJSON(
+  createOutputSystemByPackOutputCloudwatch:
+    CreateOutputSystemByPackOutputCloudwatch,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputCloudwatch$outboundSchema.parse(
-      createOutputOutputCloudwatch,
+    CreateOutputSystemByPackOutputCloudwatch$outboundSchema.parse(
+      createOutputSystemByPackOutputCloudwatch,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputTimestampPrecision$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputTimestampPrecision
-> = openEnums.outboundSchema(CreateOutputTimestampPrecision);
+export const CreateOutputSystemByPackTimestampPrecision$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputSystemByPackTimestampPrecision> =
+    openEnums.outboundSchema(CreateOutputSystemByPackTimestampPrecision);
 
 /** @internal */
-export const CreateOutputAuthenticationTypeInfluxdb$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputAuthenticationTypeInfluxdb
-> = openEnums.outboundSchema(CreateOutputAuthenticationTypeInfluxdb);
+export const CreateOutputSystemByPackAuthenticationTypeInfluxdb$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationTypeInfluxdb
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationTypeInfluxdb,
+  );
 
 /** @internal */
-export type CreateOutputPqControlsInfluxdb$Outbound = {};
+export type CreateOutputSystemByPackPqControlsInfluxdb$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsInfluxdb$outboundSchema: z.ZodType<
-  CreateOutputPqControlsInfluxdb$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsInfluxdb
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsInfluxdb$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsInfluxdb$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsInfluxdb
+  > = z.object({});
 
-export function createOutputPqControlsInfluxdbToJSON(
-  createOutputPqControlsInfluxdb: CreateOutputPqControlsInfluxdb,
+export function createOutputSystemByPackPqControlsInfluxdbToJSON(
+  createOutputSystemByPackPqControlsInfluxdb:
+    CreateOutputSystemByPackPqControlsInfluxdb,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsInfluxdb$outboundSchema.parse(
-      createOutputPqControlsInfluxdb,
+    CreateOutputSystemByPackPqControlsInfluxdb$outboundSchema.parse(
+      createOutputSystemByPackPqControlsInfluxdb,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputInfluxdb$Outbound = {
+export type CreateOutputSystemByPackOutputInfluxdb$Outbound = {
   id: string;
   type: "influxdb";
   pipeline?: string | undefined;
@@ -19505,7 +20073,7 @@ export type CreateOutputOutputInfluxdb$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsInfluxdb$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsInfluxdb$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
@@ -19520,10 +20088,10 @@ export type CreateOutputOutputInfluxdb$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputInfluxdb$outboundSchema: z.ZodType<
-  CreateOutputOutputInfluxdb$Outbound,
+export const CreateOutputSystemByPackOutputInfluxdb$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputInfluxdb$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputInfluxdb
+  CreateOutputSystemByPackOutputInfluxdb
 > = z.object({
   id: z.string(),
   type: z.literal("influxdb"),
@@ -19533,7 +20101,8 @@ export const CreateOutputOutputInfluxdb$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   useV2API: z.boolean().optional(),
-  timestampPrecision: CreateOutputTimestampPrecision$outboundSchema.optional(),
+  timestampPrecision: CreateOutputSystemByPackTimestampPrecision$outboundSchema
+    .optional(),
   dynamicValueFieldName: z.boolean().optional(),
   valueFieldName: z.string().optional(),
   concurrency: z.number().optional(),
@@ -19557,7 +20126,8 @@ export const CreateOutputOutputInfluxdb$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: CreateOutputAuthenticationTypeInfluxdb$outboundSchema.optional(),
+  authType: CreateOutputSystemByPackAuthenticationTypeInfluxdb$outboundSchema
+    .optional(),
   description: z.string().optional(),
   database: z.string().optional(),
   bucket: z.string().optional(),
@@ -19573,8 +20143,9 @@ export const CreateOutputOutputInfluxdb$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsInfluxdb$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsInfluxdb$outboundSchema
+  ).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -19588,36 +20159,41 @@ export const CreateOutputOutputInfluxdb$outboundSchema: z.ZodType<
   __template_bucket: z.string().optional(),
 });
 
-export function createOutputOutputInfluxdbToJSON(
-  createOutputOutputInfluxdb: CreateOutputOutputInfluxdb,
+export function createOutputSystemByPackOutputInfluxdbToJSON(
+  createOutputSystemByPackOutputInfluxdb:
+    CreateOutputSystemByPackOutputInfluxdb,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputInfluxdb$outboundSchema.parse(createOutputOutputInfluxdb),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsNewrelicEvents$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsNewrelicEvents$outboundSchema: z.ZodType<
-  CreateOutputPqControlsNewrelicEvents$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsNewrelicEvents
-> = z.object({});
-
-export function createOutputPqControlsNewrelicEventsToJSON(
-  createOutputPqControlsNewrelicEvents: CreateOutputPqControlsNewrelicEvents,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsNewrelicEvents$outboundSchema.parse(
-      createOutputPqControlsNewrelicEvents,
+    CreateOutputSystemByPackOutputInfluxdb$outboundSchema.parse(
+      createOutputSystemByPackOutputInfluxdb,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputNewrelicEvents$Outbound = {
+export type CreateOutputSystemByPackPqControlsNewrelicEvents$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsNewrelicEvents$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsNewrelicEvents$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsNewrelicEvents
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsNewrelicEventsToJSON(
+  createOutputSystemByPackPqControlsNewrelicEvents:
+    CreateOutputSystemByPackPqControlsNewrelicEvents,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsNewrelicEvents$outboundSchema.parse(
+      createOutputSystemByPackPqControlsNewrelicEvents,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputNewrelicEvents$Outbound = {
   id: string;
   type: "newrelic_events";
   pipeline?: string | undefined;
@@ -19660,7 +20236,9 @@ export type CreateOutputOutputNewrelicEvents$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsNewrelicEvents$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsNewrelicEvents$Outbound
+    | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -19673,131 +20251,139 @@ export type CreateOutputOutputNewrelicEvents$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputNewrelicEvents$outboundSchema: z.ZodType<
-  CreateOutputOutputNewrelicEvents$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputNewrelicEvents
-> = z.object({
-  id: z.string(),
-  type: z.literal("newrelic_events"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  region: models.RegionOptions$outboundSchema.optional(),
-  accountId: z.string(),
-  eventType: z.string(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
-  description: z.string().optional(),
-  customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsNewrelicEvents$outboundSchema)
-    .optional(),
-  apiKey: z.string().optional(),
-  textSecret: z.string().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_accountId: z.string().optional(),
-  __template_eventType: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_customUrl: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputNewrelicEvents$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputNewrelicEvents$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputNewrelicEvents
+  > = z.object({
+    id: z.string(),
+    type: z.literal("newrelic_events"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: models.RegionOptions$outboundSchema.optional(),
+    accountId: z.string(),
+    eventType: z.string(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    compress: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    authType: models.AuthenticationMethodOptionsApi$outboundSchema.optional(),
+    description: z.string().optional(),
+    customUrl: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsNewrelicEvents$outboundSchema
+    ).optional(),
+    apiKey: z.string().optional(),
+    textSecret: z.string().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_region: z.string().optional(),
+    __template_accountId: z.string().optional(),
+    __template_eventType: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_customUrl: z.string().optional(),
+  });
 
-export function createOutputOutputNewrelicEventsToJSON(
-  createOutputOutputNewrelicEvents: CreateOutputOutputNewrelicEvents,
+export function createOutputSystemByPackOutputNewrelicEventsToJSON(
+  createOutputSystemByPackOutputNewrelicEvents:
+    CreateOutputSystemByPackOutputNewrelicEvents,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputNewrelicEvents$outboundSchema.parse(
-      createOutputOutputNewrelicEvents,
+    CreateOutputSystemByPackOutputNewrelicEvents$outboundSchema.parse(
+      createOutputSystemByPackOutputNewrelicEvents,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputFieldName$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackFieldName$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputFieldName
-> = openEnums.outboundSchema(CreateOutputFieldName);
+  CreateOutputSystemByPackFieldName
+> = openEnums.outboundSchema(CreateOutputSystemByPackFieldName);
 
 /** @internal */
-export type CreateOutputMetadatum$Outbound = {
+export type CreateOutputSystemByPackMetadatum$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const CreateOutputMetadatum$outboundSchema: z.ZodType<
-  CreateOutputMetadatum$Outbound,
+export const CreateOutputSystemByPackMetadatum$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackMetadatum$Outbound,
   z.ZodTypeDef,
-  CreateOutputMetadatum
+  CreateOutputSystemByPackMetadatum
 > = z.object({
-  name: CreateOutputFieldName$outboundSchema,
+  name: CreateOutputSystemByPackFieldName$outboundSchema,
   value: z.string(),
 });
 
-export function createOutputMetadatumToJSON(
-  createOutputMetadatum: CreateOutputMetadatum,
+export function createOutputSystemByPackMetadatumToJSON(
+  createOutputSystemByPackMetadatum: CreateOutputSystemByPackMetadatum,
 ): string {
   return JSON.stringify(
-    CreateOutputMetadatum$outboundSchema.parse(createOutputMetadatum),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsNewrelic$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsNewrelic$outboundSchema: z.ZodType<
-  CreateOutputPqControlsNewrelic$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsNewrelic
-> = z.object({});
-
-export function createOutputPqControlsNewrelicToJSON(
-  createOutputPqControlsNewrelic: CreateOutputPqControlsNewrelic,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsNewrelic$outboundSchema.parse(
-      createOutputPqControlsNewrelic,
+    CreateOutputSystemByPackMetadatum$outboundSchema.parse(
+      createOutputSystemByPackMetadatum,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputNewrelic$Outbound = {
+export type CreateOutputSystemByPackPqControlsNewrelic$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsNewrelic$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsNewrelic$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsNewrelic
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsNewrelicToJSON(
+  createOutputSystemByPackPqControlsNewrelic:
+    CreateOutputSystemByPackPqControlsNewrelic,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsNewrelic$outboundSchema.parse(
+      createOutputSystemByPackPqControlsNewrelic,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputNewrelic$Outbound = {
   id: string;
   type: "newrelic";
   pipeline?: string | undefined;
@@ -19807,7 +20393,7 @@ export type CreateOutputOutputNewrelic$Outbound = {
   region?: string | undefined;
   logType?: string | undefined;
   messageField?: string | undefined;
-  metadata?: Array<CreateOutputMetadatum$Outbound> | undefined;
+  metadata?: Array<CreateOutputSystemByPackMetadatum$Outbound> | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -19842,7 +20428,7 @@ export type CreateOutputOutputNewrelic$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsNewrelic$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsNewrelic$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -19854,10 +20440,10 @@ export type CreateOutputOutputNewrelic$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
-  CreateOutputOutputNewrelic$Outbound,
+export const CreateOutputSystemByPackOutputNewrelic$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputNewrelic$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputNewrelic
+  CreateOutputSystemByPackOutputNewrelic
 > = z.object({
   id: z.string(),
   type: z.literal("newrelic"),
@@ -19868,8 +20454,9 @@ export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
   region: models.RegionOptions$outboundSchema.optional(),
   logType: z.string().optional(),
   messageField: z.string().optional(),
-  metadata: z.array(z.lazy(() => CreateOutputMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(
+    z.lazy(() => CreateOutputSystemByPackMetadatum$outboundSchema),
+  ).optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -19906,8 +20493,9 @@ export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsNewrelic$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsNewrelic$outboundSchema
+  ).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
   __template_streamtags: z.string().optional(),
@@ -19918,36 +20506,41 @@ export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputNewrelicToJSON(
-  createOutputOutputNewrelic: CreateOutputOutputNewrelic,
+export function createOutputSystemByPackOutputNewrelicToJSON(
+  createOutputSystemByPackOutputNewrelic:
+    CreateOutputSystemByPackOutputNewrelic,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputNewrelic$outboundSchema.parse(createOutputOutputNewrelic),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsElasticCloud$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsElasticCloud$outboundSchema: z.ZodType<
-  CreateOutputPqControlsElasticCloud$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsElasticCloud
-> = z.object({});
-
-export function createOutputPqControlsElasticCloudToJSON(
-  createOutputPqControlsElasticCloud: CreateOutputPqControlsElasticCloud,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsElasticCloud$outboundSchema.parse(
-      createOutputPqControlsElasticCloud,
+    CreateOutputSystemByPackOutputNewrelic$outboundSchema.parse(
+      createOutputSystemByPackOutputNewrelic,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputElasticCloud$Outbound = {
+export type CreateOutputSystemByPackPqControlsElasticCloud$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsElasticCloud$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsElasticCloud$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsElasticCloud
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsElasticCloudToJSON(
+  createOutputSystemByPackPqControlsElasticCloud:
+    CreateOutputSystemByPackPqControlsElasticCloud,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsElasticCloud$outboundSchema.parse(
+      createOutputSystemByPackPqControlsElasticCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputElasticCloud$Outbound = {
   id: string;
   type: "elastic_cloud";
   pipeline?: string | undefined;
@@ -19990,7 +20583,9 @@ export type CreateOutputOutputElasticCloud$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsElasticCloud$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsElasticCloud$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_index?: string | undefined;
@@ -20000,138 +20595,146 @@ export type CreateOutputOutputElasticCloud$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputElasticCloud$outboundSchema: z.ZodType<
-  CreateOutputOutputElasticCloud$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputElasticCloud
-> = z.object({
-  id: z.string(),
-  type: z.literal("elastic_cloud"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  url: z.string(),
-  index: z.string(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(
-    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
-  ).optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  extraParams: z.array(models.SaslExtensionConfInputKafka$outboundSchema)
-    .optional(),
-  auth: models.AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
-  elasticPipeline: z.string().optional(),
-  includeDocId: z.boolean().optional(),
-  responseRetrySettings: z.array(
-    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsElasticCloud$outboundSchema)
-    .optional(),
-  __template_streamtags: z.string().optional(),
-  __template_url: z.string().optional(),
-  __template_index: z.string().optional(),
-  __template_failedRequestLoggingMode: z.string().optional(),
-  __template_elasticPipeline: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputElasticCloud$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputElasticCloud$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputElasticCloud
+  > = z.object({
+    id: z.string(),
+    type: z.literal("elastic_cloud"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    url: z.string(),
+    index: z.string(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    compress: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(
+      models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+    ).optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    extraParams: z.array(models.SaslExtensionConfInputKafka$outboundSchema)
+      .optional(),
+    auth: models.AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
+    elasticPipeline: z.string().optional(),
+    includeDocId: z.boolean().optional(),
+    responseRetrySettings: z.array(
+      models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsElasticCloud$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_url: z.string().optional(),
+    __template_index: z.string().optional(),
+    __template_failedRequestLoggingMode: z.string().optional(),
+    __template_elasticPipeline: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputOutputElasticCloudToJSON(
-  createOutputOutputElasticCloud: CreateOutputOutputElasticCloud,
+export function createOutputSystemByPackOutputElasticCloudToJSON(
+  createOutputSystemByPackOutputElasticCloud:
+    CreateOutputSystemByPackOutputElasticCloud,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputElasticCloud$outboundSchema.parse(
-      createOutputOutputElasticCloud,
+    CreateOutputSystemByPackOutputElasticCloud$outboundSchema.parse(
+      createOutputSystemByPackOutputElasticCloud,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputElasticVersion$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackElasticVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputElasticVersion
-> = openEnums.outboundSchema(CreateOutputElasticVersion);
+  CreateOutputSystemByPackElasticVersion
+> = openEnums.outboundSchema(CreateOutputSystemByPackElasticVersion);
 
 /** @internal */
-export const CreateOutputWriteAction$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackWriteAction$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputWriteAction
-> = openEnums.outboundSchema(CreateOutputWriteAction);
+  CreateOutputSystemByPackWriteAction
+> = openEnums.outboundSchema(CreateOutputSystemByPackWriteAction);
 
 /** @internal */
-export type CreateOutputUrlElastic$Outbound = {
+export type CreateOutputSystemByPackUrlElastic$Outbound = {
   url: string;
   weight?: number | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputUrlElastic$outboundSchema: z.ZodType<
-  CreateOutputUrlElastic$Outbound,
+export const CreateOutputSystemByPackUrlElastic$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackUrlElastic$Outbound,
   z.ZodTypeDef,
-  CreateOutputUrlElastic
+  CreateOutputSystemByPackUrlElastic
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
   __template_url: z.string().optional(),
 });
 
-export function createOutputUrlElasticToJSON(
-  createOutputUrlElastic: CreateOutputUrlElastic,
+export function createOutputSystemByPackUrlElasticToJSON(
+  createOutputSystemByPackUrlElastic: CreateOutputSystemByPackUrlElastic,
 ): string {
   return JSON.stringify(
-    CreateOutputUrlElastic$outboundSchema.parse(createOutputUrlElastic),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsElastic$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsElastic$outboundSchema: z.ZodType<
-  CreateOutputPqControlsElastic$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsElastic
-> = z.object({});
-
-export function createOutputPqControlsElasticToJSON(
-  createOutputPqControlsElastic: CreateOutputPqControlsElastic,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsElastic$outboundSchema.parse(
-      createOutputPqControlsElastic,
+    CreateOutputSystemByPackUrlElastic$outboundSchema.parse(
+      createOutputSystemByPackUrlElastic,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputElastic$Outbound = {
+export type CreateOutputSystemByPackPqControlsElastic$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsElastic$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsElastic$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsElastic
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsElasticToJSON(
+  createOutputSystemByPackPqControlsElastic:
+    CreateOutputSystemByPackPqControlsElastic,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsElastic$outboundSchema.parse(
+      createOutputSystemByPackPqControlsElastic,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputElastic$Outbound = {
   id: string;
   type: "elastic";
   pipeline?: string | undefined;
@@ -20170,7 +20773,7 @@ export type CreateOutputOutputElastic$Outbound = {
   url?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<CreateOutputUrlElastic$Outbound> | undefined;
+  urls?: Array<CreateOutputSystemByPackUrlElastic$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   pqStrictOrdering?: boolean | undefined;
@@ -20184,7 +20787,7 @@ export type CreateOutputOutputElastic$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsElastic$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsElastic$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_index?: string | undefined;
   __template_docType?: string | undefined;
@@ -20195,10 +20798,10 @@ export type CreateOutputOutputElastic$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputElastic$outboundSchema: z.ZodType<
-  CreateOutputOutputElastic$Outbound,
+export const CreateOutputSystemByPackOutputElastic$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputElastic$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputElastic
+  CreateOutputSystemByPackOutputElastic
 > = z.object({
   id: z.string(),
   type: z.literal("elastic"),
@@ -20231,17 +20834,19 @@ export const CreateOutputOutputElastic$outboundSchema: z.ZodType<
   extraParams: z.array(models.SaslExtensionConfInputKafka$outboundSchema)
     .optional(),
   auth: models.AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
-  elasticVersion: CreateOutputElasticVersion$outboundSchema.optional(),
+  elasticVersion: CreateOutputSystemByPackElasticVersion$outboundSchema
+    .optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
-  writeAction: CreateOutputWriteAction$outboundSchema.optional(),
+  writeAction: CreateOutputSystemByPackWriteAction$outboundSchema.optional(),
   retryPartialErrors: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => CreateOutputUrlElastic$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputSystemByPackUrlElastic$outboundSchema))
+    .optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -20255,8 +20860,9 @@ export const CreateOutputOutputElastic$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsElastic$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsElastic$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_index: z.string().optional(),
   __template_docType: z.string().optional(),
@@ -20266,34 +20872,38 @@ export const CreateOutputOutputElastic$outboundSchema: z.ZodType<
   __template_url: z.string().optional(),
 });
 
-export function createOutputOutputElasticToJSON(
-  createOutputOutputElastic: CreateOutputOutputElastic,
+export function createOutputSystemByPackOutputElasticToJSON(
+  createOutputSystemByPackOutputElastic: CreateOutputSystemByPackOutputElastic,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputElastic$outboundSchema.parse(createOutputOutputElastic),
+    CreateOutputSystemByPackOutputElastic$outboundSchema.parse(
+      createOutputSystemByPackOutputElastic,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsMsk$Outbound = {};
+export type CreateOutputSystemByPackPqControlsMsk$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsMsk$outboundSchema: z.ZodType<
-  CreateOutputPqControlsMsk$Outbound,
+export const CreateOutputSystemByPackPqControlsMsk$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackPqControlsMsk$Outbound,
   z.ZodTypeDef,
-  CreateOutputPqControlsMsk
+  CreateOutputSystemByPackPqControlsMsk
 > = z.object({});
 
-export function createOutputPqControlsMskToJSON(
-  createOutputPqControlsMsk: CreateOutputPqControlsMsk,
+export function createOutputSystemByPackPqControlsMskToJSON(
+  createOutputSystemByPackPqControlsMsk: CreateOutputSystemByPackPqControlsMsk,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsMsk$outboundSchema.parse(createOutputPqControlsMsk),
+    CreateOutputSystemByPackPqControlsMsk$outboundSchema.parse(
+      createOutputSystemByPackPqControlsMsk,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputMsk$Outbound = {
+export type CreateOutputSystemByPackOutputMsk$Outbound = {
   id: string;
   type: "msk";
   pipeline?: string | undefined;
@@ -20347,7 +20957,7 @@ export type CreateOutputOutputMsk$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsMsk$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsMsk$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
@@ -20362,10 +20972,10 @@ export type CreateOutputOutputMsk$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
-  CreateOutputOutputMsk$Outbound,
+export const CreateOutputSystemByPackOutputMsk$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputMsk$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputMsk
+  CreateOutputSystemByPackOutputMsk
 > = z.object({
   id: z.string(),
   type: z.literal("msk"),
@@ -20420,7 +21030,8 @@ export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsMsk$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputSystemByPackPqControlsMsk$outboundSchema)
+    .optional(),
   __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
@@ -20434,36 +21045,40 @@ export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function createOutputOutputMskToJSON(
-  createOutputOutputMsk: CreateOutputOutputMsk,
+export function createOutputSystemByPackOutputMskToJSON(
+  createOutputSystemByPackOutputMsk: CreateOutputSystemByPackOutputMsk,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputMsk$outboundSchema.parse(createOutputOutputMsk),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsConfluentCloud$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsConfluentCloud$outboundSchema: z.ZodType<
-  CreateOutputPqControlsConfluentCloud$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsConfluentCloud
-> = z.object({});
-
-export function createOutputPqControlsConfluentCloudToJSON(
-  createOutputPqControlsConfluentCloud: CreateOutputPqControlsConfluentCloud,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsConfluentCloud$outboundSchema.parse(
-      createOutputPqControlsConfluentCloud,
+    CreateOutputSystemByPackOutputMsk$outboundSchema.parse(
+      createOutputSystemByPackOutputMsk,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputConfluentCloud$Outbound = {
+export type CreateOutputSystemByPackPqControlsConfluentCloud$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsConfluentCloud$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsConfluentCloud$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsConfluentCloud
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsConfluentCloudToJSON(
+  createOutputSystemByPackPqControlsConfluentCloud:
+    CreateOutputSystemByPackPqControlsConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsConfluentCloud$outboundSchema.parse(
+      createOutputSystemByPackPqControlsConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputConfluentCloud$Outbound = {
   id: string;
   type: "confluent_cloud";
   pipeline?: string | undefined;
@@ -20506,7 +21121,9 @@ export type CreateOutputOutputConfluentCloud$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsConfluentCloud$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsConfluentCloud$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_brokers?: string | undefined;
   __template_topic?: string | undefined;
@@ -20516,95 +21133,102 @@ export type CreateOutputOutputConfluentCloud$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputConfluentCloud$outboundSchema: z.ZodType<
-  CreateOutputOutputConfluentCloud$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputConfluentCloud
-> = z.object({
-  id: z.string(),
-  type: z.literal("confluent_cloud"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  brokers: z.array(z.string()),
-  tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
-  topic: z.string(),
-  ack: models.AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
-  format: models.RecordDataFormatOptionsJsonProtobuf$outboundSchema.optional(),
-  compression: models.CompressionOptionsGzipLz4$outboundSchema.optional(),
-  maxRecordSizeKB: z.number().optional(),
-  flushEventCount: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  kafkaSchemaRegistry: models
-    .KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema
-    .optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  maxBackOff: z.number().optional(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  authenticationTimeout: z.number().optional(),
-  reauthenticationThreshold: z.number().optional(),
-  sasl: models.AuthenticationType$outboundSchema.optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  protobufLibraryId: z.string().optional(),
-  protobufEncodingId: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsConfluentCloud$outboundSchema)
-    .optional(),
-  __template_streamtags: z.string().optional(),
-  __template_brokers: z.string().optional(),
-  __template_topic: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_compression: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputConfluentCloud$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputConfluentCloud$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputConfluentCloud
+  > = z.object({
+    id: z.string(),
+    type: z.literal("confluent_cloud"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    brokers: z.array(z.string()),
+    tls: models.TlsSettingsClientSideTypeCaPathCertPath$outboundSchema
+      .optional(),
+    topic: z.string(),
+    ack: models.AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
+    format: models.RecordDataFormatOptionsJsonProtobuf$outboundSchema
+      .optional(),
+    compression: models.CompressionOptionsGzipLz4$outboundSchema.optional(),
+    maxRecordSizeKB: z.number().optional(),
+    flushEventCount: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    kafkaSchemaRegistry: models
+      .KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema
+      .optional(),
+    connectionTimeout: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    maxRetries: z.number().optional(),
+    maxBackOff: z.number().optional(),
+    initialBackoff: z.number().optional(),
+    backoffRate: z.number().optional(),
+    authenticationTimeout: z.number().optional(),
+    reauthenticationThreshold: z.number().optional(),
+    sasl: models.AuthenticationType$outboundSchema.optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    protobufLibraryId: z.string().optional(),
+    protobufEncodingId: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsConfluentCloud$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_brokers: z.string().optional(),
+    __template_topic: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_compression: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputOutputConfluentCloudToJSON(
-  createOutputOutputConfluentCloud: CreateOutputOutputConfluentCloud,
+export function createOutputSystemByPackOutputConfluentCloudToJSON(
+  createOutputSystemByPackOutputConfluentCloud:
+    CreateOutputSystemByPackOutputConfluentCloud,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputConfluentCloud$outboundSchema.parse(
-      createOutputOutputConfluentCloud,
+    CreateOutputSystemByPackOutputConfluentCloud$outboundSchema.parse(
+      createOutputSystemByPackOutputConfluentCloud,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputPqControlsKafka$Outbound = {};
+export type CreateOutputSystemByPackPqControlsKafka$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsKafka$outboundSchema: z.ZodType<
-  CreateOutputPqControlsKafka$Outbound,
+export const CreateOutputSystemByPackPqControlsKafka$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackPqControlsKafka$Outbound,
   z.ZodTypeDef,
-  CreateOutputPqControlsKafka
+  CreateOutputSystemByPackPqControlsKafka
 > = z.object({});
 
-export function createOutputPqControlsKafkaToJSON(
-  createOutputPqControlsKafka: CreateOutputPqControlsKafka,
+export function createOutputSystemByPackPqControlsKafkaToJSON(
+  createOutputSystemByPackPqControlsKafka:
+    CreateOutputSystemByPackPqControlsKafka,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsKafka$outboundSchema.parse(
-      createOutputPqControlsKafka,
+    CreateOutputSystemByPackPqControlsKafka$outboundSchema.parse(
+      createOutputSystemByPackPqControlsKafka,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputKafka$Outbound = {
+export type CreateOutputSystemByPackOutputKafka$Outbound = {
   id: string;
   type: "kafka";
   pipeline?: string | undefined;
@@ -20647,7 +21271,7 @@ export type CreateOutputOutputKafka$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsKafka$Outbound | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsKafka$Outbound | undefined;
   __template_streamtags?: string | undefined;
   __template_topic?: string | undefined;
   __template_format?: string | undefined;
@@ -20656,10 +21280,10 @@ export type CreateOutputOutputKafka$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
-  CreateOutputOutputKafka$Outbound,
+export const CreateOutputSystemByPackOutputKafka$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputKafka$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputKafka
+  CreateOutputSystemByPackOutputKafka
 > = z.object({
   id: z.string(),
   type: z.literal("kafka"),
@@ -20703,8 +21327,9 @@ export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsKafka$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsKafka$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_topic: z.string().optional(),
   __template_format: z.string().optional(),
@@ -20712,16 +21337,18 @@ export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputKafkaToJSON(
-  createOutputOutputKafka: CreateOutputOutputKafka,
+export function createOutputSystemByPackOutputKafkaToJSON(
+  createOutputSystemByPackOutputKafka: CreateOutputSystemByPackOutputKafka,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputKafka$outboundSchema.parse(createOutputOutputKafka),
+    CreateOutputSystemByPackOutputKafka$outboundSchema.parse(
+      createOutputSystemByPackOutputKafka,
+    ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputExabeam$Outbound = {
+export type CreateOutputSystemByPackOutputExabeam$Outbound = {
   id: string;
   type: "exabeam";
   pipeline?: string | undefined;
@@ -20768,10 +21395,10 @@ export type CreateOutputOutputExabeam$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputExabeam$outboundSchema: z.ZodType<
-  CreateOutputOutputExabeam$Outbound,
+export const CreateOutputSystemByPackOutputExabeam$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputExabeam$Outbound,
   z.ZodTypeDef,
-  CreateOutputOutputExabeam
+  CreateOutputSystemByPackOutputExabeam
 > = z.object({
   id: z.string(),
   type: z.literal("exabeam"),
@@ -20823,36 +21450,40 @@ export const CreateOutputOutputExabeam$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
 });
 
-export function createOutputOutputExabeamToJSON(
-  createOutputOutputExabeam: CreateOutputOutputExabeam,
+export function createOutputSystemByPackOutputExabeamToJSON(
+  createOutputSystemByPackOutputExabeam: CreateOutputSystemByPackOutputExabeam,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputExabeam$outboundSchema.parse(createOutputOutputExabeam),
-  );
-}
-
-/** @internal */
-export type CreateOutputPqControlsGooglePubsub$Outbound = {};
-
-/** @internal */
-export const CreateOutputPqControlsGooglePubsub$outboundSchema: z.ZodType<
-  CreateOutputPqControlsGooglePubsub$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsGooglePubsub
-> = z.object({});
-
-export function createOutputPqControlsGooglePubsubToJSON(
-  createOutputPqControlsGooglePubsub: CreateOutputPqControlsGooglePubsub,
-): string {
-  return JSON.stringify(
-    CreateOutputPqControlsGooglePubsub$outboundSchema.parse(
-      createOutputPqControlsGooglePubsub,
+    CreateOutputSystemByPackOutputExabeam$outboundSchema.parse(
+      createOutputSystemByPackOutputExabeam,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputGooglePubsub$Outbound = {
+export type CreateOutputSystemByPackPqControlsGooglePubsub$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsGooglePubsub$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGooglePubsub$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGooglePubsub
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsGooglePubsubToJSON(
+  createOutputSystemByPackPqControlsGooglePubsub:
+    CreateOutputSystemByPackPqControlsGooglePubsub,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsGooglePubsub$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGooglePubsub,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGooglePubsub$Outbound = {
   id: string;
   type: "google_pubsub";
   pipeline?: string | undefined;
@@ -20885,7 +21516,9 @@ export type CreateOutputOutputGooglePubsub$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGooglePubsub$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsGooglePubsub$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_topicName?: string | undefined;
   __template_region?: string | undefined;
@@ -20893,99 +21526,104 @@ export type CreateOutputOutputGooglePubsub$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputGooglePubsub$outboundSchema: z.ZodType<
-  CreateOutputOutputGooglePubsub$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputGooglePubsub
-> = z.object({
-  id: z.string(),
-  type: z.literal("google_pubsub"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  topicName: z.string(),
-  createTopic: z.boolean().optional(),
-  orderedDelivery: z.boolean().optional(),
-  region: z.string().optional(),
-  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
-    .optional(),
-  serviceAccountCredentials: z.string().optional(),
-  secret: z.string().optional(),
-  batchSize: z.number().optional(),
-  batchTimeout: z.number().optional(),
-  maxQueueSize: z.number().optional(),
-  maxRecordSizeKB: z.number().optional(),
-  flushPeriod: z.number().optional(),
-  maxInProgress: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() => CreateOutputPqControlsGooglePubsub$outboundSchema)
-    .optional(),
-  __template_streamtags: z.string().optional(),
-  __template_topicName: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputGooglePubsub$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGooglePubsub$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGooglePubsub
+  > = z.object({
+    id: z.string(),
+    type: z.literal("google_pubsub"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    topicName: z.string(),
+    createTopic: z.boolean().optional(),
+    orderedDelivery: z.boolean().optional(),
+    region: z.string().optional(),
+    googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+      .optional(),
+    serviceAccountCredentials: z.string().optional(),
+    secret: z.string().optional(),
+    batchSize: z.number().optional(),
+    batchTimeout: z.number().optional(),
+    maxQueueSize: z.number().optional(),
+    maxRecordSizeKB: z.number().optional(),
+    flushPeriod: z.number().optional(),
+    maxInProgress: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsGooglePubsub$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_topicName: z.string().optional(),
+    __template_region: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+  });
 
-export function createOutputOutputGooglePubsubToJSON(
-  createOutputOutputGooglePubsub: CreateOutputOutputGooglePubsub,
+export function createOutputSystemByPackOutputGooglePubsubToJSON(
+  createOutputSystemByPackOutputGooglePubsub:
+    CreateOutputSystemByPackOutputGooglePubsub,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGooglePubsub$outboundSchema.parse(
-      createOutputOutputGooglePubsub,
+    CreateOutputSystemByPackOutputGooglePubsub$outboundSchema.parse(
+      createOutputSystemByPackOutputGooglePubsub,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputLogLocationType$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackLogLocationType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputLogLocationType
-> = openEnums.outboundSchema(CreateOutputLogLocationType);
+  CreateOutputSystemByPackLogLocationType
+> = openEnums.outboundSchema(CreateOutputSystemByPackLogLocationType);
 
 /** @internal */
-export const CreateOutputPayloadFormat$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackPayloadFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputPayloadFormat
-> = openEnums.outboundSchema(CreateOutputPayloadFormat);
+  CreateOutputSystemByPackPayloadFormat
+> = openEnums.outboundSchema(CreateOutputSystemByPackPayloadFormat);
 
 /** @internal */
-export type CreateOutputPqControlsGoogleCloudLogging$Outbound = {};
+export type CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound = {};
 
 /** @internal */
-export const CreateOutputPqControlsGoogleCloudLogging$outboundSchema: z.ZodType<
-  CreateOutputPqControlsGoogleCloudLogging$Outbound,
-  z.ZodTypeDef,
-  CreateOutputPqControlsGoogleCloudLogging
-> = z.object({});
+export const CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging
+  > = z.object({});
 
-export function createOutputPqControlsGoogleCloudLoggingToJSON(
-  createOutputPqControlsGoogleCloudLogging:
-    CreateOutputPqControlsGoogleCloudLogging,
+export function createOutputSystemByPackPqControlsGoogleCloudLoggingToJSON(
+  createOutputSystemByPackPqControlsGoogleCloudLogging:
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging,
 ): string {
   return JSON.stringify(
-    CreateOutputPqControlsGoogleCloudLogging$outboundSchema.parse(
-      createOutputPqControlsGoogleCloudLogging,
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGoogleCloudLogging,
     ),
   );
 }
 
 /** @internal */
-export type CreateOutputOutputGoogleCloudLogging$Outbound = {
+export type CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound = {
   id: string;
   type: "google_cloud_logging";
   pipeline?: string | undefined;
@@ -21059,7 +21697,9 @@ export type CreateOutputOutputGoogleCloudLogging$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
-  pqControls?: CreateOutputPqControlsGoogleCloudLogging$Outbound | undefined;
+  pqControls?:
+    | CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound
+    | undefined;
   __template_streamtags?: string | undefined;
   __template_logLocationType?: string | undefined;
   __template_logNameExpression?: string | undefined;
@@ -21076,124 +21716,129 @@ export type CreateOutputOutputGoogleCloudLogging$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputGoogleCloudLogging$outboundSchema: z.ZodType<
-  CreateOutputOutputGoogleCloudLogging$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputGoogleCloudLogging
-> = z.object({
-  id: z.string(),
-  type: z.literal("google_cloud_logging"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  logLocationType: CreateOutputLogLocationType$outboundSchema,
-  logNameExpression: z.string(),
-  sanitizeLogNames: z.boolean().optional(),
-  payloadFormat: CreateOutputPayloadFormat$outboundSchema.optional(),
-  logLabels: z.array(models.LogLabelConfOutputGoogleCloudLogging$outboundSchema)
-    .optional(),
-  resourceTypeExpression: z.string().optional(),
-  resourceTypeLabels: z.array(
-    models.LogLabelConfOutputGoogleCloudLogging$outboundSchema,
-  ).optional(),
-  severityExpression: z.string().optional(),
-  insertIdExpression: z.string().optional(),
-  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
-    .optional(),
-  serviceAccountCredentials: z.string().optional(),
-  secret: z.string().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  concurrency: z.number().optional(),
-  connectionTimeout: z.number().optional(),
-  timeoutSec: z.number().optional(),
-  throttleRateReqPerSec: z.number().int().optional(),
-  requestMethodExpression: z.string().optional(),
-  requestUrlExpression: z.string().optional(),
-  requestSizeExpression: z.string().optional(),
-  statusExpression: z.string().optional(),
-  responseSizeExpression: z.string().optional(),
-  userAgentExpression: z.string().optional(),
-  remoteIpExpression: z.string().optional(),
-  serverIpExpression: z.string().optional(),
-  refererExpression: z.string().optional(),
-  latencyExpression: z.string().optional(),
-  cacheLookupExpression: z.string().optional(),
-  cacheHitExpression: z.string().optional(),
-  cacheValidatedExpression: z.string().optional(),
-  cacheFillBytesExpression: z.string().optional(),
-  protocolExpression: z.string().optional(),
-  idExpression: z.string().optional(),
-  producerExpression: z.string().optional(),
-  firstExpression: z.string().optional(),
-  lastExpression: z.string().optional(),
-  fileExpression: z.string().optional(),
-  lineExpression: z.string().optional(),
-  functionExpression: z.string().optional(),
-  uidExpression: z.string().optional(),
-  indexExpression: z.string().optional(),
-  totalSplitsExpression: z.string().optional(),
-  traceExpression: z.string().optional(),
-  spanIdExpression: z.string().optional(),
-  traceSampledExpression: z.string().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  totalMemoryLimitKB: z.number().optional(),
-  description: z.string().optional(),
-  logLocationExpression: z.string(),
-  payloadExpression: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: z.lazy(() =>
-    CreateOutputPqControlsGoogleCloudLogging$outboundSchema
-  ).optional(),
-  __template_streamtags: z.string().optional(),
-  __template_logLocationType: z.string().optional(),
-  __template_logNameExpression: z.string().optional(),
-  __template_payloadFormat: z.string().optional(),
-  __template_resourceTypeExpression: z.string().optional(),
-  __template_severityExpression: z.string().optional(),
-  __template_insertIdExpression: z.string().optional(),
-  __template_traceExpression: z.string().optional(),
-  __template_spanIdExpression: z.string().optional(),
-  __template_traceSampledExpression: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_logLocationExpression: z.string().optional(),
-  __template_payloadExpression: z.string().optional(),
-});
+export const CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGoogleCloudLogging
+  > = z.object({
+    id: z.string(),
+    type: z.literal("google_cloud_logging"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    logLocationType: CreateOutputSystemByPackLogLocationType$outboundSchema,
+    logNameExpression: z.string(),
+    sanitizeLogNames: z.boolean().optional(),
+    payloadFormat: CreateOutputSystemByPackPayloadFormat$outboundSchema
+      .optional(),
+    logLabels: z.array(
+      models.LogLabelConfOutputGoogleCloudLogging$outboundSchema,
+    ).optional(),
+    resourceTypeExpression: z.string().optional(),
+    resourceTypeLabels: z.array(
+      models.LogLabelConfOutputGoogleCloudLogging$outboundSchema,
+    ).optional(),
+    severityExpression: z.string().optional(),
+    insertIdExpression: z.string().optional(),
+    googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+      .optional(),
+    serviceAccountCredentials: z.string().optional(),
+    secret: z.string().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    concurrency: z.number().optional(),
+    connectionTimeout: z.number().optional(),
+    timeoutSec: z.number().optional(),
+    throttleRateReqPerSec: z.number().int().optional(),
+    requestMethodExpression: z.string().optional(),
+    requestUrlExpression: z.string().optional(),
+    requestSizeExpression: z.string().optional(),
+    statusExpression: z.string().optional(),
+    responseSizeExpression: z.string().optional(),
+    userAgentExpression: z.string().optional(),
+    remoteIpExpression: z.string().optional(),
+    serverIpExpression: z.string().optional(),
+    refererExpression: z.string().optional(),
+    latencyExpression: z.string().optional(),
+    cacheLookupExpression: z.string().optional(),
+    cacheHitExpression: z.string().optional(),
+    cacheValidatedExpression: z.string().optional(),
+    cacheFillBytesExpression: z.string().optional(),
+    protocolExpression: z.string().optional(),
+    idExpression: z.string().optional(),
+    producerExpression: z.string().optional(),
+    firstExpression: z.string().optional(),
+    lastExpression: z.string().optional(),
+    fileExpression: z.string().optional(),
+    lineExpression: z.string().optional(),
+    functionExpression: z.string().optional(),
+    uidExpression: z.string().optional(),
+    indexExpression: z.string().optional(),
+    totalSplitsExpression: z.string().optional(),
+    traceExpression: z.string().optional(),
+    spanIdExpression: z.string().optional(),
+    traceSampledExpression: z.string().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    totalMemoryLimitKB: z.number().optional(),
+    description: z.string().optional(),
+    logLocationExpression: z.string(),
+    payloadExpression: z.string().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqMaxBufferSizeBytes: z.string().optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema
+    ).optional(),
+    __template_streamtags: z.string().optional(),
+    __template_logLocationType: z.string().optional(),
+    __template_logNameExpression: z.string().optional(),
+    __template_payloadFormat: z.string().optional(),
+    __template_resourceTypeExpression: z.string().optional(),
+    __template_severityExpression: z.string().optional(),
+    __template_insertIdExpression: z.string().optional(),
+    __template_traceExpression: z.string().optional(),
+    __template_spanIdExpression: z.string().optional(),
+    __template_traceSampledExpression: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_logLocationExpression: z.string().optional(),
+    __template_payloadExpression: z.string().optional(),
+  });
 
-export function createOutputOutputGoogleCloudLoggingToJSON(
-  createOutputOutputGoogleCloudLogging: CreateOutputOutputGoogleCloudLogging,
+export function createOutputSystemByPackOutputGoogleCloudLoggingToJSON(
+  createOutputSystemByPackOutputGoogleCloudLogging:
+    CreateOutputSystemByPackOutputGoogleCloudLogging,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGoogleCloudLogging$outboundSchema.parse(
-      createOutputOutputGoogleCloudLogging,
+    CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema.parse(
+      createOutputSystemByPackOutputGoogleCloudLogging,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema:
+export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    CreateOutputAuthenticationMethodGoogleCloudStorage
+    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
   > = openEnums.outboundSchema(
-    CreateOutputAuthenticationMethodGoogleCloudStorage,
+    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage,
   );
 
 /** @internal */
-export type CreateOutputOutputGoogleCloudStorage$Outbound = {
+export type CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound = {
   id: string;
   type: "google_cloud_storage";
   pipeline?: string | undefined;
@@ -21271,154 +21916,182 @@ export type CreateOutputOutputGoogleCloudStorage$Outbound = {
 };
 
 /** @internal */
-export const CreateOutputOutputGoogleCloudStorage$outboundSchema: z.ZodType<
-  CreateOutputOutputGoogleCloudStorage$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputGoogleCloudStorage
-> = z.object({
-  id: z.string(),
-  type: z.literal("google_cloud_storage"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string(),
-  awsAuthenticationMethod:
-    CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema
+export const CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGoogleCloudStorage
+  > = z.object({
+    id: z.string(),
+    type: z.literal("google_cloud_storage"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string(),
+    awsAuthenticationMethod:
+      CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema
+        .optional(),
+    stagePath: z.string(),
+    destPath: z.string().optional(),
+    verifyPermissions: z.boolean().optional(),
+    objectACL: models
+      .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
       .optional(),
-  stagePath: z.string(),
-  destPath: z.string().optional(),
-  verifyPermissions: z.boolean().optional(),
-  objectACL: models
-    .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
-    .optional(),
-  storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  addIdToStagePath: z.boolean().optional(),
-  removeEmptyDirs: z.boolean().optional(),
-  partitionExpr: z.string().optional(),
-  format: models.DataFormatOptions$outboundSchema.optional(),
-  baseFileName: z.string().optional(),
-  fileNameSuffix: z.string().optional(),
-  maxFileSizeMB: z.number().optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxOpenFiles: z.number().optional(),
-  headerLine: z.string().optional(),
-  writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
-  deadletterEnabled: z.boolean().optional(),
-  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .optional(),
-  forceCloseOnShutdown: z.boolean().optional(),
-  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
-  description: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
-  automaticSchema: z.boolean().optional(),
-  parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
-    .optional(),
-  parquetRowGroupLength: z.number().optional(),
-  parquetPageSize: z.string().optional(),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
-  ).optional(),
-  enableStatistics: z.boolean().optional(),
-  enableWritePageIndex: z.boolean().optional(),
-  enablePageChecksum: z.boolean().optional(),
-  emptyDirCleanupSec: z.number().optional(),
-  directoryBatchSize: z.number().optional(),
-  deadletterPath: z.string().optional(),
-  maxRetryNum: z.number().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_destPath: z.string().optional(),
-  __template_objectACL: z.string().optional(),
-  __template_storageClass: z.string().optional(),
-  __template_partitionExpr: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_fileNameSuffix: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_compress: z.string().optional(),
-  __template_parquetSchema: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-});
+    storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
+      .optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    addIdToStagePath: z.boolean().optional(),
+    removeEmptyDirs: z.boolean().optional(),
+    partitionExpr: z.string().optional(),
+    format: models.DataFormatOptions$outboundSchema.optional(),
+    baseFileName: z.string().optional(),
+    fileNameSuffix: z.string().optional(),
+    maxFileSizeMB: z.number().optional(),
+    maxFileOpenTimeSec: z.number().optional(),
+    maxFileIdleTimeSec: z.number().optional(),
+    maxOpenFiles: z.number().optional(),
+    headerLine: z.string().optional(),
+    writeHighWaterMark: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+      .optional(),
+    deadletterEnabled: z.boolean().optional(),
+    onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+      .optional(),
+    forceCloseOnShutdown: z.boolean().optional(),
+    retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+    description: z.string().optional(),
+    compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+    compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+    automaticSchema: z.boolean().optional(),
+    parquetSchema: z.string().optional(),
+    parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+    parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+      .optional(),
+    parquetRowGroupLength: z.number().optional(),
+    parquetPageSize: z.string().optional(),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    enableStatistics: z.boolean().optional(),
+    enableWritePageIndex: z.boolean().optional(),
+    enablePageChecksum: z.boolean().optional(),
+    emptyDirCleanupSec: z.number().optional(),
+    directoryBatchSize: z.number().optional(),
+    deadletterPath: z.string().optional(),
+    maxRetryNum: z.number().optional(),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_bucket: z.string().optional(),
+    __template_region: z.string().optional(),
+    __template_endpoint: z.string().optional(),
+    __template_destPath: z.string().optional(),
+    __template_objectACL: z.string().optional(),
+    __template_storageClass: z.string().optional(),
+    __template_partitionExpr: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_baseFileName: z.string().optional(),
+    __template_fileNameSuffix: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+    __template_awsApiKey: z.string().optional(),
+    __template_awsSecretKey: z.string().optional(),
+  });
 
-export function createOutputOutputGoogleCloudStorageToJSON(
-  createOutputOutputGoogleCloudStorage: CreateOutputOutputGoogleCloudStorage,
+export function createOutputSystemByPackOutputGoogleCloudStorageToJSON(
+  createOutputSystemByPackOutputGoogleCloudStorage:
+    CreateOutputSystemByPackOutputGoogleCloudStorage,
 ): string {
   return JSON.stringify(
-    CreateOutputOutputGoogleCloudStorage$outboundSchema.parse(
-      createOutputOutputGoogleCloudStorage,
+    CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema.parse(
+      createOutputSystemByPackOutputGoogleCloudStorage,
     ),
   );
 }
 
 /** @internal */
-export const CreateOutputAPIVersion$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackAPIVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputAPIVersion
-> = openEnums.outboundSchema(CreateOutputAPIVersion);
+  CreateOutputSystemByPackAPIVersion
+> = openEnums.outboundSchema(CreateOutputSystemByPackAPIVersion);
 
 /** @internal */
-export const CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema:
+export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    CreateOutputAuthenticationMethodGoogleChronicle
-  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodGoogleChronicle);
+    CreateOutputSystemByPackAuthenticationMethodGoogleChronicle
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodGoogleChronicle,
+  );
 
 /** @internal */
-export const CreateOutputSendEventsAs$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackSendEventsAs$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputSendEventsAs
-> = openEnums.outboundSchema(CreateOutputSendEventsAs);
+  CreateOutputSystemByPackSendEventsAs
+> = openEnums.outboundSchema(CreateOutputSystemByPackSendEventsAs);
 
 /** @internal */
-export type CreateOutputExtraLogType$Outbound = {
+export type CreateOutputSystemByPackExtraLogType$Outbound = {
   logType: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const CreateOutputExtraLogType$outboundSchema: z.ZodType<
-  CreateOutputExtraLogType$Outbound,
+export const CreateOutputSystemByPackExtraLogType$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackExtraLogType$Outbound,
   z.ZodTypeDef,
-  CreateOutputExtraLogType
+  CreateOutputSystemByPackExtraLogType
 > = z.object({
   logType: z.string(),
   description: z.string().optional(),
 });
 
-export function createOutputExtraLogTypeToJSON(
-  createOutputExtraLogType: CreateOutputExtraLogType,
+export function createOutputSystemByPackExtraLogTypeToJSON(
+  createOutputSystemByPackExtraLogType: CreateOutputSystemByPackExtraLogType,
 ): string {
   return JSON.stringify(
-    CreateOutputExtraLogType$outboundSchema.parse(createOutputExtraLogType),
+    CreateOutputSystemByPackExtraLogType$outboundSchema.parse(
+      createOutputSystemByPackExtraLogType,
+    ),
   );
 }
 
 /** @internal */
-export const CreateOutputUDMType$outboundSchema: z.ZodType<
+export const CreateOutputSystemByPackUDMType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateOutputUDMType
-> = openEnums.outboundSchema(CreateOutputUDMType);
+  CreateOutputSystemByPackUDMType
+> = openEnums.outboundSchema(CreateOutputSystemByPackUDMType);
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGoogleChronicle
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsGoogleChronicleToJSON(
+  createOutputSystemByPackPqControlsGoogleChronicle:
+    CreateOutputSystemByPackPqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGoogleChronicle,
+    ),
+  );
+}
