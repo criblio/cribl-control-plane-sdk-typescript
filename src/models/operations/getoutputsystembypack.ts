@@ -11,7 +11,7 @@ export type GetOutputSystemByPackRequest = {
    */
   type?: models.DestinationType | undefined;
   /**
-   * The <code>id</code> of the Pack to list.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };

@@ -3,33 +3,21 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
   DestinationProtocolOptions,
-  DestinationProtocolOptions$inboundSchema,
   DestinationProtocolOptions$outboundSchema,
 } from "./destinationprotocoloptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 
@@ -111,7 +99,7 @@ export type OutputStatsdExt = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -138,15 +126,21 @@ export type OutputStatsdExt = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputStatsdExtPqControls | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputStatsdExtPqControls$inboundSchema: z.ZodType<
-  OutputStatsdExtPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputStatsdExtPqControls$Outbound = {};
 
@@ -164,53 +158,7 @@ export function outputStatsdExtPqControlsToJSON(
     OutputStatsdExtPqControls$outboundSchema.parse(outputStatsdExtPqControls),
   );
 }
-export function outputStatsdExtPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputStatsdExtPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputStatsdExtPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputStatsdExtPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputStatsdExt$inboundSchema: z.ZodType<
-  OutputStatsdExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("statsd_ext"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  protocol: DestinationProtocolOptions$inboundSchema,
-  host: types.string(),
-  port: types.number(),
-  mtu: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  description: types.optional(types.string()),
-  throttleRatePerSec: types.optional(types.string()),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqControls: types.optional(
-    z.lazy(() => OutputStatsdExtPqControls$inboundSchema),
-  ),
-});
 /** @internal */
 export type OutputStatsdExt$Outbound = {
   id?: string | undefined;
@@ -240,7 +188,10 @@ export type OutputStatsdExt$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputStatsdExtPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -276,20 +227,14 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputStatsdExtPqControls$outboundSchema).optional(),
+  __template_streamtags: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputStatsdExtToJSON(
   outputStatsdExt: OutputStatsdExt,
 ): string {
   return JSON.stringify(OutputStatsdExt$outboundSchema.parse(outputStatsdExt));
-}
-export function outputStatsdExtFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputStatsdExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputStatsdExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputStatsdExt' from JSON`,
-  );
 }

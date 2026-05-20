@@ -7,7 +7,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * Estimated ingest rate for Cloud Groups, in GB/sec.
+ * Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
  */
 export const EstimatedIngestRateOptionsConfigGroup = {
   /**
@@ -48,7 +48,7 @@ export const EstimatedIngestRateOptionsConfigGroup = {
   Rate180MBPerSec: 15360,
 } as const;
 /**
- * Estimated ingest rate for Cloud Groups, in GB/sec.
+ * Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
  */
 export type EstimatedIngestRateOptionsConfigGroup = OpenEnum<
   typeof EstimatedIngestRateOptionsConfigGroup

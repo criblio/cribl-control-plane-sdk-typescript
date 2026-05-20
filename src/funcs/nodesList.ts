@@ -34,10 +34,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Get detailed metadata for Worker or Edge Nodes
+ * Get detailed metadata for Worker, Edge, or Outpost Nodes
  *
  * @remarks
- * Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
+ * Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl product.
  */
 export function nodesList(
   client: CriblControlPlaneCore,

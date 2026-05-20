@@ -203,6 +203,10 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
    */
   jsonExtractAll?: boolean | undefined;
   /**
+   * List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
+   */
+  fieldsToRemove?: Array<string> | undefined;
+  /**
    * Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
    */
   jsonTimeField?: string | undefined;
@@ -718,6 +722,7 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArray$inboundSchema:
     jsonArrayField: types.optional(types.string()),
     parentFieldsToCopy: types.optional(z.array(types.string())),
     jsonExtractAll: types.optional(types.boolean()),
+    fieldsToRemove: types.optional(z.array(types.string())),
     jsonTimeField: types.optional(types.string()),
     existingOrNew:
       EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$inboundSchema,
@@ -738,6 +743,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray$Outbound = {
   jsonArrayField?: string | undefined;
   parentFieldsToCopy?: Array<string> | undefined;
   jsonExtractAll?: boolean | undefined;
+  fieldsToRemove?: Array<string> | undefined;
   jsonTimeField?: string | undefined;
   existingOrNew: string;
   maxEventBytes?: number | undefined;
@@ -763,6 +769,7 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArray$outboundSchema:
     jsonArrayField: z.string().optional(),
     parentFieldsToCopy: z.array(z.string()).optional(),
     jsonExtractAll: z.boolean().optional(),
+    fieldsToRemove: z.array(z.string()).optional(),
     jsonTimeField: z.string().optional(),
     existingOrNew:
       EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew$outboundSchema,

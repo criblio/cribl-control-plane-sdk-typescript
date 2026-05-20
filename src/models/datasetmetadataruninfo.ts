@@ -9,9 +9,21 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DatasetMetadataRunInfo = {
+  /**
+   * Timestamp (in Unix time) for the earliest event that was observed during the scan (seconds).
+   */
   earliestScannedTime?: number | undefined;
+  /**
+   * Timestamp (in Unix time) when the acceleration run finished (milliseconds).
+   */
   finishedAt?: number | undefined;
+  /**
+   * Timestamp (in Unix time) for the latest event that was observed during the scan (seconds).
+   */
   latestScannedTime?: number | undefined;
+  /**
+   * Number of objects on the acceleration manifest after the scan completed.
+   */
   objectCount?: number | undefined;
 };
 
@@ -40,10 +52,10 @@ export const DatasetMetadataRunInfo$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DatasetMetadataRunInfo
 > = z.object({
-  earliestScannedTime: z.number().optional(),
-  finishedAt: z.number().optional(),
-  latestScannedTime: z.number().optional(),
-  objectCount: z.number().optional(),
+  earliestScannedTime: z.number().int().optional(),
+  finishedAt: z.number().int().optional(),
+  latestScannedTime: z.number().int().optional(),
+  objectCount: z.number().int().optional(),
 });
 
 export function datasetMetadataRunInfoToJSON(

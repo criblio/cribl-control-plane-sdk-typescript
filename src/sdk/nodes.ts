@@ -20,10 +20,10 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get a count of Worker or Edge Nodes
+   * Get a count of Worker, Edge, or Outpost Nodes
    *
    * @remarks
-   * Get a count of all Worker or Edge Nodes for the specified Cribl product.
+   * Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl product.
    */
   async count(
     request: operations.GetProductsSummaryWorkersByProductRequest,
@@ -37,10 +37,10 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get detailed metadata for a Worker or Edge Node
+   * Get detailed metadata for a Worker, Edge, or Outpost Node
    *
    * @remarks
-   * Get detailed metadata for the specified Worker or Edge Node for the specified Cribl product.
+   * Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
    */
   async get(
     request: operations.GetProductsWorkersByProductAndIdRequest,
@@ -54,10 +54,10 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get detailed metadata for Worker or Edge Nodes
+   * Get detailed metadata for Worker, Edge, or Outpost Nodes
    *
    * @remarks
-   * Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
+   * Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl product.
    */
   async list(
     request: operations.GetProductsWorkersByProductRequest,
@@ -76,10 +76,10 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Restart Worker or Edge Nodes
+   * Restart Worker, Edge, or Outpost Nodes
    *
    * @remarks
-   * Restart all Worker or Edge Nodes for the specified Cribl product.
+   * Restart all Worker, Edge, or Outpost Nodes for the specified Cribl product.
    */
   async restart(
     request: operations.UpdateProductsWorkersRestartByProductRequest,

@@ -39,7 +39,7 @@ export function packsSourcesPqGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedObject,
+    models.CountedJobInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -65,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedObject,
+      models.CountedJobInfo,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -167,7 +167,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedObject,
+    models.CountedJobInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -178,7 +178,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedObject$inboundSchema),
+    M.json(200, models.CountedJobInfo$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

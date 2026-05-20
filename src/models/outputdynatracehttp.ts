@@ -3,57 +3,41 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
   MethodOptions,
-  MethodOptions$inboundSchema,
   MethodOptions$outboundSchema,
 } from "./methodoptions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
+import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -92,7 +76,7 @@ export type OutputDynatraceHttpFormat = OpenEnum<
   typeof OutputDynatraceHttpFormat
 >;
 
-export const Endpoint = {
+export const OutputDynatraceHttpEndpoint = {
   /**
    * Cloud
    */
@@ -106,9 +90,11 @@ export const Endpoint = {
    */
   Manual: "manual",
 } as const;
-export type Endpoint = OpenEnum<typeof Endpoint>;
+export type OutputDynatraceHttpEndpoint = OpenEnum<
+  typeof OutputDynatraceHttpEndpoint
+>;
 
-export const TelemetryType = {
+export const OutputDynatraceHttpTelemetryType = {
   /**
    * Logs
    */
@@ -118,7 +104,9 @@ export const TelemetryType = {
    */
   Metrics: "metrics",
 } as const;
-export type TelemetryType = OpenEnum<typeof TelemetryType>;
+export type OutputDynatraceHttpTelemetryType = OpenEnum<
+  typeof OutputDynatraceHttpTelemetryType
+>;
 
 export type OutputDynatraceHttpPqControls = {};
 
@@ -187,7 +175,7 @@ export type OutputDynatraceHttp = {
   /**
    * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -203,7 +191,9 @@ export type OutputDynatraceHttp = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -218,8 +208,8 @@ export type OutputDynatraceHttp = {
    * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
    */
   format: OutputDynatraceHttpFormat;
-  endpoint: Endpoint;
-  telemetryType: TelemetryType;
+  endpoint: OutputDynatraceHttpEndpoint;
+  telemetryType: OutputDynatraceHttpTelemetryType;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -238,7 +228,7 @@ export type OutputDynatraceHttp = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -265,6 +255,10 @@ export type OutputDynatraceHttp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceHttpPqControls | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -287,17 +281,23 @@ export type OutputDynatraceHttp = {
    */
   url?: string | undefined;
   /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-/** @internal */
-export const OutputDynatraceHttpAuthenticationType$inboundSchema: z.ZodType<
-  OutputDynatraceHttpAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceHttpAuthenticationType);
 /** @internal */
 export const OutputDynatraceHttpAuthenticationType$outboundSchema: z.ZodType<
   string,
@@ -306,12 +306,6 @@ export const OutputDynatraceHttpAuthenticationType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputDynatraceHttpAuthenticationType);
 
 /** @internal */
-export const OutputDynatraceHttpFormat$inboundSchema: z.ZodType<
-  OutputDynatraceHttpFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceHttpFormat);
-/** @internal */
 export const OutputDynatraceHttpFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -319,37 +313,19 @@ export const OutputDynatraceHttpFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputDynatraceHttpFormat);
 
 /** @internal */
-export const Endpoint$inboundSchema: z.ZodType<
-  Endpoint,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(Endpoint);
-/** @internal */
-export const Endpoint$outboundSchema: z.ZodType<
+export const OutputDynatraceHttpEndpoint$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  Endpoint
-> = openEnums.outboundSchema(Endpoint);
+  OutputDynatraceHttpEndpoint
+> = openEnums.outboundSchema(OutputDynatraceHttpEndpoint);
 
 /** @internal */
-export const TelemetryType$inboundSchema: z.ZodType<
-  TelemetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(TelemetryType);
-/** @internal */
-export const TelemetryType$outboundSchema: z.ZodType<
+export const OutputDynatraceHttpTelemetryType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  TelemetryType
-> = openEnums.outboundSchema(TelemetryType);
+  OutputDynatraceHttpTelemetryType
+> = openEnums.outboundSchema(OutputDynatraceHttpTelemetryType);
 
-/** @internal */
-export const OutputDynatraceHttpPqControls$inboundSchema: z.ZodType<
-  OutputDynatraceHttpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputDynatraceHttpPqControls$Outbound = {};
 
@@ -369,77 +345,7 @@ export function outputDynatraceHttpPqControlsToJSON(
     ),
   );
 }
-export function outputDynatraceHttpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDynatraceHttpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDynatraceHttpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDynatraceHttpPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputDynatraceHttp$inboundSchema: z.ZodType<
-  OutputDynatraceHttp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("dynatrace_http"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  method: types.optional(MethodOptions$inboundSchema),
-  keepAlive: types.optional(types.boolean()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(OutputDynatraceHttpAuthenticationType$inboundSchema),
-  format: OutputDynatraceHttpFormat$inboundSchema,
-  endpoint: Endpoint$inboundSchema,
-  telemetryType: TelemetryType$inboundSchema,
-  totalMemoryLimitKB: types.optional(types.number()),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqControls: types.optional(
-    z.lazy(() => OutputDynatraceHttpPqControls$inboundSchema),
-  ),
-  token: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  environmentId: types.optional(types.string()),
-  activeGateDomain: types.optional(types.string()),
-  url: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-});
 /** @internal */
 export type OutputDynatraceHttp$Outbound = {
   id?: string | undefined;
@@ -457,12 +363,14 @@ export type OutputDynatraceHttp$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -483,12 +391,16 @@ export type OutputDynatraceHttp$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceHttpPqControls$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
   environmentId?: string | undefined;
   activeGateDomain?: string | undefined;
   url?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -513,21 +425,22 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: OutputDynatraceHttpAuthenticationType$outboundSchema.optional(),
   format: OutputDynatraceHttpFormat$outboundSchema,
-  endpoint: Endpoint$outboundSchema,
-  telemetryType: TelemetryType$outboundSchema,
+  endpoint: OutputDynatraceHttpEndpoint$outboundSchema,
+  telemetryType: OutputDynatraceHttpTelemetryType$outboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -540,6 +453,7 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputDynatraceHttpPqControls$outboundSchema)
     .optional(),
   token: z.string().optional(),
@@ -547,6 +461,9 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   environmentId: z.string().optional(),
   activeGateDomain: z.string().optional(),
   url: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
@@ -555,14 +472,5 @@ export function outputDynatraceHttpToJSON(
 ): string {
   return JSON.stringify(
     OutputDynatraceHttp$outboundSchema.parse(outputDynatraceHttp),
-  );
-}
-export function outputDynatraceHttpFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDynatraceHttp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDynatraceHttp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDynatraceHttp' from JSON`,
   );
 }

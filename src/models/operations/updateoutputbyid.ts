@@ -12,7 +12,7 @@ export type UpdateOutputByIdRequest = {
    */
   id: string;
   /**
-   * Output object
+   * Output object.
    */
   output: models.Output;
 };

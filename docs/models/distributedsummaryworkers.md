@@ -6,24 +6,24 @@
 import { DistributedSummaryWorkers } from "cribl-control-plane/models";
 
 let value: DistributedSummaryWorkers = {
-  alive: 8057.03,
-  confVersions: 4687.46,
-  count: 2705.52,
-  disconnectedCount: 7060.29,
-  groups: 9384.39,
-  softwareVersions: 9593.72,
-  unhealthy: 3082.52,
+  alive: 805703,
+  confVersions: 468746,
+  count: 270552,
+  disconnectedCount: 706029,
+  groups: 938439,
+  softwareVersions: 959372,
+  unhealthy: 308252,
 };
 ```
 
 ## Fields
 
-| Field               | Type                | Required            | Description         |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| `alive`             | *number*            | :heavy_check_mark:  | N/A                 |
-| `confVersions`      | *number*            | :heavy_check_mark:  | N/A                 |
-| `count`             | *number*            | :heavy_check_mark:  | N/A                 |
-| `disconnectedCount` | *number*            | :heavy_check_mark:  | N/A                 |
-| `groups`            | *number*            | :heavy_check_mark:  | N/A                 |
-| `softwareVersions`  | *number*            | :heavy_check_mark:  | N/A                 |
-| `unhealthy`         | *number*            | :heavy_check_mark:  | N/A                 |
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `alive`                                                                                                | *number*                                                                                               | :heavy_check_mark:                                                                                     | Total number of Worker or Edge Nodes that are connected with <code>healthy</code> status.              |
+| `confVersions`                                                                                         | *number*                                                                                               | :heavy_check_mark:                                                                                     | Total number of unique configuration versions across all Worker or Edge Nodes.                         |
+| `count`                                                                                                | *number*                                                                                               | :heavy_check_mark:                                                                                     | Total number of Worker or Edge Nodes.                                                                  |
+| `disconnectedCount`                                                                                    | *number*                                                                                               | :heavy_check_mark:                                                                                     | Total number of Worker or Edge Nodes in a disconnected state.                                          |
+| `groups`                                                                                               | *number*                                                                                               | :heavy_check_mark:                                                                                     | Total number of distinct Worker Groups or Edge Fleets that the Workers or Edge Nodes belong to.        |
+| `softwareVersions`                                                                                     | *number*                                                                                               | :heavy_check_mark:                                                                                     | Total number of unique Cribl software versions across all Worker or Edge Nodes.                        |
+| `unhealthy`                                                                                            | *number*                                                                                               | :heavy_check_mark:                                                                                     | Total number of Worker or Edge Nodes that are connected with a status other than <code>healthy</code>. |

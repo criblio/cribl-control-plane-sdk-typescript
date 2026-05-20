@@ -28,10 +28,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get detailed metadata for a Worker or Edge Node
+ * Get detailed metadata for a Worker, Edge, or Outpost Node
  *
  * @remarks
- * Get detailed metadata for the specified Worker or Edge Node for the specified Cribl product.
+ * Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
  */
 export function nodesGet(
   client: CriblControlPlaneCore,

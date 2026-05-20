@@ -8,18 +8,18 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeSerdeTypeGrokPatternList,
-  ItemsTypeSerdeTypeGrokPatternList$inboundSchema,
-  ItemsTypeSerdeTypeGrokPatternList$Outbound,
-  ItemsTypeSerdeTypeGrokPatternList$outboundSchema,
-} from "./itemstypeserdetypegrokpatternlist.js";
+  PatternListConfSerdeTypeGrok,
+  PatternListConfSerdeTypeGrok$inboundSchema,
+  PatternListConfSerdeTypeGrok$Outbound,
+  PatternListConfSerdeTypeGrok$outboundSchema,
+} from "./patternlistconfserdetypegrok.js";
 
 export type PipelineFunctionGrokConf = {
   /**
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern: string;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
   /**
    * Field on which to perform Grok extractions
    */
@@ -62,14 +62,14 @@ export const PipelineFunctionGrokConf$inboundSchema: z.ZodType<
 > = z.object({
   pattern: types.string(),
   patternList: types.optional(
-    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
   source: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionGrokConf$Outbound = {
   pattern: string;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
   source?: string | undefined;
 };
 
@@ -80,8 +80,7 @@ export const PipelineFunctionGrokConf$outboundSchema: z.ZodType<
   PipelineFunctionGrokConf
 > = z.object({
   pattern: z.string(),
-  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
-    .optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
   source: z.string().optional(),
 });
 

@@ -129,6 +129,10 @@ import {
   PipelineFunctionLocalSearchSchemaMapper$inboundSchema,
 } from "./pipelinefunctionlocalsearchschemamapper.js";
 import {
+  PipelineFunctionLocalSearchTimeRangeNormalizer,
+  PipelineFunctionLocalSearchTimeRangeNormalizer$inboundSchema,
+} from "./pipelinefunctionlocalsearchtimerangenormalizer.js";
+import {
   PipelineFunctionLocalSearchTransformer,
   PipelineFunctionLocalSearchTransformer$inboundSchema,
 } from "./pipelinefunctionlocalsearchtransformer.js";
@@ -212,6 +216,10 @@ import {
   PipelineFunctionSampling,
   PipelineFunctionSampling$inboundSchema,
 } from "./pipelinefunctionsampling.js";
+import {
+  PipelineFunctionSearchEngineExport,
+  PipelineFunctionSearchEngineExport$inboundSchema,
+} from "./pipelinefunctionsearchengineexport.js";
 import {
   PipelineFunctionSend,
   PipelineFunctionSend$inboundSchema,
@@ -308,6 +316,7 @@ export type PipelineFunctionConf =
   | PipelineFunctionLocalSearchDatatypeParser
   | PipelineFunctionLocalSearchRulesetRunner
   | PipelineFunctionLocalSearchSchemaMapper
+  | PipelineFunctionLocalSearchTimeRangeNormalizer
   | PipelineFunctionLocalSearchTransformer
   | PipelineFunctionLookup
   | PipelineFunctionMask
@@ -329,6 +338,7 @@ export type PipelineFunctionConf =
   | PipelineFunctionRename
   | PipelineFunctionRollupMetrics
   | PipelineFunctionSampling
+  | PipelineFunctionSearchEngineExport
   | PipelineFunctionSend
   | PipelineFunctionSensitiveDataScanner
   | PipelineFunctionSerde
@@ -386,6 +396,8 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
     PipelineFunctionLocalSearchRulesetRunner$inboundSchema,
   local_search_schema_mapper:
     PipelineFunctionLocalSearchSchemaMapper$inboundSchema,
+  local_search_time_range_normalizer:
+    PipelineFunctionLocalSearchTimeRangeNormalizer$inboundSchema,
   local_search_transformer:
     PipelineFunctionLocalSearchTransformer$inboundSchema,
   lookup: PipelineFunctionLookup$inboundSchema,
@@ -408,6 +420,7 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
   rename: PipelineFunctionRename$inboundSchema,
   rollup_metrics: PipelineFunctionRollupMetrics$inboundSchema,
   sampling: PipelineFunctionSampling$inboundSchema,
+  search_engine_export: PipelineFunctionSearchEngineExport$inboundSchema,
   send: PipelineFunctionSend$inboundSchema,
   sensitive_data_scanner: PipelineFunctionSensitiveDataScanner$inboundSchema,
   serde: PipelineFunctionSerde$inboundSchema,

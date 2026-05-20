@@ -39,7 +39,7 @@ export function packsDestinationsList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedOutput,
+    models.CountedOutputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -65,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedOutput,
+      models.CountedOutputResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -168,7 +168,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedOutput,
+    models.CountedOutputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -179,7 +179,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedOutput$inboundSchema),
+    M.json(200, models.CountedOutputResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

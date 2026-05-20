@@ -9,6 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  TaskErrorDetail,
+  TaskErrorDetail$inboundSchema,
+} from "./taskerrordetail.js";
 
 /**
  * State of the Job
@@ -30,8 +34,14 @@ export const State = {
  */
 export type State = OpenEnum<typeof State>;
 
+/**
+ * Status of a job, including its current state and failure reason.
+ */
 export type JobStatus = {
-  reason?: { [k: string]: any } | undefined;
+  /**
+   * Task error details. May include a nested <code>reason</code> for wrapped errors and additional properties from the original error.
+   */
+  reason?: TaskErrorDetail | undefined;
   /**
    * State of the Job
    */
@@ -48,7 +58,7 @@ export const JobStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  reason: types.optional(z.record(z.any())),
+  reason: types.optional(TaskErrorDetail$inboundSchema),
   state: State$inboundSchema,
 });
 

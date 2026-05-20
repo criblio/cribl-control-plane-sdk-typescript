@@ -6,13 +6,13 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeAdd,
-  ItemsTypeAdd$inboundSchema,
-  ItemsTypeAdd$Outbound,
-  ItemsTypeAdd$outboundSchema,
-} from "./itemstypeadd.js";
+  AddConfFunctionConfSchemaAggregation,
+  AddConfFunctionConfSchemaAggregation$inboundSchema,
+  AddConfFunctionConfSchemaAggregation$Outbound,
+  AddConfFunctionConfSchemaAggregation$outboundSchema,
+} from "./addconffunctionconfschemaaggregation.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PipelineFunctionMaskRule = {
   /**
@@ -42,7 +42,7 @@ export type PipelineFunctionMaskConf = {
   /**
    * Fields to evaluate if one or more masking rules are matched
    */
-  flags?: Array<ItemsTypeAdd> | undefined;
+  flags?: Array<AddConfFunctionConfSchemaAggregation> | undefined;
 };
 
 export type PipelineFunctionMask = {
@@ -127,14 +127,16 @@ export const PipelineFunctionMaskConf$inboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => PipelineFunctionMaskRule$inboundSchema)),
   fields: types.optional(z.array(types.string())),
   depth: types.optional(types.number()),
-  flags: types.optional(z.array(ItemsTypeAdd$inboundSchema)),
+  flags: types.optional(
+    z.array(AddConfFunctionConfSchemaAggregation$inboundSchema),
+  ),
 });
 /** @internal */
 export type PipelineFunctionMaskConf$Outbound = {
   rules: Array<PipelineFunctionMaskRule$Outbound>;
   fields?: Array<string> | undefined;
   depth?: number | undefined;
-  flags?: Array<ItemsTypeAdd$Outbound> | undefined;
+  flags?: Array<AddConfFunctionConfSchemaAggregation$Outbound> | undefined;
 };
 
 /** @internal */
@@ -146,7 +148,8 @@ export const PipelineFunctionMaskConf$outboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => PipelineFunctionMaskRule$outboundSchema)),
   fields: z.array(z.string()).optional(),
   depth: z.number().int().optional(),
-  flags: z.array(ItemsTypeAdd$outboundSchema).optional(),
+  flags: z.array(AddConfFunctionConfSchemaAggregation$outboundSchema)
+    .optional(),
 });
 
 export function pipelineFunctionMaskConfToJSON(
