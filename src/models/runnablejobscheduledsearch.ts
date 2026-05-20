@@ -55,6 +55,10 @@ export type RunnableJobScheduledSearch = {
    * Identifies which search query to run
    */
   savedQueryId: string;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -74,6 +78,7 @@ export const RunnableJobScheduledSearch$inboundSchema: z.ZodType<
   schedule: types.optional(ScheduleTypeRunnableJobCollection$inboundSchema),
   streamtags: types.optional(z.array(types.string())),
   savedQueryId: types.string(),
+  __template_streamtags: types.optional(types.string()),
 });
 
 export function runnableJobScheduledSearchFromJSON(

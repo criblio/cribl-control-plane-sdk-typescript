@@ -12,17 +12,17 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeSerdeTypeGrokPatternList,
-  ItemsTypeSerdeTypeGrokPatternList$inboundSchema,
-  ItemsTypeSerdeTypeGrokPatternList$Outbound,
-  ItemsTypeSerdeTypeGrokPatternList$outboundSchema,
-} from "./itemstypeserdetypegrokpatternlist.js";
+  PatternListConfSerdeTypeGrok,
+  PatternListConfSerdeTypeGrok$inboundSchema,
+  PatternListConfSerdeTypeGrok$Outbound,
+  PatternListConfSerdeTypeGrok$outboundSchema,
+} from "./patternlistconfserdetypegrok.js";
 import {
-  ItemsTypeSerdeTypeRegexRegexList,
-  ItemsTypeSerdeTypeRegexRegexList$inboundSchema,
-  ItemsTypeSerdeTypeRegexRegexList$Outbound,
-  ItemsTypeSerdeTypeRegexRegexList$outboundSchema,
-} from "./itemstypeserdetyperegexregexlist.js";
+  RegexListConfSerdeTypeRegex,
+  RegexListConfSerdeTypeRegex$inboundSchema,
+  RegexListConfSerdeTypeRegex$Outbound,
+  RegexListConfSerdeTypeRegex$outboundSchema,
+} from "./regexlistconfserdetyperegex.js";
 
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
@@ -53,7 +53,7 @@ export type SerdeTypeGrok = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern: string;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
    */
@@ -78,7 +78,7 @@ export type SerdeTypeGrok = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
    */
@@ -122,7 +122,7 @@ export type SerdeTypeRegex = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex: string;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
    */
@@ -159,7 +159,7 @@ export type SerdeTypeRegex = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
 /**
@@ -223,7 +223,7 @@ export type SerdeTypeJson = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
    */
@@ -240,7 +240,7 @@ export type SerdeTypeJson = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
 /**
@@ -308,7 +308,7 @@ export type SerdeTypeCsv = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
    */
@@ -325,7 +325,7 @@ export type SerdeTypeCsv = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
 /**
@@ -409,7 +409,7 @@ export type SerdeTypeDelim = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
    */
@@ -426,7 +426,7 @@ export type SerdeTypeDelim = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
 /**
@@ -494,7 +494,7 @@ export type SerdeTypeKvp = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
    */
@@ -511,7 +511,7 @@ export type SerdeTypeKvp = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
 export type PipelineFunctionSerdeConf =
@@ -580,7 +580,7 @@ export const SerdeTypeGrok$inboundSchema: z.ZodType<
   type: types.literal("grok"),
   pattern: types.string(),
   patternList: types.optional(
-    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
   mode: SerdeTypeGrokOperationMode$inboundSchema,
   srcField: types.optional(types.string()),
@@ -588,9 +588,7 @@ export const SerdeTypeGrok$inboundSchema: z.ZodType<
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
-  regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
-  ),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
   overwrite: types.optional(types.boolean()),
@@ -599,14 +597,14 @@ export const SerdeTypeGrok$inboundSchema: z.ZodType<
 export type SerdeTypeGrok$Outbound = {
   type: "grok";
   pattern: string;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
   mode: string;
   srcField?: string | undefined;
   dstField?: string | undefined;
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
   overwrite?: boolean | undefined;
@@ -620,16 +618,14 @@ export const SerdeTypeGrok$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("grok"),
   pattern: z.string(),
-  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
-    .optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
   mode: SerdeTypeGrokOperationMode$outboundSchema,
   srcField: z.string().optional(),
   dstField: z.string().optional(),
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   regex: z.string().optional(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
@@ -669,9 +665,7 @@ export const SerdeTypeRegex$inboundSchema: z.ZodType<
 > = z.object({
   type: types.literal("regex"),
   regex: types.string(),
-  regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
-  ),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
   overwrite: types.optional(types.boolean()),
@@ -682,14 +676,14 @@ export const SerdeTypeRegex$inboundSchema: z.ZodType<
   allowedValueChars: types.optional(z.array(types.string())),
   pattern: types.optional(types.string()),
   patternList: types.optional(
-    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
 });
 /** @internal */
 export type SerdeTypeRegex$Outbound = {
   type: "regex";
   regex: string;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
   overwrite?: boolean | undefined;
@@ -699,7 +693,7 @@ export type SerdeTypeRegex$Outbound = {
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
 };
 
 /** @internal */
@@ -710,8 +704,7 @@ export const SerdeTypeRegex$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("regex"),
   regex: z.string(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
@@ -721,8 +714,7 @@ export const SerdeTypeRegex$outboundSchema: z.ZodType<
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   pattern: z.string().optional(),
-  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
-    .optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
 });
 
 export function serdeTypeRegexToJSON(serdeTypeRegex: SerdeTypeRegex): string {
@@ -767,15 +759,13 @@ export const SerdeTypeJson$inboundSchema: z.ZodType<
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
-  regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
-  ),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
   overwrite: types.optional(types.boolean()),
   pattern: types.optional(types.string()),
   patternList: types.optional(
-    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
 });
 /** @internal */
@@ -790,12 +780,12 @@ export type SerdeTypeJson$Outbound = {
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
   overwrite?: boolean | undefined;
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
 };
 
 /** @internal */
@@ -814,14 +804,12 @@ export const SerdeTypeJson$outboundSchema: z.ZodType<
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   regex: z.string().optional(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
   pattern: z.string().optional(),
-  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
-    .optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
 });
 
 export function serdeTypeJsonToJSON(serdeTypeJson: SerdeTypeJson): string {
@@ -867,15 +855,13 @@ export const SerdeTypeCsv$inboundSchema: z.ZodType<
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
-  regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
-  ),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
   overwrite: types.optional(types.boolean()),
   pattern: types.optional(types.string()),
   patternList: types.optional(
-    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
 });
 /** @internal */
@@ -891,12 +877,12 @@ export type SerdeTypeCsv$Outbound = {
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
   overwrite?: boolean | undefined;
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
 };
 
 /** @internal */
@@ -916,14 +902,12 @@ export const SerdeTypeCsv$outboundSchema: z.ZodType<
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   regex: z.string().optional(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
   pattern: z.string().optional(),
-  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
-    .optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
 });
 
 export function serdeTypeCsvToJSON(serdeTypeCsv: SerdeTypeCsv): string {
@@ -973,15 +957,13 @@ export const SerdeTypeDelim$inboundSchema: z.ZodType<
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
-  regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
-  ),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
   overwrite: types.optional(types.boolean()),
   pattern: types.optional(types.string()),
   patternList: types.optional(
-    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
 });
 /** @internal */
@@ -1001,12 +983,12 @@ export type SerdeTypeDelim$Outbound = {
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
   overwrite?: boolean | undefined;
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1030,14 +1012,12 @@ export const SerdeTypeDelim$outboundSchema: z.ZodType<
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   regex: z.string().optional(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
   pattern: z.string().optional(),
-  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
-    .optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
 });
 
 export function serdeTypeDelimToJSON(serdeTypeDelim: SerdeTypeDelim): string {
@@ -1083,15 +1063,13 @@ export const SerdeTypeKvp$inboundSchema: z.ZodType<
   srcField: types.optional(types.string()),
   dstField: types.optional(types.string()),
   regex: types.optional(types.string()),
-  regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
-  ),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
   overwrite: types.optional(types.boolean()),
   pattern: types.optional(types.string()),
   patternList: types.optional(
-    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
 });
 /** @internal */
@@ -1107,12 +1085,12 @@ export type SerdeTypeKvp$Outbound = {
   srcField?: string | undefined;
   dstField?: string | undefined;
   regex?: string | undefined;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
   overwrite?: boolean | undefined;
   pattern?: string | undefined;
-  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1132,14 +1110,12 @@ export const SerdeTypeKvp$outboundSchema: z.ZodType<
   srcField: z.string().optional(),
   dstField: z.string().optional(),
   regex: z.string().optional(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
   pattern: z.string().optional(),
-  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
-    .optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
 });
 
 export function serdeTypeKvpToJSON(serdeTypeKvp: SerdeTypeKvp): string {

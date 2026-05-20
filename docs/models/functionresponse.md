@@ -509,6 +509,21 @@ const value: models.FunctionLocalSearchSchemaMapper = {
 };
 ```
 
+### `models.FunctionLocalSearchTimeRangeNormalizer`
+
+```typescript
+const value: models.FunctionLocalSearchTimeRangeNormalizer = {
+  __filename: "example.file",
+  group: "<value>",
+  id: "local_search_time_range_normalizer",
+  loadTime: 8090.81,
+  modTime: 5034.05,
+  name: "<value>",
+  uischema: {},
+  version: "<value>",
+};
+```
+
 ### `models.FunctionLocalSearchTransformer`
 
 ```typescript
@@ -860,6 +875,23 @@ const value: models.FunctionSampling = {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
+  },
+  version: "<value>",
+};
+```
+
+### `models.FunctionSearchEngineExport`
+
+```typescript
+const value: models.FunctionSearchEngineExport = {
+  __filename: "example.file",
+  group: "<value>",
+  id: "search_engine_export",
+  loadTime: 6966.28,
+  modTime: 5838.46,
+  name: "<value>",
+  uischema: {
+    "key": "<value>",
   },
   version: "<value>",
 };

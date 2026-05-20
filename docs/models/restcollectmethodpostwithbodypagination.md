@@ -17,10 +17,8 @@ const value: models.RestCollectMethodPostWithBodyRestPaginationTypeNone = {
 const value:
   models.RestCollectMethodPostWithBodyRestPaginationTypeResponseBody = {
     type: "response_body",
-    attribute: [
-      "<value 1>",
-    ],
-    maxPages: 2296.76,
+    attribute: [],
+    maxPages: 4729.11,
   };
 ```
 
@@ -30,10 +28,7 @@ const value:
 const value:
   models.RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader = {
     type: "response_header",
-    attribute: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    attribute: "<value>",
     maxPages: 8070.7,
   };
 ```

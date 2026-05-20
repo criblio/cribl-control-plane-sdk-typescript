@@ -154,6 +154,11 @@ import {
   PipelineFunctionLocalSearchSchemaMapper$outboundSchema,
 } from "./pipelinefunctionlocalsearchschemamapper.js";
 import {
+  PipelineFunctionLocalSearchTimeRangeNormalizer,
+  PipelineFunctionLocalSearchTimeRangeNormalizer$Outbound,
+  PipelineFunctionLocalSearchTimeRangeNormalizer$outboundSchema,
+} from "./pipelinefunctionlocalsearchtimerangenormalizer.js";
+import {
   PipelineFunctionLocalSearchTransformer,
   PipelineFunctionLocalSearchTransformer$Outbound,
   PipelineFunctionLocalSearchTransformer$outboundSchema,
@@ -258,6 +263,11 @@ import {
   PipelineFunctionSampling$Outbound,
   PipelineFunctionSampling$outboundSchema,
 } from "./pipelinefunctionsampling.js";
+import {
+  PipelineFunctionSearchEngineExport,
+  PipelineFunctionSearchEngineExport$Outbound,
+  PipelineFunctionSearchEngineExport$outboundSchema,
+} from "./pipelinefunctionsearchengineexport.js";
 import {
   PipelineFunctionSend,
   PipelineFunctionSend$Outbound,
@@ -370,6 +380,7 @@ export type PipelineFunctionConfInput =
   | PipelineFunctionLocalSearchDatatypeParser
   | PipelineFunctionLocalSearchRulesetRunner
   | PipelineFunctionLocalSearchSchemaMapper
+  | PipelineFunctionLocalSearchTimeRangeNormalizer
   | PipelineFunctionLocalSearchTransformer
   | PipelineFunctionLookup
   | PipelineFunctionMask
@@ -391,6 +402,7 @@ export type PipelineFunctionConfInput =
   | PipelineFunctionRename
   | PipelineFunctionRollupMetrics
   | PipelineFunctionSampling
+  | PipelineFunctionSearchEngineExport
   | PipelineFunctionSend
   | PipelineFunctionSensitiveDataScanner
   | PipelineFunctionSerde
@@ -440,6 +452,7 @@ export type PipelineFunctionConfInput$Outbound =
   | PipelineFunctionLocalSearchDatatypeParser$Outbound
   | PipelineFunctionLocalSearchRulesetRunner$Outbound
   | PipelineFunctionLocalSearchSchemaMapper$Outbound
+  | PipelineFunctionLocalSearchTimeRangeNormalizer$Outbound
   | PipelineFunctionLocalSearchTransformer$Outbound
   | PipelineFunctionLookup$Outbound
   | PipelineFunctionMask$Outbound
@@ -461,6 +474,7 @@ export type PipelineFunctionConfInput$Outbound =
   | PipelineFunctionRename$Outbound
   | PipelineFunctionRollupMetrics$Outbound
   | PipelineFunctionSampling$Outbound
+  | PipelineFunctionSearchEngineExport$Outbound
   | PipelineFunctionSend$Outbound
   | PipelineFunctionSensitiveDataScanner$Outbound
   | PipelineFunctionSerde$Outbound
@@ -514,6 +528,7 @@ export const PipelineFunctionConfInput$outboundSchema: z.ZodType<
   PipelineFunctionLocalSearchDatatypeParser$outboundSchema,
   PipelineFunctionLocalSearchRulesetRunner$outboundSchema,
   PipelineFunctionLocalSearchSchemaMapper$outboundSchema,
+  PipelineFunctionLocalSearchTimeRangeNormalizer$outboundSchema,
   PipelineFunctionLocalSearchTransformer$outboundSchema,
   PipelineFunctionLookup$outboundSchema,
   PipelineFunctionMask$outboundSchema,
@@ -535,6 +550,7 @@ export const PipelineFunctionConfInput$outboundSchema: z.ZodType<
   PipelineFunctionRename$outboundSchema,
   PipelineFunctionRollupMetrics$outboundSchema,
   PipelineFunctionSampling$outboundSchema,
+  PipelineFunctionSearchEngineExport$outboundSchema,
   PipelineFunctionSend$outboundSchema,
   PipelineFunctionSensitiveDataScanner$outboundSchema,
   PipelineFunctionSerde$outboundSchema,

@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 
+/**
+ * Request body for testing a Destination by sending sample events.
+ */
 export type OutputTestRequest = {
   /**
    * Array of event objects to send to the Destination for testing.

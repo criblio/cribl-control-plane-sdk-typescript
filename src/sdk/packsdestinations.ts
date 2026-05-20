@@ -40,7 +40,7 @@ export class PacksDestinations extends ClientSDK {
   async list(
     request: operations.GetOutputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(packsDestinationsList(
       this,
       request,
@@ -57,7 +57,7 @@ export class PacksDestinations extends ClientSDK {
   async create(
     request: operations.CreateOutputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(packsDestinationsCreate(
       this,
       request,
@@ -74,7 +74,7 @@ export class PacksDestinations extends ClientSDK {
   async get(
     request: operations.GetOutputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(packsDestinationsGet(
       this,
       request,
@@ -91,7 +91,7 @@ export class PacksDestinations extends ClientSDK {
   async update(
     request: operations.UpdateOutputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(packsDestinationsUpdate(
       this,
       request,
@@ -108,7 +108,7 @@ export class PacksDestinations extends ClientSDK {
   async delete(
     request: operations.DeleteOutputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutput> {
+  ): Promise<models.CountedOutputResponse> {
     return unwrapAsync(packsDestinationsDelete(
       this,
       request,

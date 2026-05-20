@@ -7,18 +7,18 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AuthTypeKafkaSchemaRegistry,
-  AuthTypeKafkaSchemaRegistry$inboundSchema,
-  AuthTypeKafkaSchemaRegistry$Outbound,
-  AuthTypeKafkaSchemaRegistry$outboundSchema,
-} from "./authtypekafkaschemaregistry.js";
+  AuthType,
+  AuthType$inboundSchema,
+  AuthType$Outbound,
+  AuthType$outboundSchema,
+} from "./authtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type KafkaSchemaRegistryAuthenticationType = {
   disabled: boolean;
@@ -41,8 +41,12 @@ export type KafkaSchemaRegistryAuthenticationType = {
   /**
    * Credentials to use when authenticating with the schema registry using basic HTTP authentication
    */
-  auth?: AuthTypeKafkaSchemaRegistry | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  auth?: AuthType | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
+  /**
+   * Binds 'schemaRegistryURL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'schemaRegistryURL' at runtime.
+   */
+  __template_schemaRegistryURL?: string | undefined;
 };
 
 /** @internal */
@@ -56,10 +60,9 @@ export const KafkaSchemaRegistryAuthenticationType$inboundSchema: z.ZodType<
   connectionTimeout: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   maxRetries: types.optional(types.number()),
-  auth: types.optional(AuthTypeKafkaSchemaRegistry$inboundSchema),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
+  auth: types.optional(AuthType$inboundSchema),
+  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
+  __template_schemaRegistryURL: types.optional(types.string()),
 });
 /** @internal */
 export type KafkaSchemaRegistryAuthenticationType$Outbound = {
@@ -68,8 +71,9 @@ export type KafkaSchemaRegistryAuthenticationType$Outbound = {
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
   maxRetries?: number | undefined;
-  auth?: AuthTypeKafkaSchemaRegistry$Outbound | undefined;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  auth?: AuthType$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
+  __template_schemaRegistryURL?: string | undefined;
 };
 
 /** @internal */
@@ -83,8 +87,9 @@ export const KafkaSchemaRegistryAuthenticationType$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
   maxRetries: z.number().optional(),
-  auth: AuthTypeKafkaSchemaRegistry$outboundSchema.optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  auth: AuthType$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
+  __template_schemaRegistryURL: z.string().optional(),
 });
 
 export function kafkaSchemaRegistryAuthenticationTypeToJSON(

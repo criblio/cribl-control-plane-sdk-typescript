@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Server-side encryption to use for uploaded objects
+ */
 export const ServerSideEncryptionForUploadedObjectsOptions = {
   /**
    * Amazon S3 Managed Key
@@ -16,6 +19,9 @@ export const ServerSideEncryptionForUploadedObjectsOptions = {
    */
   AwsKms: "aws:kms",
 } as const;
+/**
+ * Server-side encryption to use for uploaded objects
+ */
 export type ServerSideEncryptionForUploadedObjectsOptions = OpenEnum<
   typeof ServerSideEncryptionForUploadedObjectsOptions
 >;

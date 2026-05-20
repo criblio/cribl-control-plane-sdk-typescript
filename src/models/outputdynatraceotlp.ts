@@ -3,73 +3,54 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions4,
-  CompressionOptions4$inboundSchema,
-  CompressionOptions4$outboundSchema,
-} from "./compressionoptions4.js";
+  CompressionOptionsDeflateGzip,
+  CompressionOptionsDeflateGzip$outboundSchema,
+} from "./compressionoptionsdeflategzip.js";
 import {
-  CompressionOptions5,
-  CompressionOptions5$inboundSchema,
-  CompressionOptions5$outboundSchema,
-} from "./compressionoptions5.js";
+  CompressionOptionsMessages,
+  CompressionOptionsMessages$outboundSchema,
+} from "./compressionoptionsmessages.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$Outbound,
+  KeyValueMetadataConfOutputFilesystem$outboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  OtlpVersionOptions1,
-  OtlpVersionOptions1$inboundSchema,
-  OtlpVersionOptions1$outboundSchema,
-} from "./otlpversionoptions1.js";
+  OtlpVersionOptions131,
+  OtlpVersionOptions131$outboundSchema,
+} from "./otlpversionoptions131.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
+import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -93,7 +74,7 @@ export type OutputDynatraceOtlpProtocol = OpenEnum<
 /**
  * Select the type of Dynatrace endpoint configured
  */
-export const EndpointType = {
+export const OutputDynatraceOtlpEndpointType = {
   /**
    * SaaS
    */
@@ -106,7 +87,9 @@ export const EndpointType = {
 /**
  * Select the type of Dynatrace endpoint configured
  */
-export type EndpointType = OpenEnum<typeof EndpointType>;
+export type OutputDynatraceOtlpEndpointType = OpenEnum<
+  typeof OutputDynatraceOtlpEndpointType
+>;
 
 export type OutputDynatraceOtlpPqControls = {};
 
@@ -143,15 +126,15 @@ export type OutputDynatraceOtlp = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion: OtlpVersionOptions1;
+  otlpVersion: OtlpVersionOptions131;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: CompressionOptions4 | undefined;
+  compress?: CompressionOptionsDeflateGzip | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  httpCompress?: CompressionOptions5 | undefined;
+  httpCompress?: CompressionOptionsMessages | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -167,7 +150,15 @@ export type OutputDynatraceOtlp = {
   /**
    * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
    */
-  metadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  metadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
+  /**
+   * Batch event data upon dynamic metadata (whether presented or not)
+   */
+  dynamicHeadersEnabled?: boolean | undefined;
+  /**
+   * When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
+   */
+  dynamicHeadersField?: string | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -203,7 +194,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Select the type of Dynatrace endpoint configured
    */
-  endpointType: EndpointType;
+  endpointType: OutputDynatraceOtlpEndpointType;
   /**
    * Select or create a stored text secret
    */
@@ -229,7 +220,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -237,7 +228,9 @@ export type OutputDynatraceOtlp = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -256,7 +249,7 @@ export type OutputDynatraceOtlp = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -283,15 +276,25 @@ export type OutputDynatraceOtlp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceOtlpPqControls | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+   */
+  __template_failedRequestLoggingMode?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputDynatraceOtlpProtocol$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpProtocol,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDynatraceOtlpProtocol);
 /** @internal */
 export const OutputDynatraceOtlpProtocol$outboundSchema: z.ZodType<
   string,
@@ -300,24 +303,12 @@ export const OutputDynatraceOtlpProtocol$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputDynatraceOtlpProtocol);
 
 /** @internal */
-export const EndpointType$inboundSchema: z.ZodType<
-  EndpointType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(EndpointType);
-/** @internal */
-export const EndpointType$outboundSchema: z.ZodType<
+export const OutputDynatraceOtlpEndpointType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  EndpointType
-> = openEnums.outboundSchema(EndpointType);
+  OutputDynatraceOtlpEndpointType
+> = openEnums.outboundSchema(OutputDynatraceOtlpEndpointType);
 
-/** @internal */
-export const OutputDynatraceOtlpPqControls$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputDynatraceOtlpPqControls$Outbound = {};
 
@@ -337,77 +328,7 @@ export function outputDynatraceOtlpPqControlsToJSON(
     ),
   );
 }
-export function outputDynatraceOtlpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDynatraceOtlpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDynatraceOtlpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDynatraceOtlpPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
-  OutputDynatraceOtlp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("dynatrace_otlp"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  protocol: OutputDynatraceOtlpProtocol$inboundSchema,
-  endpoint: types.string(),
-  otlpVersion: OtlpVersionOptions1$inboundSchema,
-  compress: types.optional(CompressionOptions4$inboundSchema),
-  httpCompress: types.optional(CompressionOptions5$inboundSchema),
-  httpTracesEndpointOverride: types.optional(types.string()),
-  httpMetricsEndpointOverride: types.optional(types.string()),
-  httpLogsEndpointOverride: types.optional(types.string()),
-  metadata: types.optional(z.array(ItemsTypeKeyValueMetadata$inboundSchema)),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  connectionTimeout: types.optional(types.number()),
-  keepAliveTime: types.optional(types.number()),
-  keepAlive: types.optional(types.boolean()),
-  endpointType: EndpointType$inboundSchema,
-  tokenSecret: types.string(),
-  authTokenName: types.optional(types.string()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqControls: types.optional(
-    z.lazy(() => OutputDynatraceOtlpPqControls$inboundSchema),
-  ),
-});
 /** @internal */
 export type OutputDynatraceOtlp$Outbound = {
   id?: string | undefined;
@@ -424,7 +345,9 @@ export type OutputDynatraceOtlp$Outbound = {
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
-  metadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  metadata?: Array<KeyValueMetadataConfOutputFilesystem$Outbound> | undefined;
+  dynamicHeadersEnabled?: boolean | undefined;
+  dynamicHeadersField?: string | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   timeoutSec?: number | undefined;
@@ -440,10 +363,12 @@ export type OutputDynatraceOtlp$Outbound = {
   description?: string | undefined;
   rejectUnauthorized?: boolean | undefined;
   useRoundRobinDns?: boolean | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -457,7 +382,11 @@ export type OutputDynatraceOtlp$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDynatraceOtlpPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_failedRequestLoggingMode?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -474,13 +403,16 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   protocol: OutputDynatraceOtlpProtocol$outboundSchema,
   endpoint: z.string(),
-  otlpVersion: OtlpVersionOptions1$outboundSchema,
-  compress: CompressionOptions4$outboundSchema.optional(),
-  httpCompress: CompressionOptions5$outboundSchema.optional(),
+  otlpVersion: OtlpVersionOptions131$outboundSchema,
+  compress: CompressionOptionsDeflateGzip$outboundSchema.optional(),
+  httpCompress: CompressionOptionsMessages$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema).optional(),
+  metadata: z.array(KeyValueMetadataConfOutputFilesystem$outboundSchema)
+    .optional(),
+  dynamicHeadersEnabled: z.boolean().optional(),
+  dynamicHeadersField: z.string().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   timeoutSec: z.number().optional(),
@@ -490,18 +422,19 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
   keepAlive: z.boolean().optional(),
-  endpointType: EndpointType$outboundSchema,
+  endpointType: OutputDynatraceOtlpEndpointType$outboundSchema,
   tokenSecret: z.string(),
   authTokenName: z.string().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   rejectUnauthorized: z.boolean().optional(),
   useRoundRobinDns: z.boolean().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -514,8 +447,12 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_failedRequestLoggingMode: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputDynatraceOtlpToJSON(
@@ -523,14 +460,5 @@ export function outputDynatraceOtlpToJSON(
 ): string {
   return JSON.stringify(
     OutputDynatraceOtlp$outboundSchema.parse(outputDynatraceOtlp),
-  );
-}
-export function outputDynatraceOtlpFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDynatraceOtlp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDynatraceOtlp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDynatraceOtlp' from JSON`,
   );
 }

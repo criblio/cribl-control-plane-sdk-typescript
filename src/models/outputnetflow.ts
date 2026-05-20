@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputNetflowHost = {
   /**
@@ -66,19 +62,12 @@ export type OutputNetflow = {
    * MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
    */
   maxRecordSize?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
-/** @internal */
-export const OutputNetflowHost$inboundSchema: z.ZodType<
-  OutputNetflowHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: types.string(),
-  port: types.number(),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-});
 /** @internal */
 export type OutputNetflowHost$Outbound = {
   host: string;
@@ -106,34 +95,7 @@ export function outputNetflowHostToJSON(
     OutputNetflowHost$outboundSchema.parse(outputNetflowHost),
   );
 }
-export function outputNetflowHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNetflowHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNetflowHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNetflowHost' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputNetflow$inboundSchema: z.ZodType<
-  OutputNetflow,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("netflow"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  hosts: z.array(z.lazy(() => OutputNetflowHost$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  enableIpSpoofing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  maxRecordSize: types.optional(types.number()),
-});
 /** @internal */
 export type OutputNetflow$Outbound = {
   id?: string | undefined;
@@ -147,6 +109,7 @@ export type OutputNetflow$Outbound = {
   enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
   maxRecordSize?: number | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -166,17 +129,9 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
   maxRecordSize: z.number().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {
   return JSON.stringify(OutputNetflow$outboundSchema.parse(outputNetflow));
-}
-export function outputNetflowFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNetflow, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNetflow$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNetflow' from JSON`,
-  );
 }

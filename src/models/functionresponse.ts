@@ -99,6 +99,10 @@ import {
   FunctionLocalSearchSchemaMapper$inboundSchema,
 } from "./functionlocalsearchschemamapper.js";
 import {
+  FunctionLocalSearchTimeRangeNormalizer,
+  FunctionLocalSearchTimeRangeNormalizer$inboundSchema,
+} from "./functionlocalsearchtimerangenormalizer.js";
+import {
   FunctionLocalSearchTransformer,
   FunctionLocalSearchTransformer$inboundSchema,
 } from "./functionlocalsearchtransformer.js";
@@ -170,6 +174,10 @@ import {
   FunctionSampling,
   FunctionSampling$inboundSchema,
 } from "./functionsampling.js";
+import {
+  FunctionSearchEngineExport,
+  FunctionSearchEngineExport$inboundSchema,
+} from "./functionsearchengineexport.js";
 import { FunctionSend, FunctionSend$inboundSchema } from "./functionsend.js";
 import {
   FunctionSensitiveDataScanner,
@@ -248,6 +256,7 @@ export type FunctionResponse =
   | FunctionLocalSearchDatatypeParser
   | FunctionLocalSearchRulesetRunner
   | FunctionLocalSearchSchemaMapper
+  | FunctionLocalSearchTimeRangeNormalizer
   | FunctionLocalSearchTransformer
   | FunctionLookup
   | FunctionMask
@@ -269,6 +278,7 @@ export type FunctionResponse =
   | FunctionRename
   | FunctionRollupMetrics
   | FunctionSampling
+  | FunctionSearchEngineExport
   | FunctionSend
   | FunctionSensitiveDataScanner
   | FunctionSerde
@@ -323,6 +333,8 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   local_search_datatype_parser: FunctionLocalSearchDatatypeParser$inboundSchema,
   local_search_ruleset_runner: FunctionLocalSearchRulesetRunner$inboundSchema,
   local_search_schema_mapper: FunctionLocalSearchSchemaMapper$inboundSchema,
+  local_search_time_range_normalizer:
+    FunctionLocalSearchTimeRangeNormalizer$inboundSchema,
   local_search_transformer: FunctionLocalSearchTransformer$inboundSchema,
   lookup: FunctionLookup$inboundSchema,
   mask: FunctionMask$inboundSchema,
@@ -344,6 +356,7 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   rename: FunctionRename$inboundSchema,
   rollup_metrics: FunctionRollupMetrics$inboundSchema,
   sampling: FunctionSampling$inboundSchema,
+  search_engine_export: FunctionSearchEngineExport$inboundSchema,
   send: FunctionSend$inboundSchema,
   sensitive_data_scanner: FunctionSensitiveDataScanner$inboundSchema,
   serde: FunctionSerde$inboundSchema,

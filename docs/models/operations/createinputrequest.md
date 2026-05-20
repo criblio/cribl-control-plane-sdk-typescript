@@ -1,6 +1,6 @@
 # CreateInputRequest
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -77,6 +77,7 @@ const value: operations.CreateInputInputSplunkSearch = {
   cronSchedule: "<value>",
   endpoint: "<value>",
   outputMode: "json",
+  authType: "credentialsSecret",
 };
 ```
 
@@ -185,7 +186,7 @@ const value: operations.CreateInputInputPrometheus = {
 const value: operations.CreateInputInputEdgePrometheus = {
   id: "<id>",
   type: "edge_prometheus",
-  discoveryType: "k8s-node",
+  discoveryType: "k8s-pods",
   interval: 9850.99,
 };
 ```
@@ -247,6 +248,21 @@ const value: operations.CreateInputInputEventhub = {
   topics: [
     "<value 1>",
   ],
+};
+```
+
+### `operations.CreateInputInputEventhubAmqp`
+
+```typescript
+const value: operations.CreateInputInputEventhubAmqp = {
+  id: "<id>",
+  type: "eventhub_amqp",
+  consumerGroup: "<value>",
+  checkpointing: {
+    blobStore: {
+      containerName: "<value>",
+    },
+  },
 };
 ```
 
@@ -607,6 +623,16 @@ const value: operations.CreateInputInputWinEventLogs = {
 };
 ```
 
+### `operations.CreateInputInputAppleUnifiedLogs`
+
+```typescript
+const value: operations.CreateInputInputAppleUnifiedLogs = {
+  id: "<id>",
+  type: "apple_unified_logs",
+  predicate: "<value>",
+};
+```
+
 ### `operations.CreateInputInputRawUdp`
 
 ```typescript
@@ -689,6 +715,20 @@ const value: operations.CreateInputInputSecurityLake = {
 };
 ```
 
+### `operations.CreateInputInputServicenowTable`
+
+```typescript
+const value: operations.CreateInputInputServicenowTable = {
+  id: "<id>",
+  type: "servicenow_table",
+  instance: "<value>",
+  tableName: "<value>",
+  cronSchedule: "<value>",
+  earliest: "<value>",
+  latest: "<value>",
+};
+```
+
 ### `operations.CreateInputInputZscalerHec`
 
 ```typescript
@@ -710,6 +750,40 @@ const value: operations.CreateInputInputCloudflareHec = {
   host: "rural-scaffold.net",
   port: 8504.37,
   hecAPI: "<value>",
+};
+```
+
+### `operations.CreateInputInputOpenaiComplianceLogs`
+
+```typescript
+const value: operations.CreateInputInputOpenaiComplianceLogs = {
+  id: "<id>",
+  type: "openai_compliance_logs",
+  textSecret: "<value>",
+  accountType: "organization",
+  cronSchedule: "<value>",
+};
+```
+
+### `operations.CreateInputInputAnthropicCompliance`
+
+```typescript
+const value: operations.CreateInputInputAnthropicCompliance = {
+  id: "<id>",
+  type: "anthropic_compliance",
+  textSecret: "<value>",
+  contentConfig: [],
+};
+```
+
+### `operations.CreateInputInputOkta`
+
+```typescript
+const value: operations.CreateInputInputOkta = {
+  id: "<id>",
+  type: "okta",
+  oktaDomain: "<value>",
+  textSecret: "<value>",
 };
 ```
 
