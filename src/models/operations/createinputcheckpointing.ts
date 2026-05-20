@@ -1874,7 +1874,7 @@ export type CreateInputInputJournalFiles = {
    */
   rules?: Array<CreateInputInputJournalFilesRule> | undefined;
   /**
-   * Skip log messages that are not part of the current boot session.
+   * Skip log messages that are not part of the current boot session
    */
   currentBoot?: boolean | undefined;
   /**
