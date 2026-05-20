@@ -158,7 +158,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedObject](../../models/countedobject.md)\>**
+**Promise\<[models.CountedJobInfo](../../models/countedjobinfo.md)\>**
 
 ### Errors
 

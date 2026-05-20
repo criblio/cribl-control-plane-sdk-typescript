@@ -1,0 +1,25 @@
+# InputResponseCollectors
+
+## Example Usage
+
+```typescript
+import { InputResponseCollectors } from "cribl-control-plane/models";
+
+let value: InputResponseCollectors = {};
+```
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `hostsfile`                                                                              | [models.InputResponseHostsFile](../models/inputresponsehostsfile.md)                     | :heavy_minus_sign:                                                                       | Creates events based on entries collected from the hosts file                            |
+| `interfaces`                                                                             | [models.InputResponseInterfaces](../models/inputresponseinterfaces.md)                   | :heavy_minus_sign:                                                                       | Creates events for each of the host’s network interfaces                                 |
+| `disk`                                                                                   | [models.InputResponseDisksAndFileSystems](../models/inputresponsedisksandfilesystems.md) | :heavy_minus_sign:                                                                       | Creates events for physical disks, partitions, and file systems                          |
+| `metadata`                                                                               | [models.InputResponseHostInfo](../models/inputresponsehostinfo.md)                       | :heavy_minus_sign:                                                                       | Creates events based on the host system’s current state                                  |
+| `routes`                                                                                 | [models.InputResponseRoutes](../models/inputresponseroutes.md)                           | :heavy_minus_sign:                                                                       | Creates events based on entries collected from the host’s network routes                 |
+| `dns`                                                                                    | [models.InputResponseDNS](../models/inputresponsedns.md)                                 | :heavy_minus_sign:                                                                       | Creates events for DNS resolvers and search entries                                      |
+| `user`                                                                                   | [models.InputResponseUsersAndGroups](../models/inputresponseusersandgroups.md)           | :heavy_minus_sign:                                                                       | Creates events for local users and groups                                                |
+| `firewall`                                                                               | [models.InputResponseFirewall](../models/inputresponsefirewall.md)                       | :heavy_minus_sign:                                                                       | Creates events for Firewall rules entries                                                |
+| `services`                                                                               | [models.InputResponseServices](../models/inputresponseservices.md)                       | :heavy_minus_sign:                                                                       | Creates events from the list of services                                                 |
+| `ports`                                                                                  | [models.InputResponseListeningPorts](../models/inputresponselisteningports.md)           | :heavy_minus_sign:                                                                       | Creates events from list of listening ports                                              |
+| `loginUsers`                                                                             | [models.InputResponseLoggedInUsers](../models/inputresponseloggedinusers.md)             | :heavy_minus_sign:                                                                       | Creates events from list of logged-in users                                              |

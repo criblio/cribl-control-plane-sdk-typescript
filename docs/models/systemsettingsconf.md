@@ -39,9 +39,9 @@ let value: SystemSettingsConf = {
   upgradeGroupSettings: {},
   upgradeSettings: {},
   workers: {
-    count: 8060.34,
-    memory: 307.32,
-    minimum: 4954.24,
+    count: 3663.09,
+    memory: 8060.34,
+    minimum: 307.32,
   },
 };
 ```
@@ -51,6 +51,7 @@ let value: SystemSettingsConf = {
 | Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
 | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `api`                                                                                    | [models.ApiTypeSystemSettingsConf](../models/apitypesystemsettingsconf.md)               | :heavy_check_mark:                                                                       | N/A                                                                                      |
+| `apps`                                                                                   | [models.AppsTypeSystemSettingsConf](../models/appstypesystemsettingsconf.md)             | :heavy_minus_sign:                                                                       | N/A                                                                                      |
 | `backups`                                                                                | *models.BackupsSettingsUnion*                                                            | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `customLogo`                                                                             | [models.CustomLogoTypeSystemSettingsConf](../models/customlogotypesystemsettingsconf.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |
 | `pii`                                                                                    | *models.PiiSettingsUnion*                                                                | :heavy_check_mark:                                                                       | N/A                                                                                      |
@@ -62,6 +63,6 @@ let value: SystemSettingsConf = {
 | `support`                                                                                | [models.SupportTypeSystemSettingsConf](../models/supporttypesystemsettingsconf.md)       | :heavy_minus_sign:                                                                       | N/A                                                                                      |
 | `system`                                                                                 | [models.SystemTypeSystemSettingsConf](../models/systemtypesystemsettingsconf.md)         | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `tls`                                                                                    | *models.TlsSettingsUnion*                                                                | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `upgradeGroupSettings`                                                                   | *models.UpgradeGroupSettingsUnion*                                                       | :heavy_check_mark:                                                                       | N/A                                                                                      |
+| `upgradeGroupSettings`                                                                   | [models.UpgradeGroupSettings](../models/upgradegroupsettings.md)                         | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `upgradeSettings`                                                                        | [models.UpgradeSettings](../models/upgradesettings.md)                                   | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `workers`                                                                                | [models.WorkersTypeSystemSettingsConf](../models/workerstypesystemsettingsconf.md)       | :heavy_check_mark:                                                                       | N/A                                                                                      |

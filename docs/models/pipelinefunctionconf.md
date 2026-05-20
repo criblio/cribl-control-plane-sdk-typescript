@@ -324,6 +324,15 @@ const value: models.PipelineFunctionLocalSearchSchemaMapper = {
 };
 ```
 
+### `models.PipelineFunctionLocalSearchTimeRangeNormalizer`
+
+```typescript
+const value: models.PipelineFunctionLocalSearchTimeRangeNormalizer = {
+  id: "local_search_time_range_normalizer",
+  conf: {},
+};
+```
+
 ### `models.PipelineFunctionLocalSearchTransformer`
 
 ```typescript
@@ -559,6 +568,18 @@ const value: models.PipelineFunctionRollupMetrics = {
 const value: models.PipelineFunctionSampling = {
   id: "sampling",
   conf: {},
+};
+```
+
+### `models.PipelineFunctionSearchEngineExport`
+
+```typescript
+const value: models.PipelineFunctionSearchEngineExport = {
+  id: "search_engine_export",
+  conf: {
+    searchJobId: "<id>",
+    dataset: "<value>",
+  },
 };
 ```
 

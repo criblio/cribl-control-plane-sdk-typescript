@@ -5,7 +5,25 @@
 ```typescript
 import { CountedCriblLakeDataset } from "cribl-control-plane/models";
 
-let value: CountedCriblLakeDataset = {};
+let value: CountedCriblLakeDataset = {
+  items: [
+    {
+      id: "<id>",
+      searchConfig: {
+        metadata: {
+          earliest: "-30d",
+          enableAcceleration: false,
+          fieldList: [
+            "<value 1>",
+            "<value 2>",
+            "<value 3>",
+          ],
+          scanMode: "quick",
+        },
+      },
+    },
+  ],
+};
 ```
 
 ## Fields

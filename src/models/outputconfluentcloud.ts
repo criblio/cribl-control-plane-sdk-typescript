@@ -3,63 +3,46 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
-  AcknowledgmentsOptions1,
-  AcknowledgmentsOptions1$inboundSchema,
-  AcknowledgmentsOptions1$outboundSchema,
-} from "./acknowledgmentsoptions1.js";
+  AcknowledgmentsOptionsAllLeader,
+  AcknowledgmentsOptionsAllLeader$outboundSchema,
+} from "./acknowledgmentsoptionsallleader.js";
 import {
   AuthenticationType,
-  AuthenticationType$inboundSchema,
   AuthenticationType$Outbound,
   AuthenticationType$outboundSchema,
 } from "./authenticationtype.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
-  CompressionOptions3,
-  CompressionOptions3$inboundSchema,
-  CompressionOptions3$outboundSchema,
-} from "./compressionoptions3.js";
+  CompressionOptionsGzipLz4,
+  CompressionOptionsGzipLz4$outboundSchema,
+} from "./compressionoptionsgziplz4.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  KafkaSchemaRegistryAuthenticationType1,
-  KafkaSchemaRegistryAuthenticationType1$inboundSchema,
-  KafkaSchemaRegistryAuthenticationType1$Outbound,
-  KafkaSchemaRegistryAuthenticationType1$outboundSchema,
-} from "./kafkaschemaregistryauthenticationtype1.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth,
+  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound,
+  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema,
+} from "./kafkaschemaregistryauthenticationtypetemplateschemaregistryurlauth.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  RecordDataFormatOptions1,
-  RecordDataFormatOptions1$inboundSchema,
-  RecordDataFormatOptions1$outboundSchema,
-} from "./recorddataformatoptions1.js";
+  RecordDataFormatOptionsJsonProtobuf,
+  RecordDataFormatOptionsJsonProtobuf$outboundSchema,
+} from "./recorddataformatoptionsjsonprotobuf.js";
 import {
-  TlsSettingsClientSideTypeKafkaSchemaRegistry,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
-  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
-} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
+  TlsSettingsClientSideTypeCaPathCertPath,
+  TlsSettingsClientSideTypeCaPathCertPath$Outbound,
+  TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
+} from "./tlssettingsclientsidetypecapathcertpath.js";
 
 export type OutputConfluentCloudPqControls = {};
 
@@ -89,7 +72,7 @@ export type OutputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
    */
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The topic to publish events to. Can be overridden using the __topicOut field.
    */
@@ -97,15 +80,15 @@ export type OutputConfluentCloud = {
   /**
    * Control the number of required acknowledgments.
    */
-  ack?: AcknowledgmentsOptions1 | undefined;
+  ack?: AcknowledgmentsOptionsAllLeader | undefined;
   /**
    * Format to use to serialize events before writing to Kafka.
    */
-  format?: RecordDataFormatOptions1 | undefined;
+  format?: RecordDataFormatOptionsJsonProtobuf | undefined;
   /**
    * Codec to use to compress the data before sending to Kafka
    */
-  compression?: CompressionOptions3 | undefined;
+  compression?: CompressionOptionsGzipLz4 | undefined;
   /**
    * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
    */
@@ -118,7 +101,9 @@ export type OutputConfluentCloud = {
    * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
    */
   flushPeriodSec?: number | undefined;
-  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType1 | undefined;
+  kafkaSchemaRegistry?:
+    | KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth
+    | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
    */
@@ -181,7 +166,7 @@ export type OutputConfluentCloud = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -208,19 +193,37 @@ export type OutputConfluentCloud = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputConfluentCloudPqControls | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'compression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compression' at runtime.
+   */
+  __template_compression?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputConfluentCloudPqControls$inboundSchema: z.ZodType<
-  OutputConfluentCloudPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputConfluentCloudPqControls$Outbound = {};
 
@@ -240,70 +243,7 @@ export function outputConfluentCloudPqControlsToJSON(
     ),
   );
 }
-export function outputConfluentCloudPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputConfluentCloudPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputConfluentCloudPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputConfluentCloudPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputConfluentCloud$inboundSchema: z.ZodType<
-  OutputConfluentCloud,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("confluent_cloud"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  brokers: z.array(types.string()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
-  ),
-  topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptions1$inboundSchema),
-  format: types.optional(RecordDataFormatOptions1$inboundSchema),
-  compression: types.optional(CompressionOptions3$inboundSchema),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushEventCount: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  kafkaSchemaRegistry: types.optional(
-    KafkaSchemaRegistryAuthenticationType1$inboundSchema,
-  ),
-  connectionTimeout: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  maxRetries: types.optional(types.number()),
-  maxBackOff: types.optional(types.number()),
-  initialBackoff: types.optional(types.number()),
-  backoffRate: types.optional(types.number()),
-  authenticationTimeout: types.optional(types.number()),
-  reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationType$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  protobufLibraryId: types.optional(types.string()),
-  protobufEncodingId: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqControls: types.optional(
-    z.lazy(() => OutputConfluentCloudPqControls$inboundSchema),
-  ),
-  __template_topic: types.optional(types.string()),
-});
 /** @internal */
 export type OutputConfluentCloud$Outbound = {
   id?: string | undefined;
@@ -313,7 +253,7 @@ export type OutputConfluentCloud$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  tls?: TlsSettingsClientSideTypeCaPathCertPath$Outbound | undefined;
   topic: string;
   ack?: number | undefined;
   format?: string | undefined;
@@ -322,7 +262,7 @@ export type OutputConfluentCloud$Outbound = {
   flushEventCount?: number | undefined;
   flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType1$Outbound
+    | KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound
     | undefined;
   connectionTimeout?: number | undefined;
   requestTimeout?: number | undefined;
@@ -347,8 +287,14 @@ export type OutputConfluentCloud$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputConfluentCloudPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_brokers?: string | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
+  __template_compression?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -364,16 +310,17 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  tls: TlsSettingsClientSideTypeCaPathCertPath$outboundSchema.optional(),
   topic: z.string(),
-  ack: AcknowledgmentsOptions1$outboundSchema.optional(),
-  format: RecordDataFormatOptions1$outboundSchema.optional(),
-  compression: CompressionOptions3$outboundSchema.optional(),
+  ack: AcknowledgmentsOptionsAllLeader$outboundSchema.optional(),
+  format: RecordDataFormatOptionsJsonProtobuf$outboundSchema.optional(),
+  compression: CompressionOptionsGzipLz4$outboundSchema.optional(),
   maxRecordSizeKB: z.number().optional(),
   flushEventCount: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType1$outboundSchema
-    .optional(),
+  kafkaSchemaRegistry:
+    KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema
+      .optional(),
   connectionTimeout: z.number().optional(),
   requestTimeout: z.number().optional(),
   maxRetries: z.number().optional(),
@@ -397,9 +344,15 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputConfluentCloudPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_brokers: z.string().optional(),
   __template_topic: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_compression: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputConfluentCloudToJSON(
@@ -407,14 +360,5 @@ export function outputConfluentCloudToJSON(
 ): string {
   return JSON.stringify(
     OutputConfluentCloud$outboundSchema.parse(outputConfluentCloud),
-  );
-}
-export function outputConfluentCloudFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputConfluentCloud, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputConfluentCloud$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputConfluentCloud' from JSON`,
   );
 }

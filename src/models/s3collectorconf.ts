@@ -11,11 +11,6 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  SignatureVersionOptionsS3CollectorConf,
-  SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  SignatureVersionOptionsS3CollectorConf$outboundSchema,
-} from "./signatureversionoptionss3collectorconf.js";
 
 /**
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -96,10 +91,6 @@ export type S3AwsAuthenticationMethodSecret = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Use AssumeRole credentials
    */
   enableAssumeRole?: boolean | undefined;
@@ -143,6 +134,26 @@ export type S3AwsAuthenticationMethodSecret = {
    * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
    */
   awsSecretKey?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -228,10 +239,6 @@ export type S3AwsAuthenticationMethodManual = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Use AssumeRole credentials
    */
   enableAssumeRole?: boolean | undefined;
@@ -271,6 +278,26 @@ export type S3AwsAuthenticationMethodManual = {
    * Select or create a stored secret that references AWS access key and secret key.
    */
   awsSecret?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -348,10 +375,6 @@ export type S3AwsAuthenticationMethodAuto = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Use AssumeRole credentials
    */
   enableAssumeRole?: boolean | undefined;
@@ -399,6 +422,26 @@ export type S3AwsAuthenticationMethodAuto = {
    * Select or create a stored secret that references AWS access key and secret key.
    */
   awsSecret?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -478,10 +521,6 @@ export type S3PartitioningSchemeNone = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Use AssumeRole credentials
    */
   enableAssumeRole?: boolean | undefined;
@@ -529,6 +568,26 @@ export type S3PartitioningSchemeNone = {
    * Select or create a stored secret that references AWS access key and secret key.
    */
   awsSecret?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
@@ -604,10 +663,6 @@ export type S3PartitioningSchemeDdss = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Use AssumeRole credentials
    */
   enableAssumeRole?: boolean | undefined;
@@ -655,6 +710,26 @@ export type S3PartitioningSchemeDdss = {
    * Select or create a stored secret that references AWS access key and secret key.
    */
   awsSecret?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 export type S3CollectorConf =
@@ -756,9 +831,6 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
     ),
   ),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  ),
   enableAssumeRole: types.optional(types.boolean()),
   assumeRoleArn: types.optional(types.string()),
   assumeRoleExternalId: types.optional(types.string()),
@@ -770,6 +842,11 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   disableTimeFilter: types.optional(types.boolean()),
   awsApiKey: types.optional(types.string()),
   awsSecretKey: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodSecret$Outbound = {
@@ -786,7 +863,6 @@ export type S3AwsAuthenticationMethodSecret$Outbound = {
     | Array<S3AwsAuthenticationMethodSecretExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
@@ -798,6 +874,11 @@ export type S3AwsAuthenticationMethodSecret$Outbound = {
   disableTimeFilter?: boolean | undefined;
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -820,8 +901,6 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodSecretExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -833,6 +912,11 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
   disableTimeFilter: z.boolean().optional(),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodSecretToJSON(
@@ -948,9 +1032,6 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
     ),
   ),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  ),
   enableAssumeRole: types.optional(types.boolean()),
   assumeRoleArn: types.optional(types.string()),
   assumeRoleExternalId: types.optional(types.string()),
@@ -961,6 +1042,11 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   disableTimeFilter: types.optional(types.boolean()),
   awsSecret: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodManual$Outbound = {
@@ -978,7 +1064,6 @@ export type S3AwsAuthenticationMethodManual$Outbound = {
     | Array<S3AwsAuthenticationMethodManualExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
@@ -989,6 +1074,11 @@ export type S3AwsAuthenticationMethodManual$Outbound = {
   verifyPermissions?: boolean | undefined;
   disableTimeFilter?: boolean | undefined;
   awsSecret?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -1012,8 +1102,6 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodManualExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1024,6 +1112,11 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
   verifyPermissions: z.boolean().optional(),
   disableTimeFilter: z.boolean().optional(),
   awsSecret: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodManualToJSON(
@@ -1126,9 +1219,6 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
     z.array(z.lazy(() => S3AwsAuthenticationMethodAutoExtractor$inboundSchema)),
   ),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  ),
   enableAssumeRole: types.optional(types.boolean()),
   assumeRoleArn: types.optional(types.string()),
   assumeRoleExternalId: types.optional(types.string()),
@@ -1141,6 +1231,11 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecretKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3AwsAuthenticationMethodAuto$Outbound = {
@@ -1156,7 +1251,6 @@ export type S3AwsAuthenticationMethodAuto$Outbound = {
     | Array<S3AwsAuthenticationMethodAutoExtractor$Outbound>
     | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
@@ -1169,6 +1263,11 @@ export type S3AwsAuthenticationMethodAuto$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -1190,8 +1289,6 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
     z.lazy(() => S3AwsAuthenticationMethodAutoExtractor$outboundSchema),
   ).optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1204,6 +1301,11 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3AwsAuthenticationMethodAutoToJSON(
@@ -1299,9 +1401,6 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   ),
   awsAuthenticationMethod: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  ),
   enableAssumeRole: types.optional(types.boolean()),
   assumeRoleArn: types.optional(types.string()),
   assumeRoleExternalId: types.optional(types.string()),
@@ -1314,6 +1413,11 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecretKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3PartitioningSchemeNone$Outbound = {
@@ -1328,7 +1432,6 @@ export type S3PartitioningSchemeNone$Outbound = {
   extractors?: Array<S3PartitioningSchemeNoneExtractor$Outbound> | undefined;
   awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
@@ -1341,6 +1444,11 @@ export type S3PartitioningSchemeNone$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -1363,8 +1471,6 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
   ).optional(),
   awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1377,6 +1483,11 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3PartitioningSchemeNoneToJSON(
@@ -1469,9 +1580,6 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   ),
   awsAuthenticationMethod: types.optional(types.string()),
   endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  ),
   enableAssumeRole: types.optional(types.boolean()),
   assumeRoleArn: types.optional(types.string()),
   assumeRoleExternalId: types.optional(types.string()),
@@ -1484,6 +1592,11 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   awsApiKey: types.optional(types.string()),
   awsSecretKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
 });
 /** @internal */
 export type S3PartitioningSchemeDdss$Outbound = {
@@ -1497,7 +1610,6 @@ export type S3PartitioningSchemeDdss$Outbound = {
   extractors?: Array<S3PartitioningSchemeDdssExtractor$Outbound> | undefined;
   awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
@@ -1510,6 +1622,11 @@ export type S3PartitioningSchemeDdss$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -1531,8 +1648,6 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   ).optional(),
   awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1545,6 +1660,11 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function s3PartitioningSchemeDdssToJSON(

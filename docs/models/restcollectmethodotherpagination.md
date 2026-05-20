@@ -16,10 +16,8 @@ const value: models.RestCollectMethodOtherRestPaginationTypeNone = {
 ```typescript
 const value: models.RestCollectMethodOtherRestPaginationTypeResponseBody = {
   type: "response_body",
-  attribute: [
-    "<value 1>",
-  ],
-  maxPages: 1164.87,
+  attribute: [],
+  maxPages: 6523.2,
 };
 ```
 
@@ -28,8 +26,10 @@ const value: models.RestCollectMethodOtherRestPaginationTypeResponseBody = {
 ```typescript
 const value: models.RestCollectMethodOtherRestPaginationTypeResponseHeader = {
   type: "response_header",
-  attribute: [],
-  maxPages: 2979.84,
+  attribute: [
+    "<value 1>",
+  ],
+  maxPages: 8455.78,
 };
 ```
 

@@ -6,13 +6,18 @@ import * as z from "zod/v3";
 
 export type GetInputSystemByPackRequest = {
   /**
-   * The <code>id</code> of the Pack to list.
+   * Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
+   */
+  type?: Array<string> | undefined;
+  /**
+   * The <code>id</code> of the Pack.
    */
   pack: string;
 };
 
 /** @internal */
 export type GetInputSystemByPackRequest$Outbound = {
+  type?: Array<string> | undefined;
   pack: string;
 };
 
@@ -22,6 +27,7 @@ export const GetInputSystemByPackRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetInputSystemByPackRequest
 > = z.object({
+  type: z.array(z.string()).optional(),
   pack: z.string(),
 });
 

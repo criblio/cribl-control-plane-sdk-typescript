@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -39,7 +39,7 @@ export function packsSourcesList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedInput,
+    models.CountedInputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -65,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedInput,
+      models.CountedInputResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -98,6 +98,10 @@ async function $do(
     }),
   };
   const path = pathToFunc("/p/{pack}/system/inputs")(pathParams);
+
+  const query = encodeFormQuery({
+    "type": payload.type,
+  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -137,6 +141,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -163,7 +168,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedInput,
+    models.CountedInputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -174,7 +179,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedInput$inboundSchema),
+    M.json(200, models.CountedInputResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

@@ -13,15 +13,15 @@ import {
   JobTypeOptionsRunnableJobCollection$outboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
 import {
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
+} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
+import {
   ScheduleTypeSavedJobResponseCollection,
   ScheduleTypeSavedJobResponseCollection$Outbound,
   ScheduleTypeSavedJobResponseCollection$outboundSchema,
 } from "./scheduletypesavedjobresponsecollection.js";
-import {
-  TypeCollectionWithBreakerRulesetsConstraint,
-  TypeCollectionWithBreakerRulesetsConstraint$Outbound,
-  TypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
-} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 export type SavedJobCollection = {
   /**
@@ -66,7 +66,13 @@ export type SavedJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
+    | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -83,7 +89,10 @@ export type SavedJobCollection$Outbound = {
   streamtags?: Array<string> | undefined;
   workerAffinity?: boolean | undefined;
   collector: Collector$Outbound;
-  input?: TypeCollectionWithBreakerRulesetsConstraint$Outbound | undefined;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound
+    | undefined;
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -104,7 +113,10 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().optional(),
   collector: Collector$outboundSchema,
-  input: TypeCollectionWithBreakerRulesetsConstraint$outboundSchema.optional(),
+  input:
+    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema
+      .optional(),
+  __template_streamtags: z.string().optional(),
 });
 
 export function savedJobCollectionToJSON(

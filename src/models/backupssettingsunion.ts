@@ -7,53 +7,24 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import {
+  EmptyObject,
+  EmptyObject$inboundSchema,
+  EmptyObject$Outbound,
+  EmptyObject$outboundSchema,
+} from "./emptyobject.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type BackupsSettings2 = {};
-
-export type BackupsSettings1 = {
+export type BackupsSettings = {
   backupPersistence: string;
   backupsDirectory: string;
 };
 
-export type BackupsSettingsUnion = BackupsSettings1 | BackupsSettings2;
+export type BackupsSettingsUnion = BackupsSettings | EmptyObject;
 
 /** @internal */
-export const BackupsSettings2$inboundSchema: z.ZodType<
-  BackupsSettings2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type BackupsSettings2$Outbound = {};
-
-/** @internal */
-export const BackupsSettings2$outboundSchema: z.ZodType<
-  BackupsSettings2$Outbound,
-  z.ZodTypeDef,
-  BackupsSettings2
-> = z.object({});
-
-export function backupsSettings2ToJSON(
-  backupsSettings2: BackupsSettings2,
-): string {
-  return JSON.stringify(
-    BackupsSettings2$outboundSchema.parse(backupsSettings2),
-  );
-}
-export function backupsSettings2FromJSON(
-  jsonString: string,
-): SafeParseResult<BackupsSettings2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupsSettings2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupsSettings2' from JSON`,
-  );
-}
-
-/** @internal */
-export const BackupsSettings1$inboundSchema: z.ZodType<
-  BackupsSettings1,
+export const BackupsSettings$inboundSchema: z.ZodType<
+  BackupsSettings,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -61,35 +32,33 @@ export const BackupsSettings1$inboundSchema: z.ZodType<
   backupsDirectory: types.string(),
 });
 /** @internal */
-export type BackupsSettings1$Outbound = {
+export type BackupsSettings$Outbound = {
   backupPersistence: string;
   backupsDirectory: string;
 };
 
 /** @internal */
-export const BackupsSettings1$outboundSchema: z.ZodType<
-  BackupsSettings1$Outbound,
+export const BackupsSettings$outboundSchema: z.ZodType<
+  BackupsSettings$Outbound,
   z.ZodTypeDef,
-  BackupsSettings1
+  BackupsSettings
 > = z.object({
   backupPersistence: z.string(),
   backupsDirectory: z.string(),
 });
 
-export function backupsSettings1ToJSON(
-  backupsSettings1: BackupsSettings1,
+export function backupsSettingsToJSON(
+  backupsSettings: BackupsSettings,
 ): string {
-  return JSON.stringify(
-    BackupsSettings1$outboundSchema.parse(backupsSettings1),
-  );
+  return JSON.stringify(BackupsSettings$outboundSchema.parse(backupsSettings));
 }
-export function backupsSettings1FromJSON(
+export function backupsSettingsFromJSON(
   jsonString: string,
-): SafeParseResult<BackupsSettings1, SDKValidationError> {
+): SafeParseResult<BackupsSettings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => BackupsSettings1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupsSettings1' from JSON`,
+    (x) => BackupsSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BackupsSettings' from JSON`,
   );
 }
 
@@ -99,13 +68,13 @@ export const BackupsSettingsUnion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = smartUnion([
-  z.lazy(() => BackupsSettings1$inboundSchema),
-  z.lazy(() => BackupsSettings2$inboundSchema),
+  z.lazy(() => BackupsSettings$inboundSchema),
+  EmptyObject$inboundSchema,
 ]);
 /** @internal */
 export type BackupsSettingsUnion$Outbound =
-  | BackupsSettings1$Outbound
-  | BackupsSettings2$Outbound;
+  | BackupsSettings$Outbound
+  | EmptyObject$Outbound;
 
 /** @internal */
 export const BackupsSettingsUnion$outboundSchema: z.ZodType<
@@ -113,8 +82,8 @@ export const BackupsSettingsUnion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BackupsSettingsUnion
 > = smartUnion([
-  z.lazy(() => BackupsSettings1$outboundSchema),
-  z.lazy(() => BackupsSettings2$outboundSchema),
+  z.lazy(() => BackupsSettings$outboundSchema),
+  EmptyObject$outboundSchema,
 ]);
 
 export function backupsSettingsUnionToJSON(
