@@ -16,17 +16,35 @@ import {
 } from "./datasetmetadataruninfo.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Acceleration scan mode. <code>quick</code> collects object-level metadata; <code>detailed</code> also collects field-level statistics.
+ */
 export const ScanMode = {
   Detailed: "detailed",
   Quick: "quick",
 } as const;
+/**
+ * Acceleration scan mode. <code>quick</code> collects object-level metadata; <code>detailed</code> also collects field-level statistics.
+ */
 export type ScanMode = OpenEnum<typeof ScanMode>;
 
 export type DatasetMetadata = {
+  /**
+   * Rolling time window that defines how far back acceleration scans.
+   */
   earliest: string;
+  /**
+   * If <code>true</code>, the system automatically backfills and refreshes Dataset metadata.
+   */
   enableAcceleration: boolean;
+  /**
+   * Fields for which acceleration gathers statistics. Required when scan mode is <code>detailed</code>.
+   */
   fieldList: Array<string>;
   latestRunInfo?: DatasetMetadataRunInfo | undefined;
+  /**
+   * Acceleration scan mode. <code>quick</code> collects object-level metadata; <code>detailed</code> also collects field-level statistics.
+   */
   scanMode: ScanMode;
 };
 

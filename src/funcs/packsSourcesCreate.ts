@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Create a Source within a Pack
  *
  * @remarks
- * Create a new Source within the specified Pack.
+ * Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body within the specified Pack.
  */
 export function packsSourcesCreate(
   client: CriblControlPlaneCore,
@@ -39,7 +39,7 @@ export function packsSourcesCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedInput,
+    models.CountedInputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -65,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedInput,
+      models.CountedInputResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -164,7 +164,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedInput,
+    models.CountedInputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -175,7 +175,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedInput$inboundSchema),
+    M.json(200, models.CountedInputResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

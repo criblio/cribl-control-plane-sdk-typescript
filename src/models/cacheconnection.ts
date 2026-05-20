@@ -19,12 +19,27 @@ import {
 } from "./lakehouseconnectiontype.js";
 
 export type CacheConnection = {
+  /**
+   * Accelerated fields (materialized columns) for the cache connection.
+   */
   acceleratedFields?: Array<string> | undefined;
   backfillStatus?: CacheConnectionBackfillStatus | undefined;
+  /**
+   * Identifier of the Lakehouse cache referenced by the Dataset.
+   */
   cacheRef: string;
+  /**
+   * Timestamp when the continuous data feed to the Lakehouse cache started, in Unix time (milliseconds).
+   */
   createdAt: number;
   lakehouseConnectionType?: LakehouseConnectionType | undefined;
+  /**
+   * Query identifier of the active Lakehouse migration. Omitted if no migration is in progress.
+   */
   migrationQueryId?: string | undefined;
+  /**
+   * Retention period for the Lakehouse cache connection, in days.
+   */
   retentionInDays: number;
 };
 

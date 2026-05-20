@@ -8,6 +8,11 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
+import {
+  BrokenEventProcessor,
+  BrokenEventProcessor$inboundSchema,
+} from "./brokeneventprocessor.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -18,15 +23,14 @@ import {
   LogLevelOptionsRunnableJobCollectionScheduleRun,
   LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
 } from "./logleveloptionsrunnablejobcollectionschedulerun.js";
-import { MetricsStore, MetricsStore$inboundSchema } from "./metricsstore.js";
+import {
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
+  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
 import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
-import {
-  TypeCollectionWithBreakerRulesetsConstraint,
-  TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 /**
  * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
@@ -48,6 +52,16 @@ export const TimeRange = {
   Relative: "relative",
 } as const;
 export type TimeRange = OpenEnum<typeof TimeRange>;
+
+/**
+ * Earliest time to collect data for the selected timezone
+ */
+export type RunnableJobCollectionEarliest = number | string;
+
+/**
+ * Latest time to collect data for the selected timezone
+ */
+export type RunnableJobCollectionLatest = number | string;
 
 export const WhereToCapture = {
   /**
@@ -106,16 +120,16 @@ export type RunnableJobCollectionRun = {
   /**
    * Earliest time to collect data for the selected timezone
    */
-  earliest?: number | undefined;
+  earliest?: number | string | undefined;
   /**
    * Latest time to collect data for the selected timezone
    */
-  latest?: number | undefined;
+  latest?: number | string | undefined;
   /**
    * Timezone to use for Earliest and Latest times
    */
   timestampTimezone?: string | undefined;
-  timeWarning?: MetricsStore | undefined;
+  timeWarning?: BrokenEventProcessor | undefined;
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
@@ -186,8 +200,14 @@ export type RunnableJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?: TypeCollectionWithBreakerRulesetsConstraint | undefined;
+  input?:
+    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
+    | undefined;
   run: RunnableJobCollectionRun;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
 };
 
 /** @internal */
@@ -203,6 +223,40 @@ export const TimeRange$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(TimeRange);
+
+/** @internal */
+export const RunnableJobCollectionEarliest$inboundSchema: z.ZodType<
+  RunnableJobCollectionEarliest,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([types.number(), types.string()]);
+
+export function runnableJobCollectionEarliestFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobCollectionEarliest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RunnableJobCollectionEarliest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobCollectionEarliest' from JSON`,
+  );
+}
+
+/** @internal */
+export const RunnableJobCollectionLatest$inboundSchema: z.ZodType<
+  RunnableJobCollectionLatest,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([types.number(), types.string()]);
+
+export function runnableJobCollectionLatestFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobCollectionLatest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RunnableJobCollectionLatest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobCollectionLatest' from JSON`,
+  );
+}
 
 /** @internal */
 export const WhereToCapture$inboundSchema: z.ZodType<
@@ -246,10 +300,10 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   jobTimeout: types.optional(types.string()),
   mode: RunnableJobCollectionMode$inboundSchema,
   timeRangeType: types.optional(TimeRange$inboundSchema),
-  earliest: types.optional(types.number()),
-  latest: types.optional(types.number()),
+  earliest: types.optional(smartUnion([types.number(), types.string()])),
+  latest: types.optional(smartUnion([types.number(), types.string()])),
   timestampTimezone: types.optional(types.string()),
-  timeWarning: types.optional(MetricsStore$inboundSchema),
+  timeWarning: types.optional(BrokenEventProcessor$inboundSchema),
   expression: types.optional(types.string()),
   minTaskSize: types.optional(types.string()),
   maxTaskSize: types.optional(types.string()),
@@ -286,9 +340,10 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
   input: types.optional(
-    TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
   ),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
+  __template_streamtags: types.optional(types.string()),
 });
 
 export function runnableJobCollectionFromJSON(

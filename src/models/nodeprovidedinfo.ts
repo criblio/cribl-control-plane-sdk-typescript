@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import { ApiScheme, ApiScheme$inboundSchema } from "./apischeme.js";
 import {
   AwsTypeHeartbeatMetadata,
   AwsTypeHeartbeatMetadata$inboundSchema,
@@ -41,6 +42,8 @@ export type Os = {
 export type OsUnion = HostOsTypeHeartbeatMetadata | Os;
 
 export type NodeProvidedInfo = {
+  apiPort?: number | undefined;
+  apiScheme?: ApiScheme | undefined;
   architecture: string;
   aws?: AwsTypeHeartbeatMetadata | undefined;
   azure?: AzureTypeHeartbeatMetadata | undefined;
@@ -51,6 +54,7 @@ export type NodeProvidedInfo = {
   freeDiskSpace?: number | undefined;
   hostOs?: HostOsTypeHeartbeatMetadata | undefined;
   hostname: string;
+  isCaptain?: boolean | undefined;
   isSaasWorker?: boolean | undefined;
   kube?: KubeTypeHeartbeatMetadata | undefined;
   localTime?: number | undefined;
@@ -102,6 +106,8 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  apiPort: types.optional(types.number()),
+  apiScheme: types.optional(ApiScheme$inboundSchema),
   architecture: types.string(),
   aws: types.optional(AwsTypeHeartbeatMetadata$inboundSchema),
   azure: types.optional(AzureTypeHeartbeatMetadata$inboundSchema),
@@ -112,6 +118,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   freeDiskSpace: types.optional(types.number()),
   hostOs: types.optional(HostOsTypeHeartbeatMetadata$inboundSchema),
   hostname: types.string(),
+  isCaptain: types.optional(types.boolean()),
   isSaasWorker: types.optional(types.boolean()),
   kube: types.optional(KubeTypeHeartbeatMetadata$inboundSchema),
   localTime: types.optional(types.number()),

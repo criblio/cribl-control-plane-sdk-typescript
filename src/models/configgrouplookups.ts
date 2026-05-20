@@ -9,13 +9,28 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ConfigGroupLookupsLookup = {
+  /**
+   * Version of the lookup file currently deployed on the Worker or Node.
+   */
   deployedVersion?: string | undefined;
+  /**
+   * File name of the deployed lookup.
+   */
   file: string;
+  /**
+   * Version of the lookup file currently staged for deployment.
+   */
   version?: string | undefined;
 };
 
 export type ConfigGroupLookups = {
+  /**
+   * The Worker or Node context for the lookup deployment.
+   */
   context: string;
+  /**
+   * List of lookup files deployed to this context.
+   */
   lookups: Array<ConfigGroupLookupsLookup>;
 };
 

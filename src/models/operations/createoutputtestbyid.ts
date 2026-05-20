@@ -12,7 +12,7 @@ export type CreateOutputTestByIdRequest = {
    */
   id: string;
   /**
-   * OutputTestRequest object
+   * OutputTestRequest object.
    */
   outputTestRequest: models.OutputTestRequest;
 };

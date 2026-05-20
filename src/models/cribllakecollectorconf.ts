@@ -10,9 +10,17 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type CriblLakeCollectorConf = {
   /**
+   * Storage location for the Lake Dataset
+   */
+  storageLocationId?: string | undefined;
+  /**
    * Lake dataset to collect data from.
    */
   dataset: string;
+  /**
+   * Binds 'dataset' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dataset' at runtime.
+   */
+  __template_dataset?: string | undefined;
 };
 
 /** @internal */
@@ -21,11 +29,15 @@ export const CriblLakeCollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  storageLocationId: types.optional(types.string()),
   dataset: types.string(),
+  __template_dataset: types.optional(types.string()),
 });
 /** @internal */
 export type CriblLakeCollectorConf$Outbound = {
+  storageLocationId?: string | undefined;
   dataset: string;
+  __template_dataset?: string | undefined;
 };
 
 /** @internal */
@@ -34,7 +46,9 @@ export const CriblLakeCollectorConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CriblLakeCollectorConf
 > = z.object({
+  storageLocationId: z.string().optional(),
   dataset: z.string(),
+  __template_dataset: z.string().optional(),
 });
 
 export function criblLakeCollectorConfToJSON(

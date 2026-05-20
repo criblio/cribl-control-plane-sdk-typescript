@@ -17,10 +17,7 @@ const value: models.RestAuthenticationGoogleOauthRestPaginationTypeNone = {
 const value:
   models.RestAuthenticationGoogleOauthRestPaginationTypeResponseBody = {
     type: "response_body",
-    attribute: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    attribute: "<value>",
     maxPages: 1074.59,
   };
 ```
@@ -31,11 +28,7 @@ const value:
 const value:
   models.RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader = {
     type: "response_header",
-    attribute: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+    attribute: "<value>",
     maxPages: 4711.08,
   };
 ```

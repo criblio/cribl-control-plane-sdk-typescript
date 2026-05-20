@@ -3,22 +3,16 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
+  BackpressureBehaviorOptionsBlockDrop,
+  BackpressureBehaviorOptionsBlockDrop$outboundSchema,
+} from "./backpressurebehavioroptionsblockdrop.js";
 import {
   DataCompressionFormatOptionsPersistence,
-  DataCompressionFormatOptionsPersistence$inboundSchema,
   DataCompressionFormatOptionsPersistence$outboundSchema,
 } from "./datacompressionformatoptionspersistence.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * Format of the output data.
@@ -78,16 +72,18 @@ export type OutputRing = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputRingDataFormat$inboundSchema: z.ZodType<
-  OutputRingDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputRingDataFormat);
 /** @internal */
 export const OutputRingDataFormat$outboundSchema: z.ZodType<
   string,
@@ -95,29 +91,6 @@ export const OutputRingDataFormat$outboundSchema: z.ZodType<
   OutputRingDataFormat
 > = openEnums.outboundSchema(OutputRingDataFormat);
 
-/** @internal */
-export const OutputRing$inboundSchema: z.ZodType<
-  OutputRing,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("ring"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  format: types.optional(OutputRingDataFormat$inboundSchema),
-  partitionExpr: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(
-    DataCompressionFormatOptionsPersistence$inboundSchema,
-  ),
-  destPath: types.optional(types.string()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
-  description: types.optional(types.string()),
-});
 /** @internal */
 export type OutputRing$Outbound = {
   id?: string | undefined;
@@ -134,6 +107,8 @@ export type OutputRing$Outbound = {
   destPath?: string | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -154,19 +129,13 @@ export const OutputRing$outboundSchema: z.ZodType<
   maxDataTime: z.string().optional(),
   compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
   destPath: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptionsBlockDrop$outboundSchema
+    .optional(),
   description: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputRingToJSON(outputRing: OutputRing): string {
   return JSON.stringify(OutputRing$outboundSchema.parse(outputRing));
-}
-export function outputRingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputRing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputRing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputRing' from JSON`,
-  );
 }

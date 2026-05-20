@@ -55,7 +55,7 @@ export const RouteComment$outboundSchema: z.ZodType<
   comment: z.string(),
   groupId: z.string().optional(),
   id: z.string(),
-  index: z.number(),
+  index: z.number().int(),
 });
 
 export function routeCommentToJSON(routeComment: RouteComment): string {

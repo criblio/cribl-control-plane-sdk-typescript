@@ -3,49 +3,34 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AcknowledgmentsOptions,
-  AcknowledgmentsOptions$inboundSchema,
   AcknowledgmentsOptions$outboundSchema,
 } from "./acknowledgmentsoptions.js";
 import {
-  AuthenticationType1,
-  AuthenticationType1$inboundSchema,
-  AuthenticationType1$Outbound,
-  AuthenticationType1$outboundSchema,
-} from "./authenticationtype1.js";
+  AuthenticationTypeUse,
+  AuthenticationTypeUse$Outbound,
+  AuthenticationTypeUse$outboundSchema,
+} from "./authenticationtypeuse.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RecordDataFormatOptions,
-  RecordDataFormatOptions$inboundSchema,
   RecordDataFormatOptions$outboundSchema,
 } from "./recorddataformatoptions.js";
 import {
   TlsSettingsClientSideType,
-  TlsSettingsClientSideType$inboundSchema,
   TlsSettingsClientSideType$Outbound,
   TlsSettingsClientSideType$outboundSchema,
 } from "./tlssettingsclientsidetype.js";
@@ -137,7 +122,7 @@ export type OutputAzureEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: AuthenticationType1 | undefined;
+  sasl?: AuthenticationTypeUse | undefined;
   tls?: TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
@@ -157,7 +142,7 @@ export type OutputAzureEventhub = {
    */
   pqMode?: ModeOptions | undefined;
   /**
-   * The maximum number of events to hold in memory before writing the events to disk
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
    */
   pqMaxBufferSize?: number | undefined;
   /**
@@ -184,19 +169,33 @@ export type OutputAzureEventhub = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureEventhubPqControls | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+   */
+  __template_brokers?: string | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
-/** @internal */
-export const OutputAzureEventhubPqControls$inboundSchema: z.ZodType<
-  OutputAzureEventhubPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputAzureEventhubPqControls$Outbound = {};
 
@@ -216,62 +215,7 @@ export function outputAzureEventhubPqControlsToJSON(
     ),
   );
 }
-export function outputAzureEventhubPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureEventhubPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureEventhubPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureEventhubPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputAzureEventhub$inboundSchema: z.ZodType<
-  OutputAzureEventhub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("azure_eventhub"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  brokers: z.array(types.string()),
-  topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptions$inboundSchema),
-  format: types.optional(RecordDataFormatOptions$inboundSchema),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushEventCount: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  connectionTimeout: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  maxRetries: types.optional(types.number()),
-  maxBackOff: types.optional(types.number()),
-  initialBackoff: types.optional(types.number()),
-  backoffRate: types.optional(types.number()),
-  authenticationTimeout: types.optional(types.number()),
-  reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationType1$inboundSchema),
-  tls: types.optional(TlsSettingsClientSideType$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqControls: types.optional(
-    z.lazy(() => OutputAzureEventhubPqControls$inboundSchema),
-  ),
-  __template_topic: types.optional(types.string()),
-});
 /** @internal */
 export type OutputAzureEventhub$Outbound = {
   id?: string | undefined;
@@ -295,7 +239,7 @@ export type OutputAzureEventhub$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: AuthenticationType1$Outbound | undefined;
+  sasl?: AuthenticationTypeUse$Outbound | undefined;
   tls?: TlsSettingsClientSideType$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
@@ -309,8 +253,13 @@ export type OutputAzureEventhub$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureEventhubPqControls$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_brokers?: string | undefined;
   __template_topic?: string | undefined;
+  __template_format?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -340,7 +289,7 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: AuthenticationType1$outboundSchema.optional(),
+  sasl: AuthenticationTypeUse$outboundSchema.optional(),
   tls: TlsSettingsClientSideType$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
@@ -354,9 +303,14 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputAzureEventhubPqControls$outboundSchema)
     .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_brokers: z.string().optional(),
   __template_topic: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputAzureEventhubToJSON(
@@ -364,14 +318,5 @@ export function outputAzureEventhubToJSON(
 ): string {
   return JSON.stringify(
     OutputAzureEventhub$outboundSchema.parse(outputAzureEventhub),
-  );
-}
-export function outputAzureEventhubFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureEventhub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureEventhub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureEventhub' from JSON`,
   );
 }

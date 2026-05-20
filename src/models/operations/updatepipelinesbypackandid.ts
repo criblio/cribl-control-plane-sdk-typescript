@@ -12,11 +12,11 @@ export type UpdatePipelinesByPackAndIdRequest = {
    */
   id: string;
   /**
-   * The <code>id</code> of the Pack to update.
+   * The <code>id</code> of the Pack.
    */
   pack: string;
   /**
-   * Pipeline object
+   * Pipeline object.
    */
   pipeline: models.PipelineInput;
 };

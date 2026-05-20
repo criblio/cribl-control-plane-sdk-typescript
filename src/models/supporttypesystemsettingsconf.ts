@@ -8,16 +8,18 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides,
-  ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$inboundSchema,
-  ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$Outbound,
-  ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$outboundSchema,
-} from "./itemstypesystemsettingsconfsupportfeatureflagoverrides.js";
+  FeatureFlagOverrideConfSystemSettingsConf,
+  FeatureFlagOverrideConfSystemSettingsConf$inboundSchema,
+  FeatureFlagOverrideConfSystemSettingsConf$Outbound,
+  FeatureFlagOverrideConfSystemSettingsConf$outboundSchema,
+} from "./featureflagoverrideconfsystemsettingsconf.js";
 
 export type SupportTypeSystemSettingsConf = {
   featureFlagOverrides?:
-    | Array<ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides>
+    | Array<FeatureFlagOverrideConfSystemSettingsConf>
     | undefined;
+  logFileMaxFiles?: number | undefined;
+  logFileMaxSize?: string | undefined;
 };
 
 /** @internal */
@@ -27,16 +29,18 @@ export const SupportTypeSystemSettingsConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   featureFlagOverrides: types.optional(
-    z.array(
-      ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$inboundSchema,
-    ),
+    z.array(FeatureFlagOverrideConfSystemSettingsConf$inboundSchema),
   ),
+  logFileMaxFiles: types.optional(types.number()),
+  logFileMaxSize: types.optional(types.string()),
 });
 /** @internal */
 export type SupportTypeSystemSettingsConf$Outbound = {
   featureFlagOverrides?:
-    | Array<ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$Outbound>
+    | Array<FeatureFlagOverrideConfSystemSettingsConf$Outbound>
     | undefined;
+  logFileMaxFiles?: number | undefined;
+  logFileMaxSize?: string | undefined;
 };
 
 /** @internal */
@@ -46,8 +50,10 @@ export const SupportTypeSystemSettingsConf$outboundSchema: z.ZodType<
   SupportTypeSystemSettingsConf
 > = z.object({
   featureFlagOverrides: z.array(
-    ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$outboundSchema,
+    FeatureFlagOverrideConfSystemSettingsConf$outboundSchema,
   ).optional(),
+  logFileMaxFiles: z.number().optional(),
+  logFileMaxSize: z.string().optional(),
 });
 
 export function supportTypeSystemSettingsConfToJSON(

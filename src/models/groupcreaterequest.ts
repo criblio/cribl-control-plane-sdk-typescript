@@ -9,19 +9,9 @@ import {
   ConfigGroupCloud$outboundSchema,
 } from "./configgroupcloud.js";
 import {
-  ConfigGroupLookups,
-  ConfigGroupLookups$Outbound,
-  ConfigGroupLookups$outboundSchema,
-} from "./configgrouplookups.js";
-import {
   EstimatedIngestRateOptionsConfigGroup,
   EstimatedIngestRateOptionsConfigGroup$outboundSchema,
 } from "./estimatedingestrateoptionsconfiggroup.js";
-import {
-  GitTypeConfigGroup,
-  GitTypeConfigGroup$Outbound,
-  GitTypeConfigGroup$outboundSchema,
-} from "./gittypeconfiggroup.js";
 import {
   TypeOptionsConfigGroup,
   TypeOptionsConfigGroup$outboundSchema,
@@ -29,55 +19,84 @@ import {
 
 export type GroupCreateRequest = {
   cloud?: ConfigGroupCloud | undefined;
-  deployingWorkerCount?: number | undefined;
+  /**
+   * Brief description of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   description?: string | undefined;
   /**
-   * Estimated ingest rate for Cloud Groups, in GB/sec.
+   * Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
    */
   estimatedIngestRate?: EstimatedIngestRateOptionsConfigGroup | undefined;
-  git?: GitTypeConfigGroup | undefined;
   id: string;
-  incompatibleWorkerCount?: number | undefined;
+  /**
+   * The <code>id</code> of the parent Edge Fleet. If provided, this Fleet inherits configuration from the specified parent Fleet. Applies only to Edge Fleets.
+   */
   inherits?: string | undefined;
   /**
-   * Indicates whether this is an Edge Fleet. This flag is deprecated — use to identify Edge Fleets.
+   * Indicates whether this is an Edge Fleet. Deprecated. Use to identify Edge Fleets.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   isFleet?: boolean | undefined;
   /**
-   * Indicates whether this is an internal Search Group. This flag is deprecated — use to identify Search Groups.
+   * Indicates whether this is an internal Search Group. Deprecated. Use to identify Search Groups.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   isSearch?: boolean | undefined;
-  lookupDeployments?: Array<ConfigGroupLookups> | undefined;
+  /**
+   * Maximum duration a Worker or Node can remain disconnected before the Leader removes it. The value is a numeral with units, such as <code>8h</code>, <code>5d</code>, <code>1w</code>.
+   */
   maxWorkerAge?: string | undefined;
+  /**
+   * Name of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   name?: string | undefined;
+  /**
+   * If <code>true</code>, the Worker Group, Outpost Group, or Edge Fleet uses customer-hosted (on-prem) workers. If <code>false</code>, the Worker Group, Outpost Group, or Edge Fleet is managed in Cribl.Cloud.
+   */
   onPrem?: boolean | undefined;
+  /**
+   * If <code>true</code>, the Cribl.Cloud Worker Group has active Workers provisioned. Applies only to Cribl.Cloud Worker Groups.
+   */
   provisioned?: boolean | undefined;
+  /**
+   * The <code>id</code> of an existing Worker Group, Outpost Group, or Edge Fleet to copy configuration from when creating a new Group or Fleet.
+   */
   sourceGroupId?: string | undefined;
+  /**
+   * Metadata tags attached to the Worker Group, Outpost Group, or Edge Fleet for categorization, filtering, and tag-based routing and policy application. Useful for organizing Groups and Fleets and enabling tag-driven workflows in Cribl.
+   */
   streamtags?: Array<string> | undefined;
+  /**
+   * Legacy system-level tags associated with the Worker Group, Outpost Group, or Edge Fleet. Use <code>streamtags</code> instead.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
   tags?: string | undefined;
+  /**
+   * Explicit type of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   type?: TypeOptionsConfigGroup | undefined;
+  /**
+   * Target software upgrade version. Applies only to Outpost Groups and Edge Fleets.
+   */
   upgradeVersion?: string | undefined;
-  workerCount?: number | undefined;
+  /**
+   * If <code>true</code>, the Leader allows remote access (teleporting) into the Workers or Nodes of the Worker Group, Outpost Group, or Edge Fleet.
+   */
   workerRemoteAccess?: boolean | undefined;
 };
 
 /** @internal */
 export type GroupCreateRequest$Outbound = {
   cloud?: ConfigGroupCloud$Outbound | undefined;
-  deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
-  git?: GitTypeConfigGroup$Outbound | undefined;
   id: string;
-  incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
   isFleet?: boolean | undefined;
   isSearch?: boolean | undefined;
-  lookupDeployments?: Array<ConfigGroupLookups$Outbound> | undefined;
   maxWorkerAge?: string | undefined;
   name?: string | undefined;
   onPrem?: boolean | undefined;
@@ -87,7 +106,6 @@ export type GroupCreateRequest$Outbound = {
   tags?: string | undefined;
   type?: string | undefined;
   upgradeVersion?: string | undefined;
-  workerCount?: number | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
 
@@ -98,17 +116,13 @@ export const GroupCreateRequest$outboundSchema: z.ZodType<
   GroupCreateRequest
 > = z.object({
   cloud: ConfigGroupCloud$outboundSchema.optional(),
-  deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
   estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup$outboundSchema
     .optional(),
-  git: GitTypeConfigGroup$outboundSchema.optional(),
   id: z.string(),
-  incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),
   isFleet: z.boolean().optional(),
   isSearch: z.boolean().optional(),
-  lookupDeployments: z.array(ConfigGroupLookups$outboundSchema).optional(),
   maxWorkerAge: z.string().optional(),
   name: z.string().optional(),
   onPrem: z.boolean().optional(),
@@ -118,7 +132,6 @@ export const GroupCreateRequest$outboundSchema: z.ZodType<
   tags: z.string().optional(),
   type: TypeOptionsConfigGroup$outboundSchema.optional(),
   upgradeVersion: z.string().optional(),
-  workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
 });
 

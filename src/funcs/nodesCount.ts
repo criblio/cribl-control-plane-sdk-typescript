@@ -28,10 +28,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a count of Worker or Edge Nodes
+ * Get a count of Worker, Edge, or Outpost Nodes
  *
  * @remarks
- * Get a count of all Worker or Edge Nodes for the specified Cribl product.
+ * Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl product.
  */
 export function nodesCount(
   client: CriblControlPlaneCore,

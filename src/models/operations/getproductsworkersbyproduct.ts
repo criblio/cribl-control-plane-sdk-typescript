@@ -11,9 +11,9 @@ import * as models from "../index.js";
 
 export type GetProductsWorkersByProductRequest = {
   /**
-   * Name of the Cribl product to get Worker or Edge Nodes for.
+   * Name of the Cribl product to get Worker, Edge, or Outpost Nodes for.
    */
-  product: models.ProductsBase;
+  product: models.ProductsCore;
   /**
    * Filter expression to evaluate against Nodes for inclusion in the response.
    */
@@ -61,7 +61,7 @@ export const GetProductsWorkersByProductRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetProductsWorkersByProductRequest
 > = z.object({
-  product: models.ProductsBase$outboundSchema,
+  product: models.ProductsCore$outboundSchema,
   filterExp: z.string().optional(),
   sortExp: z.string().optional(),
   filter: z.string().optional(),

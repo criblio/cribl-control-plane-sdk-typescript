@@ -1,6 +1,6 @@
 # CreateOutputRequest
 
-Output object
+Output object.
 
 
 ## Supported Types
@@ -15,12 +15,17 @@ const value: operations.CreateOutputOutputDefault = {
 };
 ```
 
-### `operations.CreateOutputOutputWebhook`
+### `operations.CreateOutputOutputWebhookUnion`
 
 ```typescript
-const value: operations.CreateOutputOutputWebhook = {
+const value: operations.CreateOutputOutputWebhookUnion = {
   id: "<id>",
   type: "webhook",
+  urls: [
+    {
+      url: "https://thick-grandson.info/",
+    },
+  ],
 };
 ```
 
@@ -384,9 +389,9 @@ const value: operations.CreateOutputOutputCloudwatch = {
 const value: operations.CreateOutputOutputMinio = {
   id: "<id>",
   type: "minio",
-  endpoint: "<value>",
   bucket: "<value>",
   stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 
@@ -629,9 +634,9 @@ const value: operations.CreateOutputOutputDlS3 = {
 const value: operations.CreateOutputOutputSecurityLake = {
   id: "<id>",
   type: "security_lake",
+  assumeRoleArn: "<value>",
   bucket: "<value>",
   region: "<value>",
-  assumeRoleArn: "<value>",
   stagePath: "<value>",
   accountId: "<id>",
   customSource: "<value>",
@@ -787,9 +792,92 @@ const value: operations.CreateOutputOutputMicrosoftFabric = {
 const value: operations.CreateOutputOutputCloudflareR2 = {
   id: "<id>",
   type: "cloudflare_r2",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputNutanixObjects`
+
+```typescript
+const value: operations.CreateOutputOutputNutanixObjects = {
+  id: "<id>",
+  type: "nutanix_objects",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputStorjS3`
+
+```typescript
+const value: operations.CreateOutputOutputStorjS3 = {
+  id: "<id>",
+  type: "storj_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputAlphasocS3`
+
+```typescript
+const value: operations.CreateOutputOutputAlphasocS3 = {
+  id: "<id>",
+  type: "alphasoc_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputDellS3`
+
+```typescript
+const value: operations.CreateOutputOutputDellS3 = {
+  id: "<id>",
+  type: "dell_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputCloudianS3`
+
+```typescript
+const value: operations.CreateOutputOutputCloudianS3 = {
+  id: "<id>",
+  type: "cloudian_s3",
   endpoint: "<value>",
   bucket: "<value>",
   stagePath: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputScalityS3`
+
+```typescript
+const value: operations.CreateOutputOutputScalityS3 = {
+  id: "<id>",
+  type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputAlibabaCloudS3`
+
+```typescript
+const value: operations.CreateOutputOutputAlibabaCloudS3 = {
+  id: "<id>",
+  type: "alibaba_cloud_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
 };
 ```
 

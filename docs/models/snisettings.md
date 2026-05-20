@@ -1,0 +1,17 @@
+# SniSettings
+
+## Example Usage
+
+```typescript
+import { SniSettings } from "cribl-control-plane/models";
+
+let value: SniSettings = {
+  disableSNIRouting: true,
+};
+```
+
+## Fields
+
+| Field               | Type                | Required            | Description         |
+| ------------------- | ------------------- | ------------------- | ------------------- |
+| `disableSNIRouting` | *boolean*           | :heavy_check_mark:  | N/A                 |

@@ -9,7 +9,7 @@ export type GetProductsWorkersByProductAndIdRequest = {
   /**
    * Name of the Cribl product that contains the Node.
    */
-  product: models.ProductsBase;
+  product: models.ProductsCore;
   /**
    * The <code>id</code> of the Node to get the metadata for.
    */
@@ -28,7 +28,7 @@ export const GetProductsWorkersByProductAndIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetProductsWorkersByProductAndIdRequest
 > = z.object({
-  product: models.ProductsBase$outboundSchema,
+  product: models.ProductsCore$outboundSchema,
   id: z.string(),
 });
 

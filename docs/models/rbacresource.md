@@ -13,5 +13,5 @@ let value: RbacResource = "datasets";
 ## Values
 
 ```typescript
-"groups" | "datasets" | "dataset-providers" | "projects" | "dashboards" | "macros" | "notebooks" | Unrecognized<string>
+"groups" | "datasets" | "dataset-providers" | "projects" | "dashboards" | "macros" | "notebooks" | "notebook-templates" | Unrecognized<string>
 ```
