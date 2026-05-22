@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 25835bc6ba4a367ef8aa084dd50a0a93
-  docVersion: 4.19.0-alpha.1779318273531-b75cd27e
+  docChecksum: f6f885938cbeeee00949ea008324c256
+  docVersion: 4.19.0-alpha.1779404923302-0177223e
   speakeasyVersion: 1.763.3
   generationVersion: 2.884.7
-  releaseVersion: 0.9.0-beta.1
-  configChecksum: 3edb1a0a6999ecd4c8eb61231326b167
+  releaseVersion: 0.9.0-beta.2
+  configChecksum: 54ad281fa579764c73df6dad55f3dfb3
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: ca5ba5f2-b0d1-4900-b4f9-bf27fc0262bd
-  pristine_commit_hash: a280c25c886ca966aeec29e21a53af369b171d54
-  pristine_tree_hash: 07a235774cc7bd90a3890cd010633d99e34aa8b1
+  generation_id: 4e1a9d4b-22e9-4f0a-bd8e-878f8491b2b2
+  pristine_commit_hash: a301dbbd3559d4a94bd27a293f3ea3c5d042bc5a
+  pristine_tree_hash: fa942da8b78ea0c93186a34250c15b1aa2bd8897
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -3850,8 +3850,8 @@ trackedFiles:
     pristine_git_object: 33856cf8279c61f0ec830b6577873a456a1e73e7
   docs/models/jobinfo.md:
     id: 2ab73ab8c9a9
-    last_write_checksum: sha1:8c1ee219cda9d4e57e45c34d026929574e7ae75a
-    pristine_git_object: bd252e79901e674bb4a1da2cc6a391c1c6208383
+    last_write_checksum: sha1:3d076ceea38270316e6902a7a47dac87101b6c4d
+    pristine_git_object: 2b1efc74963267685113d23e3f66d16a0b2c59fc
   docs/models/jobstatus.md:
     id: 697a9a5e9e12
     last_write_checksum: sha1:5b3dbfdad49568a387eca6f6a07b71690ee1e1c9
@@ -13250,12 +13250,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:0b7ea2f7f6e80e57042bcbe9e3c2677b0e3ff8d0
-    pristine_git_object: daf0f890819e44b36d94a95e3246851295c3718b
+    last_write_checksum: sha1:1d5e808099b61f794714ba723a77f17f9b470e59
+    pristine_git_object: 2bd795fd2d1d03b823b6138ed2b7c82ee4a5c0de
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:b384f19d0f235c9922953b0312589db8bb735974
-    pristine_git_object: e995e18ee0079d07a9c394fbc5c118c74a5d658b
+    last_write_checksum: sha1:eefe1ef4b4803e060c7a8ac1392b5d265612104c
+    pristine_git_object: c7bab9a07e26285f23e9223c5d608141d30db717
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13754,8 +13754,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:538ee47def1e925698088734a0bd5496c9784e87
-    pristine_git_object: d814eb0786768f59fca8a68cd299503e3a950f7e
+    last_write_checksum: sha1:0613e669596feed109872375b929967ad09902fc
+    pristine_git_object: 38759d43f4356664fc18e97b03c1cacb583bb1ce
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -15294,8 +15294,8 @@ trackedFiles:
     pristine_git_object: 9297c5fb68943173d83874f2cdb9721541cd463d
   src/models/jobinfo.ts:
     id: 759540be705a
-    last_write_checksum: sha1:2cb4a9790d8e4e259db43b5e53345dda748aa165
-    pristine_git_object: ab030cb7604b17867138535550c49377f7a857da
+    last_write_checksum: sha1:79c8bcaa4f9c7016db8a8cdf36974bb940235f29
+    pristine_git_object: a7a94059a29b4744c1d5ff0217108086d94962c9
   src/models/jobstatus.ts:
     id: fb7e86e37549
     last_write_checksum: sha1:04c9c714753d8973e8d3e979b144136c8323d7d4
@@ -28412,14 +28412,10 @@ generatedTests:
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `criblcontrolplane.sources.create()`:  `error.status[409]` **Added**
-  * `criblcontrolplane.sources.hecTokens.create()`:  `error.status[400]` **Added**
-  * `criblcontrolplane.sources.hecTokens.update()`:  `error.status[400]` **Added**
-  * `criblcontrolplane.packs.sources.create()`:  `error.status[409]` **Added**
-  * `criblcontrolplane.packs.sources.hecTokens.create()`:  `error.status[400]` **Added**
-  * `criblcontrolplane.packs.sources.hecTokens.update()`:  `error.status[400]` **Added**
-  * `criblcontrolplane.groups.create()`:  `error` **Changed**
-  * `criblcontrolplane.groups.update()`:  `error.status[400]` **Added**
+  * `criblcontrolplane.sources.pq.get()`:  `response.items[].workerOwner` **Added**
+  * `criblcontrolplane.packs.sources.pq.get()`:  `response.items[].workerOwner` **Added**
+  * `criblcontrolplane.packs.destinations.pq.get()`:  `response.items[].workerOwner` **Added**
+  * `criblcontrolplane.destinations.pq.get()`:  `response.items[].workerOwner` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
