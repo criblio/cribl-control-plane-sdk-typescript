@@ -8,15 +8,15 @@ import {
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   PreprocessType,
@@ -59,7 +59,7 @@ export type InputTcpInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -97,7 +97,7 @@ export type InputTcpInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -152,7 +152,7 @@ export type InputTcpInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -163,7 +163,7 @@ export type InputTcpInput$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableHeader?: boolean | undefined;
@@ -192,7 +192,7 @@ export const InputTcpInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -203,7 +203,7 @@ export const InputTcpInput$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableHeader: z.boolean().optional(),

@@ -12,7 +12,7 @@ export type UpdateRoutesByIdRequest = {
    */
   id: string;
   /**
-   * RoutesInput object
+   * RoutesInput object.
    */
   routesInput: models.RoutesInput;
 };

@@ -1,6 +1,6 @@
 # CreateOutputRequest
 
-Output object
+Output object.
 
 
 ## Supported Types
@@ -863,6 +863,18 @@ const value: operations.CreateOutputOutputCloudianS3 = {
 const value: operations.CreateOutputOutputScalityS3 = {
   id: "<id>",
   type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputAlibabaCloudS3`
+
+```typescript
+const value: operations.CreateOutputOutputAlibabaCloudS3 = {
+  id: "<id>",
+  type: "alibaba_cloud_s3",
   bucket: "<value>",
   stagePath: "<value>",
   endpoint: "<value>",

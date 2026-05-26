@@ -9,6 +9,18 @@ let value: CreateCriblLakeDatasetByLakeIdRequest = {
   lakeId: "<id>",
   criblLakeDataset: {
     id: "<id>",
+    searchConfig: {
+      metadata: {
+        earliest: "-30d",
+        enableAcceleration: true,
+        fieldList: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        scanMode: "detailed",
+      },
+    },
   },
 };
 ```
@@ -18,4 +30,4 @@ let value: CreateCriblLakeDatasetByLakeIdRequest = {
 | Field                                                          | Type                                                           | Required                                                       | Description                                                    |
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
 | `lakeId`                                                       | *string*                                                       | :heavy_check_mark:                                             | The <code>id</code> of the Lake to create the Lake Dataset in. |
-| `criblLakeDataset`                                             | [models.CriblLakeDataset](../../models/cribllakedataset.md)    | :heavy_check_mark:                                             | CriblLakeDataset object                                        |
+| `criblLakeDataset`                                             | [models.CriblLakeDataset](../../models/cribllakedataset.md)    | :heavy_check_mark:                                             | CriblLakeDataset object.                                       |

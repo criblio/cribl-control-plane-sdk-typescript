@@ -3,62 +3,45 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthTypeTemplatemanualApiKeyAuthType,
-  AuthTypeTemplatemanualApiKeyAuthType$inboundSchema,
   AuthTypeTemplatemanualApiKeyAuthType$Outbound,
   AuthTypeTemplatemanualApiKeyAuthType$outboundSchema,
 } from "./authtypetemplatemanualapikeyauthtype.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ItemsTypeSaslSaslExtensions,
-  ItemsTypeSaslSaslExtensions$inboundSchema,
-  ItemsTypeSaslSaslExtensions$Outbound,
-  ItemsTypeSaslSaslExtensions$outboundSchema,
-} from "./itemstypesaslsaslextensions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
+import {
+  SaslExtensionConfInputKafka,
+  SaslExtensionConfInputKafka$Outbound,
+  SaslExtensionConfInputKafka$outboundSchema,
+} from "./saslextensionconfinputkafka.js";
+import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -130,7 +113,7 @@ export type OutputElasticCloud = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -142,7 +125,7 @@ export type OutputElasticCloud = {
   /**
    * Extra parameters to use in HTTP requests
    */
-  extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
+  extraParams?: Array<SaslExtensionConfInputKafka> | undefined;
   auth?: AuthTypeTemplatemanualApiKeyAuthType | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
@@ -155,7 +138,9 @@ export type OutputElasticCloud = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -238,12 +223,6 @@ export type OutputElasticCloud = {
 };
 
 /** @internal */
-export const OutputElasticCloudPqControls$inboundSchema: z.ZodType<
-  OutputElasticCloudPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputElasticCloudPqControls$Outbound = {};
 
 /** @internal */
@@ -262,78 +241,7 @@ export function outputElasticCloudPqControlsToJSON(
     ),
   );
 }
-export function outputElasticCloudPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticCloudPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticCloudPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticCloudPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputElasticCloud$inboundSchema: z.ZodType<
-  OutputElasticCloud,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("elastic_cloud"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  url: types.string(),
-  index: types.string(),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  extraParams: types.optional(
-    z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
-  ),
-  auth: types.optional(AuthTypeTemplatemanualApiKeyAuthType$inboundSchema),
-  elasticPipeline: types.optional(types.string()),
-  includeDocId: types.optional(types.boolean()),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputElasticCloudPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-  __template_index: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_elasticPipeline: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputElasticCloud$Outbound = {
   id?: string | undefined;
@@ -351,15 +259,17 @@ export type OutputElasticCloud$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  extraParams?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
+  extraParams?: Array<SaslExtensionConfInputKafka$Outbound> | undefined;
   auth?: AuthTypeTemplatemanualApiKeyAuthType$Outbound | undefined;
   elasticPipeline?: string | undefined;
   includeDocId?: boolean | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -406,17 +316,18 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
+  extraParams: z.array(SaslExtensionConfInputKafka$outboundSchema).optional(),
   auth: AuthTypeTemplatemanualApiKeyAuthType$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
@@ -447,14 +358,5 @@ export function outputElasticCloudToJSON(
 ): string {
   return JSON.stringify(
     OutputElasticCloud$outboundSchema.parse(outputElasticCloud),
-  );
-}
-export function outputElasticCloudFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticCloud, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticCloud$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticCloud' from JSON`,
   );
 }

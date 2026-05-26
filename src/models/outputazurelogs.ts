@@ -3,52 +3,37 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
+import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -131,7 +116,7 @@ export type OutputAzureLogs = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -151,7 +136,9 @@ export type OutputAzureLogs = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -246,24 +233,12 @@ export type OutputAzureLogs = {
 };
 
 /** @internal */
-export const OutputAzureLogsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputAzureLogsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureLogsAuthenticationMethod);
-/** @internal */
 export const OutputAzureLogsAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputAzureLogsAuthenticationMethod
 > = openEnums.outboundSchema(OutputAzureLogsAuthenticationMethod);
 
-/** @internal */
-export const OutputAzureLogsPqControls$inboundSchema: z.ZodType<
-  OutputAzureLogsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputAzureLogsPqControls$Outbound = {};
 
@@ -281,77 +256,7 @@ export function outputAzureLogsPqControlsToJSON(
     OutputAzureLogsPqControls$outboundSchema.parse(outputAzureLogsPqControls),
   );
 }
-export function outputAzureLogsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureLogsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureLogsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureLogsPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputAzureLogs$inboundSchema: z.ZodType<
-  OutputAzureLogs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("azure_logs"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  logType: types.string(),
-  resourceId: types.optional(types.string()),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  apiUrl: types.optional(types.string()),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(OutputAzureLogsAuthenticationMethod$inboundSchema),
-  description: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputAzureLogsPqControls$inboundSchema),
-  ),
-  workspaceId: types.optional(types.string()),
-  workspaceKey: types.optional(types.string()),
-  keypairSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_workspaceId: types.optional(types.string()),
-  __template_workspaceKey: types.optional(types.string()),
-});
 /** @internal */
 export type OutputAzureLogs$Outbound = {
   id?: string | undefined;
@@ -369,13 +274,15 @@ export type OutputAzureLogs$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   apiUrl?: string | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -425,15 +332,16 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
   apiUrl: z.string().optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
@@ -465,13 +373,4 @@ export function outputAzureLogsToJSON(
   outputAzureLogs: OutputAzureLogs,
 ): string {
   return JSON.stringify(OutputAzureLogs$outboundSchema.parse(outputAzureLogs));
-}
-export function outputAzureLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureLogs' from JSON`,
-  );
 }

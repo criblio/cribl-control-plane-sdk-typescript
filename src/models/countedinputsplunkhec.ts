@@ -10,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   InputSplunkHec,
   InputSplunkHec$inboundSchema,
-} from "./inputsplunkhec.js";
+} from "./inputsplunkhecinput.js";
 
 export type CountedInputSplunkHec = {
   /**

@@ -1,13 +1,11 @@
 # InputEventhubAmqpAuthenticationMethod
 
-Enter connection string directly, or select a stored secret
-
 ## Example Usage
 
 ```typescript
 import { InputEventhubAmqpAuthenticationMethod } from "cribl-control-plane/models";
 
-let value: InputEventhubAmqpAuthenticationMethod = "manual";
+let value: InputEventhubAmqpAuthenticationMethod = "secret";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +13,5 @@ let value: InputEventhubAmqpAuthenticationMethod = "manual";
 ## Values
 
 ```typescript
-"manual" | "secret" | Unrecognized<string>
+"secret" | "clientSecret" | "clientCert" | "clientAssertion" | "clientAssertion_rpc" | Unrecognized<string>
 ```

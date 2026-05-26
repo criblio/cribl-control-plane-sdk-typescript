@@ -15,7 +15,13 @@ import {
 
 export type ObjectStorageFilter = {
   dataPathFormat?: PathFilterDataFormat | undefined;
+  /**
+   * Datatype identifier that maps filtered objects to a data type definition.
+   */
   dataTypeId: string;
+  /**
+   * Glob pattern for selecting files within the storage path.
+   */
   filter: string;
 };
 

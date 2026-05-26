@@ -4,25 +4,21 @@
 
 import * as z from "zod/v3";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
-import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
   KafkaSchemaRegistryAuthenticationType,
   KafkaSchemaRegistryAuthenticationType$Outbound,
   KafkaSchemaRegistryAuthenticationType$outboundSchema,
 } from "./kafkaschemaregistryauthenticationtype.js";
-import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
-  SignatureVersionOptions,
-  SignatureVersionOptions$outboundSchema,
-} from "./signatureversionoptions.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
+import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
@@ -59,7 +55,7 @@ export type InputMskInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
@@ -87,25 +83,19 @@ export type InputMskInput = {
    */
   sessionTimeout?: number | undefined;
   /**
-   *       Maximum allowed time for each worker to join the group after a rebalance begins.
-   *
    * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   * Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
    */
   rebalanceTimeout?: number | undefined;
   /**
-   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   * Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
    */
   heartbeatInterval?: number | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -152,10 +142,6 @@ export type InputMskInput = {
    * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing MSK cluster requests
-   */
-  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -263,7 +249,7 @@ export type InputMskInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -272,7 +258,7 @@ export type InputMskInput$Outbound = {
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   kafkaSchemaRegistry?:
     | KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
@@ -288,7 +274,6 @@ export type InputMskInput$Outbound = {
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -331,7 +316,7 @@ export const InputMskInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
@@ -340,7 +325,7 @@ export const InputMskInput$outboundSchema: z.ZodType<
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
     .optional(),
   connectionTimeout: z.number().optional(),
@@ -355,7 +340,6 @@ export const InputMskInput$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),

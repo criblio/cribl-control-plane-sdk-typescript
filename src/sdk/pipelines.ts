@@ -14,6 +14,21 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Pipelines extends ClientSDK {
   /**
+   * List all Pipelines
+   *
+   * @remarks
+   * Get a list of all Pipelines.
+   */
+  async list(
+    options?: RequestOptions,
+  ): Promise<models.CountedPipeline> {
+    return unwrapAsync(pipelinesList(
+      this,
+      options,
+    ));
+  }
+
+  /**
    * Create a Pipeline
    *
    * @remarks
@@ -26,21 +41,6 @@ export class Pipelines extends ClientSDK {
     return unwrapAsync(pipelinesCreate(
       this,
       request,
-      options,
-    ));
-  }
-
-  /**
-   * List all Pipelines
-   *
-   * @remarks
-   * Get a list of all Pipelines.
-   */
-  async list(
-    options?: RequestOptions,
-  ): Promise<models.CountedPipeline> {
-    return unwrapAsync(pipelinesList(
-      this,
       options,
     ));
   }

@@ -12,7 +12,7 @@ export type CreateCriblLakeDatasetByLakeIdRequest = {
    */
   lakeId: string;
   /**
-   * CriblLakeDataset object
+   * CriblLakeDataset object.
    */
   criblLakeDataset: models.CriblLakeDataset;
 };

@@ -9,15 +9,15 @@ import {
   AuthenticationTypeUse$outboundSchema,
 } from "./authenticationtypeuse.js";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   TlsSettingsClientSideType,
@@ -55,7 +55,7 @@ export type InputEventhubInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
@@ -111,28 +111,18 @@ export type InputEventhubInput = {
   sasl?: AuthenticationTypeUse | undefined;
   tls?: TlsSettingsClientSideType | undefined;
   /**
-   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
-   *       Value must be lower than rebalanceTimeout.
-   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   * Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities. If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance. Value must be lower than rebalanceTimeout. See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   sessionTimeout?: number | undefined;
   /**
-   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
-   *
    * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   * Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   rebalanceTimeout?: number | undefined;
   /**
-   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   * Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   heartbeatInterval?: number | undefined;
   /**
@@ -162,7 +152,7 @@ export type InputEventhubInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -196,7 +186,7 @@ export type InputEventhubInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   brokers: Array<string>;
   topics: Array<string>;
@@ -221,7 +211,7 @@ export type InputEventhubInput$Outbound = {
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
   minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -244,7 +234,7 @@ export const InputEventhubInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
@@ -269,7 +259,7 @@ export const InputEventhubInput$outboundSchema: z.ZodType<
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
   minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),

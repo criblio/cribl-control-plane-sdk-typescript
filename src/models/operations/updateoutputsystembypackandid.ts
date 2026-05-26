@@ -16,7 +16,7 @@ export type UpdateOutputSystemByPackAndIdRequest = {
    */
   pack: string;
   /**
-   * Output object
+   * Output object.
    */
   output: models.Output;
 };

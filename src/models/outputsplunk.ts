@@ -3,53 +3,37 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptions,
-  CompressionOptions$inboundSchema,
   CompressionOptions$outboundSchema,
 } from "./compressionoptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   MaxS2SVersionOptions,
-  MaxS2SVersionOptions$inboundSchema,
   MaxS2SVersionOptions$outboundSchema,
 } from "./maxs2sversionoptions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   NestedFieldSerializationOptions,
-  NestedFieldSerializationOptions$inboundSchema,
   NestedFieldSerializationOptions$outboundSchema,
 } from "./nestedfieldserializationoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -220,12 +204,6 @@ export type OutputSplunk = {
 };
 
 /** @internal */
-export const OutputSplunkPqControls$inboundSchema: z.ZodType<
-  OutputSplunkPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputSplunkPqControls$Outbound = {};
 
 /** @internal */
@@ -242,70 +220,7 @@ export function outputSplunkPqControlsToJSON(
     OutputSplunkPqControls$outboundSchema.parse(outputSplunkPqControls),
   );
 }
-export function outputSplunkPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputSplunk$inboundSchema: z.ZodType<
-  OutputSplunk,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("splunk"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  host: types.string(),
-  port: types.number(),
-  nestedFields: types.optional(NestedFieldSerializationOptions$inboundSchema),
-  throttleRatePerSec: types.optional(types.string()),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  enableMultiMetrics: types.optional(types.boolean()),
-  enableACK: types.optional(types.boolean()),
-  logFailedRequests: types.optional(types.boolean()),
-  maxS2Sversion: types.optional(MaxS2SVersionOptions$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  maxFailedHealthChecks: types.optional(types.number()),
-  compress: types.optional(CompressionOptions$inboundSchema),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputSplunkPqControls$inboundSchema),
-  ),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_nestedFields: types.optional(types.string()),
-  __template_maxS2Sversion: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-});
 /** @internal */
 export type OutputSplunk$Outbound = {
   id?: string | undefined;
@@ -407,13 +322,4 @@ export const OutputSplunk$outboundSchema: z.ZodType<
 
 export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {
   return JSON.stringify(OutputSplunk$outboundSchema.parse(outputSplunk));
-}
-export function outputSplunkFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunk, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunk$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunk' from JSON`,
-  );
 }

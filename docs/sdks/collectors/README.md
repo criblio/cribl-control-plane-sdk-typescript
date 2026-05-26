@@ -6,11 +6,91 @@ Actions related to Collectors
 
 ### Available Operations
 
-* [create](#create) - Create a Collector
 * [list](#list) - List all Collectors
-* [delete](#delete) - Delete a Collector
+* [create](#create) - Create a Collector
 * [get](#get) - Get a Collector
 * [update](#update) - Update a Collector
+* [delete](#delete) - Delete a Collector
+
+## list
+
+Get a list of all Collectors.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getSavedJob" method="get" path="/lib/jobs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.list({
+    collectorType: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsList } from "cribl-control-plane/funcs/collectorsList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsList(criblControlPlane, {
+    collectorType: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsList failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetSavedJobRequest](../../models/operations/getsavedjobrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## create
 
@@ -595,166 +675,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [models.SavedJob](../../models/savedjob.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## list
-
-Get a list of all Collectors.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="getSavedJob" method="get" path="/lib/jobs" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.collectors.list({
-    collectorType: "<value>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { collectorsList } from "cribl-control-plane/funcs/collectorsList.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await collectorsList(criblControlPlane, {
-    collectorType: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("collectorsList failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetSavedJobRequest](../../models/operations/getsavedjobrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## delete
-
-Delete the specified Collector.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="deleteSavedJobById" method="delete" path="/lib/jobs/{id}" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.collectors.delete({
-    id: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { collectorsDelete } from "cribl-control-plane/funcs/collectorsDelete.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await collectorsDelete(criblControlPlane, {
-    id: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("collectorsDelete failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteSavedJobByIdRequest](../../models/operations/deletesavedjobbyidrequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1467,6 +1387,86 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.UpdateSavedJobByIdRequest](../../models/operations/updatesavedjobbyidrequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
+
+## delete
+
+Delete the specified Collector.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteSavedJobById" method="delete" path="/lib/jobs/{id}" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.delete({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsDelete } from "cribl-control-plane/funcs/collectorsDelete.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsDelete(criblControlPlane, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsDelete failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteSavedJobByIdRequest](../../models/operations/deletesavedjobbyidrequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

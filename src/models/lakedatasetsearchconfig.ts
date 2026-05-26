@@ -26,11 +26,23 @@ import {
 } from "./searchversion.js";
 
 export type LakeDatasetSearchConfig = {
+  /**
+   * Datatype identifiers assigned to the Dataset for search-time event classification.
+   */
   datatypes?: Array<string> | undefined;
+  /**
+   * Brief description of Dataset search configuration.
+   */
   description?: string | undefined;
   metadata?: DatasetMetadata | undefined;
+  /**
+   * Glob-to-Datatype mappings for the Lake bucket path. Used only for search execution v2.
+   */
   pathFilters?: Array<ObjectStorageFilter> | undefined;
   searchVersion?: SearchVersion | undefined;
+  /**
+   * Comma-separated tags for the Dataset search configuration.
+   */
   tags?: string | undefined;
 };
 

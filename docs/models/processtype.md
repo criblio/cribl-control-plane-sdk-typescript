@@ -10,6 +10,6 @@ let value: ProcessType = {};
 
 ## Fields
 
-| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `sets`                                                             | [models.ItemsTypeProcessSets](../models/itemstypeprocesssets.md)[] | :heavy_minus_sign:                                                 | Configure sets to collect process metrics                          |
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `sets`                                                                       | [models.SetConfInputSystemMetrics](../models/setconfinputsystemmetrics.md)[] | :heavy_minus_sign:                                                           | Configure sets to collect process metrics                                    |

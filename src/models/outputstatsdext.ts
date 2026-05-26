@@ -3,33 +3,21 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
 import {
   DestinationProtocolOptions,
-  DestinationProtocolOptions$inboundSchema,
   DestinationProtocolOptions$outboundSchema,
 } from "./destinationprotocoloptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 
@@ -154,12 +142,6 @@ export type OutputStatsdExt = {
 };
 
 /** @internal */
-export const OutputStatsdExtPqControls$inboundSchema: z.ZodType<
-  OutputStatsdExtPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputStatsdExtPqControls$Outbound = {};
 
 /** @internal */
@@ -176,56 +158,7 @@ export function outputStatsdExtPqControlsToJSON(
     OutputStatsdExtPqControls$outboundSchema.parse(outputStatsdExtPqControls),
   );
 }
-export function outputStatsdExtPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputStatsdExtPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputStatsdExtPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputStatsdExtPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputStatsdExt$inboundSchema: z.ZodType<
-  OutputStatsdExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("statsd_ext"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  protocol: DestinationProtocolOptions$inboundSchema,
-  host: types.string(),
-  port: types.number(),
-  mtu: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  description: types.optional(types.string()),
-  throttleRatePerSec: types.optional(types.string()),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputStatsdExtPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputStatsdExt$Outbound = {
   id?: string | undefined;
@@ -304,13 +237,4 @@ export function outputStatsdExtToJSON(
   outputStatsdExt: OutputStatsdExt,
 ): string {
   return JSON.stringify(OutputStatsdExt$outboundSchema.parse(outputStatsdExt));
-}
-export function outputStatsdExtFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputStatsdExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputStatsdExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputStatsdExt' from JSON`,
-  );
 }

@@ -10,7 +10,6 @@ import { CollectorCriblLake } from "cribl-control-plane/models";
 let value: CollectorCriblLake = {
   type: "cribl_lake",
   conf: {
-    storageLocationId: "<id>",
     dataset: "<value>",
   },
 };

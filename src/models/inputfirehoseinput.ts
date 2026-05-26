@@ -4,15 +4,15 @@
 
 import * as z from "zod/v3";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   TlsSettingsServerSideType,
@@ -50,7 +50,7 @@ export type InputFirehoseInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -112,7 +112,7 @@ export type InputFirehoseInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -146,7 +146,7 @@ export type InputFirehoseInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
@@ -163,7 +163,7 @@ export type InputFirehoseInput$Outbound = {
   enableHealthCheck?: boolean | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -186,7 +186,7 @@ export const InputFirehoseInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
@@ -203,7 +203,7 @@ export const InputFirehoseInput$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),

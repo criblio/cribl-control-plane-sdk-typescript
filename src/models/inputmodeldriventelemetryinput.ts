@@ -4,15 +4,15 @@
 
 import * as z from "zod/v3";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   TlsSettingsServerSideType,
@@ -50,7 +50,7 @@ export type InputModelDrivenTelemetryInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -64,7 +64,7 @@ export type InputModelDrivenTelemetryInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -102,12 +102,12 @@ export type InputModelDrivenTelemetryInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
@@ -131,12 +131,12 @@ export const InputModelDrivenTelemetryInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   shutdownTimeoutMs: z.number().optional(),
   description: z.string().optional(),

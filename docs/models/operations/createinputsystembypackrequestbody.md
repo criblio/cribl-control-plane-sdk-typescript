@@ -1,6 +1,6 @@
 # CreateInputSystemByPackRequestBody
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -263,6 +263,11 @@ const value: operations.CreateInputSystemByPackInputEventhubAmqp = {
   id: "<id>",
   type: "eventhub_amqp",
   consumerGroup: "<value>",
+  checkpointing: {
+    blobStore: {
+      containerName: "<value>",
+    },
+  },
 };
 ```
 

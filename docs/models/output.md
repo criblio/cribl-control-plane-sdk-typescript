@@ -798,3 +798,14 @@ const value: models.OutputScalityS3 = {
 };
 ```
 
+### `models.OutputAlibabaCloudS3`
+
+```typescript
+const value: models.OutputAlibabaCloudS3 = {
+  type: "alibaba_cloud_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+

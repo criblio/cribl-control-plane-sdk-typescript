@@ -4,15 +4,15 @@
 
 import * as z from "zod/v3";
 import {
-  ItemsTypeConnectionsOptional,
-  ItemsTypeConnectionsOptional$Outbound,
-  ItemsTypeConnectionsOptional$outboundSchema,
-} from "./itemstypeconnectionsoptional.js";
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$Outbound,
+  ConnectionConfInputCollection$outboundSchema,
+} from "./connectionconfinputcollection.js";
 import {
-  ItemsTypeMetadata,
-  ItemsTypeMetadata$Outbound,
-  ItemsTypeMetadata$outboundSchema,
-} from "./itemstypemetadata.js";
+  MetadataConfInputCollection,
+  MetadataConfInputCollection$Outbound,
+  MetadataConfInputCollection$outboundSchema,
+} from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 import {
   TlsSettingsServerSideType,
@@ -50,7 +50,7 @@ export type InputMetricsInput = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
@@ -80,7 +80,7 @@ export type InputMetricsInput = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeMetadata> | undefined;
+  metadata?: Array<MetadataConfInputCollection> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -118,7 +118,7 @@ export type InputMetricsInput$Outbound = {
   environment?: string | undefined;
   pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  connections?: Array<ConnectionConfInputCollection$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   host: string;
   udpPort?: number | undefined;
@@ -127,7 +127,7 @@ export type InputMetricsInput$Outbound = {
   ipWhitelistRegex?: string | undefined;
   enableProxyHeader?: boolean | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
+  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
@@ -151,7 +151,7 @@ export const InputMetricsInput$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  connections: z.array(ConnectionConfInputCollection$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   udpPort: z.number().optional(),
@@ -160,7 +160,7 @@ export const InputMetricsInput$outboundSchema: z.ZodType<
   ipWhitelistRegex: z.string().optional(),
   enableProxyHeader: z.boolean().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
+  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),

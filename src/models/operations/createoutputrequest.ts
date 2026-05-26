@@ -8,6 +8,16 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
+  CreateOutputAPIVersion,
+  CreateOutputAPIVersion$outboundSchema,
+  CreateOutputAuthenticationMethodGoogleChronicle,
+  CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema,
+  CreateOutputExtraLogType,
+  CreateOutputExtraLogType$Outbound,
+  CreateOutputExtraLogType$outboundSchema,
+  CreateOutputOutputAlibabaCloudS3,
+  CreateOutputOutputAlibabaCloudS3$Outbound,
+  CreateOutputOutputAlibabaCloudS3$outboundSchema,
   CreateOutputOutputAlphasocS3,
   CreateOutputOutputAlphasocS3$Outbound,
   CreateOutputOutputAlphasocS3$outboundSchema,
@@ -80,6 +90,9 @@ import {
   CreateOutputOutputGoogleCloudLogging,
   CreateOutputOutputGoogleCloudLogging$Outbound,
   CreateOutputOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputOutputGoogleCloudStorage,
+  CreateOutputOutputGoogleCloudStorage$Outbound,
+  CreateOutputOutputGoogleCloudStorage$outboundSchema,
   CreateOutputOutputGooglePubsub,
   CreateOutputOutputGooglePubsub$Outbound,
   CreateOutputOutputGooglePubsub$outboundSchema,
@@ -173,374 +186,11 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-} from "./createoutputoutputgooglecloudlogging.js";
-
-export const CreateOutputAuthenticationMethodGoogleCloudStorage = {
-  /**
-   * auto
-   */
-  Auto: "auto",
-  /**
-   * manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-export type CreateOutputAuthenticationMethodGoogleCloudStorage = OpenEnum<
-  typeof CreateOutputAuthenticationMethodGoogleCloudStorage
->;
-
-export type CreateOutputOutputGoogleCloudStorage = {
-  /**
-   * Unique ID for this output
-   */
-  id: string;
-  type: "google_cloud_storage";
-  /**
-   * Pipeline to process data before sending out to this output
-   */
-  pipeline?: string | undefined;
-  /**
-   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-   */
-  systemFields?: Array<string> | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-   */
-  bucket: string;
-  /**
-   * Region where the bucket is located
-   */
-  region: string;
-  /**
-   * Google Cloud Storage service endpoint
-   */
-  endpoint: string;
-  /**
-   * Signature version to use for signing Google Cloud Storage requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsGoogle | undefined;
-  awsAuthenticationMethod?:
-    | CreateOutputAuthenticationMethodGoogleCloudStorage
-    | undefined;
-  /**
-   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-   */
-  stagePath: string;
-  /**
-   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-   */
-  destPath?: string | undefined;
-  /**
-   * Disable if you can access files within the bucket but not the bucket itself
-   */
-  verifyPermissions?: boolean | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?:
-    | models.ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
-    | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: models.StorageClassOptionsArchiveColdline | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Add the Output ID value to staging location
-   */
-  addIdToStagePath?: boolean | undefined;
-  /**
-   * Remove empty staging directories after moving files
-   */
-  removeEmptyDirs?: boolean | undefined;
-  /**
-   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-   */
-  partitionExpr?: string | undefined;
-  /**
-   * Format of the output data
-   */
-  format?: models.DataFormatOptions | undefined;
-  /**
-   * JavaScript expression to define the output filename prefix (can be constant)
-   */
-  baseFileName?: string | undefined;
-  /**
-   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-   */
-  fileNameSuffix?: string | undefined;
-  /**
-   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-   */
-  maxFileSizeMB?: number | undefined;
-  /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-   */
-  maxFileOpenTimeSec?: number | undefined;
-  /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-   */
-  maxFileIdleTimeSec?: number | undefined;
-  /**
-   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-   */
-  maxOpenFiles?: number | undefined;
-  /**
-   * If set, this line will be written to the beginning of each output file
-   */
-  headerLine?: string | undefined;
-  /**
-   * Buffer size used to write to a file
-   */
-  writeHighWaterMark?: number | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
-  /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-   */
-  deadletterEnabled?: boolean | undefined;
-  /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
-   */
-  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
-  /**
-   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-   */
-  forceCloseOnShutdown?: boolean | undefined;
-  retrySettings?: models.RetrySettingsType | undefined;
-  orphans?: models.OrphanFileRecoveryType | undefined;
-  description?: string | undefined;
-  /**
-   * Data compression format to apply to HTTP content before it is delivered
-   */
-  compress?: models.CompressionOptionsHttp | undefined;
-  /**
-   * Compression level to apply before moving files to final destination
-   */
-  compressionLevel?: models.CompressionLevelOptions | undefined;
-  /**
-   * Automatically calculate the schema based on the events of each Parquet file generated
-   */
-  automaticSchema?: boolean | undefined;
-  /**
-   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-   */
-  parquetSchema?: string | undefined;
-  /**
-   * Determines which data types are supported and how they are represented
-   */
-  parquetVersion?: models.ParquetVersionOptions | undefined;
-  /**
-   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-   */
-  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
-  /**
-   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
-   */
-  parquetRowGroupLength?: number | undefined;
-  /**
-   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-   */
-  parquetPageSize?: string | undefined;
-  /**
-   * Log up to 3 rows that @{product} skips due to data mismatch
-   */
-  shouldLogInvalidRows?: boolean | undefined;
-  /**
-   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-   */
-  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
-  /**
-   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-   */
-  enableStatistics?: boolean | undefined;
-  /**
-   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-   */
-  enableWritePageIndex?: boolean | undefined;
-  /**
-   * Parquet tools can use the checksum of a Parquet page to verify data integrity
-   */
-  enablePageChecksum?: boolean | undefined;
-  /**
-   * How frequently, in seconds, to clean up empty directories
-   */
-  emptyDirCleanupSec?: number | undefined;
-  /**
-   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-   */
-  directoryBatchSize?: number | undefined;
-  /**
-   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
-   */
-  deadletterPath?: string | undefined;
-  /**
-   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-   */
-  maxRetryNum?: number | undefined;
-  /**
-   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
-   */
-  awsApiKey?: string | undefined;
-  /**
-   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
-   */
-  awsSecretKey?: string | undefined;
-  /**
-   * Select or create a stored secret that references your access key and secret key
-   */
-  awsSecret?: string | undefined;
-  /**
-   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
-   */
-  __template_streamtags?: string | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-   */
-  __template_endpoint?: string | undefined;
-  /**
-   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-   */
-  __template_destPath?: string | undefined;
-  /**
-   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-   */
-  __template_objectACL?: string | undefined;
-  /**
-   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-   */
-  __template_storageClass?: string | undefined;
-  /**
-   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
-   */
-  __template_partitionExpr?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
-   */
-  __template_baseFileName?: string | undefined;
-  /**
-   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
-   */
-  __template_fileNameSuffix?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
-  /**
-   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
-   */
-  __template_compress?: string | undefined;
-  /**
-   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
-   */
-  __template_parquetSchema?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-};
-
-export const CreateOutputAPIVersion = {
-  /**
-   * V1
-   */
-  V1: "v1",
-  /**
-   * V2
-   */
-  V2: "v2",
-} as const;
-export type CreateOutputAPIVersion = OpenEnum<typeof CreateOutputAPIVersion>;
-
-export const CreateOutputAuthenticationMethodGoogleChronicle = {
-  /**
-   * API key
-   */
-  Manual: "manual",
-  /**
-   * API key secret
-   */
-  Secret: "secret",
-  /**
-   * Service account credentials
-   */
-  ServiceAccount: "serviceAccount",
-  /**
-   * Service account credentials secret
-   */
-  ServiceAccountSecret: "serviceAccountSecret",
-} as const;
-export type CreateOutputAuthenticationMethodGoogleChronicle = OpenEnum<
-  typeof CreateOutputAuthenticationMethodGoogleChronicle
->;
-
-export const CreateOutputSendEventsAs = {
-  /**
-   * Unstructured
-   */
-  Unstructured: "unstructured",
-  /**
-   * UDM
-   */
-  Udm: "udm",
-} as const;
-export type CreateOutputSendEventsAs = OpenEnum<
-  typeof CreateOutputSendEventsAs
->;
-
-export type CreateOutputExtraLogType = {
-  logType: string;
-  description?: string | undefined;
-};
-
-/**
- * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
- */
-export const CreateOutputUDMType = {
-  Entities: "entities",
-  Logs: "logs",
-} as const;
-/**
- * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
- */
-export type CreateOutputUDMType = OpenEnum<typeof CreateOutputUDMType>;
+  CreateOutputSendEventsAs,
+  CreateOutputSendEventsAs$outboundSchema,
+  CreateOutputUDMType,
+  CreateOutputUDMType$outboundSchema,
+} from "./createoutputudmtype.js";
 
 export type CreateOutputPqControlsGoogleChronicle = {};
 
@@ -574,7 +224,7 @@ export type CreateOutputOutputGoogleChronicle = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -621,7 +271,7 @@ export type CreateOutputOutputGoogleChronicle = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -666,7 +316,7 @@ export type CreateOutputOutputGoogleChronicle = {
   /**
    * Custom labels to be added to every batch
    */
-  customLabels?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  customLabels?: Array<models.KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
    */
@@ -982,7 +632,7 @@ export type CreateOutputOutputHoneycomb = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -999,7 +649,7 @@ export type CreateOutputOutputHoneycomb = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -1141,10 +791,6 @@ export type CreateOutputOutputKinesis = {
    * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing Kinesis stream requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsKinesis | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -1368,7 +1014,7 @@ export type CreateOutputOutputAzureLogs = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -1389,7 +1035,7 @@ export type CreateOutputOutputAzureLogs = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -1717,7 +1363,9 @@ export type CreateOutputOutputAzureDataExplorer = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?:
+    | Array<models.KeyValueMetadataConfOutputFilesystem>
+    | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -1848,7 +1496,7 @@ export type CreateOutputOutputAzureDataExplorer = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -2174,7 +1822,9 @@ export type CreateOutputOutputAzureBlob = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?:
+    | Array<models.KeyValueMetadataConfOutputFilesystem>
+    | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -2345,10 +1995,6 @@ export type CreateOutputOutputS3 = {
    */
   awsAuthenticationMethod?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Reuse connections between requests, which can improve performance
    */
   reuseConnections?: boolean | undefined;
@@ -2356,10 +2002,6 @@ export type CreateOutputOutputS3 = {
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
   rejectUnauthorized?: boolean | undefined;
-  /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-   */
-  awsSecretKey?: string | undefined;
   /**
    * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
@@ -2455,6 +2097,10 @@ export type CreateOutputOutputS3 = {
   retrySettings?: models.RetrySettingsType | undefined;
   orphans?: models.OrphanFileRecoveryType | undefined;
   /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
    * Object ACL to assign to uploaded objects
    */
   objectACL?: models.ObjectAclOptions | undefined;
@@ -2520,7 +2166,9 @@ export type CreateOutputOutputS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?:
+    | Array<models.KeyValueMetadataConfOutputFilesystem>
+    | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -2566,10 +2214,6 @@ export type CreateOutputOutputS3 = {
    */
   __template_assumeRoleExternalId?: string | undefined;
   /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
@@ -2601,6 +2245,10 @@ export type CreateOutputOutputS3 = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
   /**
    * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
    */
@@ -2767,7 +2415,9 @@ export type CreateOutputOutputFilesystem = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?:
+    | Array<models.KeyValueMetadataConfOutputFilesystem>
+    | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -2897,7 +2547,7 @@ export type CreateOutputOutputSignalfx = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -2914,7 +2564,7 @@ export type CreateOutputOutputSignalfx = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -3060,7 +2710,7 @@ export type CreateOutputOutputWavefront = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -3077,7 +2727,7 @@ export type CreateOutputOutputWavefront = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -3237,7 +2887,7 @@ export type CreateOutputOutputTcpjson = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<models.ItemsTypeHosts> | undefined;
+  hosts?: Array<models.HostConfOutputSyslog> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -3389,7 +3039,7 @@ export type CreateOutputOutputWizHec = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -3406,7 +3056,7 @@ export type CreateOutputOutputWizHec = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -3597,7 +3247,7 @@ export type CreateOutputOutputSplunkHec = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
@@ -3618,7 +3268,7 @@ export type CreateOutputOutputSplunkHec = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -3880,7 +3530,7 @@ export type CreateOutputOutputSplunkLb = {
   /**
    * Set of Splunk indexers to load-balance data to.
    */
-  hosts: Array<models.ItemsTypeHosts>;
+  hosts: Array<models.HostConfOutputSyslog>;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4148,91 +3798,91 @@ export const CreateOutputFacility = {
   /**
    * kern
    */
-  Zero: 0,
+  Kern: 0,
   /**
    * user
    */
-  One: 1,
+  User: 1,
   /**
    * mail
    */
-  Two: 2,
+  Mail: 2,
   /**
    * daemon
    */
-  Three: 3,
+  Daemon: 3,
   /**
    * auth
    */
-  Four: 4,
+  Auth: 4,
   /**
    * syslog
    */
-  Five: 5,
+  Syslog: 5,
   /**
    * lpr
    */
-  Six: 6,
+  Lpr: 6,
   /**
    * news
    */
-  Seven: 7,
+  News: 7,
   /**
    * uucp
    */
-  Eight: 8,
+  Uucp: 8,
   /**
    * cron
    */
-  Nine: 9,
+  Cron: 9,
   /**
    * authpriv
    */
-  Ten: 10,
+  Authpriv: 10,
   /**
    * ftp
    */
-  Eleven: 11,
+  Ftp: 11,
   /**
    * ntp
    */
-  Twelve: 12,
+  Ntp: 12,
   /**
    * security
    */
-  Thirteen: 13,
+  Security: 13,
   /**
    * console
    */
-  Fourteen: 14,
+  Console: 14,
   /**
    * solaris-cron
    */
-  Fifteen: 15,
+  SolarisCron: 15,
   /**
    * local0
    */
-  Sixteen: 16,
+  Local0: 16,
   /**
    * local1
    */
-  Seventeen: 17,
+  Local1: 17,
   /**
    * local2
    */
-  Eighteen: 18,
+  Local2: 18,
   /**
    * local3
    */
-  Nineteen: 19,
+  Local3: 19,
   /**
    * local4
    */
-  Twenty: 20,
+  Local4: 20,
   /**
    * local5
    */
-  TwentyOne: 21,
+  Local5: 21,
 } as const;
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
@@ -4403,7 +4053,7 @@ export type CreateOutputOutputSyslog = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<models.ItemsTypeHosts> | undefined;
+  hosts?: Array<models.HostConfOutputSyslog> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -4630,7 +4280,7 @@ export type CreateOutputOutputSentinel = {
   /**
    * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -4647,7 +4297,7 @@ export type CreateOutputOutputSentinel = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -4981,7 +4631,7 @@ export type CreateOutputOutputWebhookWebhook2 = {
   /**
    * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -4998,7 +4648,7 @@ export type CreateOutputOutputWebhookWebhook2 = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -5141,11 +4791,11 @@ export type CreateOutputOutputWebhookWebhook2 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<models.OauthParamConfInputServicenowTable> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<models.OauthHeaderConfInputServicenowTable> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -5346,7 +4996,7 @@ export type CreateOutputOutputWebhookWebhook1 = {
   /**
    * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
    */
-  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<models.ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -5363,7 +5013,7 @@ export type CreateOutputOutputWebhookWebhook1 = {
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings>
+    | Array<models.ResponseRetrySettingConfOutputWebhook>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
   /**
@@ -5506,11 +5156,11 @@ export type CreateOutputOutputWebhookWebhook1 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<models.OauthParamConfInputServicenowTable> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<models.OauthHeaderConfInputServicenowTable> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -5591,7 +5241,7 @@ export type CreateOutputOutputDefault = {
 };
 
 /**
- * Output object
+ * Output object.
  */
 export type CreateOutputRequest =
   | CreateOutputOutputDefault
@@ -5673,250 +5323,8 @@ export type CreateOutputRequest =
   | CreateOutputOutputAlphasocS3
   | CreateOutputOutputDellS3
   | CreateOutputOutputCloudianS3
-  | CreateOutputOutputScalityS3;
-
-/** @internal */
-export const CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateOutputAuthenticationMethodGoogleCloudStorage
-  > = openEnums.outboundSchema(
-    CreateOutputAuthenticationMethodGoogleCloudStorage,
-  );
-
-/** @internal */
-export type CreateOutputOutputGoogleCloudStorage$Outbound = {
-  id: string;
-  type: "google_cloud_storage";
-  pipeline?: string | undefined;
-  systemFields?: Array<string> | undefined;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  bucket: string;
-  region: string;
-  endpoint: string;
-  signatureVersion?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
-  stagePath: string;
-  destPath?: string | undefined;
-  verifyPermissions?: boolean | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  addIdToStagePath?: boolean | undefined;
-  removeEmptyDirs?: boolean | undefined;
-  partitionExpr?: string | undefined;
-  format?: string | undefined;
-  baseFileName?: string | undefined;
-  fileNameSuffix?: string | undefined;
-  maxFileSizeMB?: number | undefined;
-  maxFileOpenTimeSec?: number | undefined;
-  maxFileIdleTimeSec?: number | undefined;
-  maxOpenFiles?: number | undefined;
-  headerLine?: string | undefined;
-  writeHighWaterMark?: number | undefined;
-  onBackpressure?: string | undefined;
-  deadletterEnabled?: boolean | undefined;
-  onDiskFullBackpressure?: string | undefined;
-  forceCloseOnShutdown?: boolean | undefined;
-  retrySettings?: models.RetrySettingsType$Outbound | undefined;
-  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
-  description?: string | undefined;
-  compress?: string | undefined;
-  compressionLevel?: string | undefined;
-  automaticSchema?: boolean | undefined;
-  parquetSchema?: string | undefined;
-  parquetVersion?: string | undefined;
-  parquetDataPageVersion?: string | undefined;
-  parquetRowGroupLength?: number | undefined;
-  parquetPageSize?: string | undefined;
-  shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
-    | undefined;
-  enableStatistics?: boolean | undefined;
-  enableWritePageIndex?: boolean | undefined;
-  enablePageChecksum?: boolean | undefined;
-  emptyDirCleanupSec?: number | undefined;
-  directoryBatchSize?: number | undefined;
-  deadletterPath?: string | undefined;
-  maxRetryNum?: number | undefined;
-  awsApiKey?: string | undefined;
-  awsSecretKey?: string | undefined;
-  awsSecret?: string | undefined;
-  __template_streamtags?: string | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_endpoint?: string | undefined;
-  __template_destPath?: string | undefined;
-  __template_objectACL?: string | undefined;
-  __template_storageClass?: string | undefined;
-  __template_partitionExpr?: string | undefined;
-  __template_format?: string | undefined;
-  __template_baseFileName?: string | undefined;
-  __template_fileNameSuffix?: string | undefined;
-  __template_onBackpressure?: string | undefined;
-  __template_compress?: string | undefined;
-  __template_parquetSchema?: string | undefined;
-  __template_awsApiKey?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-};
-
-/** @internal */
-export const CreateOutputOutputGoogleCloudStorage$outboundSchema: z.ZodType<
-  CreateOutputOutputGoogleCloudStorage$Outbound,
-  z.ZodTypeDef,
-  CreateOutputOutputGoogleCloudStorage
-> = z.object({
-  id: z.string(),
-  type: z.literal("google_cloud_storage"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string(),
-  signatureVersion: models.SignatureVersionOptionsGoogle$outboundSchema
-    .optional(),
-  awsAuthenticationMethod:
-    CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema
-      .optional(),
-  stagePath: z.string(),
-  destPath: z.string().optional(),
-  verifyPermissions: z.boolean().optional(),
-  objectACL: models
-    .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
-    .optional(),
-  storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
-    .optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  addIdToStagePath: z.boolean().optional(),
-  removeEmptyDirs: z.boolean().optional(),
-  partitionExpr: z.string().optional(),
-  format: models.DataFormatOptions$outboundSchema.optional(),
-  baseFileName: z.string().optional(),
-  fileNameSuffix: z.string().optional(),
-  maxFileSizeMB: z.number().optional(),
-  maxFileOpenTimeSec: z.number().optional(),
-  maxFileIdleTimeSec: z.number().optional(),
-  maxOpenFiles: z.number().optional(),
-  headerLine: z.string().optional(),
-  writeHighWaterMark: z.number().optional(),
-  onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
-    .optional(),
-  deadletterEnabled: z.boolean().optional(),
-  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .optional(),
-  forceCloseOnShutdown: z.boolean().optional(),
-  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
-  orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
-  description: z.string().optional(),
-  compress: models.CompressionOptionsHttp$outboundSchema.optional(),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
-  automaticSchema: z.boolean().optional(),
-  parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
-    .optional(),
-  parquetRowGroupLength: z.number().optional(),
-  parquetPageSize: z.string().optional(),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
-  enableStatistics: z.boolean().optional(),
-  enableWritePageIndex: z.boolean().optional(),
-  enablePageChecksum: z.boolean().optional(),
-  emptyDirCleanupSec: z.number().optional(),
-  directoryBatchSize: z.number().optional(),
-  deadletterPath: z.string().optional(),
-  maxRetryNum: z.number().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  __template_streamtags: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_destPath: z.string().optional(),
-  __template_objectACL: z.string().optional(),
-  __template_storageClass: z.string().optional(),
-  __template_partitionExpr: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_baseFileName: z.string().optional(),
-  __template_fileNameSuffix: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
-  __template_compress: z.string().optional(),
-  __template_parquetSchema: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-});
-
-export function createOutputOutputGoogleCloudStorageToJSON(
-  createOutputOutputGoogleCloudStorage: CreateOutputOutputGoogleCloudStorage,
-): string {
-  return JSON.stringify(
-    CreateOutputOutputGoogleCloudStorage$outboundSchema.parse(
-      createOutputOutputGoogleCloudStorage,
-    ),
-  );
-}
-
-/** @internal */
-export const CreateOutputAPIVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputAPIVersion
-> = openEnums.outboundSchema(CreateOutputAPIVersion);
-
-/** @internal */
-export const CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateOutputAuthenticationMethodGoogleChronicle
-  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodGoogleChronicle);
-
-/** @internal */
-export const CreateOutputSendEventsAs$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputSendEventsAs
-> = openEnums.outboundSchema(CreateOutputSendEventsAs);
-
-/** @internal */
-export type CreateOutputExtraLogType$Outbound = {
-  logType: string;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const CreateOutputExtraLogType$outboundSchema: z.ZodType<
-  CreateOutputExtraLogType$Outbound,
-  z.ZodTypeDef,
-  CreateOutputExtraLogType
-> = z.object({
-  logType: z.string(),
-  description: z.string().optional(),
-});
-
-export function createOutputExtraLogTypeToJSON(
-  createOutputExtraLogType: CreateOutputExtraLogType,
-): string {
-  return JSON.stringify(
-    CreateOutputExtraLogType$outboundSchema.parse(createOutputExtraLogType),
-  );
-}
-
-/** @internal */
-export const CreateOutputUDMType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateOutputUDMType
-> = openEnums.outboundSchema(CreateOutputUDMType);
+  | CreateOutputOutputScalityS3
+  | CreateOutputOutputAlibabaCloudS3;
 
 /** @internal */
 export type CreateOutputPqControlsGoogleChronicle$Outbound = {};
@@ -5949,7 +5357,7 @@ export type CreateOutputOutputGoogleChronicle$Outbound = {
   apiVersion?: string | undefined;
   authenticationMethod?: string | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -5963,7 +5371,7 @@ export type CreateOutputOutputGoogleChronicle$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
@@ -5976,7 +5384,9 @@ export type CreateOutputOutputGoogleChronicle$Outbound = {
   logTextField?: string | undefined;
   customerId?: string | undefined;
   namespace?: string | undefined;
-  customLabels?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  customLabels?:
+    | Array<models.KeyValueMetadataConfOutputFilesystem$Outbound>
+    | undefined;
   udmType?: string | undefined;
   apiKey?: string | undefined;
   apiKeySecret?: string | undefined;
@@ -6018,7 +5428,7 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   authenticationMethod:
     CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema.optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -6032,8 +5442,9 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -6041,14 +5452,14 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  extraLogTypes: z.array(z.lazy(() => CreateOutputExtraLogType$outboundSchema))
-    .optional(),
+  extraLogTypes: z.array(CreateOutputExtraLogType$outboundSchema).optional(),
   logType: z.string().optional(),
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
+  customLabels: z.array(
+    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+  ).optional(),
   udmType: CreateOutputUDMType$outboundSchema.optional(),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
@@ -6249,13 +5660,13 @@ export type CreateOutputOutputHoneycomb$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -6301,14 +5712,15 @@ export const CreateOutputOutputHoneycomb$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -6386,7 +5798,6 @@ export type CreateOutputOutputKinesis$Outbound = {
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -6444,8 +5855,6 @@ export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsKinesis$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -6538,14 +5947,14 @@ export type CreateOutputOutputAzureLogs$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   apiUrl?: string | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -6595,15 +6004,16 @@ export const CreateOutputOutputAzureLogs$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   apiUrl: z.string().optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -6827,7 +6237,7 @@ export type CreateOutputOutputAzureDataExplorer$Outbound = {
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
-    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | Array<models.KeyValueMetadataConfOutputFilesystem$Outbound>
     | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
@@ -6865,7 +6275,7 @@ export type CreateOutputOutputAzureDataExplorer$Outbound = {
     | Array<CreateOutputAdditionalProperty$Outbound>
     | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -6944,8 +6354,9 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
+  keyValueMetadata: z.array(
+    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+  ).optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),
   enablePageChecksum: z.boolean().optional(),
@@ -6986,7 +6397,7 @@ export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
     z.lazy(() => CreateOutputAdditionalProperty$outboundSchema),
   ).optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -7091,7 +6502,7 @@ export type CreateOutputOutputAzureBlob$Outbound = {
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
-    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | Array<models.KeyValueMetadataConfOutputFilesystem$Outbound>
     | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
@@ -7178,8 +6589,9 @@ export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
+  keyValueMetadata: z.array(
+    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+  ).optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),
   enablePageChecksum: z.boolean().optional(),
@@ -7238,10 +6650,8 @@ export type CreateOutputOutputS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   awsAuthenticationMethod?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
-  awsSecretKey?: string | undefined;
   bucket: string;
   region?: string | undefined;
   destPath?: string | undefined;
@@ -7267,6 +6677,7 @@ export type CreateOutputOutputS3$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType$Outbound | undefined;
   orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
+  awsSecretKey?: string | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -7284,7 +6695,7 @@ export type CreateOutputOutputS3$Outbound = {
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
-    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | Array<models.KeyValueMetadataConfOutputFilesystem$Outbound>
     | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
@@ -7297,7 +6708,6 @@ export type CreateOutputOutputS3$Outbound = {
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
   __template_destPath?: string | undefined;
@@ -7306,6 +6716,7 @@ export type CreateOutputOutputS3$Outbound = {
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
   __template_objectACL?: string | undefined;
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
@@ -7333,11 +6744,8 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   awsAuthenticationMethod: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
-  awsSecretKey: z.string().optional(),
   bucket: z.string(),
   region: z.string().optional(),
   destPath: z.string().optional(),
@@ -7365,6 +6773,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+  awsSecretKey: z.string().optional(),
   objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
@@ -7383,8 +6792,9 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
+  keyValueMetadata: z.array(
+    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+  ).optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),
   enablePageChecksum: z.boolean().optional(),
@@ -7396,7 +6806,6 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
   __template_destPath: z.string().optional(),
@@ -7405,6 +6814,7 @@ export const CreateOutputOutputS3$outboundSchema: z.ZodType<
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
   __template_objectACL: z.string().optional(),
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
@@ -7461,7 +6871,7 @@ export type CreateOutputOutputFilesystem$Outbound = {
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
-    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | Array<models.KeyValueMetadataConfOutputFilesystem$Outbound>
     | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
@@ -7525,8 +6935,9 @@ export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
-    .optional(),
+  keyValueMetadata: z.array(
+    models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+  ).optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),
   enablePageChecksum: z.boolean().optional(),
@@ -7592,13 +7003,13 @@ export type CreateOutputOutputSignalfx$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -7645,14 +7056,15 @@ export const CreateOutputOutputSignalfx$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -7725,13 +7137,13 @@ export type CreateOutputOutputWavefront$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -7778,14 +7190,15 @@ export const CreateOutputOutputWavefront$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -7865,7 +7278,7 @@ export type CreateOutputOutputTcpjson$Outbound = {
   host?: string | undefined;
   port?: number | undefined;
   excludeSelf?: boolean | undefined;
-  hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
+  hosts?: Array<models.HostConfOutputSyslog$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   maxConcurrentSenders?: number | undefined;
@@ -7917,7 +7330,7 @@ export const CreateOutputOutputTcpjson$outboundSchema: z.ZodType<
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
+  hosts: z.array(models.HostConfOutputSyslog$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   maxConcurrentSenders: z.number().optional(),
@@ -7991,13 +7404,13 @@ export type CreateOutputOutputWizHec$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -8052,15 +7465,16 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -8170,14 +7584,14 @@ export type CreateOutputOutputSplunkHec$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   enableMultiMetrics?: boolean | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -8233,8 +7647,9 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -8242,7 +7657,7 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -8405,7 +7820,7 @@ export type CreateOutputOutputSplunkLb$Outbound = {
     | CreateOutputIndexerDiscoveryConfigs$Outbound
     | undefined;
   excludeSelf?: boolean | undefined;
-  hosts: Array<models.ItemsTypeHosts$Outbound>;
+  hosts: Array<models.HostConfOutputSyslog$Outbound>;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -8464,7 +7879,7 @@ export const CreateOutputOutputSplunkLb$outboundSchema: z.ZodType<
     CreateOutputIndexerDiscoveryConfigs$outboundSchema
   ).optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(models.ItemsTypeHosts$outboundSchema),
+  hosts: z.array(models.HostConfOutputSyslog$outboundSchema),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: models.ModeOptions$outboundSchema.optional(),
@@ -8701,7 +8116,7 @@ export type CreateOutputOutputSyslog$Outbound = {
   host?: string | undefined;
   port?: number | undefined;
   excludeSelf?: boolean | undefined;
-  hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
+  hosts?: Array<models.HostConfOutputSyslog$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   maxConcurrentSenders?: number | undefined;
@@ -8756,7 +8171,7 @@ export const CreateOutputOutputSyslog$outboundSchema: z.ZodType<
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
+  hosts: z.array(models.HostConfOutputSyslog$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   maxConcurrentSenders: z.number().optional(),
@@ -8886,13 +8301,13 @@ export type CreateOutputOutputSentinel$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -8963,14 +8378,15 @@ export const CreateOutputOutputSentinel$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -9118,13 +8534,13 @@ export type CreateOutputOutputWebhookWebhook2$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -9167,8 +8583,12 @@ export type CreateOutputOutputWebhookWebhook2$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?:
+    | Array<models.OauthParamConfInputServicenowTable$Outbound>
+    | undefined;
+  oauthHeaders?:
+    | Array<models.OauthHeaderConfInputServicenowTable$Outbound>
+    | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
   urls: Array<CreateOutputOutputWebhookUrl2$Outbound>;
@@ -9204,14 +8624,15 @@ export const CreateOutputOutputWebhookWebhook2$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -9256,8 +8677,11 @@ export const CreateOutputOutputWebhookWebhook2$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(models.OauthParamConfInputServicenowTable$outboundSchema)
+    .optional(),
+  oauthHeaders: z.array(
+    models.OauthHeaderConfInputServicenowTable$outboundSchema,
+  ).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => CreateOutputOutputWebhookUrl2$outboundSchema)),
@@ -9368,13 +8792,13 @@ export type CreateOutputOutputWebhookWebhook1$Outbound = {
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
-    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | Array<models.ExtraHttpHeaderConfInputElastic$Outbound>
     | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | Array<models.ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -9417,8 +8841,12 @@ export type CreateOutputOutputWebhookWebhook1$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?:
+    | Array<models.OauthParamConfInputServicenowTable$Outbound>
+    | undefined;
+  oauthHeaders?:
+    | Array<models.OauthHeaderConfInputServicenowTable$Outbound>
+    | undefined;
   url: string;
   excludeSelf?: boolean | undefined;
   urls?: Array<CreateOutputOutputWebhookUrl1$Outbound> | undefined;
@@ -9454,14 +8882,15 @@ export const CreateOutputOutputWebhookWebhook1$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    models.ExtraHttpHeaderConfInputElastic$outboundSchema,
+  ).optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
+    models.ResponseRetrySettingConfOutputWebhook$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
@@ -9506,8 +8935,11 @@ export const CreateOutputOutputWebhookWebhook1$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(models.OauthParamConfInputServicenowTable$outboundSchema)
+    .optional(),
+  oauthHeaders: z.array(
+    models.OauthHeaderConfInputServicenowTable$outboundSchema,
+  ).optional(),
   url: z.string(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => CreateOutputOutputWebhookUrl1$outboundSchema))
@@ -9674,7 +9106,8 @@ export type CreateOutputRequest$Outbound =
   | CreateOutputOutputAlphasocS3$Outbound
   | CreateOutputOutputDellS3$Outbound
   | CreateOutputOutputCloudianS3$Outbound
-  | CreateOutputOutputScalityS3$Outbound;
+  | CreateOutputOutputScalityS3$Outbound
+  | CreateOutputOutputAlibabaCloudS3$Outbound;
 
 /** @internal */
 export const CreateOutputRequest$outboundSchema: z.ZodType<
@@ -9706,7 +9139,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputOutputHoneycomb$outboundSchema),
   z.lazy(() => CreateOutputOutputAzureEventhub$outboundSchema),
   z.lazy(() => CreateOutputOutputGoogleChronicle$outboundSchema),
-  z.lazy(() => CreateOutputOutputGoogleCloudStorage$outboundSchema),
+  CreateOutputOutputGoogleCloudStorage$outboundSchema,
   CreateOutputOutputGoogleCloudLogging$outboundSchema,
   CreateOutputOutputGooglePubsub$outboundSchema,
   CreateOutputOutputExabeam$outboundSchema,
@@ -9764,6 +9197,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   CreateOutputOutputDellS3$outboundSchema,
   CreateOutputOutputCloudianS3$outboundSchema,
   CreateOutputOutputScalityS3$outboundSchema,
+  CreateOutputOutputAlibabaCloudS3$outboundSchema,
 ]);
 
 export function createOutputRequestToJSON(

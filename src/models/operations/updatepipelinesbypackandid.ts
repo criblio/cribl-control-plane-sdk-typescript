@@ -16,7 +16,7 @@ export type UpdatePipelinesByPackAndIdRequest = {
    */
   pack: string;
   /**
-   * Pipeline object
+   * Pipeline object.
    */
   pipeline: models.PipelineInput;
 };

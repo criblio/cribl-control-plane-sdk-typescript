@@ -21,4 +21,4 @@ let value: UpdateSavedJobByIdRequest = {
 | Field                                           | Type                                            | Required                                        | Description                                     |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | `id`                                            | *string*                                        | :heavy_check_mark:                              | The <code>id</code> of the Collector to update. |
-| `savedJob`                                      | *models.SavedJob*                               | :heavy_check_mark:                              | SavedJob object                                 |
+| `savedJob`                                      | *models.SavedJob*                               | :heavy_check_mark:                              | SavedJob object.                                |

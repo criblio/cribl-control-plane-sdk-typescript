@@ -3,69 +3,51 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  ItemsTypeContentConfigItemsRequestParams,
-  ItemsTypeContentConfigItemsRequestParams$inboundSchema,
-  ItemsTypeContentConfigItemsRequestParams$Outbound,
-  ItemsTypeContentConfigItemsRequestParams$outboundSchema,
-} from "./itemstypecontentconfigitemsrequestparams.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
   MessageFormatOptions,
-  MessageFormatOptions$inboundSchema,
   MessageFormatOptions$outboundSchema,
 } from "./messageformatoptions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   PrometheusAuthType,
-  PrometheusAuthType$inboundSchema,
   PrometheusAuthType$Outbound,
   PrometheusAuthType$outboundSchema,
 } from "./prometheusauthtype.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  RequestParamConfInputOpenai,
+  RequestParamConfInputOpenai$Outbound,
+  RequestParamConfInputOpenai$outboundSchema,
+} from "./requestparamconfinputopenai.js";
+import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
+import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -120,7 +102,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
+  labels?: Array<RequestParamConfInputOpenai> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -158,7 +140,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -174,7 +156,9 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -306,7 +290,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
+  labels?: Array<RequestParamConfInputOpenai> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -344,7 +328,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -360,7 +344,9 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -447,20 +433,10 @@ export type OutputGrafanaCloud =
   | OutputGrafanaCloudGrafanaCloud2;
 
 /** @internal */
-export const OutputGrafanaCloudType2$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType2
-> = z.nativeEnum(OutputGrafanaCloudType2);
-/** @internal */
 export const OutputGrafanaCloudType2$outboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType2
-> = OutputGrafanaCloudType2$inboundSchema;
+> = z.nativeEnum(OutputGrafanaCloudType2);
 
-/** @internal */
-export const OutputGrafanaCloudPqControls2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudPqControls2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputGrafanaCloudPqControls2$Outbound = {};
 
@@ -480,80 +456,7 @@ export function outputGrafanaCloudPqControls2ToJSON(
     ),
   );
 }
-export function outputGrafanaCloudPqControls2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudPqControls2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudPqControls2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudPqControls2' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: OutputGrafanaCloudType2$inboundSchema,
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  lokiUrl: types.optional(types.string()),
-  prometheusUrl: types.string(),
-  message: types.optional(types.string()),
-  messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-  labels: types.optional(
-    z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
-  ),
-  metricRenameExpr: types.optional(types.string()),
-  prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
-  lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  compress: types.optional(types.boolean()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputGrafanaCloudPqControls2$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_lokiUrl: types.optional(types.string()),
-  __template_prometheusUrl: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   id?: string | undefined;
@@ -566,7 +469,7 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   prometheusUrl: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams$Outbound> | undefined;
+  labels?: Array<RequestParamConfInputOpenai$Outbound> | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -576,12 +479,14 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -623,8 +528,7 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   prometheusUrl: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
-    .optional(),
+  labels: z.array(RequestParamConfInputOpenai$outboundSchema).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),
@@ -634,14 +538,15 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
@@ -676,31 +581,12 @@ export function outputGrafanaCloudGrafanaCloud2ToJSON(
     ),
   );
 }
-export function outputGrafanaCloudGrafanaCloud2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudGrafanaCloud2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudGrafanaCloud2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudGrafanaCloud2' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGrafanaCloudType1$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType1
-> = z.nativeEnum(OutputGrafanaCloudType1);
 /** @internal */
 export const OutputGrafanaCloudType1$outboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType1
-> = OutputGrafanaCloudType1$inboundSchema;
+> = z.nativeEnum(OutputGrafanaCloudType1);
 
-/** @internal */
-export const OutputGrafanaCloudPqControls1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudPqControls1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputGrafanaCloudPqControls1$Outbound = {};
 
@@ -720,80 +606,7 @@ export function outputGrafanaCloudPqControls1ToJSON(
     ),
   );
 }
-export function outputGrafanaCloudPqControls1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudPqControls1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudPqControls1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudPqControls1' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: OutputGrafanaCloudType1$inboundSchema,
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  lokiUrl: types.string(),
-  prometheusUrl: types.optional(types.string()),
-  message: types.optional(types.string()),
-  messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-  labels: types.optional(
-    z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
-  ),
-  metricRenameExpr: types.optional(types.string()),
-  prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
-  lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  compress: types.optional(types.boolean()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputGrafanaCloudPqControls1$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_lokiUrl: types.optional(types.string()),
-  __template_prometheusUrl: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   id?: string | undefined;
@@ -806,7 +619,7 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   prometheusUrl?: string | undefined;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<ItemsTypeContentConfigItemsRequestParams$Outbound> | undefined;
+  labels?: Array<RequestParamConfInputOpenai$Outbound> | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -816,12 +629,14 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -863,8 +678,7 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
-    .optional(),
+  labels: z.array(RequestParamConfInputOpenai$outboundSchema).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),
@@ -874,14 +688,15 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
@@ -916,25 +731,7 @@ export function outputGrafanaCloudGrafanaCloud1ToJSON(
     ),
   );
 }
-export function outputGrafanaCloudGrafanaCloud1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudGrafanaCloud1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudGrafanaCloud1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudGrafanaCloud1' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputGrafanaCloud$inboundSchema: z.ZodType<
-  OutputGrafanaCloud,
-  z.ZodTypeDef,
-  unknown
-> = smartUnion([
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud1$inboundSchema),
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud2$inboundSchema),
-]);
 /** @internal */
 export type OutputGrafanaCloud$Outbound =
   | OutputGrafanaCloudGrafanaCloud1$Outbound
@@ -955,14 +752,5 @@ export function outputGrafanaCloudToJSON(
 ): string {
   return JSON.stringify(
     OutputGrafanaCloud$outboundSchema.parse(outputGrafanaCloud),
-  );
-}
-export function outputGrafanaCloudFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloud, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloud$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloud' from JSON`,
   );
 }

@@ -6,10 +6,87 @@ Actions related to DatabaseConnections
 
 ### Available Operations
 
+* [list](#list) - List Database Connections
 * [create](#create) - Create Database Connection
-* [delete](#delete) - Delete a Database Connection
 * [get](#get) - Get a Database Connection
 * [update](#update) - Update a Database Connection
+* [delete](#delete) - Delete a Database Connection
+
+## list
+
+Get a list of all Database Connections.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getDatabaseConnectionConfig" method="get" path="/lib/database-connections" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.list();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsList } from "cribl-control-plane/funcs/databaseConnectionsList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsList(criblControlPlane);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsList failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetDatabaseConnectionConfigRequest](../../models/operations/getdatabaseconnectionconfigrequest.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## create
 
@@ -705,86 +782,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [models.DatabaseConnectionConfig](../../models/databaseconnectionconfig.md)                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## delete
-
-Delete the specified Database Connection.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="deleteDatabaseConnectionConfigById" method="delete" path="/lib/database-connections/{id}" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.databaseConnections.delete({
-    id: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { databaseConnectionsDelete } from "cribl-control-plane/funcs/databaseConnectionsDelete.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await databaseConnectionsDelete(criblControlPlane, {
-    id: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("databaseConnectionsDelete failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteDatabaseConnectionConfigByIdRequest](../../models/operations/deletedatabaseconnectionconfigbyidrequest.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1634,6 +1631,86 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.UpdateDatabaseConnectionConfigByIdRequest](../../models/operations/updatedatabaseconnectionconfigbyidrequest.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
+
+## delete
+
+Delete the specified Database Connection.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteDatabaseConnectionConfigById" method="delete" path="/lib/database-connections/{id}" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.delete({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsDelete } from "cribl-control-plane/funcs/databaseConnectionsDelete.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsDelete(criblControlPlane, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsDelete failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteDatabaseConnectionConfigByIdRequest](../../models/operations/deletedatabaseconnectionconfigbyidrequest.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

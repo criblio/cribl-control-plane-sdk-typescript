@@ -6,15 +6,21 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Storage class used for objects written to the Dataset.
+ */
 export const StorageClassOptionsCriblLakeDataset = {
-  Standard: "STANDARD",
-  StandardIa: "STANDARD_IA",
-  OnezoneIa: "ONEZONE_IA",
-  IntelligentTiering: "INTELLIGENT_TIERING",
+  DeepArchive: "DEEP_ARCHIVE",
   Glacier: "GLACIER",
   GlacierIr: "GLACIER_IR",
-  DeepArchive: "DEEP_ARCHIVE",
+  IntelligentTiering: "INTELLIGENT_TIERING",
+  OnezoneIa: "ONEZONE_IA",
+  Standard: "STANDARD",
+  StandardIa: "STANDARD_IA",
 } as const;
+/**
+ * Storage class used for objects written to the Dataset.
+ */
 export type StorageClassOptionsCriblLakeDataset = OpenEnum<
   typeof StorageClassOptionsCriblLakeDataset
 >;
