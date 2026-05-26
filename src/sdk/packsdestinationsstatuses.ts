@@ -12,23 +12,6 @@ import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class PacksDestinationsStatuses extends ClientSDK {
   /**
-   * Get the status of a Destination within a Pack
-   *
-   * @remarks
-   * Get the status and optional metrics for the specified Destination within the specified Pack.
-   */
-  async get(
-    request: operations.GetOutputStatusSystemOutputsByPackAndIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedOutputStatus> {
-    return unwrapAsync(packsDestinationsStatusesGet(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * List the status of all Destinations within a Pack
    *
    * @remarks
@@ -44,6 +27,23 @@ export class PacksDestinationsStatuses extends ClientSDK {
     >
   > {
     return unwrapResultIterator(packsDestinationsStatusesList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get the status of a Destination within a Pack
+   *
+   * @remarks
+   * Get the status and optional metrics for the specified Destination within the specified Pack.
+   */
+  async get(
+    request: operations.GetOutputStatusSystemOutputsByPackAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedOutputStatus> {
+    return unwrapAsync(packsDestinationsStatusesGet(
       this,
       request,
       options,

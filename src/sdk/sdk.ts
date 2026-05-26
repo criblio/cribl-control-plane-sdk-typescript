@@ -20,11 +20,9 @@ import { System } from "./system.js";
 import { Versions } from "./versions.js";
 
 export class CriblControlPlane extends ClientSDK {
-  private _databaseConnections?: DatabaseConnections;
-  get databaseConnections(): DatabaseConnections {
-    return (this._databaseConnections ??= new DatabaseConnections(
-      this._options,
-    ));
+  private _auth?: Auth;
+  get auth(): Auth {
+    return (this._auth ??= new Auth(this._options));
   }
 
   private _functions?: Functions;
@@ -32,29 +30,16 @@ export class CriblControlPlane extends ClientSDK {
     return (this._functions ??= new Functions(this._options));
   }
 
-  private _sources?: Sources;
-  get sources(): Sources {
-    return (this._sources ??= new Sources(this._options));
+  private _health?: Health;
+  get health(): Health {
+    return (this._health ??= new Health(this._options));
   }
 
-  private _packs?: Packs;
-  get packs(): Packs {
-    return (this._packs ??= new Packs(this._options));
-  }
-
-  private _destinations?: Destinations;
-  get destinations(): Destinations {
-    return (this._destinations ??= new Destinations(this._options));
-  }
-
-  private _pipelines?: Pipelines;
-  get pipelines(): Pipelines {
-    return (this._pipelines ??= new Pipelines(this._options));
-  }
-
-  private _routes?: Routes;
-  get routes(): Routes {
-    return (this._routes ??= new Routes(this._options));
+  private _databaseConnections?: DatabaseConnections;
+  get databaseConnections(): DatabaseConnections {
+    return (this._databaseConnections ??= new DatabaseConnections(
+      this._options,
+    ));
   }
 
   private _collectors?: Collectors;
@@ -62,24 +47,19 @@ export class CriblControlPlane extends ClientSDK {
     return (this._collectors ??= new Collectors(this._options));
   }
 
+  private _packs?: Packs;
+  get packs(): Packs {
+    return (this._packs ??= new Packs(this._options));
+  }
+
+  private _pipelines?: Pipelines;
+  get pipelines(): Pipelines {
+    return (this._pipelines ??= new Pipelines(this._options));
+  }
+
   private _groups?: Groups;
   get groups(): Groups {
     return (this._groups ??= new Groups(this._options));
-  }
-
-  private _lakes?: Lakes;
-  get lakes(): Lakes {
-    return (this._lakes ??= new Lakes(this._options));
-  }
-
-  private _auth?: Auth;
-  get auth(): Auth {
-    return (this._auth ??= new Auth(this._options));
-  }
-
-  private _system?: System;
-  get system(): System {
-    return (this._system ??= new System(this._options));
   }
 
   private _nodes?: Nodes;
@@ -87,9 +67,29 @@ export class CriblControlPlane extends ClientSDK {
     return (this._nodes ??= new Nodes(this._options));
   }
 
-  private _health?: Health;
-  get health(): Health {
-    return (this._health ??= new Health(this._options));
+  private _lakes?: Lakes;
+  get lakes(): Lakes {
+    return (this._lakes ??= new Lakes(this._options));
+  }
+
+  private _routes?: Routes;
+  get routes(): Routes {
+    return (this._routes ??= new Routes(this._options));
+  }
+
+  private _system?: System;
+  get system(): System {
+    return (this._system ??= new System(this._options));
+  }
+
+  private _sources?: Sources;
+  get sources(): Sources {
+    return (this._sources ??= new Sources(this._options));
+  }
+
+  private _destinations?: Destinations;
+  get destinations(): Destinations {
+    return (this._destinations ??= new Destinations(this._options));
   }
 
   private _versions?: Versions;

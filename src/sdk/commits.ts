@@ -22,6 +22,23 @@ export class Commits extends ClientSDK {
   }
 
   /**
+   * List the commit history
+   *
+   * @remarks
+   * List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+   */
+  async list(
+    request?: operations.GetVersionRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.CountedGitLogResult> {
+    return unwrapAsync(versionsCommitsList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Create a new commit for pending changes to the Cribl configuration
    *
    * @remarks
@@ -49,23 +66,6 @@ export class Commits extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedGitDiffResult> {
     return unwrapAsync(versionsCommitsDiff(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * List the commit history
-   *
-   * @remarks
-   * List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
-   */
-  async list(
-    request?: operations.GetVersionRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.CountedGitLogResult> {
-    return unwrapAsync(versionsCommitsList(
       this,
       request,
       options,
