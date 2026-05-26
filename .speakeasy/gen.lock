@@ -3,17 +3,17 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 47e167ed02b99e75b04bf112c9dc9e40
   docVersion: 4.18.2-alpha.1779750186818-8741fe63
-  speakeasyVersion: 1.764.0
-  generationVersion: 2.885.0
-  releaseVersion: 0.9.0-alpha.1
-  configChecksum: 7c4eff179135d8da6ef17e93fbbe0305
+  speakeasyVersion: 1.765.1
+  generationVersion: 2.886.1
+  releaseVersion: 0.9.0-alpha.2
+  configChecksum: 4aa88c36464de0098092d7bac65f6e85
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: c69d5a64-a62e-445a-baae-d6abbca99b97
-  pristine_commit_hash: 2cb5f299e107a21d64c12642c413e09227b3a5e0
-  pristine_tree_hash: 52f5f1ddfe159aad5b21d598f3b1a21619485908
+  generation_id: a73567e6-b70e-48f8-a689-39954268e726
+  pristine_commit_hash: 3242b0b1d24ade0391ae21940cbca762f3dda82a
+  pristine_tree_hash: b3840e372f47bb6c60cb42b11c04fd5b751ee0e9
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -13258,12 +13258,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:fca81c447fed7aac3f21052e19ff18c0ae635cbb
-    pristine_git_object: 0476d1f39755a98c41d0a45d9aeffe3030310462
+    last_write_checksum: sha1:9b2a50fd7698f95b46d873c69654652fa58df094
+    pristine_git_object: e516df7bb67309f42b0aa1bf6c96804e31a513f1
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:6a4a27e57f91f16aaba5ec6dd9615723ef422f0c
-    pristine_git_object: 3f18fca30dc9391174ad89eb51efa6ef26fc35c5
+    last_write_checksum: sha1:543dfe6879020c826fe8a27bca6378dd6b43221e
+    pristine_git_object: ea35de4d1d142d3781681cfccf43a7a26528eda9
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13766,8 +13766,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:b60235813a5e7a772e35ce0bec9ecb99d11693bd
-    pristine_git_object: be49c630247417560d87d501caf4206a9b86aa1b
+    last_write_checksum: sha1:6b7c874d441cd7ce05ef904e33d30d1e9b32a13f
+    pristine_git_object: fcce3d4020b100b1ad212a66957e2f215e37860c
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -17246,8 +17246,8 @@ trackedFiles:
     pristine_git_object: beb81e10f0b9eee2ed398a853fe6f737b743f818
   src/types/primitives.ts:
     id: 0cd7f4ac625d
-    last_write_checksum: sha1:7295c0fed06c013938e1552807a90f6ad597d05c
-    pristine_git_object: 4b87c2aa7f480a1f94aa0ebb6f31fe2cabd41a75
+    last_write_checksum: sha1:68981cb3ff85c206191120147d8cd43c739ca464
+    pristine_git_object: 6dc2d088f96822570566e784c88481491557b44b
   src/types/rfcdate.ts:
     id: 9eb64906dcd6
     last_write_checksum: sha1:8e5f382e02fe21c2f2e24deb1b7bbf8cddd3dd16
@@ -28349,9 +28349,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `criblcontrolplane.databaseConnections.list()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
