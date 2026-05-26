@@ -11,23 +11,6 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class SourcesPq extends ClientSDK {
   /**
-   * Clear the persistent queue for a Source
-   *
-   * @remarks
-   * Clear the persistent queue (PQ) for the specified Source.
-   */
-  async clear(
-    request: operations.DeleteInputPqByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedString> {
-    return unwrapAsync(sourcesPqClear(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Get information about the latest job to clear the persistent queue for a Source
    *
    * @remarks
@@ -38,6 +21,23 @@ export class SourcesPq extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedJobInfo> {
     return unwrapAsync(sourcesPqGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Clear the persistent queue for a Source
+   *
+   * @remarks
+   * Clear the persistent queue (PQ) for the specified Source.
+   */
+  async clear(
+    request: operations.DeleteInputPqByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedString> {
+    return unwrapAsync(sourcesPqClear(
       this,
       request,
       options,

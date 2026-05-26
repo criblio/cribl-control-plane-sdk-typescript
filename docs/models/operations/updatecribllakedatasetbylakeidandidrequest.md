@@ -8,7 +8,20 @@ import { UpdateCriblLakeDatasetByLakeIdAndIdRequest } from "cribl-control-plane/
 let value: UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
   lakeId: "<id>",
   id: "<id>",
-  criblLakeDatasetUpdate: {},
+  criblLakeDatasetUpdate: {
+    searchConfig: {
+      metadata: {
+        earliest: "-30d",
+        enableAcceleration: true,
+        fieldList: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        scanMode: "detailed",
+      },
+    },
+  },
 };
 ```
 
@@ -18,4 +31,4 @@ let value: UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `lakeId`                                                                  | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake that contains the Lake Dataset to update. |
 | `id`                                                                      | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake Dataset to update.                        |
-| `criblLakeDatasetUpdate`                                                  | [models.CriblLakeDatasetUpdate](../../models/cribllakedatasetupdate.md)   | :heavy_check_mark:                                                        | CriblLakeDatasetUpdate object                                             |
+| `criblLakeDatasetUpdate`                                                  | [models.CriblLakeDatasetUpdate](../../models/cribllakedatasetupdate.md)   | :heavy_check_mark:                                                        | CriblLakeDatasetUpdate object.                                            |

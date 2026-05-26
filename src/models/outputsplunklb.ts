@@ -3,59 +3,42 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptions,
-  CompressionOptions$inboundSchema,
   CompressionOptions$outboundSchema,
 } from "./compressionoptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$inboundSchema,
-  ItemsTypeHosts$Outbound,
-  ItemsTypeHosts$outboundSchema,
-} from "./itemstypehosts.js";
+  HostConfOutputSyslog,
+  HostConfOutputSyslog$Outbound,
+  HostConfOutputSyslog$outboundSchema,
+} from "./hostconfoutputsyslog.js";
 import {
   MaxS2SVersionOptions,
-  MaxS2SVersionOptions$inboundSchema,
   MaxS2SVersionOptions$outboundSchema,
 } from "./maxs2sversionoptions.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   NestedFieldSerializationOptions,
-  NestedFieldSerializationOptions$inboundSchema,
   NestedFieldSerializationOptions$outboundSchema,
 } from "./nestedfieldserializationoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -78,7 +61,7 @@ export type OutputSplunkLbAuthToken = {
 /**
  * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
  */
-export type IndexerDiscoveryConfigs = {
+export type OutputSplunkLbIndexerDiscoveryConfigs = {
   /**
    * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
    */
@@ -210,7 +193,7 @@ export type OutputSplunkLb = {
   /**
    * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
    */
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs | undefined;
+  indexerDiscoveryConfigs?: OutputSplunkLbIndexerDiscoveryConfigs | undefined;
   /**
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
@@ -218,7 +201,7 @@ export type OutputSplunkLb = {
   /**
    * Set of Splunk indexers to load-balance data to.
    */
-  hosts: Array<ItemsTypeHosts>;
+  hosts: Array<HostConfOutputSyslog>;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -295,18 +278,6 @@ export type OutputSplunkLb = {
 };
 
 /** @internal */
-export const OutputSplunkLbAuthToken$inboundSchema: z.ZodType<
-  OutputSplunkLbAuthToken,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-});
-/** @internal */
 export type OutputSplunkLbAuthToken$Outbound = {
   authType?: string | undefined;
   authToken?: string | undefined;
@@ -332,37 +303,9 @@ export function outputSplunkLbAuthTokenToJSON(
     OutputSplunkLbAuthToken$outboundSchema.parse(outputSplunkLbAuthToken),
   );
 }
-export function outputSplunkLbAuthTokenFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkLbAuthToken, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkLbAuthToken$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLbAuthToken' from JSON`,
-  );
-}
 
 /** @internal */
-export const IndexerDiscoveryConfigs$inboundSchema: z.ZodType<
-  IndexerDiscoveryConfigs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  site: types.string(),
-  masterUri: types.string(),
-  refreshIntervalSec: types.number(),
-  rejectUnauthorized: types.optional(types.boolean()),
-  authTokens: types.optional(
-    z.array(z.lazy(() => OutputSplunkLbAuthToken$inboundSchema)),
-  ),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-});
-/** @internal */
-export type IndexerDiscoveryConfigs$Outbound = {
+export type OutputSplunkLbIndexerDiscoveryConfigs$Outbound = {
   site: string;
   masterUri: string;
   refreshIntervalSec: number;
@@ -374,10 +317,10 @@ export type IndexerDiscoveryConfigs$Outbound = {
 };
 
 /** @internal */
-export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
-  IndexerDiscoveryConfigs$Outbound,
+export const OutputSplunkLbIndexerDiscoveryConfigs$outboundSchema: z.ZodType<
+  OutputSplunkLbIndexerDiscoveryConfigs$Outbound,
   z.ZodTypeDef,
-  IndexerDiscoveryConfigs
+  OutputSplunkLbIndexerDiscoveryConfigs
 > = z.object({
   site: z.string(),
   masterUri: z.string(),
@@ -391,29 +334,16 @@ export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-export function indexerDiscoveryConfigsToJSON(
-  indexerDiscoveryConfigs: IndexerDiscoveryConfigs,
+export function outputSplunkLbIndexerDiscoveryConfigsToJSON(
+  outputSplunkLbIndexerDiscoveryConfigs: OutputSplunkLbIndexerDiscoveryConfigs,
 ): string {
   return JSON.stringify(
-    IndexerDiscoveryConfigs$outboundSchema.parse(indexerDiscoveryConfigs),
-  );
-}
-export function indexerDiscoveryConfigsFromJSON(
-  jsonString: string,
-): SafeParseResult<IndexerDiscoveryConfigs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => IndexerDiscoveryConfigs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'IndexerDiscoveryConfigs' from JSON`,
+    OutputSplunkLbIndexerDiscoveryConfigs$outboundSchema.parse(
+      outputSplunkLbIndexerDiscoveryConfigs,
+    ),
   );
 }
 
-/** @internal */
-export const OutputSplunkLbPqControls$inboundSchema: z.ZodType<
-  OutputSplunkLbPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputSplunkLbPqControls$Outbound = {};
 
@@ -431,76 +361,7 @@ export function outputSplunkLbPqControlsToJSON(
     OutputSplunkLbPqControls$outboundSchema.parse(outputSplunkLbPqControls),
   );
 }
-export function outputSplunkLbPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkLbPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkLbPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLbPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputSplunkLb$inboundSchema: z.ZodType<
-  OutputSplunkLb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("splunk_lb"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  maxConcurrentSenders: types.optional(types.number()),
-  nestedFields: types.optional(NestedFieldSerializationOptions$inboundSchema),
-  throttleRatePerSec: types.optional(types.string()),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  enableMultiMetrics: types.optional(types.boolean()),
-  enableACK: types.optional(types.boolean()),
-  logFailedRequests: types.optional(types.boolean()),
-  maxS2Sversion: types.optional(MaxS2SVersionOptions$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  indexerDiscovery: types.optional(types.boolean()),
-  senderUnhealthyTimeAllowance: types.optional(types.number()),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  maxFailedHealthChecks: types.optional(types.number()),
-  compress: types.optional(CompressionOptions$inboundSchema),
-  indexerDiscoveryConfigs: types.optional(
-    z.lazy(() => IndexerDiscoveryConfigs$inboundSchema),
-  ),
-  excludeSelf: types.optional(types.boolean()),
-  hosts: z.array(ItemsTypeHosts$inboundSchema),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputSplunkLbPqControls$inboundSchema),
-  ),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_nestedFields: types.optional(types.string()),
-  __template_maxS2Sversion: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-});
 /** @internal */
 export type OutputSplunkLb$Outbound = {
   id?: string | undefined;
@@ -528,9 +389,11 @@ export type OutputSplunkLb$Outbound = {
   description?: string | undefined;
   maxFailedHealthChecks?: number | undefined;
   compress?: string | undefined;
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs$Outbound | undefined;
+  indexerDiscoveryConfigs?:
+    | OutputSplunkLbIndexerDiscoveryConfigs$Outbound
+    | undefined;
   excludeSelf?: boolean | undefined;
-  hosts: Array<ItemsTypeHosts$Outbound>;
+  hosts: Array<HostConfOutputSyslog$Outbound>;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -584,10 +447,11 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().optional(),
   compress: CompressionOptions$outboundSchema.optional(),
-  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$outboundSchema)
-    .optional(),
+  indexerDiscoveryConfigs: z.lazy(() =>
+    OutputSplunkLbIndexerDiscoveryConfigs$outboundSchema
+  ).optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(ItemsTypeHosts$outboundSchema),
+  hosts: z.array(HostConfOutputSyslog$outboundSchema),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: ModeOptions$outboundSchema.optional(),
@@ -611,13 +475,4 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
 
 export function outputSplunkLbToJSON(outputSplunkLb: OutputSplunkLb): string {
   return JSON.stringify(OutputSplunkLb$outboundSchema.parse(outputSplunkLb));
-}
-export function outputSplunkLbFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkLb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkLb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLb' from JSON`,
-  );
 }

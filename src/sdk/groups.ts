@@ -16,14 +16,14 @@ import { Acl } from "./acl.js";
 import { GroupsConfigs } from "./groupsconfigs.js";
 
 export class Groups extends ClientSDK {
-  private _configs?: GroupsConfigs;
-  get configs(): GroupsConfigs {
-    return (this._configs ??= new GroupsConfigs(this._options));
-  }
-
   private _acl?: Acl;
   get acl(): Acl {
     return (this._acl ??= new Acl(this._options));
+  }
+
+  private _configs?: GroupsConfigs;
+  get configs(): GroupsConfigs {
+    return (this._configs ??= new GroupsConfigs(this._options));
   }
 
   /**

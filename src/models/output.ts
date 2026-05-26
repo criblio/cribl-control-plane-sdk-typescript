@@ -3,470 +3,393 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
-import { discriminatedUnion } from "../types/discriminatedUnion.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  OutputAlibabaCloudS3,
+  OutputAlibabaCloudS3$Outbound,
+  OutputAlibabaCloudS3$outboundSchema,
+} from "./outputalibabaclouds3.js";
 import {
   OutputAlphasocS3,
-  OutputAlphasocS3$inboundSchema,
   OutputAlphasocS3$Outbound,
   OutputAlphasocS3$outboundSchema,
 } from "./outputalphasocs3.js";
 import {
   OutputAzureBlob,
-  OutputAzureBlob$inboundSchema,
   OutputAzureBlob$Outbound,
   OutputAzureBlob$outboundSchema,
 } from "./outputazureblob.js";
 import {
   OutputAzureDataExplorer,
-  OutputAzureDataExplorer$inboundSchema,
   OutputAzureDataExplorer$Outbound,
   OutputAzureDataExplorer$outboundSchema,
 } from "./outputazuredataexplorer.js";
 import {
   OutputAzureEventhub,
-  OutputAzureEventhub$inboundSchema,
   OutputAzureEventhub$Outbound,
   OutputAzureEventhub$outboundSchema,
 } from "./outputazureeventhub.js";
 import {
   OutputAzureLogs,
-  OutputAzureLogs$inboundSchema,
   OutputAzureLogs$Outbound,
   OutputAzureLogs$outboundSchema,
 } from "./outputazurelogs.js";
 import {
   OutputChronicle,
-  OutputChronicle$inboundSchema,
   OutputChronicle$Outbound,
   OutputChronicle$outboundSchema,
 } from "./outputchronicle.js";
 import {
   OutputClickHouse,
-  OutputClickHouse$inboundSchema,
   OutputClickHouse$Outbound,
   OutputClickHouse$outboundSchema,
 } from "./outputclickhouse.js";
 import {
   OutputCloudflareR2,
-  OutputCloudflareR2$inboundSchema,
   OutputCloudflareR2$Outbound,
   OutputCloudflareR2$outboundSchema,
 } from "./outputcloudflarer2.js";
 import {
   OutputCloudianS3,
-  OutputCloudianS3$inboundSchema,
   OutputCloudianS3$Outbound,
   OutputCloudianS3$outboundSchema,
 } from "./outputcloudians3.js";
 import {
   OutputCloudwatch,
-  OutputCloudwatch$inboundSchema,
   OutputCloudwatch$Outbound,
   OutputCloudwatch$outboundSchema,
 } from "./outputcloudwatch.js";
 import {
   OutputConfluentCloud,
-  OutputConfluentCloud$inboundSchema,
   OutputConfluentCloud$Outbound,
   OutputConfluentCloud$outboundSchema,
 } from "./outputconfluentcloud.js";
 import {
   OutputCriblHttp,
-  OutputCriblHttp$inboundSchema,
   OutputCriblHttp$Outbound,
   OutputCriblHttp$outboundSchema,
 } from "./outputcriblhttp.js";
 import {
   OutputCriblLake,
-  OutputCriblLake$inboundSchema,
   OutputCriblLake$Outbound,
   OutputCriblLake$outboundSchema,
 } from "./outputcribllake.js";
 import {
   OutputCriblSearchEngine,
-  OutputCriblSearchEngine$inboundSchema,
   OutputCriblSearchEngine$Outbound,
   OutputCriblSearchEngine$outboundSchema,
 } from "./outputcriblsearchengine.js";
 import {
   OutputCriblTcp,
-  OutputCriblTcp$inboundSchema,
   OutputCriblTcp$Outbound,
   OutputCriblTcp$outboundSchema,
 } from "./outputcribltcp.js";
 import {
   OutputCrowdstrikeNextGenSiem,
-  OutputCrowdstrikeNextGenSiem$inboundSchema,
   OutputCrowdstrikeNextGenSiem$Outbound,
   OutputCrowdstrikeNextGenSiem$outboundSchema,
 } from "./outputcrowdstrikenextgensiem.js";
 import {
   OutputDatabricks,
-  OutputDatabricks$inboundSchema,
   OutputDatabricks$Outbound,
   OutputDatabricks$outboundSchema,
 } from "./outputdatabricks.js";
 import {
   OutputDatadog,
-  OutputDatadog$inboundSchema,
   OutputDatadog$Outbound,
   OutputDatadog$outboundSchema,
 } from "./outputdatadog.js";
 import {
   OutputDataset,
-  OutputDataset$inboundSchema,
   OutputDataset$Outbound,
   OutputDataset$outboundSchema,
 } from "./outputdataset.js";
 import {
   OutputDefault,
-  OutputDefault$inboundSchema,
   OutputDefault$Outbound,
   OutputDefault$outboundSchema,
 } from "./outputdefault.js";
 import {
   OutputDellS3,
-  OutputDellS3$inboundSchema,
   OutputDellS3$Outbound,
   OutputDellS3$outboundSchema,
 } from "./outputdells3.js";
 import {
   OutputDevnull,
-  OutputDevnull$inboundSchema,
   OutputDevnull$Outbound,
   OutputDevnull$outboundSchema,
 } from "./outputdevnull.js";
 import {
   OutputDiskSpool,
-  OutputDiskSpool$inboundSchema,
   OutputDiskSpool$Outbound,
   OutputDiskSpool$outboundSchema,
 } from "./outputdiskspool.js";
 import {
   OutputDlS3,
-  OutputDlS3$inboundSchema,
   OutputDlS3$Outbound,
   OutputDlS3$outboundSchema,
 } from "./outputdls3.js";
 import {
   OutputDynatraceHttp,
-  OutputDynatraceHttp$inboundSchema,
   OutputDynatraceHttp$Outbound,
   OutputDynatraceHttp$outboundSchema,
 } from "./outputdynatracehttp.js";
 import {
   OutputDynatraceOtlp,
-  OutputDynatraceOtlp$inboundSchema,
   OutputDynatraceOtlp$Outbound,
   OutputDynatraceOtlp$outboundSchema,
 } from "./outputdynatraceotlp.js";
 import {
   OutputElastic,
-  OutputElastic$inboundSchema,
   OutputElastic$Outbound,
   OutputElastic$outboundSchema,
 } from "./outputelastic.js";
 import {
   OutputElasticCloud,
-  OutputElasticCloud$inboundSchema,
   OutputElasticCloud$Outbound,
   OutputElasticCloud$outboundSchema,
 } from "./outputelasticcloud.js";
 import {
   OutputExabeam,
-  OutputExabeam$inboundSchema,
   OutputExabeam$Outbound,
   OutputExabeam$outboundSchema,
 } from "./outputexabeam.js";
 import {
   OutputFilesystem,
-  OutputFilesystem$inboundSchema,
   OutputFilesystem$Outbound,
   OutputFilesystem$outboundSchema,
 } from "./outputfilesystem.js";
 import {
   OutputGoogleChronicle,
-  OutputGoogleChronicle$inboundSchema,
   OutputGoogleChronicle$Outbound,
   OutputGoogleChronicle$outboundSchema,
 } from "./outputgooglechronicle.js";
 import {
   OutputGoogleCloudLogging,
-  OutputGoogleCloudLogging$inboundSchema,
   OutputGoogleCloudLogging$Outbound,
   OutputGoogleCloudLogging$outboundSchema,
 } from "./outputgooglecloudlogging.js";
 import {
   OutputGoogleCloudStorage,
-  OutputGoogleCloudStorage$inboundSchema,
   OutputGoogleCloudStorage$Outbound,
   OutputGoogleCloudStorage$outboundSchema,
 } from "./outputgooglecloudstorage.js";
 import {
   OutputGooglePubsub,
-  OutputGooglePubsub$inboundSchema,
   OutputGooglePubsub$Outbound,
   OutputGooglePubsub$outboundSchema,
 } from "./outputgooglepubsub.js";
 import {
   OutputGrafanaCloud,
-  OutputGrafanaCloud$inboundSchema,
   OutputGrafanaCloud$Outbound,
   OutputGrafanaCloud$outboundSchema,
 } from "./outputgrafanacloud.js";
 import {
   OutputGraphite,
-  OutputGraphite$inboundSchema,
   OutputGraphite$Outbound,
   OutputGraphite$outboundSchema,
 } from "./outputgraphite.js";
 import {
   OutputHoneycomb,
-  OutputHoneycomb$inboundSchema,
   OutputHoneycomb$Outbound,
   OutputHoneycomb$outboundSchema,
 } from "./outputhoneycomb.js";
 import {
   OutputHumioHec,
-  OutputHumioHec$inboundSchema,
   OutputHumioHec$Outbound,
   OutputHumioHec$outboundSchema,
 } from "./outputhumiohec.js";
 import {
   OutputInfluxdb,
-  OutputInfluxdb$inboundSchema,
   OutputInfluxdb$Outbound,
   OutputInfluxdb$outboundSchema,
 } from "./outputinfluxdb.js";
 import {
   OutputKafka,
-  OutputKafka$inboundSchema,
   OutputKafka$Outbound,
   OutputKafka$outboundSchema,
 } from "./outputkafka.js";
 import {
   OutputKinesis,
-  OutputKinesis$inboundSchema,
   OutputKinesis$Outbound,
   OutputKinesis$outboundSchema,
 } from "./outputkinesis.js";
 import {
   OutputLocalSearchStorage,
-  OutputLocalSearchStorage$inboundSchema,
   OutputLocalSearchStorage$Outbound,
   OutputLocalSearchStorage$outboundSchema,
 } from "./outputlocalsearchstorage.js";
 import {
   OutputLoki,
-  OutputLoki$inboundSchema,
   OutputLoki$Outbound,
   OutputLoki$outboundSchema,
 } from "./outputloki.js";
 import {
   OutputMicrosoftFabric,
-  OutputMicrosoftFabric$inboundSchema,
   OutputMicrosoftFabric$Outbound,
   OutputMicrosoftFabric$outboundSchema,
 } from "./outputmicrosoftfabric.js";
 import {
   OutputMinio,
-  OutputMinio$inboundSchema,
   OutputMinio$Outbound,
   OutputMinio$outboundSchema,
 } from "./outputminio.js";
 import {
   OutputMsk,
-  OutputMsk$inboundSchema,
   OutputMsk$Outbound,
   OutputMsk$outboundSchema,
 } from "./outputmsk.js";
 import {
   OutputNetflow,
-  OutputNetflow$inboundSchema,
   OutputNetflow$Outbound,
   OutputNetflow$outboundSchema,
 } from "./outputnetflow.js";
 import {
   OutputNewrelic,
-  OutputNewrelic$inboundSchema,
   OutputNewrelic$Outbound,
   OutputNewrelic$outboundSchema,
 } from "./outputnewrelic.js";
 import {
   OutputNewrelicEvents,
-  OutputNewrelicEvents$inboundSchema,
   OutputNewrelicEvents$Outbound,
   OutputNewrelicEvents$outboundSchema,
 } from "./outputnewrelicevents.js";
 import {
   OutputNutanixObjects,
-  OutputNutanixObjects$inboundSchema,
   OutputNutanixObjects$Outbound,
   OutputNutanixObjects$outboundSchema,
 } from "./outputnutanixobjects.js";
 import {
   OutputOpenTelemetry,
-  OutputOpenTelemetry$inboundSchema,
   OutputOpenTelemetry$Outbound,
   OutputOpenTelemetry$outboundSchema,
 } from "./outputopentelemetry.js";
 import {
   OutputPrometheus,
-  OutputPrometheus$inboundSchema,
   OutputPrometheus$Outbound,
   OutputPrometheus$outboundSchema,
 } from "./outputprometheus.js";
 import {
   OutputRing,
-  OutputRing$inboundSchema,
   OutputRing$Outbound,
   OutputRing$outboundSchema,
 } from "./outputring.js";
 import {
   OutputRouter,
-  OutputRouter$inboundSchema,
   OutputRouter$Outbound,
   OutputRouter$outboundSchema,
 } from "./outputrouter.js";
 import {
   OutputS3,
-  OutputS3$inboundSchema,
   OutputS3$Outbound,
   OutputS3$outboundSchema,
 } from "./outputs3.js";
 import {
   OutputScalityS3,
-  OutputScalityS3$inboundSchema,
   OutputScalityS3$Outbound,
   OutputScalityS3$outboundSchema,
 } from "./outputscalitys3.js";
 import {
   OutputSecurityLake,
-  OutputSecurityLake$inboundSchema,
   OutputSecurityLake$Outbound,
   OutputSecurityLake$outboundSchema,
 } from "./outputsecuritylake.js";
 import {
   OutputSentinel,
-  OutputSentinel$inboundSchema,
   OutputSentinel$Outbound,
   OutputSentinel$outboundSchema,
 } from "./outputsentinel.js";
 import {
   OutputSentinelOneAiSiem,
-  OutputSentinelOneAiSiem$inboundSchema,
   OutputSentinelOneAiSiem$Outbound,
   OutputSentinelOneAiSiem$outboundSchema,
 } from "./outputsentineloneaisiem.js";
 import {
   OutputServiceNow,
-  OutputServiceNow$inboundSchema,
   OutputServiceNow$Outbound,
   OutputServiceNow$outboundSchema,
 } from "./outputservicenow.js";
 import {
   OutputSignalfx,
-  OutputSignalfx$inboundSchema,
   OutputSignalfx$Outbound,
   OutputSignalfx$outboundSchema,
 } from "./outputsignalfx.js";
 import {
   OutputSnmp,
-  OutputSnmp$inboundSchema,
   OutputSnmp$Outbound,
   OutputSnmp$outboundSchema,
 } from "./outputsnmp.js";
 import {
   OutputSns,
-  OutputSns$inboundSchema,
   OutputSns$Outbound,
   OutputSns$outboundSchema,
 } from "./outputsns.js";
 import {
   OutputSplunk,
-  OutputSplunk$inboundSchema,
   OutputSplunk$Outbound,
   OutputSplunk$outboundSchema,
 } from "./outputsplunk.js";
 import {
   OutputSplunkHec,
-  OutputSplunkHec$inboundSchema,
   OutputSplunkHec$Outbound,
   OutputSplunkHec$outboundSchema,
 } from "./outputsplunkhec.js";
 import {
   OutputSplunkLb,
-  OutputSplunkLb$inboundSchema,
   OutputSplunkLb$Outbound,
   OutputSplunkLb$outboundSchema,
 } from "./outputsplunklb.js";
 import {
   OutputSqs,
-  OutputSqs$inboundSchema,
   OutputSqs$Outbound,
   OutputSqs$outboundSchema,
 } from "./outputsqs.js";
 import {
   OutputStatsd,
-  OutputStatsd$inboundSchema,
   OutputStatsd$Outbound,
   OutputStatsd$outboundSchema,
 } from "./outputstatsd.js";
 import {
   OutputStatsdExt,
-  OutputStatsdExt$inboundSchema,
   OutputStatsdExt$Outbound,
   OutputStatsdExt$outboundSchema,
 } from "./outputstatsdext.js";
 import {
   OutputStorjS3,
-  OutputStorjS3$inboundSchema,
   OutputStorjS3$Outbound,
   OutputStorjS3$outboundSchema,
 } from "./outputstorjs3.js";
 import {
   OutputSumoLogic,
-  OutputSumoLogic$inboundSchema,
   OutputSumoLogic$Outbound,
   OutputSumoLogic$outboundSchema,
 } from "./outputsumologic.js";
 import {
   OutputSyslog,
-  OutputSyslog$inboundSchema,
   OutputSyslog$Outbound,
   OutputSyslog$outboundSchema,
 } from "./outputsyslog.js";
 import {
   OutputTcpjson,
-  OutputTcpjson$inboundSchema,
   OutputTcpjson$Outbound,
   OutputTcpjson$outboundSchema,
 } from "./outputtcpjson.js";
 import {
   OutputWavefront,
-  OutputWavefront$inboundSchema,
   OutputWavefront$Outbound,
   OutputWavefront$outboundSchema,
 } from "./outputwavefront.js";
 import {
   OutputWebhook,
-  OutputWebhook$inboundSchema,
   OutputWebhook$Outbound,
   OutputWebhook$outboundSchema,
 } from "./outputwebhook.js";
 import {
   OutputWizHec,
-  OutputWizHec$inboundSchema,
   OutputWizHec$Outbound,
   OutputWizHec$outboundSchema,
 } from "./outputwizhec.js";
 import {
   OutputXsiam,
-  OutputXsiam$inboundSchema,
   OutputXsiam$Outbound,
   OutputXsiam$outboundSchema,
 } from "./outputxsiam.js";
@@ -549,93 +472,8 @@ export type Output =
   | OutputDellS3
   | OutputCloudianS3
   | OutputScalityS3
-  | discriminatedUnionTypes.Unknown<"type">;
+  | OutputAlibabaCloudS3;
 
-/** @internal */
-export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
-  discriminatedUnion("type", {
-    default: OutputDefault$inboundSchema,
-    webhook: OutputWebhook$inboundSchema.and(
-      z.object({ type: z.literal("webhook") }),
-    ),
-    sentinel: OutputSentinel$inboundSchema,
-    devnull: OutputDevnull$inboundSchema,
-    syslog: OutputSyslog$inboundSchema,
-    splunk: OutputSplunk$inboundSchema,
-    splunk_lb: OutputSplunkLb$inboundSchema,
-    splunk_hec: OutputSplunkHec$inboundSchema,
-    wiz_hec: OutputWizHec$inboundSchema,
-    tcpjson: OutputTcpjson$inboundSchema,
-    wavefront: OutputWavefront$inboundSchema,
-    signalfx: OutputSignalfx$inboundSchema,
-    filesystem: OutputFilesystem$inboundSchema,
-    s3: OutputS3$inboundSchema,
-    azure_blob: OutputAzureBlob$inboundSchema,
-    azure_data_explorer: OutputAzureDataExplorer$inboundSchema,
-    azure_logs: OutputAzureLogs$inboundSchema,
-    kinesis: OutputKinesis$inboundSchema,
-    honeycomb: OutputHoneycomb$inboundSchema,
-    azure_eventhub: OutputAzureEventhub$inboundSchema,
-    google_chronicle: OutputGoogleChronicle$inboundSchema,
-    google_cloud_storage: OutputGoogleCloudStorage$inboundSchema,
-    google_cloud_logging: OutputGoogleCloudLogging$inboundSchema,
-    google_pubsub: OutputGooglePubsub$inboundSchema,
-    exabeam: OutputExabeam$inboundSchema,
-    kafka: OutputKafka$inboundSchema,
-    confluent_cloud: OutputConfluentCloud$inboundSchema,
-    msk: OutputMsk$inboundSchema,
-    elastic: OutputElastic$inboundSchema,
-    elastic_cloud: OutputElasticCloud$inboundSchema,
-    newrelic: OutputNewrelic$inboundSchema,
-    newrelic_events: OutputNewrelicEvents$inboundSchema,
-    influxdb: OutputInfluxdb$inboundSchema,
-    cloudwatch: OutputCloudwatch$inboundSchema,
-    minio: OutputMinio$inboundSchema,
-    statsd: OutputStatsd$inboundSchema,
-    statsd_ext: OutputStatsdExt$inboundSchema,
-    graphite: OutputGraphite$inboundSchema,
-    router: OutputRouter$inboundSchema,
-    sns: OutputSns$inboundSchema,
-    sqs: OutputSqs$inboundSchema,
-    snmp: OutputSnmp$inboundSchema,
-    sumo_logic: OutputSumoLogic$inboundSchema,
-    datadog: OutputDatadog$inboundSchema,
-    grafana_cloud: OutputGrafanaCloud$inboundSchema.and(
-      z.object({ type: z.literal("grafana_cloud") }),
-    ),
-    loki: OutputLoki$inboundSchema,
-    prometheus: OutputPrometheus$inboundSchema,
-    ring: OutputRing$inboundSchema,
-    open_telemetry: OutputOpenTelemetry$inboundSchema,
-    service_now: OutputServiceNow$inboundSchema,
-    dataset: OutputDataset$inboundSchema,
-    cribl_tcp: OutputCriblTcp$inboundSchema,
-    cribl_http: OutputCriblHttp$inboundSchema,
-    cribl_search_engine: OutputCriblSearchEngine$inboundSchema,
-    humio_hec: OutputHumioHec$inboundSchema,
-    crowdstrike_next_gen_siem: OutputCrowdstrikeNextGenSiem$inboundSchema,
-    dl_s3: OutputDlS3$inboundSchema,
-    security_lake: OutputSecurityLake$inboundSchema,
-    cribl_lake: OutputCriblLake$inboundSchema,
-    disk_spool: OutputDiskSpool$inboundSchema,
-    click_house: OutputClickHouse$inboundSchema,
-    local_search_storage: OutputLocalSearchStorage$inboundSchema,
-    xsiam: OutputXsiam$inboundSchema,
-    netflow: OutputNetflow$inboundSchema,
-    dynatrace_http: OutputDynatraceHttp$inboundSchema,
-    dynatrace_otlp: OutputDynatraceOtlp$inboundSchema,
-    sentinel_one_ai_siem: OutputSentinelOneAiSiem$inboundSchema,
-    chronicle: OutputChronicle$inboundSchema,
-    databricks: OutputDatabricks$inboundSchema,
-    microsoft_fabric: OutputMicrosoftFabric$inboundSchema,
-    cloudflare_r2: OutputCloudflareR2$inboundSchema,
-    nutanix_objects: OutputNutanixObjects$inboundSchema,
-    storj_s3: OutputStorjS3$inboundSchema,
-    alphasoc_s3: OutputAlphasocS3$inboundSchema,
-    dell_s3: OutputDellS3$inboundSchema,
-    cloudian_s3: OutputCloudianS3$inboundSchema,
-    scality_s3: OutputScalityS3$inboundSchema,
-  });
 /** @internal */
 export type Output$Outbound =
   | OutputDefault$Outbound
@@ -714,7 +552,8 @@ export type Output$Outbound =
   | OutputAlphasocS3$Outbound
   | OutputDellS3$Outbound
   | OutputCloudianS3$Outbound
-  | OutputScalityS3$Outbound;
+  | OutputScalityS3$Outbound
+  | OutputAlibabaCloudS3$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -801,17 +640,9 @@ export const Output$outboundSchema: z.ZodType<
   OutputDellS3$outboundSchema,
   OutputCloudianS3$outboundSchema,
   OutputScalityS3$outboundSchema,
+  OutputAlibabaCloudS3$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {
   return JSON.stringify(Output$outboundSchema.parse(output));
-}
-export function outputFromJSON(
-  jsonString: string,
-): SafeParseResult<Output, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Output$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Output' from JSON`,
-  );
 }

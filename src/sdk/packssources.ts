@@ -40,7 +40,7 @@ export class PacksSources extends ClientSDK {
   async list(
     request: operations.GetInputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesList(
       this,
       request,
@@ -57,7 +57,7 @@ export class PacksSources extends ClientSDK {
   async create(
     request: operations.CreateInputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesCreate(
       this,
       request,
@@ -74,7 +74,7 @@ export class PacksSources extends ClientSDK {
   async get(
     request: operations.GetInputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesGet(
       this,
       request,
@@ -91,7 +91,7 @@ export class PacksSources extends ClientSDK {
   async update(
     request: operations.UpdateInputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesUpdate(
       this,
       request,
@@ -108,7 +108,7 @@ export class PacksSources extends ClientSDK {
   async delete(
     request: operations.DeleteInputSystemByPackAndIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInput> {
+  ): Promise<models.CountedInputResponse> {
     return unwrapAsync(packsSourcesDelete(
       this,
       request,

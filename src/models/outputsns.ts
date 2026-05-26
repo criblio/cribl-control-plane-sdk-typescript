@@ -3,46 +3,19 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
-
-/**
- * Signature version to use for signing SNS requests
- */
-export const OutputSnsSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing SNS requests
- */
-export type OutputSnsSignatureVersion = OpenEnum<
-  typeof OutputSnsSignatureVersion
->;
 
 export type OutputSnsPqControls = {};
 
@@ -93,10 +66,6 @@ export type OutputSns = {
    * SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
    */
   endpoint?: string | undefined;
-  /**
-   * Signature version to use for signing SNS requests
-   */
-  signatureVersion?: OutputSnsSignatureVersion | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -219,25 +188,6 @@ export type OutputSns = {
 };
 
 /** @internal */
-export const OutputSnsSignatureVersion$inboundSchema: z.ZodType<
-  OutputSnsSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSnsSignatureVersion);
-/** @internal */
-export const OutputSnsSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSnsSignatureVersion
-> = openEnums.outboundSchema(OutputSnsSignatureVersion);
-
-/** @internal */
-export const OutputSnsPqControls$inboundSchema: z.ZodType<
-  OutputSnsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputSnsPqControls$Outbound = {};
 
 /** @internal */
@@ -254,69 +204,7 @@ export function outputSnsPqControlsToJSON(
     OutputSnsPqControls$outboundSchema.parse(outputSnsPqControls),
   );
 }
-export function outputSnsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSnsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSnsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSnsPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputSns$inboundSchema: z.ZodType<
-  OutputSns,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("sns"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  topicArn: types.string(),
-  messageGroupId: types.string(),
-  maxRetries: types.optional(types.number()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.optional(types.string()),
-  endpoint: types.optional(types.string()),
-  signatureVersion: types.optional(OutputSnsSignatureVersion$inboundSchema),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(z.lazy(() => OutputSnsPqControls$inboundSchema)),
-  __template_streamtags: types.optional(types.string()),
-  __template_topicArn: types.optional(types.string()),
-  __template_messageGroupId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-});
 /** @internal */
 export type OutputSns$Outbound = {
   id?: string | undefined;
@@ -332,7 +220,6 @@ export type OutputSns$Outbound = {
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   enableAssumeRole?: boolean | undefined;
@@ -386,7 +273,6 @@ export const OutputSns$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSnsSignatureVersion$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -423,13 +309,4 @@ export const OutputSns$outboundSchema: z.ZodType<
 
 export function outputSnsToJSON(outputSns: OutputSns): string {
   return JSON.stringify(OutputSns$outboundSchema.parse(outputSns));
-}
-export function outputSnsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSns, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSns$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSns' from JSON`,
-  );
 }

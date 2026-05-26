@@ -3,81 +3,59 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
-  BackpressureBehaviorOptionsBlockDrop$inboundSchema,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
   CompressionLevelOptions,
-  CompressionLevelOptions$inboundSchema,
   CompressionLevelOptions$outboundSchema,
 } from "./compressionleveloptions.js";
 import {
   CompressionOptionsHttp,
-  CompressionOptionsHttp$inboundSchema,
   CompressionOptionsHttp$outboundSchema,
 } from "./compressionoptionshttp.js";
 import {
   DataFormatOptions,
-  DataFormatOptions$inboundSchema,
   DataFormatOptions$outboundSchema,
 } from "./dataformatoptions.js";
 import {
   DataPageVersionOptions,
-  DataPageVersionOptions$inboundSchema,
   DataPageVersionOptions$outboundSchema,
 } from "./datapageversionoptions.js";
 import {
   DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeKeyValueMetadata,
-  ItemsTypeKeyValueMetadata$inboundSchema,
-  ItemsTypeKeyValueMetadata$Outbound,
-  ItemsTypeKeyValueMetadata$outboundSchema,
-} from "./itemstypekeyvaluemetadata.js";
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$Outbound,
+  KeyValueMetadataConfOutputFilesystem$outboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
 import {
   ObjectAclOptions,
-  ObjectAclOptions$inboundSchema,
   ObjectAclOptions$outboundSchema,
 } from "./objectacloptions.js";
 import {
   OrphanFileRecoveryType,
-  OrphanFileRecoveryType$inboundSchema,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
   ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
   RetrySettingsType,
-  RetrySettingsType$inboundSchema,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 import {
   ServerSideEncryptionForUploadedObjectsOptions,
-  ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
   ServerSideEncryptionForUploadedObjectsOptions$outboundSchema,
 } from "./serversideencryptionforuploadedobjectsoptions.js";
 import {
-  SignatureVersionOptionsS3CollectorConf,
-  SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  SignatureVersionOptionsS3CollectorConf$outboundSchema,
-} from "./signatureversionoptionss3collectorconf.js";
-import {
   StorageClassOptions,
-  StorageClassOptions$inboundSchema,
   StorageClassOptions$outboundSchema,
 } from "./storageclassoptions.js";
 
@@ -128,10 +106,6 @@ export type OutputDlS3 = {
    */
   awsAuthenticationMethod?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
-   */
-  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
-  /**
    * Reuse connections between requests, which can improve performance
    */
   reuseConnections?: boolean | undefined;
@@ -139,10 +113,6 @@ export type OutputDlS3 = {
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
   rejectUnauthorized?: boolean | undefined;
-  /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-   */
-  awsSecretKey?: string | undefined;
   /**
    * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
@@ -234,6 +204,10 @@ export type OutputDlS3 = {
   retrySettings?: RetrySettingsType | undefined;
   orphans?: OrphanFileRecoveryType | undefined;
   /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
    * Object ACL to assign to uploaded objects
    */
   objectACL?: ObjectAclOptions | undefined;
@@ -303,7 +277,7 @@ export type OutputDlS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -349,10 +323,6 @@ export type OutputDlS3 = {
    */
   __template_assumeRoleExternalId?: string | undefined;
   /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
@@ -380,6 +350,10 @@ export type OutputDlS3 = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
   /**
    * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
    */
@@ -415,108 +389,6 @@ export type OutputDlS3 = {
 };
 
 /** @internal */
-export const OutputDlS3$inboundSchema: z.ZodType<
-  OutputDlS3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("dl_s3"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  endpoint: types.optional(types.string()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  signatureVersion: types.optional(
-    SignatureVersionOptionsS3CollectorConf$inboundSchema,
-  ),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  awsSecretKey: types.optional(types.string()),
-  bucket: types.string(),
-  region: types.optional(types.string()),
-  destPath: types.optional(types.string()),
-  maxConcurrentFileParts: types.optional(types.number()),
-  verifyPermissions: types.optional(types.boolean()),
-  maxClosingFilesToBackpressure: types.optional(types.number()),
-  stagePath: types.string(),
-  addIdToStagePath: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  objectACL: types.optional(ObjectAclOptions$inboundSchema),
-  storageClass: types.optional(StorageClassOptions$inboundSchema),
-  serverSideEncryption: types.optional(
-    ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
-  ),
-  kmsKeyId: types.optional(types.string()),
-  partitioningFields: types.optional(z.array(types.string())),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsHttp$inboundSchema),
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  __template_streamtags: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_bucket: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_destPath: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_baseFileName: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_objectACL: types.optional(types.string()),
-  __template_storageClass: types.optional(types.string()),
-  __template_serverSideEncryption: types.optional(types.string()),
-  __template_kmsKeyId: types.optional(types.string()),
-  __template_partitioningFields: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-  __template_parquetSchema: types.optional(types.string()),
-});
-/** @internal */
 export type OutputDlS3$Outbound = {
   id?: string | undefined;
   type: "dl_s3";
@@ -530,10 +402,8 @@ export type OutputDlS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   awsAuthenticationMethod?: string | undefined;
-  signatureVersion?: string | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
-  awsSecretKey?: string | undefined;
   bucket: string;
   region?: string | undefined;
   destPath?: string | undefined;
@@ -558,6 +428,7 @@ export type OutputDlS3$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
   orphans?: OrphanFileRecoveryType$Outbound | undefined;
+  awsSecretKey?: string | undefined;
   objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
@@ -575,7 +446,9 @@ export type OutputDlS3$Outbound = {
   parquetRowGroupLength?: number | undefined;
   parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  keyValueMetadata?:
+    | Array<KeyValueMetadataConfOutputFilesystem$Outbound>
+    | undefined;
   enableStatistics?: boolean | undefined;
   enableWritePageIndex?: boolean | undefined;
   enablePageChecksum?: boolean | undefined;
@@ -587,7 +460,6 @@ export type OutputDlS3$Outbound = {
   __template_endpoint?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
   __template_bucket?: string | undefined;
   __template_region?: string | undefined;
   __template_destPath?: string | undefined;
@@ -595,6 +467,7 @@ export type OutputDlS3$Outbound = {
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
   __template_objectACL?: string | undefined;
   __template_storageClass?: string | undefined;
   __template_serverSideEncryption?: string | undefined;
@@ -623,11 +496,8 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   awsAuthenticationMethod: z.string().optional(),
-  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
-  awsSecretKey: z.string().optional(),
   bucket: z.string(),
   region: z.string().optional(),
   destPath: z.string().optional(),
@@ -653,6 +523,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
+  awsSecretKey: z.string().optional(),
   objectACL: ObjectAclOptions$outboundSchema.optional(),
   storageClass: StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption:
@@ -671,7 +542,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   parquetRowGroupLength: z.number().optional(),
   parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+  keyValueMetadata: z.array(KeyValueMetadataConfOutputFilesystem$outboundSchema)
     .optional(),
   enableStatistics: z.boolean().optional(),
   enableWritePageIndex: z.boolean().optional(),
@@ -684,7 +555,6 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   __template_endpoint: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
   __template_bucket: z.string().optional(),
   __template_region: z.string().optional(),
   __template_destPath: z.string().optional(),
@@ -692,6 +562,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
   __template_objectACL: z.string().optional(),
   __template_storageClass: z.string().optional(),
   __template_serverSideEncryption: z.string().optional(),
@@ -704,13 +575,4 @@ export const OutputDlS3$outboundSchema: z.ZodType<
 
 export function outputDlS3ToJSON(outputDlS3: OutputDlS3): string {
   return JSON.stringify(OutputDlS3$outboundSchema.parse(outputDlS3));
-}
-export function outputDlS3FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDlS3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDlS3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDlS3' from JSON`,
-  );
 }

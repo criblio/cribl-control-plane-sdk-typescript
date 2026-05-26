@@ -3,60 +3,43 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AcknowledgmentsOptionsAllLeader,
-  AcknowledgmentsOptionsAllLeader$inboundSchema,
   AcknowledgmentsOptionsAllLeader$outboundSchema,
 } from "./acknowledgmentsoptionsallleader.js";
 import {
   AuthenticationType,
-  AuthenticationType$inboundSchema,
   AuthenticationType$Outbound,
   AuthenticationType$outboundSchema,
 } from "./authenticationtype.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsGzipLz4,
-  CompressionOptionsGzipLz4$inboundSchema,
   CompressionOptionsGzipLz4$outboundSchema,
 } from "./compressionoptionsgziplz4.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth,
-  KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$Outbound,
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$outboundSchema,
 } from "./kafkaschemaregistryauthenticationtypetemplateschemaregistryurlauth.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   RecordDataFormatOptionsJsonProtobuf,
-  RecordDataFormatOptionsJsonProtobuf$inboundSchema,
   RecordDataFormatOptionsJsonProtobuf$outboundSchema,
 } from "./recorddataformatoptionsjsonprotobuf.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -238,12 +221,6 @@ export type OutputKafka = {
 };
 
 /** @internal */
-export const OutputKafkaPqControls$inboundSchema: z.ZodType<
-  OutputKafkaPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputKafkaPqControls$Outbound = {};
 
 /** @internal */
@@ -260,71 +237,7 @@ export function outputKafkaPqControlsToJSON(
     OutputKafkaPqControls$outboundSchema.parse(outputKafkaPqControls),
   );
 }
-export function outputKafkaPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputKafkaPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputKafkaPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputKafkaPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputKafka$inboundSchema: z.ZodType<
-  OutputKafka,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("kafka"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  brokers: z.array(types.string()),
-  topic: types.string(),
-  ack: types.optional(AcknowledgmentsOptionsAllLeader$inboundSchema),
-  format: types.optional(RecordDataFormatOptionsJsonProtobuf$inboundSchema),
-  compression: types.optional(CompressionOptionsGzipLz4$inboundSchema),
-  maxRecordSizeKB: types.optional(types.number()),
-  flushEventCount: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  kafkaSchemaRegistry: types.optional(
-    KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
-  ),
-  connectionTimeout: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  maxRetries: types.optional(types.number()),
-  maxBackOff: types.optional(types.number()),
-  initialBackoff: types.optional(types.number()),
-  backoffRate: types.optional(types.number()),
-  authenticationTimeout: types.optional(types.number()),
-  reauthenticationThreshold: types.optional(types.number()),
-  sasl: types.optional(AuthenticationType$inboundSchema),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  protobufLibraryId: types.optional(types.string()),
-  protobufEncodingId: types.optional(types.string()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(z.lazy(() => OutputKafkaPqControls$inboundSchema)),
-  __template_streamtags: types.optional(types.string()),
-  __template_topic: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_compression: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputKafka$Outbound = {
   id?: string | undefined;
@@ -435,13 +348,4 @@ export const OutputKafka$outboundSchema: z.ZodType<
 
 export function outputKafkaToJSON(outputKafka: OutputKafka): string {
   return JSON.stringify(OutputKafka$outboundSchema.parse(outputKafka));
-}
-export function outputKafkaFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputKafka, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputKafka$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputKafka' from JSON`,
-  );
 }

@@ -18,16 +18,6 @@ import { PacksRoutes } from "./packsroutes.js";
 import { PacksSources } from "./packssources.js";
 
 export class Packs extends ClientSDK {
-  private _sources?: PacksSources;
-  get sources(): PacksSources {
-    return (this._sources ??= new PacksSources(this._options));
-  }
-
-  private _destinations?: PacksDestinations;
-  get destinations(): PacksDestinations {
-    return (this._destinations ??= new PacksDestinations(this._options));
-  }
-
   private _pipelines?: PacksPipelines;
   get pipelines(): PacksPipelines {
     return (this._pipelines ??= new PacksPipelines(this._options));
@@ -36,6 +26,16 @@ export class Packs extends ClientSDK {
   private _routes?: PacksRoutes;
   get routes(): PacksRoutes {
     return (this._routes ??= new PacksRoutes(this._options));
+  }
+
+  private _sources?: PacksSources;
+  get sources(): PacksSources {
+    return (this._sources ??= new PacksSources(this._options));
+  }
+
+  private _destinations?: PacksDestinations;
+  get destinations(): PacksDestinations {
+    return (this._destinations ??= new PacksDestinations(this._options));
   }
 
   /**
@@ -90,23 +90,6 @@ export class Packs extends ClientSDK {
   }
 
   /**
-   * Uninstall a Pack
-   *
-   * @remarks
-   * Uninstall the specified Pack.
-   */
-  async delete(
-    request: operations.DeletePacksByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedPackUninstallInfo> {
-    return unwrapAsync(packsDelete(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Get a Pack
    *
    * @remarks
@@ -134,6 +117,23 @@ export class Packs extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedPackInfo> {
     return unwrapAsync(packsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Uninstall a Pack
+   *
+   * @remarks
+   * Uninstall the specified Pack.
+   */
+  async delete(
+    request: operations.DeletePacksByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedPackUninstallInfo> {
+    return unwrapAsync(packsDelete(
       this,
       request,
       options,

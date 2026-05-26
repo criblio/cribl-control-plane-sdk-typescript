@@ -16,7 +16,7 @@ export type UpdateRoutesByPackAndIdRequest = {
    */
   pack: string;
   /**
-   * RoutesInput object
+   * RoutesInput object.
    */
   routesInput: models.RoutesInput;
 };

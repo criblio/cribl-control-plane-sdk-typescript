@@ -3,49 +3,34 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
 } from "./authenticationmethodoptionsauthtokensitems.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsGzipNone,
-  CompressionOptionsGzipNone$inboundSchema,
   CompressionOptionsGzipNone$outboundSchema,
 } from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$inboundSchema,
-  ItemsTypeHosts$Outbound,
-  ItemsTypeHosts$outboundSchema,
-} from "./itemstypehosts.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+  HostConfOutputSyslog,
+  HostConfOutputSyslog$Outbound,
+  HostConfOutputSyslog$outboundSchema,
+} from "./hostconfoutputsyslog.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -131,7 +116,7 @@ export type OutputTcpjson = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<ItemsTypeHosts> | undefined;
+  hosts?: Array<HostConfOutputSyslog> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -216,12 +201,6 @@ export type OutputTcpjson = {
 };
 
 /** @internal */
-export const OutputTcpjsonPqControls$inboundSchema: z.ZodType<
-  OutputTcpjsonPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputTcpjsonPqControls$Outbound = {};
 
 /** @internal */
@@ -238,70 +217,7 @@ export function outputTcpjsonPqControlsToJSON(
     OutputTcpjsonPqControls$outboundSchema.parse(outputTcpjsonPqControls),
   );
 }
-export function outputTcpjsonPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputTcpjsonPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputTcpjsonPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputTcpjsonPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputTcpjson$inboundSchema: z.ZodType<
-  OutputTcpjson,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("tcpjson"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(types.boolean()),
-  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
-  logFailedRequests: types.optional(types.boolean()),
-  throttleRatePerSec: types.optional(types.string()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  tokenTTLMinutes: types.optional(types.number()),
-  sendHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  host: types.optional(types.string()),
-  port: types.optional(types.number()),
-  excludeSelf: types.optional(types.boolean()),
-  hosts: types.optional(z.array(ItemsTypeHosts$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  maxConcurrentSenders: types.optional(types.number()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputTcpjsonPqControls$inboundSchema),
-  ),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-});
 /** @internal */
 export type OutputTcpjson$Outbound = {
   id?: string | undefined;
@@ -325,7 +241,7 @@ export type OutputTcpjson$Outbound = {
   host?: string | undefined;
   port?: number | undefined;
   excludeSelf?: boolean | undefined;
-  hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
+  hosts?: Array<HostConfOutputSyslog$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   maxConcurrentSenders?: number | undefined;
@@ -377,7 +293,7 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
+  hosts: z.array(HostConfOutputSyslog$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   maxConcurrentSenders: z.number().optional(),
@@ -403,13 +319,4 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
 
 export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
   return JSON.stringify(OutputTcpjson$outboundSchema.parse(outputTcpjson));
-}
-export function outputTcpjsonFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputTcpjson, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputTcpjson$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputTcpjson' from JSON`,
-  );
 }

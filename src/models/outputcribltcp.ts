@@ -3,50 +3,35 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
+import {
+  AuthTokenConfInputCriblTcp,
+  AuthTokenConfInputCriblTcp$Outbound,
+  AuthTokenConfInputCriblTcp$outboundSchema,
+} from "./authtokenconfinputcribltcp.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsGzipNone,
-  CompressionOptionsGzipNone$inboundSchema,
   CompressionOptionsGzipNone$outboundSchema,
 } from "./compressionoptionsgzipnone.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeAuthTokens,
-  ItemsTypeAuthTokens$inboundSchema,
-  ItemsTypeAuthTokens$Outbound,
-  ItemsTypeAuthTokens$outboundSchema,
-} from "./itemstypeauthtokens.js";
-import {
-  ItemsTypeHosts,
-  ItemsTypeHosts$inboundSchema,
-  ItemsTypeHosts$Outbound,
-  ItemsTypeHosts$outboundSchema,
-} from "./itemstypehosts.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+  HostConfOutputSyslog,
+  HostConfOutputSyslog$Outbound,
+  HostConfOutputSyslog$outboundSchema,
+} from "./hostconfoutputsyslog.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPath,
-  TlsSettingsClientSideTypeCaPathCertPath$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPath$Outbound,
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
@@ -107,7 +92,7 @@ export type OutputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
    */
-  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
+  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -132,7 +117,7 @@ export type OutputCriblTcp = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<ItemsTypeHosts> | undefined;
+  hosts?: Array<HostConfOutputSyslog> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -209,12 +194,6 @@ export type OutputCriblTcp = {
 };
 
 /** @internal */
-export const OutputCriblTcpPqControls$inboundSchema: z.ZodType<
-  OutputCriblTcpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
 export type OutputCriblTcpPqControls$Outbound = {};
 
 /** @internal */
@@ -231,66 +210,7 @@ export function outputCriblTcpPqControlsToJSON(
     OutputCriblTcpPqControls$outboundSchema.parse(outputCriblTcpPqControls),
   );
 }
-export function outputCriblTcpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblTcpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblTcpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblTcpPqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputCriblTcp$inboundSchema: z.ZodType<
-  OutputCriblTcp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl_tcp"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(types.boolean()),
-  compression: types.optional(CompressionOptionsGzipNone$inboundSchema),
-  logFailedRequests: types.optional(types.boolean()),
-  throttleRatePerSec: types.optional(types.string()),
-  tls: types.optional(TlsSettingsClientSideTypeCaPathCertPath$inboundSchema),
-  connectionTimeout: types.optional(types.number()),
-  writeTimeout: types.optional(types.number()),
-  tokenTTLMinutes: types.optional(types.number()),
-  authTokens: types.optional(z.array(ItemsTypeAuthTokens$inboundSchema)),
-  excludeFields: types.optional(z.array(types.string())),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  host: types.optional(types.string()),
-  port: types.optional(types.number()),
-  excludeSelf: types.optional(types.boolean()),
-  hosts: types.optional(z.array(ItemsTypeHosts$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  loadBalanceStatsPeriodSec: types.optional(types.number()),
-  maxConcurrentSenders: types.optional(types.number()),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputCriblTcpPqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-});
 /** @internal */
 export type OutputCriblTcp$Outbound = {
   id?: string | undefined;
@@ -307,14 +227,14 @@ export type OutputCriblTcp$Outbound = {
   connectionTimeout?: number | undefined;
   writeTimeout?: number | undefined;
   tokenTTLMinutes?: number | undefined;
-  authTokens?: Array<ItemsTypeAuthTokens$Outbound> | undefined;
+  authTokens?: Array<AuthTokenConfInputCriblTcp$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
   excludeSelf?: boolean | undefined;
-  hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
+  hosts?: Array<HostConfOutputSyslog$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   maxConcurrentSenders?: number | undefined;
@@ -356,14 +276,14 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   writeTimeout: z.number().optional(),
   tokenTTLMinutes: z.number().optional(),
-  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
+  authTokens: z.array(AuthTokenConfInputCriblTcp$outboundSchema).optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
   excludeSelf: z.boolean().optional(),
-  hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
+  hosts: z.array(HostConfOutputSyslog$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   maxConcurrentSenders: z.number().optional(),
@@ -387,13 +307,4 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
 
 export function outputCriblTcpToJSON(outputCriblTcp: OutputCriblTcp): string {
   return JSON.stringify(OutputCriblTcp$outboundSchema.parse(outputCriblTcp));
-}
-export function outputCriblTcpFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblTcp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblTcp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblTcp' from JSON`,
-  );
 }

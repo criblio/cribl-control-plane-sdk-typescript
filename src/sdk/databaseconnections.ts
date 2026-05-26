@@ -5,6 +5,7 @@
 import { databaseConnectionsCreate } from "../funcs/databaseConnectionsCreate.js";
 import { databaseConnectionsDelete } from "../funcs/databaseConnectionsDelete.js";
 import { databaseConnectionsGet } from "../funcs/databaseConnectionsGet.js";
+import { databaseConnectionsList } from "../funcs/databaseConnectionsList.js";
 import { databaseConnectionsUpdate } from "../funcs/databaseConnectionsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
@@ -12,6 +13,23 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class DatabaseConnections extends ClientSDK {
+  /**
+   * List Database Connections
+   *
+   * @remarks
+   * Get a list of all Database Connections.
+   */
+  async list(
+    request?: operations.GetDatabaseConnectionConfigRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.CountedDatabaseConnectionConfig> {
+    return unwrapAsync(databaseConnectionsList(
+      this,
+      request,
+      options,
+    ));
+  }
+
   /**
    * Create Database Connection
    *
@@ -23,23 +41,6 @@ export class DatabaseConnections extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedDatabaseConnectionConfig> {
     return unwrapAsync(databaseConnectionsCreate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Delete a Database Connection
-   *
-   * @remarks
-   * Delete the specified Database Connection.
-   */
-  async delete(
-    request: operations.DeleteDatabaseConnectionConfigByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedDatabaseConnectionConfig> {
-    return unwrapAsync(databaseConnectionsDelete(
       this,
       request,
       options,
@@ -74,6 +75,23 @@ export class DatabaseConnections extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedDatabaseConnectionConfig> {
     return unwrapAsync(databaseConnectionsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Database Connection
+   *
+   * @remarks
+   * Delete the specified Database Connection.
+   */
+  async delete(
+    request: operations.DeleteDatabaseConnectionConfigByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedDatabaseConnectionConfig> {
+    return unwrapAsync(databaseConnectionsDelete(
       this,
       request,
       options,

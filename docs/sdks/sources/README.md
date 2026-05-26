@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -1209,6 +1209,11 @@ async function run() {
     pqEnabled: false,
     eventHubName: "my-event-hub",
     consumerGroup: "$Default",
+    checkpointing: {
+      blobStore: {
+        containerName: "my-container",
+      },
+    },
   });
 
   console.log(result);
@@ -1242,6 +1247,11 @@ async function run() {
     pqEnabled: false,
     eventHubName: "my-event-hub",
     consumerGroup: "$Default",
+    checkpointing: {
+      blobStore: {
+        containerName: "my-container",
+      },
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -3451,7 +3461,6 @@ async function run() {
       "number",
       "short_description",
     ],
-    useRawValues: true,
     pageSize: 10000,
     cronSchedule: "0 * * * *",
     earliest: "-1d",
@@ -3494,7 +3503,6 @@ async function run() {
       "number",
       "short_description",
     ],
-    useRawValues: true,
     pageSize: 10000,
     cronSchedule: "0 * * * *",
     earliest: "-1d",
@@ -4590,7 +4598,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -4670,7 +4678,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -5898,6 +5906,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
 
@@ -5934,6 +5947,11 @@ async function run() {
       pqEnabled: false,
       eventHubName: "my-event-hub",
       consumerGroup: "$Default",
+      checkpointing: {
+        blobStore: {
+          containerName: "my-container",
+        },
+      },
     },
   });
   if (res.ok) {
@@ -8338,7 +8356,6 @@ async function run() {
         "number",
         "short_description",
       ],
-      useRawValues: true,
       pageSize: 10000,
       cronSchedule: "0 * * * *",
       earliest: "-1d",
@@ -8384,7 +8401,6 @@ async function run() {
         "number",
         "short_description",
       ],
-      useRawValues: true,
       pageSize: 10000,
       cronSchedule: "0 * * * *",
       earliest: "-1d",
@@ -9711,7 +9727,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 
@@ -9791,7 +9807,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
+**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
 
 ### Errors
 

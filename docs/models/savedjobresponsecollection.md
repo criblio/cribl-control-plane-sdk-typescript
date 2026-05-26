@@ -10,7 +10,6 @@ let value: SavedJobResponseCollection = {
   collector: {
     type: "cribl_lake",
     conf: {
-      storageLocationId: "<id>",
       dataset: "<value>",
     },
   },

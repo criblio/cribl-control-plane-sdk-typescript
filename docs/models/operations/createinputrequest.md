@@ -1,6 +1,6 @@
 # CreateInputRequest
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -186,7 +186,7 @@ const value: operations.CreateInputInputPrometheus = {
 const value: operations.CreateInputInputEdgePrometheus = {
   id: "<id>",
   type: "edge_prometheus",
-  discoveryType: "k8s-node",
+  discoveryType: "k8s-pods",
   interval: 9850.99,
 };
 ```
@@ -258,6 +258,11 @@ const value: operations.CreateInputInputEventhubAmqp = {
   id: "<id>",
   type: "eventhub_amqp",
   consumerGroup: "<value>",
+  checkpointing: {
+    blobStore: {
+      containerName: "<value>",
+    },
+  },
 };
 ```
 

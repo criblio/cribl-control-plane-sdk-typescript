@@ -3,63 +3,46 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
 import {
   AuthenticationTypeOptions,
-  AuthenticationTypeOptions$inboundSchema,
   AuthenticationTypeOptions$outboundSchema,
 } from "./authenticationtypeoptions.js";
 import {
   BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
 import {
   CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
   CompressionOptionsPq$outboundSchema,
 } from "./compressionoptionspq.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$Outbound,
+  ExtraHttpHeaderConfInputElastic$outboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
 import {
   FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
+import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  ResponseRetrySettingConfOutputWebhook,
+  ResponseRetrySettingConfOutputWebhook$Outbound,
+  ResponseRetrySettingConfOutputWebhook$outboundSchema,
+} from "./responseretrysettingconfoutputwebhook.js";
+import {
   TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
-  TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
   TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound,
   TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
@@ -83,7 +66,7 @@ export const OutputClickHouseFormat = {
 export type OutputClickHouseFormat = OpenEnum<typeof OutputClickHouseFormat>;
 
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to ClickHouse columns
  */
 export const OutputClickHouseMappingType = {
   /**
@@ -96,7 +79,7 @@ export const OutputClickHouseMappingType = {
   Custom: "custom",
 } as const;
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to ClickHouse columns
  */
 export type OutputClickHouseMappingType = OpenEnum<
   typeof OutputClickHouseMappingType
@@ -156,11 +139,11 @@ export type OutputClickHouse = {
    */
   format?: OutputClickHouseFormat | undefined;
   /**
-   * How event fields are mapped to ClickHouse columns.
+   * How event fields are mapped to ClickHouse columns
    */
   mappingType?: OutputClickHouseMappingType | undefined;
   /**
-   * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+   * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
    */
   asyncInserts?: boolean | undefined;
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
@@ -199,7 +182,7 @@ export type OutputClickHouse = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeaderConfInputElastic> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -215,7 +198,9 @@ export type OutputClickHouse = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  responseRetrySettings?:
+    | Array<ResponseRetrySettingConfOutputWebhook>
+    | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
@@ -241,7 +226,7 @@ export type OutputClickHouse = {
    */
   sqlUsername?: string | undefined;
   /**
-   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
    */
   waitForAsyncInserts?: boolean | undefined;
   /**
@@ -325,12 +310,6 @@ export type OutputClickHouse = {
 };
 
 /** @internal */
-export const OutputClickHouseFormat$inboundSchema: z.ZodType<
-  OutputClickHouseFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputClickHouseFormat);
-/** @internal */
 export const OutputClickHouseFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -338,28 +317,12 @@ export const OutputClickHouseFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputClickHouseFormat);
 
 /** @internal */
-export const OutputClickHouseMappingType$inboundSchema: z.ZodType<
-  OutputClickHouseMappingType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputClickHouseMappingType);
-/** @internal */
 export const OutputClickHouseMappingType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
   OutputClickHouseMappingType
 > = openEnums.outboundSchema(OutputClickHouseMappingType);
 
-/** @internal */
-export const OutputClickHouseColumnMapping$inboundSchema: z.ZodType<
-  OutputClickHouseColumnMapping,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  columnName: types.string(),
-  columnType: types.optional(types.string()),
-  columnValueExpression: types.string(),
-});
 /** @internal */
 export type OutputClickHouseColumnMapping$Outbound = {
   columnName: string;
@@ -387,22 +350,7 @@ export function outputClickHouseColumnMappingToJSON(
     ),
   );
 }
-export function outputClickHouseColumnMappingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputClickHouseColumnMapping, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputClickHouseColumnMapping$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHouseColumnMapping' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputClickHousePqControls$inboundSchema: z.ZodType<
-  OutputClickHousePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 /** @internal */
 export type OutputClickHousePqControls$Outbound = {};
 
@@ -420,92 +368,7 @@ export function outputClickHousePqControlsToJSON(
     OutputClickHousePqControls$outboundSchema.parse(outputClickHousePqControls),
   );
 }
-export function outputClickHousePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputClickHousePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputClickHousePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHousePqControls' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputClickHouse$inboundSchema: z.ZodType<
-  OutputClickHouse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("click_house"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  url: types.string(),
-  authType: types.optional(AuthenticationTypeOptions$inboundSchema),
-  database: types.string(),
-  tableName: types.string(),
-  format: types.optional(OutputClickHouseFormat$inboundSchema),
-  mappingType: types.optional(OutputClickHouseMappingType$inboundSchema),
-  asyncInserts: types.optional(types.boolean()),
-  tls: types.optional(
-    TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
-  ),
-  concurrency: types.optional(types.number()),
-  maxPayloadSizeKB: types.optional(types.number()),
-  maxPayloadEvents: types.optional(types.number()),
-  compress: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  timeoutSec: types.optional(types.number()),
-  flushPeriodSec: types.optional(types.number()),
-  extraHttpHeaders: types.optional(
-    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
-  ),
-  useRoundRobinDns: types.optional(types.boolean()),
-  failedRequestLoggingMode: types.optional(
-    FailedRequestLoggingModeOptions$inboundSchema,
-  ),
-  safeHeaders: types.optional(z.array(types.string())),
-  responseRetrySettings: types.optional(
-    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
-  ),
-  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
-  responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  dumpFormatErrorsToDisk: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
-  description: types.optional(types.string()),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
-  sqlUsername: types.optional(types.string()),
-  waitForAsyncInserts: types.optional(types.boolean()),
-  excludeMappingFields: types.optional(z.array(types.string())),
-  describeTable: types.optional(types.string()),
-  columnMappings: types.optional(
-    z.array(z.lazy(() => OutputClickHouseColumnMapping$inboundSchema)),
-  ),
-  pqStrictOrdering: types.optional(types.boolean()),
-  pqRatePerSec: types.optional(types.number()),
-  pqMode: types.optional(ModeOptions$inboundSchema),
-  pqMaxBufferSize: types.optional(types.number()),
-  pqMaxBackpressureSec: types.optional(types.number()),
-  pqMaxFileSize: types.optional(types.string()),
-  pqMaxSize: types.optional(types.string()),
-  pqPath: types.optional(types.string()),
-  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
-  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
-  pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(
-    z.lazy(() => OutputClickHousePqControls$inboundSchema),
-  ),
-  __template_streamtags: types.optional(types.string()),
-  __template_url: types.optional(types.string()),
-  __template_database: types.optional(types.string()),
-  __template_tableName: types.optional(types.string()),
-  __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-});
 /** @internal */
 export type OutputClickHouse$Outbound = {
   id?: string | undefined;
@@ -529,12 +392,14 @@ export type OutputClickHouse$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   timeoutSec?: number | undefined;
   flushPeriodSec?: number | undefined;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?:
+    | Array<ExtraHttpHeaderConfInputElastic$Outbound>
+    | undefined;
   useRoundRobinDns?: boolean | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<ResponseRetrySettingConfOutputWebhook$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
@@ -597,14 +462,15 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   timeoutSec: z.number().optional(),
   flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+  extraHttpHeaders: z.array(ExtraHttpHeaderConfInputElastic$outboundSchema)
     .optional(),
   useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
+  responseRetrySettings: z.array(
+    ResponseRetrySettingConfOutputWebhook$outboundSchema,
+  ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
@@ -646,14 +512,5 @@ export function outputClickHouseToJSON(
 ): string {
   return JSON.stringify(
     OutputClickHouse$outboundSchema.parse(outputClickHouse),
-  );
-}
-export function outputClickHouseFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputClickHouse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputClickHouse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHouse' from JSON`,
   );
 }

@@ -16,16 +16,16 @@ export type CreateRoutesAppendByPackAndIdRequest = {
    */
   pack: string;
   /**
-   * RouteDefinitions object
+   * RouteDefinitions object.
    */
-  requestBody: Array<models.ItemsTypeRoutesInputRoutes>;
+  requestBody: Array<models.RouteConfInput>;
 };
 
 /** @internal */
 export type CreateRoutesAppendByPackAndIdRequest$Outbound = {
   id: string;
   pack: string;
-  RequestBody: Array<models.ItemsTypeRoutesInputRoutes$Outbound>;
+  RequestBody: Array<models.RouteConfInput$Outbound>;
 };
 
 /** @internal */
@@ -36,7 +36,7 @@ export const CreateRoutesAppendByPackAndIdRequest$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   pack: z.string(),
-  requestBody: z.array(models.ItemsTypeRoutesInputRoutes$outboundSchema),
+  requestBody: z.array(models.RouteConfInput$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     requestBody: "RequestBody",

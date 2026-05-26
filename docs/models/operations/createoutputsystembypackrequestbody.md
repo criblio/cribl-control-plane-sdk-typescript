@@ -1,6 +1,6 @@
 # CreateOutputSystemByPackRequestBody
 
-Output object
+Output object.
 
 
 ## Supported Types
@@ -864,6 +864,18 @@ const value: operations.CreateOutputSystemByPackOutputCloudianS3 = {
 const value: operations.CreateOutputSystemByPackOutputScalityS3 = {
   id: "<id>",
   type: "scality_s3",
+  bucket: "<value>",
+  stagePath: "<value>",
+  endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputSystemByPackOutputAlibabaCloudS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputAlibabaCloudS3 = {
+  id: "<id>",
+  type: "alibaba_cloud_s3",
   bucket: "<value>",
   stagePath: "<value>",
   endpoint: "<value>",

@@ -12,7 +12,7 @@ export type UpdatePipelinesByIdRequest = {
    */
   id: string;
   /**
-   * Pipeline object
+   * Pipeline object.
    */
   pipeline: models.PipelineInput;
 };

@@ -9,7 +9,7 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "cribl_lake",
+    type: "disk_spool",
   },
 };
 ```
@@ -19,4 +19,4 @@ let value: CreateOutputSystemByPackRequest = {
 | Field                                            | Type                                             | Required                                         | Description                                      |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | `pack`                                           | *string*                                         | :heavy_check_mark:                               | The <code>id</code> of the Pack.                 |
-| `requestBody`                                    | *operations.CreateOutputSystemByPackRequestBody* | :heavy_check_mark:                               | Output object                                    |
+| `requestBody`                                    | *operations.CreateOutputSystemByPackRequestBody* | :heavy_check_mark:                               | Output object.                                   |

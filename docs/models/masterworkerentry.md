@@ -11,24 +11,20 @@ let value: MasterWorkerEntry = {
   id: "<id>",
   info: {
     architecture: "<value>",
-    cpus: 2715.21,
+    cpus: 6980.43,
     cribl: {
       config: {},
       distMode: "worker",
       group: "<value>",
       guid: "<id>",
-      startTime: 777671,
+      startTime: 576212,
     },
-    env: {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    hostname: "suburban-courtroom.org",
+    env: {},
+    hostname: "smoggy-reach.net",
     node: "<value>",
     platform: "<value>",
     release: "<value>",
-    totalmem: 3679.01,
+    totalmem: 8517.58,
   },
   lastMsgTime: 9819.35,
   workerProcesses: 7209.39,
@@ -50,6 +46,7 @@ let value: MasterWorkerEntry = {
 | `lastMsgTime`                                                            | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `metadata`                                                               | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `nodeUpgradeStatus`                                                      | [models.NodeUpgradeStatus](../models/nodeupgradestatus.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `provisioningTokenId`                                                    | *string*                                                                 | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `status`                                                                 | *string*                                                                 | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `type`                                                                   | [models.MasterWorkerEntryType](../models/masterworkerentrytype.md)       | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `workerProcesses`                                                        | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |

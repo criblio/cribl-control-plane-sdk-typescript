@@ -9,14 +9,14 @@ import { VersionsConfigs } from "./versionsconfigs.js";
 import { VersionsStatuses } from "./versionsstatuses.js";
 
 export class Versions extends ClientSDK {
-  private _branches?: Branches;
-  get branches(): Branches {
-    return (this._branches ??= new Branches(this._options));
-  }
-
   private _commits?: Commits;
   get commits(): Commits {
     return (this._commits ??= new Commits(this._options));
+  }
+
+  private _branches?: Branches;
+  get branches(): Branches {
+    return (this._branches ??= new Branches(this._options));
   }
 
   private _configs?: VersionsConfigs;

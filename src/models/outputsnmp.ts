@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputSnmpHost = {
   /**
@@ -65,17 +61,6 @@ export type OutputSnmp = {
 };
 
 /** @internal */
-export const OutputSnmpHost$inboundSchema: z.ZodType<
-  OutputSnmpHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: types.string(),
-  port: types.number(),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-});
-/** @internal */
 export type OutputSnmpHost$Outbound = {
   host: string;
   port: number;
@@ -98,33 +83,7 @@ export const OutputSnmpHost$outboundSchema: z.ZodType<
 export function outputSnmpHostToJSON(outputSnmpHost: OutputSnmpHost): string {
   return JSON.stringify(OutputSnmpHost$outboundSchema.parse(outputSnmpHost));
 }
-export function outputSnmpHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSnmpHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSnmpHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSnmpHost' from JSON`,
-  );
-}
 
-/** @internal */
-export const OutputSnmp$inboundSchema: z.ZodType<
-  OutputSnmp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("snmp"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  hosts: z.array(z.lazy(() => OutputSnmpHost$inboundSchema)),
-  dnsResolvePeriodSec: types.optional(types.number()),
-  description: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-});
 /** @internal */
 export type OutputSnmp$Outbound = {
   id?: string | undefined;
@@ -159,13 +118,4 @@ export const OutputSnmp$outboundSchema: z.ZodType<
 
 export function outputSnmpToJSON(outputSnmp: OutputSnmp): string {
   return JSON.stringify(OutputSnmp$outboundSchema.parse(outputSnmp));
-}
-export function outputSnmpFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSnmp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSnmp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSnmp' from JSON`,
-  );
 }

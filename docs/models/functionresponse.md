@@ -509,6 +509,21 @@ const value: models.FunctionLocalSearchSchemaMapper = {
 };
 ```
 
+### `models.FunctionLocalSearchTimeRangeNormalizer`
+
+```typescript
+const value: models.FunctionLocalSearchTimeRangeNormalizer = {
+  __filename: "example.file",
+  group: "<value>",
+  id: "local_search_time_range_normalizer",
+  loadTime: 8090.81,
+  modTime: 5034.05,
+  name: "<value>",
+  uischema: {},
+  version: "<value>",
+};
+```
+
 ### `models.FunctionLocalSearchTransformer`
 
 ```typescript
