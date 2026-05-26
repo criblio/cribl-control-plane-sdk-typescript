@@ -266,9 +266,8 @@ export type InputEdgePrometheusInput = {
    */
   scrapePathExpr?: string | undefined;
   /**
-   * Add rules to decide which pods to discover for metrics.
-   *
    * @remarks
+   * Add rules to decide which pods to discover for metrics.
    * Pods are searched if no rules are given or of all the rules'
    * expressions evaluate to true.
    */

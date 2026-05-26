@@ -13,6 +13,23 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class PacksRoutes extends ClientSDK {
   /**
+   * List all Routes within a Pack
+   *
+   * @remarks
+   * Get a list of all Routes within the specified Pack.
+   */
+  async list(
+    request: operations.GetRoutesByPackRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedRoutes> {
+    return unwrapAsync(packsRoutesList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Get a Routing table within a Pack
    *
    * @remarks
@@ -40,23 +57,6 @@ export class PacksRoutes extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedRoutes> {
     return unwrapAsync(packsRoutesUpdate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * List all Routes within a Pack
-   *
-   * @remarks
-   * Get a list of all Routes within the specified Pack.
-   */
-  async list(
-    request: operations.GetRoutesByPackRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedRoutes> {
-    return unwrapAsync(packsRoutesList(
       this,
       request,
       options,

@@ -12,23 +12,6 @@ import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class DestinationsStatuses extends ClientSDK {
   /**
-   * Get the status of a Destination
-   *
-   * @remarks
-   * Get the status and optional metrics for the specified Destination.
-   */
-  async get(
-    request: operations.GetOutputStatusByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedOutputStatus> {
-    return unwrapAsync(destinationsStatusesGet(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * List the status of all Destinations
    *
    * @remarks
@@ -41,6 +24,23 @@ export class DestinationsStatuses extends ClientSDK {
     PageIterator<operations.GetOutputStatusResponse, { offset: number }>
   > {
     return unwrapResultIterator(destinationsStatusesList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get the status of a Destination
+   *
+   * @remarks
+   * Get the status and optional metrics for the specified Destination.
+   */
+  async get(
+    request: operations.GetOutputStatusByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedOutputStatus> {
+    return unwrapAsync(destinationsStatusesGet(
       this,
       request,
       options,

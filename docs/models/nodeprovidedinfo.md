@@ -13,7 +13,7 @@ let value: NodeProvidedInfo = {
     distMode: "worker",
     group: "<value>",
     guid: "<id>",
-    startTime: 777671,
+    startTime: 576212,
   },
   env: {
     "key": "<value>",
