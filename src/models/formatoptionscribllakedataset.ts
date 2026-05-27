@@ -12,6 +12,7 @@ import { OpenEnum } from "../types/enums.js";
 export const FormatOptionsCriblLakeDataset = {
   Ddss: "ddss",
   Json: "json",
+  Netskope: "netskope",
   Parquet: "parquet",
 } as const;
 /**
