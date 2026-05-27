@@ -25,7 +25,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Cribl system settings
+ * Get system settings
  *
  * @remarks
  * Get Cribl system settings.

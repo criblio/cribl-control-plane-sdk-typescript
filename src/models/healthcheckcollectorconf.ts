@@ -17,12 +17,6 @@ import {
   AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
 } from "./authrequestheaderconfhealthcheckauthenticationlogin.js";
 import {
-  AuthRequestHeaderConfHealthCheckAuthenticationOauth,
-  AuthRequestHeaderConfHealthCheckAuthenticationOauth$inboundSchema,
-  AuthRequestHeaderConfHealthCheckAuthenticationOauth$Outbound,
-  AuthRequestHeaderConfHealthCheckAuthenticationOauth$outboundSchema,
-} from "./authrequestheaderconfhealthcheckauthenticationoauth.js";
-import {
   AuthRequestParamConfHealthCheckAuthenticationOauth,
   AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
   AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound,
@@ -62,6 +56,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -96,6 +94,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -112,7 +114,7 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -473,7 +475,7 @@ export type HealthCheckAuthenticationOauthSecret = {
    */
   authentication: "oauthSecret";
   /**
-   * URL to use for the OAuth API call. This call is expected to be a POST.
+   * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl: string;
   /**
@@ -502,7 +504,7 @@ export type HealthCheckAuthenticationOauthSecret = {
    * Optional authentication request headers.
    */
   authRequestHeaders?:
-    | Array<AuthRequestHeaderConfHealthCheckAuthenticationOauth>
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   discovery?:
     | (
@@ -558,6 +560,22 @@ export type HealthCheckAuthenticationOauthSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
@@ -587,6 +605,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -622,6 +644,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList =
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -638,7 +664,7 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson =
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -996,7 +1022,7 @@ export type HealthCheckAuthenticationOauth = {
    */
   authentication: "oauth";
   /**
-   * URL to use for the OAuth API call. This call is expected to be a POST.
+   * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl: string;
   /**
@@ -1025,7 +1051,7 @@ export type HealthCheckAuthenticationOauth = {
    * Optional authentication request headers.
    */
   authRequestHeaders?:
-    | Array<AuthRequestHeaderConfHealthCheckAuthenticationOauth>
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   discovery?:
     | (
@@ -1081,6 +1107,22 @@ export type HealthCheckAuthenticationOauth = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
    * Select or create a text secret that contains the client secret's value.
    */
   textSecret?: string | undefined;
@@ -1110,6 +1152,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1145,6 +1191,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -1161,7 +1211,7 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -1522,11 +1572,11 @@ export type HealthCheckAuthenticationLoginSecret = {
    */
   authentication: "loginSecret";
   /**
-   * URL to use for login API call, this call is expected to be a POST.
+   * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl: string;
   /**
-   * Select or create a stored secret that references your login credentials
+   * Select or create a stored secret that references your credentials
    */
   credentialsSecret: string;
   /**
@@ -1534,7 +1584,7 @@ export type HealthCheckAuthenticationLoginSecret = {
    */
   loginBody: string;
   /**
-   * Path to token attribute in login response body. Nested attributes are OK. If left blank, the entire response body will be used to derive the authorization header.
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
   /**
@@ -1601,9 +1651,27 @@ export type HealthCheckAuthenticationLoginSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -1634,6 +1702,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1669,6 +1741,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList =
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -1685,7 +1761,7 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson =
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -2047,11 +2123,11 @@ export type HealthCheckAuthenticationLogin = {
    */
   loginUrl: string;
   /**
-   * Login username
+   * Basic authentication username
    */
   username: string;
   /**
-   * Login password
+   * Basic authentication password
    */
   password: string;
   /**
@@ -2126,9 +2202,23 @@ export type HealthCheckAuthenticationLogin = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -2159,6 +2249,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2194,6 +2288,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -2210,7 +2308,7 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -2628,9 +2726,49 @@ export type HealthCheckAuthenticationBasicSecret = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
+    | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -2661,6 +2799,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2696,6 +2838,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList =
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -2712,7 +2858,7 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson =
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -3131,9 +3277,45 @@ export type HealthCheckAuthenticationBasic = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
+    | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -3164,6 +3346,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3199,6 +3385,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList =
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -3215,7 +3405,7 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson =
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -3626,9 +3816,53 @@ export type HealthCheckAuthenticationNone = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
+    | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -3684,6 +3918,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -3718,6 +3956,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
     /**
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+     */
+    discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -3734,7 +3976,7 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      */
     manualDiscoverResult: string;
     /**
-     * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+     * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
     /**
@@ -4147,9 +4389,53 @@ export type HealthCheckCollectMethodPostWithBody = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
+    | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -4204,6 +4490,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone = {
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   /**
+   * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
   manualDiscoverResult?: string | undefined;
@@ -4237,6 +4527,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList = {
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   /**
+   * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
   manualDiscoverResult?: string | undefined;
@@ -4252,7 +4546,7 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson = {
    */
   manualDiscoverResult: string;
   /**
-   * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+   * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
   /**
@@ -4664,9 +4958,53 @@ export type HealthCheckCollectMethodPost = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
+    | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -4732,6 +5070,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone = {
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   /**
+   * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
   manualDiscoverResult?: string | undefined;
@@ -4765,6 +5107,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList = {
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   /**
+   * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
   manualDiscoverResult?: string | undefined;
@@ -4780,7 +5126,7 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson = {
    */
   manualDiscoverResult: string;
   /**
-   * Within the response JSON, name of the field or array element to pull results from. Leave blank if the result is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+   * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
   /**
@@ -5192,9 +5538,53 @@ export type HealthCheckCollectMethodGet = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
+    | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -5230,6 +5620,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -5242,6 +5633,7 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -5259,6 +5651,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -5305,6 +5698,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -5317,6 +5711,7 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -5334,6 +5729,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -6253,7 +6649,7 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
   authRequestHeaders: types.optional(
-    z.array(AuthRequestHeaderConfHealthCheckAuthenticationOauth$inboundSchema),
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
@@ -6303,6 +6699,10 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -6318,7 +6718,7 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   authRequestHeaders?:
-    | Array<AuthRequestHeaderConfHealthCheckAuthenticationOauth$Outbound>
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
   discovery?:
     | (
@@ -6346,6 +6746,10 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginBody?: string | undefined;
   clientSecretParamValue?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -6366,7 +6770,7 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    AuthRequestHeaderConfHealthCheckAuthenticationOauth$outboundSchema,
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
   discovery: z.union([
     z.union([
@@ -6415,6 +6819,10 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginBody: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -6454,6 +6862,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -6466,6 +6875,7 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$O
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6483,6 +6893,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -6529,6 +6940,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -6541,6 +6953,7 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$O
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -6558,6 +6971,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -7466,7 +7880,7 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
   authRequestHeaders: types.optional(
-    z.array(AuthRequestHeaderConfHealthCheckAuthenticationOauth$inboundSchema),
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
@@ -7515,6 +7929,10 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -7530,7 +7948,7 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   authRequestHeaders?:
-    | Array<AuthRequestHeaderConfHealthCheckAuthenticationOauth$Outbound>
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
   discovery?:
     | (
@@ -7558,6 +7976,10 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginBody?: string | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -7578,7 +8000,7 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   authRequestHeaders: z.array(
-    AuthRequestHeaderConfHealthCheckAuthenticationOauth$outboundSchema,
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
   discovery: z.union([
     z.union([
@@ -7626,6 +8048,10 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginBody: z.string().optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -7664,6 +8090,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -7676,6 +8103,7 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -7693,6 +8121,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -7739,6 +8168,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -7751,6 +8181,7 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -7768,6 +8199,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -8734,7 +9166,13 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -8775,7 +9213,13 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -8842,7 +9286,13 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -8882,6 +9332,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8894,6 +9345,7 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$O
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8911,6 +9363,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -8957,6 +9410,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -8969,6 +9423,7 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$O
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -8986,6 +9441,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -9941,7 +10397,12 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  credentialsSecret: types.optional(types.string()),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -9983,7 +10444,12 @@ export type HealthCheckAuthenticationLogin$Outbound = {
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -10050,7 +10516,12 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -10089,6 +10560,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -10101,6 +10573,7 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -10118,6 +10591,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -10164,6 +10638,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -10176,6 +10651,7 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -10193,6 +10669,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -11152,7 +11629,20 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
+  ),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -11186,7 +11676,20 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
+    | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -11246,7 +11749,20 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
+  ).optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -11286,6 +11802,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -11298,6 +11815,7 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$O
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -11315,6 +11833,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -11361,6 +11880,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -11373,6 +11893,7 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$O
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -11390,6 +11911,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -12338,7 +12860,19 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
+  ),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -12373,7 +12907,19 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
+    | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -12433,7 +12979,19 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
+  ).optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -12472,6 +13030,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$i
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -12484,6 +13043,7 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$Ou
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -12501,6 +13061,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$o
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -12545,6 +13106,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$i
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -12557,6 +13119,7 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$Ou
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -12574,6 +13137,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$o
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -13509,7 +14073,21 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
+  ),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -13542,7 +14120,21 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
+    | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -13600,7 +14192,21 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
+  ).optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -13658,6 +14264,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13670,6 +14277,7 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13687,6 +14295,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -13733,6 +14342,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -13745,6 +14355,7 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -13762,6 +14373,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -14722,7 +15334,21 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
+  ),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -14756,7 +15382,21 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
+    | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -14817,7 +15457,21 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
+  ).optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -14872,6 +15526,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$in
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -14884,6 +15539,7 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Out
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -14901,6 +15557,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$ou
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -14945,6 +15602,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$in
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -14957,6 +15615,7 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$Out
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -14974,6 +15633,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$ou
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -15900,7 +16560,21 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
+  ),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -15936,7 +16610,21 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
+    | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -15997,7 +16685,21 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
+  ).optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -16104,6 +16806,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inb
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -16116,6 +16819,7 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outb
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -16133,6 +16837,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$out
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -16177,6 +16882,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$inb
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -16189,6 +16895,7 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$Outb
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -16206,6 +16913,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$out
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -17135,7 +17843,21 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
+  ),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -17171,7 +17893,21 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
+    | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -17232,7 +17968,21 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
+  ).optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });

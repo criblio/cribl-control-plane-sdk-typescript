@@ -10,7 +10,7 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Captures extends ClientSDK {
   /**
-   * Capture live incoming data
+   * Capture live data
    *
    * @remarks
    * Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.

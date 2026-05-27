@@ -279,9 +279,29 @@ export type AzureBlobAuthTypeSecret = {
    */
   connectionString?: string | undefined;
   /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
    * Text secret containing the client secret
    */
   clientTextSecret?: string | undefined;
+  /**
+   * The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
    * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
@@ -358,9 +378,29 @@ export type AzureBlobAuthTypeManual = {
    */
   textSecret?: string | undefined;
   /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
    * Text secret containing the client secret
    */
   clientTextSecret?: string | undefined;
+  /**
+   * The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
    * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
@@ -756,7 +796,12 @@ export const AzureBlobAuthTypeSecret$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   connectionString: types.optional(types.string()),
+  storageAccountName: types.optional(types.string()),
+  tenantId: types.optional(types.string()),
+  clientId: types.optional(types.string()),
   clientTextSecret: types.optional(types.string()),
+  endpointSuffix: types.optional(types.string()),
+  azureCloud: types.optional(types.string()),
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
@@ -778,7 +823,12 @@ export type AzureBlobAuthTypeSecret$Outbound = {
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   connectionString?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
   clientTextSecret?: string | undefined;
+  endpointSuffix?: string | undefined;
+  azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
   __template_containerName?: string | undefined;
   __template_path?: string | undefined;
@@ -805,7 +855,12 @@ export const AzureBlobAuthTypeSecret$outboundSchema: z.ZodType<
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   connectionString: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
   clientTextSecret: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_containerName: z.string().optional(),
@@ -894,7 +949,12 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   textSecret: types.optional(types.string()),
+  storageAccountName: types.optional(types.string()),
+  tenantId: types.optional(types.string()),
+  clientId: types.optional(types.string()),
   clientTextSecret: types.optional(types.string()),
+  endpointSuffix: types.optional(types.string()),
+  azureCloud: types.optional(types.string()),
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
@@ -916,7 +976,12 @@ export type AzureBlobAuthTypeManual$Outbound = {
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
   clientTextSecret?: string | undefined;
+  endpointSuffix?: string | undefined;
+  azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
   __template_containerName?: string | undefined;
   __template_path?: string | undefined;
@@ -943,7 +1008,12 @@ export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
   clientTextSecret: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  azureCloud: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_containerName: z.string().optional(),

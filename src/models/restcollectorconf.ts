@@ -95,6 +95,10 @@ import {
 export type RestAuthenticationNoneRestPaginationTypeNone = {
   type: "none";
   /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+  /**
    * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
    */
   lastPageExpr?: string | undefined;
@@ -122,6 +126,14 @@ export type RestAuthenticationNoneRestPaginationTypeNone = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -326,14 +338,69 @@ export type RestAuthenticationNone = {
    */
   microsoftGraphDelta?: RestAuthenticationNoneMicrosoftGraphDelta | undefined;
   __scheduling?: RestAuthenticationNoneScheduling | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
    * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
    */
   serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -381,6 +448,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -414,6 +485,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeList = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -434,7 +509,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeJson = {
    */
   manualDiscoverResult: string;
   /**
-   * Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
   /**
@@ -907,6 +982,14 @@ export type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -973,6 +1056,14 @@ export type RestCollectMethodOtherRestPaginationTypeResponseHeader = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -1041,6 +1132,14 @@ export type RestCollectMethodOtherRestPaginationTypeResponseBody = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -1064,6 +1163,10 @@ export type RestCollectMethodOtherRestPaginationTypeResponseBody = {
 
 export type RestCollectMethodOtherRestPaginationTypeNone = {
   type: "none";
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
   /**
    * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
    */
@@ -1092,6 +1195,14 @@ export type RestCollectMethodOtherRestPaginationTypeNone = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -1343,14 +1454,69 @@ export type RestCollectMethodOther = {
    */
   microsoftGraphDelta?: RestCollectMethodOtherMicrosoftGraphDelta | undefined;
   __scheduling?: RestCollectMethodOtherScheduling | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
    * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
    */
   serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -1398,6 +1564,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -1431,6 +1601,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -1451,7 +1625,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson = {
    */
   manualDiscoverResult: string;
   /**
-   * Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
   /**
@@ -1925,6 +2099,14 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink =
      */
     limit?: number | undefined;
     /**
+     * Name of the attribute in the response that contains the total number of records for the query
+     */
+    totalRecordField?: string | undefined;
+    /**
+     * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+     */
+    zeroIndexed?: boolean | undefined;
+    /**
      * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
      */
     pageField?: string | undefined;
@@ -1991,6 +2173,14 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -2059,6 +2249,14 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -2082,6 +2280,10 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody = {
 
 export type RestCollectMethodPostWithBodyRestPaginationTypeNone = {
   type: "none";
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
   /**
    * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
    */
@@ -2110,6 +2312,14 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeNone = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -2356,14 +2566,69 @@ export type RestCollectMethodPostWithBody = {
     | RestCollectMethodPostWithBodyMicrosoftGraphDelta
     | undefined;
   __scheduling?: RestCollectMethodPostWithBodyScheduling | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
    * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
    */
   serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -2411,6 +2676,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeNone = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -2444,6 +2713,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeList = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -2464,7 +2737,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeJson = {
    */
   manualDiscoverResult: string;
   /**
-   * Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
   /**
@@ -2937,6 +3210,14 @@ export type RestCollectMethodPostRestPaginationTypeResponseHeaderLink = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -3003,6 +3284,14 @@ export type RestCollectMethodPostRestPaginationTypeResponseHeader = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -3071,6 +3360,14 @@ export type RestCollectMethodPostRestPaginationTypeResponseBody = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -3094,6 +3391,10 @@ export type RestCollectMethodPostRestPaginationTypeResponseBody = {
 
 export type RestCollectMethodPostRestPaginationTypeNone = {
   type: "none";
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
   /**
    * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
    */
@@ -3122,6 +3423,14 @@ export type RestCollectMethodPostRestPaginationTypeNone = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -3365,14 +3674,69 @@ export type RestCollectMethodPost = {
    */
   microsoftGraphDelta?: RestCollectMethodPostMicrosoftGraphDelta | undefined;
   __scheduling?: RestCollectMethodPostScheduling | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
    * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
    */
   serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -3420,6 +3784,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeNone = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -3453,6 +3821,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeList = {
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp | undefined;
   /**
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+   */
+  discoverDataField?: string | undefined;
+  /**
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
@@ -3473,7 +3845,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeJson = {
    */
   manualDiscoverResult: string;
   /**
-   * Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+   * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
   /**
@@ -3946,6 +4318,14 @@ export type RestCollectMethodGetRestPaginationTypeResponseHeaderLink = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -4012,6 +4392,14 @@ export type RestCollectMethodGetRestPaginationTypeResponseHeader = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -4080,6 +4468,14 @@ export type RestCollectMethodGetRestPaginationTypeResponseBody = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -4103,6 +4499,10 @@ export type RestCollectMethodGetRestPaginationTypeResponseBody = {
 
 export type RestCollectMethodGetRestPaginationTypeNone = {
   type: "none";
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
   /**
    * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
    */
@@ -4131,6 +4531,14 @@ export type RestCollectMethodGetRestPaginationTypeNone = {
    * Maximum number of records to collect per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -4374,14 +4782,69 @@ export type RestCollectMethodGet = {
    */
   microsoftGraphDelta?: RestCollectMethodGetMicrosoftGraphDelta | undefined;
   __scheduling?: RestCollectMethodGetScheduling | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+   */
+  getAuthTokenFromHeader?: boolean | undefined;
+  /**
+   * Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+   */
+  authHeaderKey?: string | undefined;
+  /**
+   * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+   */
+  clientSecretParamName?: string | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value
+   */
+  textSecret?: string | undefined;
+  /**
+   * Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+   */
+  scopes?: Array<string> | undefined;
+  /**
    * Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
    */
   serviceAccountCredentials?: string | undefined;
+  /**
+   * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+   */
+  subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -4413,6 +4876,7 @@ export const RestAuthenticationNoneRestPaginationTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
+    maxPages: types.optional(types.number()),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
     curRelationAttribute: types.optional(types.string()),
@@ -4420,6 +4884,8 @@ export const RestAuthenticationNoneRestPaginationTypeNone$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -4429,6 +4895,7 @@ export const RestAuthenticationNoneRestPaginationTypeNone$inboundSchema:
 /** @internal */
 export type RestAuthenticationNoneRestPaginationTypeNone$Outbound = {
   type: "none";
+  maxPages?: number | undefined;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
   curRelationAttribute?: string | undefined;
@@ -4436,6 +4903,8 @@ export type RestAuthenticationNoneRestPaginationTypeNone$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -4451,6 +4920,7 @@ export const RestAuthenticationNoneRestPaginationTypeNone$outboundSchema:
     RestAuthenticationNoneRestPaginationTypeNone
   > = z.object({
     type: z.literal("none"),
+    maxPages: z.number().optional(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
     curRelationAttribute: z.string().optional(),
@@ -4458,6 +4928,8 @@ export const RestAuthenticationNoneRestPaginationTypeNone$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -4993,8 +5465,27 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestAuthenticationNoneScheduling$inboundSchema),
   ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  getAuthTokenFromHeader: types.optional(types.boolean()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  tokenRespAttribute: types.optional(types.string()),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  textSecret: types.optional(types.string()),
+  scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -5033,8 +5524,27 @@ export type RestAuthenticationNone$Outbound = {
     | RestAuthenticationNoneMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestAuthenticationNoneScheduling$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  getAuthTokenFromHeader?: boolean | undefined;
+  authHeaderKey?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -5081,8 +5591,27 @@ export const RestAuthenticationNone$outboundSchema: z.ZodType<
   ).optional(),
   __scheduling: z.lazy(() => RestAuthenticationNoneScheduling$outboundSchema)
     .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  getAuthTokenFromHeader: z.boolean().optional(),
+  authHeaderKey: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -5133,6 +5662,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema:
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -5147,6 +5677,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$Outbound = {
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  discoverDataField?: string | undefined;
   enableStrictDiscoverParsing?: boolean | undefined;
   enableDiscoverCode?: boolean | undefined;
   manualDiscoverResult?: string | undefined;
@@ -5168,6 +5699,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$outboundSchema:
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -5217,6 +5749,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema:
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -5231,6 +5764,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeList$Outbound = {
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  discoverDataField?: string | undefined;
   enableStrictDiscoverParsing?: boolean | undefined;
   enableDiscoverCode?: boolean | undefined;
   manualDiscoverResult?: string | undefined;
@@ -5252,6 +5786,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeList$outboundSchema:
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -6242,6 +6777,8 @@ export const RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundS
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -6260,6 +6797,8 @@ export type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$Outbound 
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -6283,6 +6822,8 @@ export const RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$outbound
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -6377,6 +6918,8 @@ export const RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchem
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -6395,6 +6938,8 @@ export type RestCollectMethodOtherRestPaginationTypeResponseHeader$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -6419,6 +6964,8 @@ export const RestCollectMethodOtherRestPaginationTypeResponseHeader$outboundSche
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -6514,6 +7061,8 @@ export const RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -6532,6 +7081,8 @@ export type RestCollectMethodOtherRestPaginationTypeResponseBody$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -6556,6 +7107,8 @@ export const RestCollectMethodOtherRestPaginationTypeResponseBody$outboundSchema
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -6597,6 +7150,7 @@ export const RestCollectMethodOtherRestPaginationTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
+    maxPages: types.optional(types.number()),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
     curRelationAttribute: types.optional(types.string()),
@@ -6604,6 +7158,8 @@ export const RestCollectMethodOtherRestPaginationTypeNone$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -6613,6 +7169,7 @@ export const RestCollectMethodOtherRestPaginationTypeNone$inboundSchema:
 /** @internal */
 export type RestCollectMethodOtherRestPaginationTypeNone$Outbound = {
   type: "none";
+  maxPages?: number | undefined;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
   curRelationAttribute?: string | undefined;
@@ -6620,6 +7177,8 @@ export type RestCollectMethodOtherRestPaginationTypeNone$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -6635,6 +7194,7 @@ export const RestCollectMethodOtherRestPaginationTypeNone$outboundSchema:
     RestCollectMethodOtherRestPaginationTypeNone
   > = z.object({
     type: z.literal("none"),
+    maxPages: z.number().optional(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
     curRelationAttribute: z.string().optional(),
@@ -6642,6 +7202,8 @@ export const RestCollectMethodOtherRestPaginationTypeNone$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -7239,8 +7801,27 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodOtherScheduling$inboundSchema),
   ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  getAuthTokenFromHeader: types.optional(types.boolean()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  tokenRespAttribute: types.optional(types.string()),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  textSecret: types.optional(types.string()),
+  scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -7295,8 +7876,27 @@ export type RestCollectMethodOther$Outbound = {
     | RestCollectMethodOtherMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestCollectMethodOtherScheduling$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  getAuthTokenFromHeader?: boolean | undefined;
+  authHeaderKey?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -7382,8 +7982,27 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   ).optional(),
   __scheduling: z.lazy(() => RestCollectMethodOtherScheduling$outboundSchema)
     .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  getAuthTokenFromHeader: z.boolean().optional(),
+  authHeaderKey: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -7430,6 +8049,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$inboundS
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -7447,6 +8067,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$Outbound 
     pagination?:
       | PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound
       | undefined;
+    discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
     enableDiscoverCode?: boolean | undefined;
     manualDiscoverResult?: string | undefined;
@@ -7468,6 +8089,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$outbound
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -7515,6 +8137,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$inboundS
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -7532,6 +8155,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$Outbound 
     pagination?:
       | PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound
       | undefined;
+    discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
     enableDiscoverCode?: boolean | undefined;
     manualDiscoverResult?: string | undefined;
@@ -7553,6 +8177,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$outbound
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -8540,6 +9165,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink$i
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -8558,6 +9185,8 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink$Ou
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -8581,6 +9210,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink$o
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -8675,6 +9306,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$inbou
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -8694,6 +9327,8 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$Outbou
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -8718,6 +9353,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$outbo
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -8812,6 +9449,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$inbound
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -8831,6 +9470,8 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$Outbound
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -8855,6 +9496,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$outboun
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -8894,6 +9537,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
+    maxPages: types.optional(types.number()),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
     curRelationAttribute: types.optional(types.string()),
@@ -8901,6 +9545,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeNone$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -8910,6 +9556,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeNone$inboundSchema:
 /** @internal */
 export type RestCollectMethodPostWithBodyRestPaginationTypeNone$Outbound = {
   type: "none";
+  maxPages?: number | undefined;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
   curRelationAttribute?: string | undefined;
@@ -8917,6 +9564,8 @@ export type RestCollectMethodPostWithBodyRestPaginationTypeNone$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -8932,6 +9581,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeNone$outboundSchema:
     RestCollectMethodPostWithBodyRestPaginationTypeNone
   > = z.object({
     type: z.literal("none"),
+    maxPages: z.number().optional(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
     curRelationAttribute: z.string().optional(),
@@ -8939,6 +9589,8 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeNone$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -9569,8 +10221,27 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodPostWithBodyScheduling$inboundSchema),
   ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  getAuthTokenFromHeader: types.optional(types.boolean()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  tokenRespAttribute: types.optional(types.string()),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  textSecret: types.optional(types.string()),
+  scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -9621,8 +10292,27 @@ export type RestCollectMethodPostWithBody$Outbound = {
     | RestCollectMethodPostWithBodyMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestCollectMethodPostWithBodyScheduling$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  getAuthTokenFromHeader?: boolean | undefined;
+  authHeaderKey?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -9711,8 +10401,27 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() =>
     RestCollectMethodPostWithBodyScheduling$outboundSchema
   ).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  getAuthTokenFromHeader: z.boolean().optional(),
+  authHeaderKey: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -9765,6 +10474,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema:
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -9779,6 +10489,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeNone$Outbound = {
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  discoverDataField?: string | undefined;
   enableStrictDiscoverParsing?: boolean | undefined;
   enableDiscoverCode?: boolean | undefined;
   manualDiscoverResult?: string | undefined;
@@ -9800,6 +10511,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeNone$outboundSchema:
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -9849,6 +10561,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeList$inboundSchema:
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -9863,6 +10576,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeList$Outbound = {
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  discoverDataField?: string | undefined;
   enableStrictDiscoverParsing?: boolean | undefined;
   enableDiscoverCode?: boolean | undefined;
   manualDiscoverResult?: string | undefined;
@@ -9884,6 +10598,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeList$outboundSchema:
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -10874,6 +11589,8 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeaderLink$inboundSc
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -10892,6 +11609,8 @@ export type RestCollectMethodPostRestPaginationTypeResponseHeaderLink$Outbound =
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -10915,6 +11634,8 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeaderLink$outboundS
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -11009,6 +11730,8 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -11027,6 +11750,8 @@ export type RestCollectMethodPostRestPaginationTypeResponseHeader$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -11051,6 +11776,8 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeader$outboundSchem
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -11147,6 +11874,8 @@ export const RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -11165,6 +11894,8 @@ export type RestCollectMethodPostRestPaginationTypeResponseBody$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -11189,6 +11920,8 @@ export const RestCollectMethodPostRestPaginationTypeResponseBody$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -11230,6 +11963,7 @@ export const RestCollectMethodPostRestPaginationTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
+    maxPages: types.optional(types.number()),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
     curRelationAttribute: types.optional(types.string()),
@@ -11237,6 +11971,8 @@ export const RestCollectMethodPostRestPaginationTypeNone$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -11246,6 +11982,7 @@ export const RestCollectMethodPostRestPaginationTypeNone$inboundSchema:
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeNone$Outbound = {
   type: "none";
+  maxPages?: number | undefined;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
   curRelationAttribute?: string | undefined;
@@ -11253,6 +11990,8 @@ export type RestCollectMethodPostRestPaginationTypeNone$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -11268,6 +12007,7 @@ export const RestCollectMethodPostRestPaginationTypeNone$outboundSchema:
     RestCollectMethodPostRestPaginationTypeNone
   > = z.object({
     type: z.literal("none"),
+    maxPages: z.number().optional(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
     curRelationAttribute: z.string().optional(),
@@ -11275,6 +12015,8 @@ export const RestCollectMethodPostRestPaginationTypeNone$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -11864,8 +12606,27 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodPostScheduling$inboundSchema),
   ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  getAuthTokenFromHeader: types.optional(types.boolean()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  tokenRespAttribute: types.optional(types.string()),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  textSecret: types.optional(types.string()),
+  scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -11918,8 +12679,27 @@ export type RestCollectMethodPost$Outbound = {
     | RestCollectMethodPostMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestCollectMethodPostScheduling$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  getAuthTokenFromHeader?: boolean | undefined;
+  authHeaderKey?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -12001,8 +12781,27 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   ).optional(),
   __scheduling: z.lazy(() => RestCollectMethodPostScheduling$outboundSchema)
     .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  getAuthTokenFromHeader: z.boolean().optional(),
+  authHeaderKey: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -12053,6 +12852,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema:
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -12067,6 +12867,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeNone$Outbound = {
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  discoverDataField?: string | undefined;
   enableStrictDiscoverParsing?: boolean | undefined;
   enableDiscoverCode?: boolean | undefined;
   manualDiscoverResult?: string | undefined;
@@ -12088,6 +12889,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$outboundSchema:
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -12137,6 +12939,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeList$inboundSchema:
     pagination: types.optional(
       PaginationTypeRestDiscoveryDiscoverTypeHttp$inboundSchema,
     ),
+    discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
     enableDiscoverCode: types.optional(types.boolean()),
     manualDiscoverResult: types.optional(types.string()),
@@ -12151,6 +12954,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeList$Outbound = {
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   pagination?: PaginationTypeRestDiscoveryDiscoverTypeHttp$Outbound | undefined;
+  discoverDataField?: string | undefined;
   enableStrictDiscoverParsing?: boolean | undefined;
   enableDiscoverCode?: boolean | undefined;
   manualDiscoverResult?: string | undefined;
@@ -12172,6 +12976,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeList$outboundSchema:
     ).optional(),
     pagination: PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema
       .optional(),
+    discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
     enableDiscoverCode: z.boolean().optional(),
     manualDiscoverResult: z.string().optional(),
@@ -13162,6 +13967,8 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeaderLink$inboundSch
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -13180,6 +13987,8 @@ export type RestCollectMethodGetRestPaginationTypeResponseHeaderLink$Outbound =
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -13203,6 +14012,8 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeaderLink$outboundSc
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -13297,6 +14108,8 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -13315,6 +14128,8 @@ export type RestCollectMethodGetRestPaginationTypeResponseHeader$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -13339,6 +14154,8 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeader$outboundSchema
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -13435,6 +14252,8 @@ export const RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -13453,6 +14272,8 @@ export type RestCollectMethodGetRestPaginationTypeResponseBody$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -13477,6 +14298,8 @@ export const RestCollectMethodGetRestPaginationTypeResponseBody$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -13515,6 +14338,7 @@ export const RestCollectMethodGetRestPaginationTypeNone$inboundSchema:
   z.ZodType<RestCollectMethodGetRestPaginationTypeNone, z.ZodTypeDef, unknown> =
     z.object({
       type: types.literal("none"),
+      maxPages: types.optional(types.number()),
       lastPageExpr: types.optional(types.string()),
       nextRelationAttribute: types.optional(types.string()),
       curRelationAttribute: types.optional(types.string()),
@@ -13522,6 +14346,8 @@ export const RestCollectMethodGetRestPaginationTypeNone$inboundSchema:
       offset: types.optional(types.number()),
       limitField: types.optional(types.string()),
       limit: types.optional(types.number()),
+      totalRecordField: types.optional(types.string()),
+      zeroIndexed: types.optional(types.boolean()),
       pageField: types.optional(types.string()),
       page: types.optional(types.number()),
       sizeField: types.optional(types.string()),
@@ -13531,6 +14357,7 @@ export const RestCollectMethodGetRestPaginationTypeNone$inboundSchema:
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeNone$Outbound = {
   type: "none";
+  maxPages?: number | undefined;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
   curRelationAttribute?: string | undefined;
@@ -13538,6 +14365,8 @@ export type RestCollectMethodGetRestPaginationTypeNone$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -13553,6 +14382,7 @@ export const RestCollectMethodGetRestPaginationTypeNone$outboundSchema:
     RestCollectMethodGetRestPaginationTypeNone
   > = z.object({
     type: z.literal("none"),
+    maxPages: z.number().optional(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
     curRelationAttribute: z.string().optional(),
@@ -13560,6 +14390,8 @@ export const RestCollectMethodGetRestPaginationTypeNone$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -14145,8 +14977,27 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   __scheduling: types.optional(
     z.lazy(() => RestCollectMethodGetScheduling$inboundSchema),
   ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  getAuthTokenFromHeader: types.optional(types.boolean()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  authRequestHeaders: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  tokenRespAttribute: types.optional(types.string()),
+  clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  authRequestParams: types.optional(
+    z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
+  ),
+  textSecret: types.optional(types.string()),
+  scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -14199,8 +15050,27 @@ export type RestCollectMethodGet$Outbound = {
     | RestCollectMethodGetMicrosoftGraphDelta$Outbound
     | undefined;
   __scheduling?: RestCollectMethodGetScheduling$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  getAuthTokenFromHeader?: boolean | undefined;
+  authHeaderKey?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  authRequestHeaders?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  tokenRespAttribute?: string | undefined;
+  clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  authRequestParams?:
+    | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  textSecret?: string | undefined;
+  scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -14282,8 +15152,27 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   ).optional(),
   __scheduling: z.lazy(() => RestCollectMethodGetScheduling$outboundSchema)
     .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  getAuthTokenFromHeader: z.boolean().optional(),
+  authHeaderKey: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  authRequestHeaders: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  tokenRespAttribute: z.string().optional(),
+  clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  authRequestParams: z.array(
+    CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  textSecret: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
