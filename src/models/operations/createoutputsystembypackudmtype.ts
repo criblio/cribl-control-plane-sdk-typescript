@@ -4481,6 +4481,7 @@ export const CreateOutputSystemByPackFormatCriblLake = {
   Json: "json",
   Parquet: "parquet",
   Ddss: "ddss",
+  Netskope: "netskope",
 } as const;
 export type CreateOutputSystemByPackFormatCriblLake = OpenEnum<
   typeof CreateOutputSystemByPackFormatCriblLake
