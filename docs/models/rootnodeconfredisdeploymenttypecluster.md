@@ -1,13 +1,13 @@
-# RedisDeploymentTypeClusterRootNode
+# RootNodeConfRedisDeploymentTypeCluster
 
 ## Example Usage
 
 ```typescript
-import { RedisDeploymentTypeClusterRootNode } from "cribl-control-plane/models";
+import { RootNodeConfRedisDeploymentTypeCluster } from "cribl-control-plane/models";
 
-let value: RedisDeploymentTypeClusterRootNode = {
-  host: "terrible-dividend.net",
-  port: 9934.49,
+let value: RootNodeConfRedisDeploymentTypeCluster = {
+  host: "tangible-tomb.net",
+  port: 3278.96,
 };
 ```
 
