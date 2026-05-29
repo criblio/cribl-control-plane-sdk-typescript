@@ -28,7 +28,7 @@ import { Result } from "../types/fp.js";
  * Restart the Cribl server
  *
  * @remarks
- * Restart the Cribl server.Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
+ * Restart the Cribl server. Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
  */
 export function systemSettingsRestart(
   client: CriblControlPlaneCore,
