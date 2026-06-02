@@ -30,9 +30,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.collectors.list({
-    collectorType: "<value>",
-  });
+  const result = await criblControlPlane.collectors.list({});
 
   console.log(result);
 }
@@ -58,9 +56,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await collectorsList(criblControlPlane, {
-    collectorType: "<value>",
-  });
+  const res = await collectorsList(criblControlPlane, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
