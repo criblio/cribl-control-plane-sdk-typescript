@@ -3,6 +3,21 @@
  */
 
 import * as z from "zod/v3";
+import * as openEnums from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
+
+/**
+ * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+ */
+export const GetCriblLakeDatasetByLakeIdFormat = {
+  Ddss: "ddss",
+} as const;
+/**
+ * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+ */
+export type GetCriblLakeDatasetByLakeIdFormat = OpenEnum<
+  typeof GetCriblLakeDatasetByLakeIdFormat
+>;
 
 export type GetCriblLakeDatasetByLakeIdRequest = {
   /**
@@ -16,7 +31,7 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
   /**
    * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
    */
-  format?: string | undefined;
+  format?: GetCriblLakeDatasetByLakeIdFormat | undefined;
   /**
    * Exclude DDSS format datasets from the response.
    */
@@ -34,6 +49,13 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    */
   excludeBYOS?: boolean | undefined;
 };
+
+/** @internal */
+export const GetCriblLakeDatasetByLakeIdFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  GetCriblLakeDatasetByLakeIdFormat
+> = openEnums.outboundSchema(GetCriblLakeDatasetByLakeIdFormat);
 
 /** @internal */
 export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
@@ -54,7 +76,7 @@ export const GetCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
 > = z.object({
   lakeId: z.string(),
   storageLocationId: z.string().optional(),
-  format: z.string().optional(),
+  format: GetCriblLakeDatasetByLakeIdFormat$outboundSchema.optional(),
   excludeDDSS: z.boolean().optional(),
   excludeDeleted: z.boolean().optional(),
   excludeInternal: z.boolean().optional(),

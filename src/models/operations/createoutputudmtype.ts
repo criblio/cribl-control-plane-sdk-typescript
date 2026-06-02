@@ -3914,6 +3914,8 @@ export type CreateOutputStatsDestination = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 export type CreateOutputColumnMappingLocalSearchStorage = {
@@ -15061,6 +15063,8 @@ export type CreateOutputStatsDestination$Outbound = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 /** @internal */
@@ -15076,6 +15080,8 @@ export const CreateOutputStatsDestination$outboundSchema: z.ZodType<
   username: z.string().optional(),
   sqlUsername: z.string().optional(),
   password: z.string().optional(),
+  waitForAsyncInserts: z.boolean().optional(),
+  concurrency: z.number().optional(),
 });
 
 export function createOutputStatsDestinationToJSON(
