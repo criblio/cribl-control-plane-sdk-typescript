@@ -31,7 +31,6 @@ async function run() {
   const result = await criblControlPlane.lakes.datasets.list({
     lakeId: "<id>",
     storageLocationId: "<id>",
-    format: "<value>",
     excludeDDSS: true,
     excludeDeleted: true,
     excludeInternal: false,
@@ -65,7 +64,6 @@ async function run() {
   const res = await lakesDatasetsList(criblControlPlane, {
     lakeId: "<id>",
     storageLocationId: "<id>",
-    format: "<value>",
     excludeDDSS: true,
     excludeDeleted: true,
     excludeInternal: false,

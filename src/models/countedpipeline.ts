@@ -14,6 +14,9 @@ export type CountedPipeline = {
    * number of items present in the items array
    */
   count?: number | undefined;
+  /**
+   * List of items in this response.
+   */
   items?: Array<Pipeline> | undefined;
 };
 

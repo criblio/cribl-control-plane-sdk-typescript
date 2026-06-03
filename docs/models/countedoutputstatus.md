@@ -13,4 +13,4 @@ let value: CountedOutputStatus = {};
 | Field                                              | Type                                               | Required                                           | Description                                        |
 | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
 | `count`                                            | *number*                                           | :heavy_minus_sign:                                 | number of items present in the items array         |
-| `items`                                            | [models.OutputStatus](../models/outputstatus.md)[] | :heavy_minus_sign:                                 | N/A                                                |
+| `items`                                            | [models.OutputStatus](../models/outputstatus.md)[] | :heavy_minus_sign:                                 | List of items in this response.                    |

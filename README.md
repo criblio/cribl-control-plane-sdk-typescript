@@ -437,7 +437,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [System.Captures](docs/sdks/captures/README.md)
 
-* [create](docs/sdks/captures/README.md#create) - Capture live incoming data
+* [create](docs/sdks/captures/README.md#create) - Capture live data
 
 ### [System.Settings](docs/sdks/settings/README.md)
 
@@ -445,7 +445,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
-* [list](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+* [list](docs/sdks/cribl/README.md#list) - Get system settings
 * [update](docs/sdks/cribl/README.md#update) - Update system settings
 
 ### [Versions.Branches](docs/sdks/branches/README.md)
@@ -595,8 +595,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesStatusesGet`](docs/sdks/sourcesstatuses/README.md#get) - Get the status of a Source
 - [`sourcesStatusesList`](docs/sdks/sourcesstatuses/README.md#list) - List the status of all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
-- [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
-- [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+- [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live data
+- [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get system settings
 - [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update system settings
 - [`systemSettingsRestart`](docs/sdks/settings/README.md#restart) - Restart the Cribl server
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
