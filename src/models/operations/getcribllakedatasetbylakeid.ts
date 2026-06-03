@@ -3,6 +3,21 @@
  */
 
 import * as z from "zod/v3";
+import * as openEnums from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
+
+/**
+ * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+ */
+export const GetCriblLakeDatasetByLakeIdFormat = {
+  Ddss: "ddss",
+} as const;
+/**
+ * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+ */
+export type GetCriblLakeDatasetByLakeIdFormat = OpenEnum<
+  typeof GetCriblLakeDatasetByLakeIdFormat
+>;
 
 export type GetCriblLakeDatasetByLakeIdRequest = {
   /**
@@ -16,7 +31,7 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
   /**
    * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
    */
-  format?: string | undefined;
+  format?: GetCriblLakeDatasetByLakeIdFormat | undefined;
   /**
    * Exclude DDSS format datasets from the response.
    */
@@ -33,7 +48,18 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    * Exclude BYOS (Bring Your Own Storage) datasets from the response.
    */
   excludeBYOS?: boolean | undefined;
+  /**
+   * Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
+   */
+  includeMetrics?: boolean | undefined;
 };
+
+/** @internal */
+export const GetCriblLakeDatasetByLakeIdFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  GetCriblLakeDatasetByLakeIdFormat
+> = openEnums.outboundSchema(GetCriblLakeDatasetByLakeIdFormat);
 
 /** @internal */
 export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
@@ -44,6 +70,7 @@ export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
   excludeDeleted?: boolean | undefined;
   excludeInternal?: boolean | undefined;
   excludeBYOS?: boolean | undefined;
+  includeMetrics?: boolean | undefined;
 };
 
 /** @internal */
@@ -54,11 +81,12 @@ export const GetCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
 > = z.object({
   lakeId: z.string(),
   storageLocationId: z.string().optional(),
-  format: z.string().optional(),
+  format: GetCriblLakeDatasetByLakeIdFormat$outboundSchema.optional(),
   excludeDDSS: z.boolean().optional(),
   excludeDeleted: z.boolean().optional(),
   excludeInternal: z.boolean().optional(),
   excludeBYOS: z.boolean().optional(),
+  includeMetrics: z.boolean().optional(),
 });
 
 export function getCriblLakeDatasetByLakeIdRequestToJSON(

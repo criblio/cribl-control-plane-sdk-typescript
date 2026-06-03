@@ -65,6 +65,7 @@ export * from "./collectorrest.js";
 export * from "./collectors3.js";
 export * from "./collectorscript.js";
 export * from "./collectorsplunk.js";
+export * from "./collectortype.js";
 export * from "./collectrequestparamconfhealthcheckcollectmethodpost.js";
 export * from "./collectrequestparamconfrestcollectmethodget.js";
 export * from "./commit.js";

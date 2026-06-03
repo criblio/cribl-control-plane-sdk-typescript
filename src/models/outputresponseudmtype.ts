@@ -4275,6 +4275,8 @@ export type OutputResponseStatsDestination = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 export type ColumnMappingLocalSearchStorage = {
@@ -4848,6 +4850,7 @@ export const FormatCriblLake = {
   Json: "json",
   Parquet: "parquet",
   Ddss: "ddss",
+  Netskope: "netskope",
 } as const;
 export type FormatCriblLake = OpenEnum<typeof FormatCriblLake>;
 
@@ -14745,6 +14748,8 @@ export const OutputResponseStatsDestination$inboundSchema: z.ZodType<
   username: types.optional(types.string()),
   sqlUsername: types.optional(types.string()),
   password: types.optional(types.string()),
+  waitForAsyncInserts: types.optional(types.boolean()),
+  concurrency: types.optional(types.number()),
 });
 
 export function outputResponseStatsDestinationFromJSON(

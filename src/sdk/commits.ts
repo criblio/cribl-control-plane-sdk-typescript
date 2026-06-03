@@ -25,7 +25,7 @@ export class Commits extends ClientSDK {
    * List the commit history
    *
    * @remarks
-   * List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+   * List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
    */
   async list(
     request?: operations.GetVersionRequest | undefined,
@@ -42,7 +42,7 @@ export class Commits extends ClientSDK {
    * Create a new commit for pending changes to the Cribl configuration
    *
    * @remarks
-   * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
+   * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br> To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
    */
   async create(
     request: models.GitCommitBody,

@@ -3922,6 +3922,8 @@ export type CreateOutputSystemByPackStatsDestination = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 export type CreateOutputSystemByPackColumnMappingLocalSearchStorage = {
@@ -4481,6 +4483,7 @@ export const CreateOutputSystemByPackFormatCriblLake = {
   Json: "json",
   Parquet: "parquet",
   Ddss: "ddss",
+  Netskope: "netskope",
 } as const;
 export type CreateOutputSystemByPackFormatCriblLake = OpenEnum<
   typeof CreateOutputSystemByPackFormatCriblLake
@@ -15195,6 +15198,8 @@ export type CreateOutputSystemByPackStatsDestination$Outbound = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 /** @internal */
@@ -15210,6 +15215,8 @@ export const CreateOutputSystemByPackStatsDestination$outboundSchema: z.ZodType<
   username: z.string().optional(),
   sqlUsername: z.string().optional(),
   password: z.string().optional(),
+  waitForAsyncInserts: z.boolean().optional(),
+  concurrency: z.number().optional(),
 });
 
 export function createOutputSystemByPackStatsDestinationToJSON(

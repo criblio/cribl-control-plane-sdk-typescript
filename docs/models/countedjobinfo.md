@@ -13,4 +13,4 @@ let value: CountedJobInfo = {};
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | [models.JobInfo](../models/jobinfo.md)[]   | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | [models.JobInfo](../models/jobinfo.md)[]   | :heavy_minus_sign:                         | List of items in this response.            |
