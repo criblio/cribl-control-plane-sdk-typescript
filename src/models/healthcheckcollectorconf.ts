@@ -46,6 +46,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -59,6 +63,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -84,6 +92,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -97,6 +109,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -122,6 +138,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -131,6 +151,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -196,6 +220,14 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -268,6 +300,14 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -338,6 +378,14 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -506,6 +554,14 @@ export type HealthCheckAuthenticationOauthSecret = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -564,9 +620,17 @@ export type HealthCheckAuthenticationOauthSecret = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -596,6 +660,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -609,6 +677,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -634,6 +706,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -647,6 +723,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -672,6 +752,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -681,6 +765,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -746,6 +834,14 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -818,6 +914,14 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -888,6 +992,14 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1053,6 +1165,14 @@ export type HealthCheckAuthenticationOauth = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -1111,9 +1231,17 @@ export type HealthCheckAuthenticationOauth = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -1143,6 +1271,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -1156,6 +1288,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1181,6 +1317,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -1194,6 +1334,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1219,6 +1363,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -1228,6 +1376,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -1293,6 +1445,14 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1365,6 +1525,14 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -1435,6 +1603,14 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1597,6 +1773,14 @@ export type HealthCheckAuthenticationLoginSecret = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -1655,9 +1839,17 @@ export type HealthCheckAuthenticationLoginSecret = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
@@ -1693,6 +1885,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -1706,6 +1902,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1731,6 +1931,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -1744,6 +1948,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1769,6 +1977,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -1778,6 +1990,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -1843,6 +2059,14 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -1915,6 +2139,14 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -1985,6 +2217,14 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2148,6 +2388,22 @@ export type HealthCheckAuthenticationLogin = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -2240,6 +2496,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -2253,6 +2513,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2278,6 +2542,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -2291,6 +2559,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2316,6 +2588,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -2325,6 +2601,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -2390,6 +2670,14 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2462,6 +2750,14 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -2532,6 +2828,14 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2730,13 +3034,25 @@ export type HealthCheckAuthenticationBasicSecret = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
   /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
+  /**
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
   /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
@@ -2745,6 +3061,10 @@ export type HealthCheckAuthenticationBasicSecret = {
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
@@ -2790,6 +3110,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -2803,6 +3127,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2828,6 +3156,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -2841,6 +3173,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -2866,6 +3202,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -2875,6 +3215,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -2940,6 +3284,14 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3012,6 +3364,14 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -3082,6 +3442,14 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3223,6 +3591,14 @@ export type HealthCheckAuthenticationBasic = {
    * Basic authentication password
    */
   password: string;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -3285,6 +3661,10 @@ export type HealthCheckAuthenticationBasic = {
    */
   loginUrl?: string | undefined;
   /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
   loginBody?: string | undefined;
@@ -3292,6 +3672,10 @@ export type HealthCheckAuthenticationBasic = {
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
@@ -3337,6 +3721,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -3350,6 +3738,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3375,6 +3767,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -3388,6 +3784,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList =
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3413,6 +3813,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson =
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -3422,6 +3826,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson =
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -3487,6 +3895,14 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3559,6 +3975,14 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -3629,6 +4053,14 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3820,9 +4252,17 @@ export type HealthCheckAuthenticationNone = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -3832,6 +4272,10 @@ export type HealthCheckAuthenticationNone = {
    */
   loginUrl?: string | undefined;
   /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
   loginBody?: string | undefined;
@@ -3839,6 +4283,10 @@ export type HealthCheckAuthenticationNone = {
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
@@ -3908,6 +4356,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -3921,6 +4373,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3946,6 +4402,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -3959,6 +4419,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -3984,6 +4448,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      */
     discoverUrl?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Discover HTTP method.
      */
     discoverMethod?: string | undefined;
@@ -3993,6 +4461,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
       | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
      */
@@ -4058,6 +4530,14 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -4130,6 +4610,14 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -4200,6 +4688,14 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -4393,9 +4889,17 @@ export type HealthCheckCollectMethodPostWithBody = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -4405,6 +4909,10 @@ export type HealthCheckCollectMethodPostWithBody = {
    */
   loginUrl?: string | undefined;
   /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
   loginBody?: string | undefined;
@@ -4412,6 +4920,10 @@ export type HealthCheckCollectMethodPostWithBody = {
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
@@ -4480,6 +4992,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone = {
    */
   discoverUrl?: string | undefined;
   /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
+  /**
    * Discover HTTP method.
    */
   discoverMethod?: string | undefined;
@@ -4493,6 +5009,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone = {
    * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
+  /**
+   * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+   */
+  __template_discoverDataField?: string | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
@@ -4517,6 +5037,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList = {
    */
   discoverUrl?: string | undefined;
   /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
+  /**
    * Discover HTTP method.
    */
   discoverMethod?: string | undefined;
@@ -4530,6 +5054,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList = {
    * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
+  /**
+   * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+   */
+  __template_discoverDataField?: string | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
@@ -4554,6 +5082,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson = {
    */
   discoverUrl?: string | undefined;
   /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
+  /**
    * Discover HTTP method.
    */
   discoverMethod?: string | undefined;
@@ -4563,6 +5095,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson = {
   discoverRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
+  /**
+   * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+   */
+  __template_discoverDataField?: string | undefined;
   /**
    * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
    */
@@ -4628,6 +5164,14 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -4700,6 +5244,14 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -4770,6 +5322,14 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -4962,9 +5522,17 @@ export type HealthCheckCollectMethodPost = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -4974,6 +5542,10 @@ export type HealthCheckCollectMethodPost = {
    */
   loginUrl?: string | undefined;
   /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
   loginBody?: string | undefined;
@@ -4981,6 +5553,10 @@ export type HealthCheckCollectMethodPost = {
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
@@ -5060,6 +5636,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone = {
    */
   discoverUrl?: string | undefined;
   /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
+  /**
    * Discover HTTP method.
    */
   discoverMethod?: string | undefined;
@@ -5073,6 +5653,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone = {
    * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
+  /**
+   * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+   */
+  __template_discoverDataField?: string | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
@@ -5097,6 +5681,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList = {
    */
   discoverUrl?: string | undefined;
   /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
+  /**
    * Discover HTTP method.
    */
   discoverMethod?: string | undefined;
@@ -5110,6 +5698,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList = {
    * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
    */
   discoverDataField?: string | undefined;
+  /**
+   * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+   */
+  __template_discoverDataField?: string | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
    */
@@ -5134,6 +5726,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson = {
    */
   discoverUrl?: string | undefined;
   /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
+  /**
    * Discover HTTP method.
    */
   discoverMethod?: string | undefined;
@@ -5143,6 +5739,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson = {
   discoverRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
+  /**
+   * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+   */
+  __template_discoverDataField?: string | undefined;
   /**
    * Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
    */
@@ -5208,6 +5808,14 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -5280,6 +5888,14 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      */
     discoverDataField?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -5350,6 +5966,14 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
+     * Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+     */
+    __template_discoverDataField?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
      */
@@ -5542,9 +6166,17 @@ export type HealthCheckCollectMethodGet = {
    */
   username?: string | undefined;
   /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -5554,6 +6186,10 @@ export type HealthCheckCollectMethodGet = {
    */
   loginUrl?: string | undefined;
   /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
   loginBody?: string | undefined;
@@ -5561,6 +6197,10 @@ export type HealthCheckCollectMethodGet = {
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+   */
+  __template_tokenRespAttribute?: string | undefined;
   /**
    * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
    */
@@ -5614,6 +6254,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -5621,6 +6262,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -5629,11 +6271,13 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -5647,11 +6291,13 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -5692,6 +6338,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -5699,6 +6346,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -5707,11 +6355,13 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -5725,11 +6375,13 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -5770,12 +6422,14 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -5785,10 +6439,12 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -5803,10 +6459,12 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -5873,6 +6531,8 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -5887,6 +6547,8 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -5907,6 +6569,8 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -5978,6 +6642,8 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -5994,6 +6660,8 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6016,6 +6684,8 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -6087,6 +6757,8 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -6103,6 +6775,8 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6125,6 +6799,8 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -6651,6 +7327,8 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
+  __template_loginUrl: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -6700,7 +7378,9 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
@@ -6720,6 +7400,8 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -6747,7 +7429,9 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginBody?: string | undefined;
   clientSecretParamValue?: string | undefined;
@@ -6772,6 +7456,8 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -6820,7 +7506,9 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginBody: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
@@ -6856,6 +7544,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -6863,6 +7552,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -6871,11 +7561,13 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$O
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6889,11 +7581,13 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -6934,6 +7628,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -6941,6 +7636,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -6949,11 +7645,13 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$O
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -6967,11 +7665,13 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -7012,12 +7712,14 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -7027,10 +7729,12 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$O
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -7045,10 +7749,12 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -7115,6 +7821,8 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -7129,6 +7837,8 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -7149,6 +7859,8 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -7220,6 +7932,8 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -7236,6 +7950,8 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -7258,6 +7974,8 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -7329,6 +8047,8 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -7345,6 +8065,8 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -7367,6 +8089,8 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -7882,6 +8606,8 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
+  __template_loginUrl: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -7930,7 +8656,9 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   textSecret: types.optional(types.string()),
@@ -7950,6 +8678,8 @@ export type HealthCheckAuthenticationOauth$Outbound = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -7977,7 +8707,9 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginBody?: string | undefined;
   textSecret?: string | undefined;
@@ -8002,6 +8734,8 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -8049,7 +8783,9 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginBody: z.string().optional(),
   textSecret: z.string().optional(),
@@ -8084,6 +8820,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -8091,6 +8828,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8099,11 +8837,13 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8117,11 +8857,13 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -8162,6 +8904,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -8169,6 +8912,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -8177,11 +8921,13 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -8195,11 +8941,13 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -8240,12 +8988,14 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -8255,10 +9005,12 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -8273,10 +9025,12 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -8343,6 +9097,8 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8357,6 +9113,8 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8377,6 +9135,8 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -8448,6 +9208,8 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8464,6 +9226,8 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8486,6 +9250,8 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -8557,6 +9323,8 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8573,6 +9341,8 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8595,6 +9365,8 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -9118,6 +9890,8 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
+  __template_loginUrl: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -9167,7 +9941,9 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
   authRequestParams: types.optional(
@@ -9187,6 +9963,8 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -9214,7 +9992,9 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
@@ -9239,6 +10019,8 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -9287,7 +10069,9 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
@@ -9326,6 +10110,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -9333,6 +10118,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -9341,11 +10127,13 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$O
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -9359,11 +10147,13 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -9404,6 +10194,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -9411,6 +10202,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -9419,11 +10211,13 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$O
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -9437,11 +10231,13 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -9482,12 +10278,14 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -9497,10 +10295,12 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$O
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -9515,10 +10315,12 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -9585,6 +10387,8 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -9599,6 +10403,8 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -9619,6 +10425,8 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -9690,6 +10498,8 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -9706,6 +10516,8 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -9728,6 +10540,8 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -9799,6 +10613,8 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -9815,6 +10631,8 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -9837,6 +10655,8 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -10350,6 +11170,10 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
+  __template_loginUrl: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -10418,6 +11242,10 @@ export type HealthCheckAuthenticationLogin$Outbound = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_username?: string | undefined;
+  __template_password?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -10470,6 +11298,10 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_username: z.string().optional(),
+  __template_password: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -10554,6 +11386,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -10561,6 +11394,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -10569,11 +11403,13 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -10587,11 +11423,13 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -10632,6 +11470,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -10639,6 +11478,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -10647,11 +11487,13 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -10665,11 +11507,13 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -10710,12 +11554,14 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -10725,10 +11571,12 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -10743,10 +11591,12 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -10813,6 +11663,8 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -10827,6 +11679,8 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -10847,6 +11701,8 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -10918,6 +11774,8 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -10934,6 +11792,8 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -10956,6 +11816,8 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -11027,6 +11889,8 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -11043,6 +11907,8 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -11065,6 +11931,8 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -11630,10 +12498,14 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   tokenRespAttribute: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
@@ -11677,10 +12549,14 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   tokenRespAttribute?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
@@ -11750,10 +12626,14 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
@@ -11796,6 +12676,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -11803,6 +12684,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -11811,11 +12693,13 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$O
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -11829,11 +12713,13 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -11874,6 +12760,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -11881,6 +12768,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -11889,11 +12777,13 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$O
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -11907,11 +12797,13 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -11952,12 +12844,14 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -11967,10 +12861,12 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$O
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -11985,10 +12881,12 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -12055,6 +12953,8 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -12069,6 +12969,8 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -12089,6 +12991,8 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -12160,6 +13064,8 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -12176,6 +13082,8 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -12198,6 +13106,8 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -12269,6 +13179,8 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -12285,6 +13197,8 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -12307,6 +13221,8 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -12813,6 +13729,8 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   authentication: types.literal("basic"),
   username: types.string(),
   password: types.string(),
+  __template_username: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -12862,8 +13780,10 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   })),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   tokenRespAttribute: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
@@ -12881,6 +13801,8 @@ export type HealthCheckAuthenticationBasic$Outbound = {
   authentication: "basic";
   username: string;
   password: string;
+  __template_username?: string | undefined;
+  __template_password?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -12909,8 +13831,10 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   tokenRespAttribute?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
@@ -12933,6 +13857,8 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
   authentication: z.literal("basic"),
   username: z.string(),
   password: z.string(),
+  __template_username: z.string().optional(),
+  __template_password: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -12981,8 +13907,10 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
   ]).optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
@@ -13024,6 +13952,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$i
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -13031,6 +13960,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$i
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13039,11 +13969,13 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$Ou
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13057,11 +13989,13 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$o
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -13100,6 +14034,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$i
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -13107,6 +14042,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$i
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -13115,11 +14051,13 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$Ou
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -13133,11 +14071,13 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$o
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -13176,12 +14116,14 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$i
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -13191,10 +14133,12 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$Ou
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -13209,10 +14153,12 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$o
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -13277,6 +14223,8 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13291,6 +14239,8 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13311,6 +14261,8 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -13382,6 +14334,8 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13398,6 +14352,8 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13420,6 +14376,8 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -13491,6 +14449,8 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13507,6 +14467,8 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13529,6 +14491,8 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -14074,11 +15038,15 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   tokenRespAttribute: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
@@ -14121,11 +15089,15 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   tokenRespAttribute?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
@@ -14193,11 +15165,15 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
@@ -14258,6 +15234,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -14265,6 +15242,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -14273,11 +15251,13 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -14291,11 +15271,13 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -14336,6 +15318,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -14343,6 +15326,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -14351,11 +15335,13 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -14369,11 +15355,13 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -14414,12 +15402,14 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -14429,10 +15419,12 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -14447,10 +15439,12 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -14517,6 +15511,8 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -14531,6 +15527,8 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -14551,6 +15549,8 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -14622,6 +15622,8 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -14638,6 +15640,8 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -14660,6 +15664,8 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -14731,6 +15737,8 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -14747,6 +15755,8 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -14769,6 +15779,8 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -15335,11 +16347,15 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   tokenRespAttribute: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
@@ -15383,11 +16399,15 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   tokenRespAttribute?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
@@ -15458,11 +16478,15 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
@@ -15520,6 +16544,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$in
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -15527,6 +16552,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$in
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -15535,11 +16561,13 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Out
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -15553,11 +16581,13 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$ou
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -15596,6 +16626,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$in
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -15603,6 +16634,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$in
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -15611,11 +16643,13 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$Out
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -15629,11 +16663,13 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$ou
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -15672,12 +16708,14 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$in
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -15687,10 +16725,12 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$Out
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -15705,10 +16745,12 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$ou
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -15773,6 +16815,8 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -15787,6 +16831,8 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -15807,6 +16853,8 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -15878,6 +16926,8 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -15894,6 +16944,8 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -15916,6 +16968,8 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -15987,6 +17041,8 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -16003,6 +17059,8 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -16025,6 +17083,8 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -16561,11 +17621,15 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   tokenRespAttribute: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
@@ -16611,11 +17675,15 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   tokenRespAttribute?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
@@ -16686,11 +17754,15 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
@@ -16800,6 +17872,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inb
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -16807,6 +17880,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inb
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -16815,11 +17889,13 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outb
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -16833,11 +17909,13 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$out
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -16876,6 +17954,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$inb
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
@@ -16883,6 +17962,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$inb
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
   });
 /** @internal */
@@ -16891,11 +17971,13 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$Outb
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
   };
 
@@ -16909,11 +17991,13 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$out
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
   });
 
@@ -16952,12 +18036,14 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$inb
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(
         AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema,
       ),
     ),
+    __template_discoverDataField: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
 /** @internal */
@@ -16967,10 +18053,12 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$Outb
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
+    __template_discoverDataField?: string | undefined;
     itemList?: Array<string> | undefined;
   };
 
@@ -16985,10 +18073,12 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$out
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
+    __template_discoverDataField: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
 
@@ -17053,6 +18143,8 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -17067,6 +18159,8 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -17087,6 +18181,8 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -17158,6 +18254,8 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -17174,6 +18272,8 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -17196,6 +18296,8 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -17267,6 +18369,8 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
       ),
     ),
     discoverDataField: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
+    __template_discoverDataField: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -17283,6 +18387,8 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
       | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
       | undefined;
     discoverDataField?: string | undefined;
+    __template_discoverUrl?: string | undefined;
+    __template_discoverDataField?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -17305,6 +18411,8 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
       AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
     ).optional(),
     discoverDataField: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
+    __template_discoverDataField: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -17844,11 +18952,15 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
     ),
   })),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   tokenRespAttribute: types.optional(types.string()),
+  __template_tokenRespAttribute: types.optional(types.string()),
   authHeaderExpr: types.optional(types.string()),
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
@@ -17894,11 +19006,15 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound
     | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   tokenRespAttribute?: string | undefined;
+  __template_tokenRespAttribute?: string | undefined;
   authHeaderExpr?: string | undefined;
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
@@ -17969,11 +19085,15 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   tokenRespAttribute: z.string().optional(),
+  __template_tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,

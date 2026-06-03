@@ -98,13 +98,37 @@ export type AzureBlobAuthTypeClientCert = {
    */
   connectionString?: string | undefined;
   /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
+  /**
    * Text secret
    */
   textSecret?: string | undefined;
   /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
    * Text secret containing the client secret
    */
   clientTextSecret?: string | undefined;
+  /**
+   * Binds 'endpointSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpointSuffix' at runtime.
+   */
+  __template_endpointSuffix?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
   /**
    * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
    */
@@ -156,6 +180,26 @@ export type AzureBlobAuthTypeClientSecret = {
    */
   azureCloud?: string | undefined;
   /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'endpointSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpointSuffix' at runtime.
+   */
+  __template_endpointSuffix?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
+  /**
    * An optional predefined Destination that will be used to auto-populate Collector settings
    */
   outputName?: string | undefined;
@@ -199,6 +243,10 @@ export type AzureBlobAuthTypeClientSecret = {
    * Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
    */
   connectionString?: string | undefined;
+  /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
   /**
    * Text secret
    */
@@ -279,17 +327,33 @@ export type AzureBlobAuthTypeSecret = {
    */
   connectionString?: string | undefined;
   /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
+  /**
    * The name of your Azure storage account
    */
   storageAccountName?: string | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
   /**
    * The service principal's tenant ID
    */
   tenantId?: string | undefined;
   /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
    * The service principal's client ID
    */
   clientId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
   /**
    * Text secret containing the client secret
    */
@@ -299,9 +363,17 @@ export type AzureBlobAuthTypeSecret = {
    */
   endpointSuffix?: string | undefined;
   /**
+   * Binds 'endpointSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpointSuffix' at runtime.
+   */
+  __template_endpointSuffix?: string | undefined;
+  /**
    * The Azure cloud to use. Defaults to Azure Public Cloud.
    */
   azureCloud?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
    * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
@@ -333,6 +405,10 @@ export type AzureBlobAuthTypeManual = {
    * Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
    */
   connectionString: string;
+  /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
   /**
    * An optional predefined Destination that will be used to auto-populate Collector settings
    */
@@ -382,13 +458,25 @@ export type AzureBlobAuthTypeManual = {
    */
   storageAccountName?: string | undefined;
   /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
    * The service principal's tenant ID
    */
   tenantId?: string | undefined;
   /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
    * The service principal's client ID
    */
   clientId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
   /**
    * Text secret containing the client secret
    */
@@ -398,9 +486,17 @@ export type AzureBlobAuthTypeManual = {
    */
   endpointSuffix?: string | undefined;
   /**
+   * Binds 'endpointSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpointSuffix' at runtime.
+   */
+  __template_endpointSuffix?: string | undefined;
+  /**
    * The Azure cloud to use. Defaults to Azure Public Cloud.
    */
   azureCloud?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
    * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
@@ -490,8 +586,14 @@ export const AzureBlobAuthTypeClientCert$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   connectionString: types.optional(types.string()),
+  __template_connectionString: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_storageAccountName: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
   clientTextSecret: types.optional(types.string()),
+  __template_endpointSuffix: types.optional(types.string()),
+  __template_azureCloud: types.optional(types.string()),
   __template_containerName: types.optional(types.string()),
   __template_path: types.optional(types.string()),
 });
@@ -515,8 +617,14 @@ export type AzureBlobAuthTypeClientCert$Outbound = {
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   connectionString?: string | undefined;
+  __template_connectionString?: string | undefined;
   textSecret?: string | undefined;
+  __template_storageAccountName?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
   clientTextSecret?: string | undefined;
+  __template_endpointSuffix?: string | undefined;
+  __template_azureCloud?: string | undefined;
   __template_containerName?: string | undefined;
   __template_path?: string | undefined;
 };
@@ -547,8 +655,14 @@ export const AzureBlobAuthTypeClientCert$outboundSchema: z.ZodType<
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   connectionString: z.string().optional(),
+  __template_connectionString: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
   clientTextSecret: z.string().optional(),
+  __template_endpointSuffix: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
   __template_containerName: z.string().optional(),
   __template_path: z.string().optional(),
 });
@@ -631,6 +745,11 @@ export const AzureBlobAuthTypeClientSecret$inboundSchema: z.ZodType<
   clientTextSecret: types.string(),
   endpointSuffix: types.optional(types.string()),
   azureCloud: types.optional(types.string()),
+  __template_storageAccountName: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_endpointSuffix: types.optional(types.string()),
+  __template_azureCloud: types.optional(types.string()),
   outputName: types.optional(types.string()),
   containerName: types.string(),
   path: types.optional(types.string()),
@@ -644,6 +763,7 @@ export const AzureBlobAuthTypeClientSecret$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   connectionString: types.optional(types.string()),
+  __template_connectionString: types.optional(types.string()),
   textSecret: types.optional(types.string()),
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
@@ -660,6 +780,11 @@ export type AzureBlobAuthTypeClientSecret$Outbound = {
   clientTextSecret: string;
   endpointSuffix?: string | undefined;
   azureCloud?: string | undefined;
+  __template_storageAccountName?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_endpointSuffix?: string | undefined;
+  __template_azureCloud?: string | undefined;
   outputName?: string | undefined;
   containerName: string;
   path?: string | undefined;
@@ -673,6 +798,7 @@ export type AzureBlobAuthTypeClientSecret$Outbound = {
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   connectionString?: string | undefined;
+  __template_connectionString?: string | undefined;
   textSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
   __template_containerName?: string | undefined;
@@ -692,6 +818,11 @@ export const AzureBlobAuthTypeClientSecret$outboundSchema: z.ZodType<
   clientTextSecret: z.string(),
   endpointSuffix: z.string().optional(),
   azureCloud: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_endpointSuffix: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
   outputName: z.string().optional(),
   containerName: z.string(),
   path: z.string().optional(),
@@ -705,6 +836,7 @@ export const AzureBlobAuthTypeClientSecret$outboundSchema: z.ZodType<
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   connectionString: z.string().optional(),
+  __template_connectionString: z.string().optional(),
   textSecret: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
@@ -796,12 +928,18 @@ export const AzureBlobAuthTypeSecret$inboundSchema: z.ZodType<
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   connectionString: types.optional(types.string()),
+  __template_connectionString: types.optional(types.string()),
   storageAccountName: types.optional(types.string()),
+  __template_storageAccountName: types.optional(types.string()),
   tenantId: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
   clientId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
   clientTextSecret: types.optional(types.string()),
   endpointSuffix: types.optional(types.string()),
+  __template_endpointSuffix: types.optional(types.string()),
   azureCloud: types.optional(types.string()),
+  __template_azureCloud: types.optional(types.string()),
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
@@ -823,12 +961,18 @@ export type AzureBlobAuthTypeSecret$Outbound = {
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   connectionString?: string | undefined;
+  __template_connectionString?: string | undefined;
   storageAccountName?: string | undefined;
+  __template_storageAccountName?: string | undefined;
   tenantId?: string | undefined;
+  __template_tenantId?: string | undefined;
   clientId?: string | undefined;
+  __template_clientId?: string | undefined;
   clientTextSecret?: string | undefined;
   endpointSuffix?: string | undefined;
+  __template_endpointSuffix?: string | undefined;
   azureCloud?: string | undefined;
+  __template_azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
   __template_containerName?: string | undefined;
   __template_path?: string | undefined;
@@ -855,12 +999,18 @@ export const AzureBlobAuthTypeSecret$outboundSchema: z.ZodType<
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   connectionString: z.string().optional(),
+  __template_connectionString: z.string().optional(),
   storageAccountName: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
   tenantId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
   clientId: z.string().optional(),
+  __template_clientId: z.string().optional(),
   clientTextSecret: z.string().optional(),
   endpointSuffix: z.string().optional(),
+  __template_endpointSuffix: z.string().optional(),
   azureCloud: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_containerName: z.string().optional(),
@@ -936,6 +1086,7 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
 > = z.object({
   authType: types.literal("manual"),
   connectionString: types.string(),
+  __template_connectionString: types.optional(types.string()),
   outputName: types.optional(types.string()),
   containerName: types.string(),
   path: types.optional(types.string()),
@@ -950,11 +1101,16 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
   parquetChunkDownloadTimeout: types.optional(types.number()),
   textSecret: types.optional(types.string()),
   storageAccountName: types.optional(types.string()),
+  __template_storageAccountName: types.optional(types.string()),
   tenantId: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
   clientId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
   clientTextSecret: types.optional(types.string()),
   endpointSuffix: types.optional(types.string()),
+  __template_endpointSuffix: types.optional(types.string()),
   azureCloud: types.optional(types.string()),
+  __template_azureCloud: types.optional(types.string()),
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
@@ -965,6 +1121,7 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
 export type AzureBlobAuthTypeManual$Outbound = {
   authType: "manual";
   connectionString: string;
+  __template_connectionString?: string | undefined;
   outputName?: string | undefined;
   containerName: string;
   path?: string | undefined;
@@ -977,11 +1134,16 @@ export type AzureBlobAuthTypeManual$Outbound = {
   parquetChunkDownloadTimeout?: number | undefined;
   textSecret?: string | undefined;
   storageAccountName?: string | undefined;
+  __template_storageAccountName?: string | undefined;
   tenantId?: string | undefined;
+  __template_tenantId?: string | undefined;
   clientId?: string | undefined;
+  __template_clientId?: string | undefined;
   clientTextSecret?: string | undefined;
   endpointSuffix?: string | undefined;
+  __template_endpointSuffix?: string | undefined;
   azureCloud?: string | undefined;
+  __template_azureCloud?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
   __template_containerName?: string | undefined;
   __template_path?: string | undefined;
@@ -995,6 +1157,7 @@ export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
 > = z.object({
   authType: z.literal("manual"),
   connectionString: z.string(),
+  __template_connectionString: z.string().optional(),
   outputName: z.string().optional(),
   containerName: z.string(),
   path: z.string().optional(),
@@ -1009,11 +1172,16 @@ export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
   parquetChunkDownloadTimeout: z.number().optional(),
   textSecret: z.string().optional(),
   storageAccountName: z.string().optional(),
+  __template_storageAccountName: z.string().optional(),
   tenantId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
   clientId: z.string().optional(),
+  __template_clientId: z.string().optional(),
   clientTextSecret: z.string().optional(),
   endpointSuffix: z.string().optional(),
+  __template_endpointSuffix: z.string().optional(),
   azureCloud: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
   __template_containerName: z.string().optional(),
