@@ -395,6 +395,10 @@ export type CreateInputAuthTokenCloudflareHec = {
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -7606,6 +7610,7 @@ export const CreateInputAuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
 export type CreateInputAuthTokenCloudflareHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -7620,6 +7625,7 @@ export const CreateInputAuthTokenCloudflareHec$outboundSchema: z.ZodType<
 > = z.object({
   authType: CreateInputAuthTokenAuthenticationMethod$outboundSchema.optional(),
   tokenSecret: z.string().optional(),
+  token: z.string().optional(),
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),

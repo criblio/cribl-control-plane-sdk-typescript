@@ -562,6 +562,10 @@ export type AuthTokenCloudflareHec = {
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -8283,6 +8287,7 @@ export const AuthTokenCloudflareHec$inboundSchema: z.ZodType<
 > = z.object({
   authType: types.optional(AuthenticationMethodCloudflareHec$inboundSchema),
   tokenSecret: types.optional(types.string()),
+  token: types.optional(types.string()),
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),
