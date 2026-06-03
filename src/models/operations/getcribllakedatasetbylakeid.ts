@@ -48,6 +48,10 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    * Exclude BYOS (Bring Your Own Storage) datasets from the response.
    */
   excludeBYOS?: boolean | undefined;
+  /**
+   * Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
+   */
+  includeMetrics?: boolean | undefined;
 };
 
 /** @internal */
@@ -66,6 +70,7 @@ export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
   excludeDeleted?: boolean | undefined;
   excludeInternal?: boolean | undefined;
   excludeBYOS?: boolean | undefined;
+  includeMetrics?: boolean | undefined;
 };
 
 /** @internal */
@@ -81,6 +86,7 @@ export const GetCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
   excludeDeleted: z.boolean().optional(),
   excludeInternal: z.boolean().optional(),
   excludeBYOS: z.boolean().optional(),
+  includeMetrics: z.boolean().optional(),
 });
 
 export function getCriblLakeDatasetByLakeIdRequestToJSON(

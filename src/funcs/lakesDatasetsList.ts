@@ -105,6 +105,7 @@ async function $do(
     "excludeDeleted": payload.excludeDeleted,
     "excludeInternal": payload.excludeInternal,
     "format": payload.format,
+    "includeMetrics": payload.includeMetrics,
     "storageLocationId": payload.storageLocationId,
   });
 

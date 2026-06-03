@@ -13,4 +13,4 @@ let value: CountedSavedJobResponse = {};
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | *models.SavedJobResponse*[]                | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | *models.SavedJobResponse*[]                | :heavy_minus_sign:                         | List of items in this response.            |

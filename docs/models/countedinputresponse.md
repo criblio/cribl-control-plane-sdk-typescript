@@ -13,4 +13,4 @@ let value: CountedInputResponse = {};
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | *models.InputResponse*[]                   | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | *models.InputResponse*[]                   | :heavy_minus_sign:                         | List of items in this response.            |
