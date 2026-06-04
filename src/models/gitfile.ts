@@ -9,6 +9,7 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitFile = {
+  autoIncludedInCommit?: boolean | undefined;
   children?: Array<GitFile> | undefined;
   name: string;
   state?: string | undefined;
@@ -17,6 +18,7 @@ export type GitFile = {
 /** @internal */
 export const GitFile$inboundSchema: z.ZodType<GitFile, z.ZodTypeDef, unknown> =
   z.object({
+    autoIncludedInCommit: types.optional(types.boolean()),
     children: types.optional(z.array(z.lazy(() => GitFile$inboundSchema))),
     name: types.string(),
     state: types.optional(types.string()),

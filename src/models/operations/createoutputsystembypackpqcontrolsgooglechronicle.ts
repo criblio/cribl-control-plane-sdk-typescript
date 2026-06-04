@@ -3922,6 +3922,8 @@ export type CreateOutputSystemByPackStatsDestination = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 export type CreateOutputSystemByPackColumnMapping = {
@@ -4631,6 +4633,7 @@ export const CreateOutputSystemByPackFormatCriblLake = {
   Json: "json",
   Parquet: "parquet",
   Ddss: "ddss",
+  Netskope: "netskope",
 } as const;
 export type CreateOutputSystemByPackFormatCriblLake = OpenEnum<
   typeof CreateOutputSystemByPackFormatCriblLake
@@ -8534,7 +8537,15 @@ export type CreateOutputSystemByPackOutputSnmp = {
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
    */
   dnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send SNMP Trap traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * MTU in bytes. The actual maximum SNMP Trap payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). Payloads exceeding this limit will be dropped.
+   */
+  maxRecordSize?: number | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -15344,6 +15355,8 @@ export type CreateOutputSystemByPackStatsDestination$Outbound = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 /** @internal */
@@ -15359,6 +15372,8 @@ export const CreateOutputSystemByPackStatsDestination$outboundSchema: z.ZodType<
   username: z.string().optional(),
   sqlUsername: z.string().optional(),
   password: z.string().optional(),
+  waitForAsyncInserts: z.boolean().optional(),
+  concurrency: z.number().optional(),
 });
 
 export function createOutputSystemByPackStatsDestinationToJSON(
@@ -18947,7 +18962,9 @@ export type CreateOutputSystemByPackOutputSnmp$Outbound = {
   streamtags?: Array<string> | undefined;
   hosts: Array<CreateOutputSystemByPackHostSnmp$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
+  maxRecordSize?: number | undefined;
   __template_streamtags?: string | undefined;
 };
 
@@ -18965,7 +18982,9 @@ export const CreateOutputSystemByPackOutputSnmp$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => CreateOutputSystemByPackHostSnmp$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
+  maxRecordSize: z.number().optional(),
   __template_streamtags: z.string().optional(),
 });
 

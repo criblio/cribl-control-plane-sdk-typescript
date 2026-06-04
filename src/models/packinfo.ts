@@ -19,6 +19,9 @@ export type PackInfo = {
   description?: string | undefined;
   displayName?: string | undefined;
   exports?: Array<string> | undefined;
+  /**
+   * Unique identifier.
+   */
   id: string;
   inputs?: number | undefined;
   isDisabled?: boolean | undefined;

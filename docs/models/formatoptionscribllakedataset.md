@@ -15,5 +15,5 @@ let value: FormatOptionsCriblLakeDataset = "ddss";
 ## Values
 
 ```typescript
-"ddss" | "json" | "parquet" | Unrecognized<string>
+"ddss" | "json" | "netskope" | "parquet" | Unrecognized<string>
 ```

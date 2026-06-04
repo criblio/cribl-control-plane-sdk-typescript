@@ -3,12 +3,13 @@
  */
 
 import * as z from "zod/v3";
+import * as models from "../index.js";
 
 export type GetSavedJobRequest = {
   /**
    * Filter by collector type
    */
-  collectorType?: string | undefined;
+  collectorType?: models.CollectorType | undefined;
 };
 
 /** @internal */
@@ -22,7 +23,7 @@ export const GetSavedJobRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSavedJobRequest
 > = z.object({
-  collectorType: z.string().optional(),
+  collectorType: models.CollectorType$outboundSchema.optional(),
 });
 
 export function getSavedJobRequestToJSON(

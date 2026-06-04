@@ -7,16 +7,67 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  OauthParamConfInputKafka,
+  OauthParamConfInputKafka$inboundSchema,
+  OauthParamConfInputKafka$Outbound,
+  OauthParamConfInputKafka$outboundSchema,
+} from "./oauthparamconfinputkafka.js";
 
 /**
- * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+ * Credentials to use when authenticating with the schema registry
  */
 export type AuthType = {
   disabled: boolean;
   /**
+   * Authenticate with the schema registry using OAuth instead of basic HTTP authentication
+   */
+  oauthEnabled?: boolean | undefined;
+  /**
+   * URL of the token endpoint to use for OAuth authentication
+   */
+  tokenUrl?: string | undefined;
+  /**
+   * Client ID to use for OAuth authentication
+   */
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Additional fields to send to the token endpoint, such as scope or audience
+   */
+  oauthParams?: Array<OauthParamConfInputKafka> | undefined;
+  /**
+   * Confluent Cloud identity pool ID. Sent as the `Confluent-Identity-Pool-Id` header on requests to the schema registry.
+   */
+  identityPoolId?: string | undefined;
+  /**
+   * Confluent Cloud Schema Registry logical cluster ID. Sent as the `target-sr-cluster` header on requests to the schema registry.
+   */
+  logicalCluster?: string | undefined;
+  /**
    * Select or create a secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * Binds 'tokenUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenUrl' at runtime.
+   */
+  __template_tokenUrl?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'identityPoolId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'identityPoolId' at runtime.
+   */
+  __template_identityPoolId?: string | undefined;
+  /**
+   * Binds 'logicalCluster' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logicalCluster' at runtime.
+   */
+  __template_logicalCluster?: string | undefined;
 };
 
 /** @internal */
@@ -26,12 +77,36 @@ export const AuthType$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: types.boolean(),
+  oauthEnabled: types.optional(types.boolean()),
+  tokenUrl: types.optional(types.string()),
+  clientId: types.optional(types.string()),
+  oauthSecretType: types.optional(types.string()),
+  clientTextSecret: types.optional(types.string()),
+  oauthParams: types.optional(z.array(OauthParamConfInputKafka$inboundSchema)),
+  identityPoolId: types.optional(types.string()),
+  logicalCluster: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
+  __template_tokenUrl: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_identityPoolId: types.optional(types.string()),
+  __template_logicalCluster: types.optional(types.string()),
 });
 /** @internal */
 export type AuthType$Outbound = {
   disabled: boolean;
+  oauthEnabled?: boolean | undefined;
+  tokenUrl?: string | undefined;
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  clientTextSecret?: string | undefined;
+  oauthParams?: Array<OauthParamConfInputKafka$Outbound> | undefined;
+  identityPoolId?: string | undefined;
+  logicalCluster?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_tokenUrl?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_identityPoolId?: string | undefined;
+  __template_logicalCluster?: string | undefined;
 };
 
 /** @internal */
@@ -41,7 +116,19 @@ export const AuthType$outboundSchema: z.ZodType<
   AuthType
 > = z.object({
   disabled: z.boolean(),
+  oauthEnabled: z.boolean().optional(),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(OauthParamConfInputKafka$outboundSchema).optional(),
+  identityPoolId: z.string().optional(),
+  logicalCluster: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_tokenUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_identityPoolId: z.string().optional(),
+  __template_logicalCluster: z.string().optional(),
 });
 
 export function authTypeToJSON(authType: AuthType): string {

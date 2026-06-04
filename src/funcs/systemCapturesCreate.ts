@@ -29,10 +29,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Capture live incoming data
+ * Capture live data
  *
  * @remarks
- * Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
+ * Initiate a live data capture from Cribl Workers. Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
  */
 export function systemCapturesCreate(
   client: CriblControlPlaneCore,

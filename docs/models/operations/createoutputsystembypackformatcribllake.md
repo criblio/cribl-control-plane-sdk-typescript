@@ -13,5 +13,5 @@ let value: CreateOutputSystemByPackFormatCriblLake = "json";
 ## Values
 
 ```typescript
-"json" | "parquet" | "ddss" | Unrecognized<string>
+"json" | "parquet" | "ddss" | "netskope" | Unrecognized<string>
 ```

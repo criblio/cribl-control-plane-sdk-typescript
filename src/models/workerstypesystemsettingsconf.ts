@@ -14,9 +14,12 @@ export type WorkersTypeSystemSettingsConf = {
   loadThrottlePerc?: number | undefined;
   memory: number;
   minimum: number;
+  restartUnresponsiveProcesses?: boolean | undefined;
   startupMaxConns?: number | undefined;
   startupThrottleTimeout?: number | undefined;
   v8SingleThread?: boolean | undefined;
+  workerProcessConfigUpdateConcurrency?: number | undefined;
+  workerProcessReloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -30,9 +33,12 @@ export const WorkersTypeSystemSettingsConf$inboundSchema: z.ZodType<
   loadThrottlePerc: types.optional(types.number()),
   memory: types.number(),
   minimum: types.number(),
+  restartUnresponsiveProcesses: types.optional(types.boolean()),
   startupMaxConns: types.optional(types.number()),
   startupThrottleTimeout: types.optional(types.number()),
   v8SingleThread: types.optional(types.boolean()),
+  workerProcessConfigUpdateConcurrency: types.optional(types.number()),
+  workerProcessReloadTimeout: types.optional(types.number()),
 });
 /** @internal */
 export type WorkersTypeSystemSettingsConf$Outbound = {
@@ -41,9 +47,12 @@ export type WorkersTypeSystemSettingsConf$Outbound = {
   loadThrottlePerc?: number | undefined;
   memory: number;
   minimum: number;
+  restartUnresponsiveProcesses?: boolean | undefined;
   startupMaxConns?: number | undefined;
   startupThrottleTimeout?: number | undefined;
   v8SingleThread?: boolean | undefined;
+  workerProcessConfigUpdateConcurrency?: number | undefined;
+  workerProcessReloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -57,9 +66,12 @@ export const WorkersTypeSystemSettingsConf$outboundSchema: z.ZodType<
   loadThrottlePerc: z.number().optional(),
   memory: z.number(),
   minimum: z.number(),
+  restartUnresponsiveProcesses: z.boolean().optional(),
   startupMaxConns: z.number().optional(),
   startupThrottleTimeout: z.number().optional(),
   v8SingleThread: z.boolean().optional(),
+  workerProcessConfigUpdateConcurrency: z.number().optional(),
+  workerProcessReloadTimeout: z.number().optional(),
 });
 
 export function workersTypeSystemSettingsConfToJSON(
