@@ -23,6 +23,10 @@ export type ObjectStorageFilter = {
    * Glob pattern for selecting files within the storage path.
    */
   filter: string;
+  /**
+   * When true, instructs the C++ reader to unwrap the outer JSON envelope before applying the user datatype to the nested _raw field. Set for Cribl Lake NDJSON filters only.
+   */
+  preprocessOuterJson?: boolean | undefined;
 };
 
 /** @internal */
@@ -34,12 +38,14 @@ export const ObjectStorageFilter$inboundSchema: z.ZodType<
   dataPathFormat: types.optional(PathFilterDataFormat$inboundSchema),
   dataTypeId: types.string(),
   filter: types.string(),
+  preprocessOuterJson: types.optional(types.boolean()),
 });
 /** @internal */
 export type ObjectStorageFilter$Outbound = {
   dataPathFormat?: string | undefined;
   dataTypeId: string;
   filter: string;
+  preprocessOuterJson?: boolean | undefined;
 };
 
 /** @internal */
@@ -51,6 +57,7 @@ export const ObjectStorageFilter$outboundSchema: z.ZodType<
   dataPathFormat: PathFilterDataFormat$outboundSchema.optional(),
   dataTypeId: z.string(),
   filter: z.string(),
+  preprocessOuterJson: z.boolean().optional(),
 });
 
 export function objectStorageFilterToJSON(
