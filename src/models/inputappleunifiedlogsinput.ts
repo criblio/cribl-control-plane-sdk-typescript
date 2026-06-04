@@ -70,7 +70,7 @@ export type InputAppleUnifiedLogsInput = {
   connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
-   * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
+   * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
    */
   predicate: string;
   /**

@@ -339,7 +339,15 @@ export type RestAuthenticationNone = {
   microsoftGraphDelta?: RestAuthenticationNoneMicrosoftGraphDelta | undefined;
   __scheduling?: RestAuthenticationNoneScheduling | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -348,6 +356,10 @@ export type RestAuthenticationNone = {
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
    */
@@ -380,6 +392,10 @@ export type RestAuthenticationNone = {
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+   */
+  __template_clientSecretParamValue?: string | undefined;
+  /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
@@ -398,9 +414,17 @@ export type RestAuthenticationNone = {
    */
   serviceAccountCredentials?: string | undefined;
   /**
+   * Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+   */
+  __template_serviceAccountCredentials?: string | undefined;
+  /**
    * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
    */
   subject?: string | undefined;
+  /**
+   * Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+   */
+  __template_subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -442,6 +466,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -479,6 +507,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeList = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -516,6 +548,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeJson = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -595,6 +631,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -660,6 +700,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -724,6 +768,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -787,6 +835,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
      */
     formatResultCode?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
@@ -1455,7 +1507,15 @@ export type RestCollectMethodOther = {
   microsoftGraphDelta?: RestCollectMethodOtherMicrosoftGraphDelta | undefined;
   __scheduling?: RestCollectMethodOtherScheduling | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -1464,6 +1524,10 @@ export type RestCollectMethodOther = {
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
    */
@@ -1496,6 +1560,10 @@ export type RestCollectMethodOther = {
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+   */
+  __template_clientSecretParamValue?: string | undefined;
+  /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
@@ -1514,9 +1582,17 @@ export type RestCollectMethodOther = {
    */
   serviceAccountCredentials?: string | undefined;
   /**
+   * Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+   */
+  __template_serviceAccountCredentials?: string | undefined;
+  /**
    * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
    */
   subject?: string | undefined;
+  /**
+   * Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+   */
+  __template_subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -1558,6 +1634,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -1595,6 +1675,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -1632,6 +1716,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -1711,6 +1799,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -1776,6 +1868,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -1840,6 +1936,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -1903,6 +2003,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
      */
     formatResultCode?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
@@ -2567,7 +2671,15 @@ export type RestCollectMethodPostWithBody = {
     | undefined;
   __scheduling?: RestCollectMethodPostWithBodyScheduling | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -2576,6 +2688,10 @@ export type RestCollectMethodPostWithBody = {
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
    */
@@ -2608,6 +2724,10 @@ export type RestCollectMethodPostWithBody = {
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+   */
+  __template_clientSecretParamValue?: string | undefined;
+  /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
@@ -2626,9 +2746,17 @@ export type RestCollectMethodPostWithBody = {
    */
   serviceAccountCredentials?: string | undefined;
   /**
+   * Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+   */
+  __template_serviceAccountCredentials?: string | undefined;
+  /**
    * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
    */
   subject?: string | undefined;
+  /**
+   * Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+   */
+  __template_subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -2670,6 +2798,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeNone = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -2707,6 +2839,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeList = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -2744,6 +2880,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeJson = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -2823,6 +2963,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -2888,6 +3032,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -2952,6 +3100,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -3015,6 +3167,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet 
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
      */
     formatResultCode?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
@@ -3675,7 +3831,15 @@ export type RestCollectMethodPost = {
   microsoftGraphDelta?: RestCollectMethodPostMicrosoftGraphDelta | undefined;
   __scheduling?: RestCollectMethodPostScheduling | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -3684,6 +3848,10 @@ export type RestCollectMethodPost = {
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
    */
@@ -3716,6 +3884,10 @@ export type RestCollectMethodPost = {
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+   */
+  __template_clientSecretParamValue?: string | undefined;
+  /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
@@ -3734,9 +3906,17 @@ export type RestCollectMethodPost = {
    */
   serviceAccountCredentials?: string | undefined;
   /**
+   * Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+   */
+  __template_serviceAccountCredentials?: string | undefined;
+  /**
    * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
    */
   subject?: string | undefined;
+  /**
+   * Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+   */
+  __template_subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -3778,6 +3958,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeNone = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -3815,6 +3999,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeList = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -3852,6 +4040,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeJson = {
    * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
    */
   discoverUrl?: string | undefined;
+  /**
+   * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+   */
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
@@ -3931,6 +4123,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -3996,6 +4192,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostW
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -4060,6 +4260,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost 
      */
     formatResultCode?: string | undefined;
     /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
+    /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
     manualDiscoverResult?: string | undefined;
@@ -4123,6 +4327,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
      */
     formatResultCode?: string | undefined;
+    /**
+     * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+     */
+    __template_discoverUrl?: string | undefined;
     /**
      * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
      */
@@ -4783,7 +4991,15 @@ export type RestCollectMethodGet = {
   microsoftGraphDelta?: RestCollectMethodGetMicrosoftGraphDelta | undefined;
   __scheduling?: RestCollectMethodGetScheduling | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Select or create a stored secret that references your credentials
    */
@@ -4792,6 +5008,10 @@ export type RestCollectMethodGet = {
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
    */
@@ -4824,6 +5044,10 @@ export type RestCollectMethodGet = {
    */
   clientSecretParamValue?: string | undefined;
   /**
+   * Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+   */
+  __template_clientSecretParamValue?: string | undefined;
+  /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
   authRequestParams?:
@@ -4842,9 +5066,17 @@ export type RestCollectMethodGet = {
    */
   serviceAccountCredentials?: string | undefined;
   /**
+   * Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+   */
+  __template_serviceAccountCredentials?: string | undefined;
+  /**
    * Email address of a user account with Super Admin permissions to the resources the collector will retrieve
    */
   subject?: string | undefined;
+  /**
+   * Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+   */
+  __template_subject?: string | undefined;
   /**
    * Select or create an HMAC Function to use with authentication
    */
@@ -5466,9 +5698,12 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
     z.lazy(() => RestAuthenticationNoneScheduling$inboundSchema),
   ),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   getAuthTokenFromHeader: types.optional(types.boolean()),
   authHeaderKey: types.optional(types.string()),
@@ -5479,13 +5714,16 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
   tokenRespAttribute: types.optional(types.string()),
   clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  __template_clientSecretParamValue: types.optional(types.string()),
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  __template_serviceAccountCredentials: types.optional(types.string()),
   subject: types.optional(types.string()),
+  __template_subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -5525,9 +5763,12 @@ export type RestAuthenticationNone$Outbound = {
     | undefined;
   __scheduling?: RestAuthenticationNoneScheduling$Outbound | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   getAuthTokenFromHeader?: boolean | undefined;
   authHeaderKey?: string | undefined;
@@ -5538,13 +5779,16 @@ export type RestAuthenticationNone$Outbound = {
   tokenRespAttribute?: string | undefined;
   clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  __template_serviceAccountCredentials?: string | undefined;
   subject?: string | undefined;
+  __template_subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -5592,9 +5836,12 @@ export const RestAuthenticationNone$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() => RestAuthenticationNoneScheduling$outboundSchema)
     .optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   getAuthTokenFromHeader: z.boolean().optional(),
   authHeaderKey: z.string().optional(),
@@ -5605,13 +5852,16 @@ export const RestAuthenticationNone$outboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  __template_serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
+  __template_subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -5655,6 +5905,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema:
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -5672,6 +5923,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema:
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$Outbound = {
   discoverType: "none";
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -5693,6 +5945,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$outboundSchema:
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -5742,6 +5995,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema:
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -5759,6 +6013,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeList$Outbound = {
   discoverType: "list";
   itemList: Array<string>;
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -5780,6 +6035,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeList$outboundSchema:
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -5829,6 +6085,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema:
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -5846,6 +6103,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$Outbound = {
   manualDiscoverResult: string;
   discoverDataField?: string | undefined;
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -5867,6 +6125,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$outboundSchema:
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -5950,6 +6209,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -5975,6 +6235,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6005,6 +6266,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -6077,6 +6339,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -6098,6 +6361,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6124,6 +6388,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -6198,6 +6463,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -6221,6 +6487,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6249,6 +6516,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -6323,6 +6591,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -6346,6 +6615,7 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -6374,6 +6644,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -7802,9 +8073,12 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodOtherScheduling$inboundSchema),
   ),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   getAuthTokenFromHeader: types.optional(types.boolean()),
   authHeaderKey: types.optional(types.string()),
@@ -7815,13 +8089,16 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   tokenRespAttribute: types.optional(types.string()),
   clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  __template_clientSecretParamValue: types.optional(types.string()),
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  __template_serviceAccountCredentials: types.optional(types.string()),
   subject: types.optional(types.string()),
+  __template_subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -7877,9 +8154,12 @@ export type RestCollectMethodOther$Outbound = {
     | undefined;
   __scheduling?: RestCollectMethodOtherScheduling$Outbound | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   getAuthTokenFromHeader?: boolean | undefined;
   authHeaderKey?: string | undefined;
@@ -7890,13 +8170,16 @@ export type RestCollectMethodOther$Outbound = {
   tokenRespAttribute?: string | undefined;
   clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  __template_serviceAccountCredentials?: string | undefined;
   subject?: string | undefined;
+  __template_subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -7983,9 +8266,12 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() => RestCollectMethodOtherScheduling$outboundSchema)
     .optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   getAuthTokenFromHeader: z.boolean().optional(),
   authHeaderKey: z.string().optional(),
@@ -7996,13 +8282,16 @@ export const RestCollectMethodOther$outboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  __template_serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
+  __template_subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -8042,6 +8331,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$inboundS
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -8060,6 +8350,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$Outbound 
   {
     discoverType: "none";
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -8083,6 +8374,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$outbound
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -8130,6 +8422,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$inboundS
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -8148,6 +8441,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$Outbound 
     discoverType: "list";
     itemList: Array<string>;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -8171,6 +8465,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$outbound
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -8218,6 +8513,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson$inboundS
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -8236,6 +8532,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson$Outbound 
     manualDiscoverResult: string;
     discoverDataField?: string | undefined;
     discoverUrl?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     discoverMethod?: string | undefined;
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -8259,6 +8556,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson$outbound
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -8340,6 +8638,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8365,6 +8664,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8395,6 +8695,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -8467,6 +8768,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8488,6 +8790,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8514,6 +8817,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -8588,6 +8892,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8611,6 +8916,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8639,6 +8945,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -8713,6 +9020,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -8736,6 +9044,7 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -8764,6 +9073,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -10222,9 +10532,12 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodPostWithBodyScheduling$inboundSchema),
   ),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   getAuthTokenFromHeader: types.optional(types.boolean()),
   authHeaderKey: types.optional(types.string()),
@@ -10235,13 +10548,16 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   tokenRespAttribute: types.optional(types.string()),
   clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  __template_clientSecretParamValue: types.optional(types.string()),
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  __template_serviceAccountCredentials: types.optional(types.string()),
   subject: types.optional(types.string()),
+  __template_subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -10293,9 +10609,12 @@ export type RestCollectMethodPostWithBody$Outbound = {
     | undefined;
   __scheduling?: RestCollectMethodPostWithBodyScheduling$Outbound | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   getAuthTokenFromHeader?: boolean | undefined;
   authHeaderKey?: string | undefined;
@@ -10306,13 +10625,16 @@ export type RestCollectMethodPostWithBody$Outbound = {
   tokenRespAttribute?: string | undefined;
   clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  __template_serviceAccountCredentials?: string | undefined;
   subject?: string | undefined;
+  __template_subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -10402,9 +10724,12 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
     RestCollectMethodPostWithBodyScheduling$outboundSchema
   ).optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   getAuthTokenFromHeader: z.boolean().optional(),
   authHeaderKey: z.string().optional(),
@@ -10415,13 +10740,16 @@ export const RestCollectMethodPostWithBody$outboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  __template_serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
+  __template_subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -10467,6 +10795,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema:
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -10484,6 +10813,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema:
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeNone$Outbound = {
   discoverType: "none";
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -10505,6 +10835,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeNone$outboundSchema:
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -10554,6 +10885,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeList$inboundSchema:
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -10571,6 +10903,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeList$Outbound = {
   discoverType: "list";
   itemList: Array<string>;
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -10592,6 +10925,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeList$outboundSchema:
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -10641,6 +10975,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeJson$inboundSchema:
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -10658,6 +10993,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeJson$Outbound = {
   manualDiscoverResult: string;
   discoverDataField?: string | undefined;
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -10679,6 +11015,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeJson$outboundSchema:
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -10762,6 +11099,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -10787,6 +11125,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -10817,6 +11156,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -10889,6 +11229,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -10910,6 +11251,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -10936,6 +11278,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -11010,6 +11353,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -11033,6 +11377,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -11061,6 +11406,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -11135,6 +11481,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -11158,6 +11505,7 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -11186,6 +11534,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -12607,9 +12956,12 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodPostScheduling$inboundSchema),
   ),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   getAuthTokenFromHeader: types.optional(types.boolean()),
   authHeaderKey: types.optional(types.string()),
@@ -12620,13 +12972,16 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   tokenRespAttribute: types.optional(types.string()),
   clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  __template_clientSecretParamValue: types.optional(types.string()),
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  __template_serviceAccountCredentials: types.optional(types.string()),
   subject: types.optional(types.string()),
+  __template_subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -12680,9 +13035,12 @@ export type RestCollectMethodPost$Outbound = {
     | undefined;
   __scheduling?: RestCollectMethodPostScheduling$Outbound | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   getAuthTokenFromHeader?: boolean | undefined;
   authHeaderKey?: string | undefined;
@@ -12693,13 +13051,16 @@ export type RestCollectMethodPost$Outbound = {
   tokenRespAttribute?: string | undefined;
   clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  __template_serviceAccountCredentials?: string | undefined;
   subject?: string | undefined;
+  __template_subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -12782,9 +13143,12 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() => RestCollectMethodPostScheduling$outboundSchema)
     .optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   getAuthTokenFromHeader: z.boolean().optional(),
   authHeaderKey: z.string().optional(),
@@ -12795,13 +13159,16 @@ export const RestCollectMethodPost$outboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  __template_serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
+  __template_subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });
@@ -12845,6 +13212,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema:
   > = z.object({
     discoverType: types.literal("none"),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -12862,6 +13230,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema:
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeNone$Outbound = {
   discoverType: "none";
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -12883,6 +13252,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$outboundSchema:
   > = z.object({
     discoverType: z.literal("none"),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -12932,6 +13302,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeList$inboundSchema:
     discoverType: types.literal("list"),
     itemList: z.array(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -12949,6 +13320,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeList$Outbound = {
   discoverType: "list";
   itemList: Array<string>;
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -12970,6 +13342,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeList$outboundSchema:
     discoverType: z.literal("list"),
     itemList: z.array(z.string()),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -13019,6 +13392,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeJson$inboundSchema:
     manualDiscoverResult: types.string(),
     discoverDataField: types.optional(types.string()),
     discoverUrl: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     discoverMethod: types.optional(types.string()),
     discoverRequestHeaders: types.optional(
       z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
@@ -13036,6 +13410,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeJson$Outbound = {
   manualDiscoverResult: string;
   discoverDataField?: string | undefined;
   discoverUrl?: string | undefined;
+  __template_discoverUrl?: string | undefined;
   discoverMethod?: string | undefined;
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
@@ -13057,6 +13432,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeJson$outboundSchema:
     manualDiscoverResult: z.string(),
     discoverDataField: z.string().optional(),
     discoverUrl: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     discoverMethod: z.string().optional(),
     discoverRequestHeaders: z.array(
       CollectRequestParamConfRestCollectMethodGet$outboundSchema,
@@ -13140,6 +13516,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13165,6 +13542,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13195,6 +13573,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -13267,6 +13646,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13288,6 +13668,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostW
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13314,6 +13695,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -13388,6 +13770,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13411,6 +13794,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13439,6 +13823,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -13513,6 +13898,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     discoverResponseFormat: types.optional(types.string()),
     enableDiscoverCode: types.optional(types.boolean()),
     formatResultCode: types.optional(types.string()),
+    __template_discoverUrl: types.optional(types.string()),
     manualDiscoverResult: types.optional(types.string()),
     itemList: types.optional(z.array(types.string())),
   });
@@ -13536,6 +13922,7 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$O
     discoverResponseFormat?: string | undefined;
     enableDiscoverCode?: boolean | undefined;
     formatResultCode?: string | undefined;
+    __template_discoverUrl?: string | undefined;
     manualDiscoverResult?: string | undefined;
     itemList?: Array<string> | undefined;
   };
@@ -13564,6 +13951,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     discoverResponseFormat: z.string().optional(),
     enableDiscoverCode: z.boolean().optional(),
     formatResultCode: z.string().optional(),
+    __template_discoverUrl: z.string().optional(),
     manualDiscoverResult: z.string().optional(),
     itemList: z.array(z.string()).optional(),
   });
@@ -14978,9 +15366,12 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
     z.lazy(() => RestCollectMethodGetScheduling$inboundSchema),
   ),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   loginUrl: types.optional(types.string()),
+  __template_loginUrl: types.optional(types.string()),
   loginBody: types.optional(types.string()),
   getAuthTokenFromHeader: types.optional(types.boolean()),
   authHeaderKey: types.optional(types.string()),
@@ -14991,13 +15382,16 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   tokenRespAttribute: types.optional(types.string()),
   clientSecretParamName: types.optional(types.string()),
   clientSecretParamValue: types.optional(types.string()),
+  __template_clientSecretParamValue: types.optional(types.string()),
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
+  __template_serviceAccountCredentials: types.optional(types.string()),
   subject: types.optional(types.string()),
+  __template_subject: types.optional(types.string()),
   hmacFunctionId: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -15051,9 +15445,12 @@ export type RestCollectMethodGet$Outbound = {
     | undefined;
   __scheduling?: RestCollectMethodGetScheduling$Outbound | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   loginUrl?: string | undefined;
+  __template_loginUrl?: string | undefined;
   loginBody?: string | undefined;
   getAuthTokenFromHeader?: boolean | undefined;
   authHeaderKey?: string | undefined;
@@ -15064,13 +15461,16 @@ export type RestCollectMethodGet$Outbound = {
   tokenRespAttribute?: string | undefined;
   clientSecretParamName?: string | undefined;
   clientSecretParamValue?: string | undefined;
+  __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
   serviceAccountCredentials?: string | undefined;
+  __template_serviceAccountCredentials?: string | undefined;
   subject?: string | undefined;
+  __template_subject?: string | undefined;
   hmacFunctionId?: string | undefined;
   __template_collectUrl?: string | undefined;
 };
@@ -15153,9 +15553,12 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   __scheduling: z.lazy(() => RestCollectMethodGetScheduling$outboundSchema)
     .optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   loginUrl: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
   loginBody: z.string().optional(),
   getAuthTokenFromHeader: z.boolean().optional(),
   authHeaderKey: z.string().optional(),
@@ -15166,13 +15569,16 @@ export const RestCollectMethodGet$outboundSchema: z.ZodType<
   tokenRespAttribute: z.string().optional(),
   clientSecretParamName: z.string().optional(),
   clientSecretParamValue: z.string().optional(),
+  __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
   serviceAccountCredentials: z.string().optional(),
+  __template_serviceAccountCredentials: z.string().optional(),
   subject: z.string().optional(),
+  __template_subject: z.string().optional(),
   hmacFunctionId: z.string().optional(),
   __template_collectUrl: z.string().optional(),
 });

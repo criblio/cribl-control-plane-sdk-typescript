@@ -395,6 +395,10 @@ export type CreateInputAuthTokenCloudflareHec = {
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -2033,7 +2037,7 @@ export type CreateInputInputAppleUnifiedLogs = {
   connections?: Array<models.ConnectionConfInputCollection> | undefined;
   pq?: models.PqType | undefined;
   /**
-   * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
+   * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
    */
   predicate: string;
   /**
@@ -7606,6 +7610,7 @@ export const CreateInputAuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
 export type CreateInputAuthTokenCloudflareHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -7620,6 +7625,7 @@ export const CreateInputAuthTokenCloudflareHec$outboundSchema: z.ZodType<
 > = z.object({
   authType: CreateInputAuthTokenAuthenticationMethod$outboundSchema.optional(),
   tokenSecret: z.string().optional(),
+  token: z.string().optional(),
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
