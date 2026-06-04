@@ -14,13 +14,16 @@ let value: WorkersTypeSystemSettingsConf = {
 
 ## Fields
 
-| Field                    | Type                     | Required                 | Description              |
-| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
-| `count`                  | *number*                 | :heavy_check_mark:       | N/A                      |
-| `enableHeapSnapshots`    | *boolean*                | :heavy_minus_sign:       | N/A                      |
-| `loadThrottlePerc`       | *number*                 | :heavy_minus_sign:       | N/A                      |
-| `memory`                 | *number*                 | :heavy_check_mark:       | N/A                      |
-| `minimum`                | *number*                 | :heavy_check_mark:       | N/A                      |
-| `startupMaxConns`        | *number*                 | :heavy_minus_sign:       | N/A                      |
-| `startupThrottleTimeout` | *number*                 | :heavy_minus_sign:       | N/A                      |
-| `v8SingleThread`         | *boolean*                | :heavy_minus_sign:       | N/A                      |
+| Field                                  | Type                                   | Required                               | Description                            |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| `count`                                | *number*                               | :heavy_check_mark:                     | N/A                                    |
+| `enableHeapSnapshots`                  | *boolean*                              | :heavy_minus_sign:                     | N/A                                    |
+| `loadThrottlePerc`                     | *number*                               | :heavy_minus_sign:                     | N/A                                    |
+| `memory`                               | *number*                               | :heavy_check_mark:                     | N/A                                    |
+| `minimum`                              | *number*                               | :heavy_check_mark:                     | N/A                                    |
+| `restartUnresponsiveProcesses`         | *boolean*                              | :heavy_minus_sign:                     | N/A                                    |
+| `startupMaxConns`                      | *number*                               | :heavy_minus_sign:                     | N/A                                    |
+| `startupThrottleTimeout`               | *number*                               | :heavy_minus_sign:                     | N/A                                    |
+| `v8SingleThread`                       | *boolean*                              | :heavy_minus_sign:                     | N/A                                    |
+| `workerProcessConfigUpdateConcurrency` | *number*                               | :heavy_minus_sign:                     | N/A                                    |
+| `workerProcessReloadTimeout`           | *number*                               | :heavy_minus_sign:                     | N/A                                    |

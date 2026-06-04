@@ -13,6 +13,21 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Routes extends ClientSDK {
   /**
+   * List all Routes
+   *
+   * @remarks
+   * Get a list of all Routes.
+   */
+  async list(
+    options?: RequestOptions,
+  ): Promise<models.CountedRoutes> {
+    return unwrapAsync(routesList(
+      this,
+      options,
+    ));
+  }
+
+  /**
    * Get a Routing table
    *
    * @remarks
@@ -33,7 +48,7 @@ export class Routes extends ClientSDK {
    * Update a Route
    *
    * @remarks
-   * Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
+   * Update a Route in the specified Routing table.<br/><br/>\1 This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Routing table.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Routing table might not function as expected.<br/><br/>Cribl also removes any omitted Routes when updating the Routing table.
    */
   async update(
     request: operations.UpdateRoutesByIdRequest,
@@ -42,21 +57,6 @@ export class Routes extends ClientSDK {
     return unwrapAsync(routesUpdate(
       this,
       request,
-      options,
-    ));
-  }
-
-  /**
-   * List all Routes
-   *
-   * @remarks
-   * Get a list of all Routes.
-   */
-  async list(
-    options?: RequestOptions,
-  ): Promise<models.CountedRoutes> {
-    return unwrapAsync(routesList(
-      this,
       options,
     ));
   }

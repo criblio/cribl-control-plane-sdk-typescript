@@ -95,6 +95,8 @@ export type OutputLocalSearchStorageStatsDestination = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 export type OutputLocalSearchStorageColumnMapping = {
@@ -345,6 +347,8 @@ export type OutputLocalSearchStorageStatsDestination$Outbound = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 /** @internal */
@@ -360,6 +364,8 @@ export const OutputLocalSearchStorageStatsDestination$outboundSchema: z.ZodType<
   username: z.string().optional(),
   sqlUsername: z.string().optional(),
   password: z.string().optional(),
+  waitForAsyncInserts: z.boolean().optional(),
+  concurrency: z.number().optional(),
 });
 
 export function outputLocalSearchStorageStatsDestinationToJSON(

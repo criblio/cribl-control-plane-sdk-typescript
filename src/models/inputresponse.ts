@@ -450,14 +450,17 @@ export type InputResponseInputEventhub = {
   sasl?: AuthenticationTypeUse | undefined;
   tls?: TlsSettingsClientSideType | undefined;
   /**
+   * @remarks
    * Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities. If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance. Value must be lower than rebalanceTimeout. See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   sessionTimeout?: number | undefined;
   /**
+   * @remarks
    * Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   rebalanceTimeout?: number | undefined;
   /**
+   * @remarks
    * Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   heartbeatInterval?: number | undefined;
@@ -1477,9 +1480,8 @@ export type InputResponseInputEdgePrometheus = {
    */
   scrapePathExpr?: string | undefined;
   /**
-   * Add rules to decide which pods to discover for metrics.
-   *
    * @remarks
+   * Add rules to decide which pods to discover for metrics.
    * Pods are searched if no rules are given or of all the rules'
    * expressions evaluate to true.
    */
@@ -2613,10 +2615,12 @@ export type InputResponseInputConfluentCloud = {
    */
   sessionTimeout?: number | undefined;
   /**
+   * @remarks
    * Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
    */
   rebalanceTimeout?: number | undefined;
   /**
+   * @remarks
    * Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
    */
   heartbeatInterval?: number | undefined;
@@ -3957,10 +3961,12 @@ export type InputResponseInputMsk = {
    */
   sessionTimeout?: number | undefined;
   /**
+   * @remarks
    * Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
    */
   rebalanceTimeout?: number | undefined;
   /**
+   * @remarks
    * Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
    */
   heartbeatInterval?: number | undefined;
@@ -4221,10 +4227,12 @@ export type InputResponseInputKafka = {
    */
   sessionTimeout?: number | undefined;
   /**
+   * @remarks
    * Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
    */
   rebalanceTimeout?: number | undefined;
   /**
+   * @remarks
    * Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
    */
   heartbeatInterval?: number | undefined;

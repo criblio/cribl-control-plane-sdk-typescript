@@ -49,6 +49,7 @@ export const OutputCriblLakeFormat = {
   Json: "json",
   Parquet: "parquet",
   Ddss: "ddss",
+  Netskope: "netskope",
 } as const;
 export type OutputCriblLakeFormat = OpenEnum<typeof OutputCriblLakeFormat>;
 

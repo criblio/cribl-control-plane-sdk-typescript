@@ -76,6 +76,9 @@ export type ConfigGroup = {
    * Git status of the Worker Group, Outpost Group, or Edge Fleet configuration. Automatically populated and returned in responses.
    */
   git?: Git | undefined;
+  /**
+   * Unique identifier.
+   */
   id: string;
   /**
    * Number of Workers or Nodes running a Cribl version that is incompatible with the current upgrade target.<br/><br/> **Warning**: Do not change the value of <code>incompatibleWorkerCount</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.

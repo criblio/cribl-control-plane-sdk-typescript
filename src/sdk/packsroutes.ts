@@ -13,6 +13,23 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class PacksRoutes extends ClientSDK {
   /**
+   * List all Routes within a Pack
+   *
+   * @remarks
+   * Get a list of all Routes within the specified Pack.
+   */
+  async list(
+    request: operations.GetRoutesByPackRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedRoutes> {
+    return unwrapAsync(packsRoutesList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Get a Routing table within a Pack
    *
    * @remarks
@@ -33,30 +50,13 @@ export class PacksRoutes extends ClientSDK {
    * Update a Route within a Pack
    *
    * @remarks
-   * Update the specified Route within the specified Pack.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
+   * Update the specified Route within the specified Pack.<br/><br/>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Routing table.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Routing table might not function as expected.<br/><br/>Cribl also removes any omitted Routes when updating the Routing table.
    */
   async update(
     request: operations.UpdateRoutesByPackAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedRoutes> {
     return unwrapAsync(packsRoutesUpdate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * List all Routes within a Pack
-   *
-   * @remarks
-   * Get a list of all Routes within the specified Pack.
-   */
-  async list(
-    request: operations.GetRoutesByPackRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedRoutes> {
-    return unwrapAsync(packsRoutesList(
       this,
       request,
       options,
