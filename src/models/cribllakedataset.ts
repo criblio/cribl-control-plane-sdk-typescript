@@ -59,7 +59,7 @@ export type CriblLakeDataset = {
    */
   format?: FormatOptionsCriblLakeDataset | undefined;
   /**
-   * If <code>true</code>, the Dataset is used by Direct Access HTTP.
+   * If <code>true</code>, the Dataset is used by Direct Access HTTP. Otherwise, <code>false</code>.
    */
   httpDAUsed?: boolean | undefined;
   /**
@@ -77,7 +77,7 @@ export type CriblLakeDataset = {
    */
   storageClass?: StorageClassOptionsCriblLakeDataset | undefined;
   /**
-   * Identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
+   * Unique identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
    */
   storageLocationId?: string | undefined;
   /**

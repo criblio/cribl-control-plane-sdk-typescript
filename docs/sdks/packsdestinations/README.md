@@ -2200,6 +2200,71 @@ async function run() {
 
 run();
 ```
+### Example Usage: OutputCreateExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="typescript" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesGoogleCloudObservability" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.create({
+    pack: "<value>",
+    requestBody: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsCreate } from "cribl-control-plane/funcs/packsDestinationsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: OutputCreateExamplesGoogleCloudStorage
 
 <!-- UsageSnippet language="typescript" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesGoogleCloudStorage" -->
@@ -13433,6 +13498,73 @@ async function run() {
       logLocationType: "project",
       logNameExpression: "my-log",
       logLocationExpression: "my-project",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGoogleCloudObservability" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
     },
   });
   if (res.ok) {

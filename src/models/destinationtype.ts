@@ -51,6 +51,7 @@ export const DestinationType = {
   GooglePubsub: "google_pubsub",
   GoogleChronicle: "google_chronicle",
   Chronicle: "chronicle",
+  GoogleCloudObservability: "google_cloud_observability",
   GrafanaCloud: "grafana_cloud",
   Loki: "loki",
   OpenTelemetry: "open_telemetry",

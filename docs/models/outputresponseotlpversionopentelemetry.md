@@ -1,13 +1,13 @@
-# OutputResponseOTLPVersion
+# OutputResponseOTLPVersionOpenTelemetry
 
 The version of OTLP Protobuf definitions to use when structuring data to send
 
 ## Example Usage
 
 ```typescript
-import { OutputResponseOTLPVersion } from "cribl-control-plane/models";
+import { OutputResponseOTLPVersionOpenTelemetry } from "cribl-control-plane/models";
 
-let value: OutputResponseOTLPVersion = "1.3.1";
+let value: OutputResponseOTLPVersionOpenTelemetry = "1.3.1";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

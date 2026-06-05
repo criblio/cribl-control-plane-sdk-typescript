@@ -259,6 +259,16 @@ const value: operations.CreateOutputOutputGoogleCloudLogging = {
 };
 ```
 
+### `operations.CreateOutputOutputGoogleCloudObservability`
+
+```typescript
+const value: operations.CreateOutputOutputGoogleCloudObservability = {
+  id: "<id>",
+  type: "google_cloud_observability",
+  googleAuthMethod: "secret",
+};
+```
+
 ### `operations.CreateOutputOutputGooglePubsub`
 
 ```typescript
