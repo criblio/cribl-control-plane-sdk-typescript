@@ -86,6 +86,10 @@ export type AzureBlobAuthTypeClientCert = {
    */
   maxBatchSize?: number | undefined;
   /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
    * Maximum file size for each Parquet chunk
    */
   parquetChunkSizeMB?: number | undefined;
@@ -232,6 +236,10 @@ export type AzureBlobAuthTypeClientSecret = {
    */
   maxBatchSize?: number | undefined;
   /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
    * Maximum file size for each Parquet chunk
    */
   parquetChunkSizeMB?: number | undefined;
@@ -314,6 +322,10 @@ export type AzureBlobAuthTypeSecret = {
    * Maximum number of metadata objects to batch before recording as results
    */
   maxBatchSize?: number | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -441,6 +453,10 @@ export type AzureBlobAuthTypeManual = {
    * Maximum number of metadata objects to batch before recording as results
    */
   maxBatchSize?: number | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -583,6 +599,7 @@ export const AzureBlobAuthTypeClientCert$inboundSchema: z.ZodType<
   includeMetadata: types.optional(types.boolean()),
   includeTags: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
+  disableTimeFilter: types.optional(types.boolean()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   connectionString: types.optional(types.string()),
@@ -614,6 +631,7 @@ export type AzureBlobAuthTypeClientCert$Outbound = {
   includeMetadata?: boolean | undefined;
   includeTags?: boolean | undefined;
   maxBatchSize?: number | undefined;
+  disableTimeFilter?: boolean | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   connectionString?: string | undefined;
@@ -652,6 +670,7 @@ export const AzureBlobAuthTypeClientCert$outboundSchema: z.ZodType<
   includeMetadata: z.boolean().optional(),
   includeTags: z.boolean().optional(),
   maxBatchSize: z.number().optional(),
+  disableTimeFilter: z.boolean().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   connectionString: z.string().optional(),
@@ -760,6 +779,7 @@ export const AzureBlobAuthTypeClientSecret$inboundSchema: z.ZodType<
   includeMetadata: types.optional(types.boolean()),
   includeTags: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
+  disableTimeFilter: types.optional(types.boolean()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   connectionString: types.optional(types.string()),
@@ -795,6 +815,7 @@ export type AzureBlobAuthTypeClientSecret$Outbound = {
   includeMetadata?: boolean | undefined;
   includeTags?: boolean | undefined;
   maxBatchSize?: number | undefined;
+  disableTimeFilter?: boolean | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   connectionString?: string | undefined;
@@ -833,6 +854,7 @@ export const AzureBlobAuthTypeClientSecret$outboundSchema: z.ZodType<
   includeMetadata: z.boolean().optional(),
   includeTags: z.boolean().optional(),
   maxBatchSize: z.number().optional(),
+  disableTimeFilter: z.boolean().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   connectionString: z.string().optional(),
@@ -925,6 +947,7 @@ export const AzureBlobAuthTypeSecret$inboundSchema: z.ZodType<
   includeMetadata: types.optional(types.boolean()),
   includeTags: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
+  disableTimeFilter: types.optional(types.boolean()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   connectionString: types.optional(types.string()),
@@ -958,6 +981,7 @@ export type AzureBlobAuthTypeSecret$Outbound = {
   includeMetadata?: boolean | undefined;
   includeTags?: boolean | undefined;
   maxBatchSize?: number | undefined;
+  disableTimeFilter?: boolean | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   connectionString?: string | undefined;
@@ -996,6 +1020,7 @@ export const AzureBlobAuthTypeSecret$outboundSchema: z.ZodType<
   includeMetadata: z.boolean().optional(),
   includeTags: z.boolean().optional(),
   maxBatchSize: z.number().optional(),
+  disableTimeFilter: z.boolean().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   connectionString: z.string().optional(),
@@ -1097,6 +1122,7 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
   includeMetadata: types.optional(types.boolean()),
   includeTags: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
+  disableTimeFilter: types.optional(types.boolean()),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   textSecret: types.optional(types.string()),
@@ -1130,6 +1156,7 @@ export type AzureBlobAuthTypeManual$Outbound = {
   includeMetadata?: boolean | undefined;
   includeTags?: boolean | undefined;
   maxBatchSize?: number | undefined;
+  disableTimeFilter?: boolean | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   textSecret?: string | undefined;
@@ -1168,6 +1195,7 @@ export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
   includeMetadata: z.boolean().optional(),
   includeTags: z.boolean().optional(),
   maxBatchSize: z.number().optional(),
+  disableTimeFilter: z.boolean().optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   textSecret: z.string().optional(),

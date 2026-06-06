@@ -4401,6 +4401,10 @@ export type OutputResponseOutputLocalSearchStorage = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+   */
+  workload?: string | undefined;
+  /**
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
@@ -4669,6 +4673,10 @@ export type OutputResponseOutputClickHouse = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+   */
+  workload?: string | undefined;
   /**
    * Log the most recent event that fails to match the table schema
    */
@@ -14687,6 +14695,7 @@ export const OutputResponseOutputLocalSearchStorage$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
+  workload: types.optional(types.string()),
   dumpFormatErrorsToDisk: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   statsDestination: types.optional(
@@ -14832,6 +14841,7 @@ export const OutputResponseOutputClickHouse$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
+  workload: types.optional(types.string()),
   dumpFormatErrorsToDisk: types.optional(types.boolean()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
