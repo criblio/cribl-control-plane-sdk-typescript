@@ -4042,6 +4042,10 @@ export type CreateOutputOutputLocalSearchStorage = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+   */
+  workload?: string | undefined;
+  /**
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
@@ -4308,6 +4312,10 @@ export type CreateOutputOutputClickHouse = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+   */
+  workload?: string | undefined;
   /**
    * Log the most recent event that fails to match the table schema
    */
@@ -15028,6 +15036,7 @@ export type CreateOutputOutputLocalSearchStorage$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
+  workload?: string | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
   onBackpressure?: string | undefined;
   statsDestination?: CreateOutputStatsDestination$Outbound | undefined;
@@ -15104,6 +15113,7 @@ export const CreateOutputOutputLocalSearchStorage$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
+  workload: z.string().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   statsDestination: z.lazy(() => CreateOutputStatsDestination$outboundSchema)
@@ -15249,6 +15259,7 @@ export type CreateOutputOutputClickHouse$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
+  workload?: string | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
@@ -15323,6 +15334,7 @@ export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
+  workload: z.string().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
