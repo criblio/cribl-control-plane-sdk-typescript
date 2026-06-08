@@ -23,15 +23,21 @@ export type PipelineGroups = {
   disabled?: boolean | undefined;
 };
 
+/**
+ * Configuration for the Pipeline, including functions and settings.
+ */
 export type PipelineConf = {
   /**
-   * Time (in ms) to wait for an async function to complete processing of a data item
+   * Timeout (in milliseconds) for asynchronous Pipeline functions.
    */
   asyncFuncTimeout?: number | undefined;
   /**
-   * The output destination for events processed by this Pipeline
+   * The output destination for events processed by this Pipeline.
    */
   output?: string | undefined;
+  /**
+   * Brief description of the Pipeline.
+   */
   description?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
@@ -41,6 +47,9 @@ export type PipelineConf = {
    * List of Functions to pass data through
    */
   functions?: Array<PipelineFunctionConf> | undefined;
+  /**
+   * Named groups of Pipeline functions for organizational display in the UI.
+   */
   groups?: { [k: string]: PipelineGroups } | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -49,19 +58,31 @@ export type PipelineConf = {
 };
 
 export type Pipeline = {
+  /**
+   * Unique identifier for the Pipeline.
+   */
   id: string;
+  /**
+   * Configuration for the Pipeline, including functions and settings.
+   */
   conf: PipelineConf;
 };
 
+/**
+ * Configuration for the Pipeline, including functions and settings.
+ */
 export type ConfInput = {
   /**
-   * Time (in ms) to wait for an async function to complete processing of a data item
+   * Timeout (in milliseconds) for asynchronous Pipeline functions.
    */
   asyncFuncTimeout?: number | undefined;
   /**
-   * The output destination for events processed by this Pipeline
+   * The output destination for events processed by this Pipeline.
    */
   output?: string | undefined;
+  /**
+   * Brief description of the Pipeline.
+   */
   description?: string | undefined;
   /**
    * Tags for filtering and grouping in @{product}
@@ -71,6 +92,9 @@ export type ConfInput = {
    * List of Functions to pass data through
    */
   functions?: Array<PipelineFunctionConfInput> | undefined;
+  /**
+   * Named groups of Pipeline functions for organizational display in the UI.
+   */
   groups?: { [k: string]: PipelineGroups } | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -79,7 +103,13 @@ export type ConfInput = {
 };
 
 export type PipelineInput = {
+  /**
+   * Unique identifier for the Pipeline.
+   */
   id: string;
+  /**
+   * Configuration for the Pipeline, including functions and settings.
+   */
   conf: ConfInput;
 };
 

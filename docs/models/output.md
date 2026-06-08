@@ -242,6 +242,15 @@ const value: models.OutputGoogleCloudLogging = {
 };
 ```
 
+### `models.OutputGoogleCloudObservability`
+
+```typescript
+const value: models.OutputGoogleCloudObservability = {
+  type: "google_cloud_observability",
+  googleAuthMethod: "auto",
+};
+```
+
 ### `models.OutputGooglePubsub`
 
 ```typescript

@@ -11,11 +11,6 @@ import * as models from "../index.js";
 import {
   CreateOutputSystemByPackAPIVersion,
   CreateOutputSystemByPackAPIVersion$outboundSchema,
-  CreateOutputSystemByPackAuthenticationMethodGoogleChronicle,
-  CreateOutputSystemByPackAuthenticationMethodGoogleChronicle$outboundSchema,
-  CreateOutputSystemByPackExtraLogType,
-  CreateOutputSystemByPackExtraLogType$Outbound,
-  CreateOutputSystemByPackExtraLogType$outboundSchema,
   CreateOutputSystemByPackOutputAlibabaCloudS3,
   CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound,
   CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
@@ -94,6 +89,9 @@ import {
   CreateOutputSystemByPackOutputGoogleCloudLogging,
   CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound,
   CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputSystemByPackOutputGoogleCloudObservability,
+  CreateOutputSystemByPackOutputGoogleCloudObservability$Outbound,
+  CreateOutputSystemByPackOutputGoogleCloudObservability$outboundSchema,
   CreateOutputSystemByPackOutputGoogleCloudStorage,
   CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound,
   CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
@@ -190,14 +188,63 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-  CreateOutputSystemByPackPqControlsGoogleChronicle,
-  CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
-  CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema,
-  CreateOutputSystemByPackSendEventsAs,
-  CreateOutputSystemByPackSendEventsAs$outboundSchema,
-  CreateOutputSystemByPackUDMType,
-  CreateOutputSystemByPackUDMType$outboundSchema,
-} from "./createoutputsystembypackpqcontrolsgooglechronicle.js";
+} from "./createoutputsystembypackapiversion.js";
+
+export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type CreateOutputSystemByPackAuthenticationMethodGoogleChronicle =
+  OpenEnum<typeof CreateOutputSystemByPackAuthenticationMethodGoogleChronicle>;
+
+export const CreateOutputSystemByPackSendEventsAs = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type CreateOutputSystemByPackSendEventsAs = OpenEnum<
+  typeof CreateOutputSystemByPackSendEventsAs
+>;
+
+export type CreateOutputSystemByPackExtraLogType = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const CreateOutputSystemByPackUDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type CreateOutputSystemByPackUDMType = OpenEnum<
+  typeof CreateOutputSystemByPackUDMType
+>;
+
+export type CreateOutputSystemByPackPqControlsGoogleChronicle = {};
 
 export type CreateOutputSystemByPackOutputGoogleChronicle = {
   /**
@@ -5293,6 +5340,7 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputGoogleChronicle
   | CreateOutputSystemByPackOutputGoogleCloudStorage
   | CreateOutputSystemByPackOutputGoogleCloudLogging
+  | CreateOutputSystemByPackOutputGoogleCloudObservability
   | CreateOutputSystemByPackOutputGooglePubsub
   | CreateOutputSystemByPackOutputExabeam
   | CreateOutputSystemByPackOutputKafka
@@ -5387,6 +5435,7 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputGoogleChronicle
     | CreateOutputSystemByPackOutputGoogleCloudStorage
     | CreateOutputSystemByPackOutputGoogleCloudLogging
+    | CreateOutputSystemByPackOutputGoogleCloudObservability
     | CreateOutputSystemByPackOutputGooglePubsub
     | CreateOutputSystemByPackOutputExabeam
     | CreateOutputSystemByPackOutputKafka
@@ -5446,6 +5495,78 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputScalityS3
     | CreateOutputSystemByPackOutputAlibabaCloudS3;
 };
+
+/** @internal */
+export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationMethodGoogleChronicle
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodGoogleChronicle,
+  );
+
+/** @internal */
+export const CreateOutputSystemByPackSendEventsAs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackSendEventsAs
+> = openEnums.outboundSchema(CreateOutputSystemByPackSendEventsAs);
+
+/** @internal */
+export type CreateOutputSystemByPackExtraLogType$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackExtraLogType$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackExtraLogType$Outbound,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackExtraLogType
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function createOutputSystemByPackExtraLogTypeToJSON(
+  createOutputSystemByPackExtraLogType: CreateOutputSystemByPackExtraLogType,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackExtraLogType$outboundSchema.parse(
+      createOutputSystemByPackExtraLogType,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputSystemByPackUDMType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackUDMType
+> = openEnums.outboundSchema(CreateOutputSystemByPackUDMType);
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGoogleChronicle$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGoogleChronicle
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsGoogleChronicleToJSON(
+  createOutputSystemByPackPqControlsGoogleChronicle:
+    CreateOutputSystemByPackPqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGoogleChronicle,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputSystemByPackOutputGoogleChronicle$Outbound = {
@@ -5560,8 +5681,9 @@ export const CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema:
       .optional(),
     totalMemoryLimitKB: z.number().optional(),
     description: z.string().optional(),
-    extraLogTypes: z.array(CreateOutputSystemByPackExtraLogType$outboundSchema)
-      .optional(),
+    extraLogTypes: z.array(
+      z.lazy(() => CreateOutputSystemByPackExtraLogType$outboundSchema),
+    ).optional(),
     logType: z.string().optional(),
     logTextField: z.string().optional(),
     customerId: z.string().optional(),
@@ -5585,8 +5707,9 @@ export const CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema:
     pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
     pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
     pqMaxBufferSizeBytes: z.string().optional(),
-    pqControls: CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
-      .optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputSystemByPackPqControlsGoogleChronicle$outboundSchema
+    ).optional(),
     __template_streamtags: z.string().optional(),
     __template_apiVersion: z.string().optional(),
     __template_region: z.string().optional(),
@@ -9318,6 +9441,7 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputGoogleChronicle$Outbound
   | CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound
   | CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound
+  | CreateOutputSystemByPackOutputGoogleCloudObservability$Outbound
   | CreateOutputSystemByPackOutputGooglePubsub$Outbound
   | CreateOutputSystemByPackOutputExabeam$Outbound
   | CreateOutputSystemByPackOutputKafka$Outbound
@@ -9409,6 +9533,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema),
   CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
   CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputSystemByPackOutputGoogleCloudObservability$outboundSchema,
   CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
   CreateOutputSystemByPackOutputExabeam$outboundSchema,
   CreateOutputSystemByPackOutputKafka$outboundSchema,
@@ -9511,6 +9636,7 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputGoogleChronicle$Outbound
     | CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound
     | CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound
+    | CreateOutputSystemByPackOutputGoogleCloudObservability$Outbound
     | CreateOutputSystemByPackOutputGooglePubsub$Outbound
     | CreateOutputSystemByPackOutputExabeam$Outbound
     | CreateOutputSystemByPackOutputKafka$Outbound
@@ -9611,6 +9737,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema),
     CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
     CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
+    CreateOutputSystemByPackOutputGoogleCloudObservability$outboundSchema,
     CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
     CreateOutputSystemByPackOutputExabeam$outboundSchema,
     CreateOutputSystemByPackOutputKafka$outboundSchema,

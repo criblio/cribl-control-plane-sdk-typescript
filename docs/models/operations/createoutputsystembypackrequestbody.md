@@ -255,6 +255,17 @@ const value: operations.CreateOutputSystemByPackOutputGoogleCloudLogging = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputGoogleCloudObservability`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputGoogleCloudObservability =
+  {
+    id: "<id>",
+    type: "google_cloud_observability",
+    googleAuthMethod: "secret",
+  };
+```
+
 ### `operations.CreateOutputSystemByPackOutputGooglePubsub`
 
 ```typescript

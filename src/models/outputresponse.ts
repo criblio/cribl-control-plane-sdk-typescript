@@ -127,16 +127,8 @@ import {
   OrphanFileRecoveryType$inboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
-  ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
-} from "./parquetversionoptions.js";
-import {
-  AuthenticationMethodGoogleChronicle,
-  AuthenticationMethodGoogleChronicle$inboundSchema,
   OutputResponseAPIVersion,
   OutputResponseAPIVersion$inboundSchema,
-  OutputResponseExtraLogType,
-  OutputResponseExtraLogType$inboundSchema,
   OutputResponseOutputAlibabaCloudS3,
   OutputResponseOutputAlibabaCloudS3$inboundSchema,
   OutputResponseOutputAlphasocS3,
@@ -189,6 +181,8 @@ import {
   OutputResponseOutputExabeam$inboundSchema,
   OutputResponseOutputGoogleCloudLogging,
   OutputResponseOutputGoogleCloudLogging$inboundSchema,
+  OutputResponseOutputGoogleCloudObservability,
+  OutputResponseOutputGoogleCloudObservability$inboundSchema,
   OutputResponseOutputGoogleCloudStorage,
   OutputResponseOutputGoogleCloudStorage$inboundSchema,
   OutputResponseOutputGooglePubsub,
@@ -253,13 +247,11 @@ import {
   OutputResponseOutputSumoLogic$inboundSchema,
   OutputResponseOutputXsiam,
   OutputResponseOutputXsiam$inboundSchema,
-  OutputResponseSendEventsAs,
-  OutputResponseSendEventsAs$inboundSchema,
-  OutputResponseUDMType,
-  OutputResponseUDMType$inboundSchema,
-  PqControlsGoogleChronicle,
-  PqControlsGoogleChronicle$inboundSchema,
-} from "./pqcontrolsgooglechronicle.js";
+} from "./outputresponseapiversion.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+} from "./parquetversionoptions.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$inboundSchema,
@@ -301,6 +293,61 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
   TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
+
+export const AuthenticationMethodGoogleChronicle = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type AuthenticationMethodGoogleChronicle = OpenEnum<
+  typeof AuthenticationMethodGoogleChronicle
+>;
+
+export const OutputResponseSendEventsAs = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type OutputResponseSendEventsAs = OpenEnum<
+  typeof OutputResponseSendEventsAs
+>;
+
+export type OutputResponseExtraLogType = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const OutputResponseUDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type OutputResponseUDMType = OpenEnum<typeof OutputResponseUDMType>;
+
+export type PqControlsGoogleChronicle = {};
 
 export type OutputResponseOutputGoogleChronicle = {
   /**
@@ -5542,6 +5589,7 @@ export type OutputResponse =
   | OutputResponseOutputGoogleChronicle
   | OutputResponseOutputGoogleCloudStorage
   | OutputResponseOutputGoogleCloudLogging
+  | OutputResponseOutputGoogleCloudObservability
   | OutputResponseOutputGooglePubsub
   | OutputResponseOutputExabeam
   | OutputResponseOutputKafka
@@ -5601,6 +5649,64 @@ export type OutputResponse =
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
+export const AuthenticationMethodGoogleChronicle$inboundSchema: z.ZodType<
+  AuthenticationMethodGoogleChronicle,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationMethodGoogleChronicle);
+
+/** @internal */
+export const OutputResponseSendEventsAs$inboundSchema: z.ZodType<
+  OutputResponseSendEventsAs,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseSendEventsAs);
+
+/** @internal */
+export const OutputResponseExtraLogType$inboundSchema: z.ZodType<
+  OutputResponseExtraLogType,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: types.string(),
+  description: types.optional(types.string()),
+});
+
+export function outputResponseExtraLogTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseExtraLogType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputResponseExtraLogType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseExtraLogType' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputResponseUDMType$inboundSchema: z.ZodType<
+  OutputResponseUDMType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseUDMType);
+
+/** @internal */
+export const PqControlsGoogleChronicle$inboundSchema: z.ZodType<
+  PqControlsGoogleChronicle,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+export function pqControlsGoogleChronicleFromJSON(
+  jsonString: string,
+): SafeParseResult<PqControlsGoogleChronicle, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PqControlsGoogleChronicle$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqControlsGoogleChronicle' from JSON`,
+  );
+}
+
+/** @internal */
 export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
   OutputResponseOutputGoogleChronicle,
   z.ZodTypeDef,
@@ -5642,7 +5748,7 @@ export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
   totalMemoryLimitKB: types.optional(types.number()),
   description: types.optional(types.string()),
   extraLogTypes: types.optional(
-    z.array(OutputResponseExtraLogType$inboundSchema),
+    z.array(z.lazy(() => OutputResponseExtraLogType$inboundSchema)),
   ),
   logType: types.optional(types.string()),
   logTextField: types.optional(types.string()),
@@ -5667,7 +5773,9 @@ export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(PqControlsGoogleChronicle$inboundSchema),
+  pqControls: types.optional(
+    z.lazy(() => PqControlsGoogleChronicle$inboundSchema),
+  ),
   __template_streamtags: types.optional(types.string()),
   __template_apiVersion: types.optional(types.string()),
   __template_region: types.optional(types.string()),
@@ -8004,6 +8112,8 @@ export const OutputResponse$inboundSchema: z.ZodType<
   ),
   google_cloud_storage: OutputResponseOutputGoogleCloudStorage$inboundSchema,
   google_cloud_logging: OutputResponseOutputGoogleCloudLogging$inboundSchema,
+  google_cloud_observability:
+    OutputResponseOutputGoogleCloudObservability$inboundSchema,
   google_pubsub: OutputResponseOutputGooglePubsub$inboundSchema,
   exabeam: OutputResponseOutputExabeam$inboundSchema,
   kafka: OutputResponseOutputKafka$inboundSchema,

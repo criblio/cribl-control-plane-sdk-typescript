@@ -1,11 +1,11 @@
-# CreateOutputEndpoint
+# EndpointDynatraceHTTP
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputEndpoint } from "cribl-control-plane/models/operations";
+import { EndpointDynatraceHTTP } from "cribl-control-plane/models";
 
-let value: CreateOutputEndpoint = "cloud";
+let value: EndpointDynatraceHTTP = "manual";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

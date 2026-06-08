@@ -9,11 +9,7 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "service_now",
-    endpoint: "<value>",
-    tokenSecret: "<value>",
-    otlpVersion: "1.3.1",
-    protocol: "http",
+    type: "disk_spool",
   },
 };
 ```

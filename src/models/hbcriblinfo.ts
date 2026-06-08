@@ -103,6 +103,7 @@ export type HBCriblInfo = {
    * Connection parameters for the Leader Node, as reported in a Worker heartbeat.
    */
   master?: HBLeaderInfo | undefined;
+  overlayId?: string | undefined;
   /**
    * The process ID.
    */
@@ -170,6 +171,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   installType: types.optional(types.string()),
   lookupVersions: types.optional(z.record(z.record(types.string()))),
   master: types.optional(HBLeaderInfo$inboundSchema),
+  overlayId: types.optional(types.string()),
   pid: types.optional(types.number()),
   socksEnabled: types.optional(types.boolean()),
   startTime: types.number(),

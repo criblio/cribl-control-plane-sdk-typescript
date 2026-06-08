@@ -250,8 +250,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
 
-* [list](docs/sdks/databaseconnections/README.md#list) - List Database Connections
-* [create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [list](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
+* [create](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 * [get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
 * [update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 * [delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
@@ -501,10 +501,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`collectorsGet`](docs/sdks/collectors/README.md#get) - Get a Collector
 - [`collectorsList`](docs/sdks/collectors/README.md#list) - List all Collectors
 - [`collectorsUpdate`](docs/sdks/collectors/README.md#update) - Update a Collector
-- [`databaseConnectionsCreate`](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+- [`databaseConnectionsCreate`](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 - [`databaseConnectionsDelete`](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
 - [`databaseConnectionsGet`](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
-- [`databaseConnectionsList`](docs/sdks/databaseconnections/README.md#list) - List Database Connections
+- [`databaseConnectionsList`](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
 - [`databaseConnectionsUpdate`](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 - [`destinationsCreate`](docs/sdks/destinations/README.md#create) - Create a Destination
 - [`destinationsDelete`](docs/sdks/destinations/README.md#delete) - Delete a Destination
@@ -680,9 +680,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.sources.statuses.list({
-    pack: "<value>",
-  });
+  const result = await criblControlPlane.databaseConnections.list();
 
   for await (const page of result) {
     console.log(page);

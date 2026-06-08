@@ -10,11 +10,6 @@ import * as models from "../index.js";
 import {
   CreateOutputAPIVersion,
   CreateOutputAPIVersion$outboundSchema,
-  CreateOutputAuthenticationMethodGoogleChronicle,
-  CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema,
-  CreateOutputExtraLogType,
-  CreateOutputExtraLogType$Outbound,
-  CreateOutputExtraLogType$outboundSchema,
   CreateOutputOutputAlibabaCloudS3,
   CreateOutputOutputAlibabaCloudS3$Outbound,
   CreateOutputOutputAlibabaCloudS3$outboundSchema,
@@ -93,6 +88,9 @@ import {
   CreateOutputOutputGoogleCloudLogging,
   CreateOutputOutputGoogleCloudLogging$Outbound,
   CreateOutputOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputOutputGoogleCloudObservability,
+  CreateOutputOutputGoogleCloudObservability$Outbound,
+  CreateOutputOutputGoogleCloudObservability$outboundSchema,
   CreateOutputOutputGoogleCloudStorage,
   CreateOutputOutputGoogleCloudStorage$Outbound,
   CreateOutputOutputGoogleCloudStorage$outboundSchema,
@@ -189,14 +187,62 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-  CreateOutputPqControlsGoogleChronicle,
-  CreateOutputPqControlsGoogleChronicle$Outbound,
-  CreateOutputPqControlsGoogleChronicle$outboundSchema,
-  CreateOutputSendEventsAs,
-  CreateOutputSendEventsAs$outboundSchema,
-  CreateOutputUDMType,
-  CreateOutputUDMType$outboundSchema,
-} from "./createoutputpqcontrolsgooglechronicle.js";
+} from "./createoutputapiversion.js";
+
+export const CreateOutputAuthenticationMethodGoogleChronicle = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type CreateOutputAuthenticationMethodGoogleChronicle = OpenEnum<
+  typeof CreateOutputAuthenticationMethodGoogleChronicle
+>;
+
+export const CreateOutputSendEventsAs = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type CreateOutputSendEventsAs = OpenEnum<
+  typeof CreateOutputSendEventsAs
+>;
+
+export type CreateOutputExtraLogType = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const CreateOutputUDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type CreateOutputUDMType = OpenEnum<typeof CreateOutputUDMType>;
+
+export type CreateOutputPqControlsGoogleChronicle = {};
 
 export type CreateOutputOutputGoogleChronicle = {
   /**
@@ -5274,6 +5320,7 @@ export type CreateOutputRequest =
   | CreateOutputOutputGoogleChronicle
   | CreateOutputOutputGoogleCloudStorage
   | CreateOutputOutputGoogleCloudLogging
+  | CreateOutputOutputGoogleCloudObservability
   | CreateOutputOutputGooglePubsub
   | CreateOutputOutputExabeam
   | CreateOutputOutputKafka
@@ -5330,6 +5377,72 @@ export type CreateOutputRequest =
   | CreateOutputOutputCloudianS3
   | CreateOutputOutputScalityS3
   | CreateOutputOutputAlibabaCloudS3;
+
+/** @internal */
+export const CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputAuthenticationMethodGoogleChronicle
+  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodGoogleChronicle);
+
+/** @internal */
+export const CreateOutputSendEventsAs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSendEventsAs
+> = openEnums.outboundSchema(CreateOutputSendEventsAs);
+
+/** @internal */
+export type CreateOutputExtraLogType$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputExtraLogType$outboundSchema: z.ZodType<
+  CreateOutputExtraLogType$Outbound,
+  z.ZodTypeDef,
+  CreateOutputExtraLogType
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function createOutputExtraLogTypeToJSON(
+  createOutputExtraLogType: CreateOutputExtraLogType,
+): string {
+  return JSON.stringify(
+    CreateOutputExtraLogType$outboundSchema.parse(createOutputExtraLogType),
+  );
+}
+
+/** @internal */
+export const CreateOutputUDMType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputUDMType
+> = openEnums.outboundSchema(CreateOutputUDMType);
+
+/** @internal */
+export type CreateOutputPqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGoogleChronicle$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGoogleChronicle$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGoogleChronicle
+> = z.object({});
+
+export function createOutputPqControlsGoogleChronicleToJSON(
+  createOutputPqControlsGoogleChronicle: CreateOutputPqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGoogleChronicle$outboundSchema.parse(
+      createOutputPqControlsGoogleChronicle,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputOutputGoogleChronicle$Outbound = {
@@ -5437,7 +5550,8 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  extraLogTypes: z.array(CreateOutputExtraLogType$outboundSchema).optional(),
+  extraLogTypes: z.array(z.lazy(() => CreateOutputExtraLogType$outboundSchema))
+    .optional(),
   logType: z.string().optional(),
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
@@ -5461,7 +5575,8 @@ export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: CreateOutputPqControlsGoogleChronicle$outboundSchema.optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsGoogleChronicle$outboundSchema)
+    .optional(),
   __template_streamtags: z.string().optional(),
   __template_apiVersion: z.string().optional(),
   __template_region: z.string().optional(),
@@ -9037,6 +9152,7 @@ export type CreateOutputRequest$Outbound =
   | CreateOutputOutputGoogleChronicle$Outbound
   | CreateOutputOutputGoogleCloudStorage$Outbound
   | CreateOutputOutputGoogleCloudLogging$Outbound
+  | CreateOutputOutputGoogleCloudObservability$Outbound
   | CreateOutputOutputGooglePubsub$Outbound
   | CreateOutputOutputExabeam$Outbound
   | CreateOutputOutputKafka$Outbound
@@ -9126,6 +9242,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputOutputGoogleChronicle$outboundSchema),
   CreateOutputOutputGoogleCloudStorage$outboundSchema,
   CreateOutputOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputOutputGoogleCloudObservability$outboundSchema,
   CreateOutputOutputGooglePubsub$outboundSchema,
   CreateOutputOutputExabeam$outboundSchema,
   CreateOutputOutputKafka$outboundSchema,

@@ -11,10 +11,11 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class DatabaseConnections extends ClientSDK {
   /**
-   * List Database Connections
+   * List all Database Connections
    *
    * @remarks
    * Get a list of all Database Connections.
@@ -22,8 +23,13 @@ export class DatabaseConnections extends ClientSDK {
   async list(
     request?: operations.GetDatabaseConnectionConfigRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedDatabaseConnectionConfig> {
-    return unwrapAsync(databaseConnectionsList(
+  ): Promise<
+    PageIterator<
+      operations.GetDatabaseConnectionConfigResponse,
+      { offset: number }
+    >
+  > {
+    return unwrapResultIterator(databaseConnectionsList(
       this,
       request,
       options,
@@ -31,7 +37,7 @@ export class DatabaseConnections extends ClientSDK {
   }
 
   /**
-   * Create Database Connection
+   * Create a Database Connection
    *
    * @remarks
    * Create a new Database Connection.
@@ -39,7 +45,7 @@ export class DatabaseConnections extends ClientSDK {
   async create(
     request: models.DatabaseConnectionConfig,
     options?: RequestOptions,
-  ): Promise<models.CountedDatabaseConnectionConfig> {
+  ): Promise<models.DatabaseConnectionResponseEnvelope> {
     return unwrapAsync(databaseConnectionsCreate(
       this,
       request,
@@ -56,7 +62,7 @@ export class DatabaseConnections extends ClientSDK {
   async get(
     request: operations.GetDatabaseConnectionConfigByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedDatabaseConnectionConfig> {
+  ): Promise<models.DatabaseConnectionResponseEnvelope> {
     return unwrapAsync(databaseConnectionsGet(
       this,
       request,
@@ -73,7 +79,7 @@ export class DatabaseConnections extends ClientSDK {
   async update(
     request: operations.UpdateDatabaseConnectionConfigByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedDatabaseConnectionConfig> {
+  ): Promise<models.DatabaseConnectionResponseEnvelope> {
     return unwrapAsync(databaseConnectionsUpdate(
       this,
       request,
@@ -90,7 +96,7 @@ export class DatabaseConnections extends ClientSDK {
   async delete(
     request: operations.DeleteDatabaseConnectionConfigByIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedDatabaseConnectionConfig> {
+  ): Promise<models.DatabaseConnectionResponseEnvelope> {
     return unwrapAsync(databaseConnectionsDelete(
       this,
       request,
