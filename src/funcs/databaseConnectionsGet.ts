@@ -39,7 +39,8 @@ export function databaseConnectionsGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedDatabaseConnectionConfig,
+    models.DatabaseConnectionResponseEnvelope,
+    | errors.RestApiJsonError
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -65,7 +66,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedDatabaseConnectionConfig,
+      models.DatabaseConnectionResponseEnvelope,
+      | errors.RestApiJsonError
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -165,7 +167,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedDatabaseConnectionConfig,
+    models.DatabaseConnectionResponseEnvelope,
+    | errors.RestApiJsonError
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -176,9 +179,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedDatabaseConnectionConfig$inboundSchema),
+    M.json(200, models.DatabaseConnectionResponseEnvelope$inboundSchema),
+    M.jsonErr(404, errors.RestApiJsonError$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, 404, "4XX"]),
+    M.fail([401, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

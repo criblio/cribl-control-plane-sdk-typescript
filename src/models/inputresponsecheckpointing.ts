@@ -562,6 +562,10 @@ export type AuthTokenCloudflareHec = {
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -2351,7 +2355,7 @@ export type InputResponseInputAppleUnifiedLogs = {
   connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
   /**
-   * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
+   * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
    */
   predicate: string;
   /**
@@ -8283,6 +8287,7 @@ export const AuthTokenCloudflareHec$inboundSchema: z.ZodType<
 > = z.object({
   authType: types.optional(AuthenticationMethodCloudflareHec$inboundSchema),
   tokenSecret: types.optional(types.string()),
+  token: types.optional(types.string()),
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),

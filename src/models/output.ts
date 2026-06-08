@@ -174,6 +174,11 @@ import {
   OutputGoogleCloudLogging$outboundSchema,
 } from "./outputgooglecloudlogging.js";
 import {
+  OutputGoogleCloudObservability,
+  OutputGoogleCloudObservability$Outbound,
+  OutputGoogleCloudObservability$outboundSchema,
+} from "./outputgooglecloudobservability.js";
+import {
   OutputGoogleCloudStorage,
   OutputGoogleCloudStorage$Outbound,
   OutputGoogleCloudStorage$outboundSchema,
@@ -423,6 +428,7 @@ export type Output =
   | OutputGoogleChronicle
   | OutputGoogleCloudStorage
   | OutputGoogleCloudLogging
+  | OutputGoogleCloudObservability
   | OutputGooglePubsub
   | OutputExabeam
   | OutputKafka
@@ -505,6 +511,7 @@ export type Output$Outbound =
   | OutputGoogleChronicle$Outbound
   | OutputGoogleCloudStorage$Outbound
   | OutputGoogleCloudLogging$Outbound
+  | OutputGoogleCloudObservability$Outbound
   | OutputGooglePubsub$Outbound
   | OutputExabeam$Outbound
   | OutputKafka$Outbound
@@ -591,6 +598,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputGoogleChronicle$outboundSchema,
   OutputGoogleCloudStorage$outboundSchema,
   OutputGoogleCloudLogging$outboundSchema,
+  OutputGoogleCloudObservability$outboundSchema,
   OutputGooglePubsub$outboundSchema,
   OutputExabeam$outboundSchema,
   OutputKafka$outboundSchema,
