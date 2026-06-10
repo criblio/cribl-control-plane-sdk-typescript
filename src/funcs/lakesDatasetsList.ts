@@ -104,6 +104,7 @@ async function $do(
     "excludeDDSS": payload.excludeDDSS,
     "excludeDeleted": payload.excludeDeleted,
     "excludeInternal": payload.excludeInternal,
+    "excludeNetskope": payload.excludeNetskope,
     "format": payload.format,
     "includeMetrics": payload.includeMetrics,
     "storageLocationId": payload.storageLocationId,

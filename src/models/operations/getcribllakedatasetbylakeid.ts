@@ -37,6 +37,10 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    */
   excludeDDSS?: boolean | undefined;
   /**
+   * Exclude Netskope format datasets from the response.
+   */
+  excludeNetskope?: boolean | undefined;
+  /**
    * Exclude deleted datasets from the response.
    */
   excludeDeleted?: boolean | undefined;
@@ -67,6 +71,7 @@ export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
   storageLocationId?: string | undefined;
   format?: string | undefined;
   excludeDDSS?: boolean | undefined;
+  excludeNetskope?: boolean | undefined;
   excludeDeleted?: boolean | undefined;
   excludeInternal?: boolean | undefined;
   excludeBYOS?: boolean | undefined;
@@ -83,6 +88,7 @@ export const GetCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
   storageLocationId: z.string().optional(),
   format: GetCriblLakeDatasetByLakeIdFormat$outboundSchema.optional(),
   excludeDDSS: z.boolean().optional(),
+  excludeNetskope: z.boolean().optional(),
   excludeDeleted: z.boolean().optional(),
   excludeInternal: z.boolean().optional(),
   excludeBYOS: z.boolean().optional(),
