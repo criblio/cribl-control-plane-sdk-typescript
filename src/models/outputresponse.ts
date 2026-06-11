@@ -835,7 +835,7 @@ export type OutputResponseOutputGoogleChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsGoogleChronicle | undefined;
@@ -1008,7 +1008,7 @@ export type OutputResponseOutputAzureEventhub = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureEventhub | undefined;
@@ -1179,7 +1179,7 @@ export type OutputResponseOutputHoneycomb = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsHoneycomb | undefined;
@@ -1377,7 +1377,7 @@ export type OutputResponseOutputKinesis = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsKinesis | undefined;
@@ -1583,7 +1583,7 @@ export type OutputResponseOutputAzureLogs = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureLogs | undefined;
@@ -2075,7 +2075,7 @@ export type OutputResponseOutputAzureDataExplorer = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureDataExplorer | undefined;
@@ -3150,7 +3150,7 @@ export type OutputResponseOutputSignalfx = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSignalfx | undefined;
@@ -3321,7 +3321,7 @@ export type OutputResponseOutputWavefront = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsWavefront | undefined;
@@ -3482,7 +3482,7 @@ export type OutputResponseOutputTcpjson = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsTcpjson | undefined;
@@ -3671,7 +3671,7 @@ export type OutputResponseOutputWizHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsWizHec | undefined;
@@ -3907,7 +3907,7 @@ export type OutputResponseOutputSplunkHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunkHec | undefined;
@@ -4137,7 +4137,7 @@ export type OutputResponseOutputSplunkLb = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunkLb | undefined;
@@ -4302,7 +4302,7 @@ export type OutputResponseOutputSplunk = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunk | undefined;
@@ -4709,7 +4709,7 @@ export type OutputResponseOutputSyslog = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSyslog | undefined;
@@ -4999,7 +4999,7 @@ export type OutputResponseOutputSentinel = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSentinel | undefined;
@@ -5345,7 +5345,7 @@ export type OutputResponseOutputWebhookWebhook2 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputResponseOutputWebhookPqControls2 | undefined;
@@ -5718,7 +5718,7 @@ export type OutputResponseOutputWebhookWebhook1 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputResponseOutputWebhookPqControls1 | undefined;
