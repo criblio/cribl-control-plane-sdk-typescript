@@ -6185,6 +6185,14 @@ export type InputResponseInputKubeLogs = {
    */
   timestamps?: boolean | undefined;
   /**
+   * Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+   */
+  lineBufferLimit?: number | undefined;
+  /**
+   * Internal flag to disable LB worker payload reassembly.
+   */
+  __LBDisableAssembly?: boolean | undefined;
+  /**
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
@@ -11198,6 +11206,8 @@ export const InputResponseInputKubeLogs$inboundSchema: z.ZodType<
   interval: types.optional(types.number()),
   rules: types.optional(z.array(z.lazy(() => RuleKubeLogs$inboundSchema))),
   timestamps: types.optional(types.boolean()),
+  lineBufferLimit: types.optional(types.number()),
+  __LBDisableAssembly: types.optional(types.boolean()),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   persistence: types.optional(DiskSpoolingType$inboundSchema),
   breakerRulesets: types.optional(z.array(types.string())),

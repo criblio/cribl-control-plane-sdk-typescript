@@ -5573,6 +5573,14 @@ export type CreateInputSystemByPackInputKubeLogs = {
    */
   timestamps?: boolean | undefined;
   /**
+   * Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+   */
+  lineBufferLimit?: number | undefined;
+  /**
+   * Internal flag to disable LB worker payload reassembly.
+   */
+  __LBDisableAssembly?: boolean | undefined;
+  /**
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
@@ -12107,6 +12115,8 @@ export type CreateInputSystemByPackInputKubeLogs$Outbound = {
   interval?: number | undefined;
   rules?: Array<CreateInputSystemByPackRuleKubeLogs$Outbound> | undefined;
   timestamps?: boolean | undefined;
+  lineBufferLimit?: number | undefined;
+  __LBDisableAssembly?: boolean | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -12139,6 +12149,8 @@ export const CreateInputSystemByPackInputKubeLogs$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackRuleKubeLogs$outboundSchema),
   ).optional(),
   timestamps: z.boolean().optional(),
+  lineBufferLimit: z.number().optional(),
+  __LBDisableAssembly: z.boolean().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
