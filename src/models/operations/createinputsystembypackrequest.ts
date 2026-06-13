@@ -12,9 +12,9 @@ import {
   CreateInputSystemByPackAuth,
   CreateInputSystemByPackAuth$Outbound,
   CreateInputSystemByPackAuth$outboundSchema,
-  CreateInputSystemByPackCheckpointing,
-  CreateInputSystemByPackCheckpointing$Outbound,
-  CreateInputSystemByPackCheckpointing$outboundSchema,
+  CreateInputSystemByPackAzureBlobStorage,
+  CreateInputSystemByPackAzureBlobStorage$Outbound,
+  CreateInputSystemByPackAzureBlobStorage$outboundSchema,
   CreateInputSystemByPackInputAnthropicCompliance,
   CreateInputSystemByPackInputAnthropicCompliance$Outbound,
   CreateInputSystemByPackInputAnthropicCompliance$outboundSchema,
@@ -156,7 +156,11 @@ import {
   CreateInputSystemByPackInputZscalerHec,
   CreateInputSystemByPackInputZscalerHec$Outbound,
   CreateInputSystemByPackInputZscalerHec$outboundSchema,
-} from "./createinputsystembypackcheckpointing.js";
+} from "./createinputsystembypackazureblobstorage.js";
+
+export type CreateInputSystemByPackCheckpointing = {
+  blobStore: CreateInputSystemByPackAzureBlobStorage;
+};
 
 export type CreateInputSystemByPackInputEventhubAmqp = {
   /**
@@ -1108,6 +1112,10 @@ export const CreateInputSystemByPackDiscoveryTypeEdgePrometheus = {
    * Kubernetes Service Monitor (v4.18+)
    */
   K8sServiceMonitor: "k8s-service-monitor",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1319,6 +1327,24 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   podFilter?: Array<CreateInputSystemByPackPodFilter> | undefined;
   /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Username for Prometheus Basic authentication
    */
   username?: string | undefined;
@@ -1388,6 +1414,10 @@ export const CreateInputSystemByPackDiscoveryTypePrometheus = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1569,6 +1599,24 @@ export type CreateInputSystemByPackInputPrometheus = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -4153,6 +4201,30 @@ export type CreateInputSystemByPackRequest = {
 };
 
 /** @internal */
+export type CreateInputSystemByPackCheckpointing$Outbound = {
+  blobStore: CreateInputSystemByPackAzureBlobStorage$Outbound;
+};
+
+/** @internal */
+export const CreateInputSystemByPackCheckpointing$outboundSchema: z.ZodType<
+  CreateInputSystemByPackCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackCheckpointing
+> = z.object({
+  blobStore: CreateInputSystemByPackAzureBlobStorage$outboundSchema,
+});
+
+export function createInputSystemByPackCheckpointingToJSON(
+  createInputSystemByPackCheckpointing: CreateInputSystemByPackCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackCheckpointing$outboundSchema.parse(
+      createInputSystemByPackCheckpointing,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputSystemByPackInputEventhubAmqp$Outbound = {
   id: string;
   type: "eventhub_amqp";
@@ -4207,7 +4279,9 @@ export const CreateInputSystemByPackInputEventhubAmqp$outboundSchema: z.ZodType<
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
   auth: CreateInputSystemByPackAuth$outboundSchema.optional(),
-  checkpointing: CreateInputSystemByPackCheckpointing$outboundSchema,
+  checkpointing: z.lazy(() =>
+    CreateInputSystemByPackCheckpointing$outboundSchema
+  ),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
   maxWaitTimeInSeconds: z.number().int().optional(),
@@ -5010,6 +5084,12 @@ export type CreateInputSystemByPackInputEdgePrometheus$Outbound = {
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
   podFilter?: Array<CreateInputSystemByPackPodFilter$Outbound> | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5086,6 +5166,12 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     podFilter: z.array(
       z.lazy(() => CreateInputSystemByPackPodFilter$outboundSchema),
     ).optional(),
+    httpDiscoveryUrl: z.string().optional(),
+    httpDiscoveryHeaders: z.array(
+      models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    ).optional(),
+    httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+    maxResponseBodySize: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
@@ -5177,6 +5263,12 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5252,6 +5344,12 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),

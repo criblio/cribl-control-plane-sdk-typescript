@@ -11,9 +11,9 @@ import {
   CreateInputAuth,
   CreateInputAuth$Outbound,
   CreateInputAuth$outboundSchema,
-  CreateInputCheckpointing,
-  CreateInputCheckpointing$Outbound,
-  CreateInputCheckpointing$outboundSchema,
+  CreateInputAzureBlobStorage,
+  CreateInputAzureBlobStorage$Outbound,
+  CreateInputAzureBlobStorage$outboundSchema,
   CreateInputInputAnthropicCompliance,
   CreateInputInputAnthropicCompliance$Outbound,
   CreateInputInputAnthropicCompliance$outboundSchema,
@@ -155,7 +155,11 @@ import {
   CreateInputInputZscalerHec,
   CreateInputInputZscalerHec$Outbound,
   CreateInputInputZscalerHec$outboundSchema,
-} from "./createinputcheckpointing.js";
+} from "./createinputazureblobstorage.js";
+
+export type CreateInputCheckpointing = {
+  blobStore: CreateInputAzureBlobStorage;
+};
 
 export type CreateInputInputEventhubAmqp = {
   /**
@@ -1101,6 +1105,10 @@ export const CreateInputDiscoveryTypeEdgePrometheus = {
    * Kubernetes Service Monitor (v4.18+)
    */
   K8sServiceMonitor: "k8s-service-monitor",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1311,6 +1319,24 @@ export type CreateInputInputEdgePrometheus = {
    */
   podFilter?: Array<CreateInputPodFilter> | undefined;
   /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Username for Prometheus Basic authentication
    */
   username?: string | undefined;
@@ -1380,6 +1406,10 @@ export const CreateInputDiscoveryTypePrometheus = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1561,6 +1591,24 @@ export type CreateInputInputPrometheus = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -4059,6 +4107,28 @@ export type CreateInputRequest =
   | CreateInputInputOkta;
 
 /** @internal */
+export type CreateInputCheckpointing$Outbound = {
+  blobStore: CreateInputAzureBlobStorage$Outbound;
+};
+
+/** @internal */
+export const CreateInputCheckpointing$outboundSchema: z.ZodType<
+  CreateInputCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputCheckpointing
+> = z.object({
+  blobStore: CreateInputAzureBlobStorage$outboundSchema,
+});
+
+export function createInputCheckpointingToJSON(
+  createInputCheckpointing: CreateInputCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputCheckpointing$outboundSchema.parse(createInputCheckpointing),
+  );
+}
+
+/** @internal */
 export type CreateInputInputEventhubAmqp$Outbound = {
   id: string;
   type: "eventhub_amqp";
@@ -4113,7 +4183,7 @@ export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
   auth: CreateInputAuth$outboundSchema.optional(),
-  checkpointing: CreateInputCheckpointing$outboundSchema,
+  checkpointing: z.lazy(() => CreateInputCheckpointing$outboundSchema),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
   maxWaitTimeInSeconds: z.number().int().optional(),
@@ -4879,6 +4949,12 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
   podFilter?: Array<CreateInputPodFilter$Outbound> | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -4949,6 +5025,12 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   scrapePathExpr: z.string().optional(),
   podFilter: z.array(z.lazy(() => CreateInputPodFilter$outboundSchema))
     .optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -5038,6 +5120,12 @@ export type CreateInputInputPrometheus$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5111,6 +5199,12 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),

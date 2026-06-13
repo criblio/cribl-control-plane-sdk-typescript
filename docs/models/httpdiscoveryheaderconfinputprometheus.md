@@ -1,11 +1,11 @@
-# RequestParamConfInputOpenai
+# HttpDiscoveryHeaderConfInputPrometheus
 
 ## Example Usage
 
 ```typescript
-import { RequestParamConfInputOpenai } from "cribl-control-plane/models";
+import { HttpDiscoveryHeaderConfInputPrometheus } from "cribl-control-plane/models";
 
-let value: RequestParamConfInputOpenai = {
+let value: HttpDiscoveryHeaderConfInputPrometheus = {
   name: "<value>",
   value: "<value>",
 };

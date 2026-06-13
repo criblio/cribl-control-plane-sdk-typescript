@@ -156,6 +156,10 @@ export type OutputGoogleCloudObservability = {
   keepAliveTime?: number | undefined;
   tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
@@ -296,6 +300,7 @@ export type OutputGoogleCloudObservability$Outbound = {
   connectionTimeout?: number | undefined;
   keepAliveTime?: number | undefined;
   tls?: TlsSettingsClientSideTypeExtended$Outbound | undefined;
+  maxPayloadEvents?: number | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   secret?: string | undefined;
@@ -347,6 +352,7 @@ export const OutputGoogleCloudObservability$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
   tls: TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
+  maxPayloadEvents: z.number().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   secret: z.string().optional(),
