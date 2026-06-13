@@ -15,5 +15,5 @@ let value: DiscoveryTypeEdgePrometheus = "ec2";
 ## Values
 
 ```typescript
-"static" | "dns" | "ec2" | "k8s-node" | "k8s-pods" | "k8s-service-monitor" | Unrecognized<string>
+"static" | "dns" | "ec2" | "k8s-node" | "k8s-pods" | "k8s-service-monitor" | "http_sd" | Unrecognized<string>
 ```

@@ -44,6 +44,25 @@ export type InputEventhubAmqpAuthenticationMechanism = OpenEnum<
   typeof InputEventhubAmqpAuthenticationMechanism
 >;
 
+export type InputEventhubAmqpCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
 export type InputEventhubAmqpAuth = {
   mechanism: InputEventhubAmqpAuthenticationMechanism;
   /**
@@ -55,7 +74,7 @@ export type InputEventhubAmqpAuth = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  certificate?: InputEventhubAmqpCertificate | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
@@ -267,12 +286,42 @@ export const InputEventhubAmqpAuthenticationMechanism$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputEventhubAmqpAuthenticationMechanism);
 
 /** @internal */
+export type InputEventhubAmqpCertificate$Outbound = {
+  certificateName: string;
+  certPath: string;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+};
+
+/** @internal */
+export const InputEventhubAmqpCertificate$outboundSchema: z.ZodType<
+  InputEventhubAmqpCertificate$Outbound,
+  z.ZodTypeDef,
+  InputEventhubAmqpCertificate
+> = z.object({
+  certificateName: z.string(),
+  certPath: z.string(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+});
+
+export function inputEventhubAmqpCertificateToJSON(
+  inputEventhubAmqpCertificate: InputEventhubAmqpCertificate,
+): string {
+  return JSON.stringify(
+    InputEventhubAmqpCertificate$outboundSchema.parse(
+      inputEventhubAmqpCertificate,
+    ),
+  );
+}
+
+/** @internal */
 export type InputEventhubAmqpAuth$Outbound = {
   mechanism: string;
   textSecret?: string | undefined;
   clientSecretAuthType?: string | undefined;
   clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  certificate?: InputEventhubAmqpCertificate$Outbound | undefined;
   oauthEndpoint?: string | undefined;
   clientId?: string | undefined;
   tenantId?: string | undefined;
@@ -294,7 +343,7 @@ export const InputEventhubAmqpAuth$outboundSchema: z.ZodType<
   clientSecretAuthType: AuthenticationMethodOptionsAuth$outboundSchema
     .optional(),
   clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+  certificate: z.lazy(() => InputEventhubAmqpCertificate$outboundSchema)
     .optional(),
   oauthEndpoint:
     MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.optional(),

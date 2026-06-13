@@ -7282,7 +7282,7 @@ export type CreateOutputOutputLoki = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<models.RequestParamConfInputOpenai> | undefined;
+  labels?: Array<models.HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   authType?:
     | models.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
     | undefined;
@@ -7487,7 +7487,7 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<models.RequestParamConfInputOpenai> | undefined;
+  labels?: Array<models.HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -7675,7 +7675,7 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<models.RequestParamConfInputOpenai> | undefined;
+  labels?: Array<models.HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -11797,6 +11797,10 @@ export type CreateOutputOutputGoogleCloudObservability = {
    */
   keepAliveTime?: number | undefined;
   tls?: models.TlsSettingsClientSideTypeExtended | undefined;
+  /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -17457,7 +17461,9 @@ export type CreateOutputOutputLoki$Outbound = {
   url: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<models.RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
   authType?: string | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
@@ -17518,7 +17524,8 @@ export const CreateOutputOutputLoki$outboundSchema: z.ZodType<
   url: z.string(),
   message: z.string().optional(),
   messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(models.RequestParamConfInputOpenai$outboundSchema).optional(),
+  labels: z.array(models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema)
+    .optional(),
   authType: models
     .AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
     .optional(),
@@ -17617,7 +17624,9 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound = {
   prometheusUrl: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<models.RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
   lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
@@ -17677,8 +17686,9 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema:
     prometheusUrl: z.string(),
     message: z.string().optional(),
     messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-    labels: z.array(models.RequestParamConfInputOpenai$outboundSchema)
-      .optional(),
+    labels: z.array(
+      models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    ).optional(),
     metricRenameExpr: z.string().optional(),
     prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
     lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
@@ -17777,7 +17787,9 @@ export type CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound = {
   prometheusUrl?: string | undefined;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<models.RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
   lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
@@ -17837,8 +17849,9 @@ export const CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema:
     prometheusUrl: z.string().optional(),
     message: z.string().optional(),
     messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-    labels: z.array(models.RequestParamConfInputOpenai$outboundSchema)
-      .optional(),
+    labels: z.array(
+      models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    ).optional(),
     metricRenameExpr: z.string().optional(),
     prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
     lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
@@ -20893,6 +20906,7 @@ export type CreateOutputOutputGoogleCloudObservability$Outbound = {
   connectionTimeout?: number | undefined;
   keepAliveTime?: number | undefined;
   tls?: models.TlsSettingsClientSideTypeExtended$Outbound | undefined;
+  maxPayloadEvents?: number | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   secret?: string | undefined;
@@ -20949,6 +20963,7 @@ export const CreateOutputOutputGoogleCloudObservability$outboundSchema:
     connectionTimeout: z.number().optional(),
     keepAliveTime: z.number().optional(),
     tls: models.TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
+    maxPayloadEvents: z.number().optional(),
     onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
       .optional(),
     description: z.string().optional(),

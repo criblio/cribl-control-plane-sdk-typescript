@@ -3,139 +3,16 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import * as types from "../types/primitives.js";
-import { smartUnion } from "../types/smartUnion.js";
-import {
-  AuthenticationMethodOptionsAuth,
-  AuthenticationMethodOptionsAuth$inboundSchema,
-} from "./authenticationmethodoptionsauth.js";
-import {
-  AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-} from "./authenticationmethodoptionsauthtokensitems.js";
-import {
-  AuthenticationMethodOptionsManualSecret,
-  AuthenticationMethodOptionsManualSecret$inboundSchema,
-} from "./authenticationmethodoptionsmanualsecret.js";
-import {
-  AuthTokenConfInputCriblTcp,
-  AuthTokenConfInputCriblTcp$inboundSchema,
-} from "./authtokenconfinputcribltcp.js";
-import {
-  AuthTokensExtConfInputHttp,
-  AuthTokensExtConfInputHttp$inboundSchema,
-} from "./authtokensextconfinputhttp.js";
-import {
-  CertificateTypeAzureBlobAuthTypeClientCert,
-  CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
-} from "./certificatetypeazureblobauthtypeclientcert.js";
-import {
-  CheckpointingType,
-  CheckpointingType$inboundSchema,
-} from "./checkpointingtype.js";
-import {
-  ConnectionConfInputCollection,
-  ConnectionConfInputCollection$inboundSchema,
-} from "./connectionconfinputcollection.js";
-import {
-  DataCompressionFormatOptionsPersistence,
-  DataCompressionFormatOptionsPersistence$inboundSchema,
-} from "./datacompressionformatoptionspersistence.js";
-import {
-  DiskSpoolingType,
-  DiskSpoolingType$inboundSchema,
-} from "./diskspoolingtype.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  GoogleAuthenticationMethodOptions,
-  GoogleAuthenticationMethodOptions$inboundSchema,
-} from "./googleauthenticationmethodoptions.js";
-import { GpuType, GpuType$inboundSchema } from "./gputype.js";
-import {
-  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
-  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
-import {
-  LogLevelOptions,
-  LogLevelOptions$inboundSchema,
-} from "./logleveloptions.js";
-import {
-  LogLevelOptionsContentConfigItemsDebugError,
-  LogLevelOptionsContentConfigItemsDebugError$inboundSchema,
-} from "./logleveloptionscontentconfigitemsdebugerror.js";
-import {
-  MaximumTlsVersionOptionsTls,
-  MaximumTlsVersionOptionsTls$inboundSchema,
-} from "./maximumtlsversionoptionstls.js";
-import {
-  MetadataConfInputCollection,
-  MetadataConfInputCollection$inboundSchema,
-} from "./metadataconfinputcollection.js";
-import {
-  MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
-  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
-} from "./microsoftentraidauthenticationendpointoptionssasl.js";
-import {
-  MinimumTlsVersionOptionsTls,
-  MinimumTlsVersionOptionsTls$inboundSchema,
-} from "./minimumtlsversionoptionstls.js";
-import {
-  ModeOptionsHost,
-  ModeOptionsHost$inboundSchema,
-} from "./modeoptionshost.js";
-import {
-  NotificationUnion,
-  NotificationUnion$inboundSchema,
-} from "./notificationunion.js";
-import {
-  OauthHeaderConfInputServicenowTable,
-  OauthHeaderConfInputServicenowTable$inboundSchema,
-} from "./oauthheaderconfinputservicenowtable.js";
-import {
-  OauthParamConfInputServicenowTable,
-  OauthParamConfInputServicenowTable$inboundSchema,
-} from "./oauthparamconfinputservicenowtable.js";
-import { PqType, PqType$inboundSchema } from "./pqtype.js";
-import {
-  PreprocessType,
-  PreprocessType$inboundSchema,
-} from "./preprocesstype.js";
-import {
-  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone,
-  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
-} from "./privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.js";
-import { ProcessType, ProcessType$inboundSchema } from "./processtype.js";
-import {
-  RequestParamConfInputOpenai,
-  RequestParamConfInputOpenai$inboundSchema,
-} from "./requestparamconfinputopenai.js";
-import {
-  RetryRulesType,
-  RetryRulesType$inboundSchema,
-} from "./retryrulestype.js";
-import {
-  RuleConfInputKubeMetrics,
-  RuleConfInputKubeMetrics$inboundSchema,
-} from "./ruleconfinputkubemetrics.js";
-import { StatusType, StatusType$inboundSchema } from "./statustype.js";
-import {
-  TagAfterProcessingOptions,
-  TagAfterProcessingOptions$inboundSchema,
-} from "./tagafterprocessingoptions.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-} from "./tlssettingsserversidetype.js";
+import * as openEnums from "../../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { smartUnion } from "../../types/smartUnion.js";
+import * as models from "../index.js";
 
-export type InputResponseInputOkta = {
+export type CreateInputInputOkta = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "okta";
   disabled?: boolean | undefined;
   /**
@@ -159,16 +36,10 @@ export type InputResponseInputOkta = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Your Okta domain (example: your-org). Do not include .okta.com, https://, or trailing slashes.
    */
@@ -220,8 +91,8 @@ export type InputResponseInputOkta = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  retryRules?: RetryRulesType | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -235,19 +106,11 @@ export type InputResponseInputOkta = {
    * Binds 'oktaDomain' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oktaDomain' at runtime.
    */
   __template_oktaDomain?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type ManageStateAnthropicCompliance = {};
+export type CreateInputManageStateAnthropicCompliance = {};
 
-export type ContentConfigAnthropicCompliance = {
+export type CreateInputContentConfigAnthropicCompliance = {
   contentType: string;
   contentDescription?: string | undefined;
   enabled?: boolean | undefined;
@@ -263,7 +126,7 @@ export type ContentConfigAnthropicCompliance = {
    * JavaScript expression that defines which state to keep when merging task state
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageStateAnthropicCompliance | undefined;
+  manageState?: CreateInputManageStateAnthropicCompliance | undefined;
   /**
    * Schedule on which to run this collection job
    */
@@ -282,11 +145,11 @@ export type ContentConfigAnthropicCompliance = {
   jobTimeout?: string | undefined;
 };
 
-export type InputResponseInputAnthropicCompliance = {
+export type CreateInputInputAnthropicCompliance = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "anthropic_compliance";
   disabled?: boolean | undefined;
   /**
@@ -310,22 +173,16 @@ export type InputResponseInputAnthropicCompliance = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   apiKey?: string | undefined;
   /**
    * Select or create a stored Anthropic API key
    */
   textSecret: string;
-  contentConfig: Array<ContentConfigAnthropicCompliance>;
+  contentConfig: Array<CreateInputContentConfigAnthropicCompliance>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -349,8 +206,8 @@ export type InputResponseInputAnthropicCompliance = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  retryRules?: RetryRulesType | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -360,17 +217,9 @@ export type InputResponseInputAnthropicCompliance = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export const InputResponseAccountType = {
+export const CreateInputAccountType = {
   /**
    * Workspace
    */
@@ -380,17 +229,15 @@ export const InputResponseAccountType = {
    */
   Organization: "organization",
 } as const;
-export type InputResponseAccountType = OpenEnum<
-  typeof InputResponseAccountType
->;
+export type CreateInputAccountType = OpenEnum<typeof CreateInputAccountType>;
 
-export type ManageStateOpenaiComplianceLogs = {};
+export type CreateInputManageStateOpenaiComplianceLogs = {};
 
-export type InputResponseInputOpenaiComplianceLogs = {
+export type CreateInputInputOpenaiComplianceLogs = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "openai_compliance_logs";
   disabled?: boolean | undefined;
   /**
@@ -414,22 +261,16 @@ export type InputResponseInputOpenaiComplianceLogs = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   apiKey?: string | undefined;
   /**
    * Select or create a stored text secret
    */
   textSecret: string;
-  accountType: InputResponseAccountType;
+  accountType: CreateInputAccountType;
   cronSchedule: string;
   /**
    * Relative to the current time. Format: [+|-]<time_integer><time_unit>
@@ -446,7 +287,7 @@ export type InputResponseInputOpenaiComplianceLogs = {
   /**
    * Collector runtime log level
    */
-  logLevel?: LogLevelOptionsContentConfigItemsDebugError | undefined;
+  logLevel?: models.LogLevelOptionsContentConfigItemsDebugError | undefined;
   /**
    * Maximum number of log file listing pages to retrieve per run. Set to 0 to retrieve all pages.
    */
@@ -478,7 +319,7 @@ export type InputResponseInputOpenaiComplianceLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -487,7 +328,7 @@ export type InputResponseInputOpenaiComplianceLogs = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  retryRules?: RetryRulesType | undefined;
+  retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
   /**
    * The ID of the ChatGPT workspace to collect logs from (UUID format)
@@ -513,7 +354,7 @@ export type InputResponseInputOpenaiComplianceLogs = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageStateOpenaiComplianceLogs | undefined;
+  manageState?: CreateInputManageStateOpenaiComplianceLogs | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
@@ -530,34 +371,26 @@ export type InputResponseInputOpenaiComplianceLogs = {
    * Binds 'organizationId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'organizationId' at runtime.
    */
   __template_organizationId?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Select Secret to use a text secret to authenticate
  */
-export const AuthenticationMethodCloudflareHec = {
+export const CreateInputAuthTokenAuthenticationMethod = {
   Secret: "secret",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
  */
-export type AuthenticationMethodCloudflareHec = OpenEnum<
-  typeof AuthenticationMethodCloudflareHec
+export type CreateInputAuthTokenAuthenticationMethod = OpenEnum<
+  typeof CreateInputAuthTokenAuthenticationMethod
 >;
 
-export type AuthTokenCloudflareHec = {
+export type CreateInputAuthTokenCloudflareHec = {
   /**
    * Select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodCloudflareHec | undefined;
+  authType?: CreateInputAuthTokenAuthenticationMethod | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -575,10 +408,10 @@ export type AuthTokenCloudflareHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
 };
 
-export type InputResponseTLSSettingsServerSide = {
+export type CreateInputTLSSettingsServerSide = {
   /**
    * Enable or disable TLS. Defaults to enabled for Cloudflare sources.
    */
@@ -615,15 +448,15 @@ export type InputResponseTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  minVersion?: MinimumTlsVersionOptionsTls | undefined;
-  maxVersion?: MaximumTlsVersionOptionsTls | undefined;
+  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
 };
 
-export type InputResponseInputCloudflareHec = {
+export type CreateInputInputCloudflareHec = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "cloudflare_hec";
   disabled?: boolean | undefined;
   /**
@@ -647,16 +480,10 @@ export type InputResponseInputCloudflareHec = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -668,8 +495,8 @@ export type InputResponseInputCloudflareHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<AuthTokenCloudflareHec> | undefined;
-  tls?: InputResponseTLSSettingsServerSide | undefined;
+  authTokens?: Array<CreateInputAuthTokenCloudflareHec> | undefined;
+  tls?: CreateInputTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -717,7 +544,7 @@ export type InputResponseInputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -775,21 +602,13 @@ export type InputResponseInputCloudflareHec = {
    * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
    */
   __template_accessControlAllowHeaders?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type AuthTokenZscalerHec = {
+export type CreateInputAuthTokenZscalerHec = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -807,14 +626,14 @@ export type AuthTokenZscalerHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
 };
 
-export type InputResponseInputZscalerHec = {
+export type CreateInputInputZscalerHec = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "zscaler_hec";
   disabled?: boolean | undefined;
   /**
@@ -838,16 +657,10 @@ export type InputResponseInputZscalerHec = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -859,8 +672,8 @@ export type InputResponseInputZscalerHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<AuthTokenZscalerHec> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  authTokens?: Array<CreateInputAuthTokenZscalerHec> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -908,7 +721,7 @@ export type InputResponseInputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -950,20 +763,12 @@ export type InputResponseInputZscalerHec = {
    * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
    */
   __template_hecAPI?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Used only when Sort by field is set.
  */
-export const InputResponseSortDirection = {
+export const CreateInputSortDirection = {
   /**
    * Ascending
    */
@@ -976,14 +781,14 @@ export const InputResponseSortDirection = {
 /**
  * Used only when Sort by field is set.
  */
-export type InputResponseSortDirection = OpenEnum<
-  typeof InputResponseSortDirection
+export type CreateInputSortDirection = OpenEnum<
+  typeof CreateInputSortDirection
 >;
 
 /**
  * ServiceNow Table API authentication method
  */
-export const AuthenticationTypeServicenowTable = {
+export const CreateInputAuthenticationTypeServicenowTable = {
   /**
    * None
    */
@@ -1000,14 +805,14 @@ export const AuthenticationTypeServicenowTable = {
 /**
  * ServiceNow Table API authentication method
  */
-export type AuthenticationTypeServicenowTable = OpenEnum<
-  typeof AuthenticationTypeServicenowTable
+export type CreateInputAuthenticationTypeServicenowTable = OpenEnum<
+  typeof CreateInputAuthenticationTypeServicenowTable
 >;
 
 /**
  * ServiceNow OAuth grant type used for token requests
  */
-export const InputResponseGrantType = {
+export const CreateInputGrantType = {
   /**
    * Password
    */
@@ -1020,15 +825,15 @@ export const InputResponseGrantType = {
 /**
  * ServiceNow OAuth grant type used for token requests
  */
-export type InputResponseGrantType = OpenEnum<typeof InputResponseGrantType>;
+export type CreateInputGrantType = OpenEnum<typeof CreateInputGrantType>;
 
-export type ManageStateServicenowTable = {};
+export type CreateInputManageStateServicenowTable = {};
 
-export type InputResponseInputServicenowTable = {
+export type CreateInputInputServicenowTable = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "servicenow_table";
   disabled?: boolean | undefined;
   /**
@@ -1052,16 +857,10 @@ export type InputResponseInputServicenowTable = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
    */
@@ -1081,7 +880,7 @@ export type InputResponseInputServicenowTable = {
   /**
    * Used only when Sort by field is set.
    */
-  orderByDirection?: InputResponseSortDirection | undefined;
+  orderByDirection?: CreateInputSortDirection | undefined;
   /**
    * Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
    */
@@ -1101,7 +900,7 @@ export type InputResponseInputServicenowTable = {
   /**
    * ServiceNow Table API authentication method
    */
-  authType?: AuthenticationTypeServicenowTable | undefined;
+  authType?: CreateInputAuthenticationTypeServicenowTable | undefined;
   /**
    * Cron schedule on which to run this job
    */
@@ -1121,7 +920,7 @@ export type InputResponseInputServicenowTable = {
   /**
    * Collector runtime log level
    */
-  logLevel?: LogLevelOptions | undefined;
+  logLevel?: models.LogLevelOptions | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -1153,8 +952,8 @@ export type InputResponseInputServicenowTable = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  retryRules?: RetryRulesType | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -1163,7 +962,7 @@ export type InputResponseInputServicenowTable = {
   /**
    * ServiceNow OAuth grant type used for token requests
    */
-  oauthGrantType?: InputResponseGrantType | undefined;
+  oauthGrantType?: CreateInputGrantType | undefined;
   /**
    * ServiceNow username for the password grant type
    */
@@ -1179,11 +978,11 @@ export type InputResponseInputServicenowTable = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<OauthParamConfInputServicenowTable> | undefined;
+  oauthParams?: Array<models.OauthParamConfInputServicenowTable> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
+  oauthHeaders?: Array<models.OauthHeaderConfInputServicenowTable> | undefined;
   clientId?: string | undefined;
   /**
    * Select or create a stored text secret for the OAuth client secret value
@@ -1197,7 +996,7 @@ export type InputResponseInputServicenowTable = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageStateServicenowTable | undefined;
+  manageState?: CreateInputManageStateServicenowTable | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
    */
@@ -1226,21 +1025,13 @@ export type InputResponseInputServicenowTable = {
    * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
    */
   __template_clientId?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputSecurityLake = {
+export type CreateInputInputSecurityLake = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "security_lake";
   disabled?: boolean | undefined;
   /**
@@ -1264,16 +1055,10 @@ export type InputResponseInputSecurityLake = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -1359,11 +1144,11 @@ export type InputResponseInputSecurityLake = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessType | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -1372,7 +1157,7 @@ export type InputResponseInputSecurityLake = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: CheckpointingType | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -1387,7 +1172,7 @@ export type InputResponseInputSecurityLake = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: TagAfterProcessingOptions | undefined;
+  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -1436,21 +1221,13 @@ export type InputResponseInputSecurityLake = {
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputNetflow = {
+export type CreateInputInputNetflow = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "netflow";
   disabled?: boolean | undefined;
   /**
@@ -1474,16 +1251,10 @@ export type InputResponseInputNetflow = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -1527,7 +1298,7 @@ export type InputResponseInputNetflow = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1545,21 +1316,13 @@ export type InputResponseInputNetflow = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputWizWebhook = {
+export type CreateInputInputWizWebhook = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "wiz_webhook";
   disabled?: boolean | undefined;
   /**
@@ -1583,16 +1346,10 @@ export type InputResponseInputWizWebhook = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -1605,7 +1362,7 @@ export type InputResponseInputWizWebhook = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -1661,7 +1418,7 @@ export type InputResponseInputWizWebhook = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
    */
@@ -1673,7 +1430,7 @@ export type InputResponseInputWizWebhook = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<AuthTokensExtConfInputHttp> | undefined;
+  authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1699,19 +1456,11 @@ export type InputResponseInputWizWebhook = {
    * Binds 'allowedPaths' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedPaths' at runtime.
    */
   __template_allowedPaths?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type ManageStateOpenai = {};
+export type CreateInputManageStateOpenai = {};
 
-export const InputResponsePaginationType = {
+export const CreateInputPaginationType = {
   /**
    * None
    */
@@ -1729,14 +1478,14 @@ export const InputResponsePaginationType = {
    */
   ResponseHeaderLink: "response_header_link",
 } as const;
-export type InputResponsePaginationType = OpenEnum<
-  typeof InputResponsePaginationType
+export type CreateInputPaginationType = OpenEnum<
+  typeof CreateInputPaginationType
 >;
 
 /**
  * Collector runtime log level.
  */
-export const LogLevelOpenai = {
+export const CreateInputContentConfigLogLevel = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -1746,16 +1495,11 @@ export const LogLevelOpenai = {
 /**
  * Collector runtime log level.
  */
-export type LogLevelOpenai = OpenEnum<typeof LogLevelOpenai>;
+export type CreateInputContentConfigLogLevel = OpenEnum<
+  typeof CreateInputContentConfigLogLevel
+>;
 
-export type ContentConfigOpenai = {
-  contentType: string;
-  contentDescription?: string | undefined;
-  /**
-   * OpenAI Organization API path
-   */
-  collectPath: string;
-  docsUrl?: string | undefined;
+export type CreateInputContentConfigInput = {
   disabled?: boolean | undefined;
   /**
    * Track collection progress between consecutive scheduled executions.
@@ -1769,12 +1513,12 @@ export type ContentConfigOpenai = {
    * JavaScript expression that defines which state to keep when merging task state
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageStateOpenai | undefined;
+  manageState?: CreateInputManageStateOpenai | undefined;
   /**
    * Query-string parameters to send with this endpoint
    */
-  requestParams: Array<RequestParamConfInputOpenai>;
-  paginationType: InputResponsePaginationType;
+  requestParams: Array<models.HttpDiscoveryHeaderConfInputPrometheus>;
+  paginationType: CreateInputPaginationType;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
   /**
@@ -1808,18 +1552,18 @@ export type ContentConfigOpenai = {
   /**
    * Collector runtime log level.
    */
-  logLevel?: LogLevelOpenai | undefined;
+  logLevel?: CreateInputContentConfigLogLevel | undefined;
   /**
    * Fields automatically added to events from this Content Type
    */
-  endpointMetadata?: Array<MetadataConfInputCollection> | undefined;
+  endpointMetadata?: Array<models.MetadataConfInputCollection> | undefined;
 };
 
-export type InputResponseInputOpenai = {
+export type CreateInputInputOpenai = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "openai";
   disabled?: boolean | undefined;
   /**
@@ -1843,16 +1587,10 @@ export type InputResponseInputOpenai = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
    */
@@ -1861,7 +1599,7 @@ export type InputResponseInputOpenai = {
    * Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
    */
   openaiProject?: string | undefined;
-  contentConfig: Array<ContentConfigOpenai>;
+  contentConfig: Array<CreateInputContentConfigInput>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -1890,8 +1628,8 @@ export type InputResponseInputOpenai = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  retryRules?: RetryRulesType | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1909,19 +1647,11 @@ export type InputResponseInputOpenai = {
    * Binds 'openaiProject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiProject' at runtime.
    */
   __template_openaiProject?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type ManageStateWiz = {};
+export type CreateInputManageStateWiz = {};
 
-export type ContentConfigWiz = {
+export type CreateInputContentConfigWiz = {
   /**
    * The name of the Wiz query
    */
@@ -1940,7 +1670,7 @@ export type ContentConfigWiz = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageStateWiz | undefined;
+  manageState?: CreateInputManageStateWiz | undefined;
   /**
    * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
    */
@@ -1964,18 +1694,18 @@ export type ContentConfigWiz = {
   /**
    * Collector runtime log level
    */
-  logLevel?: LogLevelOptionsContentConfigItemsDebugError | undefined;
+  logLevel?: models.LogLevelOptionsContentConfigItemsDebugError | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
    */
   maxPages?: number | undefined;
 };
 
-export type InputResponseInputWiz = {
+export type CreateInputInputWiz = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "wiz";
   disabled?: boolean | undefined;
   /**
@@ -1999,16 +1729,10 @@ export type InputResponseInputWiz = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
    */
@@ -2025,7 +1749,7 @@ export type InputResponseInputWiz = {
    * The client ID of the Wiz application
    */
   clientId: string;
-  contentConfig: Array<ContentConfigWiz>;
+  contentConfig: Array<CreateInputContentConfigWiz>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -2049,7 +1773,7 @@ export type InputResponseInputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -2058,11 +1782,11 @@ export type InputResponseInputWiz = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  retryRules?: RetryRulesType | undefined;
+  retryRules?: models.RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptionsManualSecret | undefined;
+  authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -2092,17 +1816,9 @@ export type InputResponseInputWiz = {
    * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
    */
   __template_clientId?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputJournalFilesRule = {
+export type CreateInputInputJournalFilesRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
    */
@@ -2113,11 +1829,11 @@ export type InputResponseInputJournalFilesRule = {
   description?: string | undefined;
 };
 
-export type InputResponseInputJournalFiles = {
+export type CreateInputInputJournalFiles = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "journal_files";
   disabled?: boolean | undefined;
   /**
@@ -2141,16 +1857,10 @@ export type InputResponseInputJournalFiles = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
    */
@@ -2166,7 +1876,7 @@ export type InputResponseInputJournalFiles = {
   /**
    * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<InputResponseInputJournalFilesRule> | undefined;
+  rules?: Array<CreateInputInputJournalFilesRule> | undefined;
   /**
    * Skip log messages that are not part of the current boot session
    */
@@ -2179,7 +1889,7 @@ export type InputResponseInputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2189,21 +1899,13 @@ export type InputResponseInputJournalFiles = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputRawUdp = {
+export type CreateInputInputRawUdp = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "raw_udp";
   disabled?: boolean | undefined;
   /**
@@ -2227,16 +1929,10 @@ export type InputResponseInputRawUdp = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -2268,7 +1964,7 @@ export type InputResponseInputRawUdp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2286,20 +1982,12 @@ export type InputResponseInputRawUdp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Read all log entries (historical and upcoming), or only upcoming, from the last entry
  */
-export const ReadModeAppleUnifiedLogs = {
+export const CreateInputReadModeAppleUnifiedLogs = {
   /**
    * Entire log
    */
@@ -2312,15 +2000,15 @@ export const ReadModeAppleUnifiedLogs = {
 /**
  * Read all log entries (historical and upcoming), or only upcoming, from the last entry
  */
-export type ReadModeAppleUnifiedLogs = OpenEnum<
-  typeof ReadModeAppleUnifiedLogs
+export type CreateInputReadModeAppleUnifiedLogs = OpenEnum<
+  typeof CreateInputReadModeAppleUnifiedLogs
 >;
 
-export type InputResponseInputAppleUnifiedLogs = {
+export type CreateInputInputAppleUnifiedLogs = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "apple_unified_logs";
   disabled?: boolean | undefined;
   /**
@@ -2344,16 +2032,10 @@ export type InputResponseInputAppleUnifiedLogs = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
    */
@@ -2361,11 +2043,11 @@ export type InputResponseInputAppleUnifiedLogs = {
   /**
    * Read all log entries (historical and upcoming), or only upcoming, from the last entry
    */
-  readMode?: ReadModeAppleUnifiedLogs | undefined;
+  readMode?: CreateInputReadModeAppleUnifiedLogs | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2375,20 +2057,12 @@ export type InputResponseInputAppleUnifiedLogs = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Read all stored and future event logs, or only future events
  */
-export const ReadModeWinEventLogs = {
+export const CreateInputReadModeWinEventLogs = {
   /**
    * Entire log
    */
@@ -2401,12 +2075,14 @@ export const ReadModeWinEventLogs = {
 /**
  * Read all stored and future event logs, or only future events
  */
-export type ReadModeWinEventLogs = OpenEnum<typeof ReadModeWinEventLogs>;
+export type CreateInputReadModeWinEventLogs = OpenEnum<
+  typeof CreateInputReadModeWinEventLogs
+>;
 
 /**
  * Format of individual events
  */
-export const InputResponseEventFormat = {
+export const CreateInputEventFormat = {
   /**
    * JSON
    */
@@ -2419,15 +2095,13 @@ export const InputResponseEventFormat = {
 /**
  * Format of individual events
  */
-export type InputResponseEventFormat = OpenEnum<
-  typeof InputResponseEventFormat
->;
+export type CreateInputEventFormat = OpenEnum<typeof CreateInputEventFormat>;
 
-export type InputResponseInputWinEventLogs = {
+export type CreateInputInputWinEventLogs = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "win_event_logs";
   disabled?: boolean | undefined;
   /**
@@ -2451,16 +2125,10 @@ export type InputResponseInputWinEventLogs = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
    */
@@ -2468,11 +2136,11 @@ export type InputResponseInputWinEventLogs = {
   /**
    * Read all stored and future event logs, or only future events
    */
-  readMode?: ReadModeWinEventLogs | undefined;
+  readMode?: CreateInputReadModeWinEventLogs | undefined;
   /**
    * Format of individual events
    */
-  eventFormat?: InputResponseEventFormat | undefined;
+  eventFormat?: CreateInputEventFormat | undefined;
   /**
    * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
    */
@@ -2488,7 +2156,7 @@ export type InputResponseInputWinEventLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
@@ -2510,20 +2178,12 @@ export type InputResponseInputWinEventLogs = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * How to authenticate incoming client connections
  */
-export const AuthenticationMethodWef = {
+export const CreateInputAuthMethodAuthenticationMethod = {
   /**
    * Client certificate
    */
@@ -2536,9 +2196,11 @@ export const AuthenticationMethodWef = {
 /**
  * How to authenticate incoming client connections
  */
-export type AuthenticationMethodWef = OpenEnum<typeof AuthenticationMethodWef>;
+export type CreateInputAuthMethodAuthenticationMethod = OpenEnum<
+  typeof CreateInputAuthMethodAuthenticationMethod
+>;
 
-export type InputResponseMTLSSettings = {
+export type CreateInputMTLSSettings = {
   /**
    * Enable TLS
    */
@@ -2575,8 +2237,8 @@ export type InputResponseMTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?: MinimumTlsVersionOptionsTls | undefined;
-  maxVersion?: MaximumTlsVersionOptionsTls | undefined;
+  minVersion?: models.MinimumTlsVersionOptionsTls | undefined;
+  maxVersion?: models.MaximumTlsVersionOptionsTls | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -2590,24 +2252,24 @@ export type InputResponseMTLSSettings = {
 /**
  * Content format in which the endpoint should deliver events
  */
-export const InputResponseFormat = {
+export const CreateInputFormat = {
   Raw: "Raw",
   RenderedText: "RenderedText",
 } as const;
 /**
  * Content format in which the endpoint should deliver events
  */
-export type InputResponseFormat = OpenEnum<typeof InputResponseFormat>;
+export type CreateInputFormat = OpenEnum<typeof CreateInputFormat>;
 
-export const InputResponseQueryBuilderMode = {
+export const CreateInputQueryBuilderMode = {
   Simple: "simple",
   Xml: "xml",
 } as const;
-export type InputResponseQueryBuilderMode = OpenEnum<
-  typeof InputResponseQueryBuilderMode
+export type CreateInputQueryBuilderMode = OpenEnum<
+  typeof CreateInputQueryBuilderMode
 >;
 
-export type InputResponseQuery = {
+export type CreateInputQuery = {
   /**
    * The Path attribute from the relevant XML Select element
    */
@@ -2618,7 +2280,7 @@ export type InputResponseQuery = {
   queryExpression: string;
 };
 
-export type InputResponseSubscription = {
+export type CreateInputSubscription = {
   subscriptionName: string;
   /**
    * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
@@ -2627,7 +2289,7 @@ export type InputResponseSubscription = {
   /**
    * Content format in which the endpoint should deliver events
    */
-  contentFormat: InputResponseFormat;
+  contentFormat: CreateInputFormat;
   /**
    * Maximum time (in seconds) between endpoint checkins before considering it unavailable
    */
@@ -2656,23 +2318,23 @@ export type InputResponseSubscription = {
    * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
    */
   locale?: string | undefined;
-  querySelector?: InputResponseQueryBuilderMode | undefined;
+  querySelector?: CreateInputQueryBuilderMode | undefined;
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  queries?: Array<InputResponseQuery> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  queries?: Array<CreateInputQuery> | undefined;
   /**
    * The XPath query to use for selecting events
    */
   xmlQuery?: string | undefined;
 };
 
-export type InputResponseInputWef = {
+export type CreateInputInputWef = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "wef";
   disabled?: boolean | undefined;
   /**
@@ -2696,16 +2358,10 @@ export type InputResponseInputWef = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -2717,8 +2373,8 @@ export type InputResponseInputWef = {
   /**
    * How to authenticate incoming client connections
    */
-  authMethod?: AuthenticationMethodWef | undefined;
-  tls?: InputResponseMTLSSettings | undefined;
+  authMethod?: CreateInputAuthMethodAuthenticationMethod | undefined;
+  tls?: CreateInputMTLSSettings | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -2774,11 +2430,11 @@ export type InputResponseInputWef = {
   /**
    * Subscriptions to events on forwarding endpoints
    */
-  subscriptions: Array<InputResponseSubscription>;
+  subscriptions: Array<CreateInputSubscription>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
@@ -2808,17 +2464,9 @@ export type InputResponseInputWef = {
    * Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
    */
   __template_principal?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseAllow = {
+export type CreateInputAllow = {
   /**
    * Specify the name of a process or family of processes.
    */
@@ -2833,18 +2481,18 @@ export type InputResponseAllow = {
   config: string;
 };
 
-export type FilterAppscope = {
+export type CreateInputFilterAppscope = {
   /**
    * Specify processes that AppScope should be loaded into, and the config to use.
    */
-  allow?: Array<InputResponseAllow> | undefined;
+  allow?: Array<CreateInputAllow> | undefined;
   /**
    * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
    */
   transportURL?: string | undefined;
 };
 
-export type PersistenceAppscope = {
+export type CreateInputPersistenceAppscope = {
   /**
    * Spool events and metrics on disk for Cribl Edge and Search
    */
@@ -2861,7 +2509,7 @@ export type PersistenceAppscope = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: DataCompressionFormatOptionsPersistence | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
    */
@@ -2871,13 +2519,13 @@ export type PersistenceAppscope = {
 /**
  * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
  */
-export type InputResponseUNIXSocketPermissions = string | number;
+export type CreateInputUNIXSocketPermissions = string | number;
 
-export type InputResponseInputAppscope = {
+export type CreateInputInputAppscope = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "appscope";
   disabled?: boolean | undefined;
   /**
@@ -2901,16 +2549,10 @@ export type InputResponseInputAppscope = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -2938,7 +2580,7 @@ export type InputResponseInputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -2951,12 +2593,12 @@ export type InputResponseInputAppscope = {
    * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
    */
   enableUnixPath?: boolean | undefined;
-  filter?: FilterAppscope | undefined;
-  persistence?: PersistenceAppscope | undefined;
+  filter?: CreateInputFilterAppscope | undefined;
+  persistence?: CreateInputPersistenceAppscope | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
   description?: string | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -2966,7 +2608,7 @@ export type InputResponseInputAppscope = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Path to the UNIX domain socket to listen on.
    */
@@ -2999,21 +2641,13 @@ export type InputResponseInputAppscope = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputTcp = {
+export type CreateInputInputTcp = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "tcp";
   disabled?: boolean | undefined;
   /**
@@ -3037,16 +2671,10 @@ export type InputResponseInputTcp = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -3055,7 +2683,7 @@ export type InputResponseInputTcp = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -3083,7 +2711,7 @@ export type InputResponseInputTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -3096,7 +2724,7 @@ export type InputResponseInputTcp = {
    * Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
    */
   enableHeader?: boolean | undefined;
-  preprocess?: PreprocessType | undefined;
+  preprocess?: models.PreprocessType | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -3105,7 +2733,7 @@ export type InputResponseInputTcp = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -3126,20 +2754,12 @@ export type InputResponseInputTcp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Choose how to discover files to monitor
  */
-export const InputResponseInputFileMode = {
+export const CreateInputInputFileMode = {
   /**
    * Manual
    */
@@ -3152,15 +2772,15 @@ export const InputResponseInputFileMode = {
 /**
  * Choose how to discover files to monitor
  */
-export type InputResponseInputFileMode = OpenEnum<
-  typeof InputResponseInputFileMode
+export type CreateInputInputFileMode = OpenEnum<
+  typeof CreateInputInputFileMode
 >;
 
-export type InputResponseInputFile = {
+export type CreateInputInputFile = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "file";
   disabled?: boolean | undefined;
   /**
@@ -3184,20 +2804,14 @@ export type InputResponseInputFile = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Choose how to discover files to monitor
    */
-  mode?: InputResponseInputFileMode | undefined;
+  mode?: CreateInputInputFileMode | undefined;
   /**
    * Time, in seconds, between scanning for files
    */
@@ -3241,7 +2855,7 @@ export type InputResponseInputFile = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -3288,29 +2902,21 @@ export type InputResponseInputFile = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export const InputResponseInputSyslogType2 = {
+export const CreateInputInputSyslogType2 = {
   Syslog: "syslog",
 } as const;
-export type InputResponseInputSyslogType2 = ClosedEnum<
-  typeof InputResponseInputSyslogType2
+export type CreateInputInputSyslogType2 = ClosedEnum<
+  typeof CreateInputInputSyslogType2
 >;
 
-export type InputResponseInputSyslogSyslog2 = {
+export type CreateInputInputSyslogSyslog2 = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
-  type: InputResponseInputSyslogType2;
+  id: string;
+  type: CreateInputInputSyslogType2;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3333,16 +2939,10 @@ export type InputResponseInputSyslogSyslog2 = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -3411,11 +3011,11 @@ export type InputResponseInputSyslogSyslog2 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -3453,29 +3053,21 @@ export type InputResponseInputSyslogSyslog2 = {
    * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
    */
   __template_timestampTimezone?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export const InputResponseInputSyslogType1 = {
+export const CreateInputInputSyslogType1 = {
   Syslog: "syslog",
 } as const;
-export type InputResponseInputSyslogType1 = ClosedEnum<
-  typeof InputResponseInputSyslogType1
+export type CreateInputInputSyslogType1 = ClosedEnum<
+  typeof CreateInputInputSyslogType1
 >;
 
-export type InputResponseInputSyslogSyslog1 = {
+export type CreateInputInputSyslogSyslog1 = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
-  type: InputResponseInputSyslogType1;
+  id: string;
+  type: CreateInputInputSyslogType1;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3498,16 +3090,10 @@ export type InputResponseInputSyslogSyslog1 = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -3576,11 +3162,11 @@ export type InputResponseInputSyslogSyslog1 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -3618,24 +3204,16 @@ export type InputResponseInputSyslogSyslog1 = {
    * Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
    */
   __template_timestampTimezone?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputSyslogUnion =
-  | InputResponseInputSyslogSyslog1
-  | InputResponseInputSyslogSyslog2;
+export type CreateInputInputSyslogUnion =
+  | CreateInputInputSyslogSyslog1
+  | CreateInputInputSyslogSyslog2;
 
 /**
  * The queue type used (or created)
  */
-export const InputResponseQueueType = {
+export const CreateInputQueueType = {
   /**
    * Standard
    */
@@ -3648,13 +3226,13 @@ export const InputResponseQueueType = {
 /**
  * The queue type used (or created)
  */
-export type InputResponseQueueType = OpenEnum<typeof InputResponseQueueType>;
+export type CreateInputQueueType = OpenEnum<typeof CreateInputQueueType>;
 
-export type InputResponseInputSqs = {
+export type CreateInputInputSqs = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "sqs";
   disabled?: boolean | undefined;
   /**
@@ -3678,16 +3256,10 @@ export type InputResponseInputSqs = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -3695,7 +3267,7 @@ export type InputResponseInputSqs = {
   /**
    * The queue type used (or created)
    */
-  queueType: InputResponseQueueType;
+  queueType: CreateInputQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -3752,7 +3324,7 @@ export type InputResponseInputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -3811,21 +3383,13 @@ export type InputResponseInputSqs = {
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputModelDrivenTelemetry = {
+export type CreateInputInputModelDrivenTelemetry = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "model_driven_telemetry";
   disabled?: boolean | undefined;
   /**
@@ -3849,16 +3413,10 @@ export type InputResponseInputModelDrivenTelemetry = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -3867,11 +3425,11 @@ export type InputResponseInputModelDrivenTelemetry = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -3897,20 +3455,12 @@ export type InputResponseInputModelDrivenTelemetry = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
-export const InputResponseProtocol = {
+export const CreateInputProtocol = {
   /**
    * gRPC
    */
@@ -3923,12 +3473,12 @@ export const InputResponseProtocol = {
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
-export type InputResponseProtocol = OpenEnum<typeof InputResponseProtocol>;
+export type CreateInputProtocol = OpenEnum<typeof CreateInputProtocol>;
 
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
-export const InputResponseOTLPVersion = {
+export const CreateInputOTLPVersion = {
   /**
    * 0.10.0
    */
@@ -3941,14 +3491,12 @@ export const InputResponseOTLPVersion = {
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
-export type InputResponseOTLPVersion = OpenEnum<
-  typeof InputResponseOTLPVersion
->;
+export type CreateInputOTLPVersion = OpenEnum<typeof CreateInputOTLPVersion>;
 
 /**
  * OpenTelemetry authentication type
  */
-export const InputResponseAuthenticationTypeOpenTelemetry = {
+export const CreateInputAuthenticationTypeOpenTelemetry = {
   /**
    * None
    */
@@ -3973,11 +3521,11 @@ export const InputResponseAuthenticationTypeOpenTelemetry = {
 /**
  * OpenTelemetry authentication type
  */
-export type InputResponseAuthenticationTypeOpenTelemetry = OpenEnum<
-  typeof InputResponseAuthenticationTypeOpenTelemetry
+export type CreateInputAuthenticationTypeOpenTelemetry = OpenEnum<
+  typeof CreateInputAuthenticationTypeOpenTelemetry
 >;
 
-export const AuthMethodsExtAuthenticationTypeOpenTelemetry = {
+export const CreateInputAuthMethodsExtAuthenticationType = {
   /**
    * Token
    */
@@ -3995,12 +3543,12 @@ export const AuthMethodsExtAuthenticationTypeOpenTelemetry = {
    */
   BasicSecret: "basicSecret",
 } as const;
-export type AuthMethodsExtAuthenticationTypeOpenTelemetry = OpenEnum<
-  typeof AuthMethodsExtAuthenticationTypeOpenTelemetry
+export type CreateInputAuthMethodsExtAuthenticationType = OpenEnum<
+  typeof CreateInputAuthMethodsExtAuthenticationType
 >;
 
-export type InputResponseAuthMethodsExt = {
-  authType: AuthMethodsExtAuthenticationTypeOpenTelemetry;
+export type CreateInputAuthMethodsExt = {
+  authType: CreateInputAuthMethodsExtAuthenticationType;
   /**
    * Bearer token for Authorization header
    */
@@ -4009,7 +3557,7 @@ export type InputResponseAuthMethodsExt = {
   /**
    * Fields to add to events referencing this auth method
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   enabled?: boolean | undefined;
   /**
    * Select or create a stored text secret
@@ -4023,11 +3571,11 @@ export type InputResponseAuthMethodsExt = {
   credentialsSecret?: string | undefined;
 };
 
-export type InputResponseInputOpenTelemetry = {
+export type CreateInputInputOpenTelemetry = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "open_telemetry";
   disabled?: boolean | undefined;
   /**
@@ -4051,16 +3599,10 @@ export type InputResponseInputOpenTelemetry = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -4069,7 +3611,7 @@ export type InputResponseInputOpenTelemetry = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -4105,7 +3647,7 @@ export type InputResponseInputOpenTelemetry = {
   /**
    * Select whether to leverage gRPC or HTTP for OpenTelemetry
    */
-  protocol?: InputResponseProtocol | undefined;
+  protocol?: CreateInputProtocol | undefined;
   /**
    * Enable to extract each incoming span to a separate event
    */
@@ -4117,19 +3659,19 @@ export type InputResponseInputOpenTelemetry = {
   /**
    * The version of OTLP Protobuf definitions to use when interpreting received data
    */
-  otlpVersion?: InputResponseOTLPVersion | undefined;
+  otlpVersion?: CreateInputOTLPVersion | undefined;
   /**
    * OpenTelemetry authentication type
    */
-  authType?: InputResponseAuthenticationTypeOpenTelemetry | undefined;
+  authType?: CreateInputAuthenticationTypeOpenTelemetry | undefined;
   /**
    * Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
    */
-  authMethodsExt?: Array<InputResponseAuthMethodsExt> | undefined;
+  authMethodsExt?: Array<CreateInputAuthMethodsExt> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -4177,22 +3719,14 @@ export type InputResponseInputOpenTelemetry = {
    * Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
    */
   __template_otlpVersion?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseV3User = {
+export type CreateInputV3User = {
   name: string;
   authProtocol?: string | undefined;
   authKey?: string | undefined;
   privProtocol?:
-    | PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
+    | models.PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
     | undefined;
   privKey?: string | undefined;
 };
@@ -4200,7 +3734,7 @@ export type InputResponseV3User = {
 /**
  * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
  */
-export type InputResponseSNMPv3Authentication = {
+export type CreateInputSNMPv3Authentication = {
   v3AuthEnabled: boolean;
   /**
    * Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
@@ -4209,14 +3743,14 @@ export type InputResponseSNMPv3Authentication = {
   /**
    * User credentials for receiving v3 traps
    */
-  v3Users?: Array<InputResponseV3User> | undefined;
+  v3Users?: Array<CreateInputV3User> | undefined;
 };
 
-export type InputResponseInputSnmp = {
+export type CreateInputInputSnmp = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "snmp";
   disabled?: boolean | undefined;
   /**
@@ -4240,16 +3774,10 @@ export type InputResponseInputSnmp = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -4261,7 +3789,7 @@ export type InputResponseInputSnmp = {
   /**
    * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
    */
-  snmpV3Auth?: InputResponseSNMPv3Authentication | undefined;
+  snmpV3Auth?: CreateInputSNMPv3Authentication | undefined;
   /**
    * Maximum number of events to buffer when downstream is blocking.
    */
@@ -4273,7 +3801,7 @@ export type InputResponseInputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -4303,21 +3831,13 @@ export type InputResponseInputSnmp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputS3Inventory = {
+export type CreateInputInputS3Inventory = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "s3_inventory";
   disabled?: boolean | undefined;
   /**
@@ -4341,16 +3861,10 @@ export type InputResponseInputS3Inventory = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -4436,11 +3950,11 @@ export type InputResponseInputS3Inventory = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessType | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -4449,7 +3963,7 @@ export type InputResponseInputS3Inventory = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: CheckpointingType | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -4472,7 +3986,7 @@ export type InputResponseInputS3Inventory = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: TagAfterProcessingOptions | undefined;
+  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -4521,21 +4035,13 @@ export type InputResponseInputS3Inventory = {
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputS3 = {
+export type CreateInputInputS3 = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "s3";
   disabled?: boolean | undefined;
   /**
@@ -4559,16 +4065,10 @@ export type InputResponseInputS3 = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -4654,11 +4154,11 @@ export type InputResponseInputS3 = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessType | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -4667,7 +4167,7 @@ export type InputResponseInputS3 = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: CheckpointingType | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -4734,21 +4234,13 @@ export type InputResponseInputS3 = {
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputMetrics = {
+export type CreateInputInputMetrics = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "metrics";
   disabled?: boolean | undefined;
   /**
@@ -4772,16 +4264,10 @@ export type InputResponseInputMetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -4806,11 +4292,11 @@ export type InputResponseInputMetrics = {
    * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
    */
   enableProxyHeader?: boolean | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -4836,21 +4322,13 @@ export type InputResponseInputMetrics = {
    * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
    */
   __template_tcpPort?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputCriblmetrics = {
+export type CreateInputInputCriblmetrics = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "criblmetrics";
   disabled?: boolean | undefined;
   /**
@@ -4874,16 +4352,10 @@ export type InputResponseInputCriblmetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * A prefix that is applied to the metrics provided by Cribl Stream
    */
@@ -4895,7 +4367,7 @@ export type InputResponseInputCriblmetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -4905,20 +4377,12 @@ export type InputResponseInputCriblmetrics = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Location at which to start reading a shard for the first time
  */
-export const InputResponseShardIteratorStart = {
+export const CreateInputShardIteratorStart = {
   /**
    * Earliest record
    */
@@ -4931,14 +4395,14 @@ export const InputResponseShardIteratorStart = {
 /**
  * Location at which to start reading a shard for the first time
  */
-export type InputResponseShardIteratorStart = OpenEnum<
-  typeof InputResponseShardIteratorStart
+export type CreateInputShardIteratorStart = OpenEnum<
+  typeof CreateInputShardIteratorStart
 >;
 
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export const InputResponseRecordDataFormat = {
+export const CreateInputRecordDataFormat = {
   /**
    * Cribl
    */
@@ -4959,14 +4423,14 @@ export const InputResponseRecordDataFormat = {
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type InputResponseRecordDataFormat = OpenEnum<
-  typeof InputResponseRecordDataFormat
+export type CreateInputRecordDataFormat = OpenEnum<
+  typeof CreateInputRecordDataFormat
 >;
 
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export const InputResponseShardLoadBalancing = {
+export const CreateInputShardLoadBalancing = {
   /**
    * Consistent Hashing
    */
@@ -4979,15 +4443,15 @@ export const InputResponseShardLoadBalancing = {
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export type InputResponseShardLoadBalancing = OpenEnum<
-  typeof InputResponseShardLoadBalancing
+export type CreateInputShardLoadBalancing = OpenEnum<
+  typeof CreateInputShardLoadBalancing
 >;
 
-export type InputResponseInputKinesis = {
+export type CreateInputInputKinesis = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "kinesis";
   disabled?: boolean | undefined;
   /**
@@ -5011,16 +4475,10 @@ export type InputResponseInputKinesis = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Kinesis Data Stream to read data from
    */
@@ -5036,11 +4494,11 @@ export type InputResponseInputKinesis = {
   /**
    * Location at which to start reading a shard for the first time
    */
-  shardIteratorType?: InputResponseShardIteratorStart | undefined;
+  shardIteratorType?: CreateInputShardIteratorStart | undefined;
   /**
    * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
    */
-  payloadFormat?: InputResponseRecordDataFormat | undefined;
+  payloadFormat?: CreateInputRecordDataFormat | undefined;
   /**
    * Maximum number of records per getRecords call
    */
@@ -5052,7 +4510,7 @@ export type InputResponseInputKinesis = {
   /**
    * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
    */
-  loadBalancingAlgorithm?: InputResponseShardLoadBalancing | undefined;
+  loadBalancingAlgorithm?: CreateInputShardLoadBalancing | undefined;
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
@@ -5101,7 +4559,7 @@ export type InputResponseInputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -5152,21 +4610,13 @@ export type InputResponseInputKinesis = {
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputHttpRaw = {
+export type CreateInputInputHttpRaw = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "http_raw";
   disabled?: boolean | undefined;
   /**
@@ -5190,16 +4640,10 @@ export type InputResponseInputHttpRaw = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -5212,7 +4656,7 @@ export type InputResponseInputHttpRaw = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -5268,7 +4712,7 @@ export type InputResponseInputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -5280,7 +4724,7 @@ export type InputResponseInputHttpRaw = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<AuthTokensExtConfInputHttp> | undefined;
+  authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5306,17 +4750,9 @@ export type InputResponseInputHttpRaw = {
    * Binds 'allowedPaths' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedPaths' at runtime.
    */
   __template_allowedPaths?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseSample = {
+export type CreateInputSample = {
   sample: string;
   /**
    * Maximum number of events to generate per second per Worker Node. Defaults to 10.
@@ -5324,11 +4760,11 @@ export type InputResponseSample = {
   eventsPerSec: number;
 };
 
-export type InputResponseInputDatagen = {
+export type CreateInputInputDatagen = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "datagen";
   disabled?: boolean | undefined;
   /**
@@ -5352,21 +4788,15 @@ export type InputResponseInputDatagen = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
-  samples: Array<InputResponseSample>;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  samples: Array<CreateInputSample>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5376,17 +4806,9 @@ export type InputResponseInputDatagen = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type ProxyModeDatadogAgent = {
+export type CreateInputProxyModeDatadogAgent = {
   /**
    * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
    */
@@ -5397,11 +4819,11 @@ export type ProxyModeDatadogAgent = {
   rejectUnauthorized?: boolean | undefined;
 };
 
-export type InputResponseInputDatadogAgent = {
+export type CreateInputInputDatadogAgent = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "datadog_agent";
   disabled?: boolean | undefined;
   /**
@@ -5425,16 +4847,10 @@ export type InputResponseInputDatadogAgent = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -5443,7 +4859,7 @@ export type InputResponseInputDatadogAgent = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -5495,8 +4911,8 @@ export type InputResponseInputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  proxyMode?: ProxyModeDatadogAgent | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  proxyMode?: CreateInputProxyModeDatadogAgent | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5514,21 +4930,13 @@ export type InputResponseInputDatadogAgent = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputCrowdstrike = {
+export type CreateInputInputCrowdstrike = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "crowdstrike";
   disabled?: boolean | undefined;
   /**
@@ -5552,16 +4960,10 @@ export type InputResponseInputCrowdstrike = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -5647,12 +5049,12 @@ export type InputResponseInputCrowdstrike = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessType | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  checkpointing?: CheckpointingType | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -5667,7 +5069,7 @@ export type InputResponseInputCrowdstrike = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: TagAfterProcessingOptions | undefined;
+  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -5716,20 +5118,12 @@ export type InputResponseInputCrowdstrike = {
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Select the level of details for system metrics
  */
-export const SystemModeWindowsMetrics = {
+export const CreateInputSystemModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5750,15 +5144,15 @@ export const SystemModeWindowsMetrics = {
 /**
  * Select the level of details for system metrics
  */
-export type SystemModeWindowsMetrics = OpenEnum<
-  typeof SystemModeWindowsMetrics
+export type CreateInputSystemModeWindowsMetrics = OpenEnum<
+  typeof CreateInputSystemModeWindowsMetrics
 >;
 
-export type SystemWindowsMetrics = {
+export type CreateInputSystemWindowsMetrics = {
   /**
    * Select the level of details for system metrics
    */
-  mode?: SystemModeWindowsMetrics | undefined;
+  mode?: CreateInputSystemModeWindowsMetrics | undefined;
   /**
    * Generate metrics for all system information
    */
@@ -5768,7 +5162,7 @@ export type SystemWindowsMetrics = {
 /**
  * Select the level of details for CPU metrics
  */
-export const CpuModeWindowsMetrics = {
+export const CreateInputCpuModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5789,13 +5183,15 @@ export const CpuModeWindowsMetrics = {
 /**
  * Select the level of details for CPU metrics
  */
-export type CpuModeWindowsMetrics = OpenEnum<typeof CpuModeWindowsMetrics>;
+export type CreateInputCpuModeWindowsMetrics = OpenEnum<
+  typeof CreateInputCpuModeWindowsMetrics
+>;
 
-export type CpuWindowsMetrics = {
+export type CreateInputCpuWindowsMetrics = {
   /**
    * Select the level of details for CPU metrics
    */
-  mode?: CpuModeWindowsMetrics | undefined;
+  mode?: CreateInputCpuModeWindowsMetrics | undefined;
   /**
    * Generate metrics for each CPU
    */
@@ -5813,7 +5209,7 @@ export type CpuWindowsMetrics = {
 /**
  * Select the level of details for memory metrics
  */
-export const MemoryModeWindowsMetrics = {
+export const CreateInputMemoryModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5834,15 +5230,15 @@ export const MemoryModeWindowsMetrics = {
 /**
  * Select the level of details for memory metrics
  */
-export type MemoryModeWindowsMetrics = OpenEnum<
-  typeof MemoryModeWindowsMetrics
+export type CreateInputMemoryModeWindowsMetrics = OpenEnum<
+  typeof CreateInputMemoryModeWindowsMetrics
 >;
 
-export type MemoryWindowsMetrics = {
+export type CreateInputMemoryWindowsMetrics = {
   /**
    * Select the level of details for memory metrics
    */
-  mode?: MemoryModeWindowsMetrics | undefined;
+  mode?: CreateInputMemoryModeWindowsMetrics | undefined;
   /**
    * Generate metrics for all memory states
    */
@@ -5852,7 +5248,7 @@ export type MemoryWindowsMetrics = {
 /**
  * Select the level of details for network metrics
  */
-export const NetworkModeWindowsMetrics = {
+export const CreateInputNetworkModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5873,15 +5269,15 @@ export const NetworkModeWindowsMetrics = {
 /**
  * Select the level of details for network metrics
  */
-export type NetworkModeWindowsMetrics = OpenEnum<
-  typeof NetworkModeWindowsMetrics
+export type CreateInputNetworkModeWindowsMetrics = OpenEnum<
+  typeof CreateInputNetworkModeWindowsMetrics
 >;
 
-export type NetworkWindowsMetrics = {
+export type CreateInputNetworkWindowsMetrics = {
   /**
    * Select the level of details for network metrics
    */
-  mode?: NetworkModeWindowsMetrics | undefined;
+  mode?: CreateInputNetworkModeWindowsMetrics | undefined;
   /**
    * Generate full network metrics
    */
@@ -5903,7 +5299,7 @@ export type NetworkWindowsMetrics = {
 /**
  * Select the level of details for disk metrics
  */
-export const DiskModeWindowsMetrics = {
+export const CreateInputDiskModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -5924,13 +5320,15 @@ export const DiskModeWindowsMetrics = {
 /**
  * Select the level of details for disk metrics
  */
-export type DiskModeWindowsMetrics = OpenEnum<typeof DiskModeWindowsMetrics>;
+export type CreateInputDiskModeWindowsMetrics = OpenEnum<
+  typeof CreateInputDiskModeWindowsMetrics
+>;
 
-export type DiskWindowsMetrics = {
+export type CreateInputDiskWindowsMetrics = {
   /**
    * Select the level of details for disk metrics
    */
-  mode?: DiskModeWindowsMetrics | undefined;
+  mode?: CreateInputDiskModeWindowsMetrics | undefined;
   /**
    * Generate separate metrics for each volume
    */
@@ -5945,23 +5343,23 @@ export type DiskWindowsMetrics = {
   volumes?: Array<string> | undefined;
 };
 
-export type CustomWindowsMetrics = {
-  system?: SystemWindowsMetrics | undefined;
-  cpu?: CpuWindowsMetrics | undefined;
-  memory?: MemoryWindowsMetrics | undefined;
-  network?: NetworkWindowsMetrics | undefined;
-  disk?: DiskWindowsMetrics | undefined;
+export type CreateInputCustomWindowsMetrics = {
+  system?: CreateInputSystemWindowsMetrics | undefined;
+  cpu?: CreateInputCpuWindowsMetrics | undefined;
+  memory?: CreateInputMemoryWindowsMetrics | undefined;
+  network?: CreateInputNetworkWindowsMetrics | undefined;
+  disk?: CreateInputDiskWindowsMetrics | undefined;
 };
 
-export type HostWindowsMetrics = {
+export type CreateInputHostWindowsMetrics = {
   /**
    * Select level of detail for host metrics
    */
-  mode?: ModeOptionsHost | undefined;
-  custom?: CustomWindowsMetrics | undefined;
+  mode?: models.ModeOptionsHost | undefined;
+  custom?: CreateInputCustomWindowsMetrics | undefined;
 };
 
-export type PersistenceWindowsMetrics = {
+export type CreateInputPersistenceWindowsMetrics = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -5978,18 +5376,18 @@ export type PersistenceWindowsMetrics = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: DataCompressionFormatOptionsPersistence | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
    */
   destPath?: string | undefined;
 };
 
-export type InputResponseInputWindowsMetrics = {
+export type CreateInputInputWindowsMetrics = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "windows_metrics";
   disabled?: boolean | undefined;
   /**
@@ -6013,28 +5411,22 @@ export type InputResponseInputWindowsMetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
-  host?: HostWindowsMetrics | undefined;
-  process?: ProcessType | undefined;
-  gpu?: GpuType | undefined;
+  host?: CreateInputHostWindowsMetrics | undefined;
+  process?: models.ProcessType | undefined;
+  gpu?: models.GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  persistence?: PersistenceWindowsMetrics | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  persistence?: CreateInputPersistenceWindowsMetrics | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
    */
@@ -6048,21 +5440,13 @@ export type InputResponseInputWindowsMetrics = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputKubeEvents = {
+export type CreateInputInputKubeEvents = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "kube_events";
   disabled?: boolean | undefined;
   /**
@@ -6086,24 +5470,18 @@ export type InputResponseInputKubeEvents = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Filtering on event fields
    */
-  rules?: Array<RuleConfInputKubeMetrics> | undefined;
+  rules?: Array<models.RuleConfInputKubeMetrics> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6113,17 +5491,9 @@ export type InputResponseInputKubeEvents = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type RuleKubeLogs = {
+export type CreateInputRuleKubeLogs = {
   /**
    * JavaScript expression applied to Pod objects. Return 'true' to include it.
    */
@@ -6134,11 +5504,11 @@ export type RuleKubeLogs = {
   description?: string | undefined;
 };
 
-export type InputResponseInputKubeLogs = {
+export type CreateInputInputKubeLogs = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "kube_logs";
   disabled?: boolean | undefined;
   /**
@@ -6162,16 +5532,10 @@ export type InputResponseInputKubeLogs = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Time, in seconds, between checks for new containers. Default is 15 secs.
    */
@@ -6179,7 +5543,7 @@ export type InputResponseInputKubeLogs = {
   /**
    * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<RuleKubeLogs> | undefined;
+  rules?: Array<CreateInputRuleKubeLogs> | undefined;
   /**
    * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
    */
@@ -6195,8 +5559,8 @@ export type InputResponseInputKubeLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  persistence?: DiskSpoolingType | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  persistence?: models.DiskSpoolingType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -6218,17 +5582,9 @@ export type InputResponseInputKubeLogs = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type PersistenceKubeMetrics = {
+export type CreateInputPersistenceKubeMetrics = {
   /**
    * Spool metrics on disk for Cribl Search
    */
@@ -6245,18 +5601,18 @@ export type PersistenceKubeMetrics = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: DataCompressionFormatOptionsPersistence | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
    */
   destPath?: string | undefined;
 };
 
-export type InputResponseInputKubeMetrics = {
+export type CreateInputInputKubeMetrics = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "kube_metrics";
   disabled?: boolean | undefined;
   /**
@@ -6280,16 +5636,10 @@ export type InputResponseInputKubeMetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
    */
@@ -6305,12 +5655,12 @@ export type InputResponseInputKubeMetrics = {
   /**
    * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
    */
-  rules?: Array<RuleConfInputKubeMetrics> | undefined;
+  rules?: Array<models.RuleConfInputKubeMetrics> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  persistence?: PersistenceKubeMetrics | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  persistence?: CreateInputPersistenceKubeMetrics | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6320,141 +5670,133 @@ export type InputResponseInputKubeMetrics = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Creates events based on entries collected from the hosts file
  */
-export type InputResponseHostsFile = {
+export type CreateInputHostsFile = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for each of the host’s network interfaces
  */
-export type InputResponseInterfaces = {
+export type CreateInputInterfaces = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for physical disks, partitions, and file systems
  */
-export type InputResponseDisksAndFileSystems = {
+export type CreateInputDisksAndFileSystems = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on the host system’s current state
  */
-export type InputResponseHostInfo = {
+export type CreateInputHostInfo = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on entries collected from the host’s network routes
  */
-export type InputResponseRoutes = {
+export type CreateInputRoutes = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for DNS resolvers and search entries
  */
-export type InputResponseDNS = {
+export type CreateInputDNS = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for local users and groups
  */
-export type InputResponseUsersAndGroups = {
+export type CreateInputUsersAndGroups = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for Firewall rules entries
  */
-export type InputResponseFirewall = {
+export type CreateInputFirewall = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from the list of services
  */
-export type InputResponseServices = {
+export type CreateInputServices = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of listening ports
  */
-export type InputResponseListeningPorts = {
+export type CreateInputListeningPorts = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of logged-in users
  */
-export type InputResponseLoggedInUsers = {
+export type CreateInputLoggedInUsers = {
   enable?: boolean | undefined;
 };
 
-export type InputResponseCollectors = {
+export type CreateInputCollectors = {
   /**
    * Creates events based on entries collected from the hosts file
    */
-  hostsfile?: InputResponseHostsFile | undefined;
+  hostsfile?: CreateInputHostsFile | undefined;
   /**
    * Creates events for each of the host’s network interfaces
    */
-  interfaces?: InputResponseInterfaces | undefined;
+  interfaces?: CreateInputInterfaces | undefined;
   /**
    * Creates events for physical disks, partitions, and file systems
    */
-  disk?: InputResponseDisksAndFileSystems | undefined;
+  disk?: CreateInputDisksAndFileSystems | undefined;
   /**
    * Creates events based on the host system’s current state
    */
-  metadata?: InputResponseHostInfo | undefined;
+  metadata?: CreateInputHostInfo | undefined;
   /**
    * Creates events based on entries collected from the host’s network routes
    */
-  routes?: InputResponseRoutes | undefined;
+  routes?: CreateInputRoutes | undefined;
   /**
    * Creates events for DNS resolvers and search entries
    */
-  dns?: InputResponseDNS | undefined;
+  dns?: CreateInputDNS | undefined;
   /**
    * Creates events for local users and groups
    */
-  user?: InputResponseUsersAndGroups | undefined;
+  user?: CreateInputUsersAndGroups | undefined;
   /**
    * Creates events for Firewall rules entries
    */
-  firewall?: InputResponseFirewall | undefined;
+  firewall?: CreateInputFirewall | undefined;
   /**
    * Creates events from the list of services
    */
-  services?: InputResponseServices | undefined;
+  services?: CreateInputServices | undefined;
   /**
    * Creates events from list of listening ports
    */
-  ports?: InputResponseListeningPorts | undefined;
+  ports?: CreateInputListeningPorts | undefined;
   /**
    * Creates events from list of logged-in users
    */
-  loginUsers?: InputResponseLoggedInUsers | undefined;
+  loginUsers?: CreateInputLoggedInUsers | undefined;
 };
 
-export type PersistenceSystemState = {
+export type CreateInputPersistenceSystemState = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -6471,18 +5813,18 @@ export type PersistenceSystemState = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: DataCompressionFormatOptionsPersistence | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
    */
   destPath?: string | undefined;
 };
 
-export type InputResponseInputSystemState = {
+export type CreateInputInputSystemState = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "system_state";
   disabled?: boolean | undefined;
   /**
@@ -6506,16 +5848,10 @@ export type InputResponseInputSystemState = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
    */
@@ -6523,9 +5859,9 @@ export type InputResponseInputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  collectors?: InputResponseCollectors | undefined;
-  persistence?: PersistenceSystemState | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  collectors?: CreateInputCollectors | undefined;
+  persistence?: CreateInputPersistenceSystemState | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
@@ -6543,20 +5879,12 @@ export type InputResponseInputSystemState = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Select the level of detail for system metrics
  */
-export const SystemModeSystemMetrics = {
+export const CreateInputSystemModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6577,13 +5905,15 @@ export const SystemModeSystemMetrics = {
 /**
  * Select the level of detail for system metrics
  */
-export type SystemModeSystemMetrics = OpenEnum<typeof SystemModeSystemMetrics>;
+export type CreateInputSystemModeSystemMetrics = OpenEnum<
+  typeof CreateInputSystemModeSystemMetrics
+>;
 
-export type SystemSystemMetrics = {
+export type CreateInputSystemSystemMetrics = {
   /**
    * Select the level of detail for system metrics
    */
-  mode?: SystemModeSystemMetrics | undefined;
+  mode?: CreateInputSystemModeSystemMetrics | undefined;
   /**
    * Generate metrics for the numbers of processes in various states
    */
@@ -6593,7 +5923,7 @@ export type SystemSystemMetrics = {
 /**
  * Select the level of detail for CPU metrics
  */
-export const CpuModeSystemMetrics = {
+export const CreateInputCpuModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6614,13 +5944,15 @@ export const CpuModeSystemMetrics = {
 /**
  * Select the level of detail for CPU metrics
  */
-export type CpuModeSystemMetrics = OpenEnum<typeof CpuModeSystemMetrics>;
+export type CreateInputCpuModeSystemMetrics = OpenEnum<
+  typeof CreateInputCpuModeSystemMetrics
+>;
 
-export type CpuSystemMetrics = {
+export type CreateInputCpuSystemMetrics = {
   /**
    * Select the level of detail for CPU metrics
    */
-  mode?: CpuModeSystemMetrics | undefined;
+  mode?: CreateInputCpuModeSystemMetrics | undefined;
   /**
    * Generate metrics for each CPU
    */
@@ -6638,7 +5970,7 @@ export type CpuSystemMetrics = {
 /**
  * Select the level of detail for memory metrics
  */
-export const MemoryModeSystemMetrics = {
+export const CreateInputMemoryModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6659,13 +5991,15 @@ export const MemoryModeSystemMetrics = {
 /**
  * Select the level of detail for memory metrics
  */
-export type MemoryModeSystemMetrics = OpenEnum<typeof MemoryModeSystemMetrics>;
+export type CreateInputMemoryModeSystemMetrics = OpenEnum<
+  typeof CreateInputMemoryModeSystemMetrics
+>;
 
-export type MemorySystemMetrics = {
+export type CreateInputMemorySystemMetrics = {
   /**
    * Select the level of detail for memory metrics
    */
-  mode?: MemoryModeSystemMetrics | undefined;
+  mode?: CreateInputMemoryModeSystemMetrics | undefined;
   /**
    * Generate metrics for all memory states
    */
@@ -6675,7 +6009,7 @@ export type MemorySystemMetrics = {
 /**
  * Select the level of detail for network metrics
  */
-export const NetworkModeSystemMetrics = {
+export const CreateInputNetworkModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6696,15 +6030,15 @@ export const NetworkModeSystemMetrics = {
 /**
  * Select the level of detail for network metrics
  */
-export type NetworkModeSystemMetrics = OpenEnum<
-  typeof NetworkModeSystemMetrics
+export type CreateInputNetworkModeSystemMetrics = OpenEnum<
+  typeof CreateInputNetworkModeSystemMetrics
 >;
 
-export type NetworkSystemMetrics = {
+export type CreateInputNetworkSystemMetrics = {
   /**
    * Select the level of detail for network metrics
    */
-  mode?: NetworkModeSystemMetrics | undefined;
+  mode?: CreateInputNetworkModeSystemMetrics | undefined;
   /**
    * Generate full network metrics
    */
@@ -6726,7 +6060,7 @@ export type NetworkSystemMetrics = {
 /**
  * Select the level of detail for disk metrics
  */
-export const DiskModeSystemMetrics = {
+export const CreateInputDiskModeSystemMetrics = {
   /**
    * Basic
    */
@@ -6747,13 +6081,15 @@ export const DiskModeSystemMetrics = {
 /**
  * Select the level of detail for disk metrics
  */
-export type DiskModeSystemMetrics = OpenEnum<typeof DiskModeSystemMetrics>;
+export type CreateInputDiskModeSystemMetrics = OpenEnum<
+  typeof CreateInputDiskModeSystemMetrics
+>;
 
-export type DiskSystemMetrics = {
+export type CreateInputDiskSystemMetrics = {
   /**
    * Select the level of detail for disk metrics
    */
-  mode?: DiskModeSystemMetrics | undefined;
+  mode?: CreateInputDiskModeSystemMetrics | undefined;
   /**
    * Generate full disk metrics
    */
@@ -6780,26 +6116,26 @@ export type DiskSystemMetrics = {
   perDevice?: boolean | undefined;
 };
 
-export type CustomSystemMetrics = {
-  system?: SystemSystemMetrics | undefined;
-  cpu?: CpuSystemMetrics | undefined;
-  memory?: MemorySystemMetrics | undefined;
-  network?: NetworkSystemMetrics | undefined;
-  disk?: DiskSystemMetrics | undefined;
+export type CreateInputCustomSystemMetrics = {
+  system?: CreateInputSystemSystemMetrics | undefined;
+  cpu?: CreateInputCpuSystemMetrics | undefined;
+  memory?: CreateInputMemorySystemMetrics | undefined;
+  network?: CreateInputNetworkSystemMetrics | undefined;
+  disk?: CreateInputDiskSystemMetrics | undefined;
 };
 
-export type HostSystemMetrics = {
+export type CreateInputHostSystemMetrics = {
   /**
    * Select level of detail for host metrics
    */
-  mode?: ModeOptionsHost | undefined;
-  custom?: CustomSystemMetrics | undefined;
+  mode?: models.ModeOptionsHost | undefined;
+  custom?: CreateInputCustomSystemMetrics | undefined;
 };
 
 /**
  * Select the level of detail for container metrics
  */
-export const ContainerModeSystemMetrics = {
+export const CreateInputContainerMode = {
   /**
    * Basic
    */
@@ -6820,19 +6156,19 @@ export const ContainerModeSystemMetrics = {
 /**
  * Select the level of detail for container metrics
  */
-export type ContainerModeSystemMetrics = OpenEnum<
-  typeof ContainerModeSystemMetrics
+export type CreateInputContainerMode = OpenEnum<
+  typeof CreateInputContainerMode
 >;
 
-export type FilterSystemMetrics = {
+export type CreateInputContainerFilter = {
   expr: string;
 };
 
-export type InputResponseContainer = {
+export type CreateInputContainer = {
   /**
    * Select the level of detail for container metrics
    */
-  mode?: ContainerModeSystemMetrics | undefined;
+  mode?: CreateInputContainerMode | undefined;
   /**
    * Full paths for Docker's UNIX-domain socket
    */
@@ -6844,7 +6180,7 @@ export type InputResponseContainer = {
   /**
    * Containers matching any of these will be included. All are included if no filters are added.
    */
-  filters?: Array<FilterSystemMetrics> | undefined;
+  filters?: Array<CreateInputContainerFilter> | undefined;
   /**
    * Include stopped and paused containers
    */
@@ -6859,7 +6195,7 @@ export type InputResponseContainer = {
   detail?: boolean | undefined;
 };
 
-export type PersistenceSystemMetrics = {
+export type CreateInputPersistenceSystemMetrics = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -6876,18 +6212,18 @@ export type PersistenceSystemMetrics = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: DataCompressionFormatOptionsPersistence | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
    */
   destPath?: string | undefined;
 };
 
-export type InputResponseInputSystemMetrics = {
+export type CreateInputInputSystemMetrics = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "system_metrics";
   disabled?: boolean | undefined;
   /**
@@ -6911,29 +6247,23 @@ export type InputResponseInputSystemMetrics = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
-  host?: HostSystemMetrics | undefined;
-  process?: ProcessType | undefined;
-  container?: InputResponseContainer | undefined;
-  gpu?: GpuType | undefined;
+  host?: CreateInputHostSystemMetrics | undefined;
+  process?: models.ProcessType | undefined;
+  container?: CreateInputContainer | undefined;
+  gpu?: models.GpuType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  persistence?: PersistenceSystemMetrics | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  persistence?: CreateInputPersistenceSystemMetrics | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6943,21 +6273,13 @@ export type InputResponseInputSystemMetrics = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputTcpjson = {
+export type CreateInputInputTcpjson = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "tcpjson";
   disabled?: boolean | undefined;
   /**
@@ -6981,16 +6303,10 @@ export type InputResponseInputTcpjson = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -6999,7 +6315,7 @@ export type InputResponseInputTcpjson = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -7027,7 +6343,7 @@ export type InputResponseInputTcpjson = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -7035,7 +6351,7 @@ export type InputResponseInputTcpjson = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -7061,43 +6377,35 @@ export type InputResponseInputTcpjson = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseSplunkHecMetadata = {
+export type CreateInputSplunkHecMetadata = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
 };
 
-export type InputResponseElasticsearchMetadata = {
+export type CreateInputElasticsearchMetadata = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
 };
 
-export type InputResponseAuthTokensExt = {
+export type CreateInputAuthTokensExt = {
   token: string;
   description?: string | undefined;
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  splunkHecMetadata?: InputResponseSplunkHecMetadata | undefined;
-  elasticsearchMetadata?: InputResponseElasticsearchMetadata | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata | undefined;
 };
 
-export type InputResponseInputCriblLakeHttp = {
+export type CreateInputInputCriblLakeHttp = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "cribl_lake_http";
   disabled?: boolean | undefined;
   /**
@@ -7121,16 +6429,10 @@ export type InputResponseInputCriblLakeHttp = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -7143,7 +6445,7 @@ export type InputResponseInputCriblLakeHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -7204,8 +6506,8 @@ export type InputResponseInputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-  authTokensExt?: Array<InputResponseAuthTokensExt> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  authTokensExt?: Array<CreateInputAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7239,21 +6541,13 @@ export type InputResponseInputCriblLakeHttp = {
    * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
    */
   __template_splunkHecAPI?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputCriblHttp = {
+export type CreateInputInputCriblHttp = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "cribl_http";
   disabled?: boolean | undefined;
   /**
@@ -7277,16 +6571,10 @@ export type InputResponseInputCriblHttp = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -7298,8 +6586,8 @@ export type InputResponseInputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
    */
-  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -7347,7 +6635,7 @@ export type InputResponseInputCriblHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7365,21 +6653,13 @@ export type InputResponseInputCriblHttp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputCriblTcp = {
+export type CreateInputInputCriblTcp = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "cribl_tcp";
   disabled?: boolean | undefined;
   /**
@@ -7403,16 +6683,10 @@ export type InputResponseInputCriblTcp = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -7421,7 +6695,7 @@ export type InputResponseInputCriblTcp = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -7445,7 +6719,7 @@ export type InputResponseInputCriblTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -7453,7 +6727,7 @@ export type InputResponseInputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
    */
-  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7471,21 +6745,13 @@ export type InputResponseInputCriblTcp = {
    * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
   __template_port?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputCribl = {
+export type CreateInputInputCribl = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "cribl";
   disabled?: boolean | undefined;
   /**
@@ -7509,21 +6775,15 @@ export type InputResponseInputCribl = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   filter?: string | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7533,21 +6793,13 @@ export type InputResponseInputCribl = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputGooglePubsub = {
+export type CreateInputInputGooglePubsub = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "google_pubsub";
   disabled?: boolean | undefined;
   /**
@@ -7571,16 +6823,10 @@ export type InputResponseInputGooglePubsub = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
    */
@@ -7608,7 +6854,7 @@ export type InputResponseInputGooglePubsub = {
   /**
    * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
    */
-  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
    */
@@ -7632,7 +6878,7 @@ export type InputResponseInputGooglePubsub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
@@ -7658,21 +6904,13 @@ export type InputResponseInputGooglePubsub = {
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
   __template_region?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export type InputResponseInputFirehose = {
+export type CreateInputInputFirehose = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "firehose";
   disabled?: boolean | undefined;
   /**
@@ -7696,16 +6934,10 @@ export type InputResponseInputFirehose = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -7718,7 +6950,7 @@ export type InputResponseInputFirehose = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -7766,7 +6998,7 @@ export type InputResponseInputFirehose = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7788,35 +7020,25 @@ export type InputResponseInputFirehose = {
    * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
    */
   __template_authTokens?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export const InputResponseScheduleType = {
+export const CreateInputScheduleType = {
   Interval: "interval",
   CronSchedule: "cronSchedule",
 } as const;
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export type InputResponseScheduleType = OpenEnum<
-  typeof InputResponseScheduleType
->;
+export type CreateInputScheduleType = OpenEnum<typeof CreateInputScheduleType>;
 
-export type InputResponseInputExec = {
+export type CreateInputInputExec = {
   /**
    * Unique ID for this input
    */
-  id?: string | undefined;
+  id: string;
   type: "exec";
   disabled?: boolean | undefined;
   /**
@@ -7840,16 +7062,10 @@ export type InputResponseInputExec = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
-   */
-  criblSourceProvenance?:
-    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
-    | undefined;
-  /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ConnectionConfInputCollection> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
   /**
    * Command to execute; supports Bourne shell (or CMD on Windows) syntax
    */
@@ -7865,7 +7081,7 @@ export type InputResponseInputExec = {
   /**
    * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
    */
-  scheduleType?: InputResponseScheduleType | undefined;
+  scheduleType?: CreateInputScheduleType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -7877,7 +7093,7 @@ export type InputResponseInputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -7895,17 +7111,9 @@ export type InputResponseInputExec = {
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
-  /**
-   * Notifications attached to the Source.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
 };
 
-export const InputResponseAuthenticationMechanism = {
+export const CreateInputAuthenticationMechanism = {
   /**
    * Connection String
    */
@@ -7915,26 +7123,47 @@ export const InputResponseAuthenticationMechanism = {
    */
   OauthBearer: "oauth-bearer",
 } as const;
-export type InputResponseAuthenticationMechanism = OpenEnum<
-  typeof InputResponseAuthenticationMechanism
+export type CreateInputAuthenticationMechanism = OpenEnum<
+  typeof CreateInputAuthenticationMechanism
 >;
 
-export type InputResponseAuth = {
-  mechanism: InputResponseAuthenticationMechanism;
+export type CreateInputCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
+export type CreateInputAuth = {
+  mechanism: CreateInputAuthenticationMechanism;
   /**
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  clientSecretAuthType?: AuthenticationMethodOptionsAuth | undefined;
+  clientSecretAuthType?: models.AuthenticationMethodOptionsAuth | undefined;
   /**
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  certificate?: CreateInputCertificate | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
-  oauthEndpoint?: MicrosoftEntraIdAuthenticationEndpointOptionsSasl | undefined;
+  oauthEndpoint?:
+    | models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl
+    | undefined;
   /**
    * client_id to pass in the OAuth request parameter
    */
@@ -7965,23 +7194,23 @@ export type InputResponseAuth = {
   __template_fullyQualifiedNamespace?: string | undefined;
 };
 
-export const AuthenticationMethodEventhubAmqp = {
+export const CreateInputBlobStoreAuthenticationMethod = {
   Secret: "secret",
   ClientSecret: "clientSecret",
   ClientCert: "clientCert",
   ClientAssertion: "clientAssertion",
   ClientAssertionRpc: "clientAssertion_rpc",
 } as const;
-export type AuthenticationMethodEventhubAmqp = OpenEnum<
-  typeof AuthenticationMethodEventhubAmqp
+export type CreateInputBlobStoreAuthenticationMethod = OpenEnum<
+  typeof CreateInputBlobStoreAuthenticationMethod
 >;
 
-export type InputResponseAzureBlobStorage = {
+export type CreateInputAzureBlobStorage = {
   /**
    * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
    */
   containerName: string;
-  authType?: AuthenticationMethodEventhubAmqp | undefined;
+  authType?: CreateInputBlobStoreAuthenticationMethod | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -8010,7 +7239,7 @@ export type InputResponseAzureBlobStorage = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
   /**
    * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
    */
@@ -8029,4520 +7258,6471 @@ export type InputResponseAzureBlobStorage = {
   __template_azureCloud?: string | undefined;
 };
 
-export type InputResponseCheckpointing = {
-  blobStore: InputResponseAzureBlobStorage;
+/** @internal */
+export type CreateInputInputOkta$Outbound = {
+  id: string;
+  type: "okta";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  oktaDomain: string;
+  oktaToken?: string | undefined;
+  textSecret: string;
+  cronSchedule?: string | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  requestTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_oktaDomain?: string | undefined;
 };
 
 /** @internal */
-export const InputResponseInputOkta$inboundSchema: z.ZodType<
-  InputResponseInputOkta,
+export const CreateInputInputOkta$outboundSchema: z.ZodType<
+  CreateInputInputOkta$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputOkta
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("okta"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  oktaDomain: types.string(),
-  oktaToken: types.optional(types.string()),
-  textSecret: types.string(),
-  cronSchedule: types.optional(types.string()),
-  earliest: types.optional(types.string()),
-  latest: types.optional(types.string()),
-  jobTimeout: types.optional(types.string()),
-  requestTimeout: types.optional(types.number()),
-  keepAliveTime: types.optional(types.number()),
-  maxMissedKeepAlives: types.optional(types.number()),
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  retryRules: types.optional(RetryRulesType$inboundSchema),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_oktaDomain: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: z.literal("okta"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  oktaDomain: z.string(),
+  oktaToken: z.string().optional(),
+  textSecret: z.string(),
+  cronSchedule: z.string().optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_oktaDomain: z.string().optional(),
 });
 
-export function inputResponseInputOktaFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputOkta, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputOkta$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputOkta' from JSON`,
+export function createInputInputOktaToJSON(
+  createInputInputOkta: CreateInputInputOkta,
+): string {
+  return JSON.stringify(
+    CreateInputInputOkta$outboundSchema.parse(createInputInputOkta),
   );
 }
 
 /** @internal */
-export const ManageStateAnthropicCompliance$inboundSchema: z.ZodType<
-  ManageStateAnthropicCompliance,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
+export type CreateInputManageStateAnthropicCompliance$Outbound = {};
 
-export function manageStateAnthropicComplianceFromJSON(
-  jsonString: string,
-): SafeParseResult<ManageStateAnthropicCompliance, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ManageStateAnthropicCompliance$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ManageStateAnthropicCompliance' from JSON`,
+/** @internal */
+export const CreateInputManageStateAnthropicCompliance$outboundSchema:
+  z.ZodType<
+    CreateInputManageStateAnthropicCompliance$Outbound,
+    z.ZodTypeDef,
+    CreateInputManageStateAnthropicCompliance
+  > = z.object({});
+
+export function createInputManageStateAnthropicComplianceToJSON(
+  createInputManageStateAnthropicCompliance:
+    CreateInputManageStateAnthropicCompliance,
+): string {
+  return JSON.stringify(
+    CreateInputManageStateAnthropicCompliance$outboundSchema.parse(
+      createInputManageStateAnthropicCompliance,
+    ),
   );
 }
 
 /** @internal */
-export const ContentConfigAnthropicCompliance$inboundSchema: z.ZodType<
-  ContentConfigAnthropicCompliance,
+export type CreateInputContentConfigAnthropicCompliance$Outbound = {
+  contentType: string;
+  contentDescription?: string | undefined;
+  enabled?: boolean | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputManageStateAnthropicCompliance$Outbound | undefined;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  jobTimeout?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputContentConfigAnthropicCompliance$outboundSchema:
+  z.ZodType<
+    CreateInputContentConfigAnthropicCompliance$Outbound,
+    z.ZodTypeDef,
+    CreateInputContentConfigAnthropicCompliance
+  > = z.object({
+    contentType: z.string(),
+    contentDescription: z.string().optional(),
+    enabled: z.boolean().optional(),
+    stateTracking: z.boolean().optional(),
+    stateUpdateExpression: z.string().optional(),
+    stateMergeExpression: z.string().optional(),
+    manageState: z.lazy(() =>
+      CreateInputManageStateAnthropicCompliance$outboundSchema
+    ).optional(),
+    cronSchedule: z.string(),
+    earliest: z.string(),
+    latest: z.string(),
+    jobTimeout: z.string().optional(),
+  });
+
+export function createInputContentConfigAnthropicComplianceToJSON(
+  createInputContentConfigAnthropicCompliance:
+    CreateInputContentConfigAnthropicCompliance,
+): string {
+  return JSON.stringify(
+    CreateInputContentConfigAnthropicCompliance$outboundSchema.parse(
+      createInputContentConfigAnthropicCompliance,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputAnthropicCompliance$Outbound = {
+  id: string;
+  type: "anthropic_compliance";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret: string;
+  contentConfig: Array<CreateInputContentConfigAnthropicCompliance$Outbound>;
+  requestTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputAnthropicCompliance$outboundSchema: z.ZodType<
+  CreateInputInputAnthropicCompliance$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputAnthropicCompliance
 > = z.object({
-  contentType: types.string(),
-  contentDescription: types.optional(types.string()),
-  enabled: types.optional(types.boolean()),
-  stateTracking: types.optional(types.boolean()),
-  stateUpdateExpression: types.optional(types.string()),
-  stateMergeExpression: types.optional(types.string()),
-  manageState: types.optional(
-    z.lazy(() => ManageStateAnthropicCompliance$inboundSchema),
-  ),
-  cronSchedule: types.string(),
-  earliest: types.string(),
-  latest: types.string(),
-  jobTimeout: types.optional(types.string()),
-});
-
-export function contentConfigAnthropicComplianceFromJSON(
-  jsonString: string,
-): SafeParseResult<ContentConfigAnthropicCompliance, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ContentConfigAnthropicCompliance$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ContentConfigAnthropicCompliance' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputAnthropicCompliance$inboundSchema: z.ZodType<
-  InputResponseInputAnthropicCompliance,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("anthropic_compliance"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  apiKey: types.optional(types.string()),
-  textSecret: types.string(),
+  id: z.string(),
+  type: z.literal("anthropic_compliance"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
   contentConfig: z.array(
-    z.lazy(() => ContentConfigAnthropicCompliance$inboundSchema),
+    z.lazy(() => CreateInputContentConfigAnthropicCompliance$outboundSchema),
   ),
-  requestTimeout: types.optional(types.number()),
-  keepAliveTime: types.optional(types.number()),
-  maxMissedKeepAlives: types.optional(types.number()),
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  retryRules: types.optional(RetryRulesType$inboundSchema),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputResponseInputAnthropicComplianceFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputAnthropicCompliance, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseInputAnthropicCompliance$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputAnthropicCompliance' from JSON`,
+export function createInputInputAnthropicComplianceToJSON(
+  createInputInputAnthropicCompliance: CreateInputInputAnthropicCompliance,
+): string {
+  return JSON.stringify(
+    CreateInputInputAnthropicCompliance$outboundSchema.parse(
+      createInputInputAnthropicCompliance,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseAccountType$inboundSchema: z.ZodType<
-  InputResponseAccountType,
+export const CreateInputAccountType$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseAccountType);
+  CreateInputAccountType
+> = openEnums.outboundSchema(CreateInputAccountType);
 
 /** @internal */
-export const ManageStateOpenaiComplianceLogs$inboundSchema: z.ZodType<
-  ManageStateOpenaiComplianceLogs,
+export type CreateInputManageStateOpenaiComplianceLogs$Outbound = {};
+
+/** @internal */
+export const CreateInputManageStateOpenaiComplianceLogs$outboundSchema:
+  z.ZodType<
+    CreateInputManageStateOpenaiComplianceLogs$Outbound,
+    z.ZodTypeDef,
+    CreateInputManageStateOpenaiComplianceLogs
+  > = z.object({});
+
+export function createInputManageStateOpenaiComplianceLogsToJSON(
+  createInputManageStateOpenaiComplianceLogs:
+    CreateInputManageStateOpenaiComplianceLogs,
+): string {
+  return JSON.stringify(
+    CreateInputManageStateOpenaiComplianceLogs$outboundSchema.parse(
+      createInputManageStateOpenaiComplianceLogs,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputOpenaiComplianceLogs$Outbound = {
+  id: string;
+  type: "openai_compliance_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret: string;
+  accountType: string;
+  cronSchedule: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  logLevel?: string | undefined;
+  maxPages?: number | undefined;
+  stateTracking?: boolean | undefined;
+  requestTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  workspaceId?: string | undefined;
+  workspaceEventTypes?: Array<string> | undefined;
+  organizationId?: string | undefined;
+  organizationEventTypes?: Array<string> | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputManageStateOpenaiComplianceLogs$Outbound | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_workspaceId?: string | undefined;
+  __template_organizationId?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputOpenaiComplianceLogs$outboundSchema: z.ZodType<
+  CreateInputInputOpenaiComplianceLogs$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputOpenaiComplianceLogs
+> = z.object({
+  id: z.string(),
+  type: z.literal("openai_compliance_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+  accountType: CreateInputAccountType$outboundSchema,
+  cronSchedule: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  logLevel: models.LogLevelOptionsContentConfigItemsDebugError$outboundSchema
+    .optional(),
+  maxPages: z.number().optional(),
+  stateTracking: z.boolean().optional(),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  workspaceId: z.string().optional(),
+  workspaceEventTypes: z.array(z.string()).optional(),
+  organizationId: z.string().optional(),
+  organizationEventTypes: z.array(z.string()).optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    CreateInputManageStateOpenaiComplianceLogs$outboundSchema
+  ).optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_workspaceId: z.string().optional(),
+  __template_organizationId: z.string().optional(),
+});
+
+export function createInputInputOpenaiComplianceLogsToJSON(
+  createInputInputOpenaiComplianceLogs: CreateInputInputOpenaiComplianceLogs,
+): string {
+  return JSON.stringify(
+    CreateInputInputOpenaiComplianceLogs$outboundSchema.parse(
+      createInputInputOpenaiComplianceLogs,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthTokenAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputAuthTokenAuthenticationMethod);
+
+/** @internal */
+export type CreateInputAuthTokenCloudflareHec$Outbound = {
+  authType?: string | undefined;
+  tokenSecret?: string | undefined;
+  token?: string | undefined;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthTokenCloudflareHec$outboundSchema: z.ZodType<
+  CreateInputAuthTokenCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokenCloudflareHec
+> = z.object({
+  authType: CreateInputAuthTokenAuthenticationMethod$outboundSchema.optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+});
+
+export function createInputAuthTokenCloudflareHecToJSON(
+  createInputAuthTokenCloudflareHec: CreateInputAuthTokenCloudflareHec,
+): string {
+  return JSON.stringify(
+    CreateInputAuthTokenCloudflareHec$outboundSchema.parse(
+      createInputAuthTokenCloudflareHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputTLSSettingsServerSide$Outbound = {
+  disabled?: boolean | undefined;
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  commonNameRegex?: string | undefined;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputTLSSettingsServerSide$outboundSchema: z.ZodType<
+  CreateInputTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  CreateInputTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  commonNameRegex: z.string().optional(),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
+});
+
+export function createInputTLSSettingsServerSideToJSON(
+  createInputTLSSettingsServerSide: CreateInputTLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    CreateInputTLSSettingsServerSide$outboundSchema.parse(
+      createInputTLSSettingsServerSide,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCloudflareHec$Outbound = {
+  id: string;
+  type: "cloudflare_hec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<CreateInputAuthTokenCloudflareHec$Outbound> | undefined;
+  tls?: CreateInputTLSSettingsServerSide$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  hecAPI: string;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_hecAPI?: string | undefined;
+  __template_allowedIndexes?: string | undefined;
+  __template_accessControlAllowOrigin?: string | undefined;
+  __template_accessControlAllowHeaders?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCloudflareHec$outboundSchema: z.ZodType<
+  CreateInputInputCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCloudflareHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("cloudflare_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(
+    z.lazy(() => CreateInputAuthTokenCloudflareHec$outboundSchema),
+  ).optional(),
+  tls: z.lazy(() => CreateInputTLSSettingsServerSide$outboundSchema).optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_hecAPI: z.string().optional(),
+  __template_allowedIndexes: z.string().optional(),
+  __template_accessControlAllowOrigin: z.string().optional(),
+  __template_accessControlAllowHeaders: z.string().optional(),
+});
+
+export function createInputInputCloudflareHecToJSON(
+  createInputInputCloudflareHec: CreateInputInputCloudflareHec,
+): string {
+  return JSON.stringify(
+    CreateInputInputCloudflareHec$outboundSchema.parse(
+      createInputInputCloudflareHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputAuthTokenZscalerHec$Outbound = {
+  authType?: string | undefined;
+  tokenSecret?: string | undefined;
+  token: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthTokenZscalerHec$outboundSchema: z.ZodType<
+  CreateInputAuthTokenZscalerHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokenZscalerHec
+> = z.object({
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+});
+
+export function createInputAuthTokenZscalerHecToJSON(
+  createInputAuthTokenZscalerHec: CreateInputAuthTokenZscalerHec,
+): string {
+  return JSON.stringify(
+    CreateInputAuthTokenZscalerHec$outboundSchema.parse(
+      createInputAuthTokenZscalerHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputZscalerHec$Outbound = {
+  id: string;
+  type: "zscaler_hec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<CreateInputAuthTokenZscalerHec$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  hecAPI: string;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  hecAcks?: boolean | undefined;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_hecAPI?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputZscalerHec$outboundSchema: z.ZodType<
+  CreateInputInputZscalerHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputZscalerHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("zscaler_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(
+    z.lazy(() => CreateInputAuthTokenZscalerHec$outboundSchema),
+  ).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  hecAcks: z.boolean().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_hecAPI: z.string().optional(),
+});
+
+export function createInputInputZscalerHecToJSON(
+  createInputInputZscalerHec: CreateInputInputZscalerHec,
+): string {
+  return JSON.stringify(
+    CreateInputInputZscalerHec$outboundSchema.parse(createInputInputZscalerHec),
+  );
+}
+
+/** @internal */
+export const CreateInputSortDirection$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSortDirection
+> = openEnums.outboundSchema(CreateInputSortDirection);
+
+/** @internal */
+export const CreateInputAuthenticationTypeServicenowTable$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationTypeServicenowTable
+  > = openEnums.outboundSchema(CreateInputAuthenticationTypeServicenowTable);
+
+/** @internal */
+export const CreateInputGrantType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputGrantType
+> = openEnums.outboundSchema(CreateInputGrantType);
+
+/** @internal */
+export type CreateInputManageStateServicenowTable$Outbound = {};
+
+/** @internal */
+export const CreateInputManageStateServicenowTable$outboundSchema: z.ZodType<
+  CreateInputManageStateServicenowTable$Outbound,
+  z.ZodTypeDef,
+  CreateInputManageStateServicenowTable
 > = z.object({});
 
-export function manageStateOpenaiComplianceLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<ManageStateOpenaiComplianceLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ManageStateOpenaiComplianceLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ManageStateOpenaiComplianceLogs' from JSON`,
+export function createInputManageStateServicenowTableToJSON(
+  createInputManageStateServicenowTable: CreateInputManageStateServicenowTable,
+): string {
+  return JSON.stringify(
+    CreateInputManageStateServicenowTable$outboundSchema.parse(
+      createInputManageStateServicenowTable,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputOpenaiComplianceLogs$inboundSchema: z.ZodType<
-  InputResponseInputOpenaiComplianceLogs,
+export type CreateInputInputServicenowTable$Outbound = {
+  id: string;
+  type: "servicenow_table";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  instance: string;
+  tableName: string;
+  fields?: Array<string> | undefined;
+  orderByField?: string | undefined;
+  orderByDirection?: string | undefined;
+  query?: string | undefined;
+  pageSize?: number | undefined;
+  maxPages?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  authType?: string | undefined;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  stateTracking?: boolean | undefined;
+  logLevel?: string | undefined;
+  requestTimeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  credentialsSecret?: string | undefined;
+  oauthGrantType?: string | undefined;
+  username?: string | undefined;
+  textSecret?: string | undefined;
+  useCustomOAuthParamsOrHeaders?: boolean | undefined;
+  oauthParams?:
+    | Array<models.OauthParamConfInputServicenowTable$Outbound>
+    | undefined;
+  oauthHeaders?:
+    | Array<models.OauthHeaderConfInputServicenowTable$Outbound>
+    | undefined;
+  clientId?: string | undefined;
+  clientTextSecret?: string | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputManageStateServicenowTable$Outbound | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_instance?: string | undefined;
+  __template_orderByField?: string | undefined;
+  __template_query?: string | undefined;
+  __template_username?: string | undefined;
+  __template_clientId?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputServicenowTable$outboundSchema: z.ZodType<
+  CreateInputInputServicenowTable$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputServicenowTable
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("openai_compliance_logs"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  apiKey: types.optional(types.string()),
-  textSecret: types.string(),
-  accountType: InputResponseAccountType$inboundSchema,
-  cronSchedule: types.string(),
-  earliest: types.optional(types.string()),
-  latest: types.optional(types.string()),
-  jobTimeout: types.optional(types.string()),
-  logLevel: types.optional(
-    LogLevelOptionsContentConfigItemsDebugError$inboundSchema,
-  ),
-  maxPages: types.optional(types.number()),
-  stateTracking: types.optional(types.boolean()),
-  requestTimeout: types.optional(types.number()),
-  keepAliveTime: types.optional(types.number()),
-  maxMissedKeepAlives: types.optional(types.number()),
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  retryRules: types.optional(RetryRulesType$inboundSchema),
-  description: types.optional(types.string()),
-  workspaceId: types.optional(types.string()),
-  workspaceEventTypes: types.optional(z.array(types.string())),
-  organizationId: types.optional(types.string()),
-  organizationEventTypes: types.optional(z.array(types.string())),
-  stateUpdateExpression: types.optional(types.string()),
-  stateMergeExpression: types.optional(types.string()),
-  manageState: types.optional(
-    z.lazy(() => ManageStateOpenaiComplianceLogs$inboundSchema),
-  ),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_workspaceId: types.optional(types.string()),
-  __template_organizationId: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: z.literal("servicenow_table"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  instance: z.string(),
+  tableName: z.string(),
+  fields: z.array(z.string()).optional(),
+  orderByField: z.string().optional(),
+  orderByDirection: CreateInputSortDirection$outboundSchema.optional(),
+  query: z.string().optional(),
+  pageSize: z.number().int().optional(),
+  maxPages: z.number().int().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  authType: CreateInputAuthenticationTypeServicenowTable$outboundSchema
+    .optional(),
+  cronSchedule: z.string(),
+  earliest: z.string(),
+  latest: z.string(),
+  stateTracking: z.boolean().optional(),
+  logLevel: models.LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  oauthGrantType: CreateInputGrantType$outboundSchema.optional(),
+  username: z.string().optional(),
+  textSecret: z.string().optional(),
+  useCustomOAuthParamsOrHeaders: z.boolean().optional(),
+  oauthParams: z.array(models.OauthParamConfInputServicenowTable$outboundSchema)
+    .optional(),
+  oauthHeaders: z.array(
+    models.OauthHeaderConfInputServicenowTable$outboundSchema,
+  ).optional(),
+  clientId: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    CreateInputManageStateServicenowTable$outboundSchema
+  ).optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_instance: z.string().optional(),
+  __template_orderByField: z.string().optional(),
+  __template_query: z.string().optional(),
+  __template_username: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
-export function inputResponseInputOpenaiComplianceLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputOpenaiComplianceLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseInputOpenaiComplianceLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputOpenaiComplianceLogs' from JSON`,
+export function createInputInputServicenowTableToJSON(
+  createInputInputServicenowTable: CreateInputInputServicenowTable,
+): string {
+  return JSON.stringify(
+    CreateInputInputServicenowTable$outboundSchema.parse(
+      createInputInputServicenowTable,
+    ),
   );
 }
 
 /** @internal */
-export const AuthenticationMethodCloudflareHec$inboundSchema: z.ZodType<
-  AuthenticationMethodCloudflareHec,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AuthenticationMethodCloudflareHec);
+export type CreateInputInputSecurityLake$Outbound = {
+  id: string;
+  type: "security_lake";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  encoding?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
 
 /** @internal */
-export const AuthTokenCloudflareHec$inboundSchema: z.ZodType<
-  AuthTokenCloudflareHec,
+export const CreateInputInputSecurityLake$outboundSchema: z.ZodType<
+  CreateInputInputSecurityLake$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputSecurityLake
 > = z.object({
-  authType: types.optional(AuthenticationMethodCloudflareHec$inboundSchema),
-  tokenSecret: types.optional(types.string()),
-  token: types.optional(types.string()),
-  enabled: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  id: z.string(),
+  type: z.literal("security_lake"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  encoding: z.string().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
+    .optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function authTokenCloudflareHecFromJSON(
-  jsonString: string,
-): SafeParseResult<AuthTokenCloudflareHec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AuthTokenCloudflareHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AuthTokenCloudflareHec' from JSON`,
+export function createInputInputSecurityLakeToJSON(
+  createInputInputSecurityLake: CreateInputInputSecurityLake,
+): string {
+  return JSON.stringify(
+    CreateInputInputSecurityLake$outboundSchema.parse(
+      createInputInputSecurityLake,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputResponseTLSSettingsServerSide,
+export type CreateInputInputNetflow$Outbound = {
+  id: string;
+  type: "netflow";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  enablePassThrough?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  templateCacheMinutes?: number | undefined;
+  v5Enabled?: boolean | undefined;
+  v9Enabled?: boolean | undefined;
+  ipfixEnabled?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputNetflow$outboundSchema: z.ZodType<
+  CreateInputInputNetflow$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputNetflow
 > = z.object({
-  disabled: types.optional(types.boolean()),
-  requestCert: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  commonNameRegex: types.optional(types.string()),
-  certificateName: types.optional(types.string()),
-  privKeyPath: types.optional(types.string()),
-  passphrase: types.optional(types.string()),
-  certPath: types.optional(types.string()),
-  caPath: types.optional(types.string()),
-  minVersion: types.optional(MinimumTlsVersionOptionsTls$inboundSchema),
-  maxVersion: types.optional(MaximumTlsVersionOptionsTls$inboundSchema),
+  id: z.string(),
+  type: z.literal("netflow"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  enablePassThrough: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  templateCacheMinutes: z.number().optional(),
+  v5Enabled: z.boolean().optional(),
+  v9Enabled: z.boolean().optional(),
+  ipfixEnabled: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputResponseTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseTLSSettingsServerSide' from JSON`,
+export function createInputInputNetflowToJSON(
+  createInputInputNetflow: CreateInputInputNetflow,
+): string {
+  return JSON.stringify(
+    CreateInputInputNetflow$outboundSchema.parse(createInputInputNetflow),
   );
 }
 
 /** @internal */
-export const InputResponseInputCloudflareHec$inboundSchema: z.ZodType<
-  InputResponseInputCloudflareHec,
+export type CreateInputInputWizWebhook$Outbound = {
+  id: string;
+  type: "wiz_webhook";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  allowedPaths?: Array<string> | undefined;
+  allowedMethods?: Array<string> | undefined;
+  authTokensExt?: Array<models.AuthTokensExtConfInputHttp$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
+  __template_allowedPaths?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputWizWebhook$outboundSchema: z.ZodType<
+  CreateInputInputWizWebhook$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputWizWebhook
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cloudflare_hec"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authTokens: types.optional(
-    z.array(z.lazy(() => AuthTokenCloudflareHec$inboundSchema)),
-  ),
-  tls: types.optional(
-    z.lazy(() => InputResponseTLSSettingsServerSide$inboundSchema),
-  ),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  hecAPI: types.string(),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  allowedIndexes: types.optional(z.array(types.string())),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  accessControlAllowOrigin: types.optional(z.array(types.string())),
-  accessControlAllowHeaders: types.optional(z.array(types.string())),
-  emitTokenMetrics: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_hecAPI: types.optional(types.string()),
-  __template_allowedIndexes: types.optional(types.string()),
-  __template_accessControlAllowOrigin: types.optional(types.string()),
-  __template_accessControlAllowHeaders: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: z.literal("wiz_webhook"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(models.AuthTokensExtConfInputHttp$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+  __template_allowedPaths: z.string().optional(),
 });
 
-export function inputResponseInputCloudflareHecFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputCloudflareHec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputCloudflareHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputCloudflareHec' from JSON`,
+export function createInputInputWizWebhookToJSON(
+  createInputInputWizWebhook: CreateInputInputWizWebhook,
+): string {
+  return JSON.stringify(
+    CreateInputInputWizWebhook$outboundSchema.parse(createInputInputWizWebhook),
   );
 }
 
 /** @internal */
-export const AuthTokenZscalerHec$inboundSchema: z.ZodType<
-  AuthTokenZscalerHec,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  tokenSecret: types.optional(types.string()),
-  token: types.string(),
-  enabled: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-});
-
-export function authTokenZscalerHecFromJSON(
-  jsonString: string,
-): SafeParseResult<AuthTokenZscalerHec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AuthTokenZscalerHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AuthTokenZscalerHec' from JSON`,
-  );
-}
+export type CreateInputManageStateOpenai$Outbound = {};
 
 /** @internal */
-export const InputResponseInputZscalerHec$inboundSchema: z.ZodType<
-  InputResponseInputZscalerHec,
+export const CreateInputManageStateOpenai$outboundSchema: z.ZodType<
+  CreateInputManageStateOpenai$Outbound,
   z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("zscaler_hec"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authTokens: types.optional(
-    z.array(z.lazy(() => AuthTokenZscalerHec$inboundSchema)),
-  ),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  hecAPI: types.string(),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  allowedIndexes: types.optional(z.array(types.string())),
-  hecAcks: types.optional(types.boolean()),
-  accessControlAllowOrigin: types.optional(z.array(types.string())),
-  accessControlAllowHeaders: types.optional(z.array(types.string())),
-  emitTokenMetrics: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_hecAPI: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputZscalerHecFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputZscalerHec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputZscalerHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputZscalerHec' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseSortDirection$inboundSchema: z.ZodType<
-  InputResponseSortDirection,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseSortDirection);
-
-/** @internal */
-export const AuthenticationTypeServicenowTable$inboundSchema: z.ZodType<
-  AuthenticationTypeServicenowTable,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AuthenticationTypeServicenowTable);
-
-/** @internal */
-export const InputResponseGrantType$inboundSchema: z.ZodType<
-  InputResponseGrantType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseGrantType);
-
-/** @internal */
-export const ManageStateServicenowTable$inboundSchema: z.ZodType<
-  ManageStateServicenowTable,
-  z.ZodTypeDef,
-  unknown
+  CreateInputManageStateOpenai
 > = z.object({});
 
-export function manageStateServicenowTableFromJSON(
-  jsonString: string,
-): SafeParseResult<ManageStateServicenowTable, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ManageStateServicenowTable$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ManageStateServicenowTable' from JSON`,
+export function createInputManageStateOpenaiToJSON(
+  createInputManageStateOpenai: CreateInputManageStateOpenai,
+): string {
+  return JSON.stringify(
+    CreateInputManageStateOpenai$outboundSchema.parse(
+      createInputManageStateOpenai,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputServicenowTable$inboundSchema: z.ZodType<
-  InputResponseInputServicenowTable,
+export const CreateInputPaginationType$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  unknown
+  CreateInputPaginationType
+> = openEnums.outboundSchema(CreateInputPaginationType);
+
+/** @internal */
+export const CreateInputContentConfigLogLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputContentConfigLogLevel
+> = openEnums.outboundSchema(CreateInputContentConfigLogLevel);
+
+/** @internal */
+export type CreateInputContentConfigInput$Outbound = {
+  disabled?: boolean | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputManageStateOpenai$Outbound | undefined;
+  requestParams: Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>;
+  paginationType: string;
+  paginationAttribute?: Array<string> | undefined;
+  paginationLastPageExpr?: string | undefined;
+  maxPages?: number | undefined;
+  paginationNextRelationAttribute?: string | undefined;
+  paginationCurRelationAttribute?: string | undefined;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  jobTimeout?: string | undefined;
+  logLevel?: string | undefined;
+  endpointMetadata?:
+    | Array<models.MetadataConfInputCollection$Outbound>
+    | undefined;
+};
+
+/** @internal */
+export const CreateInputContentConfigInput$outboundSchema: z.ZodType<
+  CreateInputContentConfigInput$Outbound,
+  z.ZodTypeDef,
+  CreateInputContentConfigInput
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("servicenow_table"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  disabled: z.boolean().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() => CreateInputManageStateOpenai$outboundSchema)
+    .optional(),
+  requestParams: z.array(
+    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
   ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  instance: types.string(),
-  tableName: types.string(),
-  fields: types.optional(z.array(types.string())),
-  orderByField: types.optional(types.string()),
-  orderByDirection: types.optional(InputResponseSortDirection$inboundSchema),
-  query: types.optional(types.string()),
-  pageSize: types.optional(types.number()),
-  maxPages: types.optional(types.number()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  authType: types.optional(AuthenticationTypeServicenowTable$inboundSchema),
-  cronSchedule: types.string(),
-  earliest: types.string(),
-  latest: types.string(),
-  stateTracking: types.optional(types.boolean()),
-  logLevel: types.optional(LogLevelOptions$inboundSchema),
-  requestTimeout: types.optional(types.number()),
-  useRoundRobinDns: types.optional(types.boolean()),
-  keepAliveTime: types.optional(types.number()),
-  jobTimeout: types.optional(types.string()),
-  maxMissedKeepAlives: types.optional(types.number()),
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  retryRules: types.optional(RetryRulesType$inboundSchema),
-  description: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
-  oauthGrantType: types.optional(InputResponseGrantType$inboundSchema),
-  username: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  useCustomOAuthParamsOrHeaders: types.optional(types.boolean()),
-  oauthParams: types.optional(
-    z.array(OauthParamConfInputServicenowTable$inboundSchema),
-  ),
-  oauthHeaders: types.optional(
-    z.array(OauthHeaderConfInputServicenowTable$inboundSchema),
-  ),
-  clientId: types.optional(types.string()),
-  clientTextSecret: types.optional(types.string()),
-  stateUpdateExpression: types.optional(types.string()),
-  stateMergeExpression: types.optional(types.string()),
-  manageState: types.optional(
-    z.lazy(() => ManageStateServicenowTable$inboundSchema),
-  ),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_instance: types.optional(types.string()),
-  __template_orderByField: types.optional(types.string()),
-  __template_query: types.optional(types.string()),
-  __template_username: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  paginationType: CreateInputPaginationType$outboundSchema,
+  paginationAttribute: z.array(z.string()).optional(),
+  paginationLastPageExpr: z.string().optional(),
+  maxPages: z.number().optional(),
+  paginationNextRelationAttribute: z.string().optional(),
+  paginationCurRelationAttribute: z.string().optional(),
+  cronSchedule: z.string(),
+  earliest: z.string(),
+  latest: z.string(),
+  jobTimeout: z.string().optional(),
+  logLevel: CreateInputContentConfigLogLevel$outboundSchema.optional(),
+  endpointMetadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
 });
 
-export function inputResponseInputServicenowTableFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputServicenowTable, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputServicenowTable$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputServicenowTable' from JSON`,
+export function createInputContentConfigInputToJSON(
+  createInputContentConfigInput: CreateInputContentConfigInput,
+): string {
+  return JSON.stringify(
+    CreateInputContentConfigInput$outboundSchema.parse(
+      createInputContentConfigInput,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputSecurityLake$inboundSchema: z.ZodType<
-  InputResponseInputSecurityLake,
+export type CreateInputInputOpenai$Outbound = {
+  id: string;
+  type: "openai";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  openaiOrganization?: string | undefined;
+  openaiProject?: string | undefined;
+  contentConfig: Array<CreateInputContentConfigInput$Outbound>;
+  requestTimeout?: number | undefined;
+  apiKey?: string | undefined;
+  textSecret: string;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_openaiOrganization?: string | undefined;
+  __template_openaiProject?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputOpenai$outboundSchema: z.ZodType<
+  CreateInputInputOpenai$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputOpenai
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("security_lake"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  id: z.string(),
+  type: z.literal("openai"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  openaiOrganization: z.string().optional(),
+  openaiProject: z.string().optional(),
+  contentConfig: z.array(
+    z.lazy(() => CreateInputContentConfigInput$outboundSchema),
   ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  queueName: types.string(),
-  fileFilter: types.optional(types.string()),
-  awsAccountId: types.optional(types.string()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.optional(types.string()),
-  endpoint: types.optional(types.string()),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  maxMessages: types.optional(types.number()),
-  visibilityTimeout: types.optional(types.number()),
-  numReceivers: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  skipOnError: types.optional(types.boolean()),
-  includeSqsMetadata: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  enableSQSAssumeRole: types.optional(types.boolean()),
-  preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  parquetChunkSizeMB: types.optional(types.number()),
-  parquetChunkDownloadTimeout: types.optional(types.number()),
-  checkpointing: types.optional(CheckpointingType$inboundSchema),
-  pollTimeout: types.optional(types.number()),
-  encoding: types.optional(types.string()),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  tagAfterProcessing: types.optional(TagAfterProcessingOptions$inboundSchema),
-  processedTagKey: types.optional(types.string()),
-  processedTagValue: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_queueName: types.optional(types.string()),
-  __template_awsAccountId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  requestTimeout: z.number().optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_openaiOrganization: z.string().optional(),
+  __template_openaiProject: z.string().optional(),
 });
 
-export function inputResponseInputSecurityLakeFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSecurityLake, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSecurityLake$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSecurityLake' from JSON`,
+export function createInputInputOpenaiToJSON(
+  createInputInputOpenai: CreateInputInputOpenai,
+): string {
+  return JSON.stringify(
+    CreateInputInputOpenai$outboundSchema.parse(createInputInputOpenai),
   );
 }
 
 /** @internal */
-export const InputResponseInputNetflow$inboundSchema: z.ZodType<
-  InputResponseInputNetflow,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("netflow"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  enablePassThrough: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  udpSocketRxBufSize: types.optional(types.number()),
-  templateCacheMinutes: types.optional(types.number()),
-  v5Enabled: types.optional(types.boolean()),
-  v9Enabled: types.optional(types.boolean()),
-  ipfixEnabled: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputNetflowFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputNetflow, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputNetflow$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputNetflow' from JSON`,
-  );
-}
+export type CreateInputManageStateWiz$Outbound = {};
 
 /** @internal */
-export const InputResponseInputWizWebhook$inboundSchema: z.ZodType<
-  InputResponseInputWizWebhook,
+export const CreateInputManageStateWiz$outboundSchema: z.ZodType<
+  CreateInputManageStateWiz$Outbound,
   z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("wiz_webhook"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authTokens: types.optional(z.array(types.string())),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  allowedPaths: types.optional(z.array(types.string())),
-  allowedMethods: types.optional(z.array(types.string())),
-  authTokensExt: types.optional(
-    z.array(AuthTokensExtConfInputHttp$inboundSchema),
-  ),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_authTokens: types.optional(types.string()),
-  __template_allowedPaths: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputWizWebhookFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputWizWebhook, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputWizWebhook$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputWizWebhook' from JSON`,
-  );
-}
-
-/** @internal */
-export const ManageStateOpenai$inboundSchema: z.ZodType<
-  ManageStateOpenai,
-  z.ZodTypeDef,
-  unknown
+  CreateInputManageStateWiz
 > = z.object({});
 
-export function manageStateOpenaiFromJSON(
-  jsonString: string,
-): SafeParseResult<ManageStateOpenai, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ManageStateOpenai$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ManageStateOpenai' from JSON`,
+export function createInputManageStateWizToJSON(
+  createInputManageStateWiz: CreateInputManageStateWiz,
+): string {
+  return JSON.stringify(
+    CreateInputManageStateWiz$outboundSchema.parse(createInputManageStateWiz),
   );
 }
 
 /** @internal */
-export const InputResponsePaginationType$inboundSchema: z.ZodType<
-  InputResponsePaginationType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponsePaginationType);
+export type CreateInputContentConfigWiz$Outbound = {
+  contentType: string;
+  contentDescription?: string | undefined;
+  enabled?: boolean | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputManageStateWiz$Outbound | undefined;
+  contentQuery: string;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  jobTimeout?: string | undefined;
+  logLevel?: string | undefined;
+  maxPages?: number | undefined;
+};
 
 /** @internal */
-export const LogLevelOpenai$inboundSchema: z.ZodType<
-  LogLevelOpenai,
+export const CreateInputContentConfigWiz$outboundSchema: z.ZodType<
+  CreateInputContentConfigWiz$Outbound,
   z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(LogLevelOpenai);
-
-/** @internal */
-export const ContentConfigOpenai$inboundSchema: z.ZodType<
-  ContentConfigOpenai,
-  z.ZodTypeDef,
-  unknown
+  CreateInputContentConfigWiz
 > = z.object({
-  contentType: types.string(),
-  contentDescription: types.optional(types.string()),
-  collectPath: types.string(),
-  docsUrl: types.optional(types.string()),
-  disabled: types.optional(types.boolean()),
-  stateTracking: types.optional(types.boolean()),
-  stateUpdateExpression: types.optional(types.string()),
-  stateMergeExpression: types.optional(types.string()),
-  manageState: types.optional(z.lazy(() => ManageStateOpenai$inboundSchema)),
-  requestParams: z.array(RequestParamConfInputOpenai$inboundSchema),
-  paginationType: InputResponsePaginationType$inboundSchema,
-  paginationAttribute: types.optional(z.array(types.string())),
-  paginationLastPageExpr: types.optional(types.string()),
-  maxPages: types.optional(types.number()),
-  paginationNextRelationAttribute: types.optional(types.string()),
-  paginationCurRelationAttribute: types.optional(types.string()),
-  cronSchedule: types.string(),
-  earliest: types.string(),
-  latest: types.string(),
-  jobTimeout: types.optional(types.string()),
-  logLevel: types.optional(LogLevelOpenai$inboundSchema),
-  endpointMetadata: types.optional(
-    z.array(MetadataConfInputCollection$inboundSchema),
-  ),
+  contentType: z.string(),
+  contentDescription: z.string().optional(),
+  enabled: z.boolean().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() => CreateInputManageStateWiz$outboundSchema)
+    .optional(),
+  contentQuery: z.string(),
+  cronSchedule: z.string(),
+  earliest: z.string(),
+  latest: z.string(),
+  jobTimeout: z.string().optional(),
+  logLevel: models.LogLevelOptionsContentConfigItemsDebugError$outboundSchema
+    .optional(),
+  maxPages: z.number().optional(),
 });
 
-export function contentConfigOpenaiFromJSON(
-  jsonString: string,
-): SafeParseResult<ContentConfigOpenai, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ContentConfigOpenai$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ContentConfigOpenai' from JSON`,
+export function createInputContentConfigWizToJSON(
+  createInputContentConfigWiz: CreateInputContentConfigWiz,
+): string {
+  return JSON.stringify(
+    CreateInputContentConfigWiz$outboundSchema.parse(
+      createInputContentConfigWiz,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputOpenai$inboundSchema: z.ZodType<
-  InputResponseInputOpenai,
+export type CreateInputInputWiz$Outbound = {
+  id: string;
+  type: "wiz";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  endpoint: string;
+  authUrl: string;
+  authAudienceOverride?: string | undefined;
+  clientId: string;
+  contentConfig: Array<CreateInputContentConfigWiz$Outbound>;
+  requestTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_authUrl?: string | undefined;
+  __template_clientId?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputWiz$outboundSchema: z.ZodType<
+  CreateInputInputWiz$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputWiz
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("openai"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  id: z.string(),
+  type: z.literal("wiz"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  endpoint: z.string(),
+  authUrl: z.string(),
+  authAudienceOverride: z.string().optional(),
+  clientId: z.string(),
+  contentConfig: z.array(
+    z.lazy(() => CreateInputContentConfigWiz$outboundSchema),
   ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  openaiOrganization: types.optional(types.string()),
-  openaiProject: types.optional(types.string()),
-  contentConfig: z.array(z.lazy(() => ContentConfigOpenai$inboundSchema)),
-  requestTimeout: types.optional(types.number()),
-  apiKey: types.optional(types.string()),
-  textSecret: types.string(),
-  keepAliveTime: types.optional(types.number()),
-  maxMissedKeepAlives: types.optional(types.number()),
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  retryRules: types.optional(RetryRulesType$inboundSchema),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_openaiOrganization: types.optional(types.string()),
-  __template_openaiProject: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsManualSecret$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_authUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
-export function inputResponseInputOpenaiFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputOpenai, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputOpenai$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputOpenai' from JSON`,
+export function createInputInputWizToJSON(
+  createInputInputWiz: CreateInputInputWiz,
+): string {
+  return JSON.stringify(
+    CreateInputInputWiz$outboundSchema.parse(createInputInputWiz),
   );
 }
 
 /** @internal */
-export const ManageStateWiz$inboundSchema: z.ZodType<
-  ManageStateWiz,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function manageStateWizFromJSON(
-  jsonString: string,
-): SafeParseResult<ManageStateWiz, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ManageStateWiz$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ManageStateWiz' from JSON`,
-  );
-}
+export type CreateInputInputJournalFilesRule$Outbound = {
+  filter: string;
+  description?: string | undefined;
+};
 
 /** @internal */
-export const ContentConfigWiz$inboundSchema: z.ZodType<
-  ContentConfigWiz,
+export const CreateInputInputJournalFilesRule$outboundSchema: z.ZodType<
+  CreateInputInputJournalFilesRule$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputJournalFilesRule
 > = z.object({
-  contentType: types.string(),
-  contentDescription: types.optional(types.string()),
-  enabled: types.optional(types.boolean()),
-  stateTracking: types.optional(types.boolean()),
-  stateUpdateExpression: types.optional(types.string()),
-  stateMergeExpression: types.optional(types.string()),
-  manageState: types.optional(z.lazy(() => ManageStateWiz$inboundSchema)),
-  contentQuery: types.string(),
-  cronSchedule: types.string(),
-  earliest: types.string(),
-  latest: types.string(),
-  jobTimeout: types.optional(types.string()),
-  logLevel: types.optional(
-    LogLevelOptionsContentConfigItemsDebugError$inboundSchema,
-  ),
-  maxPages: types.optional(types.number()),
+  filter: z.string(),
+  description: z.string().optional(),
 });
 
-export function contentConfigWizFromJSON(
-  jsonString: string,
-): SafeParseResult<ContentConfigWiz, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ContentConfigWiz$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ContentConfigWiz' from JSON`,
+export function createInputInputJournalFilesRuleToJSON(
+  createInputInputJournalFilesRule: CreateInputInputJournalFilesRule,
+): string {
+  return JSON.stringify(
+    CreateInputInputJournalFilesRule$outboundSchema.parse(
+      createInputInputJournalFilesRule,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputWiz$inboundSchema: z.ZodType<
-  InputResponseInputWiz,
+export type CreateInputInputJournalFiles$Outbound = {
+  id: string;
+  type: "journal_files";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  path: string;
+  interval?: number | undefined;
+  journals: Array<string>;
+  rules?: Array<CreateInputInputJournalFilesRule$Outbound> | undefined;
+  currentBoot?: boolean | undefined;
+  maxAgeDur?: string | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputJournalFiles$outboundSchema: z.ZodType<
+  CreateInputInputJournalFiles$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputJournalFiles
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("wiz"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  endpoint: types.string(),
-  authUrl: types.string(),
-  authAudienceOverride: types.optional(types.string()),
-  clientId: types.string(),
-  contentConfig: z.array(z.lazy(() => ContentConfigWiz$inboundSchema)),
-  requestTimeout: types.optional(types.number()),
-  keepAliveTime: types.optional(types.number()),
-  maxMissedKeepAlives: types.optional(types.number()),
-  ttl: types.optional(types.string()),
-  ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  retryRules: types.optional(RetryRulesType$inboundSchema),
-  authType: types.optional(
-    AuthenticationMethodOptionsManualSecret$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  clientSecret: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_authUrl: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: z.literal("journal_files"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  path: z.string(),
+  interval: z.number().optional(),
+  journals: z.array(z.string()),
+  rules: z.array(z.lazy(() => CreateInputInputJournalFilesRule$outboundSchema))
+    .optional(),
+  currentBoot: z.boolean().optional(),
+  maxAgeDur: z.string().optional(),
+  suppressMissingPathErrors: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputResponseInputWizFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputWiz, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputWiz$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputWiz' from JSON`,
+export function createInputInputJournalFilesToJSON(
+  createInputInputJournalFiles: CreateInputInputJournalFiles,
+): string {
+  return JSON.stringify(
+    CreateInputInputJournalFiles$outboundSchema.parse(
+      createInputInputJournalFiles,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputJournalFilesRule$inboundSchema: z.ZodType<
-  InputResponseInputJournalFilesRule,
+export type CreateInputInputRawUdp$Outbound = {
+  id: string;
+  type: "raw_udp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  ingestRawBytes?: boolean | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputRawUdp$outboundSchema: z.ZodType<
+  CreateInputInputRawUdp$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputRawUdp
 > = z.object({
-  filter: types.string(),
-  description: types.optional(types.string()),
+  id: z.string(),
+  type: z.literal("raw_udp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  ingestRawBytes: z.boolean().optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputResponseInputJournalFilesRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputJournalFilesRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseInputJournalFilesRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputJournalFilesRule' from JSON`,
+export function createInputInputRawUdpToJSON(
+  createInputInputRawUdp: CreateInputInputRawUdp,
+): string {
+  return JSON.stringify(
+    CreateInputInputRawUdp$outboundSchema.parse(createInputInputRawUdp),
   );
 }
 
 /** @internal */
-export const InputResponseInputJournalFiles$inboundSchema: z.ZodType<
-  InputResponseInputJournalFiles,
+export const CreateInputReadModeAppleUnifiedLogs$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  unknown
+  CreateInputReadModeAppleUnifiedLogs
+> = openEnums.outboundSchema(CreateInputReadModeAppleUnifiedLogs);
+
+/** @internal */
+export type CreateInputInputAppleUnifiedLogs$Outbound = {
+  id: string;
+  type: "apple_unified_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  predicate: string;
+  readMode?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputAppleUnifiedLogs$outboundSchema: z.ZodType<
+  CreateInputInputAppleUnifiedLogs$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputAppleUnifiedLogs
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("journal_files"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  path: types.string(),
-  interval: types.optional(types.number()),
-  journals: z.array(types.string()),
-  rules: types.optional(
-    z.array(z.lazy(() => InputResponseInputJournalFilesRule$inboundSchema)),
-  ),
-  currentBoot: types.optional(types.boolean()),
-  maxAgeDur: types.optional(types.string()),
-  suppressMissingPathErrors: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: z.literal("apple_unified_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  predicate: z.string(),
+  readMode: CreateInputReadModeAppleUnifiedLogs$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputResponseInputJournalFilesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputJournalFiles, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputJournalFiles$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputJournalFiles' from JSON`,
+export function createInputInputAppleUnifiedLogsToJSON(
+  createInputInputAppleUnifiedLogs: CreateInputInputAppleUnifiedLogs,
+): string {
+  return JSON.stringify(
+    CreateInputInputAppleUnifiedLogs$outboundSchema.parse(
+      createInputInputAppleUnifiedLogs,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputRawUdp$inboundSchema: z.ZodType<
-  InputResponseInputRawUdp,
+export const CreateInputReadModeWinEventLogs$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  unknown
+  CreateInputReadModeWinEventLogs
+> = openEnums.outboundSchema(CreateInputReadModeWinEventLogs);
+
+/** @internal */
+export const CreateInputEventFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputEventFormat
+> = openEnums.outboundSchema(CreateInputEventFormat);
+
+/** @internal */
+export type CreateInputInputWinEventLogs$Outbound = {
+  id: string;
+  type: "win_event_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  logNames: Array<string>;
+  readMode?: string | undefined;
+  eventFormat?: string | undefined;
+  disableNativeModule?: boolean | undefined;
+  interval?: number | undefined;
+  batchSize?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  maxEventBytes?: number | undefined;
+  description?: string | undefined;
+  disableJsonRendering?: boolean | undefined;
+  disableXmlRendering?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputWinEventLogs$outboundSchema: z.ZodType<
+  CreateInputInputWinEventLogs$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputWinEventLogs
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("raw_udp"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  maxBufferSize: types.optional(types.number()),
-  ipWhitelistRegex: types.optional(types.string()),
-  singleMsgUdpPackets: types.optional(types.boolean()),
-  ingestRawBytes: types.optional(types.boolean()),
-  udpSocketRxBufSize: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: z.literal("win_event_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  logNames: z.array(z.string()),
+  readMode: CreateInputReadModeWinEventLogs$outboundSchema.optional(),
+  eventFormat: CreateInputEventFormat$outboundSchema.optional(),
+  disableNativeModule: z.boolean().optional(),
+  interval: z.number().optional(),
+  batchSize: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  maxEventBytes: z.number().optional(),
+  description: z.string().optional(),
+  disableJsonRendering: z.boolean().optional(),
+  disableXmlRendering: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputResponseInputRawUdpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputRawUdp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputRawUdp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputRawUdp' from JSON`,
+export function createInputInputWinEventLogsToJSON(
+  createInputInputWinEventLogs: CreateInputInputWinEventLogs,
+): string {
+  return JSON.stringify(
+    CreateInputInputWinEventLogs$outboundSchema.parse(
+      createInputInputWinEventLogs,
+    ),
   );
 }
 
 /** @internal */
-export const ReadModeAppleUnifiedLogs$inboundSchema: z.ZodType<
-  ReadModeAppleUnifiedLogs,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ReadModeAppleUnifiedLogs);
+export const CreateInputAuthMethodAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthMethodAuthenticationMethod> =
+    openEnums.outboundSchema(CreateInputAuthMethodAuthenticationMethod);
 
 /** @internal */
-export const InputResponseInputAppleUnifiedLogs$inboundSchema: z.ZodType<
-  InputResponseInputAppleUnifiedLogs,
+export type CreateInputMTLSSettings$Outbound = {
+  disabled?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  requestCert?: boolean | undefined;
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+  caPath: string;
+  commonNameRegex?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+  ocspCheck?: boolean | undefined;
+  ocspCheckFailClose?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputMTLSSettings$outboundSchema: z.ZodType<
+  CreateInputMTLSSettings$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputMTLSSettings
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("apple_unified_logs"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  predicate: types.string(),
-  readMode: types.optional(ReadModeAppleUnifiedLogs$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  disabled: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().optional(),
+  minVersion: models.MinimumTlsVersionOptionsTls$outboundSchema.optional(),
+  maxVersion: models.MaximumTlsVersionOptionsTls$outboundSchema.optional(),
+  ocspCheck: z.boolean().optional(),
+  ocspCheckFailClose: z.boolean().optional(),
 });
 
-export function inputResponseInputAppleUnifiedLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputAppleUnifiedLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseInputAppleUnifiedLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputAppleUnifiedLogs' from JSON`,
+export function createInputMTLSSettingsToJSON(
+  createInputMTLSSettings: CreateInputMTLSSettings,
+): string {
+  return JSON.stringify(
+    CreateInputMTLSSettings$outboundSchema.parse(createInputMTLSSettings),
   );
 }
 
 /** @internal */
-export const ReadModeWinEventLogs$inboundSchema: z.ZodType<
-  ReadModeWinEventLogs,
+export const CreateInputFormat$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ReadModeWinEventLogs);
+  CreateInputFormat
+> = openEnums.outboundSchema(CreateInputFormat);
 
 /** @internal */
-export const InputResponseEventFormat$inboundSchema: z.ZodType<
-  InputResponseEventFormat,
+export const CreateInputQueryBuilderMode$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseEventFormat);
+  CreateInputQueryBuilderMode
+> = openEnums.outboundSchema(CreateInputQueryBuilderMode);
 
 /** @internal */
-export const InputResponseInputWinEventLogs$inboundSchema: z.ZodType<
-  InputResponseInputWinEventLogs,
+export type CreateInputQuery$Outbound = {
+  path: string;
+  queryExpression: string;
+};
+
+/** @internal */
+export const CreateInputQuery$outboundSchema: z.ZodType<
+  CreateInputQuery$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputQuery
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("win_event_logs"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  logNames: z.array(types.string()),
-  readMode: types.optional(ReadModeWinEventLogs$inboundSchema),
-  eventFormat: types.optional(InputResponseEventFormat$inboundSchema),
-  disableNativeModule: types.optional(types.boolean()),
-  interval: types.optional(types.number()),
-  batchSize: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  maxEventBytes: types.optional(types.number()),
-  description: types.optional(types.string()),
-  disableJsonRendering: types.optional(types.boolean()),
-  disableXmlRendering: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  path: z.string(),
+  queryExpression: z.string(),
 });
 
-export function inputResponseInputWinEventLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputWinEventLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputWinEventLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputWinEventLogs' from JSON`,
+export function createInputQueryToJSON(
+  createInputQuery: CreateInputQuery,
+): string {
+  return JSON.stringify(
+    CreateInputQuery$outboundSchema.parse(createInputQuery),
   );
 }
 
 /** @internal */
-export const AuthenticationMethodWef$inboundSchema: z.ZodType<
-  AuthenticationMethodWef,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AuthenticationMethodWef);
+export type CreateInputSubscription$Outbound = {
+  subscriptionName: string;
+  version?: string | undefined;
+  contentFormat: string;
+  heartbeatInterval: number;
+  batchTimeout: number;
+  readExistingEvents?: boolean | undefined;
+  sendBookmarks?: boolean | undefined;
+  compress?: boolean | undefined;
+  targets: Array<string>;
+  locale?: string | undefined;
+  querySelector?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  queries?: Array<CreateInputQuery$Outbound> | undefined;
+  xmlQuery?: string | undefined;
+};
 
 /** @internal */
-export const InputResponseMTLSSettings$inboundSchema: z.ZodType<
-  InputResponseMTLSSettings,
+export const CreateInputSubscription$outboundSchema: z.ZodType<
+  CreateInputSubscription$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputSubscription
 > = z.object({
-  disabled: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  requestCert: types.optional(types.boolean()),
-  certificateName: types.optional(types.string()),
-  privKeyPath: types.string(),
-  passphrase: types.optional(types.string()),
-  certPath: types.string(),
-  caPath: types.string(),
-  commonNameRegex: types.optional(types.string()),
-  minVersion: types.optional(MinimumTlsVersionOptionsTls$inboundSchema),
-  maxVersion: types.optional(MaximumTlsVersionOptionsTls$inboundSchema),
-  ocspCheck: types.optional(types.boolean()),
-  ocspCheckFailClose: types.optional(types.boolean()),
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: CreateInputFormat$outboundSchema,
+  heartbeatInterval: z.number(),
+  batchTimeout: z.number(),
+  readExistingEvents: z.boolean().optional(),
+  sendBookmarks: z.boolean().optional(),
+  compress: z.boolean().optional(),
+  targets: z.array(z.string()),
+  locale: z.string().optional(),
+  querySelector: CreateInputQueryBuilderMode$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  queries: z.array(z.lazy(() => CreateInputQuery$outboundSchema)).optional(),
+  xmlQuery: z.string().optional(),
 });
 
-export function inputResponseMTLSSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseMTLSSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseMTLSSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseMTLSSettings' from JSON`,
+export function createInputSubscriptionToJSON(
+  createInputSubscription: CreateInputSubscription,
+): string {
+  return JSON.stringify(
+    CreateInputSubscription$outboundSchema.parse(createInputSubscription),
   );
 }
 
 /** @internal */
-export const InputResponseFormat$inboundSchema: z.ZodType<
-  InputResponseFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseFormat);
+export type CreateInputInputWef$Outbound = {
+  id: string;
+  type: "wef";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authMethod?: string | undefined;
+  tls?: CreateInputMTLSSettings$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  socketTimeout?: number | undefined;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch?: boolean | undefined;
+  subscriptions: Array<CreateInputSubscription$Outbound>;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_keytab?: string | undefined;
+  __template_principal?: string | undefined;
+};
 
 /** @internal */
-export const InputResponseQueryBuilderMode$inboundSchema: z.ZodType<
-  InputResponseQueryBuilderMode,
+export const CreateInputInputWef$outboundSchema: z.ZodType<
+  CreateInputInputWef$Outbound,
   z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseQueryBuilderMode);
-
-/** @internal */
-export const InputResponseQuery$inboundSchema: z.ZodType<
-  InputResponseQuery,
-  z.ZodTypeDef,
-  unknown
+  CreateInputInputWef
 > = z.object({
-  path: types.string(),
-  queryExpression: types.string(),
+  id: z.string(),
+  type: z.literal("wef"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authMethod: CreateInputAuthMethodAuthenticationMethod$outboundSchema
+    .optional(),
+  tls: z.lazy(() => CreateInputMTLSSettings$outboundSchema).optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  socketTimeout: z.number().optional(),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().optional(),
+  subscriptions: z.array(z.lazy(() => CreateInputSubscription$outboundSchema)),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_keytab: z.string().optional(),
+  __template_principal: z.string().optional(),
 });
 
-export function inputResponseQueryFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseQuery, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseQuery$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseQuery' from JSON`,
+export function createInputInputWefToJSON(
+  createInputInputWef: CreateInputInputWef,
+): string {
+  return JSON.stringify(
+    CreateInputInputWef$outboundSchema.parse(createInputInputWef),
   );
 }
 
 /** @internal */
-export const InputResponseSubscription$inboundSchema: z.ZodType<
-  InputResponseSubscription,
+export type CreateInputAllow$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const CreateInputAllow$outboundSchema: z.ZodType<
+  CreateInputAllow$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputAllow
 > = z.object({
-  subscriptionName: types.string(),
-  version: types.optional(types.string()),
-  contentFormat: InputResponseFormat$inboundSchema,
-  heartbeatInterval: types.number(),
-  batchTimeout: types.number(),
-  readExistingEvents: types.optional(types.boolean()),
-  sendBookmarks: types.optional(types.boolean()),
-  compress: types.optional(types.boolean()),
-  targets: z.array(types.string()),
-  locale: types.optional(types.string()),
-  querySelector: types.optional(InputResponseQueryBuilderMode$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  queries: types.optional(
-    z.array(z.lazy(() => InputResponseQuery$inboundSchema)),
-  ),
-  xmlQuery: types.optional(types.string()),
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
 });
 
-export function inputResponseSubscriptionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseSubscription, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseSubscription$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseSubscription' from JSON`,
+export function createInputAllowToJSON(
+  createInputAllow: CreateInputAllow,
+): string {
+  return JSON.stringify(
+    CreateInputAllow$outboundSchema.parse(createInputAllow),
   );
 }
 
 /** @internal */
-export const InputResponseInputWef$inboundSchema: z.ZodType<
-  InputResponseInputWef,
+export type CreateInputFilterAppscope$Outbound = {
+  allow?: Array<CreateInputAllow$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputFilterAppscope$outboundSchema: z.ZodType<
+  CreateInputFilterAppscope$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputFilterAppscope
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("wef"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authMethod: types.optional(AuthenticationMethodWef$inboundSchema),
-  tls: types.optional(z.lazy(() => InputResponseMTLSSettings$inboundSchema)),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  socketTimeout: types.optional(types.number()),
-  caFingerprint: types.optional(types.string()),
-  keytab: types.optional(types.string()),
-  principal: types.optional(types.string()),
-  allowMachineIdMismatch: types.optional(types.boolean()),
-  subscriptions: z.array(z.lazy(() => InputResponseSubscription$inboundSchema)),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  logFingerprintMismatch: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_keytab: types.optional(types.string()),
-  __template_principal: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  allow: z.array(z.lazy(() => CreateInputAllow$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
 });
 
-export function inputResponseInputWefFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputWef, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputWef$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputWef' from JSON`,
+export function createInputFilterAppscopeToJSON(
+  createInputFilterAppscope: CreateInputFilterAppscope,
+): string {
+  return JSON.stringify(
+    CreateInputFilterAppscope$outboundSchema.parse(createInputFilterAppscope),
   );
 }
 
 /** @internal */
-export const InputResponseAllow$inboundSchema: z.ZodType<
-  InputResponseAllow,
+export type CreateInputPersistenceAppscope$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputPersistenceAppscope$outboundSchema: z.ZodType<
+  CreateInputPersistenceAppscope$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputPersistenceAppscope
 > = z.object({
-  procname: types.string(),
-  arg: types.optional(types.string()),
-  config: types.string(),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
 });
 
-export function inputResponseAllowFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseAllow, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseAllow$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseAllow' from JSON`,
+export function createInputPersistenceAppscopeToJSON(
+  createInputPersistenceAppscope: CreateInputPersistenceAppscope,
+): string {
+  return JSON.stringify(
+    CreateInputPersistenceAppscope$outboundSchema.parse(
+      createInputPersistenceAppscope,
+    ),
   );
 }
 
 /** @internal */
-export const FilterAppscope$inboundSchema: z.ZodType<
-  FilterAppscope,
+export type CreateInputUNIXSocketPermissions$Outbound = string | number;
+
+/** @internal */
+export const CreateInputUNIXSocketPermissions$outboundSchema: z.ZodType<
+  CreateInputUNIXSocketPermissions$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputUNIXSocketPermissions
+> = smartUnion([z.string(), z.number()]);
+
+export function createInputUNIXSocketPermissionsToJSON(
+  createInputUNIXSocketPermissions: CreateInputUNIXSocketPermissions,
+): string {
+  return JSON.stringify(
+    CreateInputUNIXSocketPermissions$outboundSchema.parse(
+      createInputUNIXSocketPermissions,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputAppscope$Outbound = {
+  id: string;
+  type: "appscope";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableUnixPath?: boolean | undefined;
+  filter?: CreateInputFilterAppscope$Outbound | undefined;
+  persistence?: CreateInputPersistenceAppscope$Outbound | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  unixSocketPath?: string | undefined;
+  unixSocketPerms?: string | number | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputAppscope$outboundSchema: z.ZodType<
+  CreateInputInputAppscope$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputAppscope
 > = z.object({
-  allow: types.optional(
-    z.array(z.lazy(() => InputResponseAllow$inboundSchema)),
-  ),
-  transportURL: types.optional(types.string()),
+  id: z.string(),
+  type: z.literal("appscope"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
+  filter: z.lazy(() => CreateInputFilterAppscope$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceAppscope$outboundSchema)
+    .optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  unixSocketPath: z.string().optional(),
+  unixSocketPerms: smartUnion([z.string(), z.number()]).optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function filterAppscopeFromJSON(
-  jsonString: string,
-): SafeParseResult<FilterAppscope, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FilterAppscope$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FilterAppscope' from JSON`,
+export function createInputInputAppscopeToJSON(
+  createInputInputAppscope: CreateInputInputAppscope,
+): string {
+  return JSON.stringify(
+    CreateInputInputAppscope$outboundSchema.parse(createInputInputAppscope),
   );
 }
 
 /** @internal */
-export const PersistenceAppscope$inboundSchema: z.ZodType<
-  PersistenceAppscope,
+export type CreateInputInputTcp$Outbound = {
+  id: string;
+  type: "tcp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableHeader?: boolean | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  description?: string | undefined;
+  authToken?: string | undefined;
+  authType?: string | undefined;
+  textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputTcp$outboundSchema: z.ZodType<
+  CreateInputInputTcp$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputTcp
 > = z.object({
-  enable: types.optional(types.boolean()),
-  timeWindow: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(
-    DataCompressionFormatOptionsPersistence$inboundSchema,
-  ),
-  destPath: types.optional(types.string()),
+  id: z.string(),
+  type: z.literal("tcp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableHeader: z.boolean().optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  description: z.string().optional(),
+  authToken: z.string().optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function persistenceAppscopeFromJSON(
-  jsonString: string,
-): SafeParseResult<PersistenceAppscope, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersistenceAppscope$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersistenceAppscope' from JSON`,
+export function createInputInputTcpToJSON(
+  createInputInputTcp: CreateInputInputTcp,
+): string {
+  return JSON.stringify(
+    CreateInputInputTcp$outboundSchema.parse(createInputInputTcp),
   );
 }
 
 /** @internal */
-export const InputResponseUNIXSocketPermissions$inboundSchema: z.ZodType<
-  InputResponseUNIXSocketPermissions,
+export const CreateInputInputFileMode$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  unknown
-> = smartUnion([types.string(), types.number()]);
-
-export function inputResponseUNIXSocketPermissionsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseUNIXSocketPermissions, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseUNIXSocketPermissions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseUNIXSocketPermissions' from JSON`,
-  );
-}
+  CreateInputInputFileMode
+> = openEnums.outboundSchema(CreateInputInputFileMode);
 
 /** @internal */
-export const InputResponseInputAppscope$inboundSchema: z.ZodType<
-  InputResponseInputAppscope,
+export type CreateInputInputFile$Outbound = {
+  id: string;
+  type: "file";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  mode?: string | undefined;
+  interval?: number | undefined;
+  filenames?: Array<string> | undefined;
+  filterArchivedFiles?: boolean | undefined;
+  tailOnly?: boolean | undefined;
+  idleTimeout?: number | undefined;
+  minAgeDur?: string | undefined;
+  maxAgeDur?: string | undefined;
+  checkFileModTime?: boolean | undefined;
+  forceText?: boolean | undefined;
+  hashLen?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  disableStaleChannelFlush?: boolean | undefined;
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  path?: string | undefined;
+  depth?: number | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
+  deleteFiles?: boolean | undefined;
+  saltHash?: boolean | undefined;
+  optimizeLeafDirectories?: boolean | undefined;
+  includeUnidentifiableBinary?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputFile$outboundSchema: z.ZodType<
+  CreateInputInputFile$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputFile
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("appscope"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  ipWhitelistRegex: types.optional(types.string()),
-  maxActiveCxn: types.optional(types.number()),
-  socketIdleTimeout: types.optional(types.number()),
-  socketEndingMaxWait: types.optional(types.number()),
-  socketMaxLifespan: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  enableUnixPath: types.optional(types.boolean()),
-  filter: types.optional(z.lazy(() => FilterAppscope$inboundSchema)),
-  persistence: types.optional(z.lazy(() => PersistenceAppscope$inboundSchema)),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  host: types.optional(types.string()),
-  port: types.optional(types.number()),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  unixSocketPath: types.optional(types.string()),
-  unixSocketPerms: types.optional(smartUnion([types.string(), types.number()])),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: z.literal("file"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  mode: CreateInputInputFileMode$outboundSchema.optional(),
+  interval: z.number().optional(),
+  filenames: z.array(z.string()).optional(),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
+  minAgeDur: z.string().optional(),
+  maxAgeDur: z.string().optional(),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  disableStaleChannelFlush: z.boolean().optional(),
+  staleChannelFlushMs: z.number().optional(),
+  description: z.string().optional(),
+  path: z.string().optional(),
+  depth: z.number().optional(),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  saltHash: z.boolean().optional(),
+  optimizeLeafDirectories: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
 });
 
-export function inputResponseInputAppscopeFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputAppscope, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputAppscope$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputAppscope' from JSON`,
+export function createInputInputFileToJSON(
+  createInputInputFile: CreateInputInputFile,
+): string {
+  return JSON.stringify(
+    CreateInputInputFile$outboundSchema.parse(createInputInputFile),
   );
 }
 
 /** @internal */
-export const InputResponseInputTcp$inboundSchema: z.ZodType<
-  InputResponseInputTcp,
+export const CreateInputInputSyslogType2$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType2
+> = z.nativeEnum(CreateInputInputSyslogType2);
+
+/** @internal */
+export type CreateInputInputSyslogSyslog2$Outbound = {
+  id: string;
+  type: string;
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort: number;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  timestampTimezone?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  enableProxyHeader?: boolean | undefined;
+  keepFieldsList?: Array<string> | undefined;
+  octetCounting?: boolean | undefined;
+  inferFraming?: boolean | undefined;
+  strictlyInferOctetCounting?: boolean | undefined;
+  allowNonStandardAppName?: boolean | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
+  __template_timestampTimezone?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputSyslogSyslog2$outboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog2$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputSyslogSyslog2
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("tcp"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  ipWhitelistRegex: types.optional(types.string()),
-  maxActiveCxn: types.optional(types.number()),
-  socketIdleTimeout: types.optional(types.number()),
-  socketEndingMaxWait: types.optional(types.number()),
-  socketMaxLifespan: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  enableHeader: types.optional(types.boolean()),
-  preprocess: types.optional(PreprocessType$inboundSchema),
-  description: types.optional(types.string()),
-  authToken: types.optional(types.string()),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  textSecret: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: CreateInputInputSyslogType2$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number().optional(),
+  tcpPort: z.number(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
+  __template_timestampTimezone: z.string().optional(),
 });
 
-export function inputResponseInputTcpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputTcp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputTcp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputTcp' from JSON`,
+export function createInputInputSyslogSyslog2ToJSON(
+  createInputInputSyslogSyslog2: CreateInputInputSyslogSyslog2,
+): string {
+  return JSON.stringify(
+    CreateInputInputSyslogSyslog2$outboundSchema.parse(
+      createInputInputSyslogSyslog2,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputFileMode$inboundSchema: z.ZodType<
-  InputResponseInputFileMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseInputFileMode);
+export const CreateInputInputSyslogType1$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType1
+> = z.nativeEnum(CreateInputInputSyslogType1);
 
 /** @internal */
-export const InputResponseInputFile$inboundSchema: z.ZodType<
-  InputResponseInputFile,
+export type CreateInputInputSyslogSyslog1$Outbound = {
+  id: string;
+  type: string;
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  udpPort: number;
+  tcpPort?: number | undefined;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  timestampTimezone?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  enableProxyHeader?: boolean | undefined;
+  keepFieldsList?: Array<string> | undefined;
+  octetCounting?: boolean | undefined;
+  inferFraming?: boolean | undefined;
+  strictlyInferOctetCounting?: boolean | undefined;
+  allowNonStandardAppName?: boolean | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
+  __template_timestampTimezone?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputSyslogSyslog1$outboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog1$Outbound,
   z.ZodTypeDef,
-  unknown
+  CreateInputInputSyslogSyslog1
 > = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("file"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  mode: types.optional(InputResponseInputFileMode$inboundSchema),
-  interval: types.optional(types.number()),
-  filenames: types.optional(z.array(types.string())),
-  filterArchivedFiles: types.optional(types.boolean()),
-  tailOnly: types.optional(types.boolean()),
-  idleTimeout: types.optional(types.number()),
-  minAgeDur: types.optional(types.string()),
-  maxAgeDur: types.optional(types.string()),
-  checkFileModTime: types.optional(types.boolean()),
-  forceText: types.optional(types.boolean()),
-  hashLen: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  breakerRulesets: types.optional(z.array(types.string())),
-  disableStaleChannelFlush: types.optional(types.boolean()),
-  staleChannelFlushMs: types.optional(types.number()),
-  description: types.optional(types.string()),
-  path: types.optional(types.string()),
-  depth: types.optional(types.number()),
-  suppressMissingPathErrors: types.optional(types.boolean()),
-  deleteFiles: types.optional(types.boolean()),
-  saltHash: types.optional(types.boolean()),
-  optimizeLeafDirectories: types.optional(types.boolean()),
-  includeUnidentifiableBinary: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
+  id: z.string(),
+  type: CreateInputInputSyslogType1$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
+  __template_timestampTimezone: z.string().optional(),
 });
 
-export function inputResponseInputFileFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputFile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputFile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputFile' from JSON`,
+export function createInputInputSyslogSyslog1ToJSON(
+  createInputInputSyslogSyslog1: CreateInputInputSyslogSyslog1,
+): string {
+  return JSON.stringify(
+    CreateInputInputSyslogSyslog1$outboundSchema.parse(
+      createInputInputSyslogSyslog1,
+    ),
   );
 }
 
 /** @internal */
-export const InputResponseInputSyslogType2$inboundSchema: z.ZodNativeEnum<
-  typeof InputResponseInputSyslogType2
-> = z.nativeEnum(InputResponseInputSyslogType2);
+export type CreateInputInputSyslogUnion$Outbound =
+  | CreateInputInputSyslogSyslog1$Outbound
+  | CreateInputInputSyslogSyslog2$Outbound;
 
 /** @internal */
-export const InputResponseInputSyslogSyslog2$inboundSchema: z.ZodType<
-  InputResponseInputSyslogSyslog2,
+export const CreateInputInputSyslogUnion$outboundSchema: z.ZodType<
+  CreateInputInputSyslogUnion$Outbound,
   z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: InputResponseInputSyslogType2$inboundSchema,
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  udpPort: types.optional(types.number()),
-  tcpPort: types.number(),
-  maxBufferSize: types.optional(types.number()),
-  ipWhitelistRegex: types.optional(types.string()),
-  timestampTimezone: types.optional(types.string()),
-  singleMsgUdpPackets: types.optional(types.boolean()),
-  enableProxyHeader: types.optional(types.boolean()),
-  keepFieldsList: types.optional(z.array(types.string())),
-  octetCounting: types.optional(types.boolean()),
-  inferFraming: types.optional(types.boolean()),
-  strictlyInferOctetCounting: types.optional(types.boolean()),
-  allowNonStandardAppName: types.optional(types.boolean()),
-  maxActiveCxn: types.optional(types.number()),
-  socketIdleTimeout: types.optional(types.number()),
-  socketEndingMaxWait: types.optional(types.number()),
-  socketMaxLifespan: types.optional(types.number()),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  udpSocketRxBufSize: types.optional(types.number()),
-  enableLoadBalancing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_udpPort: types.optional(types.string()),
-  __template_tcpPort: types.optional(types.string()),
-  __template_timestampTimezone: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputSyslogSyslog2FromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSyslogSyslog2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSyslogSyslog2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSyslogSyslog2' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputSyslogType1$inboundSchema: z.ZodNativeEnum<
-  typeof InputResponseInputSyslogType1
-> = z.nativeEnum(InputResponseInputSyslogType1);
-
-/** @internal */
-export const InputResponseInputSyslogSyslog1$inboundSchema: z.ZodType<
-  InputResponseInputSyslogSyslog1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: InputResponseInputSyslogType1$inboundSchema,
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  udpPort: types.number(),
-  tcpPort: types.optional(types.number()),
-  maxBufferSize: types.optional(types.number()),
-  ipWhitelistRegex: types.optional(types.string()),
-  timestampTimezone: types.optional(types.string()),
-  singleMsgUdpPackets: types.optional(types.boolean()),
-  enableProxyHeader: types.optional(types.boolean()),
-  keepFieldsList: types.optional(z.array(types.string())),
-  octetCounting: types.optional(types.boolean()),
-  inferFraming: types.optional(types.boolean()),
-  strictlyInferOctetCounting: types.optional(types.boolean()),
-  allowNonStandardAppName: types.optional(types.boolean()),
-  maxActiveCxn: types.optional(types.number()),
-  socketIdleTimeout: types.optional(types.number()),
-  socketEndingMaxWait: types.optional(types.number()),
-  socketMaxLifespan: types.optional(types.number()),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  udpSocketRxBufSize: types.optional(types.number()),
-  enableLoadBalancing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_udpPort: types.optional(types.string()),
-  __template_tcpPort: types.optional(types.string()),
-  __template_timestampTimezone: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputSyslogSyslog1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSyslogSyslog1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSyslogSyslog1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSyslogSyslog1' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputSyslogUnion$inboundSchema: z.ZodType<
-  InputResponseInputSyslogUnion,
-  z.ZodTypeDef,
-  unknown
+  CreateInputInputSyslogUnion
 > = smartUnion([
-  z.lazy(() => InputResponseInputSyslogSyslog1$inboundSchema),
-  z.lazy(() => InputResponseInputSyslogSyslog2$inboundSchema),
+  z.lazy(() => CreateInputInputSyslogSyslog1$outboundSchema),
+  z.lazy(() => CreateInputInputSyslogSyslog2$outboundSchema),
 ]);
 
-export function inputResponseInputSyslogUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSyslogUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSyslogUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSyslogUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseQueueType$inboundSchema: z.ZodType<
-  InputResponseQueueType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseQueueType);
-
-/** @internal */
-export const InputResponseInputSqs$inboundSchema: z.ZodType<
-  InputResponseInputSqs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("sqs"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  queueName: types.string(),
-  queueType: InputResponseQueueType$inboundSchema,
-  awsAccountId: types.optional(types.string()),
-  createQueue: types.optional(types.boolean()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.optional(types.string()),
-  endpoint: types.optional(types.string()),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  maxMessages: types.optional(types.number()),
-  visibilityTimeout: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  pollTimeout: types.optional(types.number()),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  numReceivers: types.optional(types.number()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_queueName: types.optional(types.string()),
-  __template_queueType: types.optional(types.string()),
-  __template_awsAccountId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputSqsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSqs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSqs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSqs' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputModelDrivenTelemetry$inboundSchema: z.ZodType<
-  InputResponseInputModelDrivenTelemetry,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("model_driven_telemetry"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  maxActiveCxn: types.optional(types.number()),
-  shutdownTimeoutMs: types.optional(types.number()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputModelDrivenTelemetryFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputModelDrivenTelemetry, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseInputModelDrivenTelemetry$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputModelDrivenTelemetry' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseProtocol$inboundSchema: z.ZodType<
-  InputResponseProtocol,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseProtocol);
-
-/** @internal */
-export const InputResponseOTLPVersion$inboundSchema: z.ZodType<
-  InputResponseOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseOTLPVersion);
-
-/** @internal */
-export const InputResponseAuthenticationTypeOpenTelemetry$inboundSchema:
-  z.ZodType<
-    InputResponseAuthenticationTypeOpenTelemetry,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(InputResponseAuthenticationTypeOpenTelemetry);
-
-/** @internal */
-export const AuthMethodsExtAuthenticationTypeOpenTelemetry$inboundSchema:
-  z.ZodType<
-    AuthMethodsExtAuthenticationTypeOpenTelemetry,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(AuthMethodsExtAuthenticationTypeOpenTelemetry);
-
-/** @internal */
-export const InputResponseAuthMethodsExt$inboundSchema: z.ZodType<
-  InputResponseAuthMethodsExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: AuthMethodsExtAuthenticationTypeOpenTelemetry$inboundSchema,
-  token: types.optional(types.string()),
-  description: types.optional(types.string()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  enabled: types.optional(types.boolean()),
-  tokenSecret: types.optional(types.string()),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
-});
-
-export function inputResponseAuthMethodsExtFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseAuthMethodsExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseAuthMethodsExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseAuthMethodsExt' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputOpenTelemetry$inboundSchema: z.ZodType<
-  InputResponseInputOpenTelemetry,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("open_telemetry"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  protocol: types.optional(InputResponseProtocol$inboundSchema),
-  extractSpans: types.optional(types.boolean()),
-  extractMetrics: types.optional(types.boolean()),
-  otlpVersion: types.optional(InputResponseOTLPVersion$inboundSchema),
-  authType: types.optional(
-    InputResponseAuthenticationTypeOpenTelemetry$inboundSchema,
-  ),
-  authMethodsExt: types.optional(
-    z.array(z.lazy(() => InputResponseAuthMethodsExt$inboundSchema)),
-  ),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  maxActiveCxn: types.optional(types.number()),
-  description: types.optional(types.string()),
-  username: types.optional(types.string()),
-  password: types.optional(types.string()),
-  token: types.optional(types.string()),
-  credentialsSecret: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  extractLogs: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_protocol: types.optional(types.string()),
-  __template_otlpVersion: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputOpenTelemetryFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputOpenTelemetry, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputOpenTelemetry$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputOpenTelemetry' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseV3User$inboundSchema: z.ZodType<
-  InputResponseV3User,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: types.string(),
-  authProtocol: types.optional(types.string()),
-  authKey: types.optional(types.string()),
-  privProtocol: types.optional(
-    PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
-  ),
-  privKey: types.optional(types.string()),
-});
-
-export function inputResponseV3UserFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseV3User, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseV3User$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseV3User' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseSNMPv3Authentication$inboundSchema: z.ZodType<
-  InputResponseSNMPv3Authentication,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  v3AuthEnabled: types.boolean(),
-  allowUnmatchedTrap: types.optional(types.boolean()),
-  v3Users: types.optional(
-    z.array(z.lazy(() => InputResponseV3User$inboundSchema)),
-  ),
-});
-
-export function inputResponseSNMPv3AuthenticationFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseSNMPv3Authentication, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseSNMPv3Authentication$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseSNMPv3Authentication' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputSnmp$inboundSchema: z.ZodType<
-  InputResponseInputSnmp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("snmp"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  snmpV3Auth: types.optional(
-    z.lazy(() => InputResponseSNMPv3Authentication$inboundSchema),
-  ),
-  maxBufferSize: types.optional(types.number()),
-  ipWhitelistRegex: types.optional(types.string()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  udpSocketRxBufSize: types.optional(types.number()),
-  varbindsWithTypes: types.optional(types.boolean()),
-  bestEffortParsing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputSnmpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSnmp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSnmp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSnmp' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputS3Inventory$inboundSchema: z.ZodType<
-  InputResponseInputS3Inventory,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("s3_inventory"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  queueName: types.string(),
-  fileFilter: types.optional(types.string()),
-  awsAccountId: types.optional(types.string()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.optional(types.string()),
-  endpoint: types.optional(types.string()),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  maxMessages: types.optional(types.number()),
-  visibilityTimeout: types.optional(types.number()),
-  numReceivers: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  skipOnError: types.optional(types.boolean()),
-  includeSqsMetadata: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  enableSQSAssumeRole: types.optional(types.boolean()),
-  preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  parquetChunkSizeMB: types.optional(types.number()),
-  parquetChunkDownloadTimeout: types.optional(types.number()),
-  checkpointing: types.optional(CheckpointingType$inboundSchema),
-  pollTimeout: types.optional(types.number()),
-  checksumSuffix: types.optional(types.string()),
-  maxManifestSizeKB: types.optional(types.number()),
-  validateInventoryFiles: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  tagAfterProcessing: types.optional(TagAfterProcessingOptions$inboundSchema),
-  processedTagKey: types.optional(types.string()),
-  processedTagValue: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_queueName: types.optional(types.string()),
-  __template_awsAccountId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputS3InventoryFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputS3Inventory, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputS3Inventory$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputS3Inventory' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputS3$inboundSchema: z.ZodType<
-  InputResponseInputS3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("s3"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  queueName: types.string(),
-  fileFilter: types.optional(types.string()),
-  awsAccountId: types.optional(types.string()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.optional(types.string()),
-  endpoint: types.optional(types.string()),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  maxMessages: types.optional(types.number()),
-  visibilityTimeout: types.optional(types.number()),
-  numReceivers: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  skipOnError: types.optional(types.boolean()),
-  includeSqsMetadata: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  enableSQSAssumeRole: types.optional(types.boolean()),
-  preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  parquetChunkSizeMB: types.optional(types.number()),
-  parquetChunkDownloadTimeout: types.optional(types.number()),
-  checkpointing: types.optional(CheckpointingType$inboundSchema),
-  pollTimeout: types.optional(types.number()),
-  encoding: types.optional(types.string()),
-  tagAfterProcessing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  processedTagKey: types.optional(types.string()),
-  processedTagValue: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_queueName: types.optional(types.string()),
-  __template_awsAccountId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputS3FromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputS3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputS3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputS3' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputMetrics$inboundSchema: z.ZodType<
-  InputResponseInputMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("metrics"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  udpPort: types.optional(types.number()),
-  tcpPort: types.optional(types.number()),
-  maxBufferSize: types.optional(types.number()),
-  ipWhitelistRegex: types.optional(types.string()),
-  enableProxyHeader: types.optional(types.boolean()),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  udpSocketRxBufSize: types.optional(types.number()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_udpPort: types.optional(types.string()),
-  __template_tcpPort: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputCriblmetrics$inboundSchema: z.ZodType<
-  InputResponseInputCriblmetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("criblmetrics"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  prefix: types.optional(types.string()),
-  fullFidelity: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputCriblmetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputCriblmetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputCriblmetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputCriblmetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseShardIteratorStart$inboundSchema: z.ZodType<
-  InputResponseShardIteratorStart,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseShardIteratorStart);
-
-/** @internal */
-export const InputResponseRecordDataFormat$inboundSchema: z.ZodType<
-  InputResponseRecordDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseRecordDataFormat);
-
-/** @internal */
-export const InputResponseShardLoadBalancing$inboundSchema: z.ZodType<
-  InputResponseShardLoadBalancing,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseShardLoadBalancing);
-
-/** @internal */
-export const InputResponseInputKinesis$inboundSchema: z.ZodType<
-  InputResponseInputKinesis,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("kinesis"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  streamName: types.string(),
-  serviceInterval: types.optional(types.number()),
-  shardExpr: types.optional(types.string()),
-  shardIteratorType: types.optional(
-    InputResponseShardIteratorStart$inboundSchema,
-  ),
-  payloadFormat: types.optional(InputResponseRecordDataFormat$inboundSchema),
-  getRecordsLimit: types.optional(types.number()),
-  getRecordsLimitTotal: types.optional(types.number()),
-  loadBalancingAlgorithm: types.optional(
-    InputResponseShardLoadBalancing$inboundSchema,
-  ),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.string(),
-  endpoint: types.optional(types.string()),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  verifyKPLCheckSums: types.optional(types.boolean()),
-  avoidDuplicates: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_streamName: types.optional(types.string()),
-  __template_shardIteratorType: types.optional(types.string()),
-  __template_payloadFormat: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputKinesisFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputKinesis, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputKinesis$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputKinesis' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputHttpRaw$inboundSchema: z.ZodType<
-  InputResponseInputHttpRaw,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("http_raw"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authTokens: types.optional(z.array(types.string())),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  allowedPaths: types.optional(z.array(types.string())),
-  allowedMethods: types.optional(z.array(types.string())),
-  authTokensExt: types.optional(
-    z.array(AuthTokensExtConfInputHttp$inboundSchema),
-  ),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_authTokens: types.optional(types.string()),
-  __template_allowedPaths: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputHttpRawFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputHttpRaw, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputHttpRaw$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputHttpRaw' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseSample$inboundSchema: z.ZodType<
-  InputResponseSample,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sample: types.string(),
-  eventsPerSec: types.number(),
-});
-
-export function inputResponseSampleFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseSample, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseSample$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseSample' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputDatagen$inboundSchema: z.ZodType<
-  InputResponseInputDatagen,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("datagen"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  samples: z.array(z.lazy(() => InputResponseSample$inboundSchema)),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputDatagenFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputDatagen, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputDatagen$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputDatagen' from JSON`,
-  );
-}
-
-/** @internal */
-export const ProxyModeDatadogAgent$inboundSchema: z.ZodType<
-  ProxyModeDatadogAgent,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: types.boolean(),
-  rejectUnauthorized: types.optional(types.boolean()),
-});
-
-export function proxyModeDatadogAgentFromJSON(
-  jsonString: string,
-): SafeParseResult<ProxyModeDatadogAgent, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProxyModeDatadogAgent$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProxyModeDatadogAgent' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputDatadogAgent$inboundSchema: z.ZodType<
-  InputResponseInputDatadogAgent,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("datadog_agent"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  extractMetrics: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  proxyMode: types.optional(z.lazy(() => ProxyModeDatadogAgent$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputDatadogAgentFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputDatadogAgent, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputDatadogAgent$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputDatadogAgent' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputCrowdstrike$inboundSchema: z.ZodType<
-  InputResponseInputCrowdstrike,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("crowdstrike"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  queueName: types.string(),
-  fileFilter: types.optional(types.string()),
-  awsAccountId: types.optional(types.string()),
-  awsAuthenticationMethod: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  region: types.optional(types.string()),
-  endpoint: types.optional(types.string()),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  maxMessages: types.optional(types.number()),
-  visibilityTimeout: types.optional(types.number()),
-  numReceivers: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  skipOnError: types.optional(types.boolean()),
-  includeSqsMetadata: types.optional(types.boolean()),
-  enableAssumeRole: types.optional(types.boolean()),
-  assumeRoleArn: types.optional(types.string()),
-  assumeRoleExternalId: types.optional(types.string()),
-  durationSeconds: types.optional(types.number()),
-  enableSQSAssumeRole: types.optional(types.boolean()),
-  preprocess: types.optional(PreprocessType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  checkpointing: types.optional(CheckpointingType$inboundSchema),
-  pollTimeout: types.optional(types.number()),
-  encoding: types.optional(types.string()),
-  description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  tagAfterProcessing: types.optional(TagAfterProcessingOptions$inboundSchema),
-  processedTagKey: types.optional(types.string()),
-  processedTagValue: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_queueName: types.optional(types.string()),
-  __template_awsAccountId: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_assumeRoleArn: types.optional(types.string()),
-  __template_assumeRoleExternalId: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputCrowdstrikeFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputCrowdstrike, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputCrowdstrike$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputCrowdstrike' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemModeWindowsMetrics$inboundSchema: z.ZodType<
-  SystemModeWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SystemModeWindowsMetrics);
-
-/** @internal */
-export const SystemWindowsMetrics$inboundSchema: z.ZodType<
-  SystemWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(SystemModeWindowsMetrics$inboundSchema),
-  detail: types.optional(types.boolean()),
-});
-
-export function systemWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const CpuModeWindowsMetrics$inboundSchema: z.ZodType<
-  CpuModeWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CpuModeWindowsMetrics);
-
-/** @internal */
-export const CpuWindowsMetrics$inboundSchema: z.ZodType<
-  CpuWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(CpuModeWindowsMetrics$inboundSchema),
-  perCpu: types.optional(types.boolean()),
-  detail: types.optional(types.boolean()),
-  time: types.optional(types.boolean()),
-});
-
-export function cpuWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<CpuWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CpuWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CpuWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const MemoryModeWindowsMetrics$inboundSchema: z.ZodType<
-  MemoryModeWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(MemoryModeWindowsMetrics);
-
-/** @internal */
-export const MemoryWindowsMetrics$inboundSchema: z.ZodType<
-  MemoryWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(MemoryModeWindowsMetrics$inboundSchema),
-  detail: types.optional(types.boolean()),
-});
-
-export function memoryWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<MemoryWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MemoryWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MemoryWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const NetworkModeWindowsMetrics$inboundSchema: z.ZodType<
-  NetworkModeWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(NetworkModeWindowsMetrics);
-
-/** @internal */
-export const NetworkWindowsMetrics$inboundSchema: z.ZodType<
-  NetworkWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(NetworkModeWindowsMetrics$inboundSchema),
-  detail: types.optional(types.boolean()),
-  protocols: types.optional(types.boolean()),
-  devices: types.optional(z.array(types.string())),
-  perInterface: types.optional(types.boolean()),
-});
-
-export function networkWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<NetworkWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NetworkWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NetworkWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const DiskModeWindowsMetrics$inboundSchema: z.ZodType<
-  DiskModeWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(DiskModeWindowsMetrics);
-
-/** @internal */
-export const DiskWindowsMetrics$inboundSchema: z.ZodType<
-  DiskWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(DiskModeWindowsMetrics$inboundSchema),
-  perVolume: types.optional(types.boolean()),
-  detail: types.optional(types.boolean()),
-  volumes: types.optional(z.array(types.string())),
-});
-
-export function diskWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<DiskWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DiskWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DiskWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const CustomWindowsMetrics$inboundSchema: z.ZodType<
-  CustomWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  system: types.optional(z.lazy(() => SystemWindowsMetrics$inboundSchema)),
-  cpu: types.optional(z.lazy(() => CpuWindowsMetrics$inboundSchema)),
-  memory: types.optional(z.lazy(() => MemoryWindowsMetrics$inboundSchema)),
-  network: types.optional(z.lazy(() => NetworkWindowsMetrics$inboundSchema)),
-  disk: types.optional(z.lazy(() => DiskWindowsMetrics$inboundSchema)),
-});
-
-export function customWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<CustomWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CustomWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CustomWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const HostWindowsMetrics$inboundSchema: z.ZodType<
-  HostWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(ModeOptionsHost$inboundSchema),
-  custom: types.optional(z.lazy(() => CustomWindowsMetrics$inboundSchema)),
-});
-
-export function hostWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<HostWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HostWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HostWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const PersistenceWindowsMetrics$inboundSchema: z.ZodType<
-  PersistenceWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-  timeWindow: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(
-    DataCompressionFormatOptionsPersistence$inboundSchema,
-  ),
-  destPath: types.optional(types.string()),
-});
-
-export function persistenceWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<PersistenceWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersistenceWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersistenceWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputWindowsMetrics$inboundSchema: z.ZodType<
-  InputResponseInputWindowsMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("windows_metrics"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  interval: types.optional(types.number()),
-  host: types.optional(z.lazy(() => HostWindowsMetrics$inboundSchema)),
-  process: types.optional(ProcessType$inboundSchema),
-  gpu: types.optional(GpuType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  persistence: types.optional(
-    z.lazy(() => PersistenceWindowsMetrics$inboundSchema),
-  ),
-  disableNativeModule: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputWindowsMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputWindowsMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputWindowsMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputKubeEvents$inboundSchema: z.ZodType<
-  InputResponseInputKubeEvents,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("kube_events"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  rules: types.optional(z.array(RuleConfInputKubeMetrics$inboundSchema)),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputKubeEventsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputKubeEvents, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputKubeEvents$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputKubeEvents' from JSON`,
-  );
-}
-
-/** @internal */
-export const RuleKubeLogs$inboundSchema: z.ZodType<
-  RuleKubeLogs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: types.string(),
-  description: types.optional(types.string()),
-});
-
-export function ruleKubeLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<RuleKubeLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RuleKubeLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RuleKubeLogs' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputKubeLogs$inboundSchema: z.ZodType<
-  InputResponseInputKubeLogs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("kube_logs"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  interval: types.optional(types.number()),
-  rules: types.optional(z.array(z.lazy(() => RuleKubeLogs$inboundSchema))),
-  timestamps: types.optional(types.boolean()),
-  lineBufferLimit: types.optional(types.number()),
-  __LBDisableAssembly: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  persistence: types.optional(DiskSpoolingType$inboundSchema),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  enableLoadBalancing: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputKubeLogsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputKubeLogs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputKubeLogs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputKubeLogs' from JSON`,
-  );
-}
-
-/** @internal */
-export const PersistenceKubeMetrics$inboundSchema: z.ZodType<
-  PersistenceKubeMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-  timeWindow: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(
-    DataCompressionFormatOptionsPersistence$inboundSchema,
-  ),
-  destPath: types.optional(types.string()),
-});
-
-export function persistenceKubeMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<PersistenceKubeMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersistenceKubeMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersistenceKubeMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputKubeMetrics$inboundSchema: z.ZodType<
-  InputResponseInputKubeMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("kube_metrics"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  interval: types.optional(types.number()),
-  scrapeKubelet: types.optional(types.boolean()),
-  scrapeCadvisor: types.optional(types.boolean()),
-  rules: types.optional(z.array(RuleConfInputKubeMetrics$inboundSchema)),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  persistence: types.optional(
-    z.lazy(() => PersistenceKubeMetrics$inboundSchema),
-  ),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputKubeMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputKubeMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputKubeMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputKubeMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseHostsFile$inboundSchema: z.ZodType<
-  InputResponseHostsFile,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseHostsFileFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseHostsFile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseHostsFile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseHostsFile' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInterfaces$inboundSchema: z.ZodType<
-  InputResponseInterfaces,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseInterfacesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInterfaces, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInterfaces$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInterfaces' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseDisksAndFileSystems$inboundSchema: z.ZodType<
-  InputResponseDisksAndFileSystems,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseDisksAndFileSystemsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseDisksAndFileSystems, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseDisksAndFileSystems$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseDisksAndFileSystems' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseHostInfo$inboundSchema: z.ZodType<
-  InputResponseHostInfo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseHostInfoFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseHostInfo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseHostInfo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseHostInfo' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseRoutes$inboundSchema: z.ZodType<
-  InputResponseRoutes,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseRoutesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseRoutes, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseRoutes$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseRoutes' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseDNS$inboundSchema: z.ZodType<
-  InputResponseDNS,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseDNSFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseDNS, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseDNS$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseDNS' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseUsersAndGroups$inboundSchema: z.ZodType<
-  InputResponseUsersAndGroups,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseUsersAndGroupsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseUsersAndGroups, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseUsersAndGroups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseUsersAndGroups' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseFirewall$inboundSchema: z.ZodType<
-  InputResponseFirewall,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseFirewallFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseFirewall, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseFirewall$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseFirewall' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseServices$inboundSchema: z.ZodType<
-  InputResponseServices,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseServicesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseServices, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseServices$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseServices' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseListeningPorts$inboundSchema: z.ZodType<
-  InputResponseListeningPorts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseListeningPortsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseListeningPorts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseListeningPorts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseListeningPorts' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseLoggedInUsers$inboundSchema: z.ZodType<
-  InputResponseLoggedInUsers,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-});
-
-export function inputResponseLoggedInUsersFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseLoggedInUsers, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseLoggedInUsers$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseLoggedInUsers' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseCollectors$inboundSchema: z.ZodType<
-  InputResponseCollectors,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  hostsfile: types.optional(z.lazy(() => InputResponseHostsFile$inboundSchema)),
-  interfaces: types.optional(
-    z.lazy(() => InputResponseInterfaces$inboundSchema),
-  ),
-  disk: types.optional(
-    z.lazy(() => InputResponseDisksAndFileSystems$inboundSchema),
-  ),
-  metadata: types.optional(z.lazy(() => InputResponseHostInfo$inboundSchema)),
-  routes: types.optional(z.lazy(() => InputResponseRoutes$inboundSchema)),
-  dns: types.optional(z.lazy(() => InputResponseDNS$inboundSchema)),
-  user: types.optional(z.lazy(() => InputResponseUsersAndGroups$inboundSchema)),
-  firewall: types.optional(z.lazy(() => InputResponseFirewall$inboundSchema)),
-  services: types.optional(z.lazy(() => InputResponseServices$inboundSchema)),
-  ports: types.optional(
-    z.lazy(() => InputResponseListeningPorts$inboundSchema),
-  ),
-  loginUsers: types.optional(
-    z.lazy(() => InputResponseLoggedInUsers$inboundSchema),
-  ),
-});
-
-export function inputResponseCollectorsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseCollectors, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseCollectors$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseCollectors' from JSON`,
-  );
-}
-
-/** @internal */
-export const PersistenceSystemState$inboundSchema: z.ZodType<
-  PersistenceSystemState,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-  timeWindow: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(
-    DataCompressionFormatOptionsPersistence$inboundSchema,
-  ),
-  destPath: types.optional(types.string()),
-});
-
-export function persistenceSystemStateFromJSON(
-  jsonString: string,
-): SafeParseResult<PersistenceSystemState, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersistenceSystemState$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersistenceSystemState' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputSystemState$inboundSchema: z.ZodType<
-  InputResponseInputSystemState,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("system_state"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  interval: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  collectors: types.optional(
-    z.lazy(() => InputResponseCollectors$inboundSchema),
-  ),
-  persistence: types.optional(
-    z.lazy(() => PersistenceSystemState$inboundSchema),
-  ),
-  disableNativeModule: types.optional(types.boolean()),
-  disableNativeLastLogModule: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputSystemStateFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSystemState, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSystemState$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSystemState' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemModeSystemMetrics$inboundSchema: z.ZodType<
-  SystemModeSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SystemModeSystemMetrics);
-
-/** @internal */
-export const SystemSystemMetrics$inboundSchema: z.ZodType<
-  SystemSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(SystemModeSystemMetrics$inboundSchema),
-  processes: types.optional(types.boolean()),
-});
-
-export function systemSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const CpuModeSystemMetrics$inboundSchema: z.ZodType<
-  CpuModeSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CpuModeSystemMetrics);
-
-/** @internal */
-export const CpuSystemMetrics$inboundSchema: z.ZodType<
-  CpuSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(CpuModeSystemMetrics$inboundSchema),
-  perCpu: types.optional(types.boolean()),
-  detail: types.optional(types.boolean()),
-  time: types.optional(types.boolean()),
-});
-
-export function cpuSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<CpuSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CpuSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CpuSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const MemoryModeSystemMetrics$inboundSchema: z.ZodType<
-  MemoryModeSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(MemoryModeSystemMetrics);
-
-/** @internal */
-export const MemorySystemMetrics$inboundSchema: z.ZodType<
-  MemorySystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(MemoryModeSystemMetrics$inboundSchema),
-  detail: types.optional(types.boolean()),
-});
-
-export function memorySystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<MemorySystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MemorySystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MemorySystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const NetworkModeSystemMetrics$inboundSchema: z.ZodType<
-  NetworkModeSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(NetworkModeSystemMetrics);
-
-/** @internal */
-export const NetworkSystemMetrics$inboundSchema: z.ZodType<
-  NetworkSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(NetworkModeSystemMetrics$inboundSchema),
-  detail: types.optional(types.boolean()),
-  protocols: types.optional(types.boolean()),
-  devices: types.optional(z.array(types.string())),
-  perInterface: types.optional(types.boolean()),
-});
-
-export function networkSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<NetworkSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NetworkSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NetworkSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const DiskModeSystemMetrics$inboundSchema: z.ZodType<
-  DiskModeSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(DiskModeSystemMetrics);
-
-/** @internal */
-export const DiskSystemMetrics$inboundSchema: z.ZodType<
-  DiskSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(DiskModeSystemMetrics$inboundSchema),
-  detail: types.optional(types.boolean()),
-  inodes: types.optional(types.boolean()),
-  devices: types.optional(z.array(types.string())),
-  mountpoints: types.optional(z.array(types.string())),
-  fstypes: types.optional(z.array(types.string())),
-  perDevice: types.optional(types.boolean()),
-});
-
-export function diskSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<DiskSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DiskSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DiskSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const CustomSystemMetrics$inboundSchema: z.ZodType<
-  CustomSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  system: types.optional(z.lazy(() => SystemSystemMetrics$inboundSchema)),
-  cpu: types.optional(z.lazy(() => CpuSystemMetrics$inboundSchema)),
-  memory: types.optional(z.lazy(() => MemorySystemMetrics$inboundSchema)),
-  network: types.optional(z.lazy(() => NetworkSystemMetrics$inboundSchema)),
-  disk: types.optional(z.lazy(() => DiskSystemMetrics$inboundSchema)),
-});
-
-export function customSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<CustomSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CustomSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CustomSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const HostSystemMetrics$inboundSchema: z.ZodType<
-  HostSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(ModeOptionsHost$inboundSchema),
-  custom: types.optional(z.lazy(() => CustomSystemMetrics$inboundSchema)),
-});
-
-export function hostSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<HostSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HostSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HostSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const ContainerModeSystemMetrics$inboundSchema: z.ZodType<
-  ContainerModeSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ContainerModeSystemMetrics);
-
-/** @internal */
-export const FilterSystemMetrics$inboundSchema: z.ZodType<
-  FilterSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  expr: types.string(),
-});
-
-export function filterSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<FilterSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FilterSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FilterSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseContainer$inboundSchema: z.ZodType<
-  InputResponseContainer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: types.optional(ContainerModeSystemMetrics$inboundSchema),
-  dockerSocket: types.optional(z.array(types.string())),
-  dockerTimeout: types.optional(types.number()),
-  filters: types.optional(
-    z.array(z.lazy(() => FilterSystemMetrics$inboundSchema)),
-  ),
-  allContainers: types.optional(types.boolean()),
-  perDevice: types.optional(types.boolean()),
-  detail: types.optional(types.boolean()),
-});
-
-export function inputResponseContainerFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseContainer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseContainer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseContainer' from JSON`,
-  );
-}
-
-/** @internal */
-export const PersistenceSystemMetrics$inboundSchema: z.ZodType<
-  PersistenceSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: types.optional(types.boolean()),
-  timeWindow: types.optional(types.string()),
-  maxDataSize: types.optional(types.string()),
-  maxDataTime: types.optional(types.string()),
-  compress: types.optional(
-    DataCompressionFormatOptionsPersistence$inboundSchema,
-  ),
-  destPath: types.optional(types.string()),
-});
-
-export function persistenceSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<PersistenceSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersistenceSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersistenceSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputSystemMetrics$inboundSchema: z.ZodType<
-  InputResponseInputSystemMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("system_metrics"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  interval: types.optional(types.number()),
-  host: types.optional(z.lazy(() => HostSystemMetrics$inboundSchema)),
-  process: types.optional(ProcessType$inboundSchema),
-  container: types.optional(z.lazy(() => InputResponseContainer$inboundSchema)),
-  gpu: types.optional(GpuType$inboundSchema),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  persistence: types.optional(
-    z.lazy(() => PersistenceSystemMetrics$inboundSchema),
-  ),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputSystemMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputSystemMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputSystemMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputSystemMetrics' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputTcpjson$inboundSchema: z.ZodType<
-  InputResponseInputTcpjson,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("tcpjson"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  ipWhitelistRegex: types.optional(types.string()),
-  maxActiveCxn: types.optional(types.number()),
-  socketIdleTimeout: types.optional(types.number()),
-  socketEndingMaxWait: types.optional(types.number()),
-  socketMaxLifespan: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  enableLoadBalancing: types.optional(types.boolean()),
-  authType: types.optional(
-    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  ),
-  description: types.optional(types.string()),
-  authToken: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputTcpjsonFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputTcpjson, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputTcpjson$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputTcpjson' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseSplunkHecMetadata$inboundSchema: z.ZodType<
-  InputResponseSplunkHecMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: types.optional(types.boolean()),
-  defaultDataset: types.optional(types.string()),
-  allowedIndexesAtToken: types.optional(z.array(types.string())),
-});
-
-export function inputResponseSplunkHecMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseSplunkHecMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseSplunkHecMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseSplunkHecMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseElasticsearchMetadata$inboundSchema: z.ZodType<
-  InputResponseElasticsearchMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: types.optional(types.boolean()),
-  defaultDataset: types.optional(types.string()),
-});
-
-export function inputResponseElasticsearchMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseElasticsearchMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputResponseElasticsearchMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseElasticsearchMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseAuthTokensExt$inboundSchema: z.ZodType<
-  InputResponseAuthTokensExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  token: types.string(),
-  description: types.optional(types.string()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  splunkHecMetadata: types.optional(
-    z.lazy(() => InputResponseSplunkHecMetadata$inboundSchema),
-  ),
-  elasticsearchMetadata: types.optional(
-    z.lazy(() => InputResponseElasticsearchMetadata$inboundSchema),
-  ),
-});
-
-export function inputResponseAuthTokensExtFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseAuthTokensExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseAuthTokensExt' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputCriblLakeHttp$inboundSchema: z.ZodType<
-  InputResponseInputCriblLakeHttp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl_lake_http"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authTokens: types.optional(z.array(types.string())),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  criblAPI: types.optional(types.string()),
-  elasticAPI: types.optional(types.string()),
-  splunkHecAPI: types.optional(types.string()),
-  splunkHecAcks: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  authTokensExt: types.optional(
-    z.array(z.lazy(() => InputResponseAuthTokensExt$inboundSchema)),
-  ),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_authTokens: types.optional(types.string()),
-  __template_criblAPI: types.optional(types.string()),
-  __template_elasticAPI: types.optional(types.string()),
-  __template_splunkHecAPI: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputCriblLakeHttpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputCriblLakeHttp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputCriblLakeHttp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputCriblLakeHttp' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputCriblHttp$inboundSchema: z.ZodType<
-  InputResponseInputCriblHttp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl_http"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authTokens: types.optional(z.array(AuthTokenConfInputCriblTcp$inboundSchema)),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputCriblHttpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputCriblHttp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputCriblHttp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputCriblHttp' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputCriblTcp$inboundSchema: z.ZodType<
-  InputResponseInputCriblTcp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl_tcp"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveCxn: types.optional(types.number()),
-  socketIdleTimeout: types.optional(types.number()),
-  socketEndingMaxWait: types.optional(types.number()),
-  socketMaxLifespan: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  enableLoadBalancing: types.optional(types.boolean()),
-  authTokens: types.optional(z.array(AuthTokenConfInputCriblTcp$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputCriblTcpFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputCriblTcp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputCriblTcp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputCriblTcp' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputCribl$inboundSchema: z.ZodType<
-  InputResponseInputCribl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("cribl"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  filter: types.optional(types.string()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputCriblFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputCribl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputCribl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputCribl' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputGooglePubsub$inboundSchema: z.ZodType<
-  InputResponseInputGooglePubsub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("google_pubsub"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  topicName: types.string(),
-  subscriptionName: types.string(),
-  monitorSubscription: types.optional(types.boolean()),
-  createTopic: types.optional(types.boolean()),
-  createSubscription: types.optional(types.boolean()),
-  region: types.optional(types.string()),
-  googleAuthMethod: types.optional(
-    GoogleAuthenticationMethodOptions$inboundSchema,
-  ),
-  serviceAccountCredentials: types.optional(types.string()),
-  secret: types.optional(types.string()),
-  maxBacklog: types.optional(types.number()),
-  concurrency: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  orderedDelivery: types.optional(types.boolean()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_topicName: types.optional(types.string()),
-  __template_subscriptionName: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputGooglePubsubFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputGooglePubsub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputGooglePubsub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputGooglePubsub' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseInputFirehose$inboundSchema: z.ZodType<
-  InputResponseInputFirehose,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("firehose"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  host: types.string(),
-  port: types.number(),
-  authTokens: types.optional(z.array(types.string())),
-  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  maxActiveReq: types.optional(types.number()),
-  maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(types.boolean()),
-  captureHeaders: types.optional(types.boolean()),
-  activityLogSampleRate: types.optional(types.number()),
-  requestTimeout: types.optional(types.number()),
-  socketTimeout: types.optional(types.number()),
-  keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(types.boolean()),
-  ipAllowlistRegex: types.optional(types.string()),
-  ipDenylistRegex: types.optional(types.string()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_host: types.optional(types.string()),
-  __template_port: types.optional(types.string()),
-  __template_authTokens: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputFirehoseFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputFirehose, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputFirehose$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputFirehose' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseScheduleType$inboundSchema: z.ZodType<
-  InputResponseScheduleType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseScheduleType);
-
-/** @internal */
-export const InputResponseInputExec$inboundSchema: z.ZodType<
-  InputResponseInputExec,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("exec"),
-  disabled: types.optional(types.boolean()),
-  pipeline: types.optional(types.string()),
-  sendToRoutes: types.optional(types.boolean()),
-  environment: types.optional(types.string()),
-  pqEnabled: types.optional(types.boolean()),
-  streamtags: types.optional(z.array(types.string())),
-  criblSourceProvenance: types.optional(
-    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-  ),
-  connections: types.optional(
-    z.array(ConnectionConfInputCollection$inboundSchema),
-  ),
-  pq: types.optional(PqType$inboundSchema),
-  command: types.string(),
-  script: types.optional(types.string()),
-  retries: types.optional(types.number()),
-  scheduleType: types.optional(InputResponseScheduleType$inboundSchema),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
-  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
-  description: types.optional(types.string()),
-  interval: types.optional(types.number()),
-  cronSchedule: types.optional(types.string()),
-  __template_environment: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function inputResponseInputExecFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseInputExec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseInputExec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseInputExec' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseAuthenticationMechanism$inboundSchema: z.ZodType<
-  InputResponseAuthenticationMechanism,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputResponseAuthenticationMechanism);
-
-/** @internal */
-export const InputResponseAuth$inboundSchema: z.ZodType<
-  InputResponseAuth,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mechanism: InputResponseAuthenticationMechanism$inboundSchema,
-  textSecret: types.optional(types.string()),
-  clientSecretAuthType: types.optional(
-    AuthenticationMethodOptionsAuth$inboundSchema,
-  ),
-  clientTextSecret: types.optional(types.string()),
-  certificate: types.optional(
-    CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
-  ),
-  oauthEndpoint: types.optional(
-    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
-  ),
-  clientId: types.optional(types.string()),
-  tenantId: types.optional(types.string()),
-  fullyQualifiedNamespace: types.optional(types.string()),
-  __template_oauthEndpoint: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-  __template_tenantId: types.optional(types.string()),
-  __template_fullyQualifiedNamespace: types.optional(types.string()),
-});
-
-export function inputResponseAuthFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseAuth, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseAuth$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseAuth' from JSON`,
-  );
-}
-
-/** @internal */
-export const AuthenticationMethodEventhubAmqp$inboundSchema: z.ZodType<
-  AuthenticationMethodEventhubAmqp,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AuthenticationMethodEventhubAmqp);
-
-/** @internal */
-export const InputResponseAzureBlobStorage$inboundSchema: z.ZodType<
-  InputResponseAzureBlobStorage,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  containerName: types.string(),
-  authType: types.optional(AuthenticationMethodEventhubAmqp$inboundSchema),
-  textSecret: types.optional(types.string()),
-  storageAccountName: types.optional(types.string()),
-  tenantId: types.optional(types.string()),
-  clientId: types.optional(types.string()),
-  azureCloud: types.optional(types.string()),
-  endpointSuffix: types.optional(types.string()),
-  clientTextSecret: types.optional(types.string()),
-  certificate: types.optional(
-    CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
-  ),
-  __template_storageAccountName: types.optional(types.string()),
-  __template_tenantId: types.optional(types.string()),
-  __template_clientId: types.optional(types.string()),
-  __template_azureCloud: types.optional(types.string()),
-});
-
-export function inputResponseAzureBlobStorageFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseAzureBlobStorage, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseAzureBlobStorage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseAzureBlobStorage' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputResponseCheckpointing$inboundSchema: z.ZodType<
-  InputResponseCheckpointing,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  blobStore: z.lazy(() => InputResponseAzureBlobStorage$inboundSchema),
-});
-
-export function inputResponseCheckpointingFromJSON(
-  jsonString: string,
-): SafeParseResult<InputResponseCheckpointing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputResponseCheckpointing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputResponseCheckpointing' from JSON`,
+export function createInputInputSyslogUnionToJSON(
+  createInputInputSyslogUnion: CreateInputInputSyslogUnion,
+): string {
+  return JSON.stringify(
+    CreateInputInputSyslogUnion$outboundSchema.parse(
+      createInputInputSyslogUnion,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputQueueType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputQueueType
+> = openEnums.outboundSchema(CreateInputQueueType);
+
+/** @internal */
+export type CreateInputInputSqs$Outbound = {
+  id: string;
+  type: "sqs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue?: boolean | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers?: number | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_queueType?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputSqs$outboundSchema: z.ZodType<
+  CreateInputInputSqs$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputSqs
+> = z.object({
+  id: z.string(),
+  type: z.literal("sqs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: CreateInputQueueType$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  pollTimeout: z.number().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_queueType: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+});
+
+export function createInputInputSqsToJSON(
+  createInputInputSqs: CreateInputInputSqs,
+): string {
+  return JSON.stringify(
+    CreateInputInputSqs$outboundSchema.parse(createInputInputSqs),
+  );
+}
+
+/** @internal */
+export type CreateInputInputModelDrivenTelemetry$Outbound = {
+  id: string;
+  type: "model_driven_telemetry";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  maxActiveCxn?: number | undefined;
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputModelDrivenTelemetry$outboundSchema: z.ZodType<
+  CreateInputInputModelDrivenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputModelDrivenTelemetry
+> = z.object({
+  id: z.string(),
+  type: z.literal("model_driven_telemetry"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  maxActiveCxn: z.number().optional(),
+  shutdownTimeoutMs: z.number().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputModelDrivenTelemetryToJSON(
+  createInputInputModelDrivenTelemetry: CreateInputInputModelDrivenTelemetry,
+): string {
+  return JSON.stringify(
+    CreateInputInputModelDrivenTelemetry$outboundSchema.parse(
+      createInputInputModelDrivenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputProtocol
+> = openEnums.outboundSchema(CreateInputProtocol);
+
+/** @internal */
+export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputOTLPVersion
+> = openEnums.outboundSchema(CreateInputOTLPVersion);
+
+/** @internal */
+export const CreateInputAuthenticationTypeOpenTelemetry$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthenticationTypeOpenTelemetry> =
+    openEnums.outboundSchema(CreateInputAuthenticationTypeOpenTelemetry);
+
+/** @internal */
+export const CreateInputAuthMethodsExtAuthenticationType$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthMethodsExtAuthenticationType> =
+    openEnums.outboundSchema(CreateInputAuthMethodsExtAuthenticationType);
+
+/** @internal */
+export type CreateInputAuthMethodsExt$Outbound = {
+  authType: string;
+  token?: string | undefined;
+  description?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  enabled?: boolean | undefined;
+  tokenSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthMethodsExt$outboundSchema: z.ZodType<
+  CreateInputAuthMethodsExt$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthMethodsExt
+> = z.object({
+  authType: CreateInputAuthMethodsExtAuthenticationType$outboundSchema,
+  token: z.string().optional(),
+  description: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  enabled: z.boolean().optional(),
+  tokenSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+});
+
+export function createInputAuthMethodsExtToJSON(
+  createInputAuthMethodsExt: CreateInputAuthMethodsExt,
+): string {
+  return JSON.stringify(
+    CreateInputAuthMethodsExt$outboundSchema.parse(createInputAuthMethodsExt),
+  );
+}
+
+/** @internal */
+export type CreateInputInputOpenTelemetry$Outbound = {
+  id: string;
+  type: "open_telemetry";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  protocol?: string | undefined;
+  extractSpans?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  authType?: string | undefined;
+  authMethodsExt?: Array<CreateInputAuthMethodsExt$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  extractLogs?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_protocol?: string | undefined;
+  __template_otlpVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputOpenTelemetry$outboundSchema: z.ZodType<
+  CreateInputInputOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputOpenTelemetry
+> = z.object({
+  id: z.string(),
+  type: z.literal("open_telemetry"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  protocol: CreateInputProtocol$outboundSchema.optional(),
+  extractSpans: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  otlpVersion: CreateInputOTLPVersion$outboundSchema.optional(),
+  authType: CreateInputAuthenticationTypeOpenTelemetry$outboundSchema
+    .optional(),
+  authMethodsExt: z.array(
+    z.lazy(() => CreateInputAuthMethodsExt$outboundSchema),
+  ).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  maxActiveCxn: z.number().optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  extractLogs: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_protocol: z.string().optional(),
+  __template_otlpVersion: z.string().optional(),
+});
+
+export function createInputInputOpenTelemetryToJSON(
+  createInputInputOpenTelemetry: CreateInputInputOpenTelemetry,
+): string {
+  return JSON.stringify(
+    CreateInputInputOpenTelemetry$outboundSchema.parse(
+      createInputInputOpenTelemetry,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputV3User$Outbound = {
+  name: string;
+  authProtocol?: string | undefined;
+  authKey?: string | undefined;
+  privProtocol?: string | undefined;
+  privKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputV3User$outboundSchema: z.ZodType<
+  CreateInputV3User$Outbound,
+  z.ZodTypeDef,
+  CreateInputV3User
+> = z.object({
+  name: z.string(),
+  authProtocol: z.string().optional(),
+  authKey: z.string().optional(),
+  privProtocol: models
+    .PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema
+    .optional(),
+  privKey: z.string().optional(),
+});
+
+export function createInputV3UserToJSON(
+  createInputV3User: CreateInputV3User,
+): string {
+  return JSON.stringify(
+    CreateInputV3User$outboundSchema.parse(createInputV3User),
+  );
+}
+
+/** @internal */
+export type CreateInputSNMPv3Authentication$Outbound = {
+  v3AuthEnabled: boolean;
+  allowUnmatchedTrap?: boolean | undefined;
+  v3Users?: Array<CreateInputV3User$Outbound> | undefined;
+};
+
+/** @internal */
+export const CreateInputSNMPv3Authentication$outboundSchema: z.ZodType<
+  CreateInputSNMPv3Authentication$Outbound,
+  z.ZodTypeDef,
+  CreateInputSNMPv3Authentication
+> = z.object({
+  v3AuthEnabled: z.boolean(),
+  allowUnmatchedTrap: z.boolean().optional(),
+  v3Users: z.array(z.lazy(() => CreateInputV3User$outboundSchema)).optional(),
+});
+
+export function createInputSNMPv3AuthenticationToJSON(
+  createInputSNMPv3Authentication: CreateInputSNMPv3Authentication,
+): string {
+  return JSON.stringify(
+    CreateInputSNMPv3Authentication$outboundSchema.parse(
+      createInputSNMPv3Authentication,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputSnmp$Outbound = {
+  id: string;
+  type: "snmp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  snmpV3Auth?: CreateInputSNMPv3Authentication$Outbound | undefined;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  varbindsWithTypes?: boolean | undefined;
+  bestEffortParsing?: boolean | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputSnmp$outboundSchema: z.ZodType<
+  CreateInputInputSnmp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputSnmp
+> = z.object({
+  id: z.string(),
+  type: z.literal("snmp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  snmpV3Auth: z.lazy(() => CreateInputSNMPv3Authentication$outboundSchema)
+    .optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputSnmpToJSON(
+  createInputInputSnmp: CreateInputInputSnmp,
+): string {
+  return JSON.stringify(
+    CreateInputInputSnmp$outboundSchema.parse(createInputInputSnmp),
+  );
+}
+
+/** @internal */
+export type CreateInputInputS3Inventory$Outbound = {
+  id: string;
+  type: "s3_inventory";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  checksumSuffix?: string | undefined;
+  maxManifestSizeKB?: number | undefined;
+  validateInventoryFiles?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputS3Inventory$outboundSchema: z.ZodType<
+  CreateInputInputS3Inventory$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputS3Inventory
+> = z.object({
+  id: z.string(),
+  type: z.literal("s3_inventory"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  checksumSuffix: z.string().optional(),
+  maxManifestSizeKB: z.number().int().optional(),
+  validateInventoryFiles: z.boolean().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
+    .optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+});
+
+export function createInputInputS3InventoryToJSON(
+  createInputInputS3Inventory: CreateInputInputS3Inventory,
+): string {
+  return JSON.stringify(
+    CreateInputInputS3Inventory$outboundSchema.parse(
+      createInputInputS3Inventory,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputS3$Outbound = {
+  id: string;
+  type: "s3";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  encoding?: string | undefined;
+  tagAfterProcessing?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputS3$outboundSchema: z.ZodType<
+  CreateInputInputS3$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputS3
+> = z.object({
+  id: z.string(),
+  type: z.literal("s3"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  encoding: z.string().optional(),
+  tagAfterProcessing: z.boolean().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+});
+
+export function createInputInputS3ToJSON(
+  createInputInputS3: CreateInputInputS3,
+): string {
+  return JSON.stringify(
+    CreateInputInputS3$outboundSchema.parse(createInputInputS3),
+  );
+}
+
+/** @internal */
+export type CreateInputInputMetrics$Outbound = {
+  id: string;
+  type: "metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  enableProxyHeader?: boolean | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputMetrics$outboundSchema: z.ZodType<
+  CreateInputInputMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
+});
+
+export function createInputInputMetricsToJSON(
+  createInputInputMetrics: CreateInputInputMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputInputMetrics$outboundSchema.parse(createInputInputMetrics),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblmetrics$Outbound = {
+  id: string;
+  type: "criblmetrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  prefix?: string | undefined;
+  fullFidelity?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblmetrics$outboundSchema: z.ZodType<
+  CreateInputInputCriblmetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblmetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("criblmetrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  prefix: z.string().optional(),
+  fullFidelity: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputCriblmetricsToJSON(
+  createInputInputCriblmetrics: CreateInputInputCriblmetrics,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblmetrics$outboundSchema.parse(
+      createInputInputCriblmetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputShardIteratorStart$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputShardIteratorStart
+> = openEnums.outboundSchema(CreateInputShardIteratorStart);
+
+/** @internal */
+export const CreateInputRecordDataFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputRecordDataFormat
+> = openEnums.outboundSchema(CreateInputRecordDataFormat);
+
+/** @internal */
+export const CreateInputShardLoadBalancing$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputShardLoadBalancing
+> = openEnums.outboundSchema(CreateInputShardLoadBalancing);
+
+/** @internal */
+export type CreateInputInputKinesis$Outbound = {
+  id: string;
+  type: "kinesis";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval?: number | undefined;
+  shardExpr?: string | undefined;
+  shardIteratorType?: string | undefined;
+  payloadFormat?: string | undefined;
+  getRecordsLimit?: number | undefined;
+  getRecordsLimitTotal?: number | undefined;
+  loadBalancingAlgorithm?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  verifyKPLCheckSums?: boolean | undefined;
+  avoidDuplicates?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_streamName?: string | undefined;
+  __template_shardIteratorType?: string | undefined;
+  __template_payloadFormat?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputKinesis$outboundSchema: z.ZodType<
+  CreateInputInputKinesis$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputKinesis
+> = z.object({
+  id: z.string(),
+  type: z.literal("kinesis"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().optional(),
+  shardExpr: z.string().optional(),
+  shardIteratorType: CreateInputShardIteratorStart$outboundSchema.optional(),
+  payloadFormat: CreateInputRecordDataFormat$outboundSchema.optional(),
+  getRecordsLimit: z.number().optional(),
+  getRecordsLimitTotal: z.number().optional(),
+  loadBalancingAlgorithm: CreateInputShardLoadBalancing$outboundSchema
+    .optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  verifyKPLCheckSums: z.boolean().optional(),
+  avoidDuplicates: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_streamName: z.string().optional(),
+  __template_shardIteratorType: z.string().optional(),
+  __template_payloadFormat: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+});
+
+export function createInputInputKinesisToJSON(
+  createInputInputKinesis: CreateInputInputKinesis,
+): string {
+  return JSON.stringify(
+    CreateInputInputKinesis$outboundSchema.parse(createInputInputKinesis),
+  );
+}
+
+/** @internal */
+export type CreateInputInputHttpRaw$Outbound = {
+  id: string;
+  type: "http_raw";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  allowedPaths?: Array<string> | undefined;
+  allowedMethods?: Array<string> | undefined;
+  authTokensExt?: Array<models.AuthTokensExtConfInputHttp$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
+  __template_allowedPaths?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputHttpRaw$outboundSchema: z.ZodType<
+  CreateInputInputHttpRaw$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputHttpRaw
+> = z.object({
+  id: z.string(),
+  type: z.literal("http_raw"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(models.AuthTokensExtConfInputHttp$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+  __template_allowedPaths: z.string().optional(),
+});
+
+export function createInputInputHttpRawToJSON(
+  createInputInputHttpRaw: CreateInputInputHttpRaw,
+): string {
+  return JSON.stringify(
+    CreateInputInputHttpRaw$outboundSchema.parse(createInputInputHttpRaw),
+  );
+}
+
+/** @internal */
+export type CreateInputSample$Outbound = {
+  sample: string;
+  eventsPerSec: number;
+};
+
+/** @internal */
+export const CreateInputSample$outboundSchema: z.ZodType<
+  CreateInputSample$Outbound,
+  z.ZodTypeDef,
+  CreateInputSample
+> = z.object({
+  sample: z.string(),
+  eventsPerSec: z.number(),
+});
+
+export function createInputSampleToJSON(
+  createInputSample: CreateInputSample,
+): string {
+  return JSON.stringify(
+    CreateInputSample$outboundSchema.parse(createInputSample),
+  );
+}
+
+/** @internal */
+export type CreateInputInputDatagen$Outbound = {
+  id: string;
+  type: "datagen";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  samples: Array<CreateInputSample$Outbound>;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputDatagen$outboundSchema: z.ZodType<
+  CreateInputInputDatagen$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputDatagen
+> = z.object({
+  id: z.string(),
+  type: z.literal("datagen"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  samples: z.array(z.lazy(() => CreateInputSample$outboundSchema)),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputDatagenToJSON(
+  createInputInputDatagen: CreateInputInputDatagen,
+): string {
+  return JSON.stringify(
+    CreateInputInputDatagen$outboundSchema.parse(createInputInputDatagen),
+  );
+}
+
+/** @internal */
+export type CreateInputProxyModeDatadogAgent$Outbound = {
+  enabled: boolean;
+  rejectUnauthorized?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputProxyModeDatadogAgent$outboundSchema: z.ZodType<
+  CreateInputProxyModeDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  CreateInputProxyModeDatadogAgent
+> = z.object({
+  enabled: z.boolean(),
+  rejectUnauthorized: z.boolean().optional(),
+});
+
+export function createInputProxyModeDatadogAgentToJSON(
+  createInputProxyModeDatadogAgent: CreateInputProxyModeDatadogAgent,
+): string {
+  return JSON.stringify(
+    CreateInputProxyModeDatadogAgent$outboundSchema.parse(
+      createInputProxyModeDatadogAgent,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputDatadogAgent$Outbound = {
+  id: string;
+  type: "datadog_agent";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  extractMetrics?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  proxyMode?: CreateInputProxyModeDatadogAgent$Outbound | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputDatadogAgent$outboundSchema: z.ZodType<
+  CreateInputInputDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputDatadogAgent
+> = z.object({
+  id: z.string(),
+  type: z.literal("datadog_agent"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  extractMetrics: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  proxyMode: z.lazy(() => CreateInputProxyModeDatadogAgent$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputDatadogAgentToJSON(
+  createInputInputDatadogAgent: CreateInputInputDatadogAgent,
+): string {
+  return JSON.stringify(
+    CreateInputInputDatadogAgent$outboundSchema.parse(
+      createInputInputDatadogAgent,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCrowdstrike$Outbound = {
+  id: string;
+  type: "crowdstrike";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  encoding?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCrowdstrike$outboundSchema: z.ZodType<
+  CreateInputInputCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCrowdstrike
+> = z.object({
+  id: z.string(),
+  type: z.literal("crowdstrike"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  encoding: z.string().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
+    .optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+});
+
+export function createInputInputCrowdstrikeToJSON(
+  createInputInputCrowdstrike: CreateInputInputCrowdstrike,
+): string {
+  return JSON.stringify(
+    CreateInputInputCrowdstrike$outboundSchema.parse(
+      createInputInputCrowdstrike,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputSystemModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputSystemModeWindowsMetrics);
+
+/** @internal */
+export type CreateInputSystemWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputSystemWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemWindowsMetrics
+> = z.object({
+  mode: CreateInputSystemModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
+
+export function createInputSystemWindowsMetricsToJSON(
+  createInputSystemWindowsMetrics: CreateInputSystemWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputSystemWindowsMetrics$outboundSchema.parse(
+      createInputSystemWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputCpuModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputCpuModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputCpuModeWindowsMetrics);
+
+/** @internal */
+export type CreateInputCpuWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  perCpu?: boolean | undefined;
+  detail?: boolean | undefined;
+  time?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputCpuWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputCpuWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputCpuWindowsMetrics
+> = z.object({
+  mode: CreateInputCpuModeWindowsMetrics$outboundSchema.optional(),
+  perCpu: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  time: z.boolean().optional(),
+});
+
+export function createInputCpuWindowsMetricsToJSON(
+  createInputCpuWindowsMetrics: CreateInputCpuWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputCpuWindowsMetrics$outboundSchema.parse(
+      createInputCpuWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputMemoryModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMemoryModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputMemoryModeWindowsMetrics);
+
+/** @internal */
+export type CreateInputMemoryWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputMemoryWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputMemoryWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputMemoryWindowsMetrics
+> = z.object({
+  mode: CreateInputMemoryModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
+
+export function createInputMemoryWindowsMetricsToJSON(
+  createInputMemoryWindowsMetrics: CreateInputMemoryWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputMemoryWindowsMetrics$outboundSchema.parse(
+      createInputMemoryWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputNetworkModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputNetworkModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputNetworkModeWindowsMetrics);
+
+/** @internal */
+export type CreateInputNetworkWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+  protocols?: boolean | undefined;
+  devices?: Array<string> | undefined;
+  perInterface?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputNetworkWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputNetworkWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputNetworkWindowsMetrics
+> = z.object({
+  mode: CreateInputNetworkModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().optional(),
+});
+
+export function createInputNetworkWindowsMetricsToJSON(
+  createInputNetworkWindowsMetrics: CreateInputNetworkWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputNetworkWindowsMetrics$outboundSchema.parse(
+      createInputNetworkWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputDiskModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputDiskModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputDiskModeWindowsMetrics);
+
+/** @internal */
+export type CreateInputDiskWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  perVolume?: boolean | undefined;
+  detail?: boolean | undefined;
+  volumes?: Array<string> | undefined;
+};
+
+/** @internal */
+export const CreateInputDiskWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputDiskWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputDiskWindowsMetrics
+> = z.object({
+  mode: CreateInputDiskModeWindowsMetrics$outboundSchema.optional(),
+  perVolume: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  volumes: z.array(z.string()).optional(),
+});
+
+export function createInputDiskWindowsMetricsToJSON(
+  createInputDiskWindowsMetrics: CreateInputDiskWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputDiskWindowsMetrics$outboundSchema.parse(
+      createInputDiskWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputCustomWindowsMetrics$Outbound = {
+  system?: CreateInputSystemWindowsMetrics$Outbound | undefined;
+  cpu?: CreateInputCpuWindowsMetrics$Outbound | undefined;
+  memory?: CreateInputMemoryWindowsMetrics$Outbound | undefined;
+  network?: CreateInputNetworkWindowsMetrics$Outbound | undefined;
+  disk?: CreateInputDiskWindowsMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputCustomWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputCustomWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputCustomWindowsMetrics
+> = z.object({
+  system: z.lazy(() => CreateInputSystemWindowsMetrics$outboundSchema)
+    .optional(),
+  cpu: z.lazy(() => CreateInputCpuWindowsMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => CreateInputMemoryWindowsMetrics$outboundSchema)
+    .optional(),
+  network: z.lazy(() => CreateInputNetworkWindowsMetrics$outboundSchema)
+    .optional(),
+  disk: z.lazy(() => CreateInputDiskWindowsMetrics$outboundSchema).optional(),
+});
+
+export function createInputCustomWindowsMetricsToJSON(
+  createInputCustomWindowsMetrics: CreateInputCustomWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputCustomWindowsMetrics$outboundSchema.parse(
+      createInputCustomWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputHostWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  custom?: CreateInputCustomWindowsMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputHostWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputHostWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputHostWindowsMetrics
+> = z.object({
+  mode: models.ModeOptionsHost$outboundSchema.optional(),
+  custom: z.lazy(() => CreateInputCustomWindowsMetrics$outboundSchema)
+    .optional(),
+});
+
+export function createInputHostWindowsMetricsToJSON(
+  createInputHostWindowsMetrics: CreateInputHostWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputHostWindowsMetrics$outboundSchema.parse(
+      createInputHostWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputPersistenceWindowsMetrics$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputPersistenceWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceWindowsMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function createInputPersistenceWindowsMetricsToJSON(
+  createInputPersistenceWindowsMetrics: CreateInputPersistenceWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputPersistenceWindowsMetrics$outboundSchema.parse(
+      createInputPersistenceWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputWindowsMetrics$Outbound = {
+  id: string;
+  type: "windows_metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  host?: CreateInputHostWindowsMetrics$Outbound | undefined;
+  process?: models.ProcessType$Outbound | undefined;
+  gpu?: models.GpuType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  persistence?: CreateInputPersistenceWindowsMetrics$Outbound | undefined;
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputInputWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputWindowsMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("windows_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => CreateInputHostWindowsMetrics$outboundSchema).optional(),
+  process: models.ProcessType$outboundSchema.optional(),
+  gpu: models.GpuType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => CreateInputPersistenceWindowsMetrics$outboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputWindowsMetricsToJSON(
+  createInputInputWindowsMetrics: CreateInputInputWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputInputWindowsMetrics$outboundSchema.parse(
+      createInputInputWindowsMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputKubeEvents$Outbound = {
+  id: string;
+  type: "kube_events";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  rules?: Array<models.RuleConfInputKubeMetrics$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputKubeEvents$outboundSchema: z.ZodType<
+  CreateInputInputKubeEvents$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputKubeEvents
+> = z.object({
+  id: z.string(),
+  type: z.literal("kube_events"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  rules: z.array(models.RuleConfInputKubeMetrics$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputKubeEventsToJSON(
+  createInputInputKubeEvents: CreateInputInputKubeEvents,
+): string {
+  return JSON.stringify(
+    CreateInputInputKubeEvents$outboundSchema.parse(createInputInputKubeEvents),
+  );
+}
+
+/** @internal */
+export type CreateInputRuleKubeLogs$Outbound = {
+  filter: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputRuleKubeLogs$outboundSchema: z.ZodType<
+  CreateInputRuleKubeLogs$Outbound,
+  z.ZodTypeDef,
+  CreateInputRuleKubeLogs
+> = z.object({
+  filter: z.string(),
+  description: z.string().optional(),
+});
+
+export function createInputRuleKubeLogsToJSON(
+  createInputRuleKubeLogs: CreateInputRuleKubeLogs,
+): string {
+  return JSON.stringify(
+    CreateInputRuleKubeLogs$outboundSchema.parse(createInputRuleKubeLogs),
+  );
+}
+
+/** @internal */
+export type CreateInputInputKubeLogs$Outbound = {
+  id: string;
+  type: "kube_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  rules?: Array<CreateInputRuleKubeLogs$Outbound> | undefined;
+  timestamps?: boolean | undefined;
+  lineBufferLimit?: number | undefined;
+  __LBDisableAssembly?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  persistence?: models.DiskSpoolingType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputKubeLogs$outboundSchema: z.ZodType<
+  CreateInputInputKubeLogs$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputKubeLogs
+> = z.object({
+  id: z.string(),
+  type: z.literal("kube_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  rules: z.array(z.lazy(() => CreateInputRuleKubeLogs$outboundSchema))
+    .optional(),
+  timestamps: z.boolean().optional(),
+  lineBufferLimit: z.number().optional(),
+  __LBDisableAssembly: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  persistence: models.DiskSpoolingType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputKubeLogsToJSON(
+  createInputInputKubeLogs: CreateInputInputKubeLogs,
+): string {
+  return JSON.stringify(
+    CreateInputInputKubeLogs$outboundSchema.parse(createInputInputKubeLogs),
+  );
+}
+
+/** @internal */
+export type CreateInputPersistenceKubeMetrics$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputPersistenceKubeMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceKubeMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function createInputPersistenceKubeMetricsToJSON(
+  createInputPersistenceKubeMetrics: CreateInputPersistenceKubeMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputPersistenceKubeMetrics$outboundSchema.parse(
+      createInputPersistenceKubeMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputKubeMetrics$Outbound = {
+  id: string;
+  type: "kube_metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  scrapeKubelet?: boolean | undefined;
+  scrapeCadvisor?: boolean | undefined;
+  rules?: Array<models.RuleConfInputKubeMetrics$Outbound> | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  persistence?: CreateInputPersistenceKubeMetrics$Outbound | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputKubeMetrics$outboundSchema: z.ZodType<
+  CreateInputInputKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputKubeMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("kube_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  scrapeKubelet: z.boolean().optional(),
+  scrapeCadvisor: z.boolean().optional(),
+  rules: z.array(models.RuleConfInputKubeMetrics$outboundSchema).optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => CreateInputPersistenceKubeMetrics$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputKubeMetricsToJSON(
+  createInputInputKubeMetrics: CreateInputInputKubeMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputInputKubeMetrics$outboundSchema.parse(
+      createInputInputKubeMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputHostsFile$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputHostsFile$outboundSchema: z.ZodType<
+  CreateInputHostsFile$Outbound,
+  z.ZodTypeDef,
+  CreateInputHostsFile
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputHostsFileToJSON(
+  createInputHostsFile: CreateInputHostsFile,
+): string {
+  return JSON.stringify(
+    CreateInputHostsFile$outboundSchema.parse(createInputHostsFile),
+  );
+}
+
+/** @internal */
+export type CreateInputInterfaces$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputInterfaces$outboundSchema: z.ZodType<
+  CreateInputInterfaces$Outbound,
+  z.ZodTypeDef,
+  CreateInputInterfaces
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputInterfacesToJSON(
+  createInputInterfaces: CreateInputInterfaces,
+): string {
+  return JSON.stringify(
+    CreateInputInterfaces$outboundSchema.parse(createInputInterfaces),
+  );
+}
+
+/** @internal */
+export type CreateInputDisksAndFileSystems$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputDisksAndFileSystems$outboundSchema: z.ZodType<
+  CreateInputDisksAndFileSystems$Outbound,
+  z.ZodTypeDef,
+  CreateInputDisksAndFileSystems
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputDisksAndFileSystemsToJSON(
+  createInputDisksAndFileSystems: CreateInputDisksAndFileSystems,
+): string {
+  return JSON.stringify(
+    CreateInputDisksAndFileSystems$outboundSchema.parse(
+      createInputDisksAndFileSystems,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputHostInfo$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputHostInfo$outboundSchema: z.ZodType<
+  CreateInputHostInfo$Outbound,
+  z.ZodTypeDef,
+  CreateInputHostInfo
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputHostInfoToJSON(
+  createInputHostInfo: CreateInputHostInfo,
+): string {
+  return JSON.stringify(
+    CreateInputHostInfo$outboundSchema.parse(createInputHostInfo),
+  );
+}
+
+/** @internal */
+export type CreateInputRoutes$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputRoutes$outboundSchema: z.ZodType<
+  CreateInputRoutes$Outbound,
+  z.ZodTypeDef,
+  CreateInputRoutes
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputRoutesToJSON(
+  createInputRoutes: CreateInputRoutes,
+): string {
+  return JSON.stringify(
+    CreateInputRoutes$outboundSchema.parse(createInputRoutes),
+  );
+}
+
+/** @internal */
+export type CreateInputDNS$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputDNS$outboundSchema: z.ZodType<
+  CreateInputDNS$Outbound,
+  z.ZodTypeDef,
+  CreateInputDNS
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputDNSToJSON(createInputDNS: CreateInputDNS): string {
+  return JSON.stringify(CreateInputDNS$outboundSchema.parse(createInputDNS));
+}
+
+/** @internal */
+export type CreateInputUsersAndGroups$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputUsersAndGroups$outboundSchema: z.ZodType<
+  CreateInputUsersAndGroups$Outbound,
+  z.ZodTypeDef,
+  CreateInputUsersAndGroups
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputUsersAndGroupsToJSON(
+  createInputUsersAndGroups: CreateInputUsersAndGroups,
+): string {
+  return JSON.stringify(
+    CreateInputUsersAndGroups$outboundSchema.parse(createInputUsersAndGroups),
+  );
+}
+
+/** @internal */
+export type CreateInputFirewall$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputFirewall$outboundSchema: z.ZodType<
+  CreateInputFirewall$Outbound,
+  z.ZodTypeDef,
+  CreateInputFirewall
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputFirewallToJSON(
+  createInputFirewall: CreateInputFirewall,
+): string {
+  return JSON.stringify(
+    CreateInputFirewall$outboundSchema.parse(createInputFirewall),
+  );
+}
+
+/** @internal */
+export type CreateInputServices$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputServices$outboundSchema: z.ZodType<
+  CreateInputServices$Outbound,
+  z.ZodTypeDef,
+  CreateInputServices
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputServicesToJSON(
+  createInputServices: CreateInputServices,
+): string {
+  return JSON.stringify(
+    CreateInputServices$outboundSchema.parse(createInputServices),
+  );
+}
+
+/** @internal */
+export type CreateInputListeningPorts$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputListeningPorts$outboundSchema: z.ZodType<
+  CreateInputListeningPorts$Outbound,
+  z.ZodTypeDef,
+  CreateInputListeningPorts
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputListeningPortsToJSON(
+  createInputListeningPorts: CreateInputListeningPorts,
+): string {
+  return JSON.stringify(
+    CreateInputListeningPorts$outboundSchema.parse(createInputListeningPorts),
+  );
+}
+
+/** @internal */
+export type CreateInputLoggedInUsers$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputLoggedInUsers$outboundSchema: z.ZodType<
+  CreateInputLoggedInUsers$Outbound,
+  z.ZodTypeDef,
+  CreateInputLoggedInUsers
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputLoggedInUsersToJSON(
+  createInputLoggedInUsers: CreateInputLoggedInUsers,
+): string {
+  return JSON.stringify(
+    CreateInputLoggedInUsers$outboundSchema.parse(createInputLoggedInUsers),
+  );
+}
+
+/** @internal */
+export type CreateInputCollectors$Outbound = {
+  hostsfile?: CreateInputHostsFile$Outbound | undefined;
+  interfaces?: CreateInputInterfaces$Outbound | undefined;
+  disk?: CreateInputDisksAndFileSystems$Outbound | undefined;
+  metadata?: CreateInputHostInfo$Outbound | undefined;
+  routes?: CreateInputRoutes$Outbound | undefined;
+  dns?: CreateInputDNS$Outbound | undefined;
+  user?: CreateInputUsersAndGroups$Outbound | undefined;
+  firewall?: CreateInputFirewall$Outbound | undefined;
+  services?: CreateInputServices$Outbound | undefined;
+  ports?: CreateInputListeningPorts$Outbound | undefined;
+  loginUsers?: CreateInputLoggedInUsers$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputCollectors$outboundSchema: z.ZodType<
+  CreateInputCollectors$Outbound,
+  z.ZodTypeDef,
+  CreateInputCollectors
+> = z.object({
+  hostsfile: z.lazy(() => CreateInputHostsFile$outboundSchema).optional(),
+  interfaces: z.lazy(() => CreateInputInterfaces$outboundSchema).optional(),
+  disk: z.lazy(() => CreateInputDisksAndFileSystems$outboundSchema).optional(),
+  metadata: z.lazy(() => CreateInputHostInfo$outboundSchema).optional(),
+  routes: z.lazy(() => CreateInputRoutes$outboundSchema).optional(),
+  dns: z.lazy(() => CreateInputDNS$outboundSchema).optional(),
+  user: z.lazy(() => CreateInputUsersAndGroups$outboundSchema).optional(),
+  firewall: z.lazy(() => CreateInputFirewall$outboundSchema).optional(),
+  services: z.lazy(() => CreateInputServices$outboundSchema).optional(),
+  ports: z.lazy(() => CreateInputListeningPorts$outboundSchema).optional(),
+  loginUsers: z.lazy(() => CreateInputLoggedInUsers$outboundSchema).optional(),
+});
+
+export function createInputCollectorsToJSON(
+  createInputCollectors: CreateInputCollectors,
+): string {
+  return JSON.stringify(
+    CreateInputCollectors$outboundSchema.parse(createInputCollectors),
+  );
+}
+
+/** @internal */
+export type CreateInputPersistenceSystemState$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputPersistenceSystemState$outboundSchema: z.ZodType<
+  CreateInputPersistenceSystemState$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceSystemState
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function createInputPersistenceSystemStateToJSON(
+  createInputPersistenceSystemState: CreateInputPersistenceSystemState,
+): string {
+  return JSON.stringify(
+    CreateInputPersistenceSystemState$outboundSchema.parse(
+      createInputPersistenceSystemState,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputSystemState$Outbound = {
+  id: string;
+  type: "system_state";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  collectors?: CreateInputCollectors$Outbound | undefined;
+  persistence?: CreateInputPersistenceSystemState$Outbound | undefined;
+  disableNativeModule?: boolean | undefined;
+  disableNativeLastLogModule?: boolean | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputSystemState$outboundSchema: z.ZodType<
+  CreateInputInputSystemState$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputSystemState
+> = z.object({
+  id: z.string(),
+  type: z.literal("system_state"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  collectors: z.lazy(() => CreateInputCollectors$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceSystemState$outboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().optional(),
+  disableNativeLastLogModule: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputSystemStateToJSON(
+  createInputInputSystemState: CreateInputInputSystemState,
+): string {
+  return JSON.stringify(
+    CreateInputInputSystemState$outboundSchema.parse(
+      createInputInputSystemState,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputSystemModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputSystemModeSystemMetrics);
+
+/** @internal */
+export type CreateInputSystemSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  processes?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputSystemSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemSystemMetrics
+> = z.object({
+  mode: CreateInputSystemModeSystemMetrics$outboundSchema.optional(),
+  processes: z.boolean().optional(),
+});
+
+export function createInputSystemSystemMetricsToJSON(
+  createInputSystemSystemMetrics: CreateInputSystemSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputSystemSystemMetrics$outboundSchema.parse(
+      createInputSystemSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputCpuModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputCpuModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputCpuModeSystemMetrics);
+
+/** @internal */
+export type CreateInputCpuSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  perCpu?: boolean | undefined;
+  detail?: boolean | undefined;
+  time?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputCpuSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputCpuSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputCpuSystemMetrics
+> = z.object({
+  mode: CreateInputCpuModeSystemMetrics$outboundSchema.optional(),
+  perCpu: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  time: z.boolean().optional(),
+});
+
+export function createInputCpuSystemMetricsToJSON(
+  createInputCpuSystemMetrics: CreateInputCpuSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputCpuSystemMetrics$outboundSchema.parse(
+      createInputCpuSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputMemoryModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputMemoryModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputMemoryModeSystemMetrics);
+
+/** @internal */
+export type CreateInputMemorySystemMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputMemorySystemMetrics$outboundSchema: z.ZodType<
+  CreateInputMemorySystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputMemorySystemMetrics
+> = z.object({
+  mode: CreateInputMemoryModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
+
+export function createInputMemorySystemMetricsToJSON(
+  createInputMemorySystemMetrics: CreateInputMemorySystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputMemorySystemMetrics$outboundSchema.parse(
+      createInputMemorySystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputNetworkModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputNetworkModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputNetworkModeSystemMetrics);
+
+/** @internal */
+export type CreateInputNetworkSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+  protocols?: boolean | undefined;
+  devices?: Array<string> | undefined;
+  perInterface?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputNetworkSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputNetworkSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputNetworkSystemMetrics
+> = z.object({
+  mode: CreateInputNetworkModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().optional(),
+});
+
+export function createInputNetworkSystemMetricsToJSON(
+  createInputNetworkSystemMetrics: CreateInputNetworkSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputNetworkSystemMetrics$outboundSchema.parse(
+      createInputNetworkSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputDiskModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputDiskModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputDiskModeSystemMetrics);
+
+/** @internal */
+export type CreateInputDiskSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+  inodes?: boolean | undefined;
+  devices?: Array<string> | undefined;
+  mountpoints?: Array<string> | undefined;
+  fstypes?: Array<string> | undefined;
+  perDevice?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputDiskSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputDiskSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputDiskSystemMetrics
+> = z.object({
+  mode: CreateInputDiskModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  inodes: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().optional(),
+});
+
+export function createInputDiskSystemMetricsToJSON(
+  createInputDiskSystemMetrics: CreateInputDiskSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputDiskSystemMetrics$outboundSchema.parse(
+      createInputDiskSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputCustomSystemMetrics$Outbound = {
+  system?: CreateInputSystemSystemMetrics$Outbound | undefined;
+  cpu?: CreateInputCpuSystemMetrics$Outbound | undefined;
+  memory?: CreateInputMemorySystemMetrics$Outbound | undefined;
+  network?: CreateInputNetworkSystemMetrics$Outbound | undefined;
+  disk?: CreateInputDiskSystemMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputCustomSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputCustomSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputCustomSystemMetrics
+> = z.object({
+  system: z.lazy(() => CreateInputSystemSystemMetrics$outboundSchema)
+    .optional(),
+  cpu: z.lazy(() => CreateInputCpuSystemMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => CreateInputMemorySystemMetrics$outboundSchema)
+    .optional(),
+  network: z.lazy(() => CreateInputNetworkSystemMetrics$outboundSchema)
+    .optional(),
+  disk: z.lazy(() => CreateInputDiskSystemMetrics$outboundSchema).optional(),
+});
+
+export function createInputCustomSystemMetricsToJSON(
+  createInputCustomSystemMetrics: CreateInputCustomSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputCustomSystemMetrics$outboundSchema.parse(
+      createInputCustomSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputHostSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  custom?: CreateInputCustomSystemMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputHostSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputHostSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputHostSystemMetrics
+> = z.object({
+  mode: models.ModeOptionsHost$outboundSchema.optional(),
+  custom: z.lazy(() => CreateInputCustomSystemMetrics$outboundSchema)
+    .optional(),
+});
+
+export function createInputHostSystemMetricsToJSON(
+  createInputHostSystemMetrics: CreateInputHostSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputHostSystemMetrics$outboundSchema.parse(
+      createInputHostSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputContainerMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputContainerMode
+> = openEnums.outboundSchema(CreateInputContainerMode);
+
+/** @internal */
+export type CreateInputContainerFilter$Outbound = {
+  expr: string;
+};
+
+/** @internal */
+export const CreateInputContainerFilter$outboundSchema: z.ZodType<
+  CreateInputContainerFilter$Outbound,
+  z.ZodTypeDef,
+  CreateInputContainerFilter
+> = z.object({
+  expr: z.string(),
+});
+
+export function createInputContainerFilterToJSON(
+  createInputContainerFilter: CreateInputContainerFilter,
+): string {
+  return JSON.stringify(
+    CreateInputContainerFilter$outboundSchema.parse(createInputContainerFilter),
+  );
+}
+
+/** @internal */
+export type CreateInputContainer$Outbound = {
+  mode?: string | undefined;
+  dockerSocket?: Array<string> | undefined;
+  dockerTimeout?: number | undefined;
+  filters?: Array<CreateInputContainerFilter$Outbound> | undefined;
+  allContainers?: boolean | undefined;
+  perDevice?: boolean | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputContainer$outboundSchema: z.ZodType<
+  CreateInputContainer$Outbound,
+  z.ZodTypeDef,
+  CreateInputContainer
+> = z.object({
+  mode: CreateInputContainerMode$outboundSchema.optional(),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().optional(),
+  filters: z.array(z.lazy(() => CreateInputContainerFilter$outboundSchema))
+    .optional(),
+  allContainers: z.boolean().optional(),
+  perDevice: z.boolean().optional(),
+  detail: z.boolean().optional(),
+});
+
+export function createInputContainerToJSON(
+  createInputContainer: CreateInputContainer,
+): string {
+  return JSON.stringify(
+    CreateInputContainer$outboundSchema.parse(createInputContainer),
+  );
+}
+
+/** @internal */
+export type CreateInputPersistenceSystemMetrics$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputPersistenceSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputPersistenceSystemMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function createInputPersistenceSystemMetricsToJSON(
+  createInputPersistenceSystemMetrics: CreateInputPersistenceSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputPersistenceSystemMetrics$outboundSchema.parse(
+      createInputPersistenceSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputSystemMetrics$Outbound = {
+  id: string;
+  type: "system_metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  host?: CreateInputHostSystemMetrics$Outbound | undefined;
+  process?: models.ProcessType$Outbound | undefined;
+  container?: CreateInputContainer$Outbound | undefined;
+  gpu?: models.GpuType$Outbound | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  persistence?: CreateInputPersistenceSystemMetrics$Outbound | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputInputSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputSystemMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("system_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => CreateInputHostSystemMetrics$outboundSchema).optional(),
+  process: models.ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => CreateInputContainer$outboundSchema).optional(),
+  gpu: models.GpuType$outboundSchema.optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => CreateInputPersistenceSystemMetrics$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputSystemMetricsToJSON(
+  createInputInputSystemMetrics: CreateInputInputSystemMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputInputSystemMetrics$outboundSchema.parse(
+      createInputInputSystemMetrics,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputTcpjson$Outbound = {
+  id: string;
+  type: "tcpjson";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputTcpjson$outboundSchema: z.ZodType<
+  CreateInputInputTcpjson$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputTcpjson
+> = z.object({
+  id: z.string(),
+  type: z.literal("tcpjson"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputTcpjsonToJSON(
+  createInputInputTcpjson: CreateInputInputTcpjson,
+): string {
+  return JSON.stringify(
+    CreateInputInputTcpjson$outboundSchema.parse(createInputInputTcpjson),
+  );
+}
+
+/** @internal */
+export type CreateInputSplunkHecMetadata$Outbound = {
+  enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+};
+
+/** @internal */
+export const CreateInputSplunkHecMetadata$outboundSchema: z.ZodType<
+  CreateInputSplunkHecMetadata$Outbound,
+  z.ZodTypeDef,
+  CreateInputSplunkHecMetadata
+> = z.object({
+  enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+});
+
+export function createInputSplunkHecMetadataToJSON(
+  createInputSplunkHecMetadata: CreateInputSplunkHecMetadata,
+): string {
+  return JSON.stringify(
+    CreateInputSplunkHecMetadata$outboundSchema.parse(
+      createInputSplunkHecMetadata,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputElasticsearchMetadata$Outbound = {
+  enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputElasticsearchMetadata$outboundSchema: z.ZodType<
+  CreateInputElasticsearchMetadata$Outbound,
+  z.ZodTypeDef,
+  CreateInputElasticsearchMetadata
+> = z.object({
+  enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
+});
+
+export function createInputElasticsearchMetadataToJSON(
+  createInputElasticsearchMetadata: CreateInputElasticsearchMetadata,
+): string {
+  return JSON.stringify(
+    CreateInputElasticsearchMetadata$outboundSchema.parse(
+      createInputElasticsearchMetadata,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputAuthTokensExt$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata$Outbound | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthTokensExt$outboundSchema: z.ZodType<
+  CreateInputAuthTokensExt$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokensExt
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  splunkHecMetadata: z.lazy(() => CreateInputSplunkHecMetadata$outboundSchema)
+    .optional(),
+  elasticsearchMetadata: z.lazy(() =>
+    CreateInputElasticsearchMetadata$outboundSchema
+  ).optional(),
+});
+
+export function createInputAuthTokensExtToJSON(
+  createInputAuthTokensExt: CreateInputAuthTokensExt,
+): string {
+  return JSON.stringify(
+    CreateInputAuthTokensExt$outboundSchema.parse(createInputAuthTokensExt),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblLakeHttp$Outbound = {
+  id: string;
+  type: "cribl_lake_http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  criblAPI?: string | undefined;
+  elasticAPI?: string | undefined;
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  authTokensExt?: Array<CreateInputAuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
+  __template_criblAPI?: string | undefined;
+  __template_elasticAPI?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblLakeHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblLakeHttp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblLakeHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_lake_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  criblAPI: z.string().optional(),
+  elasticAPI: z.string().optional(),
+  splunkHecAPI: z.string().optional(),
+  splunkHecAcks: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  authTokensExt: z.array(z.lazy(() => CreateInputAuthTokensExt$outboundSchema))
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+  __template_criblAPI: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
+});
+
+export function createInputInputCriblLakeHttpToJSON(
+  createInputInputCriblLakeHttp: CreateInputInputCriblLakeHttp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblLakeHttp$outboundSchema.parse(
+      createInputInputCriblLakeHttp,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblHttp$Outbound = {
+  id: string;
+  type: "cribl_http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblHttp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(models.AuthTokenConfInputCriblTcp$outboundSchema)
+    .optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputCriblHttpToJSON(
+  createInputInputCriblHttp: CreateInputInputCriblHttp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblHttp$outboundSchema.parse(createInputInputCriblHttp),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblTcp$Outbound = {
+  id: string;
+  type: "cribl_tcp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblTcp$outboundSchema: z.ZodType<
+  CreateInputInputCriblTcp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblTcp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_tcp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  authTokens: z.array(models.AuthTokenConfInputCriblTcp$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputCriblTcpToJSON(
+  createInputInputCriblTcp: CreateInputInputCriblTcp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblTcp$outboundSchema.parse(createInputInputCriblTcp),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCribl$Outbound = {
+  id: string;
+  type: "cribl";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCribl$outboundSchema: z.ZodType<
+  CreateInputInputCribl$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCribl
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputCriblToJSON(
+  createInputInputCribl: CreateInputInputCribl,
+): string {
+  return JSON.stringify(
+    CreateInputInputCribl$outboundSchema.parse(createInputInputCribl),
+  );
+}
+
+/** @internal */
+export type CreateInputInputGooglePubsub$Outbound = {
+  id: string;
+  type: "google_pubsub";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  topicName: string;
+  subscriptionName: string;
+  monitorSubscription?: boolean | undefined;
+  createTopic?: boolean | undefined;
+  createSubscription?: boolean | undefined;
+  region?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxBacklog?: number | undefined;
+  concurrency?: number | undefined;
+  requestTimeout?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  orderedDelivery?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_topicName?: string | undefined;
+  __template_subscriptionName?: string | undefined;
+  __template_region?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputGooglePubsub$outboundSchema: z.ZodType<
+  CreateInputInputGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputGooglePubsub
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_pubsub"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  topicName: z.string(),
+  subscriptionName: z.string(),
+  monitorSubscription: z.boolean().optional(),
+  createTopic: z.boolean().optional(),
+  createSubscription: z.boolean().optional(),
+  region: z.string().optional(),
+  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  maxBacklog: z.number().optional(),
+  concurrency: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  orderedDelivery: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_topicName: z.string().optional(),
+  __template_subscriptionName: z.string().optional(),
+  __template_region: z.string().optional(),
+});
+
+export function createInputInputGooglePubsubToJSON(
+  createInputInputGooglePubsub: CreateInputInputGooglePubsub,
+): string {
+  return JSON.stringify(
+    CreateInputInputGooglePubsub$outboundSchema.parse(
+      createInputInputGooglePubsub,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputFirehose$Outbound = {
+  id: string;
+  type: "firehose";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputFirehose$outboundSchema: z.ZodType<
+  CreateInputInputFirehose$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputFirehose
+> = z.object({
+  id: z.string(),
+  type: z.literal("firehose"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+});
+
+export function createInputInputFirehoseToJSON(
+  createInputInputFirehose: CreateInputInputFirehose,
+): string {
+  return JSON.stringify(
+    CreateInputInputFirehose$outboundSchema.parse(createInputInputFirehose),
+  );
+}
+
+/** @internal */
+export const CreateInputScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputScheduleType
+> = openEnums.outboundSchema(CreateInputScheduleType);
+
+/** @internal */
+export type CreateInputInputExec$Outbound = {
+  id: string;
+  type: "exec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  command: string;
+  script?: string | undefined;
+  retries?: number | undefined;
+  scheduleType?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  interval?: number | undefined;
+  cronSchedule?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputExec$outboundSchema: z.ZodType<
+  CreateInputInputExec$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputExec
+> = z.object({
+  id: z.string(),
+  type: z.literal("exec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  command: z.string(),
+  script: z.string().optional(),
+  retries: z.number().optional(),
+  scheduleType: CreateInputScheduleType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputExecToJSON(
+  createInputInputExec: CreateInputInputExec,
+): string {
+  return JSON.stringify(
+    CreateInputInputExec$outboundSchema.parse(createInputInputExec),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMechanism$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMechanism
+> = openEnums.outboundSchema(CreateInputAuthenticationMechanism);
+
+/** @internal */
+export type CreateInputCertificate$Outbound = {
+  certificateName: string;
+  certPath: string;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputCertificate$outboundSchema: z.ZodType<
+  CreateInputCertificate$Outbound,
+  z.ZodTypeDef,
+  CreateInputCertificate
+> = z.object({
+  certificateName: z.string(),
+  certPath: z.string(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+});
+
+export function createInputCertificateToJSON(
+  createInputCertificate: CreateInputCertificate,
+): string {
+  return JSON.stringify(
+    CreateInputCertificate$outboundSchema.parse(createInputCertificate),
+  );
+}
+
+/** @internal */
+export type CreateInputAuth$Outbound = {
+  mechanism: string;
+  textSecret?: string | undefined;
+  clientSecretAuthType?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CreateInputCertificate$Outbound | undefined;
+  oauthEndpoint?: string | undefined;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  fullyQualifiedNamespace?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_fullyQualifiedNamespace?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuth$outboundSchema: z.ZodType<
+  CreateInputAuth$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuth
+> = z.object({
+  mechanism: CreateInputAuthenticationMechanism$outboundSchema,
+  textSecret: z.string().optional(),
+  clientSecretAuthType: models.AuthenticationMethodOptionsAuth$outboundSchema
+    .optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: z.lazy(() => CreateInputCertificate$outboundSchema).optional(),
+  oauthEndpoint: models
+    .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema
+    .optional(),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  fullyQualifiedNamespace: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_fullyQualifiedNamespace: z.string().optional(),
+});
+
+export function createInputAuthToJSON(
+  createInputAuth: CreateInputAuth,
+): string {
+  return JSON.stringify(CreateInputAuth$outboundSchema.parse(createInputAuth));
+}
+
+/** @internal */
+export const CreateInputBlobStoreAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputBlobStoreAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputBlobStoreAuthenticationMethod);
+
+/** @internal */
+export type CreateInputAzureBlobStorage$Outbound = {
+  containerName: string;
+  authType?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?:
+    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+    | undefined;
+  __template_storageAccountName?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAzureBlobStorage$outboundSchema: z.ZodType<
+  CreateInputAzureBlobStorage$Outbound,
+  z.ZodTypeDef,
+  CreateInputAzureBlobStorage
+> = z.object({
+  containerName: z.string(),
+  authType: CreateInputBlobStoreAuthenticationMethod$outboundSchema.optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+    .optional(),
+  __template_storageAccountName: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
+});
+
+export function createInputAzureBlobStorageToJSON(
+  createInputAzureBlobStorage: CreateInputAzureBlobStorage,
+): string {
+  return JSON.stringify(
+    CreateInputAzureBlobStorage$outboundSchema.parse(
+      createInputAzureBlobStorage,
+    ),
   );
 }

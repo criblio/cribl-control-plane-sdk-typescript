@@ -139,6 +139,10 @@ import {
   HostConfOutputSyslog$inboundSchema,
 } from "./hostconfoutputsyslog.js";
 import {
+  HttpDiscoveryHeaderConfInputPrometheus,
+  HttpDiscoveryHeaderConfInputPrometheus$inboundSchema,
+} from "./httpdiscoveryheaderconfinputprometheus.js";
+import {
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth,
   KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth$inboundSchema,
 } from "./kafkaschemaregistryauthenticationtypetemplateschemaregistryurlauth.js";
@@ -217,10 +221,6 @@ import {
   RequestFormatOptions,
   RequestFormatOptions$inboundSchema,
 } from "./requestformatoptions.js";
-import {
-  RequestParamConfInputOpenai,
-  RequestParamConfInputOpenai$inboundSchema,
-} from "./requestparamconfinputopenai.js";
 import {
   ResponseRetrySettingConfOutputWebhook,
   ResponseRetrySettingConfOutputWebhook$inboundSchema,
@@ -7755,7 +7755,7 @@ export type OutputResponseOutputLoki = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<RequestParamConfInputOpenai> | undefined;
+  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   authType?:
     | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
     | undefined;
@@ -7968,7 +7968,7 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<RequestParamConfInputOpenai> | undefined;
+  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -8164,7 +8164,7 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<RequestParamConfInputOpenai> | undefined;
+  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -12461,6 +12461,10 @@ export type OutputResponseOutputGoogleCloudObservability = {
   keepAliveTime?: number | undefined;
   tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
@@ -16205,7 +16209,9 @@ export const OutputResponseOutputLoki$inboundSchema: z.ZodType<
   url: types.string(),
   message: types.optional(types.string()),
   messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-  labels: types.optional(z.array(RequestParamConfInputOpenai$inboundSchema)),
+  labels: types.optional(
+    z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
+  ),
   authType: types.optional(
     AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$inboundSchema,
   ),
@@ -16314,7 +16320,9 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud2$inboundSchema:
     prometheusUrl: types.string(),
     message: types.optional(types.string()),
     messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-    labels: types.optional(z.array(RequestParamConfInputOpenai$inboundSchema)),
+    labels: types.optional(
+      z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
+    ),
     metricRenameExpr: types.optional(types.string()),
     prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
     lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
@@ -16428,7 +16436,9 @@ export const OutputResponseOutputGrafanaCloudGrafanaCloud1$inboundSchema:
     prometheusUrl: types.optional(types.string()),
     message: types.optional(types.string()),
     messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-    labels: types.optional(z.array(RequestParamConfInputOpenai$inboundSchema)),
+    labels: types.optional(
+      z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
+    ),
     metricRenameExpr: types.optional(types.string()),
     prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
     lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
@@ -18463,6 +18473,7 @@ export const OutputResponseOutputGoogleCloudObservability$inboundSchema:
     connectionTimeout: types.optional(types.number()),
     keepAliveTime: types.optional(types.number()),
     tls: types.optional(TlsSettingsClientSideTypeExtended$inboundSchema),
+    maxPayloadEvents: types.optional(types.number()),
     onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
     description: types.optional(types.string()),
     secret: types.optional(types.string()),

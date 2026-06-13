@@ -69,14 +69,18 @@ import {
   ExtraHttpHeaderConfInputElastic$inboundSchema,
 } from "./extrahttpheaderconfinputelastic.js";
 import {
+  HttpDiscoveryHeaderConfInputPrometheus,
+  HttpDiscoveryHeaderConfInputPrometheus$inboundSchema,
+} from "./httpdiscoveryheaderconfinputprometheus.js";
+import {
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
 } from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
 import {
   InputResponseAuth,
   InputResponseAuth$inboundSchema,
-  InputResponseCheckpointing,
-  InputResponseCheckpointing$inboundSchema,
+  InputResponseAzureBlobStorage,
+  InputResponseAzureBlobStorage$inboundSchema,
   InputResponseInputAnthropicCompliance,
   InputResponseInputAnthropicCompliance$inboundSchema,
   InputResponseInputAppleUnifiedLogs,
@@ -171,7 +175,7 @@ import {
   InputResponseInputWizWebhook$inboundSchema,
   InputResponseInputZscalerHec,
   InputResponseInputZscalerHec$inboundSchema,
-} from "./inputresponsecheckpointing.js";
+} from "./inputresponseazureblobstorage.js";
 import {
   KafkaSchemaRegistryAuthenticationType,
   KafkaSchemaRegistryAuthenticationType$inboundSchema,
@@ -242,6 +246,10 @@ import {
   TlsSettingsServerSideType,
   TlsSettingsServerSideType$inboundSchema,
 } from "./tlssettingsserversidetype.js";
+
+export type InputResponseCheckpointing = {
+  blobStore: InputResponseAzureBlobStorage;
+};
 
 export type InputResponseInputEventhubAmqp = {
   /**
@@ -1271,6 +1279,10 @@ export const DiscoveryTypeEdgePrometheus = {
    * Kubernetes Service Monitor (v4.18+)
    */
   K8sServiceMonitor: "k8s-service-monitor",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1487,6 +1499,24 @@ export type InputResponseInputEdgePrometheus = {
    */
   podFilter?: Array<InputResponsePodFilter> | undefined;
   /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Username for Prometheus Basic authentication
    */
   username?: string | undefined;
@@ -1564,6 +1594,10 @@ export const DiscoveryTypePrometheus = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1749,6 +1783,24 @@ export type InputResponseInputPrometheus = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -4446,6 +4498,25 @@ export type InputResponse =
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
+export const InputResponseCheckpointing$inboundSchema: z.ZodType<
+  InputResponseCheckpointing,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  blobStore: InputResponseAzureBlobStorage$inboundSchema,
+});
+
+export function inputResponseCheckpointingFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseCheckpointing, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseCheckpointing$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseCheckpointing' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputResponseInputEventhubAmqp$inboundSchema: z.ZodType<
   InputResponseInputEventhubAmqp,
   z.ZodTypeDef,
@@ -4469,7 +4540,7 @@ export const InputResponseInputEventhubAmqp$inboundSchema: z.ZodType<
   eventHubName: types.optional(types.string()),
   consumerGroup: types.string(),
   auth: types.optional(InputResponseAuth$inboundSchema),
-  checkpointing: InputResponseCheckpointing$inboundSchema,
+  checkpointing: z.lazy(() => InputResponseCheckpointing$inboundSchema),
   fromBeginning: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
   maxWaitTimeInSeconds: types.optional(types.number()),
@@ -5013,6 +5084,12 @@ export const InputResponseInputEdgePrometheus$inboundSchema: z.ZodType<
   podFilter: types.optional(
     z.array(z.lazy(() => InputResponsePodFilter$inboundSchema)),
   ),
+  httpDiscoveryUrl: types.optional(types.string()),
+  httpDiscoveryHeaders: types.optional(
+    z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
+  ),
+  httpDiscoveryRejectUnauthorized: types.optional(types.boolean()),
+  maxResponseBodySize: types.optional(types.string()),
   username: types.optional(types.string()),
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
@@ -5111,6 +5188,12 @@ export const InputResponseInputPrometheus$inboundSchema: z.ZodType<
   assumeRoleArn: types.optional(types.string()),
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
+  httpDiscoveryUrl: types.optional(types.string()),
+  httpDiscoveryHeaders: types.optional(
+    z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
+  ),
+  httpDiscoveryRejectUnauthorized: types.optional(types.boolean()),
+  maxResponseBodySize: types.optional(types.string()),
   username: types.optional(types.string()),
   password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
