@@ -13,7 +13,7 @@ Get a count of the files that changed since a commit. Default is the latest comm
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionCount" method="get" path="/version/count" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionCount" method="get" path="/version/count" example="VersionCountResponseExamplesFileCount" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -25,9 +25,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versions.commits.files.count({
-    commit: "<value>",
-  });
+  const result = await criblControlPlane.versions.commits.files.count();
 
   console.log(result);
 }
@@ -53,9 +51,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versionsCommitsFilesCount(criblControlPlane, {
-    commit: "<value>",
-  });
+  const res = await versionsCommitsFilesCount(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -84,6 +80,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -93,7 +90,7 @@ Get the names and statuses of files that changed since a commit. Default is the 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionFiles" method="get" path="/version/files" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionFiles" method="get" path="/version/files" example="VersionFilesResponseExamplesChangedFiles" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -105,9 +102,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versions.commits.files.list({
-    commit: "<value>",
-  });
+  const result = await criblControlPlane.versions.commits.files.list();
 
   console.log(result);
 }
@@ -133,9 +128,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versionsCommitsFilesList(criblControlPlane, {
-    commit: "<value>",
-  });
+  const res = await versionsCommitsFilesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -164,5 +157,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

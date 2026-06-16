@@ -20,6 +20,10 @@ import {
 export type GroupCreateRequest = {
   cloud?: ConfigGroupCloud | undefined;
   /**
+   * Keeps Collector jobs running if the Leader Node fails. Applies only to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups. to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups.
+   */
+  collectorsHaEnabled?: boolean | undefined;
+  /**
    * Brief description of the Worker Group, Outpost Group, or Edge Fleet.
    */
   description?: string | undefined;
@@ -94,6 +98,7 @@ export type GroupCreateRequest = {
 /** @internal */
 export type GroupCreateRequest$Outbound = {
   cloud?: ConfigGroupCloud$Outbound | undefined;
+  collectorsHaEnabled?: boolean | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
   id: string;
@@ -119,6 +124,7 @@ export const GroupCreateRequest$outboundSchema: z.ZodType<
   GroupCreateRequest
 > = z.object({
   cloud: ConfigGroupCloud$outboundSchema.optional(),
+  collectorsHaEnabled: z.boolean().optional(),
   description: z.string().optional(),
   estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup$outboundSchema
     .optional(),

@@ -10,8 +10,17 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { GitFile, GitFile$inboundSchema } from "./gitfile.js";
 
 export type GitFilesResponse = {
-  commitMessage?: { [k: string]: any } | undefined;
+  /**
+   * Commit message of the specified commit.
+   */
+  commitMessage?: string | undefined;
+  /**
+   * Number of files returned.
+   */
   count: number;
+  /**
+   * Array of files that changed since the specified commit.
+   */
   items: Array<GitFile>;
 };
 
@@ -21,7 +30,7 @@ export const GitFilesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  commitMessage: types.optional(z.record(z.any())),
+  commitMessage: types.optional(types.string()),
   count: types.number(),
   items: z.array(GitFile$inboundSchema),
 });

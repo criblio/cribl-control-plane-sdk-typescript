@@ -27,3 +27,4 @@ let value: WorkersTypeSystemSettingsConf = {
 | `v8SingleThread`                       | *boolean*                              | :heavy_minus_sign:                     | N/A                                    |
 | `workerProcessConfigUpdateConcurrency` | *number*                               | :heavy_minus_sign:                     | N/A                                    |
 | `workerProcessReloadTimeout`           | *number*                               | :heavy_minus_sign:                     | N/A                                    |
+| `workerThreadPoolSize`                 | *number*                               | :heavy_minus_sign:                     | N/A                                    |

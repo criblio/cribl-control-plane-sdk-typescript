@@ -16,10 +16,19 @@ export const RemoteEnum = {
 } as const;
 export type RemoteEnum = OpenEnum<typeof RemoteEnum>;
 
+/**
+ * URL of the configured remote Git repository, with credentials redacted. <code>false</code> if no remote is configured.
+ */
 export type Remote = string | RemoteEnum;
 
 export type GitInfo = {
+  /**
+   * URL of the configured remote Git repository, with credentials redacted. <code>false</code> if no remote is configured.
+   */
   remote: string | RemoteEnum;
+  /**
+   * If <code>true</code>, Git versioning is enabled for this Cribl instance. Otherwise, <code>false</code>.
+   */
   versioning: boolean;
 };
 

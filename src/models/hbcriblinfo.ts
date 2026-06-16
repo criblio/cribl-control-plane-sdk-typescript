@@ -36,6 +36,10 @@ export type Config = {
    */
   policyRev?: string | undefined;
   /**
+   * Current teams revision string. Only used in leader <> leader universal subscription.
+   */
+  teamsRev?: string | undefined;
+  /**
    * Current users revision string. Only used in leader <> leader universal subscription.
    */
   usersRev?: string | undefined;
@@ -134,6 +138,7 @@ export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
     hbPeriodSeconds: types.optional(types.number()),
     logStreamEnv: types.optional(types.string()),
     policyRev: types.optional(types.string()),
+    teamsRev: types.optional(types.string()),
     usersRev: types.optional(types.string()),
     version: types.optional(types.string()),
   });

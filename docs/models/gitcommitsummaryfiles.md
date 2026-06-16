@@ -1,11 +1,13 @@
-# FilesTypeGitCommitSummary
+# GitCommitSummaryFiles
+
+Files affected by the commit, grouped by change type.
 
 ## Example Usage
 
 ```typescript
-import { FilesTypeGitCommitSummary } from "cribl-control-plane/models";
+import { GitCommitSummaryFiles } from "cribl-control-plane/models";
 
-let value: FilesTypeGitCommitSummary = {};
+let value: GitCommitSummaryFiles = {};
 ```
 
 ## Fields

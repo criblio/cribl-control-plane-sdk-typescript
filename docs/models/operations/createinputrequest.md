@@ -753,6 +753,18 @@ const value: operations.CreateInputInputCloudflareHec = {
 };
 ```
 
+### `operations.CreateInputInputSysdigHec`
+
+```typescript
+const value: operations.CreateInputInputSysdigHec = {
+  id: "<id>",
+  type: "sysdig_hec",
+  host: "cuddly-molasses.name",
+  port: 5901.79,
+  hecAPI: "<value>",
+};
+```
+
 ### `operations.CreateInputInputOpenaiComplianceLogs`
 
 ```typescript

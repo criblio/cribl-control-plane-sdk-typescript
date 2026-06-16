@@ -147,21 +147,21 @@ export type InputZscalerHecInput = {
    */
   allowedIndexes?: Array<string> | undefined;
   /**
-   * Whether to enable Zscaler HEC acknowledgements
-   */
-  hecAcks?: boolean | undefined;
-  /**
-   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
    */
   accessControlAllowOrigin?: Array<string> | undefined;
   /**
-   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
    */
   accessControlAllowHeaders?: Array<string> | undefined;
   /**
-   * Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * Whether to enable Zscaler HEC acknowledgements
+   */
+  hecAcks?: boolean | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -183,6 +183,18 @@ export type InputZscalerHecInput = {
    * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
    */
   __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
@@ -249,16 +261,19 @@ export type InputZscalerHecInput$Outbound = {
   hecAPI: string;
   metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
-  hecAcks?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
+  hecAcks?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_hecAPI?: string | undefined;
+  __template_allowedIndexes?: string | undefined;
+  __template_accessControlAllowOrigin?: string | undefined;
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
@@ -295,16 +310,19 @@ export const InputZscalerHecInput$outboundSchema: z.ZodType<
   hecAPI: z.string(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
+  hecAcks: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_hecAPI: z.string().optional(),
+  __template_allowedIndexes: z.string().optional(),
+  __template_accessControlAllowOrigin: z.string().optional(),
+  __template_accessControlAllowHeaders: z.string().optional(),
 });
 
 export function inputZscalerHecInputToJSON(

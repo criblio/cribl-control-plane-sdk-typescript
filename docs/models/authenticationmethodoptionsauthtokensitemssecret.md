@@ -1,13 +1,13 @@
-# CreateInputAuthTokenAuthenticationMethod
+# AuthenticationMethodOptionsAuthTokensItemsSecret
 
 Select Secret to use a text secret to authenticate
 
 ## Example Usage
 
 ```typescript
-import { CreateInputAuthTokenAuthenticationMethod } from "cribl-control-plane/models/operations";
+import { AuthenticationMethodOptionsAuthTokensItemsSecret } from "cribl-control-plane/models";
 
-let value: CreateInputAuthTokenAuthenticationMethod = "secret";
+let value: AuthenticationMethodOptionsAuthTokensItemsSecret = "secret";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

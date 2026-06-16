@@ -89,6 +89,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -438,6 +439,85 @@ async function run() {
     id: "oracle-secure-db",
     tags: "secure,oracle,sensitive-data",
     textSecret: "oracle-secure-connection",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: DatabaseConnectionExamplesOracleWithMutualTLS
+
+<!-- UsageSnippet language="typescript" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="DatabaseConnectionExamplesOracleWithMutualTLS" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    connectionString: "tcps://oracle.example.com:2484/ORCL",
+    connectionTimeout: 15000,
+    databaseType: "oracle",
+    description: "Oracle database reached over TCPS with mutual TLS",
+    id: "oracle-mtls-db",
+    password: "Oracle_Pass456!",
+    tags: "erp,oracle,mtls,production",
+    tls: {
+      disabled: false,
+      rejectUnauthorized: true,
+    },
+    user: "erp_user",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsCreate } from "cribl-control-plane/funcs/databaseConnectionsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsCreate(criblControlPlane, {
+    authType: "connectionString",
+    connectionString: "tcps://oracle.example.com:2484/ORCL",
+    connectionTimeout: 15000,
+    databaseType: "oracle",
+    description: "Oracle database reached over TCPS with mutual TLS",
+    id: "oracle-mtls-db",
+    password: "Oracle_Pass456!",
+    tags: "erp,oracle,mtls,production",
+    tls: {
+      disabled: false,
+      rejectUnauthorized: true,
+    },
+    user: "erp_user",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -957,6 +1037,7 @@ run();
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.RestApiJsonError              | 400                                  | application/json                     |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -1037,6 +1118,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.RestApiJsonError              | 404                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
@@ -3465,6 +3547,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.RestApiJsonError              | 400, 404                             | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
@@ -3546,6 +3629,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.RestApiJsonError              | 404                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

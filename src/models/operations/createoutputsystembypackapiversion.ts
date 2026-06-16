@@ -1843,26 +1843,6 @@ export type CreateOutputSystemByPackOutputNutanixObjects = {
   __template_parquetSchema?: string | undefined;
 };
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const CreateOutputSystemByPackAuthenticationMethodCloudflareR2 = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type CreateOutputSystemByPackAuthenticationMethodCloudflareR2 = OpenEnum<
-  typeof CreateOutputSystemByPackAuthenticationMethodCloudflareR2
->;
-
 export type CreateOutputSystemByPackOutputCloudflareR2 = {
   /**
    * Unique ID for this output
@@ -1889,7 +1869,7 @@ export type CreateOutputSystemByPackOutputCloudflareR2 = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?:
-    | CreateOutputSystemByPackAuthenticationMethodCloudflareR2
+    | models.AuthenticationMethodOptionsAutoSecret
     | undefined;
   /**
    * Reuse connections between requests, which can improve performance
@@ -2339,7 +2319,7 @@ export type CreateOutputSystemByPackOutputMicrosoftFabric = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsMicrosoftFabric | undefined;
@@ -2797,7 +2777,7 @@ export type CreateOutputSystemByPackOutputChronicle = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsChronicle | undefined;
@@ -3081,7 +3061,7 @@ export type CreateOutputSystemByPackOutputSentinelOneAiSiem = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSentinelOneAiSiem | undefined;
@@ -3321,7 +3301,7 @@ export type CreateOutputSystemByPackOutputDynatraceOtlp = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsDynatraceOtlp | undefined;
@@ -3555,7 +3535,7 @@ export type CreateOutputSystemByPackOutputDynatraceHttp = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsDynatraceHTTP | undefined;
@@ -3852,7 +3832,7 @@ export type CreateOutputSystemByPackOutputXsiam = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsXsiam | undefined;
@@ -4125,7 +4105,7 @@ export type CreateOutputSystemByPackOutputLocalSearchStorage = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsLocalSearchStorage | undefined;
@@ -4338,7 +4318,7 @@ export type CreateOutputSystemByPackOutputCustomerMetricsStorage = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?:
@@ -4553,7 +4533,7 @@ export type CreateOutputSystemByPackOutputClickHouse = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsClickHouse | undefined;
@@ -5614,7 +5594,7 @@ export type CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?:
@@ -5787,7 +5767,7 @@ export type CreateOutputSystemByPackOutputHumioHec = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsHumioHec | undefined;
@@ -5976,7 +5956,7 @@ export type CreateOutputSystemByPackOutputCriblSearchEngine = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsCriblSearchEngine | undefined;
@@ -6165,7 +6145,7 @@ export type CreateOutputSystemByPackOutputCriblHttp = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsCriblHTTP | undefined;
@@ -6322,7 +6302,7 @@ export type CreateOutputSystemByPackOutputCriblTcp = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsCriblTCP | undefined;
@@ -6570,7 +6550,7 @@ export type CreateOutputSystemByPackOutputDataset = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsDataset | undefined;
@@ -6783,7 +6763,7 @@ export type CreateOutputSystemByPackOutputServiceNow = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsServiceNow | undefined;
@@ -7078,7 +7058,7 @@ export type CreateOutputSystemByPackOutputOpenTelemetry = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsOpenTelemetry | undefined;
@@ -7171,6 +7151,42 @@ export type CreateOutputSystemByPackOutputRing = {
    */
   __template_onBackpressure?: string | undefined;
 };
+
+/**
+ * Remote Write authentication type
+ */
+export const CreateOutputSystemByPackAuthenticationTypePrometheus = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * AWS Signature v4
+   */
+  AwsSigv4: "aws_sigv4",
+} as const;
+/**
+ * Remote Write authentication type
+ */
+export type CreateOutputSystemByPackAuthenticationTypePrometheus = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationTypePrometheus
+>;
 
 export type CreateOutputSystemByPackPqControlsPrometheus = {};
 
@@ -7274,7 +7290,7 @@ export type CreateOutputSystemByPackOutputPrometheus = {
   /**
    * Remote Write authentication type
    */
-  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  authType?: CreateOutputSystemByPackAuthenticationTypePrometheus | undefined;
   description?: string | undefined;
   /**
    * How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
@@ -7321,7 +7337,7 @@ export type CreateOutputSystemByPackOutputPrometheus = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsPrometheus | undefined;
@@ -7340,6 +7356,40 @@ export type CreateOutputSystemByPackOutputPrometheus = {
    */
   textSecret?: string | undefined;
   /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?:
+    | models.AuthenticationMethodOptionsAutoSecret
+    | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * AWS region used to sign Remote Write requests
+   */
+  region?: string | undefined;
+  /**
+   * ID used to sign Remote Write requests (for example, `aps` for Amazon Managed Service for Prometheus)
+   */
+  awsService?: string | undefined;
+  /**
+   * Use Assume Role credentials to access Prometheus
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
@@ -7355,6 +7405,22 @@ export type CreateOutputSystemByPackOutputPrometheus = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsService' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsService' at runtime.
+   */
+  __template_awsService?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 export type CreateOutputSystemByPackPqControlsLoki = {};
@@ -7396,7 +7462,7 @@ export type CreateOutputSystemByPackOutputLoki = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<models.RequestParamConfInputOpenai> | undefined;
+  labels?: Array<models.HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   authType?:
     | models.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
     | undefined;
@@ -7533,7 +7599,7 @@ export type CreateOutputSystemByPackOutputLoki = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsLoki | undefined;
@@ -7601,7 +7667,7 @@ export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<models.RequestParamConfInputOpenai> | undefined;
+  labels?: Array<models.HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -7713,7 +7779,7 @@ export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?:
@@ -7791,7 +7857,7 @@ export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<models.RequestParamConfInputOpenai> | undefined;
+  labels?: Array<models.HttpDiscoveryHeaderConfInputPrometheus> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -7903,7 +7969,7 @@ export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?:
@@ -8221,7 +8287,7 @@ export type CreateOutputSystemByPackOutputDatadog = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsDatadog | undefined;
@@ -8420,7 +8486,7 @@ export type CreateOutputSystemByPackOutputSumoLogic = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSumoLogic | undefined;
@@ -8674,7 +8740,7 @@ export type CreateOutputSystemByPackOutputSqs = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSqs | undefined;
@@ -8852,7 +8918,7 @@ export type CreateOutputSystemByPackOutputSns = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsSns | undefined;
@@ -9056,7 +9122,7 @@ export type CreateOutputSystemByPackOutputGraphite = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsGraphite | undefined;
@@ -9176,7 +9242,7 @@ export type CreateOutputSystemByPackOutputStatsdExt = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsStatsdExt | undefined;
@@ -9296,7 +9362,7 @@ export type CreateOutputSystemByPackOutputStatsd = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsStatsd | undefined;
@@ -9739,7 +9805,7 @@ export type CreateOutputSystemByPackOutputCloudwatch = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsCloudwatch | undefined;
@@ -10018,7 +10084,7 @@ export type CreateOutputSystemByPackOutputInfluxdb = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsInfluxdb | undefined;
@@ -10208,7 +10274,7 @@ export type CreateOutputSystemByPackOutputNewrelicEvents = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsNewrelicEvents | undefined;
@@ -10250,17 +10316,26 @@ export type CreateOutputSystemByPackOutputNewrelicEvents = {
   __template_customUrl?: string | undefined;
 };
 
+/**
+ * Name of the metadata field.
+ */
 export const CreateOutputSystemByPackFieldName = {
   Service: "service",
   Hostname: "hostname",
   Timestamp: "timestamp",
   AuditId: "auditId",
 } as const;
+/**
+ * Name of the metadata field.
+ */
 export type CreateOutputSystemByPackFieldName = OpenEnum<
   typeof CreateOutputSystemByPackFieldName
 >;
 
 export type CreateOutputSystemByPackMetadatum = {
+  /**
+   * Name of the metadata field.
+   */
   name: CreateOutputSystemByPackFieldName;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -10422,7 +10497,7 @@ export type CreateOutputSystemByPackOutputNewrelic = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsNewrelic | undefined;
@@ -10606,7 +10681,7 @@ export type CreateOutputSystemByPackOutputElasticCloud = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsElasticCloud | undefined;
@@ -10875,7 +10950,7 @@ export type CreateOutputSystemByPackOutputElastic = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsElastic | undefined;
@@ -11097,7 +11172,7 @@ export type CreateOutputSystemByPackOutputMsk = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsMsk | undefined;
@@ -11297,7 +11372,7 @@ export type CreateOutputSystemByPackOutputConfluentCloud = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsConfluentCloud | undefined;
@@ -11477,7 +11552,7 @@ export type CreateOutputSystemByPackOutputKafka = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsKafka | undefined;
@@ -11789,7 +11864,7 @@ export type CreateOutputSystemByPackOutputGooglePubsub = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsGooglePubsub | undefined;
@@ -11939,6 +12014,10 @@ export type CreateOutputSystemByPackOutputGoogleCloudObservability = {
   keepAliveTime?: number | undefined;
   tls?: models.TlsSettingsClientSideTypeExtended | undefined;
   /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
@@ -11988,7 +12067,7 @@ export type CreateOutputSystemByPackOutputGoogleCloudObservability = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?:
@@ -12316,7 +12395,7 @@ export type CreateOutputSystemByPackOutputGoogleCloudLogging = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputSystemByPackPqControlsGoogleCloudLogging | undefined;
@@ -12374,23 +12453,24 @@ export type CreateOutputSystemByPackOutputGoogleCloudLogging = {
   __template_payloadExpression?: string | undefined;
 };
 
-export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage = {
-  /**
-   * auto
-   */
-  Auto: "auto",
-  /**
-   * manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-export type CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage =
+export const CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod =
+  {
+    /**
+     * auto
+     */
+    Auto: "auto",
+    /**
+     * manual
+     */
+    Manual: "manual",
+    /**
+     * Secret Key pair
+     */
+    Secret: "secret",
+  } as const;
+export type CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod =
   OpenEnum<
-    typeof CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+    typeof CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod
   >;
 
 export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
@@ -12428,7 +12508,7 @@ export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
    */
   endpoint: string;
   awsAuthenticationMethod?:
-    | CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+    | CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod
     | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
@@ -13842,16 +13922,6 @@ export function createOutputSystemByPackOutputNutanixObjectsToJSON(
 }
 
 /** @internal */
-export const CreateOutputSystemByPackAuthenticationMethodCloudflareR2$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateOutputSystemByPackAuthenticationMethodCloudflareR2
-  > = openEnums.outboundSchema(
-    CreateOutputSystemByPackAuthenticationMethodCloudflareR2,
-  );
-
-/** @internal */
 export type CreateOutputSystemByPackOutputCloudflareR2$Outbound = {
   id: string;
   type: "cloudflare_r2";
@@ -13939,9 +14009,8 @@ export const CreateOutputSystemByPackOutputCloudflareR2$outboundSchema:
     systemFields: z.array(z.string()).optional(),
     environment: z.string().optional(),
     streamtags: z.array(z.string()).optional(),
-    awsAuthenticationMethod:
-      CreateOutputSystemByPackAuthenticationMethodCloudflareR2$outboundSchema
-        .optional(),
+    awsAuthenticationMethod: models
+      .AuthenticationMethodOptionsAutoSecret$outboundSchema.optional(),
     reuseConnections: z.boolean().optional(),
     rejectUnauthorized: z.boolean().optional(),
     bucket: z.string(),
@@ -18009,6 +18078,16 @@ export function createOutputSystemByPackOutputRingToJSON(
 }
 
 /** @internal */
+export const CreateOutputSystemByPackAuthenticationTypePrometheus$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationTypePrometheus
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationTypePrometheus,
+  );
+
+/** @internal */
 export type CreateOutputSystemByPackPqControlsPrometheus$Outbound = {};
 
 /** @internal */
@@ -18082,10 +18161,22 @@ export type CreateOutputSystemByPackOutputPrometheus$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecret?: string | undefined;
+  region?: string | undefined;
+  awsService?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsService?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -18124,7 +18215,7 @@ export const CreateOutputSystemByPackOutputPrometheus$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
+  authType: CreateOutputSystemByPackAuthenticationTypePrometheus$outboundSchema
     .optional(),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().optional(),
@@ -18147,10 +18238,23 @@ export const CreateOutputSystemByPackOutputPrometheus$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  awsAuthenticationMethod: models
+    .AuthenticationMethodOptionsAutoSecret$outboundSchema.optional(),
+  awsSecret: z.string().optional(),
+  region: z.string().optional(),
+  awsService: z.string().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
   __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsService: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function createOutputSystemByPackOutputPrometheusToJSON(
@@ -18196,7 +18300,9 @@ export type CreateOutputSystemByPackOutputLoki$Outbound = {
   url: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<models.RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
   authType?: string | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
@@ -18257,7 +18363,8 @@ export const CreateOutputSystemByPackOutputLoki$outboundSchema: z.ZodType<
   url: z.string(),
   message: z.string().optional(),
   messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(models.RequestParamConfInputOpenai$outboundSchema).optional(),
+  labels: z.array(models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema)
+    .optional(),
   authType: models
     .AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
     .optional(),
@@ -18358,7 +18465,9 @@ export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$Outbound = {
   prometheusUrl: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<models.RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
   lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
@@ -18420,8 +18529,9 @@ export const CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2$outboundSch
     prometheusUrl: z.string(),
     message: z.string().optional(),
     messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-    labels: z.array(models.RequestParamConfInputOpenai$outboundSchema)
-      .optional(),
+    labels: z.array(
+      models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    ).optional(),
     metricRenameExpr: z.string().optional(),
     prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
     lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
@@ -18518,7 +18628,9 @@ export type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$Outbound = {
   prometheusUrl?: string | undefined;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<models.RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
   lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
@@ -18580,8 +18692,9 @@ export const CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1$outboundSch
     prometheusUrl: z.string().optional(),
     message: z.string().optional(),
     messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-    labels: z.array(models.RequestParamConfInputOpenai$outboundSchema)
-      .optional(),
+    labels: z.array(
+      models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    ).optional(),
     metricRenameExpr: z.string().optional(),
     prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
     lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
@@ -21773,6 +21886,7 @@ export type CreateOutputSystemByPackOutputGoogleCloudObservability$Outbound = {
   connectionTimeout?: number | undefined;
   keepAliveTime?: number | undefined;
   tls?: models.TlsSettingsClientSideTypeExtended$Outbound | undefined;
+  maxPayloadEvents?: number | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   secret?: string | undefined;
@@ -21833,6 +21947,7 @@ export const CreateOutputSystemByPackOutputGoogleCloudObservability$outboundSche
     connectionTimeout: z.number().optional(),
     keepAliveTime: z.number().optional(),
     tls: models.TlsSettingsClientSideTypeExtended$outboundSchema.optional(),
+    maxPayloadEvents: z.number().optional(),
     onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
       .optional(),
     description: z.string().optional(),
@@ -22109,13 +22224,13 @@ export function createOutputSystemByPackOutputGoogleCloudLoggingToJSON(
 }
 
 /** @internal */
-export const CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema:
+export const CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
   z.ZodType<
     string,
     z.ZodTypeDef,
-    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+    CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod
   > = openEnums.outboundSchema(
-    CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage,
+    CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod,
   );
 
 /** @internal */
@@ -22213,7 +22328,7 @@ export const CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema:
     region: z.string(),
     endpoint: z.string(),
     awsAuthenticationMethod:
-      CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema
+      CreateOutputSystemByPackAwsAuthenticationMethodAuthenticationMethod$outboundSchema
         .optional(),
     stagePath: z.string(),
     destPath: z.string().optional(),

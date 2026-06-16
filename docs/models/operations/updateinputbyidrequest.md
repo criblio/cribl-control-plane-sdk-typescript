@@ -8,9 +8,8 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "netflow",
-    host: "fake-promise.name",
-    port: 8170.81,
+    type: "security_lake",
+    queueName: "<value>",
   },
 };
 ```

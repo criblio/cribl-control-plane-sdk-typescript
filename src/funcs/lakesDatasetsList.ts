@@ -104,6 +104,7 @@ async function $do(
     "excludeDDSS": payload.excludeDDSS,
     "excludeDeleted": payload.excludeDeleted,
     "excludeInternal": payload.excludeInternal,
+    "excludeNetskope": payload.excludeNetskope,
     "format": payload.format,
     "includeMetrics": payload.includeMetrics,
     "storageLocationId": payload.storageLocationId,
@@ -186,8 +187,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedCriblLakeDataset$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

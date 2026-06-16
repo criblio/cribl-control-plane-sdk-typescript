@@ -10,6 +10,8 @@ import { ErrorT } from "cribl-control-plane/models/errors";
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `message`          | *string*           | :heavy_minus_sign: | Error message      |
+| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `status`                                                                | *"error"*                                                               | :heavy_check_mark:                                                      | Always "error" for API error responses.                                 |
+| `message`                                                               | *string*                                                                | :heavy_check_mark:                                                      | Human-readable message describing the error.                            |
+| `details`                                                               | *any*                                                                   | :heavy_minus_sign:                                                      | Optional structured details about the error (e.g. validation failures). |

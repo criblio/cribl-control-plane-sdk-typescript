@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * List the commit history
  *
  * @remarks
- * List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+ * List the commit history.<br/><br/>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
  */
 export function versionsCommitsList(
   client: CriblControlPlaneCore,
@@ -174,8 +174,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedGitLogResult$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

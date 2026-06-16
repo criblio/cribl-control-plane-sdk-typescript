@@ -8,10 +8,25 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Unchanged context line in a Git diff hunk.
+ */
 export type DiffLineContext = {
+  /**
+   * Line change type. Always <code>context</code> for unchanged lines.
+   */
   type: "context";
+  /**
+   * Line number in the new file.
+   */
   newNumber: number;
+  /**
+   * Line number in the original file.
+   */
   oldNumber: number;
+  /**
+   * Full content of the line, including the diff prefix character.
+   */
   content: string;
 };
 

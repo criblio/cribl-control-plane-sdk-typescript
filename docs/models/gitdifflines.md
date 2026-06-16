@@ -1,4 +1,4 @@
-# DiffLine
+# GitDiffLines
 
 
 ## Supported Types
@@ -8,7 +8,7 @@
 ```typescript
 const value: models.DiffLineDelete = {
   type: "delete",
-  oldNumber: 2816.95,
+  oldNumber: 281695,
   content: "<value>",
 };
 ```
@@ -18,7 +18,7 @@ const value: models.DiffLineDelete = {
 ```typescript
 const value: models.DiffLineInsert = {
   type: "insert",
-  newNumber: 8065.35,
+  newNumber: 806535,
   content: "<value>",
 };
 ```
@@ -28,8 +28,8 @@ const value: models.DiffLineInsert = {
 ```typescript
 const value: models.DiffLineContext = {
   type: "context",
-  newNumber: 355.68,
-  oldNumber: 7311.23,
+  newNumber: 35568,
+  oldNumber: 731123,
   content: "<value>",
 };
 ```

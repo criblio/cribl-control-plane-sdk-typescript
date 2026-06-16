@@ -164,7 +164,7 @@ const value: models.InputPrometheusInput = {
 ```typescript
 const value: models.InputEdgePrometheusInput = {
   type: "edge_prometheus",
-  discoveryType: "k8s-service-monitor",
+  discoveryType: "http_sd",
   interval: 1916.25,
 };
 ```
@@ -676,6 +676,17 @@ const value: models.InputCloudflareHecInput = {
   type: "cloudflare_hec",
   host: "limping-resolve.info",
   port: 8947.91,
+  hecAPI: "<value>",
+};
+```
+
+### `models.InputSysdigHecInput`
+
+```typescript
+const value: models.InputSysdigHecInput = {
+  type: "sysdig_hec",
+  host: "rusty-nucleotidase.com",
+  port: 6154.42,
   hecAPI: "<value>",
 };
 ```

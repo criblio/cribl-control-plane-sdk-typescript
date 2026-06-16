@@ -122,6 +122,9 @@ import {
   CreateInputInputSqs,
   CreateInputInputSqs$Outbound,
   CreateInputInputSqs$outboundSchema,
+  CreateInputInputSysdigHec,
+  CreateInputInputSysdigHec$Outbound,
+  CreateInputInputSysdigHec$outboundSchema,
   CreateInputInputSyslogUnion,
   CreateInputInputSyslogUnion$Outbound,
   CreateInputInputSyslogUnion$outboundSchema,
@@ -1101,6 +1104,10 @@ export const CreateInputDiscoveryTypeEdgePrometheus = {
    * Kubernetes Service Monitor (v4.18+)
    */
   K8sServiceMonitor: "k8s-service-monitor",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1311,6 +1318,24 @@ export type CreateInputInputEdgePrometheus = {
    */
   podFilter?: Array<CreateInputPodFilter> | undefined;
   /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Username for Prometheus Basic authentication
    */
   username?: string | undefined;
@@ -1380,6 +1405,10 @@ export const CreateInputDiscoveryTypePrometheus = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1561,6 +1590,24 @@ export type CreateInputInputPrometheus = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -4054,6 +4101,7 @@ export type CreateInputRequest =
   | CreateInputInputServicenowTable
   | CreateInputInputZscalerHec
   | CreateInputInputCloudflareHec
+  | CreateInputInputSysdigHec
   | CreateInputInputOpenaiComplianceLogs
   | CreateInputInputAnthropicCompliance
   | CreateInputInputOkta;
@@ -4879,6 +4927,12 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
   podFilter?: Array<CreateInputPodFilter$Outbound> | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -4949,6 +5003,12 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
   scrapePathExpr: z.string().optional(),
   podFilter: z.array(z.lazy(() => CreateInputPodFilter$outboundSchema))
     .optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -5038,6 +5098,12 @@ export type CreateInputInputPrometheus$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5111,6 +5177,12 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -7050,6 +7122,7 @@ export type CreateInputRequest$Outbound =
   | CreateInputInputServicenowTable$Outbound
   | CreateInputInputZscalerHec$Outbound
   | CreateInputInputCloudflareHec$Outbound
+  | CreateInputInputSysdigHec$Outbound
   | CreateInputInputOpenaiComplianceLogs$Outbound
   | CreateInputInputAnthropicCompliance$Outbound
   | CreateInputInputOkta$Outbound;
@@ -7130,6 +7203,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   CreateInputInputServicenowTable$outboundSchema,
   CreateInputInputZscalerHec$outboundSchema,
   CreateInputInputCloudflareHec$outboundSchema,
+  CreateInputInputSysdigHec$outboundSchema,
   CreateInputInputOpenaiComplianceLogs$outboundSchema,
   CreateInputInputAnthropicCompliance$outboundSchema,
   CreateInputInputOkta$outboundSchema,
