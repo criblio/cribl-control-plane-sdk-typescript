@@ -17,6 +17,12 @@ import {
   DatabaseConnectionType$outboundSchema,
 } from "./databaseconnectiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  TLSClientParams,
+  TLSClientParams$inboundSchema,
+  TLSClientParams$Outbound,
+  TLSClientParams$outboundSchema,
+} from "./tlsclientparams.js";
 
 export type DatabaseConnectionConfig = {
   authType: DatabaseConnectionAuthType;
@@ -62,6 +68,10 @@ export type DatabaseConnectionConfig = {
    */
   textSecret?: string | undefined;
   /**
+   * TLS client connection settings.
+   */
+  tls?: TLSClientParams | undefined;
+  /**
    * Database username for authentication. Used with Oracle connections.
    */
   user?: string | undefined;
@@ -85,6 +95,7 @@ export const DatabaseConnectionConfig$inboundSchema: z.ZodType<
   requestTimeout: types.optional(types.number()),
   tags: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  tls: types.optional(TLSClientParams$inboundSchema),
   user: types.optional(types.string()),
 });
 /** @internal */
@@ -101,6 +112,7 @@ export type DatabaseConnectionConfig$Outbound = {
   requestTimeout?: number | undefined;
   tags?: string | undefined;
   textSecret?: string | undefined;
+  tls?: TLSClientParams$Outbound | undefined;
   user?: string | undefined;
 };
 
@@ -122,6 +134,7 @@ export const DatabaseConnectionConfig$outboundSchema: z.ZodType<
   requestTimeout: z.number().int().optional(),
   tags: z.string().optional(),
   textSecret: z.string().optional(),
+  tls: TLSClientParams$outboundSchema.optional(),
   user: z.string().optional(),
 });
 

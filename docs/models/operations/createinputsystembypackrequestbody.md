@@ -190,7 +190,7 @@ const value: operations.CreateInputSystemByPackInputPrometheus = {
 const value: operations.CreateInputSystemByPackInputEdgePrometheus = {
   id: "<id>",
   type: "edge_prometheus",
-  discoveryType: "static",
+  discoveryType: "dns",
   interval: 2391.39,
 };
 ```
@@ -764,6 +764,18 @@ const value: operations.CreateInputSystemByPackInputCloudflareHec = {
   type: "cloudflare_hec",
   host: "back-marimba.com",
   port: 3576.72,
+  hecAPI: "<value>",
+};
+```
+
+### `operations.CreateInputSystemByPackInputSysdigHec`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputSysdigHec = {
+  id: "<id>",
+  type: "sysdig_hec",
+  host: "sophisticated-bathhouse.org",
+  port: 4916.91,
   hecAPI: "<value>",
 };
 ```

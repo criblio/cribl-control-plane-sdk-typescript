@@ -22,6 +22,10 @@ import {
   AuthenticationMethodOptionsManualSecret$inboundSchema,
 } from "./authenticationmethodoptionsmanualsecret.js";
 import {
+  AuthTokenConfInputCloudflareHec,
+  AuthTokenConfInputCloudflareHec$inboundSchema,
+} from "./authtokenconfinputcloudflarehec.js";
+import {
   AuthTokenConfInputCriblTcp,
   AuthTokenConfInputCriblTcp$inboundSchema,
 } from "./authtokenconfinputcribltcp.js";
@@ -55,6 +59,10 @@ import {
   GoogleAuthenticationMethodOptions$inboundSchema,
 } from "./googleauthenticationmethodoptions.js";
 import { GpuType, GpuType$inboundSchema } from "./gputype.js";
+import {
+  HttpDiscoveryHeaderConfInputPrometheus,
+  HttpDiscoveryHeaderConfInputPrometheus$inboundSchema,
+} from "./httpdiscoveryheaderconfinputprometheus.js";
 import {
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
@@ -109,10 +117,6 @@ import {
   PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
 } from "./privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.js";
 import { ProcessType, ProcessType$inboundSchema } from "./processtype.js";
-import {
-  RequestParamConfInputOpenai,
-  RequestParamConfInputOpenai$inboundSchema,
-} from "./requestparamconfinputopenai.js";
 import {
   RetryRulesType,
   RetryRulesType$inboundSchema,
@@ -540,42 +544,162 @@ export type InputResponseInputOpenaiComplianceLogs = {
   status?: StatusType | undefined;
 };
 
-/**
- * Select Secret to use a text secret to authenticate
- */
-export const AuthenticationMethodCloudflareHec = {
-  Secret: "secret",
-} as const;
-/**
- * Select Secret to use a text secret to authenticate
- */
-export type AuthenticationMethodCloudflareHec = OpenEnum<
-  typeof AuthenticationMethodCloudflareHec
->;
-
-export type AuthTokenCloudflareHec = {
+export type InputResponseInputSysdigHec = {
   /**
-   * Select Secret to use a text secret to authenticate
+   * Unique ID for this input
    */
-  authType?: AuthenticationMethodCloudflareHec | undefined;
+  id?: string | undefined;
+  type: "sysdig_hec";
+  disabled?: boolean | undefined;
   /**
-   * Select or create a stored text secret
+   * Pipeline to process data from this Source before sending it through the Routes
    */
-  tokenSecret?: string | undefined;
+  pipeline?: string | undefined;
   /**
-   * Shared secret to be provided by any client (Authorization: <token>)
+   * Select whether to send data to Routes, or directly to Destinations.
    */
-  token?: string | undefined;
-  enabled?: boolean | undefined;
-  description?: string | undefined;
+  sendToRoutes?: boolean | undefined;
   /**
-   * Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
-  allowedIndexesAtToken?: Array<string> | undefined;
+  environment?: string | undefined;
   /**
-   * Fields to add to events referencing this token
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<AuthTokenConfInputCloudflareHec> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Sysdig HTTP Event Collector API requests. This input supports the /event and /raw endpoints.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+   */
+  __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
 };
 
 export type InputResponseTLSSettingsServerSide = {
@@ -668,7 +792,7 @@ export type InputResponseInputCloudflareHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<AuthTokenCloudflareHec> | undefined;
+  authTokens?: Array<AuthTokenConfInputCloudflareHec> | undefined;
   tls?: InputResponseTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -723,14 +847,6 @@ export type InputResponseInputCloudflareHec = {
    */
   allowedIndexes?: Array<string> | undefined;
   /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
    * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
    */
   accessControlAllowOrigin?: Array<string> | undefined;
@@ -742,6 +858,14 @@ export type InputResponseInputCloudflareHec = {
    * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -914,21 +1038,21 @@ export type InputResponseInputZscalerHec = {
    */
   allowedIndexes?: Array<string> | undefined;
   /**
-   * Whether to enable Zscaler HEC acknowledgements
-   */
-  hecAcks?: boolean | undefined;
-  /**
-   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
    */
   accessControlAllowOrigin?: Array<string> | undefined;
   /**
-   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
    */
   accessControlAllowHeaders?: Array<string> | undefined;
   /**
-   * Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * Whether to enable Zscaler HEC acknowledgements
+   */
+  hecAcks?: boolean | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -950,6 +1074,18 @@ export type InputResponseInputZscalerHec = {
    * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
    */
   __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
   /**
    * Notifications attached to the Source.
    */
@@ -1773,7 +1909,7 @@ export type ContentConfigOpenai = {
   /**
    * Query-string parameters to send with this endpoint
    */
-  requestParams: Array<RequestParamConfInputOpenai>;
+  requestParams: Array<HttpDiscoveryHeaderConfInputPrometheus>;
   paginationType: InputResponsePaginationType;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -6185,6 +6321,14 @@ export type InputResponseInputKubeLogs = {
    */
   timestamps?: boolean | undefined;
   /**
+   * Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+   */
+  lineBufferLimit?: number | undefined;
+  /**
+   * Internal flag to disable LB worker payload reassembly.
+   */
+  __LBDisableAssembly?: boolean | undefined;
+  /**
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
@@ -7911,6 +8055,25 @@ export type InputResponseAuthenticationMechanism = OpenEnum<
   typeof InputResponseAuthenticationMechanism
 >;
 
+export type InputResponseCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
 export type InputResponseAuth = {
   mechanism: InputResponseAuthenticationMechanism;
   /**
@@ -7922,7 +8085,7 @@ export type InputResponseAuth = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  certificate?: InputResponseCertificate | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
@@ -8273,34 +8436,68 @@ export function inputResponseInputOpenaiComplianceLogsFromJSON(
 }
 
 /** @internal */
-export const AuthenticationMethodCloudflareHec$inboundSchema: z.ZodType<
-  AuthenticationMethodCloudflareHec,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(AuthenticationMethodCloudflareHec);
-
-/** @internal */
-export const AuthTokenCloudflareHec$inboundSchema: z.ZodType<
-  AuthTokenCloudflareHec,
+export const InputResponseInputSysdigHec$inboundSchema: z.ZodType<
+  InputResponseInputSysdigHec,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: types.optional(AuthenticationMethodCloudflareHec$inboundSchema),
-  tokenSecret: types.optional(types.string()),
-  token: types.optional(types.string()),
-  enabled: types.optional(types.boolean()),
-  description: types.optional(types.string()),
-  allowedIndexesAtToken: types.optional(z.array(types.string())),
+  id: types.optional(types.string()),
+  type: types.literal("sysdig_hec"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(
+    z.array(AuthTokenConfInputCloudflareHec$inboundSchema),
+  ),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  hecAPI: types.string(),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  allowedIndexes: types.optional(z.array(types.string())),
+  accessControlAllowOrigin: types.optional(z.array(types.string())),
+  accessControlAllowHeaders: types.optional(z.array(types.string())),
+  emitTokenMetrics: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_hecAPI: types.optional(types.string()),
+  __template_allowedIndexes: types.optional(types.string()),
+  __template_accessControlAllowOrigin: types.optional(types.string()),
+  __template_accessControlAllowHeaders: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
 });
 
-export function authTokenCloudflareHecFromJSON(
+export function inputResponseInputSysdigHecFromJSON(
   jsonString: string,
-): SafeParseResult<AuthTokenCloudflareHec, SDKValidationError> {
+): SafeParseResult<InputResponseInputSysdigHec, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => AuthTokenCloudflareHec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AuthTokenCloudflareHec' from JSON`,
+    (x) => InputResponseInputSysdigHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputSysdigHec' from JSON`,
   );
 }
 
@@ -8358,7 +8555,7 @@ export const InputResponseInputCloudflareHec$inboundSchema: z.ZodType<
   host: types.string(),
   port: types.number(),
   authTokens: types.optional(
-    z.array(z.lazy(() => AuthTokenCloudflareHec$inboundSchema)),
+    z.array(AuthTokenConfInputCloudflareHec$inboundSchema),
   ),
   tls: types.optional(
     z.lazy(() => InputResponseTLSSettingsServerSide$inboundSchema),
@@ -8376,11 +8573,11 @@ export const InputResponseInputCloudflareHec$inboundSchema: z.ZodType<
   hecAPI: types.string(),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
-  breakerRulesets: types.optional(z.array(types.string())),
-  staleChannelFlushMs: types.optional(types.number()),
   accessControlAllowOrigin: types.optional(z.array(types.string())),
   accessControlAllowHeaders: types.optional(z.array(types.string())),
   emitTokenMetrics: types.optional(types.boolean()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
@@ -8471,16 +8668,19 @@ export const InputResponseInputZscalerHec$inboundSchema: z.ZodType<
   hecAPI: types.string(),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
-  hecAcks: types.optional(types.boolean()),
   accessControlAllowOrigin: types.optional(z.array(types.string())),
   accessControlAllowHeaders: types.optional(z.array(types.string())),
   emitTokenMetrics: types.optional(types.boolean()),
+  hecAcks: types.optional(types.boolean()),
   description: types.optional(types.string()),
   __template_environment: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
   __template_hecAPI: types.optional(types.string()),
+  __template_allowedIndexes: types.optional(types.string()),
+  __template_accessControlAllowOrigin: types.optional(types.string()),
+  __template_accessControlAllowHeaders: types.optional(types.string()),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
   status: types.optional(StatusType$inboundSchema),
 });
@@ -8860,7 +9060,7 @@ export const ContentConfigOpenai$inboundSchema: z.ZodType<
   stateUpdateExpression: types.optional(types.string()),
   stateMergeExpression: types.optional(types.string()),
   manageState: types.optional(z.lazy(() => ManageStateOpenai$inboundSchema)),
-  requestParams: z.array(RequestParamConfInputOpenai$inboundSchema),
+  requestParams: z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
   paginationType: InputResponsePaginationType$inboundSchema,
   paginationAttribute: types.optional(z.array(types.string())),
   paginationLastPageExpr: types.optional(types.string()),
@@ -11198,6 +11398,8 @@ export const InputResponseInputKubeLogs$inboundSchema: z.ZodType<
   interval: types.optional(types.number()),
   rules: types.optional(z.array(z.lazy(() => RuleKubeLogs$inboundSchema))),
   timestamps: types.optional(types.boolean()),
+  lineBufferLimit: types.optional(types.number()),
+  __LBDisableAssembly: types.optional(types.boolean()),
   metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
   persistence: types.optional(DiskSpoolingType$inboundSchema),
   breakerRulesets: types.optional(z.array(types.string())),
@@ -12441,6 +12643,28 @@ export const InputResponseAuthenticationMechanism$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(InputResponseAuthenticationMechanism);
 
 /** @internal */
+export const InputResponseCertificate$inboundSchema: z.ZodType<
+  InputResponseCertificate,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: types.string(),
+  certPath: types.string(),
+  privKeyPath: types.string(),
+  passphrase: types.optional(types.string()),
+});
+
+export function inputResponseCertificateFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseCertificate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseCertificate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseCertificate' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputResponseAuth$inboundSchema: z.ZodType<
   InputResponseAuth,
   z.ZodTypeDef,
@@ -12453,7 +12677,7 @@ export const InputResponseAuth$inboundSchema: z.ZodType<
   ),
   clientTextSecret: types.optional(types.string()),
   certificate: types.optional(
-    CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
+    z.lazy(() => InputResponseCertificate$inboundSchema),
   ),
   oauthEndpoint: types.optional(
     MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,

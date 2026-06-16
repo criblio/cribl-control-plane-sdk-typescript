@@ -8,9 +8,21 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Inserted line in a Git diff hunk.
+ */
 export type DiffLineInsert = {
+  /**
+   * Line change type. Always <code>insert</code> for inserted lines.
+   */
   type: "insert";
+  /**
+   * Line number in the new file.
+   */
   newNumber: number;
+  /**
+   * Full content of the line, including the diff prefix character.
+   */
   content: string;
 };
 

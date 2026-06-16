@@ -204,7 +204,7 @@ export const InputWinEventLogsInput$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   batchSize: z.number().optional(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
-  maxEventBytes: z.number().optional(),
+  maxEventBytes: z.number().int().optional(),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
   disableXmlRendering: z.boolean().optional(),

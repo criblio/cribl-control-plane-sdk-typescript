@@ -3,8 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import {
+  AuthTokenConfInputCloudflareHec,
+  AuthTokenConfInputCloudflareHec$Outbound,
+  AuthTokenConfInputCloudflareHec$outboundSchema,
+} from "./authtokenconfinputcloudflarehec.js";
 import {
   ConnectionConfInputCollection,
   ConnectionConfInputCollection$Outbound,
@@ -24,44 +27,6 @@ import {
   MinimumTlsVersionOptionsTls$outboundSchema,
 } from "./minimumtlsversionoptionstls.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
-
-/**
- * Select Secret to use a text secret to authenticate
- */
-export const InputCloudflareHecAuthenticationMethod = {
-  Secret: "secret",
-} as const;
-/**
- * Select Secret to use a text secret to authenticate
- */
-export type InputCloudflareHecAuthenticationMethod = OpenEnum<
-  typeof InputCloudflareHecAuthenticationMethod
->;
-
-export type InputCloudflareHecAuthToken = {
-  /**
-   * Select Secret to use a text secret to authenticate
-   */
-  authType?: InputCloudflareHecAuthenticationMethod | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  tokenSecret?: string | undefined;
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
-  token?: string | undefined;
-  enabled?: boolean | undefined;
-  description?: string | undefined;
-  /**
-   * Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
-   */
-  allowedIndexesAtToken?: Array<string> | undefined;
-  /**
-   * Fields to add to events referencing this token
-   */
-  metadata?: Array<MetadataConfInputCollection> | undefined;
-};
 
 export type InputCloudflareHecTLSSettingsServerSide = {
   /**
@@ -147,7 +112,7 @@ export type InputCloudflareHecInput = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
+  authTokens?: Array<AuthTokenConfInputCloudflareHec> | undefined;
   tls?: InputCloudflareHecTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -202,14 +167,6 @@ export type InputCloudflareHecInput = {
    */
   allowedIndexes?: Array<string> | undefined;
   /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
    * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
    */
   accessControlAllowOrigin?: Array<string> | undefined;
@@ -221,6 +178,14 @@ export type InputCloudflareHecInput = {
    * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -255,49 +220,6 @@ export type InputCloudflareHecInput = {
    */
   __template_accessControlAllowHeaders?: string | undefined;
 };
-
-/** @internal */
-export const InputCloudflareHecAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCloudflareHecAuthenticationMethod
-> = openEnums.outboundSchema(InputCloudflareHecAuthenticationMethod);
-
-/** @internal */
-export type InputCloudflareHecAuthToken$Outbound = {
-  authType?: string | undefined;
-  tokenSecret?: string | undefined;
-  token?: string | undefined;
-  enabled?: boolean | undefined;
-  description?: string | undefined;
-  allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
-};
-
-/** @internal */
-export const InputCloudflareHecAuthToken$outboundSchema: z.ZodType<
-  InputCloudflareHecAuthToken$Outbound,
-  z.ZodTypeDef,
-  InputCloudflareHecAuthToken
-> = z.object({
-  authType: InputCloudflareHecAuthenticationMethod$outboundSchema.optional(),
-  tokenSecret: z.string().optional(),
-  token: z.string().optional(),
-  enabled: z.boolean().optional(),
-  description: z.string().optional(),
-  allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
-});
-
-export function inputCloudflareHecAuthTokenToJSON(
-  inputCloudflareHecAuthToken: InputCloudflareHecAuthToken,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecAuthToken$outboundSchema.parse(
-      inputCloudflareHecAuthToken,
-    ),
-  );
-}
 
 /** @internal */
 export type InputCloudflareHecTLSSettingsServerSide$Outbound = {
@@ -358,7 +280,7 @@ export type InputCloudflareHecInput$Outbound = {
   pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
+  authTokens?: Array<AuthTokenConfInputCloudflareHec$Outbound> | undefined;
   tls?: InputCloudflareHecTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
@@ -373,11 +295,11 @@ export type InputCloudflareHecInput$Outbound = {
   hecAPI: string;
   metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -407,7 +329,7 @@ export const InputCloudflareHecInput$outboundSchema: z.ZodType<
   pq: PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$outboundSchema))
+  authTokens: z.array(AuthTokenConfInputCloudflareHec$outboundSchema)
     .optional(),
   tls: z.lazy(() => InputCloudflareHecTLSSettingsServerSide$outboundSchema)
     .optional(),
@@ -424,11 +346,11 @@ export const InputCloudflareHecInput$outboundSchema: z.ZodType<
   hecAPI: z.string(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),

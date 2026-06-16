@@ -1,13 +1,13 @@
-# AuthenticationMethodCloudflareR2
+# AuthenticationMethodOptionsAutoSecret
 
 AWS authentication method. Choose Auto to use IAM roles.
 
 ## Example Usage
 
 ```typescript
-import { AuthenticationMethodCloudflareR2 } from "cribl-control-plane/models";
+import { AuthenticationMethodOptionsAutoSecret } from "cribl-control-plane/models";
 
-let value: AuthenticationMethodCloudflareR2 = "auto";
+let value: AuthenticationMethodOptionsAutoSecret = "auto";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```

@@ -7,26 +7,85 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FilesTypeGitCommitSummary,
-  FilesTypeGitCommitSummary$inboundSchema,
-} from "./filestypegitcommitsummary.js";
+import { GitFileRename, GitFileRename$inboundSchema } from "./gitfilerename.js";
 
+/**
+ * Files affected by the revert, grouped by change type.
+ */
+export type GitRevertResultFiles = {
+  /**
+   * Array of file paths that were created in the commit.
+   */
+  created?: Array<string> | undefined;
+  /**
+   * Array of file paths that were deleted in the commit.
+   */
+  deleted?: Array<string> | undefined;
+  /**
+   * Array of file paths that were modified in the commit.
+   */
+  modified?: Array<string> | undefined;
+  /**
+   * Array of file rename operations, each containing the original path and the new path.
+   */
+  renamed?: Array<GitFileRename> | undefined;
+};
+
+/**
+ * Audit record for the revert operation, including the commit hash and affected files.
+ */
 export type Audit = {
-  files?: FilesTypeGitCommitSummary | undefined;
+  /**
+   * Files affected by the revert, grouped by change type.
+   */
+  files?: GitRevertResultFiles | undefined;
+  /**
+   * Worker Group the revert was applied to, if applicable.
+   */
   group?: string | undefined;
+  /**
+   * SHA-1 hash of the revert commit that was created.
+   */
   id: string;
 };
 
 export type GitRevertResult = {
+  /**
+   * Audit record for the revert operation, including the commit hash and affected files.
+   */
   audit: Audit;
+  /**
+   * If <code>true</code>, the revert was applied successfully. Otherwise, <code>false</code>.
+   */
   reverted: boolean;
 };
 
 /** @internal */
+export const GitRevertResultFiles$inboundSchema: z.ZodType<
+  GitRevertResultFiles,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  created: types.optional(z.array(types.string())),
+  deleted: types.optional(z.array(types.string())),
+  modified: types.optional(z.array(types.string())),
+  renamed: types.optional(z.array(GitFileRename$inboundSchema)),
+});
+
+export function gitRevertResultFilesFromJSON(
+  jsonString: string,
+): SafeParseResult<GitRevertResultFiles, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitRevertResultFiles$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitRevertResultFiles' from JSON`,
+  );
+}
+
+/** @internal */
 export const Audit$inboundSchema: z.ZodType<Audit, z.ZodTypeDef, unknown> = z
   .object({
-    files: types.optional(FilesTypeGitCommitSummary$inboundSchema),
+    files: types.optional(z.lazy(() => GitRevertResultFiles$inboundSchema)),
     group: types.optional(types.string()),
     id: types.string(),
   });

@@ -11,6 +11,10 @@ import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
  */
 export type RestApiJsonErrorData = {
   /**
+   * Optional structured details about the error (e.g. validation failures).
+   */
+  details?: { [k: string]: any } | undefined;
+  /**
    * Human-readable message or serialized validation details for the error.
    */
   message: string;
@@ -24,6 +28,10 @@ export type RestApiJsonErrorData = {
  * JSON body returned for many REST failures that use RESTEndpoint.sendError (and similar handlers).
  */
 export class RestApiJsonError extends CriblControlPlaneError {
+  /**
+   * Optional structured details about the error (e.g. validation failures).
+   */
+  details?: { [k: string]: any } | undefined;
   /**
    * Always <code>error</code> for API error responses.
    */
@@ -39,6 +47,7 @@ export class RestApiJsonError extends CriblControlPlaneError {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.details != null) this.details = err.details;
     this.status = err.status;
 
     this.name = "RestApiJsonError";
@@ -51,6 +60,7 @@ export const RestApiJsonError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  details: types.optional(z.record(z.any())),
   message: types.string(),
   status: types.literal("error"),
   request$: z.instanceof(Request),

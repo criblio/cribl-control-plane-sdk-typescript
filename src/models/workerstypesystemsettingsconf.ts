@@ -20,6 +20,7 @@ export type WorkersTypeSystemSettingsConf = {
   v8SingleThread?: boolean | undefined;
   workerProcessConfigUpdateConcurrency?: number | undefined;
   workerProcessReloadTimeout?: number | undefined;
+  workerThreadPoolSize?: number | undefined;
 };
 
 /** @internal */
@@ -39,6 +40,7 @@ export const WorkersTypeSystemSettingsConf$inboundSchema: z.ZodType<
   v8SingleThread: types.optional(types.boolean()),
   workerProcessConfigUpdateConcurrency: types.optional(types.number()),
   workerProcessReloadTimeout: types.optional(types.number()),
+  workerThreadPoolSize: types.optional(types.number()),
 });
 /** @internal */
 export type WorkersTypeSystemSettingsConf$Outbound = {
@@ -53,6 +55,7 @@ export type WorkersTypeSystemSettingsConf$Outbound = {
   v8SingleThread?: boolean | undefined;
   workerProcessConfigUpdateConcurrency?: number | undefined;
   workerProcessReloadTimeout?: number | undefined;
+  workerThreadPoolSize?: number | undefined;
 };
 
 /** @internal */
@@ -72,6 +75,7 @@ export const WorkersTypeSystemSettingsConf$outboundSchema: z.ZodType<
   v8SingleThread: z.boolean().optional(),
   workerProcessConfigUpdateConcurrency: z.number().optional(),
   workerProcessReloadTimeout: z.number().optional(),
+  workerThreadPoolSize: z.number().optional(),
 });
 
 export function workersTypeSystemSettingsConfToJSON(

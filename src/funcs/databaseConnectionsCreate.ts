@@ -172,8 +172,9 @@ async function $do(
   >(
     M.json(200, models.DatabaseConnectionResponseEnvelope$inboundSchema),
     M.jsonErr(400, errors.RestApiJsonError$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

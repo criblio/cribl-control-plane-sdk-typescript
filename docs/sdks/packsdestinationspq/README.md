@@ -11,9 +11,123 @@
 
 Clear the persistent queue (PQ) for the specified Destination within the specified Pack.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="typescript" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" -->
+<!-- UsageSnippet language="typescript" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesS3Destination" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.pq.clear({
+    id: "<id>",
+    pack: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsPqClear } from "cribl-control-plane/funcs/packsDestinationsPqClear.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsPqClear(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsPqClear failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="typescript" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSplunkHecDestination" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.pq.clear({
+    id: "<id>",
+    pack: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsPqClear } from "cribl-control-plane/funcs/packsDestinationsPqClear.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsPqClear(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsPqClear failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="typescript" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSyslogDestination" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -86,6 +200,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -93,9 +208,123 @@ run();
 
 Get information about the latest job to clear the persistent queue (PQ) for the specified Destination within the specified Pack.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="typescript" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" -->
+<!-- UsageSnippet language="typescript" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesS3Destination" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.pq.get({
+    id: "<id>",
+    pack: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsPqGet } from "cribl-control-plane/funcs/packsDestinationsPqGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsPqGet(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsPqGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="typescript" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSplunkHecDestination" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.pq.get({
+    id: "<id>",
+    pack: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsPqGet } from "cribl-control-plane/funcs/packsDestinationsPqGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsPqGet(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsPqGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="typescript" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSyslogDestination" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -168,5 +397,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

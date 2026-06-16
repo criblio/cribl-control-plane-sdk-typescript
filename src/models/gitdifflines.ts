@@ -21,15 +21,15 @@ import {
 } from "./difflineinsert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type DiffLine =
+export type GitDiffLines =
   | DiffLineDelete
   | DiffLineInsert
   | DiffLineContext
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
-export const DiffLine$inboundSchema: z.ZodType<
-  DiffLine,
+export const GitDiffLines$inboundSchema: z.ZodType<
+  GitDiffLines,
   z.ZodTypeDef,
   unknown
 > = discriminatedUnion("type", {
@@ -38,12 +38,12 @@ export const DiffLine$inboundSchema: z.ZodType<
   context: DiffLineContext$inboundSchema,
 });
 
-export function diffLineFromJSON(
+export function gitDiffLinesFromJSON(
   jsonString: string,
-): SafeParseResult<DiffLine, SDKValidationError> {
+): SafeParseResult<GitDiffLines, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => DiffLine$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DiffLine' from JSON`,
+    (x) => GitDiffLines$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitDiffLines' from JSON`,
   );
 }

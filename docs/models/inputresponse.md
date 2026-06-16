@@ -168,7 +168,7 @@ const value: models.InputResponseInputPrometheus = {
 ```typescript
 const value: models.InputResponseInputEdgePrometheus = {
   type: "edge_prometheus",
-  discoveryType: "dns",
+  discoveryType: "ec2",
   interval: 785.78,
 };
 ```
@@ -706,6 +706,17 @@ const value: models.InputResponseInputCloudflareHec = {
   type: "cloudflare_hec",
   host: "parched-venom.net",
   port: 396.4,
+  hecAPI: "<value>",
+};
+```
+
+### `models.InputResponseInputSysdigHec`
+
+```typescript
+const value: models.InputResponseInputSysdigHec = {
+  type: "sysdig_hec",
+  host: "staid-straw.info",
+  port: 1375.43,
   hecAPI: "<value>",
 };
 ```

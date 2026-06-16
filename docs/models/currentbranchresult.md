@@ -12,6 +12,6 @@ let value: CurrentBranchResult = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `branch`           | *string*           | :heavy_check_mark: | N/A                |
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `branch`                                                                         | *string*                                                                         | :heavy_check_mark:                                                               | Name of the Git branch that the Cribl configuration is currently checked out to. |

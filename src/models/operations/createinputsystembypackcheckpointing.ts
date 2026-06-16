@@ -379,42 +379,148 @@ export type CreateInputSystemByPackInputOpenaiComplianceLogs = {
   __template_organizationId?: string | undefined;
 };
 
-/**
- * Select Secret to use a text secret to authenticate
- */
-export const CreateInputSystemByPackAuthTokenAuthenticationMethod = {
-  Secret: "secret",
-} as const;
-/**
- * Select Secret to use a text secret to authenticate
- */
-export type CreateInputSystemByPackAuthTokenAuthenticationMethod = OpenEnum<
-  typeof CreateInputSystemByPackAuthTokenAuthenticationMethod
->;
-
-export type CreateInputSystemByPackAuthTokenCloudflareHec = {
+export type CreateInputSystemByPackInputSysdigHec = {
   /**
-   * Select Secret to use a text secret to authenticate
+   * Unique ID for this input
    */
-  authType?: CreateInputSystemByPackAuthTokenAuthenticationMethod | undefined;
+  id: string;
+  type: "sysdig_hec";
+  disabled?: boolean | undefined;
   /**
-   * Select or create a stored text secret
+   * Pipeline to process data from this Source before sending it through the Routes
    */
-  tokenSecret?: string | undefined;
+  pipeline?: string | undefined;
   /**
-   * Shared secret to be provided by any client (Authorization: <token>)
+   * Select whether to send data to Routes, or directly to Destinations.
    */
-  token?: string | undefined;
-  enabled?: boolean | undefined;
-  description?: string | undefined;
+  sendToRoutes?: boolean | undefined;
   /**
-   * Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
-  allowedIndexesAtToken?: Array<string> | undefined;
+  environment?: string | undefined;
   /**
-   * Fields to add to events referencing this token
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<models.AuthTokenConfInputCloudflareHec> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Sysdig HTTP Event Collector API requests. This input supports the /event and /raw endpoints.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+   */
+  __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 export type CreateInputSystemByPackTLSSettingsServerSide = {
@@ -501,7 +607,7 @@ export type CreateInputSystemByPackInputCloudflareHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<CreateInputSystemByPackAuthTokenCloudflareHec> | undefined;
+  authTokens?: Array<models.AuthTokenConfInputCloudflareHec> | undefined;
   tls?: CreateInputSystemByPackTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -556,14 +662,6 @@ export type CreateInputSystemByPackInputCloudflareHec = {
    */
   allowedIndexes?: Array<string> | undefined;
   /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
    * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
    */
   accessControlAllowOrigin?: Array<string> | undefined;
@@ -575,6 +673,14 @@ export type CreateInputSystemByPackInputCloudflareHec = {
    * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -733,21 +839,21 @@ export type CreateInputSystemByPackInputZscalerHec = {
    */
   allowedIndexes?: Array<string> | undefined;
   /**
-   * Whether to enable Zscaler HEC acknowledgements
-   */
-  hecAcks?: boolean | undefined;
-  /**
-   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
    */
   accessControlAllowOrigin?: Array<string> | undefined;
   /**
-   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
    */
   accessControlAllowHeaders?: Array<string> | undefined;
   /**
-   * Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * Whether to enable Zscaler HEC acknowledgements
+   */
+  hecAcks?: boolean | undefined;
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -769,6 +875,18 @@ export type CreateInputSystemByPackInputZscalerHec = {
    * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
    */
   __template_hecAPI?: string | undefined;
+  /**
+   * Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+   */
+  __template_allowedIndexes?: string | undefined;
+  /**
+   * Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+   */
+  __template_accessControlAllowOrigin?: string | undefined;
+  /**
+   * Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+   */
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /**
@@ -1527,7 +1645,7 @@ export type CreateInputSystemByPackContentConfigInput = {
   /**
    * Query-string parameters to send with this endpoint
    */
-  requestParams: Array<models.RequestParamConfInputOpenai>;
+  requestParams: Array<models.HttpDiscoveryHeaderConfInputPrometheus>;
   paginationType: CreateInputSystemByPackPaginationType;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -5573,6 +5691,14 @@ export type CreateInputSystemByPackInputKubeLogs = {
    */
   timestamps?: boolean | undefined;
   /**
+   * Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+   */
+  lineBufferLimit?: number | undefined;
+  /**
+   * Internal flag to disable LB worker payload reassembly.
+   */
+  __LBDisableAssembly?: boolean | undefined;
+  /**
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
@@ -7147,6 +7273,25 @@ export type CreateInputSystemByPackAuthenticationMechanism = OpenEnum<
   typeof CreateInputSystemByPackAuthenticationMechanism
 >;
 
+export type CreateInputSystemByPackCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
 export type CreateInputSystemByPackAuth = {
   mechanism: CreateInputSystemByPackAuthenticationMechanism;
   /**
@@ -7158,7 +7303,7 @@ export type CreateInputSystemByPackAuth = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  certificate?: CreateInputSystemByPackCertificate | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
@@ -7642,52 +7787,108 @@ export function createInputSystemByPackInputOpenaiComplianceLogsToJSON(
 }
 
 /** @internal */
-export const CreateInputSystemByPackAuthTokenAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthTokenAuthenticationMethod
-  > = openEnums.outboundSchema(
-    CreateInputSystemByPackAuthTokenAuthenticationMethod,
-  );
-
-/** @internal */
-export type CreateInputSystemByPackAuthTokenCloudflareHec$Outbound = {
-  authType?: string | undefined;
-  tokenSecret?: string | undefined;
-  token?: string | undefined;
-  enabled?: boolean | undefined;
-  description?: string | undefined;
-  allowedIndexesAtToken?: Array<string> | undefined;
+export type CreateInputSystemByPackInputSysdigHec$Outbound = {
+  id: string;
+  type: "sysdig_hec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?:
+    | Array<models.AuthTokenConfInputCloudflareHec$Outbound>
+    | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  hecAPI: string;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_hecAPI?: string | undefined;
+  __template_allowedIndexes?: string | undefined;
+  __template_accessControlAllowOrigin?: string | undefined;
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
-export const CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema:
-  z.ZodType<
-    CreateInputSystemByPackAuthTokenCloudflareHec$Outbound,
-    z.ZodTypeDef,
-    CreateInputSystemByPackAuthTokenCloudflareHec
-  > = z.object({
-    authType:
-      CreateInputSystemByPackAuthTokenAuthenticationMethod$outboundSchema
-        .optional(),
-    tokenSecret: z.string().optional(),
-    token: z.string().optional(),
-    enabled: z.boolean().optional(),
-    description: z.string().optional(),
-    allowedIndexesAtToken: z.array(z.string()).optional(),
-    metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
-      .optional(),
-  });
+export const CreateInputSystemByPackInputSysdigHec$outboundSchema: z.ZodType<
+  CreateInputSystemByPackInputSysdigHec$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackInputSysdigHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("sysdig_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(models.AuthTokenConfInputCloudflareHec$outboundSchema)
+    .optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_hecAPI: z.string().optional(),
+  __template_allowedIndexes: z.string().optional(),
+  __template_accessControlAllowOrigin: z.string().optional(),
+  __template_accessControlAllowHeaders: z.string().optional(),
+});
 
-export function createInputSystemByPackAuthTokenCloudflareHecToJSON(
-  createInputSystemByPackAuthTokenCloudflareHec:
-    CreateInputSystemByPackAuthTokenCloudflareHec,
+export function createInputSystemByPackInputSysdigHecToJSON(
+  createInputSystemByPackInputSysdigHec: CreateInputSystemByPackInputSysdigHec,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema.parse(
-      createInputSystemByPackAuthTokenCloudflareHec,
+    CreateInputSystemByPackInputSysdigHec$outboundSchema.parse(
+      createInputSystemByPackInputSysdigHec,
     ),
   );
 }
@@ -7755,7 +7956,7 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
   host: string;
   port: number;
   authTokens?:
-    | Array<CreateInputSystemByPackAuthTokenCloudflareHec$Outbound>
+    | Array<models.AuthTokenConfInputCloudflareHec$Outbound>
     | undefined;
   tls?: CreateInputSystemByPackTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq?: number | undefined;
@@ -7771,11 +7972,11 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
   hecAPI: string;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs?: number | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
@@ -7807,11 +8008,8 @@ export const CreateInputSystemByPackInputCloudflareHec$outboundSchema:
     pq: models.PqType$outboundSchema.optional(),
     host: z.string(),
     port: z.number(),
-    authTokens: z.array(
-      z.lazy(() =>
-        CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema
-      ),
-    ).optional(),
+    authTokens: z.array(models.AuthTokenConfInputCloudflareHec$outboundSchema)
+      .optional(),
     tls: z.lazy(() =>
       CreateInputSystemByPackTLSSettingsServerSide$outboundSchema
     ).optional(),
@@ -7829,11 +8027,11 @@ export const CreateInputSystemByPackInputCloudflareHec$outboundSchema:
     metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
       .optional(),
     allowedIndexes: z.array(z.string()).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
     accessControlAllowOrigin: z.array(z.string()).optional(),
     accessControlAllowHeaders: z.array(z.string()).optional(),
     emitTokenMetrics: z.boolean().optional(),
+    breakerRulesets: z.array(z.string()).optional(),
+    staleChannelFlushMs: z.number().optional(),
     description: z.string().optional(),
     __template_environment: z.string().optional(),
     __template_streamtags: z.string().optional(),
@@ -7929,16 +8127,19 @@ export type CreateInputSystemByPackInputZscalerHec$Outbound = {
   hecAPI: string;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
-  hecAcks?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
+  hecAcks?: boolean | undefined;
   description?: string | undefined;
   __template_environment?: string | undefined;
   __template_streamtags?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
   __template_hecAPI?: string | undefined;
+  __template_allowedIndexes?: string | undefined;
+  __template_accessControlAllowOrigin?: string | undefined;
+  __template_accessControlAllowHeaders?: string | undefined;
 };
 
 /** @internal */
@@ -7978,16 +8179,19 @@ export const CreateInputSystemByPackInputZscalerHec$outboundSchema: z.ZodType<
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
   allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
+  hecAcks: z.boolean().optional(),
   description: z.string().optional(),
   __template_environment: z.string().optional(),
   __template_streamtags: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
   __template_hecAPI: z.string().optional(),
+  __template_allowedIndexes: z.string().optional(),
+  __template_accessControlAllowOrigin: z.string().optional(),
+  __template_accessControlAllowHeaders: z.string().optional(),
 });
 
 export function createInputSystemByPackInputZscalerHecToJSON(
@@ -8561,7 +8765,7 @@ export type CreateInputSystemByPackContentConfigInput$Outbound = {
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?: CreateInputSystemByPackManageStateOpenai$Outbound | undefined;
-  requestParams: Array<models.RequestParamConfInputOpenai$Outbound>;
+  requestParams: Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>;
   paginationType: string;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -8592,7 +8796,9 @@ export const CreateInputSystemByPackContentConfigInput$outboundSchema:
     manageState: z.lazy(() =>
       CreateInputSystemByPackManageStateOpenai$outboundSchema
     ).optional(),
-    requestParams: z.array(models.RequestParamConfInputOpenai$outboundSchema),
+    requestParams: z.array(
+      models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    ),
     paginationType: CreateInputSystemByPackPaginationType$outboundSchema,
     paginationAttribute: z.array(z.string()).optional(),
     paginationLastPageExpr: z.string().optional(),
@@ -9180,7 +9386,7 @@ export const CreateInputSystemByPackInputWinEventLogs$outboundSchema: z.ZodType<
   batchSize: z.number().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
-  maxEventBytes: z.number().optional(),
+  maxEventBytes: z.number().int().optional(),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
   disableXmlRendering: z.boolean().optional(),
@@ -12107,6 +12313,8 @@ export type CreateInputSystemByPackInputKubeLogs$Outbound = {
   interval?: number | undefined;
   rules?: Array<CreateInputSystemByPackRuleKubeLogs$Outbound> | undefined;
   timestamps?: boolean | undefined;
+  lineBufferLimit?: number | undefined;
+  __LBDisableAssembly?: boolean | undefined;
   metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -12139,6 +12347,8 @@ export const CreateInputSystemByPackInputKubeLogs$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackRuleKubeLogs$outboundSchema),
   ).optional(),
   timestamps: z.boolean().optional(),
+  lineBufferLimit: z.number().optional(),
+  __LBDisableAssembly: z.boolean().optional(),
   metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
     .optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
@@ -13923,14 +14133,42 @@ export const CreateInputSystemByPackAuthenticationMechanism$outboundSchema:
   > = openEnums.outboundSchema(CreateInputSystemByPackAuthenticationMechanism);
 
 /** @internal */
+export type CreateInputSystemByPackCertificate$Outbound = {
+  certificateName: string;
+  certPath: string;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackCertificate$outboundSchema: z.ZodType<
+  CreateInputSystemByPackCertificate$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackCertificate
+> = z.object({
+  certificateName: z.string(),
+  certPath: z.string(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+});
+
+export function createInputSystemByPackCertificateToJSON(
+  createInputSystemByPackCertificate: CreateInputSystemByPackCertificate,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackCertificate$outboundSchema.parse(
+      createInputSystemByPackCertificate,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputSystemByPackAuth$Outbound = {
   mechanism: string;
   textSecret?: string | undefined;
   clientSecretAuthType?: string | undefined;
   clientTextSecret?: string | undefined;
-  certificate?:
-    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
-    | undefined;
+  certificate?: CreateInputSystemByPackCertificate$Outbound | undefined;
   oauthEndpoint?: string | undefined;
   clientId?: string | undefined;
   tenantId?: string | undefined;
@@ -13952,7 +14190,7 @@ export const CreateInputSystemByPackAuth$outboundSchema: z.ZodType<
   clientSecretAuthType: models.AuthenticationMethodOptionsAuth$outboundSchema
     .optional(),
   clientTextSecret: z.string().optional(),
-  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+  certificate: z.lazy(() => CreateInputSystemByPackCertificate$outboundSchema)
     .optional(),
   oauthEndpoint: models
     .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema

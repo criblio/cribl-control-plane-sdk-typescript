@@ -5,7 +5,13 @@
 ```typescript
 import { CountedGitDiffResult } from "cribl-control-plane/models";
 
-let value: CountedGitDiffResult = {};
+let value: CountedGitDiffResult = {
+  items: [
+    {
+      diffJson: [],
+    },
+  ],
+};
 ```
 
 ## Fields

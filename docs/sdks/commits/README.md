@@ -14,11 +14,11 @@
 
 ## list
 
-List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+List the commit history.<br/><br/>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersion" method="get" path="/version" -->
+<!-- UsageSnippet language="typescript" operationID="getVersion" method="get" path="/version" example="VersionListResponseExamplesListCommitHistory" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -30,9 +30,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versions.commits.list({
-    count: 893.58,
-  });
+  const result = await criblControlPlane.versions.commits.list();
 
   console.log(result);
 }
@@ -58,9 +56,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versionsCommitsList(criblControlPlane, {
-    count: 893.58,
-  });
+  const res = await versionsCommitsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -89,12 +85,13 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## create
 
-Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br> To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
+Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.<br/><br/>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
 ### Example Usage: VersionCommitExamplesCommitAll
 
@@ -216,6 +213,61 @@ async function run() {
 
 run();
 ```
+### Example Usage: VersionCommitResponseExamplesCommitCreated
+
+<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitResponseExamplesCommitCreated" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.versions.commits.create({
+    message: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { versionsCommitsCreate } from "cribl-control-plane/funcs/versionsCommitsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await versionsCommitsCreate(criblControlPlane, {
+    message: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("versionsCommitsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -234,6 +286,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -243,7 +296,7 @@ Get the diff for a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionDiff" method="get" path="/version/diff" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionDiff" method="get" path="/version/diff" example="VersionDiffResponseExamplesDiffResult" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -255,11 +308,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versions.commits.diff({
-    commit: "<value>",
-    filename: "example.file",
-    diffLineLimit: 6362,
-  });
+  const result = await criblControlPlane.versions.commits.diff();
 
   console.log(result);
 }
@@ -285,11 +334,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versionsCommitsDiff(criblControlPlane, {
-    commit: "<value>",
-    filename: "example.file",
-    diffLineLimit: 6362,
-  });
+  const res = await versionsCommitsDiff(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -318,16 +363,17 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## push
 
-Push all local commits from the local repository to the remote repository.
+Push all local commits from the local repository to the remote repository.<br/><br/>Requires at least one local commit that has not been pushed. Returns an error if the remote repository cannot be reached or the push is rejected.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="createVersionPush" method="post" path="/version/push" -->
+<!-- UsageSnippet language="typescript" operationID="createVersionPush" method="post" path="/version/push" example="VersionPushResponseExamplesPushResult" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -393,12 +439,13 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## revert
 
-Revert a commit in the local repository.
+Revert a commit in the local repository by creating a new commit that undoes the changes introduced by the specified commit.<br/><br/>Use the <code>force</code> field to proceed even when the working directory is not clean.
 
 ### Example Usage: VersionRevertExamplesForceRevertWithMessage
 
@@ -514,6 +561,61 @@ async function run() {
 
 run();
 ```
+### Example Usage: VersionRevertResponseExamplesRevertResult
+
+<!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" example="VersionRevertResponseExamplesRevertResult" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.versions.commits.revert({
+    commit: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { versionsCommitsRevert } from "cribl-control-plane/funcs/versionsCommitsRevert.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await versionsCommitsRevert(criblControlPlane, {
+    commit: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("versionsCommitsRevert failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -532,6 +634,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -541,7 +644,7 @@ Get the diff and log message for a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionShow" method="get" path="/version/show" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionShow" method="get" path="/version/show" example="VersionShowResponseExamplesShowCommit" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -553,11 +656,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versions.commits.get({
-    commit: "<value>",
-    filename: "example.file",
-    diffLineLimit: 7771.94,
-  });
+  const result = await criblControlPlane.versions.commits.get();
 
   console.log(result);
 }
@@ -583,11 +682,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versionsCommitsGet(criblControlPlane, {
-    commit: "<value>",
-    filename: "example.file",
-    diffLineLimit: 7771.94,
-  });
+  const res = await versionsCommitsGet(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -616,16 +711,17 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## undo
 
-Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
+Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.<br/><br/>When applied globally (no group), triggers a Cribl restart to reload the reverted configuration. Returns <code>false</code> if the working directory is already clean.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="createVersionUndo" method="post" path="/version/undo" -->
+<!-- UsageSnippet language="typescript" operationID="createVersionUndo" method="post" path="/version/undo" example="VersionUndoResponseExamplesUndoResult" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -691,5 +787,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
