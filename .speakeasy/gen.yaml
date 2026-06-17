@@ -33,7 +33,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.9.0-alpha.16
+  version: 0.9.0-alpha.17
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -42,6 +42,7 @@ typescript:
   additionalPackageJSON: {}
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
+  apiPromiseHelpers: false
   author: Speakeasy
   baseErrorName: CriblControlPlaneError
   clientServerStatusCodesAsErrors: true

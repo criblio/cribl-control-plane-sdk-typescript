@@ -11835,7 +11835,7 @@ export type CreateOutputSystemByPackOutputGoogleCloudObservability = {
   keepAliveTime?: number | undefined;
   tls?: models.TlsSettingsClientSideTypeExtended | undefined;
   /**
-   * Max number of events to include in the request body. Default is 0 (unlimited).
+   * Max number of events to include in the request body. Default is 0 (unlimited). Use to keep outgoing data points within GCO request limits. For metrics, combine with the OTLP Metrics function batchSize.
    */
   maxPayloadEvents?: number | undefined;
   /**
