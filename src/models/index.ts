@@ -4,6 +4,7 @@
 
 export * from "./acknowledgmentsoptions.js";
 export * from "./acknowledgmentsoptionsallleader.js";
+export * from "./activehealthoverlaystatus.js";
 export * from "./addconffunctionconfschemaaggregation.js";
 export * from "./addhectokenrequest.js";
 export * from "./additionalpropertiestypeenrichedfieldssavedstate.js";
@@ -281,6 +282,7 @@ export * from "./hbcriblinfo.js";
 export * from "./hbleaderinfo.js";
 export * from "./healthcheckcollectorconf.js";
 export * from "./healthcounttype.js";
+export * from "./healthoverlaystatus.js";
 export * from "./healthserverstatus.js";
 export * from "./healthstringtype.js";
 export * from "./heartbeatmetadata.js";
@@ -393,6 +395,7 @@ export * from "./modeoptionsgpu.js";
 export * from "./modeoptionshost.js";
 export * from "./modeoptionspq.js";
 export * from "./nestedfieldserializationoptions.js";
+export * from "./noactivehealthoverlaystatus.js";
 export * from "./nodeactiveupgradestatus.js";
 export * from "./nodefailedupgradestatus.js";
 export * from "./nodeprovidedinfo.js";
