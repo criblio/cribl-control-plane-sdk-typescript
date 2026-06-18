@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: d5d49bdfce715f0a209f5cf13c89c4d9
-  docVersion: 4.18.2-alpha.1781564965234-252f8f24
-  speakeasyVersion: 1.778.0
-  generationVersion: 2.904.2
-  releaseVersion: 0.9.0-alpha.17
-  configChecksum: 3aa85476a515d0ae21c8dd02a7f8fbef
+  docChecksum: 0d25574c11912ef04df28a4f5e17730d
+  docVersion: 4.18.2-alpha.1781704252212-45e15fbc
+  speakeasyVersion: 1.781.0
+  generationVersion: 2.907.0
+  releaseVersion: 0.9.0-alpha.18
+  configChecksum: 007b7a10130dddcb049a52572bfedec3
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 934fc05b-d9f8-44b0-9251-fed6fec3de0c
-  pristine_commit_hash: 8cd3ab7580342b1881539d260d590ab82b9939da
-  pristine_tree_hash: 56e7a04b2c25befc69dd21c4c494766370135487
+  generation_id: 85150472-d4c1-418d-8ee6-93b7917392c7
+  pristine_commit_hash: 14e2a5fc2e41044e3db26d7d34f728560dbea584
+  pristine_tree_hash: a746aeac2ae539d86166b2bc6169137b63c604b8
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -39,7 +39,7 @@ features:
     openEnums: 0.1.3
     pagination: 2.83.2
     responseFormat: 0.3.0
-    retries: 2.83.0
+    retries: 2.83.1
     sdkHooks: 0.4.0
     unions: 2.86.4
     uploadStreams: 0.1.1
@@ -92,6 +92,10 @@ trackedFiles:
     id: 4230547b8af0
     last_write_checksum: sha1:7d280b1eab4c3c08a7800bba986fd0a76c7eb7ed
     pristine_git_object: 6bb3fa3741bc998cb9f045e709c5cafe748aa4d4
+  docs/models/activehealthoverlaystatus.md:
+    id: bdbde09c1f96
+    last_write_checksum: sha1:28d6636ba7d6af309d776250e338bccb9247da1f
+    pristine_git_object: cf51dd025acefc14002405a247cfa2ccc112a208
   docs/models/addconffunctionconfschemaaggregation.md:
     id: 261c472b3181
     last_write_checksum: sha1:c9abd155c3a5942807d02009e2478d5a50789f9b
@@ -1010,8 +1014,8 @@ trackedFiles:
     pristine_git_object: 6691d2a5c59cc1447b35fd02147d5c8f9146a5b4
   docs/models/errors/healthserverstatuserror.md:
     id: 972c34402312
-    last_write_checksum: sha1:bf81bbcfeeb036ffa9ba35b5c57b6e56995b97da
-    pristine_git_object: b8f325921f4f2867b82db1ee25a7b1c417659a58
+    last_write_checksum: sha1:49e0268ea9c674f37383eb0f83c8168a230f3bc6
+    pristine_git_object: 059539217aa0494a61d69583cbad30bb6a1e1595
   docs/models/estimatedingestrateoptionsconfiggroup.md:
     id: 1c76b38f307a
     last_write_checksum: sha1:856dd1d0cfefc8e77e6d48c4ed8a3f81785f15a6
@@ -2460,10 +2464,14 @@ trackedFiles:
     id: a1d90ef3f539
     last_write_checksum: sha1:a3e7acfe727f28dd48c9714c172d79bc4a31e840
     pristine_git_object: cd318726d090f74c958ede91b95d7f43136f184f
+  docs/models/healthoverlaystatus.md:
+    id: 0175c8951c92
+    last_write_checksum: sha1:203f8b58d39c12d31af303a174a717eb032961e4
+    pristine_git_object: 6dc515d6b137bc4857089b1f0df2befc6609b88e
   docs/models/healthserverstatus.md:
     id: 21caf27f9b33
-    last_write_checksum: sha1:13c3724391428537bf1b3752cbbdea3df5f58f9f
-    pristine_git_object: d7056621efcb70b74f2cae542b6879e91cfb21b8
+    last_write_checksum: sha1:9504a1cbc7a0a2a286b0a7448060ed208ebcf11e
+    pristine_git_object: 8a8dbae74a28dc0df6c0fc8677f66dcb4d9959b4
   docs/models/healthserverstatusstatus.md:
     id: cb806a3f5492
     last_write_checksum: sha1:76fec9cbc3afd9b9e421051b3c26bd0c2a8e9396
@@ -4108,6 +4116,10 @@ trackedFiles:
     id: ac22c8413c8c
     last_write_checksum: sha1:c8abe3cf143cfc568f86aae41853f8b4749fb307
     pristine_git_object: 980a7a264d7a2dc661d3594a2e3f6eb08ae1406d
+  docs/models/noactivehealthoverlaystatus.md:
+    id: 99e546c62134
+    last_write_checksum: sha1:7183889b7dafb1d561e1f864d3b9ec0a6c3dd559
+    pristine_git_object: 098a611692a510e56f497207872b7f2d55254a2b
   docs/models/nodeactiveupgradestatus.md:
     id: 7c400e743893
     last_write_checksum: sha1:fad231b77db99fb562747079f7a24130fd331bc2
@@ -13370,12 +13382,12 @@ trackedFiles:
     pristine_git_object: dfdadeaf22c225b8d97fc91297df61547332bf39
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:ac0c34afa61649fbf0d0905af378de3fa781b498
-    pristine_git_object: 331416dd69c897db4fd28d1ce14f2fe90fc38c3f
+    last_write_checksum: sha1:3ed3fd6150fa8f468771b9b55f2199520aca730f
+    pristine_git_object: bd8b210aa88177b5269c008e712c5dcf5318b832
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:7e1675ccc1833db58b2ae22f5c3154741eb25331
-    pristine_git_object: b08094cf48f79beef335f56b88032c1e3e9f10c5
+    last_write_checksum: sha1:167d45942730d1302f3eddf75dfab32c26d75542
+    pristine_git_object: 9bfa7d221aad3486d025f34ef3fb489eda3ed8b0
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13878,8 +13890,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:606c88af324e2302647c925ca32e4b80735161e8
-    pristine_git_object: 3d24d4588615f0af4baaed646f1697505b5d5f98
+    last_write_checksum: sha1:385ed1a2ea2f90192e246e0233f14105dd468c1d
+    pristine_git_object: 2a6aa6f7bf58726c73763c6ead9ac1024745de96
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:50d9b187dcfc3cca8d3bbd9fe074f865d715d2b0
@@ -13918,8 +13930,8 @@ trackedFiles:
     pristine_git_object: 8ce65db0f7c0d6b68f5edc3ebf518121e284e954
   src/lib/retries.ts:
     id: b24a69d15639
-    last_write_checksum: sha1:f3da74dffcbe2756c69393f8600205aa1dc06e68
-    pristine_git_object: e3ce9aba72150fc3c18f3105d39b21aba809377b
+    last_write_checksum: sha1:42c8f6cc4c875be236230a8c760f4f32d8c1ab68
+    pristine_git_object: 21a647e1e9ae64817fcd63b5dd6bb5a51b63d225
   src/lib/schemas.ts:
     id: deb4b531fae1
     last_write_checksum: sha1:209cfaabfa7fc1c1310f97453215cb0755619c6e
@@ -13944,6 +13956,10 @@ trackedFiles:
     id: e0787d555f9e
     last_write_checksum: sha1:bf7fde61ff82c5ecacba2d54fcac030fea537c15
     pristine_git_object: 31fde846d873ec3eacc5e77e079e2aedb18b087c
+  src/models/activehealthoverlaystatus.ts:
+    id: 5ac89f8e89de
+    last_write_checksum: sha1:49215c4b09b77632c92e5f58e63d34fdf9464947
+    pristine_git_object: d8fefd335ed9bb8a70b89f7400c47f6bedbf87a2
   src/models/addconffunctionconfschemaaggregation.ts:
     id: 02392af96a0a
     last_write_checksum: sha1:0e6dc2f7b3965a4ee4e1934edc6eac3c5c192ca1
@@ -14534,8 +14550,8 @@ trackedFiles:
     pristine_git_object: 5b332328847e04f738a154ad7211ad2c68355cb1
   src/models/errors/healthserverstatuserror.ts:
     id: 171fa5b12b80
-    last_write_checksum: sha1:81b70a9e53884e4b8491dcf2d989447dfcc46a88
-    pristine_git_object: e66f690e9eea01f24b2c7d8b2d2db24596198c0c
+    last_write_checksum: sha1:2b58504cb988dc46c292576d699a74423a5d9ea7
+    pristine_git_object: c5dc787f10f2b0e73d112c4f3708c5142f1c53bf
   src/models/errors/httpclienterrors.ts:
     id: 6948de76af99
     last_write_checksum: sha1:994ced121c54fecd0af038ccfb7855fbfd3868ec
@@ -15084,10 +15100,14 @@ trackedFiles:
     id: c0ba0dd8b011
     last_write_checksum: sha1:576bd21a19a01d3b90906e63e6cd0d62314fe8a0
     pristine_git_object: e6323a338af762943a0b23a8bacb6acfd3e6659e
+  src/models/healthoverlaystatus.ts:
+    id: 27917cc78eb4
+    last_write_checksum: sha1:48aa572abc0da4d34beca459884454288051fe84
+    pristine_git_object: 8f2ee921af999f9386b9956ff015c6cde0e1e21b
   src/models/healthserverstatus.ts:
     id: f7d644dc913a
-    last_write_checksum: sha1:bbb033e3a44722888880bf8734103a6cc8f730a6
-    pristine_git_object: 3b7bfcd7304b4f7992860271909a7e0a7ab4da55
+    last_write_checksum: sha1:b58b6aeac751cbf4bd96f0f9de4825082b87680c
+    pristine_git_object: df01e2221dcca1aa8ca92cdd41d4edfd504cb01c
   src/models/healthstringtype.ts:
     id: 2e33bdbe0037
     last_write_checksum: sha1:2f6fffc6989c7f238ce508af6ef34efbe73afc5f
@@ -15114,8 +15134,8 @@ trackedFiles:
     pristine_git_object: b54bb49568134ea054c5e301ce973c59dfe1ab0c
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:351b2442676f4d6e91114f857eec03eff572ed2d
-    pristine_git_object: 67ef52ccf7b890d3ec1d28afde26d6b8f1cb5ee6
+    last_write_checksum: sha1:9cff4efebc520f1f5c53dc1959c0350cebf2a77b
+    pristine_git_object: f8023413b74cad40a539236470686bbbafd6d376
   src/models/input.ts:
     id: 3b376a2db155
     last_write_checksum: sha1:2a60d6165c3390bef6899940e9aef5b1b8a84b6d
@@ -15536,6 +15556,10 @@ trackedFiles:
     id: 35743eeb930c
     last_write_checksum: sha1:6d7e81c612c9461b0aac33c5336828b8b9bac985
     pristine_git_object: 714fb9cf304af390dd6c4603acf1caef39f5d0e3
+  src/models/noactivehealthoverlaystatus.ts:
+    id: 6c12282b00f9
+    last_write_checksum: sha1:c8a9635ea7289dfcd1e509c4da14824a505b3922
+    pristine_git_object: 0435385ea8d416c24a9f13a56068b4ea165b7f1e
   src/models/nodeactiveupgradestatus.ts:
     id: 55c21962317e
     last_write_checksum: sha1:f81fa7a8166a51a62200e6b2aeaee4c15825d94d
@@ -23755,9 +23779,9 @@ examples:
     HealthExamplesHealthyPrimary:
       responses:
         "200":
-          application/json: {"role": "primary", "startTime": 1700000000000, "status": "healthy"}
+          application/json: {"overlay": {"state": "inactive"}, "role": "primary", "startTime": 1700000000000, "status": "healthy"}
         "420":
-          application/json: {"role": "primary", "startTime": 1700000000000, "status": "healthy"}
+          application/json: {"overlay": {"state": "inactive"}, "role": "primary", "startTime": 1700000000000, "status": "healthy"}
   createSavedJob:
     CollectorExamplesRest:
       parameters:
@@ -32868,6 +32892,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.health.get()`: \n  *  `response.overlay` **Added**\n  *  `error.overlay` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
