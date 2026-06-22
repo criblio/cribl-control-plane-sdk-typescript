@@ -20,7 +20,7 @@ export type PipelineFunctionLocalSearchRulesetRunner = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>local_search_ruleset_runner</code>
    */
   id: "local_search_ruleset_runner";
   /**

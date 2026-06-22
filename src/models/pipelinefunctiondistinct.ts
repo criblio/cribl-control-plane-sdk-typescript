@@ -37,7 +37,7 @@ export type PipelineFunctionDistinct = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>distinct</code>
    */
   id: "distinct";
   /**

@@ -3,10 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  AuthenticationMethodOptionsSecret,
-  AuthenticationMethodOptionsSecret$outboundSchema,
-} from "./authenticationmethodoptionssecret.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
@@ -55,6 +53,26 @@ import {
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 
+/**
+ * Authentication method.
+ */
+export const OutputAlibabaCloudS3AuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Secret
+   */
+  Secret: "secret",
+} as const;
+/**
+ * Authentication method.
+ */
+export type OutputAlibabaCloudS3AuthenticationMethod = OpenEnum<
+  typeof OutputAlibabaCloudS3AuthenticationMethod
+>;
+
 export type OutputAlibabaCloudS3 = {
   /**
    * Unique ID for this output
@@ -80,7 +98,9 @@ export type OutputAlibabaCloudS3 = {
   /**
    * Authentication method.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptionsSecret | undefined;
+  awsAuthenticationMethod?:
+    | OutputAlibabaCloudS3AuthenticationMethod
+    | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -187,6 +207,9 @@ export type OutputAlibabaCloudS3 = {
    * Alibaba OSS S3-compatible endpoint URL. Examples: public `https://s3.oss-{region}.aliyuncs.com`, internal `https://s3.oss-{region}-internal.aliyuncs.com`
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -311,6 +334,13 @@ export type OutputAlibabaCloudS3 = {
 };
 
 /** @internal */
+export const OutputAlibabaCloudS3AuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputAlibabaCloudS3AuthenticationMethod
+> = openEnums.outboundSchema(OutputAlibabaCloudS3AuthenticationMethod);
+
+/** @internal */
 export type OutputAlibabaCloudS3$Outbound = {
   id?: string | undefined;
   type: "alibaba_cloud_s3";
@@ -394,8 +424,8 @@ export const OutputAlibabaCloudS3$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptionsSecret$outboundSchema
-    .optional(),
+  awsAuthenticationMethod:
+    OutputAlibabaCloudS3AuthenticationMethod$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   bucket: z.string(),

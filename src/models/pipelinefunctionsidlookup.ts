@@ -20,7 +20,7 @@ export type PipelineFunctionSidlookup = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>sidlookup</code>
    */
   id: "sidlookup";
   /**

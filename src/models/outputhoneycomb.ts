@@ -135,6 +135,9 @@ export type OutputHoneycomb = {
    * Enter API key directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsApi | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.

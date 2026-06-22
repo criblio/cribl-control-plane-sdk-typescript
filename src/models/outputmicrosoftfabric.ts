@@ -199,6 +199,9 @@ export type OutputMicrosoftFabric = {
    * Bootstrap server from Fabric Eventstream's endpoint
    */
   bootstrap_server: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.

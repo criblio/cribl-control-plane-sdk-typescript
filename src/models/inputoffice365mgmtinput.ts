@@ -55,6 +55,9 @@ export type InputOffice365MgmtInput = {
    */
   id?: string | undefined;
   type: "office365_mgmt";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -138,6 +141,9 @@ export type InputOffice365MgmtInput = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret

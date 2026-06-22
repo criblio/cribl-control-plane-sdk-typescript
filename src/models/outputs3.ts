@@ -229,6 +229,9 @@ export type OutputS3 = {
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
   kmsKeyId?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)

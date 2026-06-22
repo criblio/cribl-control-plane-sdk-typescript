@@ -171,6 +171,9 @@ export type OutputServiceNow = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).

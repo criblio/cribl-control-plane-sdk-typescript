@@ -18,7 +18,7 @@ export type PipelineFunctionCef = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>cef</code>
    */
   id: "cef";
   /**

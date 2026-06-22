@@ -20,7 +20,7 @@ export type PipelineFunctionOtlpMetrics = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>otlp_metrics</code>
    */
   id: "otlp_metrics";
   /**

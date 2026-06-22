@@ -33,7 +33,7 @@ export type PipelineFunctionEventstats = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>eventstats</code>
    */
   id: "eventstats";
   /**

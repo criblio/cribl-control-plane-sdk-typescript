@@ -131,7 +131,7 @@ export type PipelineFunctionSerialize = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>serialize</code>
    */
   id: "serialize";
   /**

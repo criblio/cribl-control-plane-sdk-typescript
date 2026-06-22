@@ -62,7 +62,7 @@ export type PipelineFunctionStore = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>store</code>
    */
   id: "store";
   /**

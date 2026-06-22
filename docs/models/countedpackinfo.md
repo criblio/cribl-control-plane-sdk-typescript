@@ -5,7 +5,25 @@
 ```typescript
 import { CountedPackInfo } from "cribl-control-plane/models";
 
-let value: CountedPackInfo = {};
+let value: CountedPackInfo = {
+  items: [
+    {
+      id: "<id>",
+      source: "<value>",
+      tags: {
+        domain: [
+          "security",
+          "observability",
+        ],
+        technology: [
+          "aws",
+          "splunk",
+        ],
+      },
+      version: "1.0.0",
+    },
+  ],
+};
 ```
 
 ## Fields

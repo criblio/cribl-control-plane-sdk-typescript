@@ -18,7 +18,7 @@ Get a list of all Collectors.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getSavedJob" method="get" path="/lib/jobs" -->
+<!-- UsageSnippet language="typescript" operationID="getSavedJob" method="get" path="/lib/jobs" example="CollectorListResponseExamplesListed" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -30,7 +30,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.collectors.list({});
+  const result = await criblControlPlane.collectors.list();
 
   console.log(result);
 }
@@ -56,7 +56,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await collectorsList(criblControlPlane, {});
+  const res = await collectorsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1370,6 +1370,87 @@ async function run() {
 
 run();
 ```
+### Example Usage: CollectorResponseExamplesRestCollector
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorResponseExamplesRestCollector" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    type: "collection",
+    collector: {
+      type: "azure_blob",
+      conf: {
+        authType: "clientCert",
+        storageAccountName: "<value>",
+        tenantId: "<id>",
+        clientId: "<id>",
+        certificate: {
+          certificateName: "<value>",
+        },
+        containerName: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    type: "collection",
+    collector: {
+      type: "azure_blob",
+      conf: {
+        authType: "clientCert",
+        storageAccountName: "<value>",
+        tenantId: "<id>",
+        clientId: "<id>",
+        certificate: {
+          certificateName: "<value>",
+        },
+        containerName: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -1398,7 +1479,7 @@ Get the specified Collector.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getSavedJobById" method="get" path="/lib/jobs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getSavedJobById" method="get" path="/lib/jobs/{id}" example="CollectorResponseExamplesRestCollector" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2914,6 +2995,748 @@ async function run() {
 
 run();
 ```
+### Example Usage: CollectorResponseExamplesRestCollector
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorResponseExamplesRestCollector" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesAzureBlob
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesAzureBlob" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "scheduledSearch",
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "scheduledSearch",
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesCriblLake
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesCriblLake" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesDatabase
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesDatabase" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "scheduledSearch",
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "scheduledSearch",
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesFilesystem
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesFilesystem" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesGoogleCloudStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesRest
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesRest" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesS3
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      executor: {
+        type: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesScript
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesScript" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateCollectorExamplesSplunk
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesSplunk" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    savedJob: {
+      type: "collection",
+      collector: {
+        type: "splunk",
+        conf: {
+          authentication: "token",
+          token: "<value>",
+          searchHead: "<value>",
+          search: "<value>",
+          endpoint: "<value>",
+          outputMode: "json",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -2942,7 +3765,7 @@ Delete the specified Collector.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deleteSavedJobById" method="delete" path="/lib/jobs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteSavedJobById" method="delete" path="/lib/jobs/{id}" example="CollectorResponseExamplesRestCollector" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

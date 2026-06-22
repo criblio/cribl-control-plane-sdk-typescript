@@ -51,7 +51,7 @@ export type PipelineFunctionMask = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>mask</code>
    */
   id: "mask";
   /**

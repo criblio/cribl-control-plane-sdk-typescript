@@ -20,7 +20,7 @@ export type PipelineFunctionLocalSearchSchemaMapper = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>local_search_schema_mapper</code>
    */
   id: "local_search_schema_mapper";
   /**

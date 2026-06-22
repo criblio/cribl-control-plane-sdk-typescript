@@ -147,6 +147,9 @@ export type OutputNewrelicEvents = {
    * Enter API key directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsApi | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**

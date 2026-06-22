@@ -33,7 +33,7 @@ export type PipelineFunctionXmlUnroll = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>xml_unroll</code>
    */
   id: "xml_unroll";
   /**

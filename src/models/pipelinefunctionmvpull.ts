@@ -37,7 +37,7 @@ export type PipelineFunctionMvPull = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>mv_pull</code>
    */
   id: "mv_pull";
   /**

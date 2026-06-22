@@ -145,7 +145,13 @@ export type InputOpenTelemetryInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: "open_telemetry";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -245,6 +251,9 @@ export type InputOpenTelemetryInput = {
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
   maxActiveCxn?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;

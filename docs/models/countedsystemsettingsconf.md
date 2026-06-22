@@ -5,7 +5,39 @@
 ```typescript
 import { CountedSystemSettingsConf } from "cribl-control-plane/models";
 
-let value: CountedSystemSettingsConf = {};
+let value: CountedSystemSettingsConf = {
+  items: [
+    {
+      api: {
+        disabled: true,
+        host: "fixed-crocodile.name",
+        port: 5454.97,
+      },
+      backups: {},
+      pii: {},
+      proxy: {
+        useEnvVars: false,
+      },
+      rollback: {},
+      shutdown: {
+        drainTimeout: 5731.01,
+      },
+      sni: {},
+      system: {
+        intercom: true,
+        upgrade: "false",
+      },
+      tls: {},
+      upgradeGroupSettings: {},
+      upgradeSettings: {},
+      workers: {
+        count: 6221.13,
+        memory: 2914.29,
+        minimum: 6135.82,
+      },
+    },
+  ],
+};
 ```
 
 ## Fields

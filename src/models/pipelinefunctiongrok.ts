@@ -32,7 +32,7 @@ export type PipelineFunctionGrok = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>grok</code>
    */
   id: "grok";
   /**

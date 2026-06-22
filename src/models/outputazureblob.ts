@@ -194,6 +194,9 @@ export type OutputAzureBlob = {
   orphans?: OrphanFileRecoveryType | undefined;
   authType?: AuthenticationMethodOptions | undefined;
   storageClass?: OutputAzureBlobBlobAccessTier | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered

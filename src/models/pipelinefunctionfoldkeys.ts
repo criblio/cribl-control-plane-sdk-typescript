@@ -20,7 +20,7 @@ export type PipelineFunctionFoldkeys = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>foldkeys</code>
    */
   id: "foldkeys";
   /**

@@ -146,6 +146,9 @@ export type OutputCrowdstrikeNextGenSiem = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   token?: string | undefined;
   /**

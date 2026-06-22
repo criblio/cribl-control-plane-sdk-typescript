@@ -144,6 +144,9 @@ export type OutputKafka = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select a set of Protobuf definitions for the events you want to send

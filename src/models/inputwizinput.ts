@@ -86,6 +86,9 @@ export type InputWizInput = {
    */
   id?: string | undefined;
   type: "wiz";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -166,6 +169,9 @@ export type InputWizInput = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The client secret of the Wiz application

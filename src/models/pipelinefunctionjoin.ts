@@ -48,7 +48,7 @@ export type PipelineFunctionJoin = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>join</code>
    */
   id: "join";
   /**

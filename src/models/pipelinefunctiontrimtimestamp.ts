@@ -20,7 +20,7 @@ export type PipelineFunctionTrimTimestamp = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>trim_timestamp</code>
    */
   id: "trim_timestamp";
   /**

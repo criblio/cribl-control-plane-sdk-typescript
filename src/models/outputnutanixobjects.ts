@@ -183,6 +183,9 @@ export type OutputNutanixObjects = {
    * Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

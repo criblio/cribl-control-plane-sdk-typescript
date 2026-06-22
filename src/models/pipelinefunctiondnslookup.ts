@@ -20,7 +20,7 @@ export type PipelineFunctionDnsLookup = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>dns_lookup</code>
    */
   id: "dns_lookup";
   /**

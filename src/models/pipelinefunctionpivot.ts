@@ -29,7 +29,7 @@ export type PipelineFunctionPivot = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>pivot</code>
    */
   id: "pivot";
   /**

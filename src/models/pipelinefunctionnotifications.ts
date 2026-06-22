@@ -29,7 +29,7 @@ export type PipelineFunctionNotifications = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>notifications</code>
    */
   id: "notifications";
   /**

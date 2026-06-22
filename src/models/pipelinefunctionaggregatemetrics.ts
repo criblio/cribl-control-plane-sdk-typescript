@@ -117,7 +117,7 @@ export type PipelineFunctionAggregateMetrics = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>aggregate_metrics</code>
    */
   id: "aggregate_metrics";
   /**

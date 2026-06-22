@@ -17,10 +17,12 @@ export class Functions extends ClientSDK {
    * Get a list of all Functions.
    */
   async list(
+    request?: operations.GetFunctionsRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.CountedFunctionResponse> {
     return unwrapAsync(functionsList(
       this,
+      request,
       options,
     ));
   }

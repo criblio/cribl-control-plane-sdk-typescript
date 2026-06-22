@@ -25,7 +25,7 @@ export type PipelineFunctionJsonUnroll = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>json_unroll</code>
    */
   id: "json_unroll";
   /**

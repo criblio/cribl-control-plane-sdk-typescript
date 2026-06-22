@@ -5,16 +5,28 @@
 import * as z from "zod/v3";
 
 export type PackUpgradeRequest = {
+  /**
+   * If <code>true</code> or omitted, allow the Pack to use custom JavaScript functions. If <code>false</code>, reject Packs that use custom JavaScript functions.
+   */
   allowCustomFunctions?: boolean | undefined;
-  minor?: string | undefined;
+  /**
+   * If <code>true</code>, allow the upgrade to install a minor (non-breaking) version. Otherwise, <code>false</code>.
+   */
+  minor?: boolean | undefined;
+  /**
+   * Source of the upgraded Pack. Use the <code>source</code> value returned by <code>PUT /packs</code> for an uploaded file, or provide a direct URL to a <code>.crbl</code> file or a <code>git+&lt;repo-url&gt;</code> Git repository URL.
+   */
   source: string;
+  /**
+   * Semver range constraint to apply when resolving the Pack version to install.
+   */
   spec?: string | undefined;
 };
 
 /** @internal */
 export type PackUpgradeRequest$Outbound = {
   allowCustomFunctions?: boolean | undefined;
-  minor?: string | undefined;
+  minor?: boolean | undefined;
   source: string;
   spec?: string | undefined;
 };
@@ -26,7 +38,7 @@ export const PackUpgradeRequest$outboundSchema: z.ZodType<
   PackUpgradeRequest
 > = z.object({
   allowCustomFunctions: z.boolean().optional(),
-  minor: z.string().optional(),
+  minor: z.boolean().optional(),
   source: z.string(),
   spec: z.string().optional(),
 });

@@ -31,6 +31,9 @@ export type InputS3Input = {
    */
   id?: string | undefined;
   type: "s3";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -168,6 +171,9 @@ export type InputS3Input = {
    * Add a tag to processed S3 objects. Requires s3:GetObjectTagging and s3:PutObjectTagging AWS permissions.
    */
   tagAfterProcessing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**

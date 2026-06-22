@@ -20,7 +20,7 @@ export type PipelineFunctionSignalFilter = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>signal_filter</code>
    */
   id: "signal_filter";
   /**

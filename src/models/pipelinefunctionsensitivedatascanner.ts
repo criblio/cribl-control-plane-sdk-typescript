@@ -52,7 +52,7 @@ export type PipelineFunctionSensitiveDataScanner = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>sensitive_data_scanner</code>
    */
   id: "sensitive_data_scanner";
   /**

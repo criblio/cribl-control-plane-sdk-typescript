@@ -20,7 +20,7 @@ export type PipelineFunctionRollupMetrics = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>rollup_metrics</code>
    */
   id: "rollup_metrics";
   /**

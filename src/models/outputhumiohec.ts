@@ -143,6 +143,9 @@ export type OutputHumioHec = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * CrowdStrike Falcon LogScale authentication token

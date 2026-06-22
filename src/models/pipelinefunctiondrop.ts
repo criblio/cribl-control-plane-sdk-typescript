@@ -20,7 +20,7 @@ export type PipelineFunctionDrop = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>drop</code>
    */
   id: "drop";
   /**

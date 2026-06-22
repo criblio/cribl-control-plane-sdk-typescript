@@ -8,10 +8,25 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Categorization tags for the Pack.
+ */
 export type TagsTypePackInstallInfo = {
+  /**
+   * List of data type tags for the Pack.
+   */
   dataType?: Array<string> | undefined;
+  /**
+   * List of domain tags for the Pack.
+   */
   domain?: Array<string> | undefined;
+  /**
+   * List of stream tags for routing and filtering.
+   */
   streamtags?: Array<string> | undefined;
+  /**
+   * List of technology tags for the Pack.
+   */
   technology?: Array<string> | undefined;
 };
 
@@ -26,33 +41,7 @@ export const TagsTypePackInstallInfo$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   technology: types.optional(z.array(types.string())),
 });
-/** @internal */
-export type TagsTypePackInstallInfo$Outbound = {
-  dataType?: Array<string> | undefined;
-  domain?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
-  technology?: Array<string> | undefined;
-};
 
-/** @internal */
-export const TagsTypePackInstallInfo$outboundSchema: z.ZodType<
-  TagsTypePackInstallInfo$Outbound,
-  z.ZodTypeDef,
-  TagsTypePackInstallInfo
-> = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
-});
-
-export function tagsTypePackInstallInfoToJSON(
-  tagsTypePackInstallInfo: TagsTypePackInstallInfo,
-): string {
-  return JSON.stringify(
-    TagsTypePackInstallInfo$outboundSchema.parse(tagsTypePackInstallInfo),
-  );
-}
 export function tagsTypePackInstallInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<TagsTypePackInstallInfo, SDKValidationError> {

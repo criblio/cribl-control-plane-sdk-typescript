@@ -20,7 +20,7 @@ export type PipelineFunctionFlatten = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>flatten</code>
    */
   id: "flatten";
   /**

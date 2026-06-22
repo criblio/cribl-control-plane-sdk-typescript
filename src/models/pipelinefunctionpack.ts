@@ -25,7 +25,7 @@ export type PipelineFunctionPack = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>pack</code>
    */
   id: "pack";
   /**

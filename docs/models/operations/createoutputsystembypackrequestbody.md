@@ -905,3 +905,15 @@ const value: operations.CreateOutputSystemByPackOutputAlibabaCloudS3 = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputIbmCloudS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputIbmCloudS3 = {
+  id: "<id>",
+  type: "ibm_cloud_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+

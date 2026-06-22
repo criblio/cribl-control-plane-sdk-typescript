@@ -158,6 +158,9 @@ export type OutputXsiam = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event

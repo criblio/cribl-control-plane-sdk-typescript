@@ -829,3 +829,14 @@ const value: models.OutputAlibabaCloudS3 = {
 };
 ```
 
+### `models.OutputIbmCloudS3`
+
+```typescript
+const value: models.OutputIbmCloudS3 = {
+  type: "ibm_cloud_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
+};
+```
+

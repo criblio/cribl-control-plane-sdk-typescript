@@ -30,7 +30,7 @@ export type PipelineFunctionTee = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>tee</code>
    */
   id: "tee";
   /**

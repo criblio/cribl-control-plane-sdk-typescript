@@ -33,7 +33,7 @@ export type PipelineFunctionWindow = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>window</code>
    */
   id: "window";
   /**

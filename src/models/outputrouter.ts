@@ -49,6 +49,9 @@ export type OutputRouter = {
    * Event routing rules
    */
   rules: Array<OutputRouterRule>;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

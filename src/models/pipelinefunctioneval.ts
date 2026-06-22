@@ -20,7 +20,7 @@ export type PipelineFunctionEval = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>eval</code>
    */
   id: "eval";
   /**
