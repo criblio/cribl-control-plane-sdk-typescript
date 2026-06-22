@@ -20,7 +20,7 @@ export type PipelineFunctionRename = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>rename</code>
    */
   id: "rename";
   /**

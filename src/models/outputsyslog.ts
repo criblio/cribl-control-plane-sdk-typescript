@@ -287,6 +287,9 @@ export type OutputSyslog = {
    * Use to troubleshoot issues with sending data
    */
   logFailedRequests?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.

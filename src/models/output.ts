@@ -209,6 +209,11 @@ import {
   OutputHumioHec$outboundSchema,
 } from "./outputhumiohec.js";
 import {
+  OutputIbmCloudS3,
+  OutputIbmCloudS3$Outbound,
+  OutputIbmCloudS3$outboundSchema,
+} from "./outputibmclouds3.js";
+import {
   OutputInfluxdb,
   OutputInfluxdb$Outbound,
   OutputInfluxdb$outboundSchema,
@@ -484,7 +489,8 @@ export type Output =
   | OutputDellS3
   | OutputCloudianS3
   | OutputScalityS3
-  | OutputAlibabaCloudS3;
+  | OutputAlibabaCloudS3
+  | OutputIbmCloudS3;
 
 /** @internal */
 export type Output$Outbound =
@@ -567,7 +573,8 @@ export type Output$Outbound =
   | OutputDellS3$Outbound
   | OutputCloudianS3$Outbound
   | OutputScalityS3$Outbound
-  | OutputAlibabaCloudS3$Outbound;
+  | OutputAlibabaCloudS3$Outbound
+  | OutputIbmCloudS3$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -657,6 +664,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputCloudianS3$outboundSchema,
   OutputScalityS3$outboundSchema,
   OutputAlibabaCloudS3$outboundSchema,
+  OutputIbmCloudS3$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {

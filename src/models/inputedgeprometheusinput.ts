@@ -131,6 +131,9 @@ export type InputEdgePrometheusInput = {
    */
   id?: string | undefined;
   type: "edge_prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -186,6 +189,9 @@ export type InputEdgePrometheusInput = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: InputEdgePrometheusAuthenticationMethod | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   targets?: Array<InputEdgePrometheusTarget> | undefined;
   /**

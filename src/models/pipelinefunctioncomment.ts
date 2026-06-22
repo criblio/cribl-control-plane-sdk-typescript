@@ -20,7 +20,7 @@ export type PipelineFunctionComment = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>comment</code>
    */
   id: "comment";
   /**

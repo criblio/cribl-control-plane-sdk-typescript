@@ -7,41 +7,31 @@ import { SystemSettingsConf } from "cribl-control-plane/models";
 
 let value: SystemSettingsConf = {
   api: {
-    disabled: false,
-    host: "urban-handle.org",
-    port: 4080.76,
+    disabled: true,
+    host: "fixed-crocodile.name",
+    port: 5454.97,
   },
   backups: {},
-  pii: {
-    enablePiiDetection: false,
-  },
+  pii: {},
   proxy: {
     useEnvVars: false,
   },
-  rollback: {
-    rollbackEnabled: true,
-  },
+  rollback: {},
   shutdown: {
-    drainTimeout: 8257.32,
+    drainTimeout: 5731.01,
   },
   sni: {},
   system: {
     intercom: true,
     upgrade: "false",
   },
-  tls: {
-    defaultCipherList: "<value>",
-    defaultEcdhCurve: "<value>",
-    maxVersion: "<value>",
-    minVersion: "<value>",
-    rejectUnauthorized: true,
-  },
+  tls: {},
   upgradeGroupSettings: {},
   upgradeSettings: {},
   workers: {
-    count: 3663.09,
-    memory: 8060.34,
-    minimum: 307.32,
+    count: 6221.13,
+    memory: 2914.29,
+    minimum: 6135.82,
   },
 };
 ```

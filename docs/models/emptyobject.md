@@ -1,5 +1,7 @@
 # EmptyObject
 
+An object that must not contain any properties.
+
 ## Example Usage
 
 ```typescript

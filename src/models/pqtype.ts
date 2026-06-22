@@ -18,6 +18,9 @@ import {
   ModeOptionsPq$outboundSchema,
 } from "./modeoptionspq.js";
 
+/**
+ * Management controls for the persistent queue.
+ */
 export type PqTypePqControls = {};
 
 export type PqType = {
@@ -53,6 +56,9 @@ export type PqType = {
    * Codec to use to compress the persisted data
    */
   compress?: CompressionOptionsPq | undefined;
+  /**
+   * Management controls for the persistent queue.
+   */
   pqControls?: PqTypePqControls | undefined;
 };
 

@@ -201,6 +201,9 @@ export type OutputCloudflareR2 = {
   serverSideEncryption?:
     | ServerSideEncryptionForUploadedObjectsOptionsAes256
     | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

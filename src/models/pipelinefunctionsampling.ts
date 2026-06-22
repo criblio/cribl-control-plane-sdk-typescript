@@ -20,7 +20,7 @@ export type PipelineFunctionSampling = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>sampling</code>
    */
   id: "sampling";
   /**

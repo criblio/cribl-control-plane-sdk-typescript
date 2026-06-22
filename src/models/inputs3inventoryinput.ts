@@ -35,6 +35,9 @@ export type InputS3InventoryInput = {
    */
   id?: string | undefined;
   type: "s3_inventory";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -176,6 +179,9 @@ export type InputS3InventoryInput = {
    * If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
    */
   validateInventoryFiles?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**

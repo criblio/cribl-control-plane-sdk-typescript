@@ -209,6 +209,9 @@ export type OutputMinio = {
   serverSideEncryption?:
     | ServerSideEncryptionForUploadedObjectsOptionsAes256
     | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)

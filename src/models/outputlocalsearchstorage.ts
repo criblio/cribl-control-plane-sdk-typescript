@@ -233,6 +233,9 @@ export type OutputLocalSearchStorage = {
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
   statsDestination?: OutputLocalSearchStorageStatsDestination | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;

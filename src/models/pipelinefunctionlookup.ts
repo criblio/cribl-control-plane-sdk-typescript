@@ -116,7 +116,7 @@ export type PipelineFunctionLookup = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>lookup</code>
    */
   id: "lookup";
   /**

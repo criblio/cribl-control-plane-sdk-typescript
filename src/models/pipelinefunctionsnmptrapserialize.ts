@@ -20,7 +20,7 @@ export type PipelineFunctionSnmpTrapSerialize = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>snmp_trap_serialize</code>
    */
   id: "snmp_trap_serialize";
   /**

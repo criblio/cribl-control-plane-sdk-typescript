@@ -57,7 +57,7 @@ export type PipelineFunctionDynamicSampling = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>dynamic_sampling</code>
    */
   id: "dynamic_sampling";
   /**

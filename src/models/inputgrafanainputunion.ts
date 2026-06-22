@@ -30,9 +30,15 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
+/**
+ * Source type identifier.
+ */
 export const InputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type InputGrafanaType2 = ClosedEnum<typeof InputGrafanaType2>;
 
 export type PrometheusAuth2 = {
@@ -82,7 +88,13 @@ export type InputGrafanaGrafanaInput2 = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: InputGrafanaType2;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -176,6 +188,9 @@ export type InputGrafanaGrafanaInput2 = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -203,9 +218,15 @@ export type InputGrafanaGrafanaInput2 = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const InputGrafanaType1 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
 
 export type PrometheusAuth1 = {
@@ -255,7 +276,13 @@ export type InputGrafanaGrafanaInput1 = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: InputGrafanaType1;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -349,6 +376,9 @@ export type InputGrafanaGrafanaInput1 = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

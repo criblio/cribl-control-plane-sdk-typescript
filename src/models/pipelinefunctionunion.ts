@@ -25,7 +25,7 @@ export type PipelineFunctionUnion = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>union</code>
    */
   id: "union";
   /**

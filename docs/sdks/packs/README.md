@@ -15,7 +15,7 @@ Actions related to Packs
 
 ## install
 
-Install a Pack.<br><br> To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br> If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
+Install a Pack.<br/><br/>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a Git repository, provide <code>git+&lt;repo-url&gt;</code> as the <code>source</code> parameter in the request body.<br/><br/>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
 
 ### Example Usage: PackInstallExamplesEmptyPack
 
@@ -49,13 +49,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
+      technology: [
+        "<value 1>",
+      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
       ],
     },
     allowCustomFunctions: false,
@@ -104,13 +104,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
+      technology: [
+        "<value 1>",
+      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
       ],
     },
     allowCustomFunctions: false,

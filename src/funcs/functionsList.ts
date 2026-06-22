@@ -3,9 +3,11 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -21,6 +23,7 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -32,6 +35,7 @@ import { Result } from "../types/fp.js";
  */
 export function functionsList(
   client: CriblControlPlaneCore,
+  request?: operations.GetFunctionsRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -49,12 +53,14 @@ export function functionsList(
 > {
   return new APIPromise($do(
     client,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
+  request?: operations.GetFunctionsRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -73,7 +79,23 @@ async function $do(
     APICall,
   ]
 > {
+  const parsed = safeParse(
+    request,
+    (value) =>
+      operations.GetFunctionsRequest$outboundSchema.optional().parse(value),
+    "Input validation failed",
+  );
+  if (!parsed.ok) {
+    return [parsed, { status: "invalid" }];
+  }
+  const payload = parsed.value;
+  const body = null;
+
   const path = pathToFunc("/functions")();
+
+  const query = encodeFormQuery({
+    "showHidden": payload?.showHidden,
+  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -113,6 +135,8 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);

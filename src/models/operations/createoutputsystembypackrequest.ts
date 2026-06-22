@@ -9,8 +9,8 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputSystemByPackAPIVersion,
-  CreateOutputSystemByPackAPIVersion$outboundSchema,
+  CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage,
+  CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema,
   CreateOutputSystemByPackOutputAlibabaCloudS3,
   CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound,
   CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
@@ -92,9 +92,6 @@ import {
   CreateOutputSystemByPackOutputGoogleCloudObservability,
   CreateOutputSystemByPackOutputGoogleCloudObservability$Outbound,
   CreateOutputSystemByPackOutputGoogleCloudObservability$outboundSchema,
-  CreateOutputSystemByPackOutputGoogleCloudStorage,
-  CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound,
-  CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
   CreateOutputSystemByPackOutputGooglePubsub,
   CreateOutputSystemByPackOutputGooglePubsub$Outbound,
   CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
@@ -107,6 +104,9 @@ import {
   CreateOutputSystemByPackOutputHumioHec,
   CreateOutputSystemByPackOutputHumioHec$Outbound,
   CreateOutputSystemByPackOutputHumioHec$outboundSchema,
+  CreateOutputSystemByPackOutputIbmCloudS3,
+  CreateOutputSystemByPackOutputIbmCloudS3$Outbound,
+  CreateOutputSystemByPackOutputIbmCloudS3$outboundSchema,
   CreateOutputSystemByPackOutputInfluxdb,
   CreateOutputSystemByPackOutputInfluxdb$Outbound,
   CreateOutputSystemByPackOutputInfluxdb$outboundSchema,
@@ -188,7 +188,306 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-} from "./createoutputsystembypackapiversion.js";
+} from "./createoutputsystembypackauthenticationmethodgooglecloudstorage.js";
+
+export type CreateOutputSystemByPackOutputGoogleCloudStorage = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_cloud_storage";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint: string;
+  awsAuthenticationMethod?:
+    | CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage
+    | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?:
+    | models.ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
+    | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptionsArchiveColdline | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptionsBlockDrop | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  orphans?: models.OrphanFileRecoveryType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptionsHttp | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?:
+    | Array<models.KeyValueMetadataConfOutputFilesystem>
+    | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+};
+
+export const CreateOutputSystemByPackAPIVersion = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type CreateOutputSystemByPackAPIVersion = OpenEnum<
+  typeof CreateOutputSystemByPackAPIVersion
+>;
 
 export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle = {
   /**
@@ -344,6 +643,9 @@ export type CreateOutputSystemByPackOutputGoogleChronicle = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
@@ -553,6 +855,9 @@ export type CreateOutputSystemByPackOutputAzureEventhub = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -716,6 +1021,9 @@ export type CreateOutputSystemByPackOutputHoneycomb = {
    * Enter API key directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsApi | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -897,6 +1205,9 @@ export type CreateOutputSystemByPackOutputKinesis = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -1104,6 +1415,9 @@ export type CreateOutputSystemByPackOutputAzureLogs = {
    * Enter workspace ID and workspace key directly, or select a stored secret
    */
   authType?: CreateOutputSystemByPackAuthenticationMethodAzureLogs | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -1366,6 +1680,9 @@ export type CreateOutputSystemByPackOutputAzureDataExplorer = {
    * The type of OAuth 2.0 client credentials grant flow to use
    */
   oauthType: CreateOutputSystemByPackOauthTypeAuthenticationMethod;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -1842,6 +2159,9 @@ export type CreateOutputSystemByPackOutputAzureBlob = {
   orphans?: models.OrphanFileRecoveryType | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
   storageClass?: CreateOutputSystemByPackBlobAccessTier | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -2178,6 +2498,9 @@ export type CreateOutputSystemByPackOutputS3 = {
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
   kmsKeyId?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -2435,6 +2758,9 @@ export type CreateOutputSystemByPackOutputFilesystem = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   orphans?: models.OrphanFileRecoveryType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -2635,6 +2961,9 @@ export type CreateOutputSystemByPackOutputSignalfx = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * SignalFx API access token (see [here](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens))
@@ -2798,6 +3127,9 @@ export type CreateOutputSystemByPackOutputWavefront = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
@@ -2931,6 +3263,9 @@ export type CreateOutputSystemByPackOutputTcpjson = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The hostname of the receiver
@@ -3140,6 +3475,9 @@ export type CreateOutputSystemByPackOutputWizHec = {
    */
   data_center: string;
   wiz_sourcetype: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -3339,6 +3677,9 @@ export type CreateOutputSystemByPackOutputSplunkHec = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
@@ -3570,6 +3911,9 @@ export type CreateOutputSystemByPackOutputSplunkLb = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
@@ -3741,6 +4085,9 @@ export type CreateOutputSystemByPackOutputSplunk = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
@@ -4097,6 +4444,9 @@ export type CreateOutputSystemByPackOutputSyslog = {
    * Use to troubleshoot issues with sending data
    */
   logFailedRequests?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
@@ -4399,6 +4749,9 @@ export type CreateOutputSystemByPackOutputSentinel = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   format?: CreateOutputSystemByPackFormatSentinel | undefined;
   /**
@@ -4740,6 +5093,9 @@ export type CreateOutputSystemByPackOutputWebhookWebhook2 = {
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
@@ -5107,6 +5463,9 @@ export type CreateOutputSystemByPackOutputWebhookWebhook1 = {
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
@@ -5398,7 +5757,8 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputDellS3
   | CreateOutputSystemByPackOutputCloudianS3
   | CreateOutputSystemByPackOutputScalityS3
-  | CreateOutputSystemByPackOutputAlibabaCloudS3;
+  | CreateOutputSystemByPackOutputAlibabaCloudS3
+  | CreateOutputSystemByPackOutputIbmCloudS3;
 
 export type CreateOutputSystemByPackRequest = {
   /**
@@ -5493,8 +5853,196 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputDellS3
     | CreateOutputSystemByPackOutputCloudianS3
     | CreateOutputSystemByPackOutputScalityS3
-    | CreateOutputSystemByPackOutputAlibabaCloudS3;
+    | CreateOutputSystemByPackOutputAlibabaCloudS3
+    | CreateOutputSystemByPackOutputIbmCloudS3;
 };
+
+/** @internal */
+export type CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound = {
+  id: string;
+  type: "google_cloud_storage";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  awsAuthenticationMethod?: string | undefined;
+  stagePath: string;
+  destPath?: string | undefined;
+  verifyPermissions?: boolean | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  orphans?: models.OrphanFileRecoveryType$Outbound | undefined;
+  description?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.KeyValueMetadataConfOutputFilesystem$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_objectACL?: string | undefined;
+  __template_storageClass?: string | undefined;
+  __template_partitionExpr?: string | undefined;
+  __template_format?: string | undefined;
+  __template_baseFileName?: string | undefined;
+  __template_fileNameSuffix?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackOutputGoogleCloudStorage$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackOutputGoogleCloudStorage
+  > = z.object({
+    id: z.string(),
+    type: z.literal("google_cloud_storage"),
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string(),
+    awsAuthenticationMethod:
+      CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage$outboundSchema
+        .optional(),
+    stagePath: z.string(),
+    destPath: z.string().optional(),
+    verifyPermissions: z.boolean().optional(),
+    objectACL: models
+      .ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$outboundSchema
+      .optional(),
+    storageClass: models.StorageClassOptionsArchiveColdline$outboundSchema
+      .optional(),
+    reuseConnections: z.boolean().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    addIdToStagePath: z.boolean().optional(),
+    removeEmptyDirs: z.boolean().optional(),
+    partitionExpr: z.string().optional(),
+    format: models.DataFormatOptions$outboundSchema.optional(),
+    baseFileName: z.string().optional(),
+    fileNameSuffix: z.string().optional(),
+    maxFileSizeMB: z.number().optional(),
+    maxFileOpenTimeSec: z.number().optional(),
+    maxFileIdleTimeSec: z.number().optional(),
+    maxOpenFiles: z.number().optional(),
+    headerLine: z.string().optional(),
+    writeHighWaterMark: z.number().optional(),
+    onBackpressure: models.BackpressureBehaviorOptionsBlockDrop$outboundSchema
+      .optional(),
+    deadletterEnabled: z.boolean().optional(),
+    onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+      .optional(),
+    forceCloseOnShutdown: z.boolean().optional(),
+    retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+    orphans: models.OrphanFileRecoveryType$outboundSchema.optional(),
+    description: z.string().optional(),
+    compress: models.CompressionOptionsHttp$outboundSchema.optional(),
+    compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+    automaticSchema: z.boolean().optional(),
+    parquetSchema: z.string().optional(),
+    parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+    parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+      .optional(),
+    parquetRowGroupLength: z.number().optional(),
+    parquetPageSize: z.string().optional(),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(
+      models.KeyValueMetadataConfOutputFilesystem$outboundSchema,
+    ).optional(),
+    enableStatistics: z.boolean().optional(),
+    enableWritePageIndex: z.boolean().optional(),
+    enablePageChecksum: z.boolean().optional(),
+    emptyDirCleanupSec: z.number().optional(),
+    directoryBatchSize: z.number().optional(),
+    deadletterPath: z.string().optional(),
+    maxRetryNum: z.number().optional(),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+    __template_streamtags: z.string().optional(),
+    __template_bucket: z.string().optional(),
+    __template_region: z.string().optional(),
+    __template_endpoint: z.string().optional(),
+    __template_destPath: z.string().optional(),
+    __template_objectACL: z.string().optional(),
+    __template_storageClass: z.string().optional(),
+    __template_partitionExpr: z.string().optional(),
+    __template_format: z.string().optional(),
+    __template_baseFileName: z.string().optional(),
+    __template_fileNameSuffix: z.string().optional(),
+    __template_onBackpressure: z.string().optional(),
+    __template_compress: z.string().optional(),
+    __template_parquetSchema: z.string().optional(),
+    __template_awsApiKey: z.string().optional(),
+    __template_awsSecretKey: z.string().optional(),
+  });
+
+export function createOutputSystemByPackOutputGoogleCloudStorageToJSON(
+  createOutputSystemByPackOutputGoogleCloudStorage:
+    CreateOutputSystemByPackOutputGoogleCloudStorage,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema.parse(
+      createOutputSystemByPackOutputGoogleCloudStorage,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputSystemByPackAPIVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackAPIVersion
+> = openEnums.outboundSchema(CreateOutputSystemByPackAPIVersion);
 
 /** @internal */
 export const CreateOutputSystemByPackAuthenticationMethodGoogleChronicle$outboundSchema:
@@ -9499,7 +10047,8 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputDellS3$Outbound
   | CreateOutputSystemByPackOutputCloudianS3$Outbound
   | CreateOutputSystemByPackOutputScalityS3$Outbound
-  | CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound;
+  | CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound
+  | CreateOutputSystemByPackOutputIbmCloudS3$Outbound;
 
 /** @internal */
 export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
@@ -9531,7 +10080,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputSystemByPackOutputHoneycomb$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputAzureEventhub$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema),
-  CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
+  z.lazy(() => CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema),
   CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
   CreateOutputSystemByPackOutputGoogleCloudObservability$outboundSchema,
   CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
@@ -9592,6 +10141,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
   CreateOutputSystemByPackOutputScalityS3$outboundSchema,
   CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
+  CreateOutputSystemByPackOutputIbmCloudS3$outboundSchema,
 ]);
 
 export function createOutputSystemByPackRequestBodyToJSON(
@@ -9694,7 +10244,8 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputDellS3$Outbound
     | CreateOutputSystemByPackOutputCloudianS3$Outbound
     | CreateOutputSystemByPackOutputScalityS3$Outbound
-    | CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound;
+    | CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound
+    | CreateOutputSystemByPackOutputIbmCloudS3$Outbound;
 };
 
 /** @internal */
@@ -9735,7 +10286,9 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateOutputSystemByPackOutputHoneycomb$outboundSchema),
     z.lazy(() => CreateOutputSystemByPackOutputAzureEventhub$outboundSchema),
     z.lazy(() => CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema),
-    CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema,
+    z.lazy(() =>
+      CreateOutputSystemByPackOutputGoogleCloudStorage$outboundSchema
+    ),
     CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema,
     CreateOutputSystemByPackOutputGoogleCloudObservability$outboundSchema,
     CreateOutputSystemByPackOutputGooglePubsub$outboundSchema,
@@ -9796,6 +10349,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputCloudianS3$outboundSchema,
     CreateOutputSystemByPackOutputScalityS3$outboundSchema,
     CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
+    CreateOutputSystemByPackOutputIbmCloudS3$outboundSchema,
   ]),
 }).transform((v) => {
   return remap$(v, {

@@ -167,6 +167,9 @@ export type CreateInputSystemByPackInputEventhubAmqp = {
    */
   id: string;
   type: "eventhub_amqp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -251,6 +254,9 @@ export type CreateInputSystemByPackInputEventhubAmqp = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -268,6 +274,9 @@ export type CreateInputSystemByPackInputEventhub = {
    */
   id: string;
   type: "eventhub";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -390,6 +399,9 @@ export type CreateInputSystemByPackInputEventhub = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -465,6 +477,9 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   id: string;
   type: "microsoft_graph";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -562,6 +577,9 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
@@ -640,6 +658,9 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    */
   id: string;
   type: "office365_msg_trace";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -733,6 +754,9 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    */
   logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -824,6 +848,9 @@ export type CreateInputSystemByPackInputOffice365Service = {
    */
   id: string;
   type: "office365_service";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -901,6 +928,9 @@ export type CreateInputSystemByPackInputOffice365Service = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -959,6 +989,9 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    */
   id: string;
   type: "office365_mgmt";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1044,6 +1077,9 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -1173,6 +1209,9 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   id: string;
   type: "edge_prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1230,6 +1269,9 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
   authType?:
     | CreateInputSystemByPackAuthenticationMethodEdgePrometheus
     | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   targets?: Array<CreateInputSystemByPackTarget> | undefined;
   /**
@@ -1445,6 +1487,9 @@ export type CreateInputSystemByPackInputPrometheus = {
    */
   id: string;
   type: "prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1527,6 +1572,9 @@ export type CreateInputSystemByPackInputPrometheus = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsSasl | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
@@ -1695,7 +1743,13 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "prometheus_rw";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1787,6 +1841,9 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1833,7 +1890,13 @@ export type CreateInputSystemByPackInputLoki = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "loki";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1925,6 +1988,9 @@ export type CreateInputSystemByPackInputLoki = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1962,9 +2028,15 @@ export type CreateInputSystemByPackInputLoki = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const CreateInputSystemByPackInputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type CreateInputSystemByPackInputGrafanaType2 = ClosedEnum<
   typeof CreateInputSystemByPackInputGrafanaType2
 >;
@@ -2016,7 +2088,13 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: CreateInputSystemByPackInputGrafanaType2;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2110,6 +2188,9 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2137,9 +2218,15 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const CreateInputSystemByPackInputGrafanaType1 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type CreateInputSystemByPackInputGrafanaType1 = ClosedEnum<
   typeof CreateInputSystemByPackInputGrafanaType1
 >;
@@ -2191,7 +2278,13 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: CreateInputSystemByPackInputGrafanaType1;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2285,6 +2378,9 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2322,6 +2418,9 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    */
   id: string;
   type: "confluent_cloud";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2447,6 +2546,9 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2573,7 +2675,13 @@ export type CreateInputSystemByPackInputElastic = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "elastic";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2671,6 +2779,9 @@ export type CreateInputSystemByPackInputElastic = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeElastic | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -2718,6 +2829,9 @@ export type CreateInputSystemByPackInputAzureBlob = {
    */
   id: string;
   type: "azure_blob";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2793,6 +2907,9 @@ export type CreateInputSystemByPackInputAzureBlob = {
    */
   parquetChunkDownloadTimeout?: number | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -2874,6 +2991,9 @@ export type CreateInputSystemByPackAuthTokenSplunkHec = {
    * Shared secret to be provided by any client (Authorization: <token>)
    */
   token: string;
+  /**
+   * If true, the token is active and can be used for authentication.
+   */
   enabled?: boolean | undefined;
   /**
    * Optional token description
@@ -2894,7 +3014,13 @@ export type CreateInputSystemByPackInputSplunkHec = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "splunk_hec";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3022,6 +3148,9 @@ export type CreateInputSystemByPackInputSplunkHec = {
    * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3115,6 +3244,9 @@ export type CreateInputSystemByPackInputSplunkSearch = {
    */
   id: string;
   type: "splunk_search";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3234,6 +3366,9 @@ export type CreateInputSystemByPackInputSplunkSearch = {
    * Splunk Search authentication type
    */
   authType: CreateInputSystemByPackAuthenticationTypeSplunkSearch;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -3341,6 +3476,9 @@ export type CreateInputSystemByPackInputSplunk = {
    */
   id: string;
   type: "splunk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3420,6 +3558,9 @@ export type CreateInputSystemByPackInputSplunk = {
    * The highest S2S protocol version to advertise during handshake
    */
   maxS2Sversion?: CreateInputSystemByPackMaxS2SVersion | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
@@ -3468,7 +3609,13 @@ export type CreateInputSystemByPackInputHttp = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3573,6 +3720,9 @@ export type CreateInputSystemByPackInputHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3614,6 +3764,9 @@ export type CreateInputSystemByPackInputMsk = {
    */
   id: string;
   type: "msk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3772,6 +3925,9 @@ export type CreateInputSystemByPackInputMsk = {
    * Maximum number of network errors before the consumer re-creates a socket
    */
   maxSocketErrors?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -3830,6 +3986,9 @@ export type CreateInputSystemByPackInputKafka = {
    */
   id: string;
   type: "kafka";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3955,6 +4114,9 @@ export type CreateInputSystemByPackInputKafka = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3984,6 +4146,9 @@ export type CreateInputSystemByPackInputCollection = {
    */
   id: string;
   type: "collection";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results

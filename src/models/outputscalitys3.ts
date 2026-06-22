@@ -183,6 +183,9 @@ export type OutputScalityS3 = {
    * Scality RING S3-compatible endpoint URL (example: https://s3.scality.example.com)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

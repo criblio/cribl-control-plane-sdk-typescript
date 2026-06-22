@@ -8,7 +8,7 @@ import { UpdateOutputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateOutputByIdRequest = {
   id: "<id>",
   output: {
-    type: "nutanix_objects",
+    type: "storj_s3",
     bucket: "<value>",
     stagePath: "<value>",
     endpoint: "<value>",

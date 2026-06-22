@@ -20,7 +20,7 @@ export type PipelineFunctionClone = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>clone</code>
    */
   id: "clone";
   /**

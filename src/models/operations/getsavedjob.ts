@@ -7,7 +7,7 @@ import * as models from "../index.js";
 
 export type GetSavedJobRequest = {
   /**
-   * Filter by collector type
+   * Filter by collector type.
    */
   collectorType?: models.CollectorType | undefined;
 };

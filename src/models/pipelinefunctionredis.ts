@@ -808,7 +808,7 @@ export type PipelineFunctionRedis = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>redis</code>
    */
   id: "redis";
   /**

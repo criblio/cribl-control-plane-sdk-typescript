@@ -44,7 +44,7 @@ export type PipelineFunctionRegexExtract = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>regex_extract</code>
    */
   id: "regex_extract";
   /**

@@ -41,7 +41,7 @@ export type PipelineFunctionLakeExport = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>lake_export</code>
    */
   id: "lake_export";
   /**

@@ -41,6 +41,9 @@ export type InputFileInput = {
    */
   id?: string | undefined;
   type: "file";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -127,6 +130,9 @@ export type InputFileInput = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).

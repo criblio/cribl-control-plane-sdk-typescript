@@ -45,7 +45,7 @@ export type PipelineFunctionSuppress = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>suppress</code>
    */
   id: "suppress";
   /**

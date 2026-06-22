@@ -14,6 +14,9 @@ export type CreateInputInputOkta = {
    */
   id: string;
   type: "okta";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -93,6 +96,9 @@ export type CreateInputInputOkta = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   retryRules?: models.RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -151,6 +157,9 @@ export type CreateInputInputAnthropicCompliance = {
    */
   id: string;
   type: "anthropic_compliance";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -208,6 +217,9 @@ export type CreateInputInputAnthropicCompliance = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   retryRules?: models.RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -239,6 +251,9 @@ export type CreateInputInputOpenaiComplianceLogs = {
    */
   id: string;
   type: "openai_compliance_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -329,6 +344,9 @@ export type CreateInputInputOpenaiComplianceLogs = {
    */
   staleChannelFlushMs?: number | undefined;
   retryRules?: models.RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The ID of the ChatGPT workspace to collect logs from (UUID format)
@@ -378,7 +396,13 @@ export type CreateInputInputSysdigHec = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "sysdig_hec";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -482,6 +506,9 @@ export type CreateInputInputSysdigHec = {
    * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -563,7 +590,13 @@ export type CreateInputInputCloudflareHec = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "cloudflare_hec";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -675,6 +708,9 @@ export type CreateInputInputCloudflareHec = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -740,7 +776,13 @@ export type CreateInputInputZscalerHec = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "zscaler_hec";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -848,6 +890,9 @@ export type CreateInputInputZscalerHec = {
    * Whether to enable Zscaler HEC acknowledgements
    */
   hecAcks?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -953,6 +998,9 @@ export type CreateInputInputServicenowTable = {
    */
   id: string;
   type: "servicenow_table";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1072,6 +1120,9 @@ export type CreateInputInputServicenowTable = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   retryRules?: models.RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -1151,6 +1202,9 @@ export type CreateInputInputSecurityLake = {
    */
   id: string;
   type: "security_lake";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1284,6 +1338,9 @@ export type CreateInputInputSecurityLake = {
    * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
    */
   encoding?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -1347,6 +1404,9 @@ export type CreateInputInputNetflow = {
    */
   id: string;
   type: "netflow";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1417,6 +1477,9 @@ export type CreateInputInputNetflow = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1441,7 +1504,13 @@ export type CreateInputInputWizWebhook = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "wiz_webhook";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1549,6 +1618,9 @@ export type CreateInputInputWizWebhook = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1683,6 +1755,9 @@ export type CreateInputInputOpenai = {
    */
   id: string;
   type: "openai";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1748,6 +1823,9 @@ export type CreateInputInputOpenai = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   retryRules?: models.RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1825,6 +1903,9 @@ export type CreateInputInputWiz = {
    */
   id: string;
   type: "wiz";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1905,6 +1986,9 @@ export type CreateInputInputWiz = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -1953,6 +2037,9 @@ export type CreateInputInputJournalFiles = {
    */
   id: string;
   type: "journal_files";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2008,6 +2095,9 @@ export type CreateInputInputJournalFiles = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2025,6 +2115,9 @@ export type CreateInputInputRawUdp = {
    */
   id: string;
   type: "raw_udp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2083,6 +2176,9 @@ export type CreateInputInputRawUdp = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2128,6 +2224,9 @@ export type CreateInputInputAppleUnifiedLogs = {
    */
   id: string;
   type: "apple_unified_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2166,6 +2265,9 @@ export type CreateInputInputAppleUnifiedLogs = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2221,6 +2323,9 @@ export type CreateInputInputWinEventLogs = {
    */
   id: string;
   type: "win_event_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2279,6 +2384,9 @@ export type CreateInputInputWinEventLogs = {
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
   maxEventBytes?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
@@ -2454,6 +2562,9 @@ export type CreateInputInputWef = {
    */
   id: string;
   type: "wef";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2553,6 +2664,9 @@ export type CreateInputInputWef = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
@@ -2645,6 +2759,9 @@ export type CreateInputInputAppscope = {
    */
   id: string;
   type: "appscope";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2717,6 +2834,9 @@ export type CreateInputInputAppscope = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -2767,6 +2887,9 @@ export type CreateInputInputTcp = {
    */
   id: string;
   type: "tcp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2843,6 +2966,9 @@ export type CreateInputInputTcp = {
    */
   enableHeader?: boolean | undefined;
   preprocess?: models.PreprocessType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -2900,6 +3026,9 @@ export type CreateInputInputFile = {
    */
   id: string;
   type: "file";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2986,6 +3115,9 @@ export type CreateInputInputFile = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
@@ -3035,6 +3167,9 @@ export type CreateInputInputSyslogSyslog2 = {
    */
   id: string;
   type: CreateInputInputSyslogType2;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3142,6 +3277,9 @@ export type CreateInputInputSyslogSyslog2 = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
@@ -3186,6 +3324,9 @@ export type CreateInputInputSyslogSyslog1 = {
    */
   id: string;
   type: CreateInputInputSyslogType1;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3293,6 +3434,9 @@ export type CreateInputInputSyslogSyslog1 = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
@@ -3352,6 +3496,9 @@ export type CreateInputInputSqs = {
    */
   id: string;
   type: "sqs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3447,6 +3594,9 @@ export type CreateInputInputSqs = {
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
   pollTimeout?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -3509,6 +3659,9 @@ export type CreateInputInputModelDrivenTelemetry = {
    */
   id: string;
   type: "model_driven_telemetry";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3556,6 +3709,9 @@ export type CreateInputInputModelDrivenTelemetry = {
    * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
    */
   shutdownTimeoutMs?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3694,7 +3850,13 @@ export type CreateInputInputOpenTelemetry = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "open_telemetry";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3794,6 +3956,9 @@ export type CreateInputInputOpenTelemetry = {
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
   maxActiveCxn?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -3870,6 +4035,9 @@ export type CreateInputInputSnmp = {
    */
   id: string;
   type: "snmp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3932,6 +4100,9 @@ export type CreateInputInputSnmp = {
    * If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
    */
   bestEffortParsing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3957,6 +4128,9 @@ export type CreateInputInputS3Inventory = {
    */
   id: string;
   type: "s3_inventory";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -4098,6 +4272,9 @@ export type CreateInputInputS3Inventory = {
    * If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
    */
   validateInventoryFiles?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -4161,6 +4338,9 @@ export type CreateInputInputS3 = {
    */
   id: string;
   type: "s3";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -4298,6 +4478,9 @@ export type CreateInputInputS3 = {
    * Add a tag to processed S3 objects. Requires s3:GetObjectTagging and s3:PutObjectTagging AWS permissions.
    */
   tagAfterProcessing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -4360,6 +4543,9 @@ export type CreateInputInputMetrics = {
    */
   id: string;
   type: "metrics";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -4419,6 +4605,9 @@ export type CreateInputInputMetrics = {
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
   udpSocketRxBufSize?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -4448,6 +4637,9 @@ export type CreateInputInputCriblmetrics = {
    */
   id: string;
   type: "criblmetrics";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -4486,6 +4678,9 @@ export type CreateInputInputCriblmetrics = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -4571,6 +4766,9 @@ export type CreateInputInputKinesis = {
    */
   id: string;
   type: "kinesis";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -4678,6 +4876,9 @@ export type CreateInputInputKinesis = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -4735,7 +4936,13 @@ export type CreateInputInputHttpRaw = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "http_raw";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -4843,6 +5050,9 @@ export type CreateInputInputHttpRaw = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -4884,6 +5094,9 @@ export type CreateInputInputDatagen = {
    */
   id: string;
   type: "datagen";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -4915,6 +5128,9 @@ export type CreateInputInputDatagen = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -4942,7 +5158,13 @@ export type CreateInputInputDatadogAgent = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "datadog_agent";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -5031,6 +5253,9 @@ export type CreateInputInputDatadogAgent = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   proxyMode?: CreateInputProxyModeDatadogAgent | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5056,6 +5281,9 @@ export type CreateInputInputCrowdstrike = {
    */
   id: string;
   type: "crowdstrike";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -5181,6 +5409,9 @@ export type CreateInputInputCrowdstrike = {
    * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
    */
   encoding?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -5507,6 +5738,9 @@ export type CreateInputInputWindowsMetrics = {
    */
   id: string;
   type: "windows_metrics";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -5549,6 +5783,9 @@ export type CreateInputInputWindowsMetrics = {
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
    */
   disableNativeModule?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5566,6 +5803,9 @@ export type CreateInputInputKubeEvents = {
    */
   id: string;
   type: "kube_events";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -5600,6 +5840,9 @@ export type CreateInputInputKubeEvents = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5628,6 +5871,9 @@ export type CreateInputInputKubeLogs = {
    */
   id: string;
   type: "kube_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -5691,6 +5937,9 @@ export type CreateInputInputKubeLogs = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5732,6 +5981,9 @@ export type CreateInputInputKubeMetrics = {
    */
   id: string;
   type: "kube_metrics";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -5779,6 +6031,9 @@ export type CreateInputInputKubeMetrics = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   persistence?: CreateInputPersistenceKubeMetrics | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -5944,6 +6199,9 @@ export type CreateInputInputSystemState = {
    */
   id: string;
   type: "system_state";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -5988,6 +6246,9 @@ export type CreateInputInputSystemState = {
    * Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeLastLogModule?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6343,6 +6604,9 @@ export type CreateInputInputSystemMetrics = {
    */
   id: string;
   type: "system_metrics";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6382,6 +6646,9 @@ export type CreateInputInputSystemMetrics = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   persistence?: CreateInputPersistenceSystemMetrics | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6399,6 +6666,9 @@ export type CreateInputInputTcpjson = {
    */
   id: string;
   type: "tcpjson";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6470,6 +6740,9 @@ export type CreateInputInputTcpjson = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -6524,7 +6797,13 @@ export type CreateInputInputCriblLakeHttp = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "cribl_lake_http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6626,6 +6905,9 @@ export type CreateInputInputCriblLakeHttp = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   authTokensExt?: Array<CreateInputAuthTokensExt> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6666,7 +6948,13 @@ export type CreateInputInputCriblHttp = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "cribl_http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6754,6 +7042,9 @@ export type CreateInputInputCriblHttp = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6779,6 +7070,9 @@ export type CreateInputInputCriblTcp = {
    */
   id: string;
   type: "cribl_tcp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6846,6 +7140,9 @@ export type CreateInputInputCriblTcp = {
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
    */
   authTokens?: Array<models.AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6871,6 +7168,9 @@ export type CreateInputInputCribl = {
    */
   id: string;
   type: "cribl";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6902,6 +7202,9 @@ export type CreateInputInputCribl = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6919,6 +7222,9 @@ export type CreateInputInputGooglePubsub = {
    */
   id: string;
   type: "google_pubsub";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6997,6 +7303,9 @@ export type CreateInputInputGooglePubsub = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
@@ -7029,7 +7338,13 @@ export type CreateInputInputFirehose = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "firehose";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -7117,6 +7432,9 @@ export type CreateInputInputFirehose = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7212,6 +7530,9 @@ export type CreateInputInputExec = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.

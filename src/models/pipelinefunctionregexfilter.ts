@@ -20,7 +20,7 @@ export type PipelineFunctionRegexFilter = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>regex_filter</code>
    */
   id: "regex_filter";
   /**

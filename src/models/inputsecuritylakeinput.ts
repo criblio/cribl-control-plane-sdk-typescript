@@ -35,6 +35,9 @@ export type InputSecurityLakeInput = {
    */
   id?: string | undefined;
   type: "security_lake";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -168,6 +171,9 @@ export type InputSecurityLakeInput = {
    * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
    */
   encoding?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**

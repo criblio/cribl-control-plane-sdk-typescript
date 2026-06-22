@@ -171,7 +171,7 @@ async function $do(
     M.json(200, models.CountedOutputResponse$inboundSchema),
     M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail("4XX"),
+    M.fail([409, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

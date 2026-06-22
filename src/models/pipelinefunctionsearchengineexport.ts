@@ -37,7 +37,7 @@ export type PipelineFunctionSearchEngineExport = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>search_engine_export</code>
    */
   id: "search_engine_export";
   /**

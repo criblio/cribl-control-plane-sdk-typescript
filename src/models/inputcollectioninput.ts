@@ -26,6 +26,9 @@ export type InputCollectionInput = {
    */
   id?: string | undefined;
   type: "collection";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results

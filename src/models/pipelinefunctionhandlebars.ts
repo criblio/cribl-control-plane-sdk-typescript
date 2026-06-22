@@ -52,7 +52,7 @@ export type PipelineFunctionHandlebars = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>handlebars</code>
    */
   id: "handlebars";
   /**

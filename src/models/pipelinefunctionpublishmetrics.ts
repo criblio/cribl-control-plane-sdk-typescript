@@ -20,7 +20,7 @@ export type PipelineFunctionPublishMetrics = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>publish_metrics</code>
    */
   id: "publish_metrics";
   /**

@@ -359,7 +359,7 @@ export type PipelineFunctionEventBreaker = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>event_breaker</code>
    */
   id: "event_breaker";
   /**

@@ -20,7 +20,7 @@ export type PipelineFunctionGenStats = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>gen_stats</code>
    */
   id: "gen_stats";
   /**

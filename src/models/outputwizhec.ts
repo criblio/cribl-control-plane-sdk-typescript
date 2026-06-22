@@ -154,6 +154,9 @@ export type OutputWizHec = {
    */
   data_center: string;
   wiz_sourcetype: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.

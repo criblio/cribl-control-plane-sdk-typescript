@@ -179,6 +179,9 @@ export type OutputAlphasocS3 = {
    * AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
    */
   endpoint?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

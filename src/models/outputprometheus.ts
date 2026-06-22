@@ -181,6 +181,9 @@ export type OutputPrometheus = {
    * Remote Write authentication type
    */
   authType?: OutputPrometheusAuthenticationType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.

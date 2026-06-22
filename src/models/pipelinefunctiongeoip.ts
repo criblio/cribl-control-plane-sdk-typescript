@@ -50,7 +50,7 @@ export type PipelineFunctionGeoip = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>geoip</code>
    */
   id: "geoip";
   /**

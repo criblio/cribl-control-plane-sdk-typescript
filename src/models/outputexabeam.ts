@@ -151,6 +151,9 @@ export type OutputExabeam = {
    * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
    */
   awsSecretKey?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * How frequently, in seconds, to clean up empty directories

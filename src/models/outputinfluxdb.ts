@@ -217,6 +217,9 @@ export type OutputInfluxdb = {
    * InfluxDB authentication type
    */
   authType?: OutputInfluxdbAuthenticationType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Database to write to.

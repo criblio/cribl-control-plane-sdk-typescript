@@ -224,6 +224,9 @@ export type OutputElastic = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk

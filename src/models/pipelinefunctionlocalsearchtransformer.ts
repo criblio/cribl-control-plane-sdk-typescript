@@ -20,7 +20,7 @@ export type PipelineFunctionLocalSearchTransformer = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>local_search_transformer</code>
    */
   id: "local_search_transformer";
   /**

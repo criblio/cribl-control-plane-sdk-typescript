@@ -69,7 +69,7 @@ export type PipelineFunctionSend = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>send</code>
    */
   id: "send";
   /**

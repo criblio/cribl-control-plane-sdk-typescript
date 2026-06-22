@@ -292,6 +292,284 @@ import {
   UrlConfOutputCriblHttp$inboundSchema,
 } from "./urlconfoutputcriblhttp.js";
 
+export type OutputResponseOutputIbmCloudS3 = {
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: "ibm_cloud_s3";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * IBM Cloud Object Storage S3-compatible endpoint URL (example: https://s3.us-south.cloud-object-storage.appdomain.cloud)
+   */
+  endpoint: string;
+  /**
+   * Authentication method.
+   */
+  awsAuthenticationMethod?: AuthenticationMethodOptionsSecret | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Name of the destination IBM Cloud Object Storage bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: CompressionOptionsHttp | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
+   * Notifications attached to the Destination.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+/**
+ * Authentication method.
+ */
+export const AuthenticationMethodAlibabaCloudS3 = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Secret
+   */
+  Secret: "secret",
+} as const;
+/**
+ * Authentication method.
+ */
+export type AuthenticationMethodAlibabaCloudS3 = OpenEnum<
+  typeof AuthenticationMethodAlibabaCloudS3
+>;
+
 export type OutputResponseOutputAlibabaCloudS3 = {
   /**
    * Unique ID for this output
@@ -317,7 +595,7 @@ export type OutputResponseOutputAlibabaCloudS3 = {
   /**
    * Authentication method.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptionsSecret | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodAlibabaCloudS3 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -424,6 +702,9 @@ export type OutputResponseOutputAlibabaCloudS3 = {
    * Alibaba OSS S3-compatible endpoint URL. Examples: public `https://s3.oss-{region}.aliyuncs.com`, internal `https://s3.oss-{region}-internal.aliyuncs.com`
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -687,6 +968,9 @@ export type OutputResponseOutputScalityS3 = {
    * Scality RING S3-compatible endpoint URL (example: https://s3.scality.example.com)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -968,6 +1252,9 @@ export type OutputResponseOutputCloudianS3 = {
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
   kmsKeyId?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -1251,6 +1538,9 @@ export type OutputResponseOutputDellS3 = {
    * Dell PowerScale OneFS S3-compatible endpoint URL (example: https://powerscale.example.com:9021)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -1514,6 +1804,9 @@ export type OutputResponseOutputAlphasocS3 = {
    * AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
    */
   endpoint?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -1765,6 +2058,9 @@ export type OutputResponseOutputStorjS3 = {
    * Storj S3-compatible gateway endpoint URL (example: https://gateway.storjshare.io)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -2024,6 +2320,9 @@ export type OutputResponseOutputNutanixObjects = {
    * Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -2297,6 +2596,9 @@ export type OutputResponseOutputCloudflareR2 = {
   serverSideEncryption?:
     | ServerSideEncryptionForUploadedObjectsOptionsAes256
     | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -2589,6 +2891,9 @@ export type OutputResponseOutputMicrosoftFabric = {
    * Bootstrap server from Fabric Eventstream's endpoint
    */
   bootstrap_server: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -2797,6 +3102,9 @@ export type OutputResponseOutputDatabricks = {
    * Amount of time, in seconds, to wait for a request to complete before canceling it.
    */
   timeoutSec?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -3051,6 +3359,9 @@ export type OutputResponseOutputChronicle = {
    * Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
    */
   endpoint?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
@@ -3281,6 +3592,9 @@ export type OutputResponseOutputSentinelOneAiSiem = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
@@ -3564,6 +3878,9 @@ export type OutputResponseOutputDynatraceOtlp = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
@@ -3831,6 +4148,9 @@ export type OutputResponseOutputDynatraceHttp = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -3976,6 +4296,9 @@ export type OutputResponseOutputNetflow = {
    * Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
    */
   enableIpSpoofing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
@@ -4115,6 +4438,9 @@ export type OutputResponseOutputXsiam = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
@@ -4402,6 +4728,9 @@ export type OutputResponseOutputLocalSearchStorage = {
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
   statsDestination?: OutputResponseStatsDestination | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -4623,6 +4952,9 @@ export type OutputResponseOutputCustomerMetricsStorage = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -4844,6 +5176,9 @@ export type OutputResponseOutputClickHouse = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -4989,6 +5324,9 @@ export type OutputResponseOutputDiskSpool = {
    * JavaScript expression defining how files are partitioned and organized within the time-buckets. If blank, the event's __partition property is used and otherwise, events go directly into the time-bucket directory.
    */
   partitionExpr?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5103,6 +5441,9 @@ export type OutputResponseOutputCriblLake = {
   dynamicDataset?: boolean | undefined;
   maxClosingFilesToBackpressure?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -5409,6 +5750,9 @@ export type OutputResponseOutputSecurityLake = {
    * Parquet tools can use the checksum of a Parquet page to verify data integrity
    */
   enablePageChecksum?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -5686,6 +6030,9 @@ export type OutputResponseOutputDlS3 = {
    * List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
    */
   partitioningFields?: Array<string> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -5955,6 +6302,9 @@ export type OutputResponseOutputCrowdstrikeNextGenSiem = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   token?: string | undefined;
   /**
@@ -6131,6 +6481,9 @@ export type OutputResponseOutputHumioHec = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * CrowdStrike Falcon LogScale authentication token
@@ -6319,6 +6672,9 @@ export type OutputResponseOutputCriblSearchEngine = {
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
   useRoundRobinDns?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * URL of a Cribl Worker to send events to, such as http://localhost:10200
@@ -6512,6 +6868,9 @@ export type OutputResponseOutputCriblHttp = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * URL of a Cribl Worker to send events to, such as http://localhost:10200
@@ -6670,6 +7029,9 @@ export type OutputResponseOutputCriblTcp = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The hostname of the receiver
@@ -6951,6 +7313,9 @@ export type OutputResponseOutputDataset = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -7141,6 +7506,9 @@ export type OutputResponseOutputServiceNow = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
@@ -7396,6 +7764,9 @@ export type OutputResponseOutputOpenTelemetry = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -7605,6 +7976,9 @@ export type OutputResponseOutputRing = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -7763,6 +8137,9 @@ export type OutputResponseOutputPrometheus = {
    * Remote Write authentication type
    */
   authType?: AuthenticationTypePrometheus | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
@@ -8011,6 +8388,9 @@ export type OutputResponseOutputLoki = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Compress the payload body before sending
@@ -8219,6 +8599,9 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud2 = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
@@ -8415,6 +8798,9 @@ export type OutputResponseOutputGrafanaCloudGrafanaCloud1 = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
@@ -8740,6 +9126,9 @@ export type OutputResponseOutputDatadog = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -8946,6 +9335,9 @@ export type OutputResponseOutputSumoLogic = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -9071,6 +9463,9 @@ export type OutputResponseOutputSnmp = {
    * Send SNMP Trap traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
    */
   enableIpSpoofing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * MTU in bytes. The actual maximum SNMP Trap payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). Payloads exceeding this limit will be dropped.
@@ -9209,6 +9604,9 @@ export type OutputResponseOutputSqs = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -9395,6 +9793,9 @@ export type OutputResponseOutputSns = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -9541,6 +9942,9 @@ export type OutputResponseOutputRouter = {
    * Event routing rules
    */
   rules: Array<OutputResponseRule>;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9604,6 +10008,9 @@ export type OutputResponseOutputGraphite = {
    * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
    */
   dnsResolvePeriodSec?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
@@ -9732,6 +10139,9 @@ export type OutputResponseOutputStatsdExt = {
    * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
    */
   dnsResolvePeriodSec?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
@@ -9860,6 +10270,9 @@ export type OutputResponseOutputStatsd = {
    * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
    */
   dnsResolvePeriodSec?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
@@ -10090,6 +10503,9 @@ export type OutputResponseOutputMinio = {
   serverSideEncryption?:
     | ServerSideEncryptionForUploadedObjectsOptionsAes256
     | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -10326,6 +10742,9 @@ export type OutputResponseOutputCloudwatch = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -10606,6 +11025,9 @@ export type OutputResponseOutputInfluxdb = {
    * InfluxDB authentication type
    */
   authType?: AuthenticationTypeInfluxdb | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Database to write to.
@@ -10815,6 +11237,9 @@ export type OutputResponseOutputNewrelicEvents = {
    * Enter API key directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsApi | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -11044,6 +11469,9 @@ export type OutputResponseOutputNewrelic = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -11237,6 +11665,9 @@ export type OutputResponseOutputElasticCloud = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -11493,6 +11924,9 @@ export type OutputResponseOutputElastic = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
@@ -11731,6 +12165,9 @@ export type OutputResponseOutputMsk = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -11944,6 +12381,9 @@ export type OutputResponseOutputConfluentCloud = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select a set of Protobuf definitions for the events you want to send
@@ -12132,6 +12572,9 @@ export type OutputResponseOutputKafka = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select a set of Protobuf definitions for the events you want to send
@@ -12337,6 +12780,9 @@ export type OutputResponseOutputExabeam = {
    * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
    */
   awsSecretKey?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * How frequently, in seconds, to clean up empty directories
@@ -12468,6 +12914,9 @@ export type OutputResponseOutputGooglePubsub = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -12663,13 +13112,16 @@ export type OutputResponseOutputGoogleCloudObservability = {
   keepAliveTime?: number | undefined;
   tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
-   * Max number of events to include in the request body. Default is 0 (unlimited).
+   * Max number of events to include in the request body. Default is 0 (unlimited). Use to keep outgoing data points within GCO request limits. For metrics, combine with the OTLP Metrics function batchSize.
    */
   maxPayloadEvents?: number | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored text secret
@@ -12998,6 +13450,9 @@ export type OutputResponseOutputGoogleCloudLogging = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
@@ -13132,305 +13587,104 @@ export type AuthenticationMethodGoogleCloudStorage = OpenEnum<
   typeof AuthenticationMethodGoogleCloudStorage
 >;
 
-export type OutputResponseOutputGoogleCloudStorage = {
-  /**
-   * Unique ID for this output
-   */
-  id?: string | undefined;
-  type: "google_cloud_storage";
-  /**
-   * Pipeline to process data before sending out to this output
-   */
-  pipeline?: string | undefined;
-  /**
-   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-   */
-  systemFields?: Array<string> | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-   */
-  bucket: string;
-  /**
-   * Region where the bucket is located
-   */
-  region: string;
-  /**
-   * Google Cloud Storage service endpoint
-   */
-  endpoint: string;
-  awsAuthenticationMethod?: AuthenticationMethodGoogleCloudStorage | undefined;
-  /**
-   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-   */
-  stagePath: string;
-  /**
-   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
-   */
-  destPath?: string | undefined;
-  /**
-   * Disable if you can access files within the bucket but not the bucket itself
-   */
-  verifyPermissions?: boolean | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?:
-    | ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
-    | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: StorageClassOptionsArchiveColdline | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Add the Output ID value to staging location
-   */
-  addIdToStagePath?: boolean | undefined;
-  /**
-   * Remove empty staging directories after moving files
-   */
-  removeEmptyDirs?: boolean | undefined;
-  /**
-   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
-   */
-  partitionExpr?: string | undefined;
-  /**
-   * Format of the output data
-   */
-  format?: DataFormatOptions | undefined;
-  /**
-   * JavaScript expression to define the output filename prefix (can be constant)
-   */
-  baseFileName?: string | undefined;
-  /**
-   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-   */
-  fileNameSuffix?: string | undefined;
-  /**
-   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-   */
-  maxFileSizeMB?: number | undefined;
-  /**
-   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-   */
-  maxFileOpenTimeSec?: number | undefined;
-  /**
-   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-   */
-  maxFileIdleTimeSec?: number | undefined;
-  /**
-   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-   */
-  maxOpenFiles?: number | undefined;
-  /**
-   * If set, this line will be written to the beginning of each output file
-   */
-  headerLine?: string | undefined;
-  /**
-   * Buffer size used to write to a file
-   */
-  writeHighWaterMark?: number | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
-  /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-   */
-  deadletterEnabled?: boolean | undefined;
-  /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
-   */
-  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
-  /**
-   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-   */
-  forceCloseOnShutdown?: boolean | undefined;
-  retrySettings?: RetrySettingsType | undefined;
-  orphans?: OrphanFileRecoveryType | undefined;
-  description?: string | undefined;
-  /**
-   * Data compression format to apply to HTTP content before it is delivered
-   */
-  compress?: CompressionOptionsHttp | undefined;
-  /**
-   * Compression level to apply before moving files to final destination
-   */
-  compressionLevel?: CompressionLevelOptions | undefined;
-  /**
-   * Automatically calculate the schema based on the events of each Parquet file generated
-   */
-  automaticSchema?: boolean | undefined;
-  /**
-   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-   */
-  parquetSchema?: string | undefined;
-  /**
-   * Determines which data types are supported and how they are represented
-   */
-  parquetVersion?: ParquetVersionOptions | undefined;
-  /**
-   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-   */
-  parquetDataPageVersion?: DataPageVersionOptions | undefined;
-  /**
-   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
-   */
-  parquetRowGroupLength?: number | undefined;
-  /**
-   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-   */
-  parquetPageSize?: string | undefined;
-  /**
-   * Log up to 3 rows that @{product} skips due to data mismatch
-   */
-  shouldLogInvalidRows?: boolean | undefined;
-  /**
-   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-   */
-  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
-  /**
-   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-   */
-  enableStatistics?: boolean | undefined;
-  /**
-   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-   */
-  enableWritePageIndex?: boolean | undefined;
-  /**
-   * Parquet tools can use the checksum of a Parquet page to verify data integrity
-   */
-  enablePageChecksum?: boolean | undefined;
-  /**
-   * How frequently, in seconds, to clean up empty directories
-   */
-  emptyDirCleanupSec?: number | undefined;
-  /**
-   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-   */
-  directoryBatchSize?: number | undefined;
-  /**
-   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
-   */
-  deadletterPath?: string | undefined;
-  /**
-   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-   */
-  maxRetryNum?: number | undefined;
-  /**
-   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
-   */
-  awsApiKey?: string | undefined;
-  /**
-   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
-   */
-  awsSecretKey?: string | undefined;
-  /**
-   * Select or create a stored secret that references your access key and secret key
-   */
-  awsSecret?: string | undefined;
-  /**
-   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
-   */
-  __template_streamtags?: string | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-   */
-  __template_endpoint?: string | undefined;
-  /**
-   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-   */
-  __template_destPath?: string | undefined;
-  /**
-   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-   */
-  __template_objectACL?: string | undefined;
-  /**
-   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-   */
-  __template_storageClass?: string | undefined;
-  /**
-   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
-   */
-  __template_partitionExpr?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
-   */
-  __template_baseFileName?: string | undefined;
-  /**
-   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
-   */
-  __template_fileNameSuffix?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
-  /**
-   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
-   */
-  __template_compress?: string | undefined;
-  /**
-   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
-   */
-  __template_parquetSchema?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Notifications attached to the Destination.
-   */
-  notifications?: Array<NotificationUnion> | undefined;
-  /**
-   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
-   */
-  status?: StatusType | undefined;
-};
+/** @internal */
+export const OutputResponseOutputIbmCloudS3$inboundSchema: z.ZodType<
+  OutputResponseOutputIbmCloudS3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("ibm_cloud_s3"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  endpoint: types.string(),
+  awsAuthenticationMethod: types.optional(
+    AuthenticationMethodOptionsSecret$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  bucket: types.string(),
+  destPath: types.optional(types.string()),
+  maxConcurrentFileParts: types.optional(types.number()),
+  verifyPermissions: types.optional(types.boolean()),
+  maxClosingFilesToBackpressure: types.optional(types.number()),
+  stagePath: types.string(),
+  addIdToStagePath: types.optional(types.boolean()),
+  removeEmptyDirs: types.optional(types.boolean()),
+  partitionExpr: types.optional(types.string()),
+  format: types.optional(DataFormatOptions$inboundSchema),
+  baseFileName: types.optional(types.string()),
+  fileNameSuffix: types.optional(types.string()),
+  maxFileSizeMB: types.optional(types.number()),
+  maxFileOpenTimeSec: types.optional(types.number()),
+  maxFileIdleTimeSec: types.optional(types.number()),
+  maxOpenFiles: types.optional(types.number()),
+  headerLine: types.optional(types.string()),
+  writeHighWaterMark: types.optional(types.number()),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
+  deadletterEnabled: types.optional(types.boolean()),
+  onDiskFullBackpressure: types.optional(
+    DiskSpaceProtectionOptions$inboundSchema,
+  ),
+  forceCloseOnShutdown: types.optional(types.boolean()),
+  retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
+  description: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
+  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
+  automaticSchema: types.optional(types.boolean()),
+  parquetSchema: types.optional(types.string()),
+  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
+  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
+  parquetRowGroupLength: types.optional(types.number()),
+  parquetPageSize: types.optional(types.string()),
+  shouldLogInvalidRows: types.optional(types.boolean()),
+  keyValueMetadata: types.optional(
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
+  ),
+  enableStatistics: types.optional(types.boolean()),
+  enableWritePageIndex: types.optional(types.boolean()),
+  enablePageChecksum: types.optional(types.boolean()),
+  emptyDirCleanupSec: types.optional(types.number()),
+  directoryBatchSize: types.optional(types.number()),
+  deadletterPath: types.optional(types.string()),
+  maxRetryNum: types.optional(types.number()),
+  __template_streamtags: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_destPath: types.optional(types.string()),
+  __template_partitionExpr: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
 
-export const OutputResponseAPIVersion = {
-  /**
-   * V1
-   */
-  V1: "v1",
-  /**
-   * V2
-   */
-  V2: "v2",
-} as const;
-export type OutputResponseAPIVersion = OpenEnum<
-  typeof OutputResponseAPIVersion
->;
+export function outputResponseOutputIbmCloudS3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseOutputIbmCloudS3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputResponseOutputIbmCloudS3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseOutputIbmCloudS3' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodAlibabaCloudS3$inboundSchema: z.ZodType<
+  AuthenticationMethodAlibabaCloudS3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationMethodAlibabaCloudS3);
 
 /** @internal */
 export const OutputResponseOutputAlibabaCloudS3$inboundSchema: z.ZodType<
@@ -13445,7 +13699,7 @@ export const OutputResponseOutputAlibabaCloudS3$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   awsAuthenticationMethod: types.optional(
-    AuthenticationMethodOptionsSecret$inboundSchema,
+    AuthenticationMethodAlibabaCloudS3$inboundSchema,
   ),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
@@ -19238,115 +19492,3 @@ export const AuthenticationMethodGoogleCloudStorage$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(AuthenticationMethodGoogleCloudStorage);
-
-/** @internal */
-export const OutputResponseOutputGoogleCloudStorage$inboundSchema: z.ZodType<
-  OutputResponseOutputGoogleCloudStorage,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: types.optional(types.string()),
-  type: types.literal("google_cloud_storage"),
-  pipeline: types.optional(types.string()),
-  systemFields: types.optional(z.array(types.string())),
-  environment: types.optional(types.string()),
-  streamtags: types.optional(z.array(types.string())),
-  bucket: types.string(),
-  region: types.string(),
-  endpoint: types.string(),
-  awsAuthenticationMethod: types.optional(
-    AuthenticationMethodGoogleCloudStorage$inboundSchema,
-  ),
-  stagePath: types.string(),
-  destPath: types.optional(types.string()),
-  verifyPermissions: types.optional(types.boolean()),
-  objectACL: types.optional(
-    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
-  ),
-  storageClass: types.optional(
-    StorageClassOptionsArchiveColdline$inboundSchema,
-  ),
-  reuseConnections: types.optional(types.boolean()),
-  rejectUnauthorized: types.optional(types.boolean()),
-  addIdToStagePath: types.optional(types.boolean()),
-  removeEmptyDirs: types.optional(types.boolean()),
-  partitionExpr: types.optional(types.string()),
-  format: types.optional(DataFormatOptions$inboundSchema),
-  baseFileName: types.optional(types.string()),
-  fileNameSuffix: types.optional(types.string()),
-  maxFileSizeMB: types.optional(types.number()),
-  maxFileOpenTimeSec: types.optional(types.number()),
-  maxFileIdleTimeSec: types.optional(types.number()),
-  maxOpenFiles: types.optional(types.number()),
-  headerLine: types.optional(types.string()),
-  writeHighWaterMark: types.optional(types.number()),
-  onBackpressure: types.optional(
-    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
-  ),
-  deadletterEnabled: types.optional(types.boolean()),
-  onDiskFullBackpressure: types.optional(
-    DiskSpaceProtectionOptions$inboundSchema,
-  ),
-  forceCloseOnShutdown: types.optional(types.boolean()),
-  retrySettings: types.optional(RetrySettingsType$inboundSchema),
-  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
-  description: types.optional(types.string()),
-  compress: types.optional(CompressionOptionsHttp$inboundSchema),
-  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
-  automaticSchema: types.optional(types.boolean()),
-  parquetSchema: types.optional(types.string()),
-  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
-  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
-  parquetRowGroupLength: types.optional(types.number()),
-  parquetPageSize: types.optional(types.string()),
-  shouldLogInvalidRows: types.optional(types.boolean()),
-  keyValueMetadata: types.optional(
-    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
-  ),
-  enableStatistics: types.optional(types.boolean()),
-  enableWritePageIndex: types.optional(types.boolean()),
-  enablePageChecksum: types.optional(types.boolean()),
-  emptyDirCleanupSec: types.optional(types.number()),
-  directoryBatchSize: types.optional(types.number()),
-  deadletterPath: types.optional(types.string()),
-  maxRetryNum: types.optional(types.number()),
-  awsApiKey: types.optional(types.string()),
-  awsSecretKey: types.optional(types.string()),
-  awsSecret: types.optional(types.string()),
-  __template_streamtags: types.optional(types.string()),
-  __template_bucket: types.optional(types.string()),
-  __template_region: types.optional(types.string()),
-  __template_endpoint: types.optional(types.string()),
-  __template_destPath: types.optional(types.string()),
-  __template_objectACL: types.optional(types.string()),
-  __template_storageClass: types.optional(types.string()),
-  __template_partitionExpr: types.optional(types.string()),
-  __template_format: types.optional(types.string()),
-  __template_baseFileName: types.optional(types.string()),
-  __template_fileNameSuffix: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
-  __template_compress: types.optional(types.string()),
-  __template_parquetSchema: types.optional(types.string()),
-  __template_awsApiKey: types.optional(types.string()),
-  __template_awsSecretKey: types.optional(types.string()),
-  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
-  status: types.optional(StatusType$inboundSchema),
-});
-
-export function outputResponseOutputGoogleCloudStorageFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputResponseOutputGoogleCloudStorage, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputResponseOutputGoogleCloudStorage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputResponseOutputGoogleCloudStorage' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputResponseAPIVersion$inboundSchema: z.ZodType<
-  OutputResponseAPIVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputResponseAPIVersion);

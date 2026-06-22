@@ -37,7 +37,7 @@ export type PipelineFunctionSort = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>sort</code>
    */
   id: "sort";
   /**

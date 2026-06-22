@@ -144,6 +144,9 @@ export type OutputCriblLake = {
   dynamicDataset?: boolean | undefined;
   maxClosingFilesToBackpressure?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered

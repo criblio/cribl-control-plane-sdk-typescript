@@ -20,7 +20,7 @@ export type PipelineFunctionNumerify = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>numerify</code>
    */
   id: "numerify";
   /**

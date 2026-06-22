@@ -152,6 +152,9 @@ export type OutputAzureLogs = {
    * Enter workspace ID and workspace key directly, or select a stored secret
    */
   authType?: OutputAzureLogsAuthenticationMethod | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.

@@ -372,7 +372,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [list](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
-* [update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [update](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 * [append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 
 #### [Packs.Sources](docs/sdks/packssources/README.md)
@@ -410,7 +410,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [list](docs/sdks/routes/README.md#list) - List all Routes
 * [get](docs/sdks/routes/README.md#get) - Get a Routing table
-* [update](docs/sdks/routes/README.md#update) - Update a Route
+* [update](docs/sdks/routes/README.md#update) - Update a Routing table
 * [append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -562,7 +562,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsRoutesAppend`](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 - [`packsRoutesGet`](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
 - [`packsRoutesList`](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
-- [`packsRoutesUpdate`](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+- [`packsRoutesUpdate`](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 - [`packsSourcesCreate`](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
 - [`packsSourcesDelete`](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
 - [`packsSourcesGet`](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
@@ -584,7 +584,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`routesAppend`](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 - [`routesGet`](docs/sdks/routes/README.md#get) - Get a Routing table
 - [`routesList`](docs/sdks/routes/README.md#list) - List all Routes
-- [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Route
+- [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Routing table
 - [`sourcesCreate`](docs/sdks/sources/README.md#create) - Create a Source
 - [`sourcesDelete`](docs/sdks/sources/README.md#delete) - Delete a Source
 - [`sourcesGet`](docs/sdks/sources/README.md#get) - Get a Source

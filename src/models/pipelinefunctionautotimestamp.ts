@@ -20,7 +20,7 @@ export type PipelineFunctionAutoTimestamp = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>auto_timestamp</code>
    */
   id: "auto_timestamp";
   /**

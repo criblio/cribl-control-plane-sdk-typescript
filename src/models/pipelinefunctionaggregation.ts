@@ -95,7 +95,7 @@ export type PipelineFunctionAggregation = {
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>aggregation</code>
    */
   id: "aggregation";
   /**
