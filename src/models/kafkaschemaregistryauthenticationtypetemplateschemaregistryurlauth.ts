@@ -40,7 +40,7 @@ export type KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth =
      */
     maxRetries?: number | undefined;
     /**
-     * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+     * Credentials to use when authenticating with the schema registry
      */
     auth?: AuthType | undefined;
     tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;

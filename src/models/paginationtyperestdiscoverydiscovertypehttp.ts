@@ -174,6 +174,14 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderLink = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -240,6 +248,14 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader = {
    * Maximum number of records to retrieve per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -308,6 +324,14 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody = {
    */
   limit?: number | undefined;
   /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
+  /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
   pageField?: string | undefined;
@@ -331,6 +355,10 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody = {
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeNone = {
   type: "none";
+  /**
+   * Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
   /**
    * JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
    */
@@ -359,6 +387,14 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeNone = {
    * Maximum number of records to retrieve per request
    */
   limit?: number | undefined;
+  /**
+   * Name of the attribute in the response that contains the total number of records for the query
+   */
+  totalRecordField?: string | undefined;
+  /**
+   * Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+   */
+  zeroIndexed?: boolean | undefined;
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
    */
@@ -594,6 +630,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderLink$inbou
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -612,6 +650,8 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderLink$Outbou
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -635,6 +675,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderLink$outbo
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -729,6 +771,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$inboundSc
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -748,6 +792,8 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$Outbound =
     offset?: number | undefined;
     limitField?: string | undefined;
     limit?: number | undefined;
+    totalRecordField?: string | undefined;
+    zeroIndexed?: boolean | undefined;
     pageField?: string | undefined;
     page?: number | undefined;
     sizeField?: string | undefined;
@@ -772,6 +818,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader$outboundS
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -866,6 +914,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$inboundSche
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -884,6 +934,8 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -908,6 +960,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody$outboundSch
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),
@@ -947,6 +1001,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeNone$inboundSchema:
     unknown
   > = z.object({
     type: types.literal("none"),
+    maxPages: types.optional(types.number()),
     lastPageExpr: types.optional(types.string()),
     nextRelationAttribute: types.optional(types.string()),
     curRelationAttribute: types.optional(types.string()),
@@ -954,6 +1009,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeNone$inboundSchema:
     offset: types.optional(types.number()),
     limitField: types.optional(types.string()),
     limit: types.optional(types.number()),
+    totalRecordField: types.optional(types.string()),
+    zeroIndexed: types.optional(types.boolean()),
     pageField: types.optional(types.string()),
     page: types.optional(types.number()),
     sizeField: types.optional(types.string()),
@@ -963,6 +1020,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeNone$inboundSchema:
 /** @internal */
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeNone$Outbound = {
   type: "none";
+  maxPages?: number | undefined;
   lastPageExpr?: string | undefined;
   nextRelationAttribute?: string | undefined;
   curRelationAttribute?: string | undefined;
@@ -970,6 +1028,8 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeNone$Outbound = {
   offset?: number | undefined;
   limitField?: string | undefined;
   limit?: number | undefined;
+  totalRecordField?: string | undefined;
+  zeroIndexed?: boolean | undefined;
   pageField?: string | undefined;
   page?: number | undefined;
   sizeField?: string | undefined;
@@ -985,6 +1045,7 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeNone$outboundSchema:
     RestDiscoveryDiscoverTypeHttpPaginationTypeNone
   > = z.object({
     type: z.literal("none"),
+    maxPages: z.number().optional(),
     lastPageExpr: z.string().optional(),
     nextRelationAttribute: z.string().optional(),
     curRelationAttribute: z.string().optional(),
@@ -992,6 +1053,8 @@ export const RestDiscoveryDiscoverTypeHttpPaginationTypeNone$outboundSchema:
     offset: z.number().optional(),
     limitField: z.string().optional(),
     limit: z.number().optional(),
+    totalRecordField: z.string().optional(),
+    zeroIndexed: z.boolean().optional(),
     pageField: z.string().optional(),
     page: z.number().optional(),
     sizeField: z.string().optional(),

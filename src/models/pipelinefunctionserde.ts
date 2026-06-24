@@ -67,6 +67,18 @@ export type SerdeTypeGrok = {
    */
   dstField?: string | undefined;
   /**
+   * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+   */
+  keep?: Array<string> | undefined;
+  /**
+   * List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+   */
+  remove?: Array<string> | undefined;
+  /**
+   * Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+   */
+  fieldFilterExpr?: string | undefined;
+  /**
    * A list of characters that may be present in a key name, even though they are normally separator or control characters
    */
   allowedKeyChars?: Array<string> | undefined;
@@ -74,6 +86,10 @@ export type SerdeTypeGrok = {
    * A list of characters that may be present in a value, even though they are normally separator or control characters
    */
   allowedValueChars?: Array<string> | undefined;
+  /**
+   * The fields to be extracted, listed in order. Will auto-generate if empty.
+   */
+  fields?: Array<string> | undefined;
   /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
@@ -148,6 +164,18 @@ export type SerdeTypeRegex = {
    */
   dstField?: string | undefined;
   /**
+   * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+   */
+  keep?: Array<string> | undefined;
+  /**
+   * List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+   */
+  remove?: Array<string> | undefined;
+  /**
+   * Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+   */
+  fieldFilterExpr?: string | undefined;
+  /**
    * A list of characters that may be present in a key name, even though they are normally separator or control characters
    */
   allowedKeyChars?: Array<string> | undefined;
@@ -155,6 +183,10 @@ export type SerdeTypeRegex = {
    * A list of characters that may be present in a value, even though they are normally separator or control characters
    */
   allowedValueChars?: Array<string> | undefined;
+  /**
+   * The fields to be extracted, listed in order. Will auto-generate if empty.
+   */
+  fields?: Array<string> | undefined;
   /**
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
@@ -219,6 +251,10 @@ export type SerdeTypeJson = {
    * A list of characters that may be present in a value, even though they are normally separator or control characters
    */
   allowedValueChars?: Array<string> | undefined;
+  /**
+   * The fields to be extracted, listed in order. Will auto-generate if empty.
+   */
+  fields?: Array<string> | undefined;
   /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
@@ -491,6 +527,10 @@ export type SerdeTypeKvp = {
    */
   dstField?: string | undefined;
   /**
+   * The fields to be extracted, listed in order. Will auto-generate if empty.
+   */
+  fields?: Array<string> | undefined;
+  /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
@@ -585,8 +625,12 @@ export const SerdeTypeGrok$inboundSchema: z.ZodType<
   mode: SerdeTypeGrokOperationMode$inboundSchema,
   srcField: types.optional(types.string()),
   dstField: types.optional(types.string()),
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
+  fieldFilterExpr: types.optional(types.string()),
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
+  fields: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
   regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
@@ -601,8 +645,12 @@ export type SerdeTypeGrok$Outbound = {
   mode: string;
   srcField?: string | undefined;
   dstField?: string | undefined;
+  keep?: Array<string> | undefined;
+  remove?: Array<string> | undefined;
+  fieldFilterExpr?: string | undefined;
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
+  fields?: Array<string> | undefined;
   regex?: string | undefined;
   regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
@@ -622,8 +670,12 @@ export const SerdeTypeGrok$outboundSchema: z.ZodType<
   mode: SerdeTypeGrokOperationMode$outboundSchema,
   srcField: z.string().optional(),
   dstField: z.string().optional(),
+  keep: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+  fieldFilterExpr: z.string().optional(),
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
+  fields: z.array(z.string()).optional(),
   regex: z.string().optional(),
   regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
@@ -672,8 +724,12 @@ export const SerdeTypeRegex$inboundSchema: z.ZodType<
   mode: SerdeTypeRegexOperationMode$inboundSchema,
   srcField: types.optional(types.string()),
   dstField: types.optional(types.string()),
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
+  fieldFilterExpr: types.optional(types.string()),
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
+  fields: types.optional(z.array(types.string())),
   pattern: types.optional(types.string()),
   patternList: types.optional(
     z.array(PatternListConfSerdeTypeGrok$inboundSchema),
@@ -690,8 +746,12 @@ export type SerdeTypeRegex$Outbound = {
   mode: string;
   srcField?: string | undefined;
   dstField?: string | undefined;
+  keep?: Array<string> | undefined;
+  remove?: Array<string> | undefined;
+  fieldFilterExpr?: string | undefined;
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
+  fields?: Array<string> | undefined;
   pattern?: string | undefined;
   patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
 };
@@ -711,8 +771,12 @@ export const SerdeTypeRegex$outboundSchema: z.ZodType<
   mode: SerdeTypeRegexOperationMode$outboundSchema,
   srcField: z.string().optional(),
   dstField: z.string().optional(),
+  keep: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+  fieldFilterExpr: z.string().optional(),
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
+  fields: z.array(z.string()).optional(),
   pattern: z.string().optional(),
   patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
 });
@@ -758,6 +822,7 @@ export const SerdeTypeJson$inboundSchema: z.ZodType<
   dstField: types.optional(types.string()),
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
+  fields: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
   regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
@@ -779,6 +844,7 @@ export type SerdeTypeJson$Outbound = {
   dstField?: string | undefined;
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
+  fields?: Array<string> | undefined;
   regex?: string | undefined;
   regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
@@ -803,6 +869,7 @@ export const SerdeTypeJson$outboundSchema: z.ZodType<
   dstField: z.string().optional(),
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
+  fields: z.array(z.string()).optional(),
   regex: z.string().optional(),
   regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
@@ -1062,6 +1129,7 @@ export const SerdeTypeKvp$inboundSchema: z.ZodType<
   mode: SerdeTypeKvpOperationMode$inboundSchema,
   srcField: types.optional(types.string()),
   dstField: types.optional(types.string()),
+  fields: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
   regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
@@ -1084,6 +1152,7 @@ export type SerdeTypeKvp$Outbound = {
   mode: string;
   srcField?: string | undefined;
   dstField?: string | undefined;
+  fields?: Array<string> | undefined;
   regex?: string | undefined;
   regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
@@ -1109,6 +1178,7 @@ export const SerdeTypeKvp$outboundSchema: z.ZodType<
   mode: SerdeTypeKvpOperationMode$outboundSchema,
   srcField: z.string().optional(),
   dstField: z.string().optional(),
+  fields: z.array(z.string()).optional(),
   regex: z.string().optional(),
   regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),

@@ -16,6 +16,124 @@ import {
   AcknowledgmentsOptions$inboundSchema,
 } from "./acknowledgmentsoptions.js";
 import {
+  AuthenticationMethodGoogleCloudStorage,
+  AuthenticationMethodGoogleCloudStorage$inboundSchema,
+  OutputResponseOutputAlibabaCloudS3,
+  OutputResponseOutputAlibabaCloudS3$inboundSchema,
+  OutputResponseOutputAlphasocS3,
+  OutputResponseOutputAlphasocS3$inboundSchema,
+  OutputResponseOutputChronicle,
+  OutputResponseOutputChronicle$inboundSchema,
+  OutputResponseOutputClickHouse,
+  OutputResponseOutputClickHouse$inboundSchema,
+  OutputResponseOutputCloudflareR2,
+  OutputResponseOutputCloudflareR2$inboundSchema,
+  OutputResponseOutputCloudianS3,
+  OutputResponseOutputCloudianS3$inboundSchema,
+  OutputResponseOutputCloudwatch,
+  OutputResponseOutputCloudwatch$inboundSchema,
+  OutputResponseOutputConfluentCloud,
+  OutputResponseOutputConfluentCloud$inboundSchema,
+  OutputResponseOutputCriblHttp,
+  OutputResponseOutputCriblHttp$inboundSchema,
+  OutputResponseOutputCriblLake,
+  OutputResponseOutputCriblLake$inboundSchema,
+  OutputResponseOutputCriblSearchEngine,
+  OutputResponseOutputCriblSearchEngine$inboundSchema,
+  OutputResponseOutputCriblTcp,
+  OutputResponseOutputCriblTcp$inboundSchema,
+  OutputResponseOutputCrowdstrikeNextGenSiem,
+  OutputResponseOutputCrowdstrikeNextGenSiem$inboundSchema,
+  OutputResponseOutputDatabricks,
+  OutputResponseOutputDatabricks$inboundSchema,
+  OutputResponseOutputDatadog,
+  OutputResponseOutputDatadog$inboundSchema,
+  OutputResponseOutputDataset,
+  OutputResponseOutputDataset$inboundSchema,
+  OutputResponseOutputDellS3,
+  OutputResponseOutputDellS3$inboundSchema,
+  OutputResponseOutputDiskSpool,
+  OutputResponseOutputDiskSpool$inboundSchema,
+  OutputResponseOutputDlS3,
+  OutputResponseOutputDlS3$inboundSchema,
+  OutputResponseOutputDynatraceHttp,
+  OutputResponseOutputDynatraceHttp$inboundSchema,
+  OutputResponseOutputDynatraceOtlp,
+  OutputResponseOutputDynatraceOtlp$inboundSchema,
+  OutputResponseOutputElastic,
+  OutputResponseOutputElastic$inboundSchema,
+  OutputResponseOutputElasticCloud,
+  OutputResponseOutputElasticCloud$inboundSchema,
+  OutputResponseOutputExabeam,
+  OutputResponseOutputExabeam$inboundSchema,
+  OutputResponseOutputGoogleCloudLogging,
+  OutputResponseOutputGoogleCloudLogging$inboundSchema,
+  OutputResponseOutputGoogleCloudObservability,
+  OutputResponseOutputGoogleCloudObservability$inboundSchema,
+  OutputResponseOutputGooglePubsub,
+  OutputResponseOutputGooglePubsub$inboundSchema,
+  OutputResponseOutputGrafanaCloudUnion,
+  OutputResponseOutputGrafanaCloudUnion$inboundSchema,
+  OutputResponseOutputGraphite,
+  OutputResponseOutputGraphite$inboundSchema,
+  OutputResponseOutputHumioHec,
+  OutputResponseOutputHumioHec$inboundSchema,
+  OutputResponseOutputInfluxdb,
+  OutputResponseOutputInfluxdb$inboundSchema,
+  OutputResponseOutputKafka,
+  OutputResponseOutputKafka$inboundSchema,
+  OutputResponseOutputLocalSearchStorage,
+  OutputResponseOutputLocalSearchStorage$inboundSchema,
+  OutputResponseOutputLoki,
+  OutputResponseOutputLoki$inboundSchema,
+  OutputResponseOutputMicrosoftFabric,
+  OutputResponseOutputMicrosoftFabric$inboundSchema,
+  OutputResponseOutputMinio,
+  OutputResponseOutputMinio$inboundSchema,
+  OutputResponseOutputMsk,
+  OutputResponseOutputMsk$inboundSchema,
+  OutputResponseOutputNetflow,
+  OutputResponseOutputNetflow$inboundSchema,
+  OutputResponseOutputNewrelic,
+  OutputResponseOutputNewrelic$inboundSchema,
+  OutputResponseOutputNewrelicEvents,
+  OutputResponseOutputNewrelicEvents$inboundSchema,
+  OutputResponseOutputNutanixObjects,
+  OutputResponseOutputNutanixObjects$inboundSchema,
+  OutputResponseOutputOpenTelemetry,
+  OutputResponseOutputOpenTelemetry$inboundSchema,
+  OutputResponseOutputPrometheus,
+  OutputResponseOutputPrometheus$inboundSchema,
+  OutputResponseOutputRing,
+  OutputResponseOutputRing$inboundSchema,
+  OutputResponseOutputRouter,
+  OutputResponseOutputRouter$inboundSchema,
+  OutputResponseOutputScalityS3,
+  OutputResponseOutputScalityS3$inboundSchema,
+  OutputResponseOutputSecurityLake,
+  OutputResponseOutputSecurityLake$inboundSchema,
+  OutputResponseOutputSentinelOneAiSiem,
+  OutputResponseOutputSentinelOneAiSiem$inboundSchema,
+  OutputResponseOutputServiceNow,
+  OutputResponseOutputServiceNow$inboundSchema,
+  OutputResponseOutputSnmp,
+  OutputResponseOutputSnmp$inboundSchema,
+  OutputResponseOutputSns,
+  OutputResponseOutputSns$inboundSchema,
+  OutputResponseOutputSqs,
+  OutputResponseOutputSqs$inboundSchema,
+  OutputResponseOutputStatsd,
+  OutputResponseOutputStatsd$inboundSchema,
+  OutputResponseOutputStatsdExt,
+  OutputResponseOutputStatsdExt$inboundSchema,
+  OutputResponseOutputStorjS3,
+  OutputResponseOutputStorjS3$inboundSchema,
+  OutputResponseOutputSumoLogic,
+  OutputResponseOutputSumoLogic$inboundSchema,
+  OutputResponseOutputXsiam,
+  OutputResponseOutputXsiam$inboundSchema,
+} from "./authenticationmethodgooglecloudstorage.js";
+import {
   AuthenticationMethodOptions,
   AuthenticationMethodOptions$inboundSchema,
 } from "./authenticationmethodoptions.js";
@@ -123,135 +241,13 @@ import {
   ObjectAclOptions$inboundSchema,
 } from "./objectacloptions.js";
 import {
+  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol,
+  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
+} from "./objectacloptionsauthenticatedreadbucketownerfullcontrol.js";
+import {
   OrphanFileRecoveryType,
   OrphanFileRecoveryType$inboundSchema,
 } from "./orphanfilerecoverytype.js";
-import {
-  AuthenticationMethodGoogleChronicle,
-  AuthenticationMethodGoogleChronicle$inboundSchema,
-  OutputResponseAPIVersion,
-  OutputResponseAPIVersion$inboundSchema,
-  OutputResponseExtraLogType,
-  OutputResponseExtraLogType$inboundSchema,
-  OutputResponseOutputAlibabaCloudS3,
-  OutputResponseOutputAlibabaCloudS3$inboundSchema,
-  OutputResponseOutputAlphasocS3,
-  OutputResponseOutputAlphasocS3$inboundSchema,
-  OutputResponseOutputChronicle,
-  OutputResponseOutputChronicle$inboundSchema,
-  OutputResponseOutputClickHouse,
-  OutputResponseOutputClickHouse$inboundSchema,
-  OutputResponseOutputCloudflareR2,
-  OutputResponseOutputCloudflareR2$inboundSchema,
-  OutputResponseOutputCloudianS3,
-  OutputResponseOutputCloudianS3$inboundSchema,
-  OutputResponseOutputCloudwatch,
-  OutputResponseOutputCloudwatch$inboundSchema,
-  OutputResponseOutputConfluentCloud,
-  OutputResponseOutputConfluentCloud$inboundSchema,
-  OutputResponseOutputCriblHttp,
-  OutputResponseOutputCriblHttp$inboundSchema,
-  OutputResponseOutputCriblLake,
-  OutputResponseOutputCriblLake$inboundSchema,
-  OutputResponseOutputCriblSearchEngine,
-  OutputResponseOutputCriblSearchEngine$inboundSchema,
-  OutputResponseOutputCriblTcp,
-  OutputResponseOutputCriblTcp$inboundSchema,
-  OutputResponseOutputCrowdstrikeNextGenSiem,
-  OutputResponseOutputCrowdstrikeNextGenSiem$inboundSchema,
-  OutputResponseOutputDatabricks,
-  OutputResponseOutputDatabricks$inboundSchema,
-  OutputResponseOutputDatadog,
-  OutputResponseOutputDatadog$inboundSchema,
-  OutputResponseOutputDataset,
-  OutputResponseOutputDataset$inboundSchema,
-  OutputResponseOutputDellS3,
-  OutputResponseOutputDellS3$inboundSchema,
-  OutputResponseOutputDiskSpool,
-  OutputResponseOutputDiskSpool$inboundSchema,
-  OutputResponseOutputDlS3,
-  OutputResponseOutputDlS3$inboundSchema,
-  OutputResponseOutputDynatraceHttp,
-  OutputResponseOutputDynatraceHttp$inboundSchema,
-  OutputResponseOutputDynatraceOtlp,
-  OutputResponseOutputDynatraceOtlp$inboundSchema,
-  OutputResponseOutputElastic,
-  OutputResponseOutputElastic$inboundSchema,
-  OutputResponseOutputElasticCloud,
-  OutputResponseOutputElasticCloud$inboundSchema,
-  OutputResponseOutputExabeam,
-  OutputResponseOutputExabeam$inboundSchema,
-  OutputResponseOutputGoogleCloudLogging,
-  OutputResponseOutputGoogleCloudLogging$inboundSchema,
-  OutputResponseOutputGoogleCloudStorage,
-  OutputResponseOutputGoogleCloudStorage$inboundSchema,
-  OutputResponseOutputGooglePubsub,
-  OutputResponseOutputGooglePubsub$inboundSchema,
-  OutputResponseOutputGrafanaCloudUnion,
-  OutputResponseOutputGrafanaCloudUnion$inboundSchema,
-  OutputResponseOutputGraphite,
-  OutputResponseOutputGraphite$inboundSchema,
-  OutputResponseOutputHumioHec,
-  OutputResponseOutputHumioHec$inboundSchema,
-  OutputResponseOutputInfluxdb,
-  OutputResponseOutputInfluxdb$inboundSchema,
-  OutputResponseOutputKafka,
-  OutputResponseOutputKafka$inboundSchema,
-  OutputResponseOutputLocalSearchStorage,
-  OutputResponseOutputLocalSearchStorage$inboundSchema,
-  OutputResponseOutputLoki,
-  OutputResponseOutputLoki$inboundSchema,
-  OutputResponseOutputMicrosoftFabric,
-  OutputResponseOutputMicrosoftFabric$inboundSchema,
-  OutputResponseOutputMinio,
-  OutputResponseOutputMinio$inboundSchema,
-  OutputResponseOutputMsk,
-  OutputResponseOutputMsk$inboundSchema,
-  OutputResponseOutputNetflow,
-  OutputResponseOutputNetflow$inboundSchema,
-  OutputResponseOutputNewrelic,
-  OutputResponseOutputNewrelic$inboundSchema,
-  OutputResponseOutputNewrelicEvents,
-  OutputResponseOutputNewrelicEvents$inboundSchema,
-  OutputResponseOutputNutanixObjects,
-  OutputResponseOutputNutanixObjects$inboundSchema,
-  OutputResponseOutputOpenTelemetry,
-  OutputResponseOutputOpenTelemetry$inboundSchema,
-  OutputResponseOutputPrometheus,
-  OutputResponseOutputPrometheus$inboundSchema,
-  OutputResponseOutputRing,
-  OutputResponseOutputRing$inboundSchema,
-  OutputResponseOutputRouter,
-  OutputResponseOutputRouter$inboundSchema,
-  OutputResponseOutputScalityS3,
-  OutputResponseOutputScalityS3$inboundSchema,
-  OutputResponseOutputSecurityLake,
-  OutputResponseOutputSecurityLake$inboundSchema,
-  OutputResponseOutputSentinelOneAiSiem,
-  OutputResponseOutputSentinelOneAiSiem$inboundSchema,
-  OutputResponseOutputServiceNow,
-  OutputResponseOutputServiceNow$inboundSchema,
-  OutputResponseOutputSnmp,
-  OutputResponseOutputSnmp$inboundSchema,
-  OutputResponseOutputSns,
-  OutputResponseOutputSns$inboundSchema,
-  OutputResponseOutputSqs,
-  OutputResponseOutputSqs$inboundSchema,
-  OutputResponseOutputStatsd,
-  OutputResponseOutputStatsd$inboundSchema,
-  OutputResponseOutputStatsdExt,
-  OutputResponseOutputStatsdExt$inboundSchema,
-  OutputResponseOutputStorjS3,
-  OutputResponseOutputStorjS3$inboundSchema,
-  OutputResponseOutputSumoLogic,
-  OutputResponseOutputSumoLogic$inboundSchema,
-  OutputResponseOutputXsiam,
-  OutputResponseOutputXsiam$inboundSchema,
-  OutputResponseSendEventsAs,
-  OutputResponseSendEventsAs$inboundSchema,
-  OutputResponseUDMType,
-  OutputResponseUDMType$inboundSchema,
-} from "./outputresponseudmtype.js";
 import {
   ParquetVersionOptions,
   ParquetVersionOptions$inboundSchema,
@@ -282,6 +278,10 @@ import {
   StorageClassOptions$inboundSchema,
 } from "./storageclassoptions.js";
 import {
+  StorageClassOptionsArchiveColdline,
+  StorageClassOptionsArchiveColdline$inboundSchema,
+} from "./storageclassoptionsarchivecoldline.js";
+import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -297,6 +297,359 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
   TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
+
+export type OutputResponseOutputGoogleCloudStorage = {
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: "google_cloud_storage";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint: string;
+  awsAuthenticationMethod?: AuthenticationMethodGoogleCloudStorage | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?:
+    | ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
+    | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptionsArchiveColdline | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: CompressionOptionsHttp | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Notifications attached to the Destination.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export const OutputResponseAPIVersion = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputResponseAPIVersion = OpenEnum<
+  typeof OutputResponseAPIVersion
+>;
+
+export const AuthenticationMethodGoogleChronicle = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type AuthenticationMethodGoogleChronicle = OpenEnum<
+  typeof AuthenticationMethodGoogleChronicle
+>;
+
+export const OutputResponseSendEventsAs = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type OutputResponseSendEventsAs = OpenEnum<
+  typeof OutputResponseSendEventsAs
+>;
+
+export type OutputResponseExtraLogType = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const OutputResponseUDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type OutputResponseUDMType = OpenEnum<typeof OutputResponseUDMType>;
 
 export type PqControlsGoogleChronicle = {};
 
@@ -482,7 +835,7 @@ export type OutputResponseOutputGoogleChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsGoogleChronicle | undefined;
@@ -655,7 +1008,7 @@ export type OutputResponseOutputAzureEventhub = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureEventhub | undefined;
@@ -826,7 +1179,7 @@ export type OutputResponseOutputHoneycomb = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsHoneycomb | undefined;
@@ -1024,7 +1377,7 @@ export type OutputResponseOutputKinesis = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsKinesis | undefined;
@@ -1230,7 +1583,7 @@ export type OutputResponseOutputAzureLogs = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureLogs | undefined;
@@ -1722,7 +2075,7 @@ export type OutputResponseOutputAzureDataExplorer = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureDataExplorer | undefined;
@@ -2797,7 +3150,7 @@ export type OutputResponseOutputSignalfx = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSignalfx | undefined;
@@ -2968,7 +3321,7 @@ export type OutputResponseOutputWavefront = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsWavefront | undefined;
@@ -3129,7 +3482,7 @@ export type OutputResponseOutputTcpjson = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsTcpjson | undefined;
@@ -3318,7 +3671,7 @@ export type OutputResponseOutputWizHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsWizHec | undefined;
@@ -3554,7 +3907,7 @@ export type OutputResponseOutputSplunkHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunkHec | undefined;
@@ -3784,7 +4137,7 @@ export type OutputResponseOutputSplunkLb = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunkLb | undefined;
@@ -3949,7 +4302,7 @@ export type OutputResponseOutputSplunk = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunk | undefined;
@@ -4356,7 +4709,7 @@ export type OutputResponseOutputSyslog = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSyslog | undefined;
@@ -4646,7 +4999,7 @@ export type OutputResponseOutputSentinel = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSentinel | undefined;
@@ -4992,7 +5345,7 @@ export type OutputResponseOutputWebhookWebhook2 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputResponseOutputWebhookPqControls2 | undefined;
@@ -5365,7 +5718,7 @@ export type OutputResponseOutputWebhookWebhook1 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputResponseOutputWebhookPqControls1 | undefined;
@@ -5540,6 +5893,7 @@ export type OutputResponse =
   | OutputResponseOutputGoogleChronicle
   | OutputResponseOutputGoogleCloudStorage
   | OutputResponseOutputGoogleCloudLogging
+  | OutputResponseOutputGoogleCloudObservability
   | OutputResponseOutputGooglePubsub
   | OutputResponseOutputExabeam
   | OutputResponseOutputKafka
@@ -5596,6 +5950,159 @@ export type OutputResponse =
   | OutputResponseOutputScalityS3
   | OutputResponseOutputAlibabaCloudS3
   | discriminatedUnionTypes.Unknown<"type">;
+
+/** @internal */
+export const OutputResponseOutputGoogleCloudStorage$inboundSchema: z.ZodType<
+  OutputResponseOutputGoogleCloudStorage,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("google_cloud_storage"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  bucket: types.string(),
+  region: types.string(),
+  endpoint: types.string(),
+  awsAuthenticationMethod: types.optional(
+    AuthenticationMethodGoogleCloudStorage$inboundSchema,
+  ),
+  stagePath: types.string(),
+  destPath: types.optional(types.string()),
+  verifyPermissions: types.optional(types.boolean()),
+  objectACL: types.optional(
+    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
+  ),
+  storageClass: types.optional(
+    StorageClassOptionsArchiveColdline$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  addIdToStagePath: types.optional(types.boolean()),
+  removeEmptyDirs: types.optional(types.boolean()),
+  partitionExpr: types.optional(types.string()),
+  format: types.optional(DataFormatOptions$inboundSchema),
+  baseFileName: types.optional(types.string()),
+  fileNameSuffix: types.optional(types.string()),
+  maxFileSizeMB: types.optional(types.number()),
+  maxFileOpenTimeSec: types.optional(types.number()),
+  maxFileIdleTimeSec: types.optional(types.number()),
+  maxOpenFiles: types.optional(types.number()),
+  headerLine: types.optional(types.string()),
+  writeHighWaterMark: types.optional(types.number()),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
+  deadletterEnabled: types.optional(types.boolean()),
+  onDiskFullBackpressure: types.optional(
+    DiskSpaceProtectionOptions$inboundSchema,
+  ),
+  forceCloseOnShutdown: types.optional(types.boolean()),
+  retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
+  description: types.optional(types.string()),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
+  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
+  automaticSchema: types.optional(types.boolean()),
+  parquetSchema: types.optional(types.string()),
+  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
+  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
+  parquetRowGroupLength: types.optional(types.number()),
+  parquetPageSize: types.optional(types.string()),
+  shouldLogInvalidRows: types.optional(types.boolean()),
+  keyValueMetadata: types.optional(
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
+  ),
+  enableStatistics: types.optional(types.boolean()),
+  enableWritePageIndex: types.optional(types.boolean()),
+  enablePageChecksum: types.optional(types.boolean()),
+  emptyDirCleanupSec: types.optional(types.number()),
+  directoryBatchSize: types.optional(types.number()),
+  deadletterPath: types.optional(types.string()),
+  maxRetryNum: types.optional(types.number()),
+  awsApiKey: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_destPath: types.optional(types.string()),
+  __template_objectACL: types.optional(types.string()),
+  __template_storageClass: types.optional(types.string()),
+  __template_partitionExpr: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function outputResponseOutputGoogleCloudStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseOutputGoogleCloudStorage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputResponseOutputGoogleCloudStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseOutputGoogleCloudStorage' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputResponseAPIVersion$inboundSchema: z.ZodType<
+  OutputResponseAPIVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseAPIVersion);
+
+/** @internal */
+export const AuthenticationMethodGoogleChronicle$inboundSchema: z.ZodType<
+  AuthenticationMethodGoogleChronicle,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationMethodGoogleChronicle);
+
+/** @internal */
+export const OutputResponseSendEventsAs$inboundSchema: z.ZodType<
+  OutputResponseSendEventsAs,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseSendEventsAs);
+
+/** @internal */
+export const OutputResponseExtraLogType$inboundSchema: z.ZodType<
+  OutputResponseExtraLogType,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: types.string(),
+  description: types.optional(types.string()),
+});
+
+export function outputResponseExtraLogTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseExtraLogType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputResponseExtraLogType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseExtraLogType' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputResponseUDMType$inboundSchema: z.ZodType<
+  OutputResponseUDMType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseUDMType);
 
 /** @internal */
 export const PqControlsGoogleChronicle$inboundSchema: z.ZodType<
@@ -5656,7 +6163,7 @@ export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
   totalMemoryLimitKB: types.optional(types.number()),
   description: types.optional(types.string()),
   extraLogTypes: types.optional(
-    z.array(OutputResponseExtraLogType$inboundSchema),
+    z.array(z.lazy(() => OutputResponseExtraLogType$inboundSchema)),
   ),
   logType: types.optional(types.string()),
   logTextField: types.optional(types.string()),
@@ -8018,8 +8525,12 @@ export const OutputResponse$inboundSchema: z.ZodType<
   google_chronicle: z.lazy(() =>
     OutputResponseOutputGoogleChronicle$inboundSchema
   ),
-  google_cloud_storage: OutputResponseOutputGoogleCloudStorage$inboundSchema,
+  google_cloud_storage: z.lazy(() =>
+    OutputResponseOutputGoogleCloudStorage$inboundSchema
+  ),
   google_cloud_logging: OutputResponseOutputGoogleCloudLogging$inboundSchema,
+  google_cloud_observability:
+    OutputResponseOutputGoogleCloudObservability$inboundSchema,
   google_pubsub: OutputResponseOutputGooglePubsub$inboundSchema,
   exabeam: OutputResponseOutputExabeam$inboundSchema,
   kafka: OutputResponseOutputKafka$inboundSchema,
