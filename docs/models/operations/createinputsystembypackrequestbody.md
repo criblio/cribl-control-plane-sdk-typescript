@@ -190,7 +190,7 @@ const value: operations.CreateInputSystemByPackInputPrometheus = {
 const value: operations.CreateInputSystemByPackInputEdgePrometheus = {
   id: "<id>",
   type: "edge_prometheus",
-  discoveryType: "static",
+  discoveryType: "dns",
   interval: 2391.39,
 };
 ```

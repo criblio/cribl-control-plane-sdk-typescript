@@ -12,6 +12,12 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  RootNodeConfRedisDeploymentTypeCluster,
+  RootNodeConfRedisDeploymentTypeCluster$inboundSchema,
+  RootNodeConfRedisDeploymentTypeCluster$Outbound,
+  RootNodeConfRedisDeploymentTypeCluster$outboundSchema,
+} from "./rootnodeconfredisdeploymenttypecluster.js";
+import {
   ScaleReadsOptionsRedisDeploymentTypeCluster,
   ScaleReadsOptionsRedisDeploymentTypeCluster$inboundSchema,
   ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema,
@@ -89,14 +95,34 @@ export type RedisAuthTypeTextSecret = {
    * Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   url?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
+  /**
+   * Root nodes to which the cluster connection should be initiated
+   */
+  rootNodes?: Array<RootNodeConfRedisDeploymentTypeCluster> | undefined;
+  /**
+   * Use TLS for connections to this cluster
+   */
+  tls?: boolean | undefined;
   /**
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Secret that references Redis username and password
    */
@@ -169,14 +195,34 @@ export type RedisAuthTypeCredentialsSecret = {
    * Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   url?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
+  /**
+   * Root nodes to which the cluster connection should be initiated
+   */
+  rootNodes?: Array<RootNodeConfRedisDeploymentTypeCluster> | undefined;
+  /**
+   * Use TLS for connections to this cluster
+   */
+  tls?: boolean | undefined;
   /**
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Secret that references Redis admin password
    */
@@ -230,6 +276,14 @@ export type RedisAuthTypeManual = {
   authType: "manual";
   username?: string | undefined;
   password: string;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   commands: Array<RedisAuthTypeManualCommand>;
   /**
    * How the Redis server is configured. Defaults to Standalone
@@ -247,7 +301,19 @@ export type RedisAuthTypeManual = {
    * Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   url?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
+  /**
+   * Root nodes to which the cluster connection should be initiated
+   */
+  rootNodes?: Array<RootNodeConfRedisDeploymentTypeCluster> | undefined;
+  /**
+   * Use TLS for connections to this cluster
+   */
+  tls?: boolean | undefined;
   /**
    * Which nodes read commands should be sent to
    */
@@ -325,14 +391,34 @@ export type RedisAuthTypeNone = {
    * Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   url?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
+  /**
+   * Root nodes to which the cluster connection should be initiated
+   */
+  rootNodes?: Array<RootNodeConfRedisDeploymentTypeCluster> | undefined;
+  /**
+   * Use TLS for connections to this cluster
+   */
+  tls?: boolean | undefined;
   /**
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Secret that references Redis username and password
    */
@@ -366,17 +452,6 @@ export const RedisDeploymentTypeSentinelDeploymentType = {
 export type RedisDeploymentTypeSentinelDeploymentType = OpenEnum<
   typeof RedisDeploymentTypeSentinelDeploymentType
 >;
-
-export type RedisDeploymentTypeSentinelRootNode = {
-  /**
-   * Hostname of sentinel node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-   */
-  host: string;
-  /**
-   * Port of sentinel node
-   */
-  port: number;
-};
 
 export type RedisDeploymentTypeSentinelCommand = {
   /**
@@ -426,9 +501,9 @@ export type RedisDeploymentTypeSentinel = {
   deploymentType?: RedisDeploymentTypeSentinelDeploymentType | undefined;
   masterName: string;
   /**
-   * List of sentinels to be used
+   * Root nodes to which the cluster connection should be initiated
    */
-  rootNodes?: Array<RedisDeploymentTypeSentinelRootNode> | undefined;
+  rootNodes?: Array<RootNodeConfRedisDeploymentTypeCluster> | undefined;
   /**
    * Use TLS for connections to this cluster
    */
@@ -449,11 +524,23 @@ export type RedisDeploymentTypeSentinel = {
    */
   url?: string | undefined;
   /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Secret that references Redis username and password
    */
@@ -487,17 +574,6 @@ export const RedisDeploymentTypeClusterDeploymentType = {
 export type RedisDeploymentTypeClusterDeploymentType = OpenEnum<
   typeof RedisDeploymentTypeClusterDeploymentType
 >;
-
-export type RedisDeploymentTypeClusterRootNode = {
-  /**
-   * Hostname of cluster node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-   */
-  host: string;
-  /**
-   * Port of cluster node
-   */
-  port: number;
-};
 
 export type RedisDeploymentTypeClusterCommand = {
   /**
@@ -548,7 +624,7 @@ export type RedisDeploymentTypeCluster = {
   /**
    * Root nodes to which the cluster connection should be initiated
    */
-  rootNodes?: Array<RedisDeploymentTypeClusterRootNode> | undefined;
+  rootNodes?: Array<RootNodeConfRedisDeploymentTypeCluster> | undefined;
   /**
    * Use TLS for connections to this cluster
    */
@@ -572,9 +648,21 @@ export type RedisDeploymentTypeCluster = {
    * Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   url?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Secret that references Redis username and password
    */
@@ -660,6 +748,10 @@ export type RedisDeploymentTypeStandalone = {
    */
   url: string;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
   commands: Array<RedisDeploymentTypeStandaloneCommand>;
   authType?: RedisDeploymentTypeStandaloneAuthenticationMethod | undefined;
   /**
@@ -671,12 +763,28 @@ export type RedisDeploymentTypeStandalone = {
    */
   enableClientSideCaching?: boolean | undefined;
   /**
+   * Root nodes to which the cluster connection should be initiated
+   */
+  rootNodes?: Array<RootNodeConfRedisDeploymentTypeCluster> | undefined;
+  /**
+   * Use TLS for connections to this cluster
+   */
+  tls?: boolean | undefined;
+  /**
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  /**
+   * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+   */
+  __template_username?: string | undefined;
   password?: string | undefined;
+  /**
+   * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+   */
+  __template_password?: string | undefined;
   /**
    * Secret that references Redis username and password
    */
@@ -805,15 +913,22 @@ export const RedisAuthTypeTextSecret$inboundSchema: z.ZodType<
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
   url: types.optional(types.string()),
+  __template_url: types.optional(types.string()),
   tlsOptions: types.optional(
     TlsOptionsTypeRedisDeploymentTypeStandalone$inboundSchema,
   ),
+  rootNodes: types.optional(
+    z.array(RootNodeConfRedisDeploymentTypeCluster$inboundSchema),
+  ),
+  tls: types.optional(types.boolean()),
   scaleReads: types.optional(
     ScaleReadsOptionsRedisDeploymentTypeCluster$inboundSchema,
   ),
   masterName: types.optional(types.string()),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
 });
 /** @internal */
@@ -825,11 +940,18 @@ export type RedisAuthTypeTextSecret$Outbound = {
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
   url?: string | undefined;
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound | undefined;
+  rootNodes?:
+    | Array<RootNodeConfRedisDeploymentTypeCluster$Outbound>
+    | undefined;
+  tls?: boolean | undefined;
   scaleReads?: string | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
 };
 
@@ -849,13 +971,19 @@ export const RedisAuthTypeTextSecret$outboundSchema: z.ZodType<
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
   url: z.string().optional(),
+  __template_url: z.string().optional(),
   tlsOptions: TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema
     .optional(),
+  rootNodes: z.array(RootNodeConfRedisDeploymentTypeCluster$outboundSchema)
+    .optional(),
+  tls: z.boolean().optional(),
   scaleReads: ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema
     .optional(),
   masterName: z.string().optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
 });
 
@@ -959,15 +1087,22 @@ export const RedisAuthTypeCredentialsSecret$inboundSchema: z.ZodType<
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
   url: types.optional(types.string()),
+  __template_url: types.optional(types.string()),
   tlsOptions: types.optional(
     TlsOptionsTypeRedisDeploymentTypeStandalone$inboundSchema,
   ),
+  rootNodes: types.optional(
+    z.array(RootNodeConfRedisDeploymentTypeCluster$inboundSchema),
+  ),
+  tls: types.optional(types.boolean()),
   scaleReads: types.optional(
     ScaleReadsOptionsRedisDeploymentTypeCluster$inboundSchema,
   ),
   masterName: types.optional(types.string()),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   textSecret: types.optional(types.string()),
 });
 /** @internal */
@@ -979,11 +1114,18 @@ export type RedisAuthTypeCredentialsSecret$Outbound = {
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
   url?: string | undefined;
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound | undefined;
+  rootNodes?:
+    | Array<RootNodeConfRedisDeploymentTypeCluster$Outbound>
+    | undefined;
+  tls?: boolean | undefined;
   scaleReads?: string | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -1003,13 +1145,19 @@ export const RedisAuthTypeCredentialsSecret$outboundSchema: z.ZodType<
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
   url: z.string().optional(),
+  __template_url: z.string().optional(),
   tlsOptions: TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema
     .optional(),
+  rootNodes: z.array(RootNodeConfRedisDeploymentTypeCluster$outboundSchema)
+    .optional(),
+  tls: z.boolean().optional(),
   scaleReads: ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema
     .optional(),
   masterName: z.string().optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -1102,6 +1250,8 @@ export const RedisAuthTypeManual$inboundSchema: z.ZodType<
   authType: types.literal("manual"),
   username: types.optional(types.string()),
   password: types.string(),
+  __template_username: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   commands: z.array(z.lazy(() => RedisAuthTypeManualCommand$inboundSchema)),
   deploymentType: types.optional(
     RedisAuthTypeManualDeploymentType$inboundSchema,
@@ -1109,9 +1259,14 @@ export const RedisAuthTypeManual$inboundSchema: z.ZodType<
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
   url: types.optional(types.string()),
+  __template_url: types.optional(types.string()),
   tlsOptions: types.optional(
     TlsOptionsTypeRedisDeploymentTypeStandalone$inboundSchema,
   ),
+  rootNodes: types.optional(
+    z.array(RootNodeConfRedisDeploymentTypeCluster$inboundSchema),
+  ),
+  tls: types.optional(types.boolean()),
   scaleReads: types.optional(
     ScaleReadsOptionsRedisDeploymentTypeCluster$inboundSchema,
   ),
@@ -1124,12 +1279,19 @@ export type RedisAuthTypeManual$Outbound = {
   authType: "manual";
   username?: string | undefined;
   password: string;
+  __template_username?: string | undefined;
+  __template_password?: string | undefined;
   commands: Array<RedisAuthTypeManualCommand$Outbound>;
   deploymentType?: string | undefined;
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
   url?: string | undefined;
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound | undefined;
+  rootNodes?:
+    | Array<RootNodeConfRedisDeploymentTypeCluster$Outbound>
+    | undefined;
+  tls?: boolean | undefined;
   scaleReads?: string | undefined;
   masterName?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -1145,13 +1307,19 @@ export const RedisAuthTypeManual$outboundSchema: z.ZodType<
   authType: z.literal("manual"),
   username: z.string().optional(),
   password: z.string(),
+  __template_username: z.string().optional(),
+  __template_password: z.string().optional(),
   commands: z.array(z.lazy(() => RedisAuthTypeManualCommand$outboundSchema)),
   deploymentType: RedisAuthTypeManualDeploymentType$outboundSchema.optional(),
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
   url: z.string().optional(),
+  __template_url: z.string().optional(),
   tlsOptions: TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema
     .optional(),
+  rootNodes: z.array(RootNodeConfRedisDeploymentTypeCluster$outboundSchema)
+    .optional(),
+  tls: z.boolean().optional(),
   scaleReads: ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema
     .optional(),
   masterName: z.string().optional(),
@@ -1249,15 +1417,22 @@ export const RedisAuthTypeNone$inboundSchema: z.ZodType<
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
   url: types.optional(types.string()),
+  __template_url: types.optional(types.string()),
   tlsOptions: types.optional(
     TlsOptionsTypeRedisDeploymentTypeStandalone$inboundSchema,
   ),
+  rootNodes: types.optional(
+    z.array(RootNodeConfRedisDeploymentTypeCluster$inboundSchema),
+  ),
+  tls: types.optional(types.boolean()),
   scaleReads: types.optional(
     ScaleReadsOptionsRedisDeploymentTypeCluster$inboundSchema,
   ),
   masterName: types.optional(types.string()),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
 });
@@ -1269,11 +1444,18 @@ export type RedisAuthTypeNone$Outbound = {
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
   url?: string | undefined;
+  __template_url?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound | undefined;
+  rootNodes?:
+    | Array<RootNodeConfRedisDeploymentTypeCluster$Outbound>
+    | undefined;
+  tls?: boolean | undefined;
   scaleReads?: string | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -1290,13 +1472,19 @@ export const RedisAuthTypeNone$outboundSchema: z.ZodType<
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
   url: z.string().optional(),
+  __template_url: z.string().optional(),
   tlsOptions: TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema
     .optional(),
+  rootNodes: z.array(RootNodeConfRedisDeploymentTypeCluster$outboundSchema)
+    .optional(),
+  tls: z.boolean().optional(),
   scaleReads: ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema
     .optional(),
   masterName: z.string().optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });
@@ -1328,51 +1516,6 @@ export const RedisDeploymentTypeSentinelDeploymentType$inboundSchema: z.ZodType<
 export const RedisDeploymentTypeSentinelDeploymentType$outboundSchema:
   z.ZodType<string, z.ZodTypeDef, RedisDeploymentTypeSentinelDeploymentType> =
     openEnums.outboundSchema(RedisDeploymentTypeSentinelDeploymentType);
-
-/** @internal */
-export const RedisDeploymentTypeSentinelRootNode$inboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinelRootNode,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: types.string(),
-  port: types.number(),
-});
-/** @internal */
-export type RedisDeploymentTypeSentinelRootNode$Outbound = {
-  host: string;
-  port: number;
-};
-
-/** @internal */
-export const RedisDeploymentTypeSentinelRootNode$outboundSchema: z.ZodType<
-  RedisDeploymentTypeSentinelRootNode$Outbound,
-  z.ZodTypeDef,
-  RedisDeploymentTypeSentinelRootNode
-> = z.object({
-  host: z.string(),
-  port: z.number(),
-});
-
-export function redisDeploymentTypeSentinelRootNodeToJSON(
-  redisDeploymentTypeSentinelRootNode: RedisDeploymentTypeSentinelRootNode,
-): string {
-  return JSON.stringify(
-    RedisDeploymentTypeSentinelRootNode$outboundSchema.parse(
-      redisDeploymentTypeSentinelRootNode,
-    ),
-  );
-}
-export function redisDeploymentTypeSentinelRootNodeFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisDeploymentTypeSentinelRootNode, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RedisDeploymentTypeSentinelRootNode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisDeploymentTypeSentinelRootNode' from JSON`,
-  );
-}
 
 /** @internal */
 export const RedisDeploymentTypeSentinelCommand$inboundSchema: z.ZodType<
@@ -1451,7 +1594,7 @@ export const RedisDeploymentTypeSentinel$inboundSchema: z.ZodType<
   ),
   masterName: types.string(),
   rootNodes: types.optional(
-    z.array(z.lazy(() => RedisDeploymentTypeSentinelRootNode$inboundSchema)),
+    z.array(RootNodeConfRedisDeploymentTypeCluster$inboundSchema),
   ),
   tls: types.optional(types.boolean()),
   tlsOptions: types.optional(
@@ -1466,11 +1609,14 @@ export const RedisDeploymentTypeSentinel$inboundSchema: z.ZodType<
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
   url: types.optional(types.string()),
+  __template_url: types.optional(types.string()),
   scaleReads: types.optional(
     ScaleReadsOptionsRedisDeploymentTypeCluster$inboundSchema,
   ),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
 });
@@ -1478,7 +1624,9 @@ export const RedisDeploymentTypeSentinel$inboundSchema: z.ZodType<
 export type RedisDeploymentTypeSentinel$Outbound = {
   deploymentType?: string | undefined;
   masterName: string;
-  rootNodes?: Array<RedisDeploymentTypeSentinelRootNode$Outbound> | undefined;
+  rootNodes?:
+    | Array<RootNodeConfRedisDeploymentTypeCluster$Outbound>
+    | undefined;
   tls?: boolean | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound | undefined;
   commands: Array<RedisDeploymentTypeSentinelCommand$Outbound>;
@@ -1486,9 +1634,12 @@ export type RedisDeploymentTypeSentinel$Outbound = {
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
   url?: string | undefined;
+  __template_url?: string | undefined;
   scaleReads?: string | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -1502,9 +1653,8 @@ export const RedisDeploymentTypeSentinel$outboundSchema: z.ZodType<
   deploymentType: RedisDeploymentTypeSentinelDeploymentType$outboundSchema
     .optional(),
   masterName: z.string(),
-  rootNodes: z.array(
-    z.lazy(() => RedisDeploymentTypeSentinelRootNode$outboundSchema),
-  ).optional(),
+  rootNodes: z.array(RootNodeConfRedisDeploymentTypeCluster$outboundSchema)
+    .optional(),
   tls: z.boolean().optional(),
   tlsOptions: TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema
     .optional(),
@@ -1516,10 +1666,13 @@ export const RedisDeploymentTypeSentinel$outboundSchema: z.ZodType<
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
   url: z.string().optional(),
+  __template_url: z.string().optional(),
   scaleReads: ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema
     .optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });
@@ -1555,51 +1708,6 @@ export const RedisDeploymentTypeClusterDeploymentType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisDeploymentTypeClusterDeploymentType
 > = openEnums.outboundSchema(RedisDeploymentTypeClusterDeploymentType);
-
-/** @internal */
-export const RedisDeploymentTypeClusterRootNode$inboundSchema: z.ZodType<
-  RedisDeploymentTypeClusterRootNode,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: types.string(),
-  port: types.number(),
-});
-/** @internal */
-export type RedisDeploymentTypeClusterRootNode$Outbound = {
-  host: string;
-  port: number;
-};
-
-/** @internal */
-export const RedisDeploymentTypeClusterRootNode$outboundSchema: z.ZodType<
-  RedisDeploymentTypeClusterRootNode$Outbound,
-  z.ZodTypeDef,
-  RedisDeploymentTypeClusterRootNode
-> = z.object({
-  host: z.string(),
-  port: z.number(),
-});
-
-export function redisDeploymentTypeClusterRootNodeToJSON(
-  redisDeploymentTypeClusterRootNode: RedisDeploymentTypeClusterRootNode,
-): string {
-  return JSON.stringify(
-    RedisDeploymentTypeClusterRootNode$outboundSchema.parse(
-      redisDeploymentTypeClusterRootNode,
-    ),
-  );
-}
-export function redisDeploymentTypeClusterRootNodeFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisDeploymentTypeClusterRootNode, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RedisDeploymentTypeClusterRootNode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisDeploymentTypeClusterRootNode' from JSON`,
-  );
-}
 
 /** @internal */
 export const RedisDeploymentTypeClusterCommand$inboundSchema: z.ZodType<
@@ -1676,7 +1784,7 @@ export const RedisDeploymentTypeCluster$inboundSchema: z.ZodType<
     RedisDeploymentTypeClusterDeploymentType$inboundSchema,
   ),
   rootNodes: types.optional(
-    z.array(z.lazy(() => RedisDeploymentTypeClusterRootNode$inboundSchema)),
+    z.array(RootNodeConfRedisDeploymentTypeCluster$inboundSchema),
   ),
   tls: types.optional(types.boolean()),
   scaleReads: types.optional(
@@ -1694,16 +1802,21 @@ export const RedisDeploymentTypeCluster$inboundSchema: z.ZodType<
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
   url: types.optional(types.string()),
+  __template_url: types.optional(types.string()),
   masterName: types.optional(types.string()),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type RedisDeploymentTypeCluster$Outbound = {
   deploymentType?: string | undefined;
-  rootNodes?: Array<RedisDeploymentTypeClusterRootNode$Outbound> | undefined;
+  rootNodes?:
+    | Array<RootNodeConfRedisDeploymentTypeCluster$Outbound>
+    | undefined;
   tls?: boolean | undefined;
   scaleReads?: string | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound | undefined;
@@ -1712,9 +1825,12 @@ export type RedisDeploymentTypeCluster$Outbound = {
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
   url?: string | undefined;
+  __template_url?: string | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -1727,9 +1843,8 @@ export const RedisDeploymentTypeCluster$outboundSchema: z.ZodType<
 > = z.object({
   deploymentType: RedisDeploymentTypeClusterDeploymentType$outboundSchema
     .optional(),
-  rootNodes: z.array(
-    z.lazy(() => RedisDeploymentTypeClusterRootNode$outboundSchema),
-  ).optional(),
+  rootNodes: z.array(RootNodeConfRedisDeploymentTypeCluster$outboundSchema)
+    .optional(),
   tls: z.boolean().optional(),
   scaleReads: ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema
     .optional(),
@@ -1743,9 +1858,12 @@ export const RedisDeploymentTypeCluster$outboundSchema: z.ZodType<
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
   url: z.string().optional(),
+  __template_url: z.string().optional(),
   masterName: z.string().optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });
@@ -1862,6 +1980,7 @@ export const RedisDeploymentTypeStandalone$inboundSchema: z.ZodType<
   tlsOptions: types.optional(
     TlsOptionsTypeRedisDeploymentTypeStandalone$inboundSchema,
   ),
+  __template_url: types.optional(types.string()),
   commands: z.array(
     z.lazy(() => RedisDeploymentTypeStandaloneCommand$inboundSchema),
   ),
@@ -1870,12 +1989,18 @@ export const RedisDeploymentTypeStandalone$inboundSchema: z.ZodType<
   ),
   maxBlockSecs: types.optional(types.number()),
   enableClientSideCaching: types.optional(types.boolean()),
+  rootNodes: types.optional(
+    z.array(RootNodeConfRedisDeploymentTypeCluster$inboundSchema),
+  ),
+  tls: types.optional(types.boolean()),
   scaleReads: types.optional(
     ScaleReadsOptionsRedisDeploymentTypeCluster$inboundSchema,
   ),
   masterName: types.optional(types.string()),
   username: types.optional(types.string()),
+  __template_username: types.optional(types.string()),
   password: types.optional(types.string()),
+  __template_password: types.optional(types.string()),
   credentialsSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
 });
@@ -1884,14 +2009,21 @@ export type RedisDeploymentTypeStandalone$Outbound = {
   deploymentType?: string | undefined;
   url: string;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone$Outbound | undefined;
+  __template_url?: string | undefined;
   commands: Array<RedisDeploymentTypeStandaloneCommand$Outbound>;
   authType?: string | undefined;
   maxBlockSecs?: number | undefined;
   enableClientSideCaching?: boolean | undefined;
+  rootNodes?:
+    | Array<RootNodeConfRedisDeploymentTypeCluster$Outbound>
+    | undefined;
+  tls?: boolean | undefined;
   scaleReads?: string | undefined;
   masterName?: string | undefined;
   username?: string | undefined;
+  __template_username?: string | undefined;
   password?: string | undefined;
+  __template_password?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -1907,6 +2039,7 @@ export const RedisDeploymentTypeStandalone$outboundSchema: z.ZodType<
   url: z.string(),
   tlsOptions: TlsOptionsTypeRedisDeploymentTypeStandalone$outboundSchema
     .optional(),
+  __template_url: z.string().optional(),
   commands: z.array(
     z.lazy(() => RedisDeploymentTypeStandaloneCommand$outboundSchema),
   ),
@@ -1914,11 +2047,16 @@ export const RedisDeploymentTypeStandalone$outboundSchema: z.ZodType<
     .optional(),
   maxBlockSecs: z.number().optional(),
   enableClientSideCaching: z.boolean().optional(),
+  rootNodes: z.array(RootNodeConfRedisDeploymentTypeCluster$outboundSchema)
+    .optional(),
+  tls: z.boolean().optional(),
   scaleReads: ScaleReadsOptionsRedisDeploymentTypeCluster$outboundSchema
     .optional(),
   masterName: z.string().optional(),
   username: z.string().optional(),
+  __template_username: z.string().optional(),
   password: z.string().optional(),
+  __template_password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });

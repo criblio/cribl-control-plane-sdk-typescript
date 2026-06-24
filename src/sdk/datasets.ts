@@ -14,23 +14,6 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Datasets extends ClientSDK {
   /**
-   * Create a Lake Dataset (Cribl.Cloud only)
-   *
-   * @remarks
-   * Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
-   */
-  async create(
-    request: operations.CreateCriblLakeDatasetByLakeIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedCriblLakeDataset> {
-    return unwrapAsync(lakesDatasetsCreate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * List all Lake Datasets (Cribl.Cloud only)
    *
    * @remarks
@@ -48,16 +31,16 @@ export class Datasets extends ClientSDK {
   }
 
   /**
-   * Delete a Lake Dataset (Cribl.Cloud only)
+   * Create a Lake Dataset (Cribl.Cloud only)
    *
    * @remarks
-   * Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
+   * Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
    */
-  async delete(
-    request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
+  async create(
+    request: operations.CreateCriblLakeDatasetByLakeIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedCriblLakeDataset> {
-    return unwrapAsync(lakesDatasetsDelete(
+    return unwrapAsync(lakesDatasetsCreate(
       this,
       request,
       options,
@@ -92,6 +75,23 @@ export class Datasets extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedCriblLakeDataset> {
     return unwrapAsync(lakesDatasetsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Lake Dataset (Cribl.Cloud only)
+   *
+   * @remarks
+   * Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
+   */
+  async delete(
+    request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedCriblLakeDataset> {
+    return unwrapAsync(lakesDatasetsDelete(
       this,
       request,
       options,

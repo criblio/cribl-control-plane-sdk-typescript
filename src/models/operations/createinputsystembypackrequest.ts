@@ -12,9 +12,9 @@ import {
   CreateInputSystemByPackAuth,
   CreateInputSystemByPackAuth$Outbound,
   CreateInputSystemByPackAuth$outboundSchema,
-  CreateInputSystemByPackCheckpointing,
-  CreateInputSystemByPackCheckpointing$Outbound,
-  CreateInputSystemByPackCheckpointing$outboundSchema,
+  CreateInputSystemByPackAzureBlobStorage,
+  CreateInputSystemByPackAzureBlobStorage$Outbound,
+  CreateInputSystemByPackAzureBlobStorage$outboundSchema,
   CreateInputSystemByPackInputAnthropicCompliance,
   CreateInputSystemByPackInputAnthropicCompliance$Outbound,
   CreateInputSystemByPackInputAnthropicCompliance$outboundSchema,
@@ -156,7 +156,11 @@ import {
   CreateInputSystemByPackInputZscalerHec,
   CreateInputSystemByPackInputZscalerHec$Outbound,
   CreateInputSystemByPackInputZscalerHec$outboundSchema,
-} from "./createinputsystembypackcheckpointing.js";
+} from "./createinputsystembypackazureblobstorage.js";
+
+export type CreateInputSystemByPackCheckpointing = {
+  blobStore: CreateInputSystemByPackAzureBlobStorage;
+};
 
 export type CreateInputSystemByPackInputEventhubAmqp = {
   /**
@@ -345,28 +349,18 @@ export type CreateInputSystemByPackInputEventhub = {
   sasl?: models.AuthenticationTypeUse | undefined;
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
-   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
-   *       Value must be lower than rebalanceTimeout.
-   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   * Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities. If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance. Value must be lower than rebalanceTimeout. See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   sessionTimeout?: number | undefined;
   /**
-   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
-   *
    * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   * Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   rebalanceTimeout?: number | undefined;
   /**
-   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   * Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
    */
   heartbeatInterval?: number | undefined;
   /**
@@ -1118,6 +1112,10 @@ export const CreateInputSystemByPackDiscoveryTypeEdgePrometheus = {
    * Kubernetes Service Monitor (v4.18+)
    */
   K8sServiceMonitor: "k8s-service-monitor",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1322,13 +1320,30 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   scrapePathExpr?: string | undefined;
   /**
-   *   Add rules to decide which pods to discover for metrics.
-   *
    * @remarks
-   *   Pods are searched if no rules are given or of all the rules'
-   *   expressions evaluate to true.
+   * Add rules to decide which pods to discover for metrics.
+   * Pods are searched if no rules are given or of all the rules'
+   * expressions evaluate to true.
    */
   podFilter?: Array<CreateInputSystemByPackPodFilter> | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -1399,6 +1414,10 @@ export const CreateInputSystemByPackDiscoveryTypePrometheus = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1580,6 +1599,24 @@ export type CreateInputSystemByPackInputPrometheus = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -2378,19 +2415,13 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    */
   sessionTimeout?: number | undefined;
   /**
-   *       Maximum allowed time for each worker to join the group after a rebalance begins.
-   *
    * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   * Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
    */
   rebalanceTimeout?: number | undefined;
   /**
-   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   * Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
    */
   heartbeatInterval?: number | undefined;
   /**
@@ -3636,19 +3667,13 @@ export type CreateInputSystemByPackInputMsk = {
    */
   sessionTimeout?: number | undefined;
   /**
-   *       Maximum allowed time for each worker to join the group after a rebalance begins.
-   *
    * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   * Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
    */
   rebalanceTimeout?: number | undefined;
   /**
-   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   * Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
    */
   heartbeatInterval?: number | undefined;
   /**
@@ -3898,19 +3923,13 @@ export type CreateInputSystemByPackInputKafka = {
    */
   sessionTimeout?: number | undefined;
   /**
-   *       Maximum allowed time for each worker to join the group after a rebalance begins.
-   *
    * @remarks
-   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   * Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
    */
   rebalanceTimeout?: number | undefined;
   /**
-   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-   *
    * @remarks
-   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   * Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
    */
   heartbeatInterval?: number | undefined;
   /**
@@ -4182,6 +4201,30 @@ export type CreateInputSystemByPackRequest = {
 };
 
 /** @internal */
+export type CreateInputSystemByPackCheckpointing$Outbound = {
+  blobStore: CreateInputSystemByPackAzureBlobStorage$Outbound;
+};
+
+/** @internal */
+export const CreateInputSystemByPackCheckpointing$outboundSchema: z.ZodType<
+  CreateInputSystemByPackCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackCheckpointing
+> = z.object({
+  blobStore: CreateInputSystemByPackAzureBlobStorage$outboundSchema,
+});
+
+export function createInputSystemByPackCheckpointingToJSON(
+  createInputSystemByPackCheckpointing: CreateInputSystemByPackCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackCheckpointing$outboundSchema.parse(
+      createInputSystemByPackCheckpointing,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputSystemByPackInputEventhubAmqp$Outbound = {
   id: string;
   type: "eventhub_amqp";
@@ -4236,7 +4279,9 @@ export const CreateInputSystemByPackInputEventhubAmqp$outboundSchema: z.ZodType<
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
   auth: CreateInputSystemByPackAuth$outboundSchema.optional(),
-  checkpointing: CreateInputSystemByPackCheckpointing$outboundSchema,
+  checkpointing: z.lazy(() =>
+    CreateInputSystemByPackCheckpointing$outboundSchema
+  ),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
   maxWaitTimeInSeconds: z.number().int().optional(),
@@ -5039,6 +5084,12 @@ export type CreateInputSystemByPackInputEdgePrometheus$Outbound = {
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
   podFilter?: Array<CreateInputSystemByPackPodFilter$Outbound> | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5115,6 +5166,12 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     podFilter: z.array(
       z.lazy(() => CreateInputSystemByPackPodFilter$outboundSchema),
     ).optional(),
+    httpDiscoveryUrl: z.string().optional(),
+    httpDiscoveryHeaders: z.array(
+      models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    ).optional(),
+    httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+    maxResponseBodySize: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
@@ -5206,6 +5263,12 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5281,6 +5344,12 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),

@@ -15,5 +15,5 @@ let value: InputPrometheusDiscoveryType = "ec2";
 ## Values
 
 ```typescript
-"static" | "dns" | "ec2" | Unrecognized<string>
+"static" | "dns" | "ec2" | "http_sd" | Unrecognized<string>
 ```

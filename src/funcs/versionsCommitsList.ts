@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * List the commit history
  *
  * @remarks
- * List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+ * List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
  */
 export function versionsCommitsList(
   client: CriblControlPlaneCore,

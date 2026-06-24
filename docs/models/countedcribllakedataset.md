@@ -12,13 +12,13 @@ let value: CountedCriblLakeDataset = {
       searchConfig: {
         metadata: {
           earliest: "-30d",
-          enableAcceleration: false,
+          enableAcceleration: true,
           fieldList: [
             "<value 1>",
             "<value 2>",
             "<value 3>",
           ],
-          scanMode: "quick",
+          scanMode: "detailed",
         },
       },
     },
@@ -31,4 +31,4 @@ let value: CountedCriblLakeDataset = {
 | Field                                                      | Type                                                       | Required                                                   | Description                                                |
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
 | `count`                                                    | *number*                                                   | :heavy_minus_sign:                                         | number of items present in the items array                 |
-| `items`                                                    | [models.CriblLakeDataset](../models/cribllakedataset.md)[] | :heavy_minus_sign:                                         | N/A                                                        |
+| `items`                                                    | [models.CriblLakeDataset](../models/cribllakedataset.md)[] | :heavy_minus_sign:                                         | List of items in this response.                            |
