@@ -27,6 +27,9 @@ export type GroupCreateRequest = {
    * Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
    */
   estimatedIngestRate?: EstimatedIngestRateOptionsConfigGroup | undefined;
+  /**
+   * Unique identifier.
+   */
   id: string;
   /**
    * The <code>id</code> of the parent Edge Fleet. If provided, this Fleet inherits configuration from the specified parent Fleet. Applies only to Edge Fleets.

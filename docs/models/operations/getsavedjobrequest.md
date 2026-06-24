@@ -10,6 +10,6 @@ let value: GetSavedJobRequest = {};
 
 ## Fields
 
-| Field                    | Type                     | Required                 | Description              |
-| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
-| `collectorType`          | *string*                 | :heavy_minus_sign:       | Filter by collector type |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `collectorType`                                       | [models.CollectorType](../../models/collectortype.md) | :heavy_minus_sign:                                    | Filter by collector type                              |

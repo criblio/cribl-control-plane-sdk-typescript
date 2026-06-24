@@ -164,7 +164,7 @@ const value: models.InputPrometheusInput = {
 ```typescript
 const value: models.InputEdgePrometheusInput = {
   type: "edge_prometheus",
-  discoveryType: "k8s-service-monitor",
+  discoveryType: "http_sd",
   interval: 1916.25,
 };
 ```

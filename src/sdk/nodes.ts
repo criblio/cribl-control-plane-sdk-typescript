@@ -37,23 +37,6 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get detailed metadata for a Worker, Edge, or Outpost Node
-   *
-   * @remarks
-   * Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
-   */
-  async get(
-    request: operations.GetProductsWorkersByProductAndIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedMasterWorkerEntry> {
-    return unwrapAsync(nodesGet(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Get detailed metadata for Worker, Edge, or Outpost Nodes
    *
    * @remarks
@@ -69,6 +52,23 @@ export class Nodes extends ClientSDK {
     >
   > {
     return unwrapResultIterator(nodesList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get detailed metadata for a Worker, Edge, or Outpost Node
+   *
+   * @remarks
+   * Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
+   */
+  async get(
+    request: operations.GetProductsWorkersByProductAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedMasterWorkerEntry> {
+    return unwrapAsync(nodesGet(
       this,
       request,
       options,

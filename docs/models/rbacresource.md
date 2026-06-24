@@ -5,7 +5,7 @@
 ```typescript
 import { RbacResource } from "cribl-control-plane/models";
 
-let value: RbacResource = "datasets";
+let value: RbacResource = "dataset-providers";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: RbacResource = "datasets";
 ## Values
 
 ```typescript
-"groups" | "datasets" | "dataset-providers" | "projects" | "dashboards" | "macros" | "notebooks" | "notebook-templates" | Unrecognized<string>
+"groups" | "datasets" | "dataset-providers" | "projects" | "dashboards" | "macros" | "notebooks" | "notebook-templates" | "apps" | Unrecognized<string>
 ```

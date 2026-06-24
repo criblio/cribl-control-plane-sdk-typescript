@@ -14,23 +14,6 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class PacksPipelines extends ClientSDK {
   /**
-   * Create a Pipeline within a Pack
-   *
-   * @remarks
-   * Create a new Pipeline within the specified Pack.
-   */
-  async create(
-    request: operations.CreatePipelinesByPackRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedPipeline> {
-    return unwrapAsync(packsPipelinesCreate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * List all Pipelines within a Pack
    *
    * @remarks
@@ -48,16 +31,16 @@ export class PacksPipelines extends ClientSDK {
   }
 
   /**
-   * Delete a Pipeline within a Pack
+   * Create a Pipeline within a Pack
    *
    * @remarks
-   * Delete the specified Pipeline within the specified Pack.
+   * Create a new Pipeline within the specified Pack.
    */
-  async delete(
-    request: operations.DeletePipelinesByPackAndIdRequest,
+  async create(
+    request: operations.CreatePipelinesByPackRequest,
     options?: RequestOptions,
   ): Promise<models.CountedPipeline> {
-    return unwrapAsync(packsPipelinesDelete(
+    return unwrapAsync(packsPipelinesCreate(
       this,
       request,
       options,
@@ -85,13 +68,30 @@ export class PacksPipelines extends ClientSDK {
    * Update a Pipeline within a Pack
    *
    * @remarks
-   * Update the specified Pipeline within the specified Pack.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+   * Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
    */
   async update(
     request: operations.UpdatePipelinesByPackAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedPipeline> {
     return unwrapAsync(packsPipelinesUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Pipeline within a Pack
+   *
+   * @remarks
+   * Delete the specified Pipeline within the specified Pack.
+   */
+  async delete(
+    request: operations.DeletePipelinesByPackAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedPipeline> {
+    return unwrapAsync(packsPipelinesDelete(
       this,
       request,
       options,

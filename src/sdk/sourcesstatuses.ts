@@ -12,23 +12,6 @@ import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class SourcesStatuses extends ClientSDK {
   /**
-   * Get the status of a Source
-   *
-   * @remarks
-   * Get the status and optional metrics for the specified Source.
-   */
-  async get(
-    request: operations.GetInputStatusByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedInputStatus> {
-    return unwrapAsync(sourcesStatusesGet(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * List the status of all Sources
    *
    * @remarks
@@ -41,6 +24,23 @@ export class SourcesStatuses extends ClientSDK {
     PageIterator<operations.GetInputStatusResponse, { offset: number }>
   > {
     return unwrapResultIterator(sourcesStatusesList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get the status of a Source
+   *
+   * @remarks
+   * Get the status and optional metrics for the specified Source.
+   */
+  async get(
+    request: operations.GetInputStatusByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedInputStatus> {
+    return unwrapAsync(sourcesStatusesGet(
       this,
       request,
       options,

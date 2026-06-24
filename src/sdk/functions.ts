@@ -11,6 +11,21 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Functions extends ClientSDK {
   /**
+   * List all Functions
+   *
+   * @remarks
+   * Get a list of all Functions.
+   */
+  async list(
+    options?: RequestOptions,
+  ): Promise<models.CountedFunctionResponse> {
+    return unwrapAsync(functionsList(
+      this,
+      options,
+    ));
+  }
+
+  /**
    * Get a Function
    *
    * @remarks
@@ -23,21 +38,6 @@ export class Functions extends ClientSDK {
     return unwrapAsync(functionsGet(
       this,
       request,
-      options,
-    ));
-  }
-
-  /**
-   * List all Functions
-   *
-   * @remarks
-   * Get a list of all Functions.
-   */
-  async list(
-    options?: RequestOptions,
-  ): Promise<models.CountedFunctionResponse> {
-    return unwrapAsync(functionsList(
-      this,
       options,
     ));
   }
