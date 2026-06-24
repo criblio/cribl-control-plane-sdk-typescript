@@ -2200,6 +2200,71 @@ async function run() {
 
 run();
 ```
+### Example Usage: OutputCreateExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="typescript" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesGoogleCloudObservability" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.create({
+    pack: "<value>",
+    requestBody: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsCreate } from "cribl-control-plane/funcs/packsDestinationsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: OutputCreateExamplesGoogleCloudStorage
 
 <!-- UsageSnippet language="typescript" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesGoogleCloudStorage" -->
@@ -11204,6 +11269,5690 @@ async function run() {
       id: "default-output",
       type: "default",
       defaultId: "my-default-output",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesAlphasocS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesAlphasocS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "alphasoc-s3-output",
+      type: "alphasoc_s3",
+      bucket: "events",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.alphasoc.net",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "alphasoc-s3-output",
+      type: "alphasoc_s3",
+      bucket: "events",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.alphasoc.net",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesAzureBlob
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesAzureBlob" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-blob-output",
+      type: "azure_blob",
+      containerName: "my-container",
+      stagePath: "/tmp/staging",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-blob-output",
+      type: "azure_blob",
+      containerName: "my-container",
+      stagePath: "/tmp/staging",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesAzureDataExplorer
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesAzureDataExplorer" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-data-explorer-output",
+      type: "azure_data_explorer",
+      clusterUrl: "https://mycluster.kusto.windows.net",
+      database: "mydatabase",
+      table: "mytable",
+      ingestMode: "streaming",
+      oauthEndpoint: "https://login.microsoftonline.com",
+      tenantId: "tenant-id",
+      clientId: "client-id",
+      scope: "https://mycluster.kusto.windows.net/.default",
+      oauthType: "clientSecret",
+      clientSecret: "client-secret",
+      format: "json",
+      compress: "gzip",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-data-explorer-output",
+      type: "azure_data_explorer",
+      clusterUrl: "https://mycluster.kusto.windows.net",
+      database: "mydatabase",
+      table: "mytable",
+      ingestMode: "streaming",
+      oauthEndpoint: "https://login.microsoftonline.com",
+      tenantId: "tenant-id",
+      clientId: "client-id",
+      scope: "https://mycluster.kusto.windows.net/.default",
+      oauthType: "clientSecret",
+      clientSecret: "client-secret",
+      format: "json",
+      compress: "gzip",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesAzureEventhub
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesAzureEventhub" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-eventhub-output",
+      type: "azure_eventhub",
+      brokers: [
+        "myeventhub.servicebus.windows.net:9093",
+      ],
+      topic: "logs",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-eventhub-output",
+      type: "azure_eventhub",
+      brokers: [
+        "myeventhub.servicebus.windows.net:9093",
+      ],
+      topic: "logs",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesAzureLogs
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesAzureLogs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-logs-output",
+      type: "azure_logs",
+      logType: "Cribl",
+      authType: "manual",
+      workspaceId: "workspace-id",
+      workspaceKey: "workspace-key",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "azure-logs-output",
+      type: "azure_logs",
+      logType: "Cribl",
+      authType: "manual",
+      workspaceId: "workspace-id",
+      workspaceKey: "workspace-key",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesChronicle
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesChronicle" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "chronicle-output",
+      type: "chronicle",
+      region: "us",
+      logType: "UNKNOWN",
+      gcpProjectId: "my-project",
+      gcpInstance: "customer-id",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "chronicle-output",
+      type: "chronicle",
+      region: "us",
+      logType: "UNKNOWN",
+      gcpProjectId: "my-project",
+      gcpInstance: "customer-id",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesClickHouse
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesClickHouse" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "clickhouse-output",
+      type: "click_house",
+      url: "http://localhost:8123/",
+      database: "mydb",
+      tableName: "mytable",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "clickhouse-output",
+      type: "click_house",
+      url: "http://localhost:8123/",
+      database: "mydb",
+      tableName: "mytable",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesCloudflareR2
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesCloudflareR2" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cloudflare-r2-output",
+      type: "cloudflare_r2",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://account-id.r2.cloudflarestorage.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cloudflare-r2-output",
+      type: "cloudflare_r2",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://account-id.r2.cloudflarestorage.com",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesCloudwatch
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesCloudwatch" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cloudwatch-output",
+      type: "cloudwatch",
+      logGroupName: "my-log-group",
+      logStreamName: "my-log-stream",
+      region: "us-east-1",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cloudwatch-output",
+      type: "cloudwatch",
+      logGroupName: "my-log-group",
+      logStreamName: "my-log-stream",
+      region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesConfluentCloud
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesConfluentCloud" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "confluent-cloud-output",
+      type: "confluent_cloud",
+      brokers: [
+        "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
+      ],
+      topic: "logs",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "confluent-cloud-output",
+      type: "confluent_cloud",
+      brokers: [
+        "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
+      ],
+      topic: "logs",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesCriblHttp
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesCriblHttp" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-http-output",
+      type: "cribl_http",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-http-output",
+      type: "cribl_http",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesCriblLake
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesCriblLake" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-lake-output",
+      type: "cribl_lake",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-lake-output",
+      type: "cribl_lake",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesCriblSearchEngine
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesCriblSearchEngine" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-search-engine-output",
+      type: "cribl_search_engine",
+      systemFields: [
+        "cribl_pipe",
+      ],
+      streamtags: [],
+      loadBalanced: false,
+      tls: {
+        disabled: true,
+      },
+      tokenTTLMinutes: 60,
+      excludeFields: [
+        "__kube_*",
+        "__metadata",
+        "__winEvent",
+      ],
+      compression: "gzip",
+      concurrency: 5,
+      maxPayloadSizeKB: 4096,
+      maxPayloadEvents: 0,
+      rejectUnauthorized: true,
+      timeoutSec: 30,
+      flushPeriodSec: 1,
+      failedRequestLoggingMode: "none",
+      safeHeaders: [],
+      throttleRatePerSec: "0",
+      responseRetrySettings: [
+        {
+          httpStatus: 401,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 20000,
+        },
+        {
+          httpStatus: 403,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 20000,
+        },
+        {
+          httpStatus: 408,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 429,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 500,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 502,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 503,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 504,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 509,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+      ],
+      timeoutRetrySettings: {
+        timeoutRetry: false,
+      },
+      responseHonorRetryAfterHeader: true,
+      onBackpressure: "block",
+      useRoundRobinDns: true,
+      url: "https://0.0.0.0:10200",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-search-engine-output",
+      type: "cribl_search_engine",
+      systemFields: [
+        "cribl_pipe",
+      ],
+      streamtags: [],
+      loadBalanced: false,
+      tls: {
+        disabled: true,
+      },
+      tokenTTLMinutes: 60,
+      excludeFields: [
+        "__kube_*",
+        "__metadata",
+        "__winEvent",
+      ],
+      compression: "gzip",
+      concurrency: 5,
+      maxPayloadSizeKB: 4096,
+      maxPayloadEvents: 0,
+      rejectUnauthorized: true,
+      timeoutSec: 30,
+      flushPeriodSec: 1,
+      failedRequestLoggingMode: "none",
+      safeHeaders: [],
+      throttleRatePerSec: "0",
+      responseRetrySettings: [
+        {
+          httpStatus: 401,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 20000,
+        },
+        {
+          httpStatus: 403,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 20000,
+        },
+        {
+          httpStatus: 408,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 429,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 500,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 502,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 503,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 504,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+        {
+          httpStatus: 509,
+          initialBackoff: 250,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+      ],
+      timeoutRetrySettings: {
+        timeoutRetry: false,
+      },
+      responseHonorRetryAfterHeader: true,
+      onBackpressure: "block",
+      useRoundRobinDns: true,
+      url: "https://0.0.0.0:10200",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesCriblTcp
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesCriblTcp" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-tcp-output",
+      type: "cribl_tcp",
+      host: "localhost",
+      port: 10090,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cribl-tcp-output",
+      type: "cribl_tcp",
+      host: "localhost",
+      port: 10090,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesCrowdstrikeNextGenSiem
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesCrowdstrikeNextGenSiem" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "crowdstrike-next-gen-siem-output",
+      type: "crowdstrike_next_gen_siem",
+      url: "https://ingest.us.crowdstrike.com/api/ingest/hec/connection-id/v1/services/collector",
+      format: "JSON",
+      authType: "manual",
+      token: "your-token",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "crowdstrike-next-gen-siem-output",
+      type: "crowdstrike_next_gen_siem",
+      url: "https://ingest.us.crowdstrike.com/api/ingest/hec/connection-id/v1/services/collector",
+      format: "JSON",
+      authType: "manual",
+      token: "your-token",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDatabricks
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDatabricks" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "databricks-output",
+      type: "databricks",
+      workspaceId: "your-workspace-id",
+      scope: "all-apis",
+      clientId: "your-client-id",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
+      clientTextSecret: "your-client-secret",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "databricks-output",
+      type: "databricks",
+      workspaceId: "your-workspace-id",
+      scope: "all-apis",
+      clientId: "your-client-id",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
+      clientTextSecret: "your-client-secret",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDatadog
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDatadog" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "datadog-output",
+      type: "datadog",
+      apiKey: "your-api-key",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "datadog-output",
+      type: "datadog",
+      apiKey: "your-api-key",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDataset
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDataset" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dataset-output",
+      type: "dataset",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dataset-output",
+      type: "dataset",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDefault
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDefault" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "default-output",
+      type: "default",
+      defaultId: "my-default-output",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "default-output",
+      type: "default",
+      defaultId: "my-default-output",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDiskSpool
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDiskSpool" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "disk-spool-output",
+      type: "disk_spool",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "disk-spool-output",
+      type: "disk_spool",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDlS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDlS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dl-s3-output",
+      type: "dl_s3",
+      bucket: "my-bucket",
+      region: "us-east-1",
+      stagePath: "/tmp/staging",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dl-s3-output",
+      type: "dl_s3",
+      bucket: "my-bucket",
+      region: "us-east-1",
+      stagePath: "/tmp/staging",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDynatraceHttp
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDynatraceHttp" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dynatrace-http-output",
+      type: "dynatrace_http",
+      authType: "token",
+      format: "json_array",
+      endpoint: "cloud",
+      telemetryType: "logs",
+      token: "your-api-key",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dynatrace-http-output",
+      type: "dynatrace_http",
+      authType: "token",
+      format: "json_array",
+      endpoint: "cloud",
+      telemetryType: "logs",
+      token: "your-api-key",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesDynatraceOtlp
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesDynatraceOtlp" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dynatrace-otlp-output",
+      type: "dynatrace_otlp",
+      protocol: "http",
+      endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
+      otlpVersion: "1.3.1",
+      endpointType: "saas",
+      tokenSecret: "your-token-secret",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dynatrace-otlp-output",
+      type: "dynatrace_otlp",
+      protocol: "http",
+      endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
+      otlpVersion: "1.3.1",
+      endpointType: "saas",
+      tokenSecret: "your-token-secret",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesElastic
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesElastic" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "elastic-output",
+      type: "elastic",
+      index: "logs",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "elastic-output",
+      type: "elastic",
+      index: "logs",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesElasticCloud
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesElasticCloud" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "elastic-cloud-output",
+      type: "elastic_cloud",
+      url: "my-cloud-id",
+      index: "logs",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "elastic-cloud-output",
+      type: "elastic_cloud",
+      url: "my-cloud-id",
+      index: "logs",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesExabeam
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesExabeam" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "exabeam-output",
+      type: "exabeam",
+      bucket: "my-bucket",
+      region: "us-east1",
+      stagePath: "/tmp/staging",
+      endpoint: "https://storage.googleapis.com",
+      collectorInstanceId: "11112222-3333-4444-5555-666677778888",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "exabeam-output",
+      type: "exabeam",
+      bucket: "my-bucket",
+      region: "us-east1",
+      stagePath: "/tmp/staging",
+      endpoint: "https://storage.googleapis.com",
+      collectorInstanceId: "11112222-3333-4444-5555-666677778888",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesFilesystem
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesFilesystem" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "filesystem-output",
+      type: "filesystem",
+      destPath: "/var/log/output",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "filesystem-output",
+      type: "filesystem",
+      destPath: "/var/log/output",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGoogleChronicle
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGoogleChronicle" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-chronicle-output",
+      type: "google_chronicle",
+      logFormatType: "unstructured",
+      region: "us",
+      customerId: "customer-id",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-chronicle-output",
+      type: "google_chronicle",
+      logFormatType: "unstructured",
+      region: "us",
+      customerId: "customer-id",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGoogleCloudLogging
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGoogleCloudLogging" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-logging-output",
+      type: "google_cloud_logging",
+      logLocationType: "project",
+      logNameExpression: "my-log",
+      logLocationExpression: "my-project",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-logging-output",
+      type: "google_cloud_logging",
+      logLocationType: "project",
+      logNameExpression: "my-log",
+      logLocationExpression: "my-project",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGoogleCloudObservability" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-observability-output",
+      type: "google_cloud_observability",
+      googleAuthMethod: "auto",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGoogleCloudStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-storage-output",
+      type: "google_cloud_storage",
+      bucket: "my-bucket",
+      region: "us-east1",
+      endpoint: "https://storage.googleapis.com",
+      stagePath: "/tmp/staging",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-cloud-storage-output",
+      type: "google_cloud_storage",
+      bucket: "my-bucket",
+      region: "us-east1",
+      endpoint: "https://storage.googleapis.com",
+      stagePath: "/tmp/staging",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGooglePubsub
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGooglePubsub" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-pubsub-output",
+      type: "google_pubsub",
+      topicName: "my-topic",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "google-pubsub-output",
+      type: "google_pubsub",
+      topicName: "my-topic",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGrafanaCloud
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGrafanaCloud" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "grafana-cloud-output",
+      type: "grafana_cloud",
+      lokiUrl: "https://logs-prod-us-central1.grafana.net",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "grafana-cloud-output",
+      type: "grafana_cloud",
+      lokiUrl: "https://logs-prod-us-central1.grafana.net",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesGraphite
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGraphite" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "graphite-output",
+      type: "graphite",
+      protocol: "tcp",
+      host: "localhost",
+      port: 2003,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "graphite-output",
+      type: "graphite",
+      protocol: "tcp",
+      host: "localhost",
+      port: 2003,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesHoneycomb
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesHoneycomb" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "honeycomb-output",
+      type: "honeycomb",
+      dataset: "my-dataset",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "honeycomb-output",
+      type: "honeycomb",
+      dataset: "my-dataset",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesHumioHec
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesHumioHec" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "humio-hec-output",
+      type: "humio_hec",
+      url: "https://cloud.us.humio.com/api/v1/ingest/hec",
+      format: "JSON",
+      authType: "manual",
+      token: "your-token",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "humio-hec-output",
+      type: "humio_hec",
+      url: "https://cloud.us.humio.com/api/v1/ingest/hec",
+      format: "JSON",
+      authType: "manual",
+      token: "your-token",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesInfluxdb
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesInfluxdb" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "influxdb-output",
+      type: "influxdb",
+      url: "http://localhost:8086",
+      database: "mydb",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "influxdb-output",
+      type: "influxdb",
+      url: "http://localhost:8086",
+      database: "mydb",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesKafka
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesKafka" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "kafka-output",
+      type: "kafka",
+      brokers: [
+        "localhost:9092",
+      ],
+      topic: "logs",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "kafka-output",
+      type: "kafka",
+      brokers: [
+        "localhost:9092",
+      ],
+      topic: "logs",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesKinesis
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesKinesis" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "kinesis-output",
+      type: "kinesis",
+      streamName: "my-stream",
+      region: "us-east-1",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "kinesis-output",
+      type: "kinesis",
+      streamName: "my-stream",
+      region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesLocalSearchStorage
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesLocalSearchStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "local-search-storage-output",
+      type: "local_search_storage",
+      url: "http://localhost:8123/",
+      database: "default",
+      tableName: "mytable",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "local-search-storage-output",
+      type: "local_search_storage",
+      url: "http://localhost:8123/",
+      database: "default",
+      tableName: "mytable",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesLoki
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesLoki" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "loki-output",
+      type: "loki",
+      url: "http://localhost:3100/loki/api/v1/push",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "loki-output",
+      type: "loki",
+      url: "http://localhost:3100/loki/api/v1/push",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesMicrosoftFabric
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesMicrosoftFabric" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "microsoft-fabric-output",
+      type: "microsoft_fabric",
+      topic: "logs",
+      bootstrap_server: "myeventstream.servicebus.windows.net:9093",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "microsoft-fabric-output",
+      type: "microsoft_fabric",
+      topic: "logs",
+      bootstrap_server: "myeventstream.servicebus.windows.net:9093",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesMinio
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesMinio" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "minio-output",
+      type: "minio",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "http://localhost:9000",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "minio-output",
+      type: "minio",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "http://localhost:9000",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesMsk
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesMsk" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "msk-output",
+      type: "msk",
+      brokers: [
+        "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
+      ],
+      topic: "logs",
+      awsAuthenticationMethod: "auto",
+      region: "us-east-1",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "msk-output",
+      type: "msk",
+      brokers: [
+        "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
+      ],
+      topic: "logs",
+      awsAuthenticationMethod: "auto",
+      region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesNetflow
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesNetflow" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "netflow-output",
+      type: "netflow",
+      hosts: [
+        {
+          host: "localhost",
+          port: 2055,
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "netflow-output",
+      type: "netflow",
+      hosts: [
+        {
+          host: "localhost",
+          port: 2055,
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesNewrelic
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesNewrelic" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "newrelic-output",
+      type: "newrelic",
+      apiKey: "your-api-key",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "newrelic-output",
+      type: "newrelic",
+      apiKey: "your-api-key",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesNewrelicEvents
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesNewrelicEvents" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "newrelic-events-output",
+      type: "newrelic_events",
+      accountId: "123456",
+      eventType: "CriblEvent",
+      apiKey: "your-api-key",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "newrelic-events-output",
+      type: "newrelic_events",
+      accountId: "123456",
+      eventType: "CriblEvent",
+      apiKey: "your-api-key",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesNutanixObjects
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesNutanixObjects" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "nutanix-objects-output",
+      type: "nutanix_objects",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://nutanix-objects.example.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "nutanix-objects-output",
+      type: "nutanix_objects",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://nutanix-objects.example.com",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesOpenTelemetry
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesOpenTelemetry" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "opentelemetry-output",
+      type: "open_telemetry",
+      endpoint: "http://localhost:4317",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "opentelemetry-output",
+      type: "open_telemetry",
+      endpoint: "http://localhost:4317",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesPrometheus
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesPrometheus" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "prometheus-output",
+      type: "prometheus",
+      url: "http://localhost:9091/api/v1/write",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "prometheus-output",
+      type: "prometheus",
+      url: "http://localhost:9091/api/v1/write",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesRing
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesRing" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "ring-output",
+      type: "ring",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "ring-output",
+      type: "ring",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesRouter
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesRouter" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "router-output",
+      type: "router",
+      rules: [
+        {
+          filter: "true",
+          output: "my-output",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "router-output",
+      type: "router",
+      rules: [
+        {
+          filter: "true",
+          output: "my-output",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "s3-output",
+      type: "s3",
+      bucket: "my-bucket",
+      region: "us-east-1",
+      stagePath: "/tmp/staging",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "s3-output",
+      type: "s3",
+      bucket: "my-bucket",
+      region: "us-east-1",
+      stagePath: "/tmp/staging",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSecurityLake
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSecurityLake" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "security-lake-output",
+      type: "security_lake",
+      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
+      bucket: "my-bucket",
+      region: "us-east-1",
+      stagePath: "/tmp/staging",
+      accountId: "123456789012",
+      customSource: "my-custom-source",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "security-lake-output",
+      type: "security_lake",
+      assumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
+      bucket: "my-bucket",
+      region: "us-east-1",
+      stagePath: "/tmp/staging",
+      accountId: "123456789012",
+      customSource: "my-custom-source",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSentinel
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSentinel" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sentinel-output",
+      type: "sentinel",
+      loginUrl: "https://login.microsoftonline.com",
+      secret: "client-secret",
+      client_id: "client-id",
+      endpointURLConfiguration: "url",
+      url: "https://your-workspace.ingest.monitor.azure.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sentinel-output",
+      type: "sentinel",
+      loginUrl: "https://login.microsoftonline.com",
+      secret: "client-secret",
+      client_id: "client-id",
+      endpointURLConfiguration: "url",
+      url: "https://your-workspace.ingest.monitor.azure.com",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSentinelOneAiSiem
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSentinelOneAiSiem" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sentinel-one-ai-siem-output",
+      type: "sentinel_one_ai_siem",
+      region: "US",
+      endpoint: "/services/collector/event",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sentinel-one-ai-siem-output",
+      type: "sentinel_one_ai_siem",
+      region: "US",
+      endpoint: "/services/collector/event",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesServiceNow
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesServiceNow" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "servicenow-output",
+      type: "service_now",
+      endpoint: "ingest.lightstep.com:443",
+      tokenSecret: "your-token-secret",
+      otlpVersion: "1.3.1",
+      protocol: "http",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "servicenow-output",
+      type: "service_now",
+      endpoint: "ingest.lightstep.com:443",
+      tokenSecret: "your-token-secret",
+      otlpVersion: "1.3.1",
+      protocol: "http",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSignalfx
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSignalfx" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "signalfx-output",
+      type: "signalfx",
+      realm: "us0",
+      token: "your-token",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "signalfx-output",
+      type: "signalfx",
+      realm: "us0",
+      token: "your-token",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSnmp
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSnmp" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "snmp-output",
+      type: "snmp",
+      hosts: [
+        {
+          host: "192.168.1.1",
+          port: 161,
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "snmp-output",
+      type: "snmp",
+      hosts: [
+        {
+          host: "192.168.1.1",
+          port: 161,
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSns
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSns" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sns-output",
+      type: "sns",
+      topicArn: "arn:aws:sns:us-east-1:123456789012:my-topic",
+      messageGroupId: "my-message-group",
+      region: "us-east-1",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sns-output",
+      type: "sns",
+      topicArn: "arn:aws:sns:us-east-1:123456789012:my-topic",
+      messageGroupId: "my-message-group",
+      region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSplunk
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSplunk" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "splunk-output",
+      type: "splunk",
+      host: "localhost",
+      port: 9997,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "splunk-output",
+      type: "splunk",
+      host: "localhost",
+      port: 9997,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSplunkHec
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSplunkHec" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "splunk-hec-output",
+      type: "splunk_hec",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "splunk-hec-output",
+      type: "splunk_hec",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSplunkLb
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSplunkLb" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "splunk-lb-output",
+      type: "splunk_lb",
+      hosts: [
+        {
+          host: "localhost",
+          port: 9997,
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "splunk-lb-output",
+      type: "splunk_lb",
+      hosts: [
+        {
+          host: "localhost",
+          port: 9997,
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSqs
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSqs" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sqs-output",
+      type: "sqs",
+      queueName: "my-queue",
+      queueType: "standard",
+      region: "us-east-1",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sqs-output",
+      type: "sqs",
+      queueName: "my-queue",
+      queueType: "standard",
+      region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesStatsd
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesStatsd" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "statsd-output",
+      type: "statsd",
+      protocol: "udp",
+      host: "localhost",
+      port: 8125,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "statsd-output",
+      type: "statsd",
+      protocol: "udp",
+      host: "localhost",
+      port: 8125,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesStatsdExt
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesStatsdExt" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "statsd-ext-output",
+      type: "statsd_ext",
+      protocol: "udp",
+      host: "localhost",
+      port: 8125,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "statsd-ext-output",
+      type: "statsd_ext",
+      protocol: "udp",
+      host: "localhost",
+      port: 8125,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesStorjS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesStorjS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "storj-s3-output",
+      type: "storj_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://gateway.storjshare.io",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "storj-s3-output",
+      type: "storj_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://gateway.storjshare.io",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSumoLogic
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSumoLogic" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sumo-logic-output",
+      type: "sumo_logic",
+      url: "https://endpoint1.collection.us2.sumologic.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "sumo-logic-output",
+      type: "sumo_logic",
+      url: "https://endpoint1.collection.us2.sumologic.com",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesSyslog
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesSyslog" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "syslog-output",
+      type: "syslog",
+      host: "localhost",
+      port: 514,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "syslog-output",
+      type: "syslog",
+      host: "localhost",
+      port: 514,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesTcpjson
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesTcpjson" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "tcpjson-output",
+      type: "tcpjson",
+      host: "localhost",
+      port: 10090,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "tcpjson-output",
+      type: "tcpjson",
+      host: "localhost",
+      port: 10090,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesWavefront
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesWavefront" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "wavefront-output",
+      type: "wavefront",
+      domain: "longboard",
+      token: "your-token",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "wavefront-output",
+      type: "wavefront",
+      domain: "longboard",
+      token: "your-token",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesWebhook
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesWebhook" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "webhook-output",
+      type: "webhook",
+      url: "https://example.com/webhook",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "webhook-output",
+      type: "webhook",
+      url: "https://example.com/webhook",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesWizHec
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesWizHec" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "wiz-hec-output",
+      type: "wiz_hec",
+      authType: "manual",
+      wiz_connector_id: "00000000-0000-0000-0000-000000000000",
+      wiz_environment: "test",
+      data_center: "us1",
+      wiz_sourcetype: "placeholder",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "wiz-hec-output",
+      type: "wiz_hec",
+      authType: "manual",
+      wiz_connector_id: "00000000-0000-0000-0000-000000000000",
+      wiz_environment: "test",
+      data_center: "us1",
+      wiz_sourcetype: "placeholder",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesXsiam
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesXsiam" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "xsiam-output",
+      type: "xsiam",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "xsiam-output",
+      type: "xsiam",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesalibabaCloudS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesalibabaCloudS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "alibaba-oss-output",
+      type: "alibaba_cloud_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "alibaba-oss-output",
+      type: "alibaba_cloud_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplescloudianS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplescloudianS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cloudian-s3-output",
+      type: "cloudian_s3",
+      endpoint: "https://s3.hyperstore.example.com",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "cloudian-s3-output",
+      type: "cloudian_s3",
+      endpoint: "https://s3.hyperstore.example.com",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesdellS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesdellS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dell-s3-output",
+      type: "dell_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://powerscale.example.com:9021",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "dell-s3-output",
+      type: "dell_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://powerscale.example.com:9021",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateOutputExamplesscalityS3
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesscalityS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.update({
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "scality-s3-output",
+      type: "scality_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.scality.example.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsUpdate } from "cribl-control-plane/funcs/packsDestinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    output: {
+      id: "scality-s3-output",
+      type: "scality_s3",
+      bucket: "my-bucket",
+      stagePath: "/tmp/staging",
+      endpoint: "https://s3.scality.example.com",
     },
   });
   if (res.ok) {

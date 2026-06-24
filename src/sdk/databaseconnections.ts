@@ -5,6 +5,7 @@
 import { databaseConnectionsCreate } from "../funcs/databaseConnectionsCreate.js";
 import { databaseConnectionsDelete } from "../funcs/databaseConnectionsDelete.js";
 import { databaseConnectionsGet } from "../funcs/databaseConnectionsGet.js";
+import { databaseConnectionsList } from "../funcs/databaseConnectionsList.js";
 import { databaseConnectionsUpdate } from "../funcs/databaseConnectionsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
@@ -12,6 +13,23 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class DatabaseConnections extends ClientSDK {
+  /**
+   * List Database Connections
+   *
+   * @remarks
+   * Get a list of all Database Connections.
+   */
+  async list(
+    request?: operations.GetDatabaseConnectionConfigRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.CountedDatabaseConnectionConfig> {
+    return unwrapAsync(databaseConnectionsList(
+      this,
+      request,
+      options,
+    ));
+  }
+
   /**
    * Create Database Connection
    *
@@ -23,23 +41,6 @@ export class DatabaseConnections extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedDatabaseConnectionConfig> {
     return unwrapAsync(databaseConnectionsCreate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Delete a Database Connection
-   *
-   * @remarks
-   * Delete the specified Database Connection.
-   */
-  async delete(
-    request: operations.DeleteDatabaseConnectionConfigByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedDatabaseConnectionConfig> {
-    return unwrapAsync(databaseConnectionsDelete(
       this,
       request,
       options,
@@ -67,13 +68,30 @@ export class DatabaseConnections extends ClientSDK {
    * Update a Database Connection
    *
    * @remarks
-   * Update the specified Database Connection.</br></br>Provide a complete representation of the Database Connection that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Database Connection.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Database Connection might not function as expected.
+   * Update the specified Database Connection.<br/><br/>Provide a complete representation of the Database Connection that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Database Connection.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Database Connection might not function as expected.
    */
   async update(
     request: operations.UpdateDatabaseConnectionConfigByIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedDatabaseConnectionConfig> {
     return unwrapAsync(databaseConnectionsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Database Connection
+   *
+   * @remarks
+   * Delete the specified Database Connection.
+   */
+  async delete(
+    request: operations.DeleteDatabaseConnectionConfigByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedDatabaseConnectionConfig> {
+    return unwrapAsync(databaseConnectionsDelete(
       this,
       request,
       options,

@@ -14,23 +14,6 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Collectors extends ClientSDK {
   /**
-   * Create a Collector
-   *
-   * @remarks
-   * Create a new Collector.
-   */
-  async create(
-    request: models.SavedJob,
-    options?: RequestOptions,
-  ): Promise<models.CountedSavedJobResponse> {
-    return unwrapAsync(collectorsCreate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * List all Collectors
    *
    * @remarks
@@ -48,16 +31,16 @@ export class Collectors extends ClientSDK {
   }
 
   /**
-   * Delete a Collector
+   * Create a Collector
    *
    * @remarks
-   * Delete the specified Collector.
+   * Create a new Collector.
    */
-  async delete(
-    request: operations.DeleteSavedJobByIdRequest,
+  async create(
+    request: models.SavedJob,
     options?: RequestOptions,
   ): Promise<models.CountedSavedJobResponse> {
-    return unwrapAsync(collectorsDelete(
+    return unwrapAsync(collectorsCreate(
       this,
       request,
       options,
@@ -85,13 +68,30 @@ export class Collectors extends ClientSDK {
    * Update a Collector
    *
    * @remarks
-   * Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
+   * Update the specified Collector.<br/><br/>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
    */
   async update(
     request: operations.UpdateSavedJobByIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedSavedJobResponse> {
     return unwrapAsync(collectorsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Collector
+   *
+   * @remarks
+   * Delete the specified Collector.
+   */
+  async delete(
+    request: operations.DeleteSavedJobByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedSavedJobResponse> {
+    return unwrapAsync(collectorsDelete(
       this,
       request,
       options,

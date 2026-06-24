@@ -15,6 +15,11 @@ import {
   ConnectionConfInputCollection$outboundSchema,
 } from "./connectionconfinputcollection.js";
 import {
+  HttpDiscoveryHeaderConfInputPrometheus,
+  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
+  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+} from "./httpdiscoveryheaderconfinputprometheus.js";
+import {
   LogLevelOptions,
   LogLevelOptions$outboundSchema,
 } from "./logleveloptions.js";
@@ -50,6 +55,10 @@ export const InputPrometheusDiscoveryType = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -232,6 +241,24 @@ export type InputPrometheusInput = {
    */
   durationSeconds?: number | undefined;
   /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Username for Prometheus Basic authentication
    */
   username?: string | undefined;
@@ -365,6 +392,12 @@ export type InputPrometheusInput$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -436,6 +469,12 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),

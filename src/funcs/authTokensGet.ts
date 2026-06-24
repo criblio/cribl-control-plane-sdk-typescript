@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Log in and fetch an authentication token
  *
  * @remarks
- * This endpoint is unavailable on Cribl.Cloud.Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
+ * This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
  */
 export function authTokensGet(
   client: CriblControlPlaneCore,

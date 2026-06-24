@@ -11,6 +11,7 @@ import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
  * Health status of the Leader or Worker Node.
  */
 export type HealthServerStatusErrorData = {
+  overlay: models.HealthOverlayStatus;
   /**
    * Leader Node role: <code>primary</code> or <code>standby</code>.
    */
@@ -29,6 +30,7 @@ export type HealthServerStatusErrorData = {
  * Health status of the Leader or Worker Node.
  */
 export class HealthServerStatusError extends CriblControlPlaneError {
+  overlay: models.HealthOverlayStatus;
   /**
    * Leader Node role: <code>primary</code> or <code>standby</code>.
    */
@@ -54,6 +56,7 @@ export class HealthServerStatusError extends CriblControlPlaneError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    this.overlay = err.overlay;
     if (err.role != null) this.role = err.role;
     this.startTime = err.startTime;
     this.status = err.status;
@@ -68,6 +71,7 @@ export const HealthServerStatusError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  overlay: models.HealthOverlayStatus$inboundSchema,
   role: types.optional(models.Role$inboundSchema),
   startTime: types.number(),
   status: models.HealthServerStatusStatus$inboundSchema,

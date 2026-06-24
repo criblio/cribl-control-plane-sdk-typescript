@@ -8,32 +8,28 @@ import { CountedMasterWorkerEntry } from "cribl-control-plane/models";
 let value: CountedMasterWorkerEntry = {
   items: [
     {
-      firstMsgTime: 9818.54,
+      firstMsgTime: 9898.26,
       group: "<value>",
       id: "<id>",
       info: {
         architecture: "<value>",
-        cpus: 2715.21,
+        cpus: 6980.43,
         cribl: {
           config: {},
           distMode: "worker",
           group: "<value>",
           guid: "<id>",
-          startTime: 777671,
+          startTime: 576212,
         },
-        env: {
-          "key": "<value>",
-          "key1": "<value>",
-          "key2": "<value>",
-        },
-        hostname: "suburban-courtroom.org",
+        env: {},
+        hostname: "smoggy-reach.net",
         node: "<value>",
         platform: "<value>",
         release: "<value>",
-        totalmem: 3679.01,
+        totalmem: 8517.58,
       },
-      lastMsgTime: 4384.07,
-      workerProcesses: 8294.01,
+      lastMsgTime: 7747.4,
+      workerProcesses: 4050.07,
     },
   ],
 };
@@ -44,4 +40,4 @@ let value: CountedMasterWorkerEntry = {
 | Field                                                        | Type                                                         | Required                                                     | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `count`                                                      | *number*                                                     | :heavy_minus_sign:                                           | number of items present in the items array                   |
-| `items`                                                      | [models.MasterWorkerEntry](../models/masterworkerentry.md)[] | :heavy_minus_sign:                                           | N/A                                                          |
+| `items`                                                      | [models.MasterWorkerEntry](../models/masterworkerentry.md)[] | :heavy_minus_sign:                                           | List of items in this response.                              |

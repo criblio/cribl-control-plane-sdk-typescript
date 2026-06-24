@@ -95,6 +95,8 @@ export type OutputLocalSearchStorageStatsDestination = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 export type OutputLocalSearchStorageColumnMapping = {
@@ -219,6 +221,10 @@ export type OutputLocalSearchStorage = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+   */
+  workload?: string | undefined;
+  /**
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
@@ -292,7 +298,7 @@ export type OutputLocalSearchStorage = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLocalSearchStoragePqControls | undefined;
@@ -345,6 +351,8 @@ export type OutputLocalSearchStorageStatsDestination$Outbound = {
   username?: string | undefined;
   sqlUsername?: string | undefined;
   password?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
 /** @internal */
@@ -360,6 +368,8 @@ export const OutputLocalSearchStorageStatsDestination$outboundSchema: z.ZodType<
   username: z.string().optional(),
   sqlUsername: z.string().optional(),
   password: z.string().optional(),
+  waitForAsyncInserts: z.boolean().optional(),
+  concurrency: z.number().optional(),
 });
 
 export function outputLocalSearchStorageStatsDestinationToJSON(
@@ -455,6 +465,7 @@ export type OutputLocalSearchStorage$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
+  workload?: string | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
   onBackpressure?: string | undefined;
   statsDestination?:
@@ -530,6 +541,7 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
+  workload: z.string().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   statsDestination: z.lazy(() =>

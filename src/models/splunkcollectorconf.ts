@@ -181,7 +181,35 @@ export type SplunkAuthenticationTokenSecret = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
   token?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -372,9 +400,37 @@ export type SplunkAuthenticationToken = {
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
    * Select or create a stored secret that references your Bearer token
    */
   tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -567,11 +623,35 @@ export type SplunkAuthenticationBasicSecret = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
   token?: string | undefined;
   /**
    * Select or create a stored secret that references your Bearer token
    */
   tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -768,11 +848,31 @@ export type SplunkAuthenticationBasic = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
   token?: string | undefined;
   /**
    * Select or create a stored secret that references your Bearer token
    */
   tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -961,11 +1061,39 @@ export type SplunkAuthenticationNone = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
     | discriminatedUnionTypes.Unknown<"type">
     | undefined;
+  /**
+   * Basic authentication username
+   */
+  username?: string | undefined;
+  /**
+   * Basic authentication password
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
   token?: string | undefined;
   /**
    * Select or create a stored secret that references your Bearer token
    */
   tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
   /**
    * Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
    */
@@ -1397,7 +1525,14 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
   token: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -1431,7 +1566,14 @@ export type SplunkAuthenticationTokenSecret$Outbound = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
   token?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -1480,7 +1622,14 @@ export const SplunkAuthenticationTokenSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   token: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -1902,7 +2051,14 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
   tokenSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -1936,7 +2092,14 @@ export type SplunkAuthenticationToken$Outbound = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
   tokenSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -1981,7 +2144,14 @@ export const SplunkAuthenticationToken$outboundSchema: z.ZodType<
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   tokenSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -2404,8 +2574,14 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
   token: types.optional(types.string()),
   tokenSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -2439,8 +2615,14 @@ export type SplunkAuthenticationBasicSecret$Outbound = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
   token?: string | undefined;
   tokenSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -2489,8 +2671,14 @@ export const SplunkAuthenticationBasicSecret$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
   token: z.string().optional(),
   tokenSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -2913,8 +3101,13 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  credentialsSecret: types.optional(types.string()),
   token: types.optional(types.string()),
   tokenSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -2949,8 +3142,13 @@ export type SplunkAuthenticationBasic$Outbound = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  credentialsSecret?: string | undefined;
   token?: string | undefined;
   tokenSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -2996,8 +3194,13 @@ export const SplunkAuthenticationBasic$outboundSchema: z.ZodType<
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  credentialsSecret: z.string().optional(),
   token: z.string().optional(),
   tokenSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),
@@ -3414,8 +3617,15 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema
     ),
   })),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
   token: types.optional(types.string()),
   tokenSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  loginBody: types.optional(types.string()),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
   __template_searchHead: types.optional(types.string()),
   __template_search: types.optional(types.string()),
   __template_earliest: types.optional(types.string()),
@@ -3448,8 +3658,15 @@ export type SplunkAuthenticationNone$Outbound = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$Outbound
     | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
   token?: string | undefined;
   tokenSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  loginBody?: string | undefined;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr?: string | undefined;
   __template_searchHead?: string | undefined;
   __template_search?: string | undefined;
   __template_earliest?: string | undefined;
@@ -3493,8 +3710,15 @@ export const SplunkAuthenticationNone$outboundSchema: z.ZodType<
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$outboundSchema
     ),
   ]).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   token: z.string().optional(),
   tokenSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  loginBody: z.string().optional(),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
   __template_searchHead: z.string().optional(),
   __template_search: z.string().optional(),
   __template_earliest: z.string().optional(),

@@ -13,4 +13,4 @@ let value: CountedInputStatus = {};
 | Field                                            | Type                                             | Required                                         | Description                                      |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | `count`                                          | *number*                                         | :heavy_minus_sign:                               | number of items present in the items array       |
-| `items`                                          | [models.InputStatus](../models/inputstatus.md)[] | :heavy_minus_sign:                               | N/A                                              |
+| `items`                                          | [models.InputStatus](../models/inputstatus.md)[] | :heavy_minus_sign:                               | List of items in this response.                  |

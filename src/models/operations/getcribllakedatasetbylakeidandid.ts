@@ -13,12 +13,17 @@ export type GetCriblLakeDatasetByLakeIdAndIdRequest = {
    * The <code>id</code> of the Lake Dataset to get.
    */
   id: string;
+  /**
+   * Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
+   */
+  includeMetrics?: boolean | undefined;
 };
 
 /** @internal */
 export type GetCriblLakeDatasetByLakeIdAndIdRequest$Outbound = {
   lakeId: string;
   id: string;
+  includeMetrics?: boolean | undefined;
 };
 
 /** @internal */
@@ -29,6 +34,7 @@ export const GetCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema: z.ZodType<
 > = z.object({
   lakeId: z.string(),
   id: z.string(),
+  includeMetrics: z.boolean().optional(),
 });
 
 export function getCriblLakeDatasetByLakeIdAndIdRequestToJSON(
